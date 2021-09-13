@@ -16,5 +16,11 @@
     <string name="title_home">Home</string>
     <string name="title_dashboard">Dashboard</string>
     <string name="title_notifications">Notifications</string>
+    <string name="gender">Gender :</string>
+    <string name="male">Male</string>
+    <string name="female">Female</string>
+    <string name="other">Other</string>
+    <string name="dob">DOB :</string>
+    <string name="re_enter_password">Re Enter Password:</string>
 
 </resources>
