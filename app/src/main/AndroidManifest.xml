@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ThinkableProject">
-        <activity android:name=".VerifyPhoneActivity"></activity>
+        <activity android:name=".Suggestions"></activity>
+        <activity android:name=".VerifyPhoneActivity" />
         <activity android:name=".EnterPhoneActivity" />
         <activity android:name=".PreferencesSecPage" />
         <activity android:name=".RegisterActivity" />

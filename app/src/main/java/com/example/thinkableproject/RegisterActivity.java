@@ -87,7 +87,7 @@ public class RegisterActivity extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(RegisterActivity.this,PreferencesSecPage.class);
+                Intent intent=new Intent(RegisterActivity.this,Suggestions.class);
                 startActivity(intent);
             }
         });
