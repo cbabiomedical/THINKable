@@ -1,19 +1,18 @@
 package com.example.thinkableproject;
 
 public class User {
-    private String userName, email,occupation,Gender, dob,password, confirmpassword;
+    private String userName, email,occupation,Gender, dob;
 
     public User() {
     }
 
-    public User(String userName, String email, String occupation, String gender, String dob, String password, String confirmpassword) {
+    public User(String userName, String email, String occupation, String gender, String dob) {
         this.userName = userName;
         this.email = email;
         this.occupation = occupation;
         Gender = gender;
         this.dob = dob;
-        this.password = password;
-        this.confirmpassword = confirmpassword;
+
     }
 
     public String getUserName() {
@@ -56,19 +55,5 @@ public class User {
         this.dob = dob;
     }
 
-    public String getPassword() {
-        return password;
-    }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getConfirmpassword() {
-        return confirmpassword;
-    }
-
-    public void setConfirmpassword(String confirmpassword) {
-        this.confirmpassword = confirmpassword;
-    }
 }
