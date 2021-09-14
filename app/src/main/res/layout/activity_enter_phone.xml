@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EnterPhoneActivity"
+    android:background="@drawable/si_up">
+
+
+
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dp"
+        android:text="May I ask your phone number?"
+        android:textColor="#FFFFFF"
+
+        android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="59dp"
+        tools:layout_editor_absoluteY="216dp" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView"
+        android:orientation="horizontal"
+        android:layout_marginTop="30dp"
+        android:padding="15dp"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="291dp">
+
+        <Spinner
+            android:id="@+id/spinnerCountries"
+            android:layout_width="120dp"
+            android:layout_height="wrap_content" />
+
+        <EditText
+            android:id="@+id/editTextPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:digits="0123456789"
+            android:hint="Enter your phone number"
+            android:textColorHint="#FFFFFF"
+            android:maxLength="10"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:backgroundTint="@android:color/white"
+            />
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/buttonContinue"
+        android:layout_width="238dp"
+        android:layout_height="49dp"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="108dp"
+
+
+
+        android:text="Continue"
+
+        android:textColor="@color/black"
+        app:backgroundTint="@color/white"
+        app:cornerRadius="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+        app:layout_constraintVertical_bias="0.0"
+        android:onClick="continuetocode"/>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="406dp"
+        android:layout_height="221dp"
+
+        android:layout_alignParentTop="true"
+
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+
+        android:layout_marginTop="375dp"
+
+        android:layout_marginBottom="63dp"
+        android:src="@drawable/enterphone" />
+
+
+</RelativeLayout>

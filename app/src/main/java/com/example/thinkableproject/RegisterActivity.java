@@ -268,4 +268,9 @@ public class RegisterActivity extends AppCompatActivity {
         });
     }
 
+    public void gotoOTP(View view) {
+        Intent intentotp = new Intent(RegisterActivity.this,EnterPhoneActivity.class);
+        startActivity(intentotp);
+
+    }
 }

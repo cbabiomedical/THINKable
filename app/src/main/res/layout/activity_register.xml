@@ -187,7 +187,8 @@
         android:paddingHorizontal="50dp"
         android:textColor="@color/black"
         app:cornerRadius="20dp"
-        android:text="SignUp" />
+        android:text="SignUp"
+        android:onClick="gotoOTP"/>
     <TextView
         android:id="@+id/signInReg"
         android:layout_width="match_parent"
