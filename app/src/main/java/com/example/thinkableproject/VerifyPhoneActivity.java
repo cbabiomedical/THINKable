@@ -59,7 +59,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                     return;
                 }
                 verifyCode(code);
-                Intent intent = new Intent(VerifyPhoneActivity.this,EnterPhoneActivity.class);
+                Intent intent = new Intent(VerifyPhoneActivity.this,SignInActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
                 startActivity(intent);
