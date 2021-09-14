@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
@@ -37,7 +38,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         signUp = (Button) findViewById(R.id.signUp);
         signUp.setOnClickListener(this);
 
-        emailAddress = (EditText) findViewById(R.id.email);
+        emailAddress = (EditText) findViewById(R.id.username);
         passwordTxt = (EditText) findViewById(R.id.password);
 
         progressBar =(ProgressBar) findViewById(R.id.progressBar);
@@ -57,6 +58,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 break;
 
             case R.id.signIn:
+                Log.d("USERLOGIN", "----------------------H----------------------------");
+                Log.d("USERLOGIN", "----------------------I----------------------------");
+                Log.d("USERLOGIN", "----------------------J----------------------------");
                 userLogin();
                 break;
 
@@ -105,6 +109,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
             passwordTxt.requestFocus();
             return;
         }
+
+        Log.d("USERLOGIN", "----------------------A----------------------------");
+        Log.d("USERLOGIN", "----------------------B----------------------------");
+        Log.d("USERLOGIN", "----------------------C----------------------------");
         progressBar.setVisibility(View.GONE);
         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
@@ -112,6 +120,9 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
                 if (task.isSuccessful()) {
 
+                    Log.d("USERLOGIN", "----------------------E----------------------------");
+                    Log.d("USERLOGIN", "----------------------F----------------------------");
+                    Log.d("USERLOGIN", "----------------------G----------------------------");
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     startActivity(new Intent(SignInActivity.this, LandingPage.class));
 
