@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -14,8 +15,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -31,17 +34,18 @@ public class RegisterActivity extends AppCompatActivity {
 
     private EditText username, emailAddress, userPassword, re_enterPassword;
     private DatePickerDialog datePickerDialog;
-    Button dateButton;
-    Button signUp;
+    private TextView signIn;
+    private Button dateButton;
+    private Button signUp;
     Spinner occupation;
-    String occupationSelected;
-    RadioButton male;
-    RadioButton female;
-    String gender = "";
+    private String occupationSelected;
+    private RadioButton male;
+    private RadioButton female;
+    private String gender = "";
+    ProgressBar progressBar;
     FirebaseAuth firebaseAuth;
-
     DatabaseReference databaseReference;
-    FirebaseDatabase firebaseDatabase;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +57,11 @@ public class RegisterActivity extends AppCompatActivity {
         re_enterPassword = findViewById(R.id.reEnter);
         occupation = findViewById(R.id.occupation);
         dateButton = findViewById(R.id.datePickerButton);
-        male = findViewById(R.id.radioButton);
-        female = findViewById(R.id.radioButton2);
+        male = findViewById(R.id.radio_male);
+        female = findViewById(R.id.radio_female);
         signUp = findViewById(R.id.signUp);
+        progressBar = findViewById(R.id.progressBar);
+        signIn=findViewById(R.id.signInReg);
         initDatePicker();
 
         dateButton.setText(getTodayDate());
@@ -78,12 +84,18 @@ public class RegisterActivity extends AppCompatActivity {
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
         firebaseAuth = FirebaseAuth.getInstance();
-
+        signIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(RegisterActivity.this,PreferencesSecPage.class);
+                startActivity(intent);
+            }
+        });
 
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            registerUser();
+                registerUser();
             }
         });
 
@@ -218,8 +230,9 @@ public class RegisterActivity extends AppCompatActivity {
         if (!password.equals(reEnter)) {
             re_enterPassword.setError("Password does not match");
             re_enterPassword.requestFocus();
+            return;
         }
-
+        progressBar.setVisibility(View.VISIBLE);
         firebaseAuth.createUserWithEmailAndPassword(email, password).addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -229,25 +242,28 @@ public class RegisterActivity extends AppCompatActivity {
                             email,
                             occupation,
                             gender,
-                            dob,
-                            password,
-                            reEnter
+                            dob
                     );
 
                     FirebaseDatabase.getInstance().getReference("Users")
                             .child(FirebaseAuth.getInstance().getCurrentUser().getUid()).setValue(user)
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(RegisterActivity.this,"Registration Complete",Toast.LENGTH_SHORT).show();
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        Intent intent = new Intent(RegisterActivity.this, SignInActivity.class);
+                                        startActivity(intent);
+                                        Toast.makeText(RegisterActivity.this, "Registration Complete", Toast.LENGTH_SHORT).show();
 
-                        }
-                    });
-                }else {
-                    Toast.makeText(RegisterActivity.this,"Registration Unsuccessful. Try Again!",Toast.LENGTH_LONG)
-                            .show();
+                                    } else {
+                                        Toast.makeText(RegisterActivity.this, "Registration Unsuccessful. Try Again!", Toast.LENGTH_LONG)
+                                                .show();
+                                    }
+                                    progressBar.setVisibility(View.GONE);
+
+                                }
+                            });
                 }
-
             }
         });
     }
