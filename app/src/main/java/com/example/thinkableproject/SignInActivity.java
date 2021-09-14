@@ -17,9 +17,9 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-public class SignInActivity extends AppCompatActivity {
+public class SignInActivity extends AppCompatActivity implements View.OnClickListener{
     TextView forgotPassword;
-     EditText emailAddress, passwordTxt;
+    EditText emailAddress, passwordTxt;
     Button signIn;
     Button signUp;
 
@@ -32,21 +32,10 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
 
         signIn = (Button) findViewById(R.id.signIn);
-//        signIn.setOnClickListener(this);
-        signIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                userLogin();
-            }
-        });
-        signUp=findViewById(R.id.signUp);
-        signUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),RegisterActivity.class);
-                startActivity(intent);
-            }
-        });
+        signIn.setOnClickListener(this);
+
+        signUp = (Button) findViewById(R.id.signUp);
+        signUp.setOnClickListener(this);
 
         emailAddress = (EditText) findViewById(R.id.email);
         passwordTxt = (EditText) findViewById(R.id.password);
@@ -56,17 +45,39 @@ public class SignInActivity extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
 
         forgotPassword = findViewById(R.id.forgetPassword);
-        forgotPassword.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),ForgetPasswordActivity.class);
-                startActivity(intent);
-            }
-        });
+        forgotPassword.setOnClickListener(this);
 
     }
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()){
+            case R.id.signUp:
+                startActivity(new Intent(this,RegisterActivity.class));
+                break;
+
+            case R.id.signIn:
+                userLogin();
+                break;
+
+            case R.id.forgetPassword:
+                startActivity(new Intent(this,ForgetPasswordActivity.class));
+                break;
+        }
+    }
+
     //get & display current user's profile
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        if (FirebaseAuth.getInstance().getCurrentUser() != null) {
+            Intent intent = new Intent(this, LandingPage.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+            startActivity(intent);
+        }
+    }
 
     //get user credentials & convert it back to string
 
