@@ -33,11 +33,18 @@ public class SignInActivity extends AppCompatActivity {
 
         signIn = (Button) findViewById(R.id.signIn);
 //        signIn.setOnClickListener(this);
+        signIn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                userLogin();
+            }
+        });
         signUp=findViewById(R.id.signUp);
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                Intent intent=new Intent(getApplicationContext(),RegisterActivity.class);
+                startActivity(intent);
             }
         });
 
