@@ -2,7 +2,6 @@ package com.example.thinkableproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -36,8 +35,8 @@ public class StartActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent=new Intent(StartActivity.this, SignInActivity.class);
-                startActivity(intent);
+                Intent intentStart =new Intent(StartActivity.this, SignInActivity.class);
+                startActivity(intentStart);
                 finish();
 
             }
