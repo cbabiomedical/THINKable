@@ -29,8 +29,8 @@ public class WelcomeActivity extends AppCompatActivity {
                 Log.d("USERLOGIN", "----------------------E----------------------------");
                 Log.d("USERLOGIN", "----------------------F----------------------------");
                 Log.d("USERLOGIN", "----------------------G----------------------------");
-                Intent intent=new Intent(WelcomeActivity.this,SignInActivity.class);
-                startActivity(intent);
+//                Intent intent=new Intent(WelcomeActivity.this,SignInActivity.class);
+//                startActivity(intent);
             }
         });
     }
