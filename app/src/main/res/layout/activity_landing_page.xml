@@ -51,6 +51,7 @@
         app:layout_constraintBottom_toTopOf="@+id/nav_view"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/changepassword" />
+        app:layout_constraintTop_toBottomOf="@+id/changepassword"
+        android:onClick="logoutfrmGgl"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

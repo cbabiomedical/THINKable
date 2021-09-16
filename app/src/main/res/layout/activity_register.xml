@@ -188,7 +188,7 @@
         android:textColor="@color/black"
         app:cornerRadius="20dp"
         android:text="SignUp"
-        android:onClick="gotoOTP"/>
+        />
     <TextView
         android:id="@+id/signInReg"
         android:layout_width="match_parent"
@@ -211,12 +211,12 @@
 
     <ImageView
         android:layout_marginTop="2dp"
-        android:id="@+id/imageView"
+        android:id="@+id/imageViewggl"
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:layout_below="@+id/regiTxt"
         app:srcCompat="@drawable/google"
-        android:onClick="gotoOTP"/>
+        />
 
     <ProgressBar
         android:id="@+id/progressBar"

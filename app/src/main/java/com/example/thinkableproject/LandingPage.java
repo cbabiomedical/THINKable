@@ -4,7 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -41,6 +44,11 @@ public class LandingPage extends AppCompatActivity {
             }
         });
 
+        GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
+        if(signInAccount != null){
+            Toast.makeText(this, "Sign Up Successfully", Toast.LENGTH_SHORT).show();
+        }
+
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -50,4 +58,10 @@ public class LandingPage extends AppCompatActivity {
         });
     }
 
+
+    public void logoutfrmGgl(View view) {
+        FirebaseAuth.getInstance().signOut();
+        Intent intentSignotGgl=new Intent(getApplicationContext(),SignInActivity.class);
+        startActivity(intentSignotGgl);
+    }
 }
