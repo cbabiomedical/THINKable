@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<androidx.constraintlayout.widget.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,89 +8,103 @@
     android:background="@drawable/bgcover"
     tools:context=".Suggestions">
 
-<androidx.constraintlayout.widget.ConstraintLayout
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
-    <ImageView
-        android:id="@+id/imagView15"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.718"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.009"
-        app:srcCompat="@drawable/thin" />
 
     <ImageView
-        android:id="@+id/imagView"
-        android:layout_width="40dp"
-        android:layout_height="49dp"
+        android:id="@+id/imagView15"
+        android:layout_width="302dp"
+        android:layout_height="85dp"
+        android:layout_marginStart="50dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginEnd="50dp"
+        android:layout_marginRight="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.043"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.04"
-        app:srcCompat="@drawable/back" />
+        app:layout_constraintVertical_bias="0.0"
+        app:srcCompat="@drawable/thin" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="112dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/texView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:fontFamily="@font/times"
+            android:text="What Brings you to THINKable?"
+            android:textColor="#FFFFFF"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/texView2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/times"
+            android:text="we will bring better suggetions for you"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="389dp"
+        android:layout_height="454dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginRight="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/imagView2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="112dp"
-            android:orientation="vertical"
-            tools:ignore="MissingConstraints">
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/texView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <GridView
+                android:id="@+id/idGVcourses"
+                android:layout_width="389dp"
+                android:layout_height="454dp"
+                android:layout_marginStart="10dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginRight="10dp"
+                android:horizontalSpacing="30dp"
+                android:numColumns="2"
+                android:verticalSpacing="30dp">
 
-                android:fontFamily="@font/times"
-                android:text="What Brings you to THINKable?"
-                android:textColor="#FFFFFF"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/texView2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/times"
-                android:text="we will bring better suggetions for you"
-                android:textColor="#FFFFFF"
-                android:textSize="15sp"
-                android:textStyle="bold" />
+            </GridView>
         </LinearLayout>
-        <GridView
-            android:id="@+id/idGVcourses"
-            android:layout_width="389dp"
-            android:layout_height="454dp"
-            android:horizontalSpacing="30dp"
-            android:numColumns="2"
-            android:verticalSpacing="30dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/imagView15"
-            app:layout_constraintVertical_bias="0.69">
+    </ScrollView>
 
-        </GridView>
-
-        <ImageView
-            android:id="@+id/imagView2"
-            android:layout_width="178dp"
-            android:layout_height="79dp"
-            android:layout_marginBottom="16dp"
-            android:onClick="gotoPrefTwo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.575"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/idGVcourses"
-            app:layout_constraintVertical_bias="0.0"
-            app:srcCompat="@drawable/btndone" />
+    <ImageView
+        android:id="@+id/imagView2"
+        android:layout_width="178dp"
+        android:layout_height="79dp"
+        android:layout_marginBottom="16dp"
+        android:onClick="gotoPrefTwo"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.575"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/btndone" />
 
         <TextView
             android:id="@+id/texView3"
@@ -107,18 +121,7 @@
             app:layout_constraintHorizontal_bias="0.23"
             app:layout_constraintStart_toStartOf="@+id/imagView2" />
 
-        <ImageView
-            android:id="@+id/imagView5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            app:layout_constraintEnd_toEndOf="@+id/imagView2"
-            app:layout_constraintHorizontal_bias="0.828"
-            app:layout_constraintStart_toStartOf="@+id/imagView2"
-            app:layout_constraintTop_toBottomOf="@+id/idGVcourses"
-            app:srcCompat="@drawable/arrow" />
 </androidx.constraintlayout.widget.ConstraintLayout>
-    </ScrollView>
 
 
 

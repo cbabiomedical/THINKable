@@ -10,8 +10,8 @@
 
     <ImageView
         android:id="@+id/imageiew"
-        android:layout_width="195dp"
-        android:layout_height="173dp"
+        android:layout_width="192dp"
+        android:layout_height="94dp"
         android:layout_marginStart="10dp"
         android:layout_marginTop="200dp"
         android:layout_marginEnd="10dp"
@@ -22,42 +22,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/stopic" />
 
-    <TextView
-        android:id="@+id/GetStart"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="200dp"
-        android:layout_marginBottom="75dp"
-        android:layout_weight="1"
-        android:fontFamily="@font/lemon"
-        android:text="Get Start"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginLeft="200dp" />
-
     <ImageView
-        android:id="@+id/imageiew5"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginStart="325dp"
-        android:layout_marginBottom="75dp"
+        android:id="@+id/mainlogo"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="280dp"
+        android:layout_marginBottom="120dp"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/startbtn"
-        android:layout_marginLeft="325dp"
-        android:onClick="startSignup"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/splashlogo" />
 
-    <ImageView
-        android:id="@+id/imageiew6"
-        android:layout_width="20dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="329dp"
-        android:layout_marginBottom="68dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/startarrow"
-        android:layout_marginLeft="329dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

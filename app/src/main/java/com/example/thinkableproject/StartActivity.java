@@ -15,8 +15,8 @@ public class StartActivity extends AppCompatActivity {
 
     private static int SPLASH_SCREEN = 5000;
 
-    Animation topAnim;
-    ImageView image;
+    Animation topAnim,bottomAnim;
+    ImageView image,mainlogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,11 +25,18 @@ public class StartActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_start);
 
-        topAnim = AnimationUtils.loadAnimation(this,R.anim.top_animation);
+        topAnim = AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
 
         image = findViewById(R.id.imageiew);
 
         image.setAnimation(topAnim);
+
+        bottomAnim = AnimationUtils.loadAnimation(this,R.anim.top_animation);
+
+        mainlogo = findViewById(R.id.mainlogo);
+
+        mainlogo.setAnimation(bottomAnim);
+
 
 
         new Handler().postDelayed(new Runnable() {
