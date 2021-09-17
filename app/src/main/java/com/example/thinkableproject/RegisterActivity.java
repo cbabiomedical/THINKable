@@ -128,7 +128,7 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        String[] items = new String[]{"Teacher", "Manager", "Doctor", "Engineer", "MicroBiologist","Dentist","Actor","Pilot","Postman,Dentist,Data Scientist,Marketer,Therapist"};
+        String[] items = new String[]{"Teacher", "Manager", "Doctor", "Engineer", "MicroBiologist","Dentist","Actor","Pilot","Postman","Dentist","Data Scientist","Marketer","Therapist"};
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
 
         ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
