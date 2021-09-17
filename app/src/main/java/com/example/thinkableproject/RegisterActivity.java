@@ -13,6 +13,7 @@ import android.util.Patterns;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -39,6 +40,7 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -58,6 +60,11 @@ public class RegisterActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
     private GoogleSignInClient mGoogleSignInClient;
+
+    ArrayList<String> jobs = new ArrayList<>();
+
+    AutoCompleteTextView suggestionbox;
+
 
     private final static int RC_SIGN_IN=123;
     private FirebaseAuth mAuthggl;
@@ -89,6 +96,7 @@ public class RegisterActivity extends AppCompatActivity {
         signUp = findViewById(R.id.signUp);
         progressBar = findViewById(R.id.progressBar);
         signIn=findViewById(R.id.signInReg);
+
         initDatePicker();
 
         dateButton.setText(getTodayDate());
@@ -100,6 +108,19 @@ public class RegisterActivity extends AppCompatActivity {
 
         createRequest();
 
+        //suggestionbox
+        suggestionbox=(AutoCompleteTextView) findViewById(R.id.suggetion_box);
+
+
+
+
+
+
+
+
+
+
+
         findViewById(R.id.imageViewggl).setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
@@ -107,9 +128,14 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        String[] items = new String[]{"Teacher", "Manager", "Doctor", "Engineer", "MicroBiologist"};
+        String[] items = new String[]{"Teacher", "Manager", "Doctor", "Engineer", "MicroBiologist","Dentist","Actor","Pilot","Postman,Dentist,Data Scientist,Marketer,Therapist"};
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        occupation.setAdapter(adapter1);
+
+        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        suggestionbox.setAdapter(adapter1);
+        occupation.setAdapter(adapter2);
+
+
 
         occupation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

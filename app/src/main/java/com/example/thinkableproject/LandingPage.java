@@ -61,7 +61,7 @@ public class LandingPage extends AppCompatActivity {
 
     public void logoutfrmGgl(View view) {
         FirebaseAuth.getInstance().signOut();
-        Intent intentSignotGgl=new Intent(getApplicationContext(),SignInActivity.class);
+        Intent intentSignotGgl=new Intent(getApplicationContext(),RegisterActivity.class);
         startActivity(intentSignotGgl);
     }
 }

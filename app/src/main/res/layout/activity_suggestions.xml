@@ -28,8 +28,8 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="112dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
@@ -65,6 +65,8 @@
         android:id="@+id/scrollView2"
         android:layout_width="389dp"
         android:layout_height="454dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginLeft="10dp"
         android:layout_marginEnd="10dp"
         android:layout_marginRight="10dp"
         app:layout_constraintBottom_toTopOf="@+id/imagView2"
@@ -73,25 +75,292 @@
         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
         <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
 
-            <GridView
-                android:id="@+id/idGVcourses"
+            android:weightSum="10"
+            android:layout_width="389dp"
+            android:layout_height="454dp">
+
+
+
+
+            <GridLayout
+                android:id="@+id/mainGrid"
+                android:columnCount="2"
+                android:rowCount="3"
+                android:alignmentMode="alignMargins"
+                android:columnOrderPreserved="false"
+                android:layout_weight="8"
                 android:layout_width="389dp"
                 android:layout_height="454dp"
-                android:layout_marginStart="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginRight="10dp"
-                android:horizontalSpacing="30dp"
-                android:numColumns="2"
-                android:verticalSpacing="30dp">
+                android:padding="14dp"
+                >
 
-            </GridView>
+                <!-- Row 1 -->
+
+                <!-- Column 1 -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:layout_marginBottom="16dp"
+                    app:cardCornerRadius="8dp"
+                    app:cardElevation="8dp"
+                    android:background="@drawable/button">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_margin="0dp"
+                        android:orientation="vertical"
+                        android:background="@drawable/button">
+
+                        <ImageView
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:src="@drawable/calmit" />
+
+                        <TextView
+                            android:id="@+id/idTVCourse"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/times"
+                            android:text="Anxiety Reducing"
+                            android:textAlignment="center"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:gravity="center_horizontal" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- Column 2 -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    app:cardElevation="8dp"
+                    app:cardCornerRadius="8dp"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_margin="0dp"
+                        android:orientation="vertical"
+                        android:background="@drawable/button">
+
+                        <ImageView
+                            android:src="@drawable/wav"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/idTVCourse1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/times"
+                            android:text="Stress Reducing"
+                            android:textAlignment="center"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:gravity="center_horizontal" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <!-- Row 2 -->
+
+                <!-- Column 1 -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    app:cardElevation="8dp"
+                    app:cardCornerRadius="8dp"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_margin="0dp"
+                        android:orientation="vertical"
+                        android:background="@drawable/button">
+
+                        <ImageView
+                            android:src="@drawable/moono"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/idTVCourse2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/times"
+                            android:text="Sleep Better"
+                            android:textAlignment="center"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:gravity="center_horizontal" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- Column 2 -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    app:cardElevation="8dp"
+                    app:cardCornerRadius="8dp"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_margin="0dp"
+                        android:orientation="vertical"
+                        android:background="@drawable/button">
+
+                        <ImageView
+                            android:src="@drawable/tar"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/idTVCourse3"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/times"
+                            android:text="Focus Improvement"
+                            android:textAlignment="center"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:gravity="center_horizontal"/>
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+                <!-- Row 2 -->
+
+                <!-- Column 1 -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    app:cardElevation="8dp"
+                    app:cardCornerRadius="8dp"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_margin="0dp"
+                        android:orientation="vertical"
+                        android:background="@drawable/button">
+
+                        <ImageView
+                            android:src="@drawable/medi"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/idTVCourse4"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/times"
+                            android:text="Increase Concentration"
+                            android:textAlignment="center"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:gravity="center_horizontal" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+                <!-- Column 2 -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="0dp"
+                    android:layout_columnWeight="1"
+                    android:layout_rowWeight="1"
+                    android:layout_marginBottom="16dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    app:cardElevation="8dp"
+                    app:cardCornerRadius="8dp"
+                    >
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal|center_vertical"
+                        android:layout_margin="0dp"
+                        android:orientation="vertical"
+                        android:background="@drawable/button">
+
+                        <ImageView
+                            android:src="@drawable/aff"
+                            android:layout_gravity="center_horizontal"
+                            android:layout_width="50dp"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:id="@+id/idTVCourse5"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/times"
+                            android:text="Increase Happiness"
+                            android:textAlignment="center"
+                            android:textSize="17sp"
+                            android:textStyle="bold"
+                            android:gravity="center_horizontal" />
+
+                    </LinearLayout>
+
+                </androidx.cardview.widget.CardView>
+
+
+            </GridLayout>
+
         </LinearLayout>
+
     </ScrollView>
 
     <ImageView
