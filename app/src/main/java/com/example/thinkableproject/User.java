@@ -1,14 +1,23 @@
 package com.example.thinkableproject;
 
+import com.example.thinkableproject.sample.UserPreferences;
+
 import java.util.prefs.Preferences;
 
 public class User {
     private String userName, email,occupation,Gender, dob;
 
-    String[] preferences;
+
+    String preferences;
 
     public User() {
 
+    }
+
+    public User(String userName, String email, String preferences) {
+        this.userName = userName;
+        this.email = email;
+        this.preferences = preferences;
     }
 
     public User(String userName, String email, String occupation, String gender, String dob) {
@@ -20,15 +29,24 @@ public class User {
 
     }
 
-    public User(String[] preferences) {
+    public User(String userName, String email, String occupation, String gender, String dob, String preferences) {
+        this.userName = userName;
+        this.email = email;
+        this.occupation = occupation;
+        Gender = gender;
+        this.dob = dob;
         this.preferences = preferences;
     }
 
-    public String[] getPreferences() {
+    public User(String preferences) {
+        this.preferences = preferences;
+    }
+
+    public String  getPreferences() {
         return preferences;
     }
 
-    public void setPreferences(String[] preferences) {
+    public void setPreferences(String  preferences) {
         this.preferences = preferences;
     }
 

@@ -71,7 +71,7 @@ public class RecyclerAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
         // Set the name of the 'NicePlace'
         ((ViewHolder)viewHolder).mName.setText(mNicePlaces.get(i).getPreferenceName());
-        ((ViewHolder)viewHolder).mNum.setText(String.valueOf(mNicePlaces.get(i).getPreferenceNum()));
+//        ((ViewHolder)viewHolder).mNum.setText(String.valueOf(mNicePlaces.get(i).getPreferenceNum()));
 
         // Set the image
         RequestOptions defaultOptions = new RequestOptions()

@@ -1,18 +1,22 @@
 package com.example.thinkableproject.sample;
 
+import com.example.thinkableproject.User;
+
 public class UserPreferences {
     int imageUrl;
     String preferenceName;
-    int preferenceNum;
+    User user;
+//    int preferenceNum;
 
     public UserPreferences() {
     }
 
-    public UserPreferences(int imageUrl, String preferenceName, int preferenceNum) {
+    public UserPreferences(int imageUrl, String preferenceName) {
         this.imageUrl = imageUrl;
         this.preferenceName = preferenceName;
-        this.preferenceNum = preferenceNum;
+//        this.preferenceNum = preferenceNum;
     }
+
 
     public int getImageUrl() {
         return imageUrl;
@@ -30,11 +34,11 @@ public class UserPreferences {
         this.preferenceName = preferenceName;
     }
 
-    public int getPreferenceNum() {
-        return preferenceNum;
-    }
-
-    public void setPreferenceNum(int preferenceNum) {
-        this.preferenceNum = preferenceNum;
-    }
+//    public int getPreferenceNum() {
+//        return preferenceNum;
+//    }
+//
+//    public void setPreferenceNum(int preferenceNum) {
+//        this.preferenceNum = preferenceNum;
+//    }
 }
