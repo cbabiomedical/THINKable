@@ -316,6 +316,7 @@ public class RegisterActivity extends AppCompatActivity {
         String dob = dateButton.getText().toString().trim();
         String reEnter = re_enterPassword.getText().toString().trim();
         String occupation = occupationSelected;
+        String preference="";
 
         if (male.isChecked()) {
             gender = "Male";
@@ -370,7 +371,8 @@ public class RegisterActivity extends AppCompatActivity {
                             email,
                             occupation,
                             gender,
-                            dob
+                            dob,
+                            preference
                     );
 
                     FirebaseDatabase.getInstance().getReference("Users")

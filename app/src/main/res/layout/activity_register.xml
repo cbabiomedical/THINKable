@@ -10,6 +10,7 @@
 
     >
 
+
     <ImageView
         android:id="@+id/registerImage"
         android:layout_width="125dp"
@@ -258,5 +259,4 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
-
-</RelativeLayout>
+    </RelativeLayout>

@@ -5,6 +5,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.example.thinkableproject.R;
 import com.example.thinkableproject.adapters.RecyclerAdaptor;
 import com.example.thinkableproject.sample.UserPreferences;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +15,8 @@ public class UserPreferenceRepository {
 
     private static UserPreferenceRepository instance;
     private ArrayList<UserPreferences> dataSet = new ArrayList<>();
+    DatabaseReference reference =FirebaseDatabase.getInstance().getReference().child("Users");
+
 
     public static UserPreferenceRepository getInstance(){
         if(instance == null){
@@ -20,6 +24,8 @@ public class UserPreferenceRepository {
         }
         return instance;
     }
+
+
 
 
     // Pretend to get data from a webservice or online source
@@ -31,40 +37,35 @@ public class UserPreferenceRepository {
     }
     RecyclerAdaptor recyclerAdaptor=new RecyclerAdaptor();
 
-    public RecyclerAdaptor getRecyclerAdaptor() {
-        recyclerAdaptor.getPositionChanged();
-        return recyclerAdaptor;
-
-    }
 
     private void setNicePlaces(){
         dataSet.add(
                 new UserPreferences(R.drawable.video,
-                        "Videos",recyclerAdaptor.getPositionChanged())
+                        "Videos")
         );
         dataSet.add(
                 new UserPreferences(R.drawable.music,
-                        "Music",recyclerAdaptor.getPositionChanged())
+                        "Music")
         );
         dataSet.add(
                 new UserPreferences(R.drawable.meditation,
-                        "Meditation",recyclerAdaptor.getPositionChanged())
+                        "Meditation")
         );
         dataSet.add(
                 new UserPreferences(R.drawable.controller,
-                        "Games",recyclerAdaptor.getPositionChanged())
+                        "Games")
         );
         dataSet.add(
                 new UserPreferences(R.drawable.binaural,
-                        "Bineural Waves",recyclerAdaptor.getPositionChanged())
+                        "Bineural Waves")
         );
         dataSet.add(
                 new UserPreferences(R.drawable.playtime,
-                        "Kids",recyclerAdaptor.getPositionChanged())
+                        "Kids")
         );
         dataSet.add(
                 new UserPreferences(R.drawable.book,
-                        "Book",recyclerAdaptor.getPositionChanged())
+                        "Book")
         );
 
     }
