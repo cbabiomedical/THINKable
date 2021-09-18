@@ -55,4 +55,6 @@ public class EnterPhoneActivity extends AppCompatActivity {
 
         startActivity(intentContinuetocode);
     }
+
+
 }

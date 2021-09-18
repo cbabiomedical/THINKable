@@ -1,7 +1,6 @@
 package com.example.thinkableproject;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.AlertDialog;
@@ -31,7 +30,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -142,7 +140,7 @@ public class RegisterActivity extends AppCompatActivity {
         signIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(RegisterActivity.this,Suggestions.class);
+                Intent intent=new Intent(RegisterActivity.this,SignInActivity.class);
                 startActivity(intent);
             }
         });
@@ -152,6 +150,7 @@ public class RegisterActivity extends AppCompatActivity {
             public void onClick(View v) {
                 registerUser();
             }
+
         });
 
 
@@ -205,7 +204,7 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task <AuthResult> task){
                         if (task.isSuccessful()){
                             FirebaseUser user = mAuthggl.getCurrentUser();
-                            Intent intentg = new Intent (getApplicationContext(),SignInActivity.class);
+                            Intent intentg = new Intent (getApplicationContext(),EnterPhoneActivity.class);
                             startActivity(intentg);
 
                         } else{
@@ -371,8 +370,8 @@ public class RegisterActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Intent intent = new Intent(RegisterActivity.this, SignInActivity.class);
-                                        startActivity(intent);
+                                        Intent intentveri = new Intent(RegisterActivity.this, EnterPhoneActivity.class);
+                                        startActivity(intentveri);
                                         Toast.makeText(RegisterActivity.this, "Registration Complete", Toast.LENGTH_SHORT).show();
 
                                     } else {
@@ -389,4 +388,14 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
 
+    public void goOTP(View view) {
+        Intent intentVerifyNum = new Intent(RegisterActivity.this, EnterPhoneActivity.class);
+        startActivity(intentVerifyNum);
+    }
+
+//    public void gotoOTPthruRegister(View view) {
+//        Intent intentVerifyNum2 = new Intent(RegisterActivity.this, VerifyPhoneActivity.class);
+//        startActivity(intentVerifyNum2);
+//        Log.d("war","Clicked");
+//    }
 }

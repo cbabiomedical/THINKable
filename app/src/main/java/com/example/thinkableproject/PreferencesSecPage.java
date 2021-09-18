@@ -159,4 +159,11 @@ public class PreferencesSecPage extends AppCompatActivity {
 
     }
 
+
+    public void GOTOSIGNIN(View view) {
+
+            Intent intentGotoSI = new Intent(PreferencesSecPage.this,SignInActivity.class);
+            startActivity(intentGotoSI);
+
+    }
 }

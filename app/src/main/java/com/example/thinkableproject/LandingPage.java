@@ -38,7 +38,7 @@ public class LandingPage extends AppCompatActivity {
         preference.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(LandingPage.this,PreferencesSecPage.class);
+                Intent intent=new Intent(LandingPage.this,Suggestions.class);
                 startActivity(intent);
             }
         });

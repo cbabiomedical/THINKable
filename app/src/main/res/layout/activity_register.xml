@@ -217,6 +217,7 @@
         android:textColor="@color/black"
         app:cornerRadius="20dp"
         android:text="SignUp"
+        android:onClick="goOTP"
         />
     <TextView
         android:id="@+id/signInReg"
@@ -245,6 +246,7 @@
         android:layout_height="40dp"
         android:layout_below="@+id/regiTxt"
         app:srcCompat="@drawable/google"
+
         />
 
     <ProgressBar

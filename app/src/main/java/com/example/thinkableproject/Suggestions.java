@@ -31,7 +31,7 @@ import java.util.List;
 
 public class Suggestions extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
+//    private static final String TAG = "MainActivity";
     private Button done;
     private Button next;
     RecyclerView recyclerView;
@@ -138,5 +138,9 @@ public class Suggestions extends AppCompatActivity {
 
         startActivity(intentgotoPreTwo);
 
+    }
+    public void gotoPrefer(View view) {
+        Intent intentGotoSI = new Intent(Suggestions.this,PreferencesSecPage.class);
+        startActivity(intentGotoSI);
     }
 }
