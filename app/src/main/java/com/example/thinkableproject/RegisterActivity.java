@@ -103,22 +103,10 @@ public class RegisterActivity extends AppCompatActivity {
 
         mAuthggl = FirebaseAuth.getInstance();
 
-
-
-
         createRequest();
 
         //suggestionbox
         suggestionbox=(AutoCompleteTextView) findViewById(R.id.suggetion_box);
-
-
-
-
-
-
-
-
-
 
 
         findViewById(R.id.imageViewggl).setOnClickListener(new View.OnClickListener(){
@@ -317,6 +305,7 @@ public class RegisterActivity extends AppCompatActivity {
         String reEnter = re_enterPassword.getText().toString().trim();
         String occupation = occupationSelected;
         String preference="";
+        String suggestions = "";
 
         if (male.isChecked()) {
             gender = "Male";
@@ -372,7 +361,8 @@ public class RegisterActivity extends AppCompatActivity {
                             occupation,
                             gender,
                             dob,
-                            preference
+                            preference,
+                            suggestions
                     );
 
                     FirebaseDatabase.getInstance().getReference("Users")

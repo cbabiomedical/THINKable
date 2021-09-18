@@ -25,19 +25,21 @@
         android:textColor="#FFF"
         android:layout_marginLeft="30dp"
         android:textSize="17sp"
+
         android:layout_toEndOf="@+id/image" />
+
     <TextView
-        android:layout_marginTop="10dp"
-        android:layout_marginHorizontal="20dp"
+        android:id="@+id/num"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text=""
-        android:id="@+id/num"
-        android:textAlignment="textEnd"
-        android:layout_toRightOf="@+id/image_name"
-        android:textColor="#FFF"
+        android:layout_marginHorizontal="20dp"
         android:layout_marginLeft="30dp"
-        android:textSize="17sp"
-        android:gravity="end" />
+        android:layout_marginTop="10dp"
+        android:layout_toRightOf="@+id/image_name"
+        android:gravity="end"
+        android:text=""
+        android:textAlignment="textEnd"
+        android:textColor="#FFF"
+        android:textSize="17sp" />
 
 </RelativeLayout>

@@ -12,46 +12,27 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.example.thinkableproject.R;
 import com.example.thinkableproject.sample.ItemTouchHelperAdapter;
 import com.example.thinkableproject.sample.ModelClass;
+import com.example.thinkableproject.sample.SuggestionsModel;
 
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> implements ItemTouchHelperAdapter {
-    private List<ModelClass> userList;
+public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.ViewHolder> implements ItemTouchHelperAdapter {
+    private List<SuggestionsModel> userList;
     private static ItemTouchHelper mTouchHelper;
     int positionChanged;
 
-    public Adapter(List<ModelClass> userList) {
-        this.userList = userList;
-    }
 
-    @NonNull
-    @Override
-    public Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem,parent,false);
-        return new ViewHolder(view);
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull Adapter.ViewHolder holder, int position) {
-            int resource=userList.get(position).getImageView();
-            String name=userList.get(position).getName();
-            holder.setData(resource,name);
-    }
-
-    @Override
-    public int getItemCount() {
-        return userList.size();
+    public SuggestionsAdapter(List<SuggestionsModel> userList) {
     }
 
     @Override
     public void onItemMove(int fromPosition, int toPositions) {
-        ModelClass fromNote=userList.get(fromPosition);
+        SuggestionsModel fromNote=userList.get(fromPosition);
         userList.remove(fromPosition);
         userList.add(toPositions,fromNote);
         Log.d("FROM", String.valueOf(fromNote));
@@ -61,6 +42,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> implements
         getPositionChanged();
         Log.d("POS", String.valueOf(toPositions+1));
         notifyItemMoved(fromPosition,toPositions);
+
     }
 
     private int getPositionChanged() {
@@ -71,27 +53,52 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> implements
         this.positionChanged=i;
     }
 
+
     @Override
     public void onItemSwipped(int position) {
 
     }
-    public void setmTouchHelper(ItemTouchHelper itemTouchHelper){
-        this.mTouchHelper=itemTouchHelper;
+
+    @NonNull
+    @Override
+    public SuggestionsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.suggestion_listview,parent,false);
+        return new ViewHolder(view);
     }
 
-    public static class ViewHolder extends  RecyclerView.ViewHolder implements View.OnTouchListener, GestureDetector.OnGestureListener {
+    @Override
+    public void onBindViewHolder(@NonNull SuggestionsAdapter.ViewHolder holder, int position) {
+        int resource=userList.get(position).getImageView();
+        String name=userList.get(position).getName();
+        holder.setData(resource,name);
+    }
+
+    @Override
+    public int getItemCount() {
+        return userList.size();
+    }
+
+    public void setmTouchHelper(ItemTouchHelper mTouchHelper) {
+        this.mTouchHelper = mTouchHelper;
+    }
+
+    public ItemTouchHelper getmTouchHelper() {
+        return mTouchHelper;
+    }
+
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener, GestureDetector.OnGestureListener{
         private CircleImageView imageView;
         private TextView namePref;
         GestureDetector mGestureDetector;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
+
             imageView=itemView.findViewById(R.id.image);
             namePref=itemView.findViewById(R.id.image_name);
 
             mGestureDetector= new GestureDetector(itemView.getContext(),this);
             itemView.setOnTouchListener(this);
-
         }
 
         public void setData(int resource, String name) {

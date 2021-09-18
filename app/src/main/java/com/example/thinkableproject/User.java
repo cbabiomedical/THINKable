@@ -9,15 +9,17 @@ public class User {
 
 
     String preferences;
+    String suggestions;
 
     public User() {
 
     }
 
-    public User(String userName, String email, String preferences) {
+    public User(String userName, String email, String preferences, String suggestions) {
         this.userName = userName;
         this.email = email;
         this.preferences = preferences;
+        this.suggestions = suggestions;
     }
 
     public User(String userName, String email, String occupation, String gender, String dob) {
@@ -29,13 +31,14 @@ public class User {
 
     }
 
-    public User(String userName, String email, String occupation, String gender, String dob, String preferences) {
+    public User(String userName, String email, String occupation, String gender, String dob, String preferences, String suggestions) {
         this.userName = userName;
         this.email = email;
         this.occupation = occupation;
         Gender = gender;
         this.dob = dob;
         this.preferences = preferences;
+        this.suggestions = suggestions;
     }
 
     public User(String preferences) {
