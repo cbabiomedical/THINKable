@@ -19,7 +19,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.thinkableproject.adapters.Adapter;
 import com.example.thinkableproject.adapters.RecyclerAdaptor;
+import com.example.thinkableproject.sample.ModelClass;
 import com.example.thinkableproject.sample.MyItemTouchHelper;
 import com.example.thinkableproject.sample.UserPreferences;
 import com.example.thinkableproject.viewmodels.MainActivityViewModel;
@@ -36,6 +38,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.jmedeisis.draglinearlayout.DragLinearLayout;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -46,139 +49,114 @@ public class PreferencesSecPage extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";
     private Button done;
-    private RecyclerView mRecylerView;
-    private RecyclerAdaptor mAdaptor;
-    private MainActivityViewModel mMainActivityViewModel;
+    RecyclerView recyclerView;
+    LinearLayoutManager linearLayoutManager;
+    List<ModelClass> userList;
     FirebaseUser mUser;
+    Adapter adapter;
     FirebaseAuth mAuth;
     String onlineUserId;
-    Intent intent = new Intent();
-    String _PREFERENCE = intent.getStringExtra("preference");
 
+    HashMap<String, Object> preference = new HashMap<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preferences_sec_page);
-        mRecylerView = findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
         done = findViewById(R.id.done);
-        mMainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
-        mMainActivityViewModel.init();
-        mMainActivityViewModel.getNicePlaces().observe(this, new Observer<List<UserPreferences>>() {
+//        mMainActivityViewModel = ViewModelProviders.of(this).get(MainActivityViewModel.class);
+//        mMainActivityViewModel.init();
+//        mMainActivityViewModel.getNicePlaces().observe(this, new Observer<List<UserPreferences>>() {
+//            @Override
+//            public void onChanged(List<UserPreferences> nicePlaces) {
+//                mAdaptor.notifyDataSetChanged();
+//            }
+//        });
+//        mMainActivityViewModel.getIsUpdating().observe(this, new Observer<Boolean>() {
+//            @Override
+//            public void onChanged(Boolean aBoolean) {
+//                if (aBoolean) {
+//                } else {
+//                    mRecylerView.smoothScrollToPosition(mMainActivityViewModel.getNicePlaces().getValue().size() - 1);
+//                }
+//            }
+//        });
+        done.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onChanged(List<UserPreferences> nicePlaces) {
-                mAdaptor.notifyDataSetChanged();
-            }
-        });
-        mMainActivityViewModel.getIsUpdating().observe(this, new Observer<Boolean>() {
-            @Override
-            public void onChanged(Boolean aBoolean) {
-                if (aBoolean) {
-                } else {
-                    mRecylerView.smoothScrollToPosition(mMainActivityViewModel.getNicePlaces().getValue().size() - 1);
-                }
+            public void onClick(View v) {
+                putDataInDatabase();
+
             }
         });
 
 //        mUser=mAuth.getCurrentUser();
 //         onlineUserId = mUser.getUid();
-
+//         Log.d("User")
+        initData();
         initRecyclerView();
     }
 
+    private void initData() {
+        userList=new ArrayList<>();
+        userList.add(new ModelClass(R.drawable.video,"Videos"));
+        userList.add(new ModelClass(R.drawable.music,"Music"));
+        userList.add(new ModelClass(R.drawable.meditation,"Meditation"));
+        userList.add(new ModelClass(R.drawable.controller,"Games"));
+        userList.add(new ModelClass(R.drawable.binaural,"Bineural Waves"));
+        userList.add(new ModelClass(R.drawable.playtime,"Kids"));
+        userList.add(new ModelClass(R.drawable.book,"Sleep Stories"));
+    }
+
     private void initRecyclerView() {
-        mAdaptor = new RecyclerAdaptor(this, mMainActivityViewModel.getNicePlaces().getValue());
-        RecyclerView.LayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        mRecylerView.setLayoutManager(linearLayoutManager);
-        ItemTouchHelper.Callback callback = new MyItemTouchHelper(mAdaptor);
+        recyclerView=findViewById(R.id.recycler_view);
+        linearLayoutManager=new LinearLayoutManager(this);
+        linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        adapter=new Adapter(userList);
+        ItemTouchHelper.Callback callback = new MyItemTouchHelper(adapter);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
-        mAdaptor.setmTouchHelper(itemTouchHelper);
-        itemTouchHelper.attachToRecyclerView(mRecylerView);
-        RecyclerAdaptor recyclerAdaptor = new RecyclerAdaptor();
-        mRecylerView.setAdapter(mAdaptor);
+        adapter.setmTouchHelper(itemTouchHelper);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
+
+        recyclerView.setAdapter(adapter);
+        adapter.notifyDataSetChanged();
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
-        done.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                putDataInDatabase();
-            }
-        });
+
+        Log.d("Preference", String.valueOf(preference));
+
 
 
     }
 
-    ValueEventListener valueEventListener = new ValueEventListener() {
-        @Override
-        public void onDataChange(@NonNull DataSnapshot snapshot) {
-            mUser = mAuth.getCurrentUser();
-            assert mUser != null;
-            onlineUserId = mUser.getUid();
 
-        }
-
-        @Override
-        public void onCancelled(@NonNull DatabaseError error) {
-
-        }
-    };
-
-//    public void updateUser(View view) {
-//        if (isPreferenceChanage()) {
-//            Toast.makeText(this, "Data has been updated", Toast.LENGTH_SHORT).show();
-//
-//        }
-//    }
-
-//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(user.getPreferences());
-
-//    private boolean isPreferenceChanage() {
-//        if (_PREFERENCE.equals("")) {
-//            reference.child(_PREFERENCE)
-//        } else {
-//            return false;
-//        }
-//
 
     private void putDataInDatabase() {
-        if (mUser != null) {
-            String uId = mUser.getEmail();
-            Log.d("TAG", "User is there");
-            Log.d("ID", uId);
-            FirebaseDatabase database = FirebaseDatabase.getInstance();
-            DatabaseReference ref = database.getReference();
-            DatabaseReference usersRef = ref.child("Users");
-            DatabaseReference hopperRef = usersRef.child("N4Aw6EFDjnRWDrUpNdRiKlU2LY13");
-//            Map<String, Object> hopperUpdates = new HashMap<>();
-//            hopperUpdates.put("preference",mMainActivityViewModel.getNicePlaces().getValue());
-            Log.d("Ref", String.valueOf(ref));
-            Log.d("hopRef", String.valueOf(hopperRef));
-            Log.d("userRef", String.valueOf(usersRef));
-            Map<String, User> users = new HashMap<>();
-            users.put("preference", new User("Video"));
-            Log.d("User", String.valueOf(users));
-            hopperRef.setValue(users);
-
-//            ref = FirebaseDatabase.getInstance().getReference("N4Aw6EFDjnRWDrUpNdRiKlU2LY13");
-            Log.d("READ", String.valueOf(ref));
-//            hopperRef.updateChildren(hopperUpdates);
-
-
-//            reference.updateChildren(prefMap);
-
-        } else {
-            Log.d("TAG", "User is not there");
-        }
-
-//        Log.d("ID", onlineUserId);
+        preference.put("preferences", userList);
+        FirebaseDatabase.getInstance().getReference().child("Users").child(mUser.getUid()).updateChildren(preference).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(PreferencesSecPage.this,"Successful",Toast.LENGTH_SHORT).show();
+            }
+        });
+        Log.d("User", mUser.getUid());
 //
-//        Log.d("Path", String.valueOf(reference));
 
-
-//        reference.child("preference").updateChildren(prefMap);
-        Toast.makeText(this, "Your preference arranging update successful", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+        preference.clear();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        preference.clear();
+
+    }
 
 }

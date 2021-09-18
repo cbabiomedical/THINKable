@@ -63,12 +63,27 @@ public class RecyclerAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolde
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(
                 R.layout.layout_listitem, viewGroup, false);
         ViewHolder vh = new ViewHolder(view);
+        vh.setIsRecyclable(false);
         return vh;
+    }
+    @Override
+    public long getItemId(int position) {
+        return position;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        return position;
+    }
+
+
+    @Override
+    public void setHasStableIds(boolean hasStableIds) {
+        super.setHasStableIds(hasStableIds);
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-
         // Set the name of the 'NicePlace'
         ((ViewHolder)viewHolder).mName.setText(mNicePlaces.get(i).getPreferenceName());
 //        ((ViewHolder)viewHolder).mNum.setText(String.valueOf(mNicePlaces.get(i).getPreferenceNum()));
