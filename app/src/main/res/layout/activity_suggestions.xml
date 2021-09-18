@@ -40,6 +40,7 @@
             android:id="@+id/recycler_view"/>
 
         <Button
+            android:id="@+id/done"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/recycler_view"
@@ -47,6 +48,17 @@
             android:layout_marginHorizontal="50dp"
             android:layout_marginTop="20dp"
             android:text="@string/done"
+            android:textColor="@color/white" />
+
+        <Button
+            android:id="@+id/next"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/done"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginTop="20dp"
+            android:text="NEXT"
             android:textColor="@color/white" />
 
 
