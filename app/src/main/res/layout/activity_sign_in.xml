@@ -16,20 +16,23 @@
         android:src="@drawable/mobilelogin" />
 
     <EditText
+        android:layout_marginTop="20dp"
+        android:drawableLeft="@drawable/ic_email"
         android:id="@+id/username"
         android:layout_marginHorizontal="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/signinImage"
-        android:hint="@string/username"
+        android:hint="@string/email"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:backgroundTint="@color/white" />
 
     <EditText
         android:id="@+id/password"
+        android:drawableLeft="@drawable/ic_lock"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/username"

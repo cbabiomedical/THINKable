@@ -26,8 +26,28 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
     private static ItemTouchHelper mTouchHelper;
     int positionChanged;
 
-
     public SuggestionsAdapter(List<SuggestionsModel> userList) {
+        this.userList = userList;
+    }
+
+    @NonNull
+    @Override
+    public SuggestionsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.suggestion_listview,parent,false);
+        return new ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        int resource=userList.get(position).getImageView();
+        String name=userList.get(position).getName();
+        holder.setData(resource,name);
+    }
+
+
+    @Override
+    public int getItemCount() {
+        return userList.size();
     }
 
     @Override
@@ -42,7 +62,6 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
         getPositionChanged();
         Log.d("POS", String.valueOf(toPositions+1));
         notifyItemMoved(fromPosition,toPositions);
-
     }
 
     private int getPositionChanged() {
@@ -53,52 +72,27 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
         this.positionChanged=i;
     }
 
-
     @Override
     public void onItemSwipped(int position) {
 
     }
-
-    @NonNull
-    @Override
-    public SuggestionsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.suggestion_listview,parent,false);
-        return new ViewHolder(view);
+    public void setmTouchHelper(ItemTouchHelper itemTouchHelper){
+        this.mTouchHelper=itemTouchHelper;
     }
 
-    @Override
-    public void onBindViewHolder(@NonNull SuggestionsAdapter.ViewHolder holder, int position) {
-        int resource=userList.get(position).getImageView();
-        String name=userList.get(position).getName();
-        holder.setData(resource,name);
-    }
-
-    @Override
-    public int getItemCount() {
-        return userList.size();
-    }
-
-    public void setmTouchHelper(ItemTouchHelper mTouchHelper) {
-        this.mTouchHelper = mTouchHelper;
-    }
-
-    public ItemTouchHelper getmTouchHelper() {
-        return mTouchHelper;
-    }
-
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener, GestureDetector.OnGestureListener{
+    public static class ViewHolder extends  RecyclerView.ViewHolder implements View.OnTouchListener, GestureDetector.OnGestureListener {
         private CircleImageView imageView;
         private TextView namePref;
         GestureDetector mGestureDetector;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             imageView=itemView.findViewById(R.id.image);
             namePref=itemView.findViewById(R.id.image_name);
 
             mGestureDetector= new GestureDetector(itemView.getContext(),this);
             itemView.setOnTouchListener(this);
+
         }
 
         public void setData(int resource, String name) {

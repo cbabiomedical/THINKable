@@ -2,7 +2,6 @@ package com.example.thinkableproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
@@ -22,7 +21,6 @@ import android.widget.RadioButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -37,17 +35,15 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText username, emailAddress, userPassword, re_enterPassword;
-    private ImageView imageViewggl;
     private DatePickerDialog datePickerDialog;
     private TextView signIn;
-    private Button dateButton;
+    private EditText dateButton;
+    ImageView calendar;
     private Button signUp;
     Spinner occupation;
     private String occupationSelected;
@@ -58,15 +54,9 @@ public class RegisterActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
     private GoogleSignInClient mGoogleSignInClient;
-
-    ArrayList<String> jobs = new ArrayList<>();
-
     AutoCompleteTextView suggestionbox;
-
-
     private final static int RC_SIGN_IN=123;
     private FirebaseAuth mAuthggl;
-
 
     @Override
     protected void onStart() {
@@ -88,12 +78,13 @@ public class RegisterActivity extends AppCompatActivity {
         userPassword = findViewById(R.id.password);
         re_enterPassword = findViewById(R.id.reEnter);
         occupation = findViewById(R.id.occupation);
-        dateButton = findViewById(R.id.datePickerButton);
         male = findViewById(R.id.radio_male);
         female = findViewById(R.id.radio_female);
         signUp = findViewById(R.id.signUp);
         progressBar = findViewById(R.id.progressBar);
+        dateButton=findViewById(R.id.dob);
         signIn=findViewById(R.id.signInReg);
+        calendar=findViewById(R.id.calendar);
 
         initDatePicker();
 
@@ -121,12 +112,11 @@ public class RegisterActivity extends AppCompatActivity {
         suggestionbox.setAdapter(adapter1);
         occupation.setAdapter(adapter2);
 
-
-
         occupation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 occupationSelected = parent.getItemAtPosition(position).toString();
+                suggestionbox.setText(occupationSelected);
             }
 
             @Override
