@@ -360,7 +360,7 @@ public class RegisterActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        Intent intentveri = new Intent(RegisterActivity.this, EnterPhoneActivity.class);
+                                        Intent intentveri = new Intent(RegisterActivity.this, Suggestions.class);
                                         startActivity(intentveri);
                                         Toast.makeText(RegisterActivity.this, "Registration Complete", Toast.LENGTH_SHORT).show();
 

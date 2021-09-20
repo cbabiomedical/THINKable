@@ -59,7 +59,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                     return;
                 }
                 verifyCode(code);
-                Intent intentSUGGESTIONS = new Intent(VerifyPhoneActivity.this,Suggestions.class);
+                Intent intentSUGGESTIONS = new Intent(VerifyPhoneActivity.this,LandingPage.class);
                 intentSUGGESTIONS.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
                 startActivity(intentSUGGESTIONS);
@@ -148,8 +148,8 @@ public class VerifyPhoneActivity extends AppCompatActivity {
 
 
 
-    public void gotoSugeestions(View view) {
-        Intent intentGotoSU = new Intent(VerifyPhoneActivity.this,Suggestions.class);
+    public void gotoLandingPage(View view) {
+        Intent intentGotoSU = new Intent(VerifyPhoneActivity.this,LandingPage.class);
         startActivity(intentGotoSU);
     }
 }

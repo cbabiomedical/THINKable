@@ -139,6 +139,8 @@ public class PreferencesSecPage extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(PreferencesSecPage.this,"Successful",Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(PreferencesSecPage.this,EnterPhoneActivity.class);
+                startActivity(intent);
             }
         });
         Log.d("User", mUser.getUid());

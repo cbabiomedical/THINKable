@@ -19,16 +19,13 @@ import androidx.navigation.ui.NavigationUI;
 
 public class LandingPage extends AppCompatActivity {
     Button changepassword, logout;
-    Button preference;
-    Button suggestions;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing_page);
         BottomNavigationView navView = findViewById(R.id.nav_view);
-        preference=findViewById(R.id.preference);
-        suggestions=findViewById(R.id.suggestion);
+
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -37,20 +34,6 @@ public class LandingPage extends AppCompatActivity {
 //        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
 //        NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
 //        NavigationUI.setupWithNavController(navView, navController);
-        preference.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(LandingPage.this,Suggestions.class);
-                startActivity(intent);
-            }
-        });
-        suggestions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(LandingPage.this,Suggestions.class);
-                startActivity(intent);
-            }
-        });
 
         changepassword = findViewById(R.id.changepassword);
         logout = findViewById(R.id.logout);

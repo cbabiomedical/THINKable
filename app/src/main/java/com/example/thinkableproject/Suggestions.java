@@ -124,6 +124,8 @@ public class Suggestions extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 Toast.makeText(Suggestions.this,"Successful",Toast.LENGTH_SHORT).show();
+                Intent intent=new Intent(Suggestions.this,PreferencesSecPage.class);
+                startActivity(intent);
             }
         });
         Log.d("User", mUser.getUid());
