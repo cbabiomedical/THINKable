@@ -59,26 +59,37 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-    <AutoCompleteTextView
-        android:id="@+id/suggetion_box"
-        android:layout_width="266dp"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/txt_layout"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:backgroundTint="@android:color/white"
         android:completionThreshold="1"
-        android:drawableLeft="@drawable/ic_bag"
-        android:hint="@string/search_for_the_job"
+        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+
+        android:hint="Search for the occupation .."
         android:paddingHorizontal="5dp"
         android:textColor="@color/white"
-        android:textColorHint="@color/white" />
+        android:textColorHint="#FFFFFF" >
 
-    <Spinner
-        android:id="@+id/occupation"
-        android:layout_gravity="bottom"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginRight="5dp"
-        android:background="@drawable/ic_arrow_drop_down"
-        android:spinnerMode="dropdown" />
+        <AutoCompleteTextView
+            android:id="@+id/act"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+             />
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+<!--    <Spinner-->
+<!--        android:id="@+id/occupation"-->
+<!--        android:layout_gravity="bottom"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:layout_marginRight="5dp"-->
+<!--        android:background="@drawable/ic_arrow_drop_down"-->
+<!--        android:spinnerMode="dropdown" />-->
     </LinearLayout>
 
     <LinearLayout

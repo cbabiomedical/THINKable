@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -28,6 +27,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.auth.AuthCredential;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
@@ -54,9 +54,10 @@ public class RegisterActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
     private GoogleSignInClient mGoogleSignInClient;
-    AutoCompleteTextView suggestionbox;
+    AutoCompleteTextView act;
     private final static int RC_SIGN_IN=123;
     private FirebaseAuth mAuthggl;
+    TextInputLayout txt_layout;
 
     @Override
     protected void onStart() {
@@ -68,6 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
             startActivity(intentg);
         }
     }
+    ArrayAdapter<String> arrayAdapter_season;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -77,14 +79,15 @@ public class RegisterActivity extends AppCompatActivity {
         emailAddress = findViewById(R.id.email);
         userPassword = findViewById(R.id.password);
         re_enterPassword = findViewById(R.id.reEnter);
-        occupation = findViewById(R.id.occupation);
+//        occupation = findViewById(R.id.occupation);
         male = findViewById(R.id.radio_male);
         female = findViewById(R.id.radio_female);
         signUp = findViewById(R.id.signUp);
         progressBar = findViewById(R.id.progressBar);
         dateButton=findViewById(R.id.dob);
         signIn=findViewById(R.id.signInReg);
-        calendar=findViewById(R.id.calendar);
+        txt_layout=findViewById(R.id.txt_layout);
+//        calendar=findViewById(R.id.calendar);
 
         initDatePicker();
 
@@ -95,7 +98,11 @@ public class RegisterActivity extends AppCompatActivity {
         createRequest();
 
         //suggestionbox
-        suggestionbox=(AutoCompleteTextView) findViewById(R.id.suggetion_box);
+        act=(AutoCompleteTextView) findViewById(R.id.act);
+
+        arrayAdapter_season =new ArrayAdapter<>(getApplicationContext(),R.layout.support_simple_spinner_dropdown_item,Job_items.items);
+        act.setAdapter(arrayAdapter_season);
+        act.setThreshold(1);
 
 
         findViewById(R.id.imageViewggl).setOnClickListener(new View.OnClickListener(){
@@ -105,25 +112,39 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
-        String[] items = new String[]{"Teacher", "Manager", "Doctor", "Engineer", "MicroBiologist","Dentist","Actor","Pilot","Postman","Dentist","Data Scientist","Marketer","Therapist"};
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
 
-        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        suggestionbox.setAdapter(adapter1);
-        occupation.setAdapter(adapter2);
-
-        occupation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                occupationSelected = parent.getItemAtPosition(position).toString();
-                suggestionbox.setText(occupationSelected);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//
+//        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, Job_items.items);
+//
+//        ArrayAdapter<String> adapter2 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, Job_items.items);
+//        suggestionbox.setAdapter(adapter1);
+//        occupation.setAdapter(adapter1);
+//
+//        occupation.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                occupationSelected = parent.getItemAtPosition(position).toString();
+//                suggestionbox.setText(occupationSelected);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//
+//            }
+//        });
+//        final AutoCompleteTextView suggetionbox;
+//        final ArrayAdapter<String> arrayAdapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, Job_items.items);
+//
+//
+//        suggetionbox = (AutoCompleteTextView) findViewById(R.id.suggetion_box);
+//        suggetionbox.setAdapter(arrayAdapter);
+//        suggetionbox.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(final View arg0) {
+//                suggetionbox.showDropDown();
+//            }
+//        });
 
         databaseReference = FirebaseDatabase.getInstance().getReference("Users");
         firebaseAuth = FirebaseAuth.getInstance();
