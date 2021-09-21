@@ -33,8 +33,10 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         resetPasswordButton = (Button) findViewById(R.id.resetPassword);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
+        //get instance of firebase user authentication
         auth = FirebaseAuth.getInstance();
 
+        //onclick listener for resetPasswordButton to run resetPassword() method
         resetPasswordButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -43,32 +45,39 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         });
     }
 
+    //resetting password
     private void resetPassword() {
         String email = emailEditText.getText().toString().trim();
 
+        //check email is entered or not
         if (email.isEmpty()) {
             emailEditText.setError("Email is Required");
             emailEditText.requestFocus();
             return;
         }
+
+        //check if a valid email is entered
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             emailEditText.setError("Please provide valid email!");
             emailEditText.requestFocus();
             return;
         }
 
+
         progressBar.setVisibility(View.VISIBLE);
+        //after user is authenticated send reset password mail to user email via otp
         auth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
+                    //if task is successful show the toast
                     Toast.makeText(ForgetPasswordActivity.this, "Check your email to reset your password & Log in again to continue!", Toast.LENGTH_LONG)
                             .show();
 
                     new Handler().postDelayed(new Runnable() {
                         @Override
                         public void run() {
-
+                            //after user change password via otp redirect user to signin page to signin with new password
                             startActivity(new Intent(ForgetPasswordActivity.this, SignInActivity.class));
                         }
                     }, 8000);

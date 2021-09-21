@@ -32,9 +32,11 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
 
+        //set onclick listener for signin button
         signIn = (Button) findViewById(R.id.signIn);
         signIn.setOnClickListener(this);
 
+        //set onclick listener for signup button
         signUp = (Button) findViewById(R.id.signUp);
         signUp.setOnClickListener(this);
 
@@ -43,8 +45,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         progressBar =(ProgressBar) findViewById(R.id.progressBar);
 
+        //firebase authentication instance
         mAuth = FirebaseAuth.getInstance();
 
+        //set onclick listener for forgotpassword button
         forgotPassword = findViewById(R.id.forgetPassword);
         forgotPassword.setOnClickListener(this);
 
@@ -54,17 +58,19 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.signUp:
+                //go to sign up page
                 startActivity(new Intent(this,RegisterActivity.class));
                 break;
 
             case R.id.signIn:
-                Log.d("USERLOGIN", "----------------------H----------------------------");
-                Log.d("USERLOGIN", "----------------------I----------------------------");
-                Log.d("USERLOGIN", "----------------------J----------------------------");
+//                Log.d("USERLOGIN", "----------------------H----------------------------");
+//                Log.d("USERLOGIN", "----------------------I----------------------------");
+//                Log.d("USERLOGIN", "----------------------J----------------------------");
                 userLogin();
                 break;
 
             case R.id.forgetPassword:
+                //go to forget password page
                 startActivity(new Intent(this,ForgetPasswordActivity.class));
                 break;
         }
@@ -75,6 +81,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     protected void onStart() {
         super.onStart();
 
+        //signin authentication and redirect to landing page
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
             Intent intent = new Intent(this, LandingPage.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -86,24 +93,29 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     //get user credentials & convert it back to string
 
     private void userLogin() {
+        //get user email and password
         String email = emailAddress.getText().toString().trim();
         String password = passwordTxt.getText().toString().trim();
 
+        //check email is entered
         if(email.isEmpty()){
             emailAddress.setError("Email is required");
             emailAddress.requestFocus();
             return;
         }
+        //check whether email is valid
         if(!Patterns.EMAIL_ADDRESS.matcher(email).matches()){
             emailAddress.setError("Enter a valid email!");
             emailAddress.requestFocus();
             return;
         }
+        //check whether password is entered
         if(password.isEmpty()){
             passwordTxt.setError("Password is Required");
             passwordTxt.requestFocus();
             return;
         }
+        //check passoword length is more than 8 characters
         if(password.length() < 8){
             passwordTxt.setError("Minimum Password length should be 8 characters!");
             passwordTxt.requestFocus();
@@ -114,15 +126,17 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         Log.d("USERLOGIN", "----------------------B----------------------------");
         Log.d("USERLOGIN", "----------------------C----------------------------");
         progressBar.setVisibility(View.GONE);
+        //signin with email and password
         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
 
                 if (task.isSuccessful()) {
 
-                    Log.d("USERLOGIN", "----------------------E----------------------------");
-                    Log.d("USERLOGIN", "----------------------F----------------------------");
-                    Log.d("USERLOGIN", "----------------------G----------------------------");
+//                    Log.d("USERLOGIN", "----------------------E----------------------------");
+//                    Log.d("USERLOGIN", "----------------------F----------------------------");
+//                    Log.d("USERLOGIN", "----------------------G----------------------------");
+                    //check whether user details are correct and authenticate with firebase userdata and redirect user to landing page
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                     startActivity(new Intent(SignInActivity.this, LandingPage.class));
 
