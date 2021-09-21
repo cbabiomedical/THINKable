@@ -3,21 +3,21 @@ package com.example.thinkableproject.sample;
 import com.example.thinkableproject.User;
 
 public class UserPreferences {
+    // private variables to store imageUrl and name of preference
     int imageUrl;
     String preferenceName;
-    User user;
-//    int preferenceNum;
 
-    public UserPreferences() {
+
+
+    public UserPreferences() {  // Empty Constructor
     }
 
-    public UserPreferences(int imageUrl, String preferenceName) {
+    public UserPreferences(int imageUrl, String preferenceName) {  // Parameterized constructor to create user preference object
         this.imageUrl = imageUrl;
         this.preferenceName = preferenceName;
-//        this.preferenceNum = preferenceNum;
     }
 
-
+// Getters and Setters to access variables outside class
     public int getImageUrl() {
         return imageUrl;
     }
@@ -34,11 +34,5 @@ public class UserPreferences {
         this.preferenceName = preferenceName;
     }
 
-//    public int getPreferenceNum() {
-//        return preferenceNum;
-//    }
-//
-//    public void setPreferenceNum(int preferenceNum) {
-//        this.preferenceNum = preferenceNum;
-//    }
+
 }

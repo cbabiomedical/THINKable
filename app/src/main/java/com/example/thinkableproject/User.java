@@ -1,36 +1,17 @@
 package com.example.thinkableproject;
 
-import com.example.thinkableproject.sample.UserPreferences;
-
-import java.util.prefs.Preferences;
 
 public class User {
-    private String userName, email,occupation,Gender, dob;
+    // Creating private variables to store user data
+    // private variables for encapsulation
+    private String userName, email,occupation,Gender, dob,preferences,suggestions;
 
-
-    String preferences;
-    String suggestions;
-
+    // Default constructor
     public User() {
 
     }
 
-    public User(String userName, String email, String preferences, String suggestions) {
-        this.userName = userName;
-        this.email = email;
-        this.preferences = preferences;
-        this.suggestions = suggestions;
-    }
-
-    public User(String userName, String email, String occupation, String gender, String dob) {
-        this.userName = userName;
-        this.email = email;
-        this.occupation = occupation;
-        Gender = gender;
-        this.dob = dob;
-
-    }
-
+// Parameterized constructor to create user object
     public User(String userName, String email, String occupation, String gender, String dob, String preferences, String suggestions) {
         this.userName = userName;
         this.email = email;
@@ -40,7 +21,7 @@ public class User {
         this.preferences = preferences;
         this.suggestions = suggestions;
     }
-
+        // Getters and Setters to access variable outside class
     public User(String preferences) {
         this.preferences = preferences;
     }
@@ -93,5 +74,11 @@ public class User {
         this.dob = dob;
     }
 
+    public String getSuggestions() {
+        return suggestions;
+    }
 
+    public void setSuggestions(String suggestions) {
+        this.suggestions = suggestions;
+    }
 }

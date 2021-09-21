@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 public class MyItemTouchHelper extends ItemTouchHelper.Callback {
     private final ItemTouchHelperAdapter mAdapter;
-
+//Constructor
     public MyItemTouchHelper(ItemTouchHelperAdapter mAdapter) {
         this.mAdapter = mAdapter;
     }
@@ -35,14 +35,15 @@ public class MyItemTouchHelper extends ItemTouchHelper.Callback {
 //            viewHolder.itemView.setBackgroundColor(Color.LTGRAY);
         }
 
-
+//Draggable functionlity in up and down direction
     @Override
     public int getMovementFlags(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder) {
         final int dragFlags= ItemTouchHelper.UP| ItemTouchHelper.DOWN;
         final int swipeFlags= ItemTouchHelper.START| ItemTouchHelper.END;
         return makeMovementFlags(dragFlags,swipeFlags);
     }
-
+// on Move method
+    // setting position in adapter
     @Override
     public boolean onMove(@NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, @NonNull RecyclerView.ViewHolder target) {
         mAdapter.onItemMove(viewHolder.getAbsoluteAdapterPosition(),target.getAdapterPosition());
