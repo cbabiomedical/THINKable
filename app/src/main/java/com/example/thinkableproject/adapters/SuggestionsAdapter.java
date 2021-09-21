@@ -33,12 +33,14 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
     @NonNull
     @Override
     public SuggestionsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //get suggestions listview
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.suggestion_listview,parent,false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        //get position of imageview and activity name
         int resource=userList.get(position).getImageView();
         String name=userList.get(position).getName();
         holder.setData(resource,name);
@@ -46,11 +48,13 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 
 
     @Override
+    //number of items in the list
     public int getItemCount() {
         return userList.size();
     }
 
     @Override
+    //get changed position (from to) of items in the recyclerview
     public void onItemMove(int fromPosition, int toPositions) {
         SuggestionsModel fromNote=userList.get(fromPosition);
         userList.remove(fromPosition);
@@ -64,10 +68,12 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
         notifyItemMoved(fromPosition,toPositions);
     }
 
+    //get the final changed position of item
     private int getPositionChanged() {
         return positionChanged;
     }
 
+    //set the final changed position of items
     private void setGetPositionChangedElement(int i) {
         this.positionChanged=i;
     }
@@ -77,9 +83,11 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 
     }
     public void setmTouchHelper(ItemTouchHelper itemTouchHelper){
+        //mTouchHelper for dragging and dropping item in recyclerview
         this.mTouchHelper=itemTouchHelper;
     }
 
+    //viewholder class
     public static class ViewHolder extends  RecyclerView.ViewHolder implements View.OnTouchListener, GestureDetector.OnGestureListener {
         private CircleImageView imageView;
         private TextView namePref;
@@ -95,6 +103,7 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 
         }
 
+        //set images and text of items in recyclerview
         public void setData(int resource, String name) {
             imageView.setImageResource(resource);
             namePref.setText(name);
@@ -132,6 +141,7 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 
         @Override
         public boolean onTouch(View view, MotionEvent motionEvent) {
+            //detect when user select particular items in the list
             mGestureDetector.onTouchEvent(motionEvent);
             return true;
         }
