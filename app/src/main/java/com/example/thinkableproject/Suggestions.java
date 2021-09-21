@@ -42,6 +42,7 @@ public class Suggestions extends AppCompatActivity {
     FirebaseAuth mAuth;
     String onlineUserId;
 
+    //suggestions hashmap
     HashMap<String, Object> suggestions = new HashMap<>();
 
     @Override
@@ -65,6 +66,7 @@ public class Suggestions extends AppCompatActivity {
 //        CourseGVAdapter adapter = new CourseGVAdapter(this, courseModelArrayList);
 //        coursesGV.setAdapter(adapter);
 
+        //store data in database
         done.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -73,6 +75,7 @@ public class Suggestions extends AppCompatActivity {
             }
         });
 
+        //go to preference page
         next.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +91,7 @@ public class Suggestions extends AppCompatActivity {
         initRecyclerView();
     }
 
+    //set data in recycler view imageview and textview
     private void initData() {
         userList=new ArrayList<>();
         userList.add(new SuggestionsModel(R.drawable.calmit,"Anxiety Reading"));
@@ -109,9 +113,11 @@ public class Suggestions extends AppCompatActivity {
         adapter.setmTouchHelper(itemTouchHelper);
         itemTouchHelper.attachToRecyclerView(recyclerView);
 
+        //get adapter to set data change
         recyclerView.setAdapter(adapter);
         adapter.notifyDataSetChanged();
 
+        //user authentication instance
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Log.d("suggestions", String.valueOf(suggestions));
@@ -119,6 +125,7 @@ public class Suggestions extends AppCompatActivity {
     }
 
     private void putDataInDatabase() {
+        //put suggestions into user profile as a child branch
         suggestions.put("suggestions", userList);
         FirebaseDatabase.getInstance().getReference().child("Users").child(mUser.getUid()).updateChildren(suggestions).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -142,6 +149,7 @@ public class Suggestions extends AppCompatActivity {
 
     }
     public void gotoPrefer(View view) {
+        //go to preferences page
         Intent intentGotoSI = new Intent(Suggestions.this,PreferencesSecPage.class);
         startActivity(intentGotoSI);
     }
