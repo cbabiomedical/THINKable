@@ -18,12 +18,20 @@ import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
 
 public class LandingPage extends AppCompatActivity {
-    Button changepassword, logout, relaxationLanding;
+    Button changepassword, logout, relaxationLanding, concentrationLanding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing_page);
+        concentrationLanding=findViewById(R.id.concentrationDaily);
+        concentrationLanding.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),Concentration_Daily.class);
+                startActivity(intent);
+            }
+        });
 //      /  BottomNavigationView navView = findViewById(R.id.nav_view);
         relaxationLanding=findViewById(R.id.relaxationLanding);
         // Passing each menu ID as a set of Ids because each
