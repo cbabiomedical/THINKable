@@ -2,8 +2,10 @@ package com.example.thinkableproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,6 +30,8 @@ import java.util.List;
 public class Relaxation_Weekly extends AppCompatActivity {
 
     BarChart barChart, barChart1, barChart2;
+    private Context context;
+    AppCompatButton daily, yearly, monthly;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +74,33 @@ public class Relaxation_Weekly extends AppCompatActivity {
             }
         });
 
-        barChart1 = (BarChart) findViewById(R.id.barChartdaily);
+        barChart1 = (BarChart) findViewById(R.id.barChartWeekly);
+
+        daily = findViewById(R.id.daily);
+        yearly =  findViewById(R.id.yearly);
+        monthly =  findViewById(R.id.monthly);
+        daily.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Relaxation_Daily.class);
+                startActivity(intent);
+            }
+        });
+        monthly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Relaxation_Monthly.class);
+                startActivity(intent);
+            }
+        });
+        yearly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(), Relaxation_Yearly.class);
+                startActivity(intent);
+            }
+        });
+
 
         String[] weeks = new String[]{"One", "Two", "Three", "Four"};
         List<Float> creditsWeek = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 10f));

@@ -2,12 +2,14 @@ package com.example.thinkableproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
@@ -26,13 +28,39 @@ public class Relaxation_Monthly extends AppCompatActivity {
 
     BarChart barChart,barChart1,barChart2;
     private Context context;
+    AppCompatButton daily, yearly, weekly;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relaxation_monthly);
 
-        barChart = (BarChart) findViewById(R.id.barChart);
+        barChart = (BarChart) findViewById(R.id.barChartMonthly);
+
+        daily = findViewById(R.id.daily);
+        yearly =  findViewById(R.id.yearly);
+        weekly =  findViewById(R.id.weekly);
+        daily.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Relaxation_Daily.class);
+                startActivity(intent);
+            }
+        });
+        weekly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Relaxation_Weekly.class);
+                startActivity(intent);
+            }
+        });
+        yearly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(), Relaxation_Yearly.class);
+                startActivity(intent);
+            }
+        });
 
         String[] months = new String[]{"Jan","Feb","Mar","Apr","May","June","July","Aug","Sep","Oct","Nov","Dec"};
         List<Float> credits = new ArrayList<>(Arrays.asList(90f,80f,70f,60f,50f,40f,30f,20f,10f,15f,85f,30f));

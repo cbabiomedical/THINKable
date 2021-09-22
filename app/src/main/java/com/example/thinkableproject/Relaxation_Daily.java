@@ -2,6 +2,7 @@ package com.example.thinkableproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
 import android.content.Context;
@@ -31,53 +32,74 @@ public class Relaxation_Daily extends AppCompatActivity {
 
     BarChart barChartdaily;
     private Context context;
-    Button monthly, yearly, weekly;
+    AppCompatButton monthly, yearly, weekly;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relaxation_daily);
 
-        barChartdaily = (BarChart) findViewById(R.id.barChartdaily);
+        barChartdaily = (BarChart) findViewById(R.id.barChartDaily);
 
 
-        monthly = (Button) findViewById(R.id.monthly);
-        yearly = (Button) findViewById(R.id.yearly);
-        weekly = (Button) findViewById(R.id.weekly);
-
-        //Initialize and Assign Variable
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-
-        //Set Home Selected
-        bottomNavigationView.setSelectedItemId(R.id.home);
-
-        //Perform ItemSelectedListener
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+        monthly = findViewById(R.id.monthly);
+        yearly =  findViewById(R.id.yearly);
+        weekly =  findViewById(R.id.weekly);
+        monthly.setOnClickListener(new View.OnClickListener() {
             @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()){
-                    case R.id.home:
-                        return true;
-                    case R.id.exercise:
-                        startActivity(new Intent(getApplicationContext(), Exercise.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.reports:
-                        startActivity(new Intent(getApplicationContext(), Reports.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.userprofiles:
-                        startActivity(new Intent(getApplicationContext(), UserProfile1.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                    case R.id.settings:
-                        startActivity(new Intent(getApplicationContext(), Setting.class));
-                        overridePendingTransition(0,0);
-                        return true;
-                }
-                return false;
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Relaxation_Monthly.class);
+                startActivity(intent);
             }
         });
+        weekly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Relaxation_Weekly.class);
+                startActivity(intent);
+            }
+        });
+        yearly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(), Relaxation_Yearly.class);
+                startActivity(intent);
+            }
+        });
+
+//        //Initialize and Assign Variable
+//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+//
+//        //Set Home Selected
+//        bottomNavigationView.setSelectedItemId(R.id.home);
+//
+//        //Perform ItemSelectedListener
+//        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+//            @Override
+//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+//                switch (item.getItemId()){
+//                    case R.id.home:
+//                        return true;
+//                    case R.id.exercise:
+//                        startActivity(new Intent(getApplicationContext(), Exercise.class));
+//                        overridePendingTransition(0,0);
+//                        return true;
+//                    case R.id.reports:
+//                        startActivity(new Intent(getApplicationContext(), Reports.class));
+//                        overridePendingTransition(0,0);
+//                        return true;
+//                    case R.id.userprofiles:
+//                        startActivity(new Intent(getApplicationContext(), UserProfile1.class));
+//                        overridePendingTransition(0,0);
+//                        return true;
+//                    case R.id.settings:
+//                        startActivity(new Intent(getApplicationContext(), Setting.class));
+//                        overridePendingTransition(0,0);
+//                        return true;
+//                }
+//                return false;
+//            }
+//        });
 
         String[] days = new String[]{"Mon", "Thu", "Wed", "Thur", "Fri", "Sat", "Sun"};
         List<Float> creditsMain = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f, 10f, 15f, 85f));

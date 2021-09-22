@@ -2,12 +2,15 @@ package com.example.thinkableproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -26,13 +29,40 @@ import java.util.List;
 
 public class Relaxation_Yearly extends AppCompatActivity {
     BarChart barChart2;
+    private Context context;
+    AppCompatButton daily, weekly, monthly;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relaxation_yearly);
 
-        barChart2 = (BarChart) findViewById(R.id.barChart);
+        barChart2 = (BarChart) findViewById(R.id.barChartYearly);
+
+        daily = findViewById(R.id.daily);
+        weekly =  findViewById(R.id.weekly);
+        monthly =  findViewById(R.id.monthly);
+        daily.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Relaxation_Daily.class);
+                startActivity(intent);
+            }
+        });
+        monthly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Relaxation_Monthly.class);
+                startActivity(intent);
+            }
+        });
+        weekly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(), Relaxation_Weekly.class);
+                startActivity(intent);
+            }
+        });
 
         String[] weeks = new String[]{"2018","2019","2020","2021"};
         List<Float> creditsWeek = new ArrayList<>(Arrays.asList(90f,30f,70f,10f));

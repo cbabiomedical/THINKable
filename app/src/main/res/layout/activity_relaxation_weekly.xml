@@ -1,92 +1,165 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue"
-    >
+    android:layout_gravity="center"
+    android:background="@drawable/landing_background"
+    android:orientation="horizontal"
+    tools:context=".Relaxation_Monthly">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        >
+
+        <RelativeLayout
+            android:id="@+id/toggleBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            >
+
+            <ImageButton
+                android:id="@+id/concentration"
+                android:layout_width="157dp"
+                android:layout_height="50dp"
+                android:layout_marginLeft="35dp"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/relaxattionbtn"
+                android:elevation="5dp"
+                android:src="@drawable/concentration_icon" />
+
+            <ImageButton
+                android:layout_width="160dp"
+                android:layout_height="50dp"
+                android:layout_alignEnd="@+id/concentration"
+                android:layout_alignRight="@+id/concentration"
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginEnd="-138dp"
+                android:layout_marginRight="-138dp"
+                android:background="@drawable/concentrationbtn"
+                android:elevation="5dp"
+                android:src="@drawable/relax" />
+        </RelativeLayout>
+
+        <com.github.mikephil.charting.charts.BarChart
+            android:id="@+id/barChartWeekly"
+            android:layout_width="360dp"
+            android:layout_height="322dp"
+            android:layout_below="@+id/toggleBtn"
+            android:layout_marginStart="4dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="35dp"
+            android:layout_centerHorizontal="true"
+            android:background="@color/white" />
+
+        <LinearLayout
+            android:id="@+id/btnLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/barChartWeekly"
+            android:orientation="horizontal"
+            android:background="@android:color/transparent"
+            android:gravity="center"
+            android:layout_marginTop="20dp">
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/monthly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/monthly"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:background="@drawable/btn_daily"
+                android:textAllCaps="false">
+            </androidx.appcompat.widget.AppCompatButton>
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/daily"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="@string/daily"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:background="@drawable/btn_daily"
+                android:textAllCaps="false">
+            </androidx.appcompat.widget.AppCompatButton>
 
 
-    <!--    <Button-->
-    <!--        android:id="@+id/compare"-->
-    <!--        android:layout_width="wrap_content"-->
-    <!--        android:layout_height="wrap_content"-->
-    <!--        android:layout_alignParentEnd="true"-->
-    <!--        android:layout_alignParentBottom="true"-->
-    <!--        android:layout_centerHorizontal="true"-->
-    <!--        android:layout_marginEnd="149dp"-->
-    <!--        android:layout_marginBottom="67dp"-->
-    <!--        android:onClick="compare"-->
-    <!--        android:text="Compare" />-->
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/yearly"
+                android:layout_marginLeft="20dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/yearly"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:background="@drawable/btn_daily"
+                android:textAllCaps="false">
+            </androidx.appcompat.widget.AppCompatButton>
+        </LinearLayout>
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/realTime"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnLayout"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:background="@drawable/realtime"
+            android:textAllCaps="false">
+        </androidx.appcompat.widget.AppCompatButton>
 
-    <Button
-        android:id="@+id/daily"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="32dp"
-        android:layout_marginRight="32dp"
-        android:layout_marginBottom="229dp"
-        android:onClick="weekly"
-        android:text="Daily" />
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/improveRelaxation"
 
-    <Button
-        android:id="@+id/monthly"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="276dp"
-        android:layout_marginRight="276dp"
-        android:layout_marginBottom="229dp"
-        android:onClick="monthly"
-        android:text="Monthly" />
+            android:layout_marginTop="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingHorizontal="10dp"
+            android:text="Improve Relaxation"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@+id/realTime"
+            android:textColor="@color/white"
+            android:textStyle="bold"
+            android:background="@drawable/btn_daily"
+            android:textAllCaps="false">
+        </androidx.appcompat.widget.AppCompatButton>
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_below="@+id/improveRelaxation">
+            <ImageButton
 
-    <com.github.mikephil.charting.charts.BarChart
-        android:id="@+id/barChartdaily"
-        android:layout_width="320dp"
-        android:layout_height="289dp"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="47dp"
-        android:layout_marginLeft="47dp"
-        android:layout_marginTop="129dp"
-        android:background="@color/white" />
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle"
+                android:src="@drawable/music_logo"/>
+            <ImageButton
+                android:layout_marginLeft="10dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle"
+                android:src="@drawable/meditation_logo"/>
 
-    <Button
-        android:id="@+id/yearly"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="157dp"
-        android:layout_marginRight="157dp"
-        android:layout_marginBottom="230dp"
-        android:onClick="yearly"
-        android:text="Yearly" />
+            <ImageButton
+                android:layout_marginLeft="10dp"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/rectangle"
+                android:src="@drawable/video_logo"/>
 
-    <Button
-        android:id="@+id/compare1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginEnd="141dp"
-        android:layout_marginRight="141dp"
-        android:layout_marginBottom="143dp"
-        android:onClick="compare1"
-        android:text="Compare 1" />
+
+        </LinearLayout>
+    </RelativeLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -98,5 +171,5 @@
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menu_navigation" />
 
+</ScrollView>
 
-</RelativeLayout>
