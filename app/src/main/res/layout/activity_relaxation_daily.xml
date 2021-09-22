@@ -112,7 +112,8 @@
                 android:background="@drawable/realtime"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textStyle="bold"></androidx.appcompat.widget.AppCompatButton>
+                android:textStyle="bold"
+                android:onClick="calidaily1"></androidx.appcompat.widget.AppCompatButton>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/improveRelaxation"
@@ -127,7 +128,8 @@
                 android:text="Improve Relaxation"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textStyle="bold"></androidx.appcompat.widget.AppCompatButton>
+                android:textStyle="bold"
+                android:onClick="gotoPopup5"></androidx.appcompat.widget.AppCompatButton>
 
             <LinearLayout
                 android:layout_width="match_parent"

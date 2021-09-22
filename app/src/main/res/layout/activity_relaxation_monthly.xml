@@ -114,7 +114,8 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:background="@drawable/realtime"
-            android:textAllCaps="false">
+            android:textAllCaps="false"
+            android:onClick="calimonthly1">
         </androidx.appcompat.widget.AppCompatButton>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -130,7 +131,8 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:background="@drawable/btn_daily"
-            android:textAllCaps="false">
+            android:textAllCaps="false"
+            android:onClick="gotoPopup6">
         </androidx.appcompat.widget.AppCompatButton>
         <LinearLayout
             android:layout_marginTop="20dp"

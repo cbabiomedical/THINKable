@@ -11,7 +11,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -63,46 +62,32 @@ public class Relaxation_Daily extends AppCompatActivity {
         meditation = findViewById(R.id.meditations);
         video = findViewById(R.id.video);
 
-        music.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), Exercise_Music.class);
-//                startActivity(intent);
-            }
-        });
-
-        meditation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), Exercise_Meditation.class);
-//                startActivity(intent);
-            }
-        });
-
-        video.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), Exercise_Video.class);
-//                startActivity(intent);
-            }
-        });
+//        music.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Intent intent = new Intent(getApplicationContext(), Exercise_Music.class);
+////                startActivity(intent);
+//            }
+//        });
+//
+//        meditation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Intent intent = new Intent(getApplicationContext(), Exercise_Meditation.class);
+////                startActivity(intent);
+//            }
+//        });
+//
+//        video.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Intent intent = new Intent(getApplicationContext(), Exercise_Video.class);
+////                startActivity(intent);
+//            }
+//        });
 
         realtime = findViewById(R.id.realTime);
         improverelaxation = findViewById(R.id.improveRelaxation);
-        realtime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), RealTime.class);
-//                startActivity(intent);
-            }
-        });
-
-        improverelaxation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
 
         monthly = findViewById(R.id.monthly);
         yearly =  findViewById(R.id.yearly);
@@ -110,22 +95,22 @@ public class Relaxation_Daily extends AppCompatActivity {
         monthly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Relaxation_Monthly.class);
-                startActivity(intent);
+                Intent intentr1 = new Intent(getApplicationContext(), Relaxation_Monthly.class);
+                startActivity(intentr1);
             }
         });
         weekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Relaxation_Weekly.class);
-                startActivity(intent);
+                Intent intentr1 = new Intent(getApplicationContext(), Relaxation_Weekly.class);
+                startActivity(intentr1);
             }
         });
         yearly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(), Relaxation_Yearly.class);
-                startActivity(intent);
+                Intent intentr1 =new Intent(getApplicationContext(), Relaxation_Yearly.class);
+                startActivity(intentr1);
             }
         });
 
@@ -201,6 +186,18 @@ public class Relaxation_Daily extends AppCompatActivity {
 
         barChartdaily.invalidate();
 
+    }
+
+    public void calidaily1(View view) {
+        Intent intentrd = new Intent(Relaxation_Daily.this,Calibration.class);
+
+        startActivity(intentrd);
+    }
+
+    public void gotoPopup5(View view) {
+        Intent intentgp5 = new Intent(Relaxation_Daily.this,Relaxation_popup.class);
+
+        startActivity(intentgp5);
     }
 
     public class MyBarDataset extends BarDataSet {

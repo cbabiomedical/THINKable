@@ -137,6 +137,18 @@ public class Concentration_Weekly extends AppCompatActivity {
         barChart1.invalidate();
     }
 
+    public void gotoPopup3(View view) {
+        Intent intentgp3 = new Intent(Concentration_Weekly.this,Concentration_popup.class);
+
+        startActivity(intentgp3);
+    }
+
+    public void caliweekly(View view) {
+        Intent intentcw = new Intent(Concentration_Weekly.this,Calibration.class);
+
+        startActivity(intentcw);
+    }
+
 
     public class MyBarDataset extends BarDataSet {
 

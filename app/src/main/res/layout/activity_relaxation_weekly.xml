@@ -8,7 +8,7 @@
     android:layout_gravity="center"
     android:background="@drawable/landing_background"
     android:orientation="horizontal"
-    tools:context=".Relaxation_Monthly">
+    tools:context=".Relaxation_Weekly">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -114,7 +114,8 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:background="@drawable/realtime"
-            android:textAllCaps="false">
+            android:textAllCaps="false"
+            android:onClick="caliweekly1">
         </androidx.appcompat.widget.AppCompatButton>
 
         <androidx.appcompat.widget.AppCompatButton
@@ -130,7 +131,8 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             android:background="@drawable/btn_daily"
-            android:textAllCaps="false">
+            android:textAllCaps="false"
+            android:onClick="gotoPopup7">
         </androidx.appcompat.widget.AppCompatButton>
         <LinearLayout
             android:layout_marginTop="20dp"

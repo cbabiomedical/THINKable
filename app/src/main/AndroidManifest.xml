@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ThinkableProject">
-        <activity android:name=".Concentration_Yearly"></activity>
+        <activity android:name=".Relaxation_popup"></activity>
+        <activity android:name=".Concentration_popup" />
+        <activity android:name=".Calibration" />
+        <activity android:name=".Concentration_Yearly" />
         <activity android:name=".Concentration_Monthly" />
         <activity android:name=".Concentration_Weekly" />
         <activity android:name=".Concentration_Daily" />

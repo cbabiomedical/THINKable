@@ -142,6 +142,21 @@ public class Concentration_Daily extends AppCompatActivity {
     }
 
 
+
+    public void gotoPopup1(View view) {
+        Intent intentgp1 = new Intent(Concentration_Daily.this,Concentration_popup.class);
+
+        startActivity(intentgp1);
+
+    }
+
+    public void calidaily(View view) {
+        Intent intentcd = new Intent(Concentration_Daily.this,Calibration.class);
+
+        startActivity(intentcd);
+    }
+
+
     public class MyBarDataset extends BarDataSet {
 
         private List<Float> credits;

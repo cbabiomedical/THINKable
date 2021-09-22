@@ -136,6 +136,18 @@ public class Concentration_Yearly extends AppCompatActivity {
         barChart2.invalidate();
     }
 
+    public void gotoPopup4(View view) {
+        Intent intentgp4 = new Intent(Concentration_Yearly.this,Concentration_popup.class);
+
+        startActivity(intentgp4);
+    }
+
+    public void caliyearly(View view) {
+        Intent intentcy = new Intent(Concentration_Yearly.this,Calibration.class);
+
+        startActivity(intentcy);
+    }
+
 
     public class MyBarDataset extends BarDataSet {
 

@@ -58,46 +58,46 @@ public class Relaxation_Monthly extends AppCompatActivity {
         meditation = findViewById(R.id.meditations);
         video = findViewById(R.id.video);
 
-        music.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), Exercise_Music.class);
-//                startActivity(intent);
-            }
-        });
-
-        meditation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), Exercise_Meditation.class);
-//                startActivity(intent);
-            }
-        });
-
-        video.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), Exercise_Video.class);
-//                startActivity(intent);
-            }
-        });
+//        music.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Intent intent = new Intent(getApplicationContext(), Exercise_Music.class);
+////                startActivity(intent);
+//            }
+//        });
+//
+//        meditation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Intent intent = new Intent(getApplicationContext(), Exercise_Meditation.class);
+////                startActivity(intent);
+//            }
+//        });
+//
+//        video.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Intent intent = new Intent(getApplicationContext(), Exercise_Video.class);
+////                startActivity(intent);
+//            }
+//        });
 
         realtime = findViewById(R.id.realTime);
         improverelaxation = findViewById(R.id.improveRelaxation);
-        realtime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), RealTime.class);
-//                startActivity(intent);
-            }
-        });
-
-        improverelaxation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+//        realtime.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Intent intent = new Intent(getApplicationContext(), RealTime.class);
+////                startActivity(intent);
+//            }
+//        });
+//
+//        improverelaxation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
 
         daily = findViewById(R.id.daily);
         yearly =  findViewById(R.id.yearly);
@@ -199,6 +199,19 @@ public class Relaxation_Monthly extends AppCompatActivity {
             }
         });
     }
+
+    public void calimonthly1(View view) {
+        Intent intentrm = new Intent(Relaxation_Monthly.this,Calibration.class);
+
+        startActivity(intentrm);
+    }
+
+    public void gotoPopup6(View view) {
+        Intent intentgp6 = new Intent(Relaxation_Monthly.this,Relaxation_popup.class);
+
+        startActivity(intentgp6);
+    }
+
 
     public class MyBarDataset extends BarDataSet {
 

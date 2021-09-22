@@ -137,6 +137,18 @@ public class Concentration_Monthly extends AppCompatActivity {
         });
     }
 
+    public void gotoPopup2(View view) {
+        Intent intentgp2 = new Intent(Concentration_Monthly.this,Concentration_popup.class);
+
+        startActivity(intentgp2);
+    }
+
+    public void calimonthly(View view) {
+        Intent intentcm = new Intent(Concentration_Monthly.this,Calibration.class);
+
+        startActivity(intentcm);
+    }
+
 
     public class MyBarDataset extends BarDataSet {
 

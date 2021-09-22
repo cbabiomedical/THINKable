@@ -59,46 +59,46 @@ public class Relaxation_Weekly extends AppCompatActivity {
         meditation = findViewById(R.id.meditations);
         video = findViewById(R.id.video);
 
-        music.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), Exercise_Music.class);
-//                startActivity(intent);
-            }
-        });
-
-        meditation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), Exercise_Meditation.class);
-//                startActivity(intent);
-            }
-        });
-
-        video.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), Exercise_Video.class);
-//                startActivity(intent);
-            }
-        });
+//        music.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Intent intent = new Intent(getApplicationContext(), Exercise_Music.class);
+////                startActivity(intent);
+//            }
+//        });
+//
+//        meditation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Intent intent = new Intent(getApplicationContext(), Exercise_Meditation.class);
+////                startActivity(intent);
+//            }
+//        });
+//
+//        video.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Intent intent = new Intent(getApplicationContext(), Exercise_Video.class);
+////                startActivity(intent);
+//            }
+//        });
 
         realtime = findViewById(R.id.realTime);
         improverelaxation = findViewById(R.id.improveRelaxation);
-        realtime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), RealTime.class);
-//                startActivity(intent);
-            }
-        });
-
-        improverelaxation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
+//        realtime.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+////                Intent intent = new Intent(getApplicationContext(), RealTime.class);
+////                startActivity(intent);
+//            }
+//        });
+//
+//        improverelaxation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//            }
+//        });
 
         //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -201,6 +201,20 @@ public class Relaxation_Weekly extends AppCompatActivity {
         barChart1.getAxisLeft().setDrawGridLines(false);
 
         barChart1.invalidate();
+    }
+
+    public void caliweekly1(View view) {
+
+            Intent intentrw = new Intent(Relaxation_Weekly.this,Calibration.class);
+
+            startActivity(intentrw);
+
+    }
+
+    public void gotoPopup7(View view) {
+        Intent intentgp7 = new Intent(Relaxation_Weekly.this,Relaxation_popup.class);
+
+        startActivity(intentgp7);
     }
 
     public class MyBarDataset extends BarDataSet {
