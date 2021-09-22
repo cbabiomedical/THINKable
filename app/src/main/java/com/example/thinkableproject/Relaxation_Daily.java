@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -23,6 +24,8 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -33,6 +36,9 @@ public class Relaxation_Daily extends AppCompatActivity {
     BarChart barChartdaily;
     private Context context;
     AppCompatButton monthly, yearly, weekly;
+    AppCompatButton realtime, improverelaxation;
+    ImageButton concentration, music, meditation, video;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,6 +47,62 @@ public class Relaxation_Daily extends AppCompatActivity {
 
         barChartdaily = (BarChart) findViewById(R.id.barChartDaily);
 
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference("chartTable");
+
+        concentration = findViewById(R.id.concentration);
+        concentration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Concentration_Daily.class);
+                startActivity(intent);
+            }
+        });
+
+        music = findViewById(R.id.music);
+        meditation = findViewById(R.id.meditations);
+        video = findViewById(R.id.video);
+
+        music.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), Exercise_Music.class);
+//                startActivity(intent);
+            }
+        });
+
+        meditation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), Exercise_Meditation.class);
+//                startActivity(intent);
+            }
+        });
+
+        video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), Exercise_Video.class);
+//                startActivity(intent);
+            }
+        });
+
+        realtime = findViewById(R.id.realTime);
+        improverelaxation = findViewById(R.id.improveRelaxation);
+        realtime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), RealTime.class);
+//                startActivity(intent);
+            }
+        });
+
+        improverelaxation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         monthly = findViewById(R.id.monthly);
         yearly =  findViewById(R.id.yearly);
@@ -67,39 +129,39 @@ public class Relaxation_Daily extends AppCompatActivity {
             }
         });
 
-//        //Initialize and Assign Variable
-//        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-//
-//        //Set Home Selected
-//        bottomNavigationView.setSelectedItemId(R.id.home);
-//
-//        //Perform ItemSelectedListener
-//        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-//            @Override
-//            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-//                switch (item.getItemId()){
-//                    case R.id.home:
-//                        return true;
-//                    case R.id.exercise:
-//                        startActivity(new Intent(getApplicationContext(), Exercise.class));
-//                        overridePendingTransition(0,0);
-//                        return true;
-//                    case R.id.reports:
-//                        startActivity(new Intent(getApplicationContext(), Reports.class));
-//                        overridePendingTransition(0,0);
-//                        return true;
-//                    case R.id.userprofiles:
-//                        startActivity(new Intent(getApplicationContext(), UserProfile1.class));
-//                        overridePendingTransition(0,0);
-//                        return true;
-//                    case R.id.settings:
-//                        startActivity(new Intent(getApplicationContext(), Setting.class));
-//                        overridePendingTransition(0,0);
-//                        return true;
-//                }
-//                return false;
-//            }
-//        });
+        //Initialize and Assign Variable
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        //Set Home Selected
+        bottomNavigationView.setSelectedItemId(R.id.home);
+
+        //Perform ItemSelectedListener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.home:
+                        return true;
+                    case R.id.exercise:
+                        startActivity(new Intent(getApplicationContext(), Exercise.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.reports:
+                        startActivity(new Intent(getApplicationContext(), Reports.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.userprofiles:
+                        startActivity(new Intent(getApplicationContext(), UserProfile1.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                    case R.id.settings:
+                        startActivity(new Intent(getApplicationContext(), Setting.class));
+                        overridePendingTransition(0,0);
+                        return true;
+                }
+                return false;
+            }
+        });
 
         String[] days = new String[]{"Mon", "Thu", "Wed", "Thur", "Fri", "Sat", "Sun"};
         List<Float> creditsMain = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f, 10f, 15f, 85f));
@@ -121,23 +183,23 @@ public class Relaxation_Daily extends AppCompatActivity {
         data.setDrawValues(false);
         data.setBarWidth(0.9f);
 
-//        barChartdaily.setData(data);
-//        barChartdaily.setFitBars(true);
-//        barChartdaily.getXAxis().setValueFormatter(new IndexAxisValueFormatter(days));
-//        barChartdaily.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-//        barChartdaily.getXAxis().setTextSize(textSize);
-//        barChartdaily.getAxisLeft().setTextSize(textSize);
-//        barChartdaily.setExtraBottomOffset(10f);
+        barChartdaily.setData(data);
+        barChartdaily.setFitBars(true);
+        barChartdaily.getXAxis().setValueFormatter(new IndexAxisValueFormatter(days));
+        barChartdaily.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        barChartdaily.getXAxis().setTextSize(textSize);
+        barChartdaily.getAxisLeft().setTextSize(textSize);
+        barChartdaily.setExtraBottomOffset(10f);
 
-//        barChartdaily.getAxisRight().setEnabled(false);
-//        Description desc = new Description();
-//        desc.setText("");
-//        barChartdaily.setDescription(desc);
-//        barChartdaily.getLegend().setEnabled(false);
-//        barChartdaily.getXAxis().setDrawGridLines(false);
-//        barChartdaily.getAxisLeft().setDrawGridLines(false);
-//
-//        barChartdaily.invalidate();
+        barChartdaily.getAxisRight().setEnabled(false);
+        Description desc = new Description();
+        desc.setText("");
+        barChartdaily.setDescription(desc);
+        barChartdaily.getLegend().setEnabled(false);
+        barChartdaily.getXAxis().setDrawGridLines(false);
+        barChartdaily.getAxisLeft().setDrawGridLines(false);
+
+        barChartdaily.invalidate();
 
     }
 
@@ -187,4 +249,5 @@ public class Relaxation_Daily extends AppCompatActivity {
             return mValues[(int) value];
         }
     }
+
 }

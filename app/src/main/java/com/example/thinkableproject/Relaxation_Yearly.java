@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -22,6 +23,8 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -31,6 +34,8 @@ public class Relaxation_Yearly extends AppCompatActivity {
     BarChart barChart2;
     private Context context;
     AppCompatButton daily, weekly, monthly;
+    AppCompatButton realtime, improverelaxation;
+    ImageButton concentration, music, meditation, video;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +43,63 @@ public class Relaxation_Yearly extends AppCompatActivity {
         setContentView(R.layout.activity_relaxation_yearly);
 
         barChart2 = (BarChart) findViewById(R.id.barChartYearly);
+
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference("chartTable");
+
+        concentration = findViewById(R.id.concentration);
+        concentration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Concentration_Daily.class);
+                startActivity(intent);
+            }
+        });
+
+        music = findViewById(R.id.music);
+        meditation = findViewById(R.id.meditations);
+        video = findViewById(R.id.video);
+
+        music.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), Exercise_Music.class);
+//                startActivity(intent);
+            }
+        });
+
+        meditation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), Exercise_Meditation.class);
+//                startActivity(intent);
+            }
+        });
+
+        video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), Exercise_Video.class);
+//                startActivity(intent);
+            }
+        });
+
+        realtime = findViewById(R.id.realTime);
+        improverelaxation = findViewById(R.id.improveRelaxation);
+        realtime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), RealTime.class);
+//                startActivity(intent);
+            }
+        });
+
+        improverelaxation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
         daily = findViewById(R.id.daily);
         weekly =  findViewById(R.id.weekly);
