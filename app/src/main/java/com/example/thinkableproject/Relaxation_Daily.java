@@ -99,23 +99,23 @@ public class Relaxation_Daily extends AppCompatActivity {
         data.setDrawValues(false);
         data.setBarWidth(0.9f);
 
-        barChartdaily.setData(data);
-        barChartdaily.setFitBars(true);
-        barChartdaily.getXAxis().setValueFormatter(new IndexAxisValueFormatter(days));
-        barChartdaily.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        barChartdaily.getXAxis().setTextSize(textSize);
-        barChartdaily.getAxisLeft().setTextSize(textSize);
-        barChartdaily.setExtraBottomOffset(10f);
+//        barChartdaily.setData(data);
+//        barChartdaily.setFitBars(true);
+//        barChartdaily.getXAxis().setValueFormatter(new IndexAxisValueFormatter(days));
+//        barChartdaily.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+//        barChartdaily.getXAxis().setTextSize(textSize);
+//        barChartdaily.getAxisLeft().setTextSize(textSize);
+//        barChartdaily.setExtraBottomOffset(10f);
 
-        barChartdaily.getAxisRight().setEnabled(false);
-        Description desc = new Description();
-        desc.setText("");
-        barChartdaily.setDescription(desc);
-        barChartdaily.getLegend().setEnabled(false);
-        barChartdaily.getXAxis().setDrawGridLines(false);
-        barChartdaily.getAxisLeft().setDrawGridLines(false);
-
-        barChartdaily.invalidate();
+//        barChartdaily.getAxisRight().setEnabled(false);
+//        Description desc = new Description();
+//        desc.setText("");
+//        barChartdaily.setDescription(desc);
+//        barChartdaily.getLegend().setEnabled(false);
+//        barChartdaily.getXAxis().setDrawGridLines(false);
+//        barChartdaily.getAxisLeft().setDrawGridLines(false);
+//
+//        barChartdaily.invalidate();
 
     }
 

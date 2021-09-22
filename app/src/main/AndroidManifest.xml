@@ -9,6 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ThinkableProject">
+        <activity android:name=".Concentration_Yearly"></activity>
+        <activity android:name=".Concentration_Monthly" />
+        <activity android:name=".Concentration_Weekly" />
+        <activity android:name=".Concentration_Daily" />
         <activity
             android:name=".UserProfile1"
             android:exported="true" />
@@ -20,11 +24,10 @@
             android:exported="true" />
         <activity
             android:name=".Setting"
-            android:exported="true" />
-<!--        <activity-->
-<!--            android:name=".ui.login.UserProfile"-->
-<!--            android:exported="true"-->
-<!--            android:label="@string/title_activity_user_profile" />-->
+            android:exported="true" /> <!-- <activity -->
+        <!-- android:name=".ui.login.UserProfile" -->
+        <!-- android:exported="true" -->
+        <!-- android:label="@string/title_activity_user_profile" /> -->
         <activity
             android:name=".Reports"
             android:exported="true" />
