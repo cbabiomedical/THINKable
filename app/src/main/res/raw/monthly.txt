@@ -1,0 +1,12 @@
+"Jan",90f
+"Feb",80f
+"Mar",70f
+"Apr",60f
+"May",50f
+"Jun",40f
+"Jul",30f
+"Aug",20f
+"Sep",10f
+"Oct",15f
+"Nov",85f
+"Dec",30f

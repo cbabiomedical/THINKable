@@ -1,0 +1,4 @@
+"One",90f
+"Two",30f
+"Three",70f
+"Four",10f
