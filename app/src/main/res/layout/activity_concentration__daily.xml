@@ -135,6 +135,7 @@
             android:onClick="gotoPopup1">
         </androidx.appcompat.widget.AppCompatButton>
         <LinearLayout
+            android:id="@+id/sugLayout"
             android:layout_marginTop="20dp"
             android:layout_marginBottom="70dp"
             android:layout_width="match_parent"
@@ -158,6 +159,16 @@
 
 
         </LinearLayout>
+            <TextView
+                android:id="@+id/line"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="null"
+                android:textColor="@color/white"
+                android:layout_marginBottom="100dp"
+                android:layout_below="@+id/sugLayout"
+
+                />
         </RelativeLayout>
     </ScrollView>
     <com.google.android.material.bottomnavigation.BottomNavigationView

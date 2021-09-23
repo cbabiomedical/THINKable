@@ -5,13 +5,21 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.thinkableproject.databinding.ActivityMainBinding;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -21,10 +29,23 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,13 +54,19 @@ public class Concentration_Daily extends AppCompatActivity {
     BarChart barChartdaily;
     private Context context;
     AppCompatButton monthly, yearly, weekly;
-
+    ActivityMainBinding binding;
+    FirebaseUser mUser;
+    TextView textView;
+    private ArrayList<String> contents;
+    private final String filename = "/data/user/0/com.example.thinkableproject/cache/tempFile113484475148309172.txt";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+//        binding=ActivityMainBinding.inflate(getLayoutInflater().inflate());
         setContentView(R.layout.activity_concentration__daily);
         barChartdaily = (BarChart) findViewById(R.id.barChartDaily);
+        textView = findViewById(R.id.line);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -75,83 +102,141 @@ public class Concentration_Daily extends AppCompatActivity {
                 return false;
             }
         });
-        monthly = findViewById(R.id.monthly);
-        yearly =  findViewById(R.id.yearly);
-        weekly =  findViewById(R.id.weekly);
-        monthly.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Concentration_Monthly.class);
-                startActivity(intent);
-            }
-        });
-        weekly.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Concentration_Weekly.class);
-                startActivity(intent);
-            }
-        });
-        yearly.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),Concentration_Yearly.class);
-                startActivity(intent);
-            }
-        });
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference("chartTable");
-
-        String[] days = new String[]{"Mon", "Thu", "Wed", "Thur", "Fri", "Sat", "Sun"};
-        List<Float> creditsMain = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f, 10f, 15f, 85f));
-        float[] strengthDay = new float[]{90f, 30f, 70f, 50f, 10f, 15f, 85f};
-
-        List<BarEntry> entries = new ArrayList<>();
-        for (int i = 0; i < strengthDay.length; ++i) {
-            entries.add(new BarEntry(i, strengthDay[i]));
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        mUser.getUid();
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/daily.txt");
+        File localFile = null;
+        try {
+            localFile = File.createTempFile("tempFile", ".txt");
+            String text= localFile.getAbsolutePath();
+            Log.d("Bitmap",text);
+            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(Concentration_Daily.this, "Success", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(Concentration_Daily.this, "Failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (IOException exception) {
+            exception.printStackTrace();
         }
 
-        float textSize = 16f;
-        MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsMain);
-        dataSet.setColors(ContextCompat.getColor(this, R.color.Bwhite),
-                ContextCompat.getColor(this, R.color.Lblue),
-                ContextCompat.getColor(this, R.color.blue),
-                ContextCompat.getColor(this, R.color.Ldark),
-                ContextCompat.getColor(this, R.color.dark));
-        BarData data = new BarData(dataSet);
-        data.setDrawValues(false);
-        data.setBarWidth(0.9f);
+        try {
+            contents = new ArrayList<String>();
+            FileInputStream fileInputStream=openFileInput("tempFile.txt");
+            while (fileInputStream != null) {
+                // prepare the file for reading
+                InputStreamReader input = new InputStreamReader(fileInputStream);
+                BufferedReader br = new BufferedReader(input);
+                String line = br.readLine();
+                while (line != null) {
+                    contents.add(line);
 
-        barChartdaily.setData(data);
-        barChartdaily.setFitBars(true);
-        barChartdaily.getXAxis().setValueFormatter(new IndexAxisValueFormatter(days));
-        barChartdaily.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        barChartdaily.getXAxis().setTextSize(textSize);
-        barChartdaily.getAxisLeft().setTextSize(textSize);
-        barChartdaily.setExtraBottomOffset(10f);
+                }
+                fileInputStream.close();
+            }
+            Log.d("List", String.valueOf(contents));
 
-        barChartdaily.getAxisRight().setEnabled(false);
-        Description desc = new Description();
-        desc.setText("");
-        barChartdaily.setDescription(desc);
-        barChartdaily.getLegend().setEnabled(false);
-        barChartdaily.getXAxis().setDrawGridLines(false);
-        barChartdaily.getAxisLeft().setDrawGridLines(false);
+//        try {
+//            FileInputStream fileInputStream=openFileInput(localFile);
+//            int c;
+//            String line="";
+//            while((c= fileInputStream.read())!=-1){
+//                line=line+ Character.toString((char)c);
+//            }
+//            Log.d("Text",line);
+//            textView.setText(line);
+//
+//        }catch (Exception e){
+//
+//        }
+            monthly = findViewById(R.id.monthly);
+            yearly = findViewById(R.id.yearly);
+            weekly = findViewById(R.id.weekly);
 
-        barChartdaily.invalidate();
+
+            monthly.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), Concentration_Monthly.class);
+                    startActivity(intent);
+                }
+            });
+            weekly.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), Concentration_Weekly.class);
+                    startActivity(intent);
+                }
+            });
+            yearly.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), Concentration_Yearly.class);
+                    startActivity(intent);
+                }
+            });
+            FirebaseDatabase database = FirebaseDatabase.getInstance();
+            DatabaseReference reference = database.getReference("chartTable");
+
+            String[] days = new String[]{"Mon", "Thu", "Wed", "Thur", "Fri", "Sat", "Sun"};
+            List<Float> creditsMain = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f, 10f, 15f, 85f));
+            float[] strengthDay = new float[]{90f, 30f, 70f, 50f, 10f, 15f, 85f};
+
+            List<BarEntry> entries = new ArrayList<>();
+            for (int i = 0; i < strengthDay.length; ++i) {
+                entries.add(new BarEntry(i, strengthDay[i]));
+            }
+
+            float textSize = 16f;
+            MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsMain);
+            dataSet.setColors(ContextCompat.getColor(this, R.color.Bwhite),
+                    ContextCompat.getColor(this, R.color.Lblue),
+                    ContextCompat.getColor(this, R.color.blue),
+                    ContextCompat.getColor(this, R.color.Ldark),
+                    ContextCompat.getColor(this, R.color.dark));
+            BarData data = new BarData(dataSet);
+            data.setDrawValues(false);
+            data.setBarWidth(0.9f);
+
+            barChartdaily.setData(data);
+            barChartdaily.setFitBars(true);
+            barChartdaily.getXAxis().setValueFormatter(new IndexAxisValueFormatter(days));
+            barChartdaily.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+            barChartdaily.getXAxis().setTextSize(textSize);
+            barChartdaily.getAxisLeft().setTextSize(textSize);
+            barChartdaily.setExtraBottomOffset(10f);
+
+            barChartdaily.getAxisRight().setEnabled(false);
+            Description desc = new Description();
+            desc.setText("");
+            barChartdaily.setDescription(desc);
+            barChartdaily.getLegend().setEnabled(false);
+            barChartdaily.getXAxis().setDrawGridLines(false);
+            barChartdaily.getAxisLeft().setDrawGridLines(false);
+
+            barChartdaily.invalidate();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
     }
 
-
-
-    public void gotoPopup1(View view) {
-        Intent intentgp1 = new Intent(Concentration_Daily.this,Concentration_popup.class);
+        public void gotoPopup1(View view) {
+        Intent intentgp1 = new Intent(Concentration_Daily.this, Concentration_popup.class);
 
         startActivity(intentgp1);
 
     }
+    public ArrayList<String> loadFile() {
+        return this.contents;
+    }
 
     public void calidaily(View view) {
-        Intent intentcd = new Intent(Concentration_Daily.this,Calibration.class);
+        Intent intentcd = new Intent(Concentration_Daily.this, Calibration.class);
 
         startActivity(intentcd);
     }
