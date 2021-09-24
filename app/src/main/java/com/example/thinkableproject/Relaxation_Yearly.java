@@ -12,7 +12,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.thinkableproject.databinding.ActivityMainBinding;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -22,10 +25,18 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -36,6 +47,14 @@ public class Relaxation_Yearly extends AppCompatActivity {
     AppCompatButton daily, weekly, monthly;
     AppCompatButton realtime, improverelaxation;
     ImageButton concentration, music, meditation, video;
+    ActivityMainBinding binding;
+    FirebaseUser mUser;
+    TextView textView;
+    String text;
+    File localFile ;
+    private ArrayList<String> contents;
+    private final String filename = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +74,51 @@ public class Relaxation_Yearly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        mUser.getUid();
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/yearly.txt");
+
+        try {
+            localFile = File.createTempFile("tempFile", ".txt");
+            text = localFile.getAbsolutePath();
+            Log.d("Bitmap", text);
+            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(Relaxation_Yearly.this, "Success", Toast.LENGTH_SHORT).show();
+                    try {
+                        InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
+
+                        Log.d("FileName", localFile.getAbsolutePath());
+
+                        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                        String line = bufferedReader.readLine();
+                        ArrayList<String> list = new ArrayList<>();
+                        if( bufferedReader.readLine() != null){
+                            list.add(line);
+                        }
+                        while((line = bufferedReader.readLine()) != null){
+
+                            list.add(line);
+                            Log.d("Line", line);
+
+                        }
+                        Log.d("List", String.valueOf(list));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(Relaxation_Yearly.this, "Failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
 
         music = findViewById(R.id.music);
         meditation = findViewById(R.id.meditations);

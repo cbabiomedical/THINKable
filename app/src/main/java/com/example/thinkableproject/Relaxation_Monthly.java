@@ -8,10 +8,14 @@ import androidx.core.content.ContextCompat;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.thinkableproject.databinding.ActivityMainBinding;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
@@ -19,10 +23,21 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -34,6 +49,14 @@ public class Relaxation_Monthly extends AppCompatActivity {
     AppCompatButton daily, yearly, weekly;
     AppCompatButton realtime, improverelaxation;
     ImageButton concentration, music, meditation, video;
+    ActivityMainBinding binding;
+    FirebaseUser mUser;
+    TextView textView;
+    String text;
+    File localFile ;
+    private ArrayList<String> contents;
+    private final String filename = "";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,9 +77,55 @@ public class Relaxation_Monthly extends AppCompatActivity {
             }
         });
 
-        music = findViewById(R.id.music);
-        meditation = findViewById(R.id.meditations);
-        video = findViewById(R.id.video);
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        mUser.getUid();
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/monthly.txt");
+
+        try {
+            localFile = File.createTempFile("tempFile", ".txt");
+            text = localFile.getAbsolutePath();
+            Log.d("Bitmap", text);
+            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(Relaxation_Monthly.this, "Success", Toast.LENGTH_SHORT).show();
+                    try {
+                        InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
+
+                        Log.d("FileName", localFile.getAbsolutePath());
+
+                        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                        String line = bufferedReader.readLine();
+                        ArrayList<String> list = new ArrayList<>();
+                        if( bufferedReader.readLine() != null){
+                            list.add(line);
+                        }
+                        while((line = bufferedReader.readLine()) != null){
+
+                            list.add(line);
+                            Log.d("Line", line);
+
+                        }
+                        Log.d("List", String.valueOf(list));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(Relaxation_Monthly.this, "Failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
+
+            music = findViewById(R.id.music);
+            meditation = findViewById(R.id.meditations);
+            video = findViewById(R.id.video);
 
 //        music.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -82,8 +151,8 @@ public class Relaxation_Monthly extends AppCompatActivity {
 //            }
 //        });
 
-        realtime = findViewById(R.id.realTime);
-        improverelaxation = findViewById(R.id.improveRelaxation);
+            realtime = findViewById(R.id.realTime);
+            improverelaxation = findViewById(R.id.improveRelaxation);
 //        realtime.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -99,106 +168,107 @@ public class Relaxation_Monthly extends AppCompatActivity {
 //            }
 //        });
 
-        daily = findViewById(R.id.daily);
-        yearly =  findViewById(R.id.yearly);
-        weekly =  findViewById(R.id.weekly);
-        daily.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Relaxation_Daily.class);
-                startActivity(intent);
-            }
-        });
-        weekly.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Relaxation_Weekly.class);
-                startActivity(intent);
-            }
-        });
-        yearly.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(), Relaxation_Yearly.class);
-                startActivity(intent);
-            }
-        });
+            daily = findViewById(R.id.daily);
+            yearly = findViewById(R.id.yearly);
+            weekly = findViewById(R.id.weekly);
+            daily.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), Relaxation_Daily.class);
+                    startActivity(intent);
+                }
+            });
+            weekly.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), Relaxation_Weekly.class);
+                    startActivity(intent);
+                }
+            });
+            yearly.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent = new Intent(getApplicationContext(), Relaxation_Yearly.class);
+                    startActivity(intent);
+                }
+            });
 
-        String[] months = new String[]{"Jan","Feb","Mar","Apr","May","June","July","Aug","Sep","Oct","Nov","Dec"};
-        List<Float> credits = new ArrayList<>(Arrays.asList(90f,80f,70f,60f,50f,40f,30f,20f,10f,15f,85f,30f));
-        float[] strength = new float[]{90f,80f,70f,60f,50f,40f,30f,20f,10f,15f,85f,30f};
+            String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
+            List<Float> credits = new ArrayList<>(Arrays.asList(90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f));
+            float[] strength = new float[]{90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f};
 
-        List<BarEntry> entries = new ArrayList<>();
-        for(int i = 0; i < strength.length; ++i) {
-            entries.add(new BarEntry(i, strength[i]));
+            List<BarEntry> entries = new ArrayList<>();
+            for (int i = 0; i < strength.length; ++i) {
+                entries.add(new BarEntry(i, strength[i]));
+            }
+
+            float textSize = 16f;
+
+            MyBarDataset dataSet = new MyBarDataset(entries, "data", credits);
+            dataSet.setColors(ContextCompat.getColor(this, R.color.Bwhite),
+                    ContextCompat.getColor(this, R.color.Lblue),
+                    ContextCompat.getColor(this, R.color.blue),
+                    ContextCompat.getColor(this, R.color.Ldark),
+                    ContextCompat.getColor(this, R.color.dark));
+            BarData data = new BarData(dataSet);
+            data.setDrawValues(false);
+            data.setBarWidth(0.9f);
+
+            barChart.setData(data);
+            barChart.setFitBars(true);
+            barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(months));
+            barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+            barChart.getXAxis().setTextSize(textSize);
+            barChart.getAxisLeft().setTextSize(textSize);
+            barChart.setExtraBottomOffset(10f);
+
+            barChart.getAxisRight().setEnabled(false);
+            Description desc = new Description();
+            desc.setText("");
+            barChart.setDescription(desc);
+            barChart.getLegend().setEnabled(false);
+            barChart.getXAxis().setDrawGridLines(false);
+            barChart.getAxisLeft().setDrawGridLines(false);
+
+            barChart.invalidate();
+
+            //Initialize and Assign Variable
+            BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+            //Set Home Selected
+            bottomNavigationView.setSelectedItemId(R.id.home);
+
+            //Perform ItemSelectedListener
+            bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+                @Override
+                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                    switch (item.getItemId()) {
+                        case R.id.home:
+                            startActivity(new Intent(getApplicationContext(), Relaxation_Daily.class));
+                            overridePendingTransition(0, 0);
+                            return true;
+                        case R.id.exercise:
+                            startActivity(new Intent(getApplicationContext(), Exercise.class));
+                            overridePendingTransition(0, 0);
+                            return true;
+                        case R.id.reports:
+                            startActivity(new Intent(getApplicationContext(), Reports.class));
+                            overridePendingTransition(0, 0);
+                            return true;
+                        case R.id.userprofiles:
+                            startActivity(new Intent(getApplicationContext(), UserProfile1.class));
+                            overridePendingTransition(0, 0);
+                            return true;
+                        case R.id.settings:
+                            startActivity(new Intent(getApplicationContext(), Setting.class));
+                            overridePendingTransition(0, 0);
+                            return true;
+                    }
+                    return false;
+                }
+            });
         }
 
-        float textSize = 16f;
-
-        MyBarDataset dataSet = new MyBarDataset(entries, "data",credits);
-        dataSet.setColors(ContextCompat.getColor(this,R.color.Bwhite) ,
-                ContextCompat.getColor(this,R.color.Lblue),
-                ContextCompat.getColor(this,R.color.blue),
-                ContextCompat.getColor(this,R.color.Ldark),
-                ContextCompat.getColor(this,R.color.dark));
-        BarData data = new BarData(dataSet);
-        data.setDrawValues(false);
-        data.setBarWidth(0.9f);
-
-        barChart.setData(data);
-        barChart.setFitBars(true);
-        barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(months));
-        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        barChart.getXAxis().setTextSize(textSize);
-        barChart.getAxisLeft().setTextSize(textSize);
-        barChart.setExtraBottomOffset(10f);
-
-        barChart.getAxisRight().setEnabled(false);
-        Description desc = new Description();
-        desc.setText("");
-        barChart.setDescription(desc);
-        barChart.getLegend().setEnabled(false);
-        barChart.getXAxis().setDrawGridLines(false);
-        barChart.getAxisLeft().setDrawGridLines(false);
-
-        barChart.invalidate();
-
-        //Initialize and Assign Variable
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-
-        //Set Home Selected
-        bottomNavigationView.setSelectedItemId(R.id.home);
-
-        //Perform ItemSelectedListener
-        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-            @Override
-            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                switch (item.getItemId()) {
-                    case R.id.home:
-                        startActivity(new Intent(getApplicationContext(), Relaxation_Daily.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.exercise:
-                        startActivity(new Intent(getApplicationContext(), Exercise.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.reports:
-                        startActivity(new Intent(getApplicationContext(), Reports.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.userprofiles:
-                        startActivity(new Intent(getApplicationContext(), UserProfile1.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                    case R.id.settings:
-                        startActivity(new Intent(getApplicationContext(), Setting.class));
-                        overridePendingTransition(0, 0);
-                        return true;
-                }
-                return false;
-            }
-        });
-    }
 
     public void calimonthly1(View view) {
         Intent intentrm = new Intent(Relaxation_Monthly.this,Calibration.class);
