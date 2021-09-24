@@ -1,7 +1,0 @@
-"Mon",90f
-"Thu",30f
-"Wed",70f
-"Thur",50f
-"Fri",10f
-"Sat",15f
-"Sun",85f
