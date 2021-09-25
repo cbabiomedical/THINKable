@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -20,15 +21,33 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Concentration_Yearly extends AppCompatActivity {
     BarChart barChart2;
-    AppCompatButton daily,weekly,monthly;
+    AppCompatButton daily, weekly, monthly;
+    FirebaseUser mUser;
+    File localFile;
+    String text;
+    ArrayList<String> list = new ArrayList<>();
+    ArrayList<Float>floatList=new ArrayList<>();
+    float value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,9 +55,9 @@ public class Concentration_Yearly extends AppCompatActivity {
         setContentView(R.layout.activity_concentration__yearly);
 
         barChart2 = (BarChart) findViewById(R.id.barChartYearly);
-        daily=findViewById(R.id.daily);
-        weekly=findViewById(R.id.weekly);
-        monthly=findViewById(R.id.monthly);
+        daily = findViewById(R.id.daily);
+        weekly = findViewById(R.id.weekly);
+        monthly = findViewById(R.id.monthly);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -74,45 +93,99 @@ public class Concentration_Yearly extends AppCompatActivity {
                 return false;
             }
         });
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        mUser.getUid();
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/yearly.txt");
+
+        try {
+            localFile = File.createTempFile("tempFile", ".txt");
+            text = localFile.getAbsolutePath();
+            Log.d("Bitmap", text);
+            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(Concentration_Yearly.this, "Success", Toast.LENGTH_SHORT).show();
+
+                    try {
+                        InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
+
+                        Log.d("FileName", localFile.getAbsolutePath());
+
+                        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                        String line = "";
+
+                        Log.d("First", line);
+                        if ((line = bufferedReader.readLine()) != null) {
+                            list.add(line);
+                        }
+                        while ((line = bufferedReader.readLine()) != null) {
+
+                            list.add(line);
+                            Log.d("Line", line);
+                        }
+
+                        Log.d("List", String.valueOf(list));
+//                        for (int i = 0; i < list.size(); i++) {
+//                            value=floatList.get(0);
+//                            value= Float.parseFloat(list.get(i));
+//                            floatList.add(value);
+//                            Log.d("FloatList", String.valueOf(floatList));
+//                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(Concentration_Yearly.this, "Failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
 
         daily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),Concentration_Daily.class);
+                Intent intent = new Intent(getApplicationContext(), Concentration_Daily.class);
                 startActivity(intent);
             }
         });
         monthly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),Concentration_Monthly.class);
+                Intent intent = new Intent(getApplicationContext(), Concentration_Monthly.class);
                 startActivity(intent);
             }
         });
         weekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),Concentration_Weekly.class);
+                Intent intent = new Intent(getApplicationContext(), Concentration_Weekly.class);
                 startActivity(intent);
             }
         });
 
-        String[] weeks = new String[]{"2018","2019","2020","2021"};
-        List<Float> creditsWeek = new ArrayList<>(Arrays.asList(90f,30f,70f,10f));
-        float[] strengthWeek = new float[]{90f,30f,70f,10f};
+        String[] weeks = new String[]{"2018", "2019", "2020", "2021"};
+        List<Float> creditsWeek = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 10f));
+        float[] strengthWeek = new float[]{90f, 30f, 70f, 10f};
 
         List<BarEntry> entries = new ArrayList<>();
-        for(int i = 0; i < strengthWeek.length; ++i) {
+        for (int i = 0; i < strengthWeek.length; ++i) {
             entries.add(new BarEntry(i, strengthWeek[i]));
         }
 
         float textSize = 16f;
         MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsWeek);
-        dataSet.setColors(ContextCompat.getColor(this,R.color.Bwhite) ,
-                ContextCompat.getColor(this,R.color.Lblue),
-                ContextCompat.getColor(this,R.color.blue),
-                ContextCompat.getColor(this,R.color.Ldark),
-                ContextCompat.getColor(this,R.color.dark));
+        dataSet.setColors(ContextCompat.getColor(this, R.color.Bwhite),
+                ContextCompat.getColor(this, R.color.Lblue),
+                ContextCompat.getColor(this, R.color.blue),
+                ContextCompat.getColor(this, R.color.Ldark),
+                ContextCompat.getColor(this, R.color.dark));
         BarData data = new BarData(dataSet);
         data.setDrawValues(false);
         data.setBarWidth(0.8f);
@@ -137,13 +210,13 @@ public class Concentration_Yearly extends AppCompatActivity {
     }
 
     public void gotoPopup4(View view) {
-        Intent intentgp4 = new Intent(Concentration_Yearly.this,Concentration_popup.class);
+        Intent intentgp4 = new Intent(Concentration_Yearly.this, Concentration_popup.class);
 
         startActivity(intentgp4);
     }
 
     public void caliyearly(View view) {
-        Intent intentcy = new Intent(Concentration_Yearly.this,Calibration.class);
+        Intent intentcy = new Intent(Concentration_Yearly.this, Calibration.class);
 
         startActivity(intentcy);
     }
@@ -159,46 +232,61 @@ public class Concentration_Yearly extends AppCompatActivity {
         }
 
         @Override
-        public int getColor(int index){
+        public int getColor(int index) {
             float c = creditsWeek.get(index);
 
-            if (c > 80){
+            if (c > 80) {
                 return mColors.get(0);
-            }
-            else if (c > 60) {
+            } else if (c > 60) {
                 return mColors.get(1);
-            }
-            else if (c > 40) {
+            } else if (c > 40) {
                 return mColors.get(2);
-            }
-            else if (c > 20) {
+            } else if (c > 20) {
                 return mColors.get(3);
-            }
-            else{
+            } else {
                 return mColors.get(4);
             }
 
         }
     }
+
     private class MyXAxisValueFormatter extends ValueFormatter {
         private String[] mValues;
 
-        public MyXAxisValueFormatter(String[] values){
+        public MyXAxisValueFormatter(String[] values) {
             this.mValues = values;
-            Log.d("Tag","monthly clicked hi");
+            Log.d("Tag", "monthly clicked hi");
         }
 
         @Override
         public String getFormattedValue(float value, AxisBase axis) {
-            return mValues[(int)value];
+            return mValues[(int) value];
         }
 
 
     }
-
-
-
-
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(!isChangingConfigurations()) {
+            deleteTempFiles(getCacheDir());
+        }
+    }
+    private boolean deleteTempFiles(File file) {
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            if (files != null) {
+                for (File f : files) {
+                    if (f.isDirectory()) {
+                        deleteTempFiles(f);
+                    } else {
+                        f.delete();
+                    }
+                }
+            }
+        }
+        return file.delete();
+    }
 
 
 }

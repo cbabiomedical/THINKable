@@ -34,16 +34,16 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
     @Override
     public SuggestionsAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //get suggestions listview
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.suggestion_listview,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.suggestion_listview, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //get position of imageview and activity name
-        int resource=userList.get(position).getImageView();
-        String name=userList.get(position).getName();
-        holder.setData(resource,name);
+        int resource = userList.get(position).getImageView();
+        String name = userList.get(position).getName();
+        holder.setData(resource, name);
     }
 
 
@@ -56,16 +56,16 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
     @Override
     //get changed position (from to) of items in the recyclerview
     public void onItemMove(int fromPosition, int toPositions) {
-        SuggestionsModel fromNote=userList.get(fromPosition);
+        SuggestionsModel fromNote = userList.get(fromPosition);
         userList.remove(fromPosition);
-        userList.add(toPositions,fromNote);
+        userList.add(toPositions, fromNote);
         Log.d("FROM", String.valueOf(fromNote));
         Log.d("TO", String.valueOf(toPositions));
-        positionChanged=toPositions+1;
-        setGetPositionChangedElement(toPositions+1);
+        positionChanged = toPositions + 1;
+        setGetPositionChangedElement(toPositions + 1);
         getPositionChanged();
-        Log.d("POS", String.valueOf(toPositions+1));
-        notifyItemMoved(fromPosition,toPositions);
+        Log.d("POS", String.valueOf(toPositions + 1));
+        notifyItemMoved(fromPosition, toPositions);
     }
 
     //get the final changed position of item
@@ -75,30 +75,31 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
 
     //set the final changed position of items
     private void setGetPositionChangedElement(int i) {
-        this.positionChanged=i;
+        this.positionChanged = i;
     }
 
     @Override
     public void onItemSwipped(int position) {
 
     }
-    public void setmTouchHelper(ItemTouchHelper itemTouchHelper){
+
+    public void setmTouchHelper(ItemTouchHelper itemTouchHelper) {
         //mTouchHelper for dragging and dropping item in recyclerview
-        this.mTouchHelper=itemTouchHelper;
+        this.mTouchHelper = itemTouchHelper;
     }
 
     //viewholder class
-    public static class ViewHolder extends  RecyclerView.ViewHolder implements View.OnTouchListener, GestureDetector.OnGestureListener {
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener, GestureDetector.OnGestureListener {
         private CircleImageView imageView;
         private TextView namePref;
         GestureDetector mGestureDetector;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView=itemView.findViewById(R.id.image);
-            namePref=itemView.findViewById(R.id.image_name);
+            imageView = itemView.findViewById(R.id.image);
+            namePref = itemView.findViewById(R.id.image_name);
 
-            mGestureDetector= new GestureDetector(itemView.getContext(),this);
+            mGestureDetector = new GestureDetector(itemView.getContext(), this);
             itemView.setOnTouchListener(this);
 
         }

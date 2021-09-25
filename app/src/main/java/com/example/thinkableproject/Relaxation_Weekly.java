@@ -26,6 +26,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -55,10 +56,9 @@ public class Relaxation_Weekly extends AppCompatActivity {
     FirebaseUser mUser;
     TextView textView;
     String text;
-    File localFile ;
-    private ArrayList<String> contents;
+    File localFile;
+    private ArrayList<String> list = new ArrayList<>();
     private final String filename = "";
-
 
 
     @Override
@@ -97,12 +97,13 @@ public class Relaxation_Weekly extends AppCompatActivity {
                         Log.d("FileName", localFile.getAbsolutePath());
 
                         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                        String line = bufferedReader.readLine();
-                        ArrayList<String> list = new ArrayList<>();
-                        if( bufferedReader.readLine() != null){
+                        String line = "";
+
+                        Log.d("First", line);
+                        if ((line = bufferedReader.readLine()) != null) {
                             list.add(line);
                         }
-                        while((line = bufferedReader.readLine()) != null){
+                        while ((line = bufferedReader.readLine()) != null) {
 
                             list.add(line);
                             Log.d("Line", line);
@@ -207,8 +208,8 @@ public class Relaxation_Weekly extends AppCompatActivity {
         barChart1 = (BarChart) findViewById(R.id.barChartWeekly);
 
         daily = findViewById(R.id.daily);
-        yearly =  findViewById(R.id.yearly);
-        monthly =  findViewById(R.id.monthly);
+        yearly = findViewById(R.id.yearly);
+        monthly = findViewById(R.id.monthly);
         daily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -226,7 +227,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
         yearly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(), Relaxation_Yearly.class);
+                Intent intent = new Intent(getApplicationContext(), Relaxation_Yearly.class);
                 startActivity(intent);
             }
         });
@@ -273,14 +274,14 @@ public class Relaxation_Weekly extends AppCompatActivity {
 
     public void caliweekly1(View view) {
 
-            Intent intentrw = new Intent(Relaxation_Weekly.this,Calibration.class);
+        Intent intentrw = new Intent(Relaxation_Weekly.this, Calibration.class);
 
-            startActivity(intentrw);
+        startActivity(intentrw);
 
     }
 
     public void gotoPopup7(View view) {
-        Intent intentgp7 = new Intent(Relaxation_Weekly.this,Relaxation_popup.class);
+        Intent intentgp7 = new Intent(Relaxation_Weekly.this, Relaxation_popup.class);
 
         startActivity(intentgp7);
     }
@@ -332,6 +333,28 @@ public class Relaxation_Weekly extends AppCompatActivity {
             return mValues[(int) value];
         }
 
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(!isChangingConfigurations()) {
+            deleteTempFiles(getCacheDir());
+        }
+    }
+    private boolean deleteTempFiles(File file) {
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            if (files != null) {
+                for (File f : files) {
+                    if (f.isDirectory()) {
+                        deleteTempFiles(f);
+                    } else {
+                        f.delete();
+                    }
+                }
+            }
+        }
+        return file.delete();
     }
 
 

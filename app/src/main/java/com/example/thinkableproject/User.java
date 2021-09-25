@@ -4,14 +4,14 @@ package com.example.thinkableproject;
 public class User {
     // Creating private variables to store user data
     // private variables for encapsulation
-    private String userName, email,occupation,Gender, dob,preferences,suggestions;
+    private String userName, email, occupation, Gender, dob, preferences, suggestions;
 
     // Default constructor
     public User() {
 
     }
 
-// Parameterized constructor to create user object
+    // Parameterized constructor to create user object
     public User(String userName, String email, String occupation, String gender, String dob, String preferences, String suggestions) {
         this.userName = userName;
         this.email = email;
@@ -21,16 +21,17 @@ public class User {
         this.preferences = preferences;
         this.suggestions = suggestions;
     }
-        // Getters and Setters to access variable outside class
+
+    // Getters and Setters to access variable outside class
     public User(String preferences) {
         this.preferences = preferences;
     }
 
-    public String  getPreferences() {
+    public String getPreferences() {
         return preferences;
     }
 
-    public void setPreferences(String  preferences) {
+    public void setPreferences(String preferences) {
         this.preferences = preferences;
     }
 

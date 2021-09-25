@@ -13,6 +13,7 @@ public class ModelClass {
         this.imageView = imageView;
         this.name = name;
     }
+
     // Getters and Setters to access variables outside class
     public int getImageView() {
         return imageView;

@@ -15,11 +15,6 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.AppCompatButton;
-import androidx.core.content.ContextCompat;
-
 import com.example.thinkableproject.databinding.ActivityMainBinding;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -63,8 +58,9 @@ public class Concentration_Daily extends AppCompatActivity {
     TextView textView;
     private ArrayList<String> contents;
     String text;
-    File localFile ;
+    File localFile;
     private final String filename = "";
+    ArrayList<String> list = new ArrayList<>();
 
 
     @Override
@@ -73,7 +69,7 @@ public class Concentration_Daily extends AppCompatActivity {
 //        binding=ActivityMainBinding.inflate(getLayoutInflater().inflate());
         setContentView(R.layout.activity_concentration__daily);
         barChartdaily = (BarChart) findViewById(R.id.barChartDaily);
-        textView = findViewById(R.id.line);
+
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -122,18 +118,20 @@ public class Concentration_Daily extends AppCompatActivity {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     Toast.makeText(Concentration_Daily.this, "Success", Toast.LENGTH_SHORT).show();
+
                     try {
                         InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
 
                         Log.d("FileName", localFile.getAbsolutePath());
 
                         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                        String line = bufferedReader.readLine();
-                        ArrayList<String> list = new ArrayList<>();
-                        if( bufferedReader.readLine() != null){
+                        String line = "";
+
+                        Log.d("First", line);
+                        if ((line = bufferedReader.readLine()) != null) {
                             list.add(line);
                         }
-                       while((line = bufferedReader.readLine()) != null){
+                        while ((line = bufferedReader.readLine()) != null) {
 
                             list.add(line);
                             Log.d("Line", line);
@@ -154,47 +152,6 @@ public class Concentration_Daily extends AppCompatActivity {
             exception.printStackTrace();
         }
 
-
-
-
-
-//        try {
-//            InputStreamReader inputStreamReader =
-//                    new InputStreamReader(new FileInputStream("/data/data/com.example.thinkableproject/cache/tempFile8027756685379158590.txt"));
-//            Log.d("FileName", localFile.getAbsolutePath());
-//
-//            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-//            String line = bufferedReader.readLine();
-//            ArrayList<String> list = new ArrayList<>();
-//            while (bufferedReader.readLine() != null) {
-//                list.add(line);
-//                Log.d("Line",line);
-//                Log.d("List", String.valueOf(list));
-//
-//            }
-//
-//        }
-//        catch (Exception e){
-//
-//        }
-
-//            Log.d("DATA", String.valueOf(listS));
-
-//
-
-//        try {
-//            FileInputStream fileInputStream=openFileInput(localFile);
-//            int c;
-//            String line="";
-//            while((c= fileInputStream.read())!=-1){
-//                line=line+ Character.toString((char)c);
-//            }
-//            Log.d("Text",line);
-//            textView.setText(line);
-//
-//        }catch (Exception e){
-//
-//        }
         monthly = findViewById(R.id.monthly);
         yearly = findViewById(R.id.yearly);
         weekly = findViewById(R.id.weekly);
@@ -263,15 +220,16 @@ public class Concentration_Daily extends AppCompatActivity {
         barChartdaily.invalidate();
     }
 
-        public void gotoPopup1(View view) {
+    public void gotoPopup1(View view) {
         Intent intentgp1 = new Intent(Concentration_Daily.this, Concentration_popup.class);
 
         startActivity(intentgp1);
 
     }
-    private boolean isExternalStorageAvailableForRW(){
-        String storageState= Environment.getExternalStorageState();
-        if(storageState.equals(Environment.MEDIA_MOUNTED)){
+
+    private boolean isExternalStorageAvailableForRW() {
+        String storageState = Environment.getExternalStorageState();
+        if (storageState.equals(Environment.MEDIA_MOUNTED)) {
             return true;
         }
         return false;
@@ -283,9 +241,10 @@ public class Concentration_Daily extends AppCompatActivity {
 
         startActivity(intentcd);
     }
-private void retreive(){
 
-}
+    private void retreive() {
+
+    }
 
     public class MyBarDataset extends BarDataSet {
 
@@ -353,9 +312,26 @@ private void retreive(){
         startActivity(intent2);
     }
 
-
-//    public void compare(View view) {
-//        Intent intent2 = new Intent(this, Compare.class);
-//        startActivity(intent2);
-//    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(!isChangingConfigurations()) {
+            deleteTempFiles(getCacheDir());
+        }
+    }
+    private boolean deleteTempFiles(File file) {
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            if (files != null) {
+                for (File f : files) {
+                    if (f.isDirectory()) {
+                        deleteTempFiles(f);
+                    } else {
+                        f.delete();
+                    }
+                }
+            }
+        }
+        return file.delete();
+    }
 }

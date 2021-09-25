@@ -8,7 +8,6 @@ public class UserPreferences {
     String preferenceName;
 
 
-
     public UserPreferences() {  // Empty Constructor
     }
 
@@ -17,7 +16,7 @@ public class UserPreferences {
         this.preferenceName = preferenceName;
     }
 
-// Getters and Setters to access variables outside class
+    // Getters and Setters to access variables outside class
     public int getImageUrl() {
         return imageUrl;
     }

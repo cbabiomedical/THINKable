@@ -26,11 +26,15 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.io.BufferedReader;
 import java.io.File;
@@ -45,23 +49,18 @@ public class Relaxation_Yearly extends AppCompatActivity {
     BarChart barChart2;
     private Context context;
     AppCompatButton daily, weekly, monthly;
-    AppCompatButton realtime, improverelaxation;
-    ImageButton concentration, music, meditation, video;
-    ActivityMainBinding binding;
+    ImageButton concentration;
     FirebaseUser mUser;
-    TextView textView;
     String text;
-    File localFile ;
-    private ArrayList<String> contents;
-    private final String filename = "";
-
+    File localFile;
+    private ArrayList<String> list = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relaxation_yearly);
 
-        barChart2 = (BarChart) findViewById(R.id.barChartYearly);
+        barChart2 = findViewById(R.id.barChartYearly);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference("chartTable");
@@ -74,161 +73,6 @@ public class Relaxation_Yearly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
-        mUser.getUid();
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/yearly.txt");
-
-        try {
-            localFile = File.createTempFile("tempFile", ".txt");
-            text = localFile.getAbsolutePath();
-            Log.d("Bitmap", text);
-            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(Relaxation_Yearly.this, "Success", Toast.LENGTH_SHORT).show();
-                    try {
-                        InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
-
-                        Log.d("FileName", localFile.getAbsolutePath());
-
-                        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                        String line = bufferedReader.readLine();
-                        ArrayList<String> list = new ArrayList<>();
-                        if( bufferedReader.readLine() != null){
-                            list.add(line);
-                        }
-                        while((line = bufferedReader.readLine()) != null){
-
-                            list.add(line);
-                            Log.d("Line", line);
-
-                        }
-                        Log.d("List", String.valueOf(list));
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Relaxation_Yearly.this, "Failed", Toast.LENGTH_SHORT).show();
-                }
-            });
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
-
-        music = findViewById(R.id.music);
-        meditation = findViewById(R.id.meditations);
-        video = findViewById(R.id.video);
-
-//        music.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Intent intent = new Intent(getApplicationContext(), Exercise_Music.class);
-////                startActivity(intent);
-//            }
-//        });
-//
-//        meditation.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Intent intent = new Intent(getApplicationContext(), Exercise_Meditation.class);
-////                startActivity(intent);
-//            }
-//        });
-//
-//        video.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Intent intent = new Intent(getApplicationContext(), Exercise_Video.class);
-////                startActivity(intent);
-//            }
-//        });
-
-        realtime = findViewById(R.id.realTime);
-        improverelaxation = findViewById(R.id.improveRelaxation);
-//        realtime.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Intent intent = new Intent(getApplicationContext(), RealTime.class);
-////                startActivity(intent);
-//            }
-//        });
-//
-//        improverelaxation.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
-
-        daily = findViewById(R.id.daily);
-        weekly =  findViewById(R.id.weekly);
-        monthly =  findViewById(R.id.monthly);
-//        daily.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), Relaxation_Daily.class);
-//                startActivity(intent);
-//            }
-//        });
-//        monthly.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), Relaxation_Monthly.class);
-//                startActivity(intent);
-//            }
-//        });
-//        weekly.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent=new Intent(getApplicationContext(), Relaxation_Weekly.class);
-//                startActivity(intent);
-//            }
-//        });
-
-        String[] weeks = new String[]{"2018","2019","2020","2021"};
-        List<Float> creditsWeek = new ArrayList<>(Arrays.asList(90f,30f,70f,10f));
-        float[] strengthWeek = new float[]{90f,30f,70f,10f};
-
-        List<BarEntry> entries = new ArrayList<>();
-        for(int i = 0; i < strengthWeek.length; ++i) {
-            entries.add(new BarEntry(i, strengthWeek[i]));
-        }
-
-        float textSize = 16f;
-        MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsWeek);
-        dataSet.setColors(ContextCompat.getColor(this,R.color.Bwhite) ,
-                ContextCompat.getColor(this,R.color.Lblue),
-                ContextCompat.getColor(this,R.color.blue),
-                ContextCompat.getColor(this,R.color.Ldark),
-                ContextCompat.getColor(this,R.color.dark));
-        BarData data = new BarData(dataSet);
-        data.setDrawValues(false);
-        data.setBarWidth(0.8f);
-
-        barChart2.setData(data);
-        barChart2.setFitBars(true);
-        barChart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(weeks));
-        barChart2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        barChart2.getXAxis().setTextSize(textSize);
-        barChart2.getAxisLeft().setTextSize(textSize);
-        barChart2.setExtraBottomOffset(10f);
-
-        barChart2.getAxisRight().setEnabled(false);
-        Description desc = new Description();
-        desc.setText("");
-        barChart2.setDescription(desc);
-        barChart2.getLegend().setEnabled(false);
-        barChart2.getXAxis().setDrawGridLines(false);
-        barChart2.getAxisLeft().setDrawGridLines(false);
-
-        barChart2.invalidate();
-
-        //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         //Set Home Selected
@@ -263,16 +107,108 @@ public class Relaxation_Yearly extends AppCompatActivity {
                 return false;
             }
         });
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        mUser.getUid();
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/yearly.txt");
+
+        try {
+            localFile = File.createTempFile("tempFile", ".txt");
+            text = localFile.getAbsolutePath();
+            Log.d("Bitmap", text);
+            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(Relaxation_Yearly.this, "Success", Toast.LENGTH_SHORT).show();
+                    try {
+                        InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
+
+                        Log.d("FileName", localFile.getAbsolutePath());
+
+                        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                        String line = "";
+
+                        Log.d("First", line);
+                        if ((line = bufferedReader.readLine()) != null) {
+                            list.add(line);
+                        }
+                        while ((line = bufferedReader.readLine()) != null) {
+
+                            list.add(line);
+                            Log.d("Line", line);
+
+                        }
+                        Log.d("List", String.valueOf(list));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(Relaxation_Yearly.this, "Failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
+
+
+        daily = findViewById(R.id.daily);
+        weekly = findViewById(R.id.weekly);
+        monthly = findViewById(R.id.monthly);
+
+        String[] weeks = new String[]{"2018", "2019", "2020", "2021"};
+        List<Float> creditsWeek = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 10f));
+        float[] strengthWeek = new float[]{90f, 30f, 70f, 10f};
+
+        List<BarEntry> entries = new ArrayList<>();
+        for (int i = 0; i < strengthWeek.length; ++i) {
+            entries.add(new BarEntry(i, strengthWeek[i]));
+        }
+
+        float textSize = 16f;
+        MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsWeek);
+        dataSet.setColors(ContextCompat.getColor(this, R.color.Bwhite),
+                ContextCompat.getColor(this, R.color.Lblue),
+                ContextCompat.getColor(this, R.color.blue),
+                ContextCompat.getColor(this, R.color.Ldark),
+                ContextCompat.getColor(this, R.color.dark));
+        BarData data = new BarData(dataSet);
+        data.setDrawValues(false);
+        data.setBarWidth(0.8f);
+
+        barChart2.setData(data);
+        barChart2.setFitBars(true);
+        barChart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(weeks));
+        barChart2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        barChart2.getXAxis().setTextSize(textSize);
+        barChart2.getAxisLeft().setTextSize(textSize);
+        barChart2.setExtraBottomOffset(10f);
+
+        barChart2.getAxisRight().setEnabled(false);
+        Description desc = new Description();
+        desc.setText("");
+        barChart2.setDescription(desc);
+        barChart2.getLegend().setEnabled(false);
+        barChart2.getXAxis().setDrawGridLines(false);
+        barChart2.getAxisLeft().setDrawGridLines(false);
+
+        barChart2.invalidate();
+
+        //Initialize and Assign Variable
+
     }
 
     public void caliyearly1(View view) {
-        Intent intentry = new Intent(Relaxation_Yearly.this,Calibration.class);
+        Intent intentry = new Intent(Relaxation_Yearly.this, Calibration.class);
 
         startActivity(intentry);
     }
 
     public void gotoPopup8(View view) {
-        Intent intentgp8 = new Intent(Relaxation_Yearly.this,Relaxation_popup.class);
+        Intent intentgp8 = new Intent(Relaxation_Yearly.this, Relaxation_popup.class);
 
         startActivity(intentgp8);
     }
@@ -287,41 +223,59 @@ public class Relaxation_Yearly extends AppCompatActivity {
         }
 
         @Override
-        public int getColor(int index){
+        public int getColor(int index) {
             float c = creditsWeek.get(index);
 
-            if (c > 80){
+            if (c > 80) {
                 return mColors.get(0);
-            }
-            else if (c > 60) {
+            } else if (c > 60) {
                 return mColors.get(1);
-            }
-            else if (c > 40) {
+            } else if (c > 40) {
                 return mColors.get(2);
-            }
-            else if (c > 20) {
+            } else if (c > 20) {
                 return mColors.get(3);
-            }
-            else{
+            } else {
                 return mColors.get(4);
             }
 
         }
     }
+
     private class MyXAxisValueFormatter extends ValueFormatter {
         private String[] mValues;
 
-        public MyXAxisValueFormatter(String[] values){
+        public MyXAxisValueFormatter(String[] values) {
             this.mValues = values;
-            Log.d("Tag","monthly clicked hi");
+            Log.d("Tag", "monthly clicked hi");
         }
 
         @Override
         public String getFormattedValue(float value, AxisBase axis) {
-            return mValues[(int)value];
+            return mValues[(int) value];
         }
 
-
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(!isChangingConfigurations()) {
+            deleteTempFiles(getCacheDir());
+        }
+    }
+    private boolean deleteTempFiles(File file) {
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            if (files != null) {
+                for (File f : files) {
+                    if (f.isDirectory()) {
+                        deleteTempFiles(f);
+                    } else {
+                        f.delete();
+                    }
+                }
+            }
+        }
+        return file.delete();
     }
 
 }

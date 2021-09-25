@@ -38,9 +38,9 @@ public class LandingPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_landing_page);
-        concentrationLanding=findViewById(R.id.concentrationDaily);
-        chooseFile=findViewById(R.id.choose);
-        uploadFile=findViewById(R.id.upload);
+        concentrationLanding = findViewById(R.id.concentrationDaily);
+        chooseFile = findViewById(R.id.choose);
+        uploadFile = findViewById(R.id.upload);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
@@ -53,8 +53,7 @@ public class LandingPage extends AppCompatActivity {
         });
 
 
-
-        storageReference= FirebaseStorage.getInstance().getReference().child(mUser.getUid());
+        storageReference = FirebaseStorage.getInstance().getReference().child(mUser.getUid());
         uploadFile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -64,13 +63,13 @@ public class LandingPage extends AppCompatActivity {
         concentrationLanding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),Concentration_Daily.class);
+                Intent intent = new Intent(getApplicationContext(), Concentration_Daily.class);
                 startActivity(intent);
             }
         });
 
 //      /  BottomNavigationView navView = findViewById(R.id.nav_view);
-        relaxationLanding=findViewById(R.id.relaxationLanding);
+        relaxationLanding = findViewById(R.id.relaxationLanding);
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
 //        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
@@ -85,19 +84,19 @@ public class LandingPage extends AppCompatActivity {
         changepassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),ChangePassword.class);
+                Intent intent = new Intent(getApplicationContext(), ChangePassword.class);
                 startActivity(intent);
             }
         });
-relaxationLanding.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        Intent intent=new Intent(getApplicationContext(),Relaxation_Daily.class);
-        startActivity(intent);
-    }
-});
+        relaxationLanding.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Relaxation_Daily.class);
+                startActivity(intent);
+            }
+        });
         GoogleSignInAccount signInAccount = GoogleSignIn.getLastSignedInAccount(this);
-        if(signInAccount != null){
+        if (signInAccount != null) {
             Toast.makeText(this, "Sign Up Successfully", Toast.LENGTH_SHORT).show();
         }
 
@@ -105,15 +104,18 @@ relaxationLanding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 FirebaseAuth.getInstance().signOut();
-                startActivity(new Intent(LandingPage.this,SignInActivity.class));
+                startActivity(new Intent(LandingPage.this, SignInActivity.class));
             }
         });
+
+
     }
+
     private void uploadFileD() {
 
 
         StorageReference riverRef = storageReference.child("daily.txt");
-        Log.d("UserCheck",mUser.getUid());
+        Log.d("UserCheck", mUser.getUid());
         riverRef.putFile(filePath).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
@@ -130,29 +132,26 @@ relaxationLanding.setOnClickListener(new View.OnClickListener() {
     }
 
     private void showFileChooser() {
-        Intent intent=new Intent();
-        intent.setType("text/*");intent.setAction(Intent.ACTION_GET_CONTENT);
-        startActivityForResult(Intent.createChooser(intent,"select file"),PICK_FILE_REQUEST);
+        Intent intent = new Intent();
+        intent.setType("text/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent, "select file"), PICK_FILE_REQUEST);
     }
 
 
-
-
-
     @Override
-    public void onActivityResult(int requestCode,int resultCode, Intent data) {
-        super.onActivityResult(requestCode,resultCode, data);
-        if(requestCode==PICK_FILE_REQUEST&& resultCode==RESULT_OK&& data!=null&& data.getData()!=null) {
-            filePath=data.getData();
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == PICK_FILE_REQUEST && resultCode == RESULT_OK && data != null && data.getData() != null) {
+            filePath = data.getData();
             Log.d("path", String.valueOf(filePath));
         }
     }
 
 
-
     public void logoutfrmGgl(View view) {
         FirebaseAuth.getInstance().signOut();
-        Intent intentSignotGgl=new Intent(getApplicationContext(),RegisterActivity.class);
+        Intent intentSignotGgl = new Intent(getApplicationContext(), RegisterActivity.class);
         startActivity(intentSignotGgl);
     }
 }

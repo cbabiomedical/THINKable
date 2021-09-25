@@ -31,7 +31,6 @@ public class VerifyPhoneActivity extends AppCompatActivity {
     PhoneAuthProvider.ForceResendingToken token;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +58,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                     return;
                 }
                 verifyCode(code);
-                Intent intentSUGGESTIONS = new Intent(VerifyPhoneActivity.this,LandingPage.class);
+                Intent intentSUGGESTIONS = new Intent(VerifyPhoneActivity.this, LandingPage.class);
                 intentSUGGESTIONS.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
                 startActivity(intentSUGGESTIONS);
@@ -79,7 +78,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(VerifyPhoneActivity.this,"Authentication is successful", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(VerifyPhoneActivity.this, "Authentication is successful", Toast.LENGTH_SHORT).show();
 
                             //FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
                             //startActivity(new Intent(VerifyPhoneActivity.this, MainActivity.class));
@@ -89,7 +88,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                             //startActivity(intent);
 
                         } else {
-                            Toast.makeText(VerifyPhoneActivity.this,"Authentication is not successful"+ task.getException().getMessage(), Toast.LENGTH_LONG).show();
+                            Toast.makeText(VerifyPhoneActivity.this, "Authentication is not successful" + task.getException().getMessage(), Toast.LENGTH_LONG).show();
                         }
                     }
                 });
@@ -123,7 +122,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         @Override
         public void onCodeAutoRetrievalTimeOut(@NonNull String s) {
             super.onCodeAutoRetrievalTimeOut(s);
-            Toast.makeText(VerifyPhoneActivity.this,"OTP Expired..", Toast.LENGTH_SHORT).show();
+            Toast.makeText(VerifyPhoneActivity.this, "OTP Expired..", Toast.LENGTH_SHORT).show();
         }
 
         //this method called when the verification is completed
@@ -141,15 +140,13 @@ public class VerifyPhoneActivity extends AppCompatActivity {
         //if the verification fails
         @Override
         public void onVerificationFailed(FirebaseException e) {
-            Toast.makeText(VerifyPhoneActivity.this,"Cannot create the account"+ e.getMessage(), Toast.LENGTH_LONG).show();
+            Toast.makeText(VerifyPhoneActivity.this, "Cannot create the account" + e.getMessage(), Toast.LENGTH_LONG).show();
         }
     };
 
 
-
-
     public void gotoLandingPage(View view) {
-        Intent intentGotoSU = new Intent(VerifyPhoneActivity.this,LandingPage.class);
+        Intent intentGotoSU = new Intent(VerifyPhoneActivity.this, LandingPage.class);
         startActivity(intentGotoSU);
     }
 }

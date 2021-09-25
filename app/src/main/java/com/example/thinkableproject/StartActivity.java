@@ -15,45 +15,44 @@ public class StartActivity extends AppCompatActivity {
 
     private static int SPLASH_SCREEN = 5000;
 
-    Animation topAnim,bottomAnim;
-    ImageView image,mainlogo;
+    Animation topAnim, bottomAnim;
+    ImageView image, mainlogo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_start);
 
-        topAnim = AnimationUtils.loadAnimation(this,R.anim.bottom_animation);
+        topAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
 
         image = findViewById(R.id.imageiew);
 
         image.setAnimation(topAnim);
 
-        bottomAnim = AnimationUtils.loadAnimation(this,R.anim.top_animation);
+        bottomAnim = AnimationUtils.loadAnimation(this, R.anim.top_animation);
 
         mainlogo = findViewById(R.id.mainlogo);
 
         mainlogo.setAnimation(bottomAnim);
 
 
-
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intentStart =new Intent(StartActivity.this, SignInActivity.class);
+                Intent intentStart = new Intent(StartActivity.this, SignInActivity.class);
                 startActivity(intentStart);
                 finish();
 
             }
-        },SPLASH_SCREEN);
+        }, SPLASH_SCREEN);
 
 
     }
 
     public void startSignup(View view) {
-        Intent intent=new Intent(StartActivity.this, SignInActivity.class);
+        Intent intent = new Intent(StartActivity.this, SignInActivity.class);
         startActivity(intent);
     }
 

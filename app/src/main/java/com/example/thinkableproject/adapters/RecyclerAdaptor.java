@@ -47,10 +47,11 @@ public class RecyclerAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolde
 //
 //        return positionChanged;
 //    }
-    public void setGetPositionChangedElement(int position){
-        positionChanged=position;
+    public void setGetPositionChangedElement(int position) {
+        positionChanged = position;
         Log.d("SET", String.valueOf(positionChanged));
     }
+
     public RecyclerAdaptor(Context context, List<UserPreferences> userPreferences) {
         mNicePlaces = userPreferences;
         mContext = context;
@@ -66,6 +67,7 @@ public class RecyclerAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolde
         vh.setIsRecyclable(false);
         return vh;
     }
+
     @Override
     public long getItemId(int position) {
         return position;
@@ -85,7 +87,7 @@ public class RecyclerAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         // Set the name of the 'NicePlace'
-        ((ViewHolder)viewHolder).mName.setText(mNicePlaces.get(i).getPreferenceName());
+        ((ViewHolder) viewHolder).mName.setText(mNicePlaces.get(i).getPreferenceName());
 //        ((ViewHolder)viewHolder).mNum.setText(String.valueOf(mNicePlaces.get(i).getPreferenceNum()));
 
         // Set the image
@@ -94,7 +96,7 @@ public class RecyclerAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolde
         Glide.with(mContext)
                 .setDefaultRequestOptions(defaultOptions)
                 .load(mNicePlaces.get(i).getImageUrl())
-                .into(((ViewHolder)viewHolder).mImage);
+                .into(((ViewHolder) viewHolder).mImage);
     }
 
     @Override
@@ -104,24 +106,25 @@ public class RecyclerAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onItemMove(int fromPosition, int toPositions) {
-        UserPreferences fromNote=mNicePlaces.get(fromPosition);
+        UserPreferences fromNote = mNicePlaces.get(fromPosition);
         mNicePlaces.remove(fromPosition);
-        mNicePlaces.add(toPositions,fromNote);
+        mNicePlaces.add(toPositions, fromNote);
         Log.d("FROM", String.valueOf(fromNote));
         Log.d("TO", String.valueOf(toPositions));
-        positionChanged=toPositions+1;
-        setGetPositionChangedElement(toPositions+1);
+        positionChanged = toPositions + 1;
+        setGetPositionChangedElement(toPositions + 1);
         getPositionChanged();
-        Log.d("POS", String.valueOf(toPositions+1));
-        notifyItemMoved(fromPosition,toPositions);
+        Log.d("POS", String.valueOf(toPositions + 1));
+        notifyItemMoved(fromPosition, toPositions);
     }
 
     @Override
     public void onItemSwipped(int position) {
 
     }
-    public void setmTouchHelper(ItemTouchHelper itemTouchHelper){
-        this.mTouchHelper=itemTouchHelper;
+
+    public void setmTouchHelper(ItemTouchHelper itemTouchHelper) {
+        this.mTouchHelper = itemTouchHelper;
     }
 
     private class ViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener, GestureDetector.OnGestureListener {
@@ -135,9 +138,9 @@ public class RecyclerAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolde
             super(itemView);
             mImage = itemView.findViewById(R.id.image);
             mName = itemView.findViewById(R.id.image_name);
-            mNum=itemView.findViewById(R.id.num);
+            mNum = itemView.findViewById(R.id.num);
 
-            mGestureDetector= new GestureDetector(itemView.getContext(),this);
+            mGestureDetector = new GestureDetector(itemView.getContext(), this);
             itemView.setOnTouchListener(this);
 
         }

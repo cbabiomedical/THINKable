@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
 import com.example.thinkableproject.adapters.Adapter;
 import com.example.thinkableproject.sample.ModelClass;
 import com.example.thinkableproject.sample.MyItemTouchHelper;
@@ -24,6 +25,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 public class PreferencesSecPage extends AppCompatActivity {
 
     private static final String TAG = "MainActivity";

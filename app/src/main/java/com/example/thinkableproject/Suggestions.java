@@ -31,7 +31,7 @@ import java.util.List;
 
 public class Suggestions extends AppCompatActivity {
 
-//    private static final String TAG = "MainActivity";
+    //    private static final String TAG = "MainActivity";
     private Button done;
     private Button next;
     RecyclerView recyclerView;
@@ -93,21 +93,21 @@ public class Suggestions extends AppCompatActivity {
 
     //set data in recycler view imageview and textview
     private void initData() {
-        userList=new ArrayList<>();
-        userList.add(new SuggestionsModel(R.drawable.calmit,"Anxiety Reading"));
-        userList.add(new SuggestionsModel(R.drawable.wav,"Stress Reducing"));
-        userList.add(new SuggestionsModel(R.drawable.moono,"Sleep Better"));
-        userList.add(new SuggestionsModel(R.drawable.tar,"Focus Improvement"));
-        userList.add(new SuggestionsModel(R.drawable.medi,"Increase Concentration"));
-        userList.add(new SuggestionsModel(R.drawable.aff,"Increase Happiness"));
+        userList = new ArrayList<>();
+        userList.add(new SuggestionsModel(R.drawable.calmit, "Anxiety Reading"));
+        userList.add(new SuggestionsModel(R.drawable.wav, "Stress Reducing"));
+        userList.add(new SuggestionsModel(R.drawable.moono, "Sleep Better"));
+        userList.add(new SuggestionsModel(R.drawable.tar, "Focus Improvement"));
+        userList.add(new SuggestionsModel(R.drawable.medi, "Increase Concentration"));
+        userList.add(new SuggestionsModel(R.drawable.aff, "Increase Happiness"));
     }
 
     private void initRecyclerView() {
-        recyclerView=findViewById(R.id.recycler_view);
-        linearLayoutManager=new LinearLayoutManager(this);
+        recyclerView = findViewById(R.id.recycler_view);
+        linearLayoutManager = new LinearLayoutManager(this);
         linearLayoutManager.setOrientation(RecyclerView.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        adapter=new SuggestionsAdapter(userList);
+        adapter = new SuggestionsAdapter(userList);
         ItemTouchHelper.Callback callback = new MyItemTouchHelper(adapter);
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(callback);
         adapter.setmTouchHelper(itemTouchHelper);
@@ -130,8 +130,8 @@ public class Suggestions extends AppCompatActivity {
         FirebaseDatabase.getInstance().getReference().child("Users").child(mUser.getUid()).updateChildren(suggestions).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Toast.makeText(Suggestions.this,"Successful",Toast.LENGTH_SHORT).show();
-                Intent intent=new Intent(Suggestions.this,PreferencesSecPage.class);
+                Toast.makeText(Suggestions.this, "Successful", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(Suggestions.this, PreferencesSecPage.class);
                 startActivity(intent);
             }
         });
@@ -142,15 +142,16 @@ public class Suggestions extends AppCompatActivity {
 
 
     public void gotoPrefTwo(View view) {
-        Intent intentgotoPreTwo = new Intent(Suggestions.this,PreferencesSecPage.class);
+        Intent intentgotoPreTwo = new Intent(Suggestions.this, PreferencesSecPage.class);
 
 
         startActivity(intentgotoPreTwo);
 
     }
+
     public void gotoPrefer(View view) {
         //go to preferences page
-        Intent intentGotoSI = new Intent(Suggestions.this,PreferencesSecPage.class);
+        Intent intentGotoSI = new Intent(Suggestions.this, PreferencesSecPage.class);
         startActivity(intentGotoSI);
     }
 }

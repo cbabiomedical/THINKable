@@ -24,6 +24,7 @@ import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -44,7 +45,7 @@ import java.util.List;
 
 public class Relaxation_Monthly extends AppCompatActivity {
 
-    BarChart barChart,barChart1,barChart2;
+    BarChart barChart, barChart1, barChart2;
     private Context context;
     AppCompatButton daily, yearly, weekly;
     AppCompatButton realtime, improverelaxation;
@@ -53,8 +54,8 @@ public class Relaxation_Monthly extends AppCompatActivity {
     FirebaseUser mUser;
     TextView textView;
     String text;
-    File localFile ;
-    private ArrayList<String> contents;
+    File localFile;
+    private ArrayList<String> list = new ArrayList<>();
     private final String filename = "";
 
 
@@ -96,12 +97,13 @@ public class Relaxation_Monthly extends AppCompatActivity {
                         Log.d("FileName", localFile.getAbsolutePath());
 
                         BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                        String line = bufferedReader.readLine();
-                        ArrayList<String> list = new ArrayList<>();
-                        if( bufferedReader.readLine() != null){
+                        String line = "";
+
+                        Log.d("First", line);
+                        if ((line = bufferedReader.readLine()) != null) {
                             list.add(line);
                         }
-                        while((line = bufferedReader.readLine()) != null){
+                        while ((line = bufferedReader.readLine()) != null) {
 
                             list.add(line);
                             Log.d("Line", line);
@@ -123,9 +125,9 @@ public class Relaxation_Monthly extends AppCompatActivity {
         }
 
 
-            music = findViewById(R.id.music);
-            meditation = findViewById(R.id.meditations);
-            video = findViewById(R.id.video);
+        music = findViewById(R.id.music);
+        meditation = findViewById(R.id.meditations);
+        video = findViewById(R.id.video);
 
 //        music.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -151,8 +153,8 @@ public class Relaxation_Monthly extends AppCompatActivity {
 //            }
 //        });
 
-            realtime = findViewById(R.id.realTime);
-            improverelaxation = findViewById(R.id.improveRelaxation);
+        realtime = findViewById(R.id.realTime);
+        improverelaxation = findViewById(R.id.improveRelaxation);
 //        realtime.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View view) {
@@ -168,116 +170,116 @@ public class Relaxation_Monthly extends AppCompatActivity {
 //            }
 //        });
 
-            daily = findViewById(R.id.daily);
-            yearly = findViewById(R.id.yearly);
-            weekly = findViewById(R.id.weekly);
-            daily.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getApplicationContext(), Relaxation_Daily.class);
-                    startActivity(intent);
-                }
-            });
-            weekly.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getApplicationContext(), Relaxation_Weekly.class);
-                    startActivity(intent);
-                }
-            });
-            yearly.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent = new Intent(getApplicationContext(), Relaxation_Yearly.class);
-                    startActivity(intent);
-                }
-            });
-
-            String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
-            List<Float> credits = new ArrayList<>(Arrays.asList(90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f));
-            float[] strength = new float[]{90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f};
-
-            List<BarEntry> entries = new ArrayList<>();
-            for (int i = 0; i < strength.length; ++i) {
-                entries.add(new BarEntry(i, strength[i]));
+        daily = findViewById(R.id.daily);
+        yearly = findViewById(R.id.yearly);
+        weekly = findViewById(R.id.weekly);
+        daily.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Relaxation_Daily.class);
+                startActivity(intent);
             }
+        });
+        weekly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Relaxation_Weekly.class);
+                startActivity(intent);
+            }
+        });
+        yearly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Relaxation_Yearly.class);
+                startActivity(intent);
+            }
+        });
 
-            float textSize = 16f;
+        String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
+        List<Float> credits = new ArrayList<>(Arrays.asList(90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f));
+        float[] strength = new float[]{90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f};
 
-            MyBarDataset dataSet = new MyBarDataset(entries, "data", credits);
-            dataSet.setColors(ContextCompat.getColor(this, R.color.Bwhite),
-                    ContextCompat.getColor(this, R.color.Lblue),
-                    ContextCompat.getColor(this, R.color.blue),
-                    ContextCompat.getColor(this, R.color.Ldark),
-                    ContextCompat.getColor(this, R.color.dark));
-            BarData data = new BarData(dataSet);
-            data.setDrawValues(false);
-            data.setBarWidth(0.9f);
-
-            barChart.setData(data);
-            barChart.setFitBars(true);
-            barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(months));
-            barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-            barChart.getXAxis().setTextSize(textSize);
-            barChart.getAxisLeft().setTextSize(textSize);
-            barChart.setExtraBottomOffset(10f);
-
-            barChart.getAxisRight().setEnabled(false);
-            Description desc = new Description();
-            desc.setText("");
-            barChart.setDescription(desc);
-            barChart.getLegend().setEnabled(false);
-            barChart.getXAxis().setDrawGridLines(false);
-            barChart.getAxisLeft().setDrawGridLines(false);
-
-            barChart.invalidate();
-
-            //Initialize and Assign Variable
-            BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-
-            //Set Home Selected
-            bottomNavigationView.setSelectedItemId(R.id.home);
-
-            //Perform ItemSelectedListener
-            bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                    switch (item.getItemId()) {
-                        case R.id.home:
-                            startActivity(new Intent(getApplicationContext(), Relaxation_Daily.class));
-                            overridePendingTransition(0, 0);
-                            return true;
-                        case R.id.exercise:
-                            startActivity(new Intent(getApplicationContext(), Exercise.class));
-                            overridePendingTransition(0, 0);
-                            return true;
-                        case R.id.reports:
-                            startActivity(new Intent(getApplicationContext(), Reports.class));
-                            overridePendingTransition(0, 0);
-                            return true;
-                        case R.id.userprofiles:
-                            startActivity(new Intent(getApplicationContext(), UserProfile1.class));
-                            overridePendingTransition(0, 0);
-                            return true;
-                        case R.id.settings:
-                            startActivity(new Intent(getApplicationContext(), Setting.class));
-                            overridePendingTransition(0, 0);
-                            return true;
-                    }
-                    return false;
-                }
-            });
+        List<BarEntry> entries = new ArrayList<>();
+        for (int i = 0; i < strength.length; ++i) {
+            entries.add(new BarEntry(i, strength[i]));
         }
+
+        float textSize = 16f;
+
+        MyBarDataset dataSet = new MyBarDataset(entries, "data", credits);
+        dataSet.setColors(ContextCompat.getColor(this, R.color.Bwhite),
+                ContextCompat.getColor(this, R.color.Lblue),
+                ContextCompat.getColor(this, R.color.blue),
+                ContextCompat.getColor(this, R.color.Ldark),
+                ContextCompat.getColor(this, R.color.dark));
+        BarData data = new BarData(dataSet);
+        data.setDrawValues(false);
+        data.setBarWidth(0.9f);
+
+        barChart.setData(data);
+        barChart.setFitBars(true);
+        barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(months));
+        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+        barChart.getXAxis().setTextSize(textSize);
+        barChart.getAxisLeft().setTextSize(textSize);
+        barChart.setExtraBottomOffset(10f);
+
+        barChart.getAxisRight().setEnabled(false);
+        Description desc = new Description();
+        desc.setText("");
+        barChart.setDescription(desc);
+        barChart.getLegend().setEnabled(false);
+        barChart.getXAxis().setDrawGridLines(false);
+        barChart.getAxisLeft().setDrawGridLines(false);
+
+        barChart.invalidate();
+
+        //Initialize and Assign Variable
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        //Set Home Selected
+        bottomNavigationView.setSelectedItemId(R.id.home);
+
+        //Perform ItemSelectedListener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext(), Relaxation_Daily.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.exercise:
+                        startActivity(new Intent(getApplicationContext(), Exercise.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.reports:
+                        startActivity(new Intent(getApplicationContext(), Reports.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.userprofiles:
+                        startActivity(new Intent(getApplicationContext(), UserProfile1.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.settings:
+                        startActivity(new Intent(getApplicationContext(), Setting.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                }
+                return false;
+            }
+        });
+    }
 
 
     public void calimonthly1(View view) {
-        Intent intentrm = new Intent(Relaxation_Monthly.this,Calibration.class);
+        Intent intentrm = new Intent(Relaxation_Monthly.this, Calibration.class);
 
         startActivity(intentrm);
     }
 
     public void gotoPopup6(View view) {
-        Intent intentgp6 = new Intent(Relaxation_Monthly.this,Relaxation_popup.class);
+        Intent intentgp6 = new Intent(Relaxation_Monthly.this, Relaxation_popup.class);
 
         startActivity(intentgp6);
     }
@@ -293,26 +295,44 @@ public class Relaxation_Monthly extends AppCompatActivity {
         }
 
         @Override
-        public int getColor(int index){
+        public int getColor(int index) {
             float c = credits.get(index);
 
-            if (c > 80){
+            if (c > 80) {
                 return mColors.get(0);
-            }
-            else if (c > 60) {
+            } else if (c > 60) {
                 return mColors.get(1);
-            }
-            else if (c > 40) {
+            } else if (c > 40) {
                 return mColors.get(2);
-            }
-            else if (c > 20) {
+            } else if (c > 20) {
                 return mColors.get(3);
-            }
-            else{
+            } else {
                 return mColors.get(4);
             }
 
         }
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(!isChangingConfigurations()) {
+            deleteTempFiles(getCacheDir());
+        }
+    }
+    private boolean deleteTempFiles(File file) {
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            if (files != null) {
+                for (File f : files) {
+                    if (f.isDirectory()) {
+                        deleteTempFiles(f);
+                    } else {
+                        f.delete();
+                    }
+                }
+            }
+        }
+        return file.delete();
     }
 
 }

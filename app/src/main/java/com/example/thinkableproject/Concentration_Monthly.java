@@ -8,8 +8,10 @@ import androidx.core.content.ContextCompat;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
@@ -18,8 +20,20 @@ import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -29,6 +43,10 @@ public class Concentration_Monthly extends AppCompatActivity {
     BarChart barChart, barChart1, barChart2;
     private Context context;
     AppCompatButton daily, weekly, yearly;
+    FirebaseUser mUser;
+    File localFile;
+    String text;
+    ArrayList<String> list = new ArrayList();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +90,51 @@ public class Concentration_Monthly extends AppCompatActivity {
                 return false;
             }
         });
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        mUser.getUid();
+        StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/monthly.txt");
 
+        try {
+            localFile = File.createTempFile("tempFile", ".txt");
+            text = localFile.getAbsolutePath();
+            Log.d("Bitmap", text);
+            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(Concentration_Monthly.this, "Success", Toast.LENGTH_SHORT).show();
+
+                    try {
+                        InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
+
+                        Log.d("FileName", localFile.getAbsolutePath());
+
+                        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                        String line = "";
+
+                        Log.d("First", line);
+                        if ((line = bufferedReader.readLine()) != null) {
+                            list.add(line);
+                        }
+                        while ((line = bufferedReader.readLine()) != null) {
+
+                            list.add(line);
+                            Log.d("Line", line);
+
+                        }
+                        Log.d("List", String.valueOf(list));
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(Concentration_Monthly.this, "Failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
         barChart = (BarChart) findViewById(R.id.barChartMonthly);
 
         String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
@@ -138,15 +200,38 @@ public class Concentration_Monthly extends AppCompatActivity {
     }
 
     public void gotoPopup2(View view) {
-        Intent intentgp2 = new Intent(Concentration_Monthly.this,Concentration_popup.class);
+        Intent intentgp2 = new Intent(Concentration_Monthly.this, Concentration_popup.class);
 
         startActivity(intentgp2);
     }
 
     public void calimonthly(View view) {
-        Intent intentcm = new Intent(Concentration_Monthly.this,Calibration.class);
+        Intent intentcm = new Intent(Concentration_Monthly.this, Calibration.class);
 
         startActivity(intentcm);
+
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if(!isChangingConfigurations()) {
+            deleteTempFiles(getCacheDir());
+        }
+    }
+    private boolean deleteTempFiles(File file) {
+        if (file.isDirectory()) {
+            File[] files = file.listFiles();
+            if (files != null) {
+                for (File f : files) {
+                    if (f.isDirectory()) {
+                        deleteTempFiles(f);
+                    } else {
+                        f.delete();
+                    }
+                }
+            }
+        }
+        return file.delete();
     }
 
 
@@ -176,8 +261,8 @@ public class Concentration_Monthly extends AppCompatActivity {
             }
 
         }
-    }
 
+    }
 
 
 }

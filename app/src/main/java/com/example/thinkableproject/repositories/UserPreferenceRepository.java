@@ -10,35 +10,35 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
+
 //Singleton Pattern
 public class UserPreferenceRepository {
 
     private static UserPreferenceRepository instance;
     private ArrayList<UserPreferences> dataSet = new ArrayList<>();
-    DatabaseReference reference =FirebaseDatabase.getInstance().getReference().child("Users");
+    DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Users");
 
 
-    public static UserPreferenceRepository getInstance(){
-        if(instance == null){
+    public static UserPreferenceRepository getInstance() {
+        if (instance == null) {
             instance = new UserPreferenceRepository();
         }
         return instance;
     }
 
 
-
-
     // Pretend to get data from a webservice or online source
-    public MutableLiveData<List<UserPreferences>> getNicePlaces(){
+    public MutableLiveData<List<UserPreferences>> getNicePlaces() {
         setNicePlaces();
         MutableLiveData<List<UserPreferences>> data = new MutableLiveData<>();
         data.setValue(dataSet);
         return data;
     }
-    RecyclerAdaptor recyclerAdaptor=new RecyclerAdaptor();
+
+    RecyclerAdaptor recyclerAdaptor = new RecyclerAdaptor();
 
 
-    private void setNicePlaces(){
+    private void setNicePlaces() {
         dataSet.add(
                 new UserPreferences(R.drawable.video,
                         "Videos")

@@ -7,20 +7,25 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.thinkableproject.R;
 import com.example.thinkableproject.sample.ItemTouchHelperAdapter;
 import com.example.thinkableproject.sample.ModelClass;
+
 import java.util.List;
+
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> implements ItemTouchHelperAdapter {
     private List<ModelClass> userList;
     private static ItemTouchHelper mTouchHelper;
     int positionChanged;
-        //Constructor
+
+    //Constructor
     public Adapter(List<ModelClass> userList) {
         this.userList = userList;
     }
@@ -29,7 +34,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> implements
     @Override
     public Adapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         //Initializing ViewHolder
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.layout_listitem, parent, false);
         // returning layout resource
         return new ViewHolder(view);
     }
@@ -37,10 +42,10 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> implements
     @Override
     public void onBindViewHolder(@NonNull Adapter.ViewHolder holder, int position) {
         //storing the imageView and name of preferences inside variables
-            int resource=userList.get(position).getImageView();
-            String name=userList.get(position).getName();
-            // Calling setData method
-            holder.setData(resource,name);
+        int resource = userList.get(position).getImageView();
+        String name = userList.get(position).getName();
+        // Calling setData method
+        holder.setData(resource, name);
     }
 
     @Override
@@ -52,20 +57,20 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> implements
 
     @Override
     public void onItemMove(int fromPosition, int toPositions) {
-        ModelClass fromNote=userList.get(fromPosition);
+        ModelClass fromNote = userList.get(fromPosition);
         // removing current position from userlist
         userList.remove(fromPosition);
-        userList.add(toPositions,fromNote);
+        userList.add(toPositions, fromNote);
         // adding new position and from position
         Log.d("FROM", String.valueOf(fromNote));
         Log.d("TO", String.valueOf(toPositions));
-        positionChanged=toPositions+1;
+        positionChanged = toPositions + 1;
         //Calling setter and getter method for positionChnaged
-        setGetPositionChangedElement(toPositions+1);
+        setGetPositionChangedElement(toPositions + 1);
         getPositionChanged();
-        Log.d("POS", String.valueOf(toPositions+1));
+        Log.d("POS", String.valueOf(toPositions + 1));
         //Notifying user that item reflected is newly inserted
-        notifyItemMoved(fromPosition,toPositions);
+        notifyItemMoved(fromPosition, toPositions);
     }
 
     private int getPositionChanged() {
@@ -73,28 +78,30 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> implements
     }
 
     private void setGetPositionChangedElement(int i) {
-        this.positionChanged=i;
+        this.positionChanged = i;
     }
 
     @Override
     public void onItemSwipped(int position) {
 
     }
-    public void setmTouchHelper(ItemTouchHelper itemTouchHelper){
-        this.mTouchHelper=itemTouchHelper;
+
+    public void setmTouchHelper(ItemTouchHelper itemTouchHelper) {
+        this.mTouchHelper = itemTouchHelper;
     }
-// Creating ViewHolder class
-    public static class ViewHolder extends  RecyclerView.ViewHolder implements View.OnTouchListener, GestureDetector.OnGestureListener {
+
+    // Creating ViewHolder class
+    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener, GestureDetector.OnGestureListener {
         private CircleImageView imageView;  // Variable to store imageUrl and name
         private TextView namePref;
         GestureDetector mGestureDetector;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView=itemView.findViewById(R.id.image);
-            namePref=itemView.findViewById(R.id.image_name);
+            imageView = itemView.findViewById(R.id.image);
+            namePref = itemView.findViewById(R.id.image_name);
             //Initializing gesture detector
-            mGestureDetector= new GestureDetector(itemView.getContext(),this);
+            mGestureDetector = new GestureDetector(itemView.getContext(), this);
             itemView.setOnTouchListener(this);
 
         }

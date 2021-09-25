@@ -14,20 +14,20 @@ import java.util.List;
 public class MainActivityViewModel extends ViewModel {
     private MutableLiveData<List<UserPreferences>> mNicePlaces;
     private UserPreferenceRepository mRepo;
-    private MutableLiveData<Boolean> mIsUpdating= new MutableLiveData<>();
+    private MutableLiveData<Boolean> mIsUpdating = new MutableLiveData<>();
 
     public void init() {
-        if(mNicePlaces!=null){
+        if (mNicePlaces != null) {
             return;
         }
-        mRepo= UserPreferenceRepository.getInstance();
-        mNicePlaces=mRepo.getNicePlaces();
+        mRepo = UserPreferenceRepository.getInstance();
+        mNicePlaces = mRepo.getNicePlaces();
 
     }
 
-    public void addNewValue(final UserPreferences nicePlace){
+    public void addNewValue(final UserPreferences nicePlace) {
         mIsUpdating.setValue(true);
-        new AsyncTask<Void, Void, Void>(){
+        new AsyncTask<Void, Void, Void>() {
             @Override
             protected void onPostExecute(Void aVoid) {
                 super.onPostExecute(aVoid);
@@ -53,7 +53,8 @@ public class MainActivityViewModel extends ViewModel {
     public LiveData<List<UserPreferences>> getNicePlaces() {
         return mNicePlaces;
     }
-    public LiveData<Boolean> getIsUpdating(){
+
+    public LiveData<Boolean> getIsUpdating() {
         return mIsUpdating;
     }
 }

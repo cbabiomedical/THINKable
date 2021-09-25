@@ -43,19 +43,19 @@ public class ChangePassword extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //get new password
-                if(new_password.getText().toString().isEmpty()){
+                if (new_password.getText().toString().isEmpty()) {
                     new_password.setText("Required Field");
                     return;
                 }
 
                 //confirm new password
-                if(confirm_Password.getText().toString().isEmpty()){
+                if (confirm_Password.getText().toString().isEmpty()) {
                     confirm_Password.setError("Required Field");
                     return;
                 }
 
                 //check whether password match
-                if(!new_password.getText().toString().equals(confirm_Password.getText().toString())){
+                if (!new_password.getText().toString().equals(confirm_Password.getText().toString())) {
                     new_password.setError("Password Do not Match");
                 }
 
@@ -72,7 +72,7 @@ public class ChangePassword extends AppCompatActivity {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         //give toast on password update fail
-                        Toast.makeText(ChangePassword.this, ""+e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ChangePassword.this, "" + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
             }

@@ -51,7 +51,7 @@ public class EnterPhoneActivity extends AppCompatActivity {
 
 
     public void continuetocode(View view) {
-        Intent intentContinuetocode = new Intent(EnterPhoneActivity.this,VerifyPhoneActivity.class);
+        Intent intentContinuetocode = new Intent(EnterPhoneActivity.this, VerifyPhoneActivity.class);
 
         startActivity(intentContinuetocode);
     }
