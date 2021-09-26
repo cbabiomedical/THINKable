@@ -53,11 +53,10 @@ public class Relaxation_Monthly extends AppCompatActivity {
     ActivityMainBinding binding;
     FirebaseUser mUser;
     TextView textView;
-    String text;
     File localFile;
-    private ArrayList<String> list = new ArrayList<>();
-    private final String filename = "";
-
+    String text;
+    ArrayList<String> list = new ArrayList();
+    ArrayList<Float> floatList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,6 +64,16 @@ public class Relaxation_Monthly extends AppCompatActivity {
         setContentView(R.layout.activity_relaxation_monthly);
 
         barChart = (BarChart) findViewById(R.id.barChartMonthly);
+        List<BarEntry> entries = new ArrayList<>();
+        daily = findViewById(R.id.daily);
+        yearly = findViewById(R.id.yearly);
+        weekly = findViewById(R.id.weekly);
+
+        //Initialize and Assign Variable
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        //Set Home Selected
+        bottomNavigationView.setSelectedItemId(R.id.home);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference("chartTable");
@@ -79,7 +88,6 @@ public class Relaxation_Monthly extends AppCompatActivity {
         });
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUser.getUid();
         StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/monthly.txt");
 
@@ -91,6 +99,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     Toast.makeText(Relaxation_Monthly.this, "Success", Toast.LENGTH_SHORT).show();
+
                     try {
                         InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
 
@@ -107,12 +116,59 @@ public class Relaxation_Monthly extends AppCompatActivity {
 
                             list.add(line);
                             Log.d("Line", line);
-
                         }
+
                         Log.d("List", String.valueOf(list));
+
+                        for (int i = 0; i < list.size(); i++) {
+                            floatList.add(Float.parseFloat(list.get(i)));
+                            Log.d("FloatArrayList", String.valueOf(floatList));
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    Log.d("floatListTest", String.valueOf(floatList));
+                    String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
+                    List<Float> credits = new ArrayList<>(Arrays.asList(90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f));
+                    float[] strength = new float[]{90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f};
+
+
+                    for (int j = 0; j < floatList.size(); ++j) {
+                        entries.add(new BarEntry(j, floatList.get(j)));
+                    }
+
+
+                    float textSize = 16f;
+                    Relaxation_Monthly.MyBarDataset dataSet = new Relaxation_Monthly.MyBarDataset(entries, "data", credits);
+                    dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
+                            ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
+                            ContextCompat.getColor(getApplicationContext(), R.color.blue),
+                            ContextCompat.getColor(getApplicationContext(), R.color.Ldark),
+                            ContextCompat.getColor(getApplicationContext(), R.color.dark));
+                    BarData data = new BarData(dataSet);
+                    data.setDrawValues(false);
+                    data.setBarWidth(0.8f);
+
+                    barChart.setData(data);
+                    barChart.setFitBars(true);
+                    barChart.getXAxis
+                            ().setValueFormatter(new IndexAxisValueFormatter(months));
+                    barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                    barChart.getXAxis().setTextSize(textSize);
+                    barChart.getAxisLeft().setTextSize(textSize);
+                    barChart.setExtraBottomOffset(10f);
+
+                    barChart.getAxisRight().setEnabled(false);
+                    Description desc = new Description();
+                    desc.setText("");
+                    barChart.setDescription(desc);
+                    barChart.getLegend().setEnabled(false);
+                    barChart.getXAxis().setDrawGridLines(false);
+                    barChart.getAxisLeft().setDrawGridLines(false);
+
+                    barChart.invalidate();
+
+
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -120,59 +176,13 @@ public class Relaxation_Monthly extends AppCompatActivity {
                     Toast.makeText(Relaxation_Monthly.this, "Failed", Toast.LENGTH_SHORT).show();
                 }
             });
+
+
         } catch (IOException exception) {
             exception.printStackTrace();
         }
 
 
-        music = findViewById(R.id.music);
-        meditation = findViewById(R.id.meditations);
-        video = findViewById(R.id.video);
-
-//        music.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Intent intent = new Intent(getApplicationContext(), Exercise_Music.class);
-////                startActivity(intent);
-//            }
-//        });
-//
-//        meditation.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Intent intent = new Intent(getApplicationContext(), Exercise_Meditation.class);
-////                startActivity(intent);
-//            }
-//        });
-//
-//        video.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Intent intent = new Intent(getApplicationContext(), Exercise_Video.class);
-////                startActivity(intent);
-//            }
-//        });
-
-        realtime = findViewById(R.id.realTime);
-        improverelaxation = findViewById(R.id.improveRelaxation);
-//        realtime.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Intent intent = new Intent(getApplicationContext(), RealTime.class);
-////                startActivity(intent);
-//            }
-//        });
-//
-//        improverelaxation.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
-
-        daily = findViewById(R.id.daily);
-        yearly = findViewById(R.id.yearly);
-        weekly = findViewById(R.id.weekly);
         daily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -195,50 +205,6 @@ public class Relaxation_Monthly extends AppCompatActivity {
             }
         });
 
-        String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
-        List<Float> credits = new ArrayList<>(Arrays.asList(90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f));
-        float[] strength = new float[]{90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f};
-
-        List<BarEntry> entries = new ArrayList<>();
-        for (int i = 0; i < strength.length; ++i) {
-            entries.add(new BarEntry(i, strength[i]));
-        }
-
-        float textSize = 16f;
-
-        MyBarDataset dataSet = new MyBarDataset(entries, "data", credits);
-        dataSet.setColors(ContextCompat.getColor(this, R.color.Bwhite),
-                ContextCompat.getColor(this, R.color.Lblue),
-                ContextCompat.getColor(this, R.color.blue),
-                ContextCompat.getColor(this, R.color.Ldark),
-                ContextCompat.getColor(this, R.color.dark));
-        BarData data = new BarData(dataSet);
-        data.setDrawValues(false);
-        data.setBarWidth(0.9f);
-
-        barChart.setData(data);
-        barChart.setFitBars(true);
-        barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(months));
-        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        barChart.getXAxis().setTextSize(textSize);
-        barChart.getAxisLeft().setTextSize(textSize);
-        barChart.setExtraBottomOffset(10f);
-
-        barChart.getAxisRight().setEnabled(false);
-        Description desc = new Description();
-        desc.setText("");
-        barChart.setDescription(desc);
-        barChart.getLegend().setEnabled(false);
-        barChart.getXAxis().setDrawGridLines(false);
-        barChart.getAxisLeft().setDrawGridLines(false);
-
-        barChart.invalidate();
-
-        //Initialize and Assign Variable
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-
-        //Set Home Selected
-        bottomNavigationView.setSelectedItemId(R.id.home);
 
         //Perform ItemSelectedListener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {

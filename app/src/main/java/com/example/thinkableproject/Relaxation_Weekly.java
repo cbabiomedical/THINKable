@@ -57,8 +57,8 @@ public class Relaxation_Weekly extends AppCompatActivity {
     TextView textView;
     String text;
     File localFile;
-    private ArrayList<String> list = new ArrayList<>();
-    private final String filename = "";
+    ArrayList<String> list = new ArrayList<>();
+    ArrayList<Float> floatList = new ArrayList<>();
 
 
     @Override
@@ -66,8 +66,19 @@ public class Relaxation_Weekly extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relaxation_weekly);
 
+        List<BarEntry> entries = new ArrayList<>();
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference("chartTable");
+        barChart1 = (BarChart) findViewById(R.id.barChartWeekly);
+
+        daily = findViewById(R.id.daily);
+        yearly = findViewById(R.id.yearly);
+        monthly = findViewById(R.id.monthly);
+        //Initialize and Assign Variable
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        //Set Home Selected
+        bottomNavigationView.setSelectedItemId(R.id.home);
 
         concentration = findViewById(R.id.concentration);
         concentration.setOnClickListener(new View.OnClickListener() {
@@ -78,7 +89,6 @@ public class Relaxation_Weekly extends AppCompatActivity {
             }
         });
 
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUser.getUid();
         StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/weekly.txt");
@@ -91,6 +101,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     Toast.makeText(Relaxation_Weekly.this, "Success", Toast.LENGTH_SHORT).show();
+
                     try {
                         InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
 
@@ -107,12 +118,57 @@ public class Relaxation_Weekly extends AppCompatActivity {
 
                             list.add(line);
                             Log.d("Line", line);
-
                         }
+
                         Log.d("List", String.valueOf(list));
+
+                        for (int i = 0; i < list.size(); i++) {
+                            floatList.add(Float.parseFloat(list.get(i)));
+                            Log.d("FloatArrayList", String.valueOf(floatList));
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    Log.d("floatListTest", String.valueOf(floatList));
+                    String[] weeks = new String[]{"One", "Two", "Three", "Four"};
+                    List<Float> creditsWeek = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 10f));
+                    float[] strengthWeek = new float[]{90f, 30f, 70f, 10f};
+
+                    for (int j = 0; j < floatList.size(); ++j) {
+                        entries.add(new BarEntry(j, floatList.get(j)));
+                    }
+
+
+                    float textSize = 16f;
+                    Relaxation_Weekly.MyBarDataset dataSet = new Relaxation_Weekly.MyBarDataset(entries, "data", creditsWeek);
+                    dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
+                            ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
+                            ContextCompat.getColor(getApplicationContext(), R.color.blue),
+                            ContextCompat.getColor(getApplicationContext(), R.color.Ldark),
+                            ContextCompat.getColor(getApplicationContext(), R.color.dark));
+                    BarData data = new BarData(dataSet);
+                    data.setDrawValues(false);
+                    data.setBarWidth(0.8f);
+
+                    barChart1.setData(data);
+                    barChart1.setFitBars(true);
+                    barChart1.getXAxis().setValueFormatter(new IndexAxisValueFormatter(weeks));
+                    barChart1.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                    barChart1.getXAxis().setTextSize(textSize);
+                    barChart1.getAxisLeft().setTextSize(textSize);
+                    barChart1.setExtraBottomOffset(10f);
+
+                    barChart1.getAxisRight().setEnabled(false);
+                    Description desc = new Description();
+                    desc.setText("");
+                    barChart1.setDescription(desc);
+                    barChart1.getLegend().setEnabled(false);
+                    barChart1.getXAxis().setDrawGridLines(false);
+                    barChart1.getAxisLeft().setDrawGridLines(false);
+
+                    barChart1.invalidate();
+
+
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -120,60 +176,12 @@ public class Relaxation_Weekly extends AppCompatActivity {
                     Toast.makeText(Relaxation_Weekly.this, "Failed", Toast.LENGTH_SHORT).show();
                 }
             });
+
+
         } catch (IOException exception) {
             exception.printStackTrace();
         }
 
-        music = findViewById(R.id.music);
-        meditation = findViewById(R.id.meditations);
-        video = findViewById(R.id.video);
-
-//        music.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Intent intent = new Intent(getApplicationContext(), Exercise_Music.class);
-////                startActivity(intent);
-//            }
-//        });
-//
-//        meditation.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Intent intent = new Intent(getApplicationContext(), Exercise_Meditation.class);
-////                startActivity(intent);
-//            }
-//        });
-//
-//        video.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Intent intent = new Intent(getApplicationContext(), Exercise_Video.class);
-////                startActivity(intent);
-//            }
-//        });
-
-        realtime = findViewById(R.id.realTime);
-        improverelaxation = findViewById(R.id.improveRelaxation);
-//        realtime.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Intent intent = new Intent(getApplicationContext(), RealTime.class);
-////                startActivity(intent);
-//            }
-//        });
-//
-//        improverelaxation.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//
-//            }
-//        });
-
-        //Initialize and Assign Variable
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-
-        //Set Home Selected
-        bottomNavigationView.setSelectedItemId(R.id.home);
 
         //Perform ItemSelectedListener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -205,11 +213,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
             }
         });
 
-        barChart1 = (BarChart) findViewById(R.id.barChartWeekly);
 
-        daily = findViewById(R.id.daily);
-        yearly = findViewById(R.id.yearly);
-        monthly = findViewById(R.id.monthly);
         daily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -232,44 +236,6 @@ public class Relaxation_Weekly extends AppCompatActivity {
             }
         });
 
-
-        String[] weeks = new String[]{"One", "Two", "Three", "Four"};
-        List<Float> creditsWeek = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 10f));
-        float[] strengthWeek = new float[]{90f, 30f, 70f, 10f};
-
-        List<BarEntry> entries = new ArrayList<>();
-        for (int i = 0; i < strengthWeek.length; ++i) {
-            entries.add(new BarEntry(i, strengthWeek[i]));
-        }
-
-        float textSize = 16f;
-        MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsWeek);
-        dataSet.setColors(ContextCompat.getColor(this, R.color.Bwhite),
-                ContextCompat.getColor(this, R.color.Lblue),
-                ContextCompat.getColor(this, R.color.blue),
-                ContextCompat.getColor(this, R.color.Ldark),
-                ContextCompat.getColor(this, R.color.dark));
-        BarData data = new BarData(dataSet);
-        data.setDrawValues(false);
-        data.setBarWidth(0.9f);
-
-        barChart1.setData(data);
-        barChart1.setFitBars(true);
-        barChart1.getXAxis().setValueFormatter(new IndexAxisValueFormatter(weeks));
-        barChart1.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        barChart1.getXAxis().setTextSize(textSize);
-        barChart1.getAxisLeft().setTextSize(textSize);
-        barChart1.setExtraBottomOffset(10f);
-
-        barChart1.getAxisRight().setEnabled(false);
-        Description desc = new Description();
-        desc.setText("");
-        barChart1.setDescription(desc);
-        barChart1.getLegend().setEnabled(false);
-        barChart1.getXAxis().setDrawGridLines(false);
-        barChart1.getAxisLeft().setDrawGridLines(false);
-
-        barChart1.invalidate();
     }
 
     public void caliweekly1(View view) {
@@ -314,11 +280,6 @@ public class Relaxation_Weekly extends AppCompatActivity {
         }
     }
 
-//    public void compare1(View view) {
-//        Intent intent2 = new Intent(this, Compare1.class);
-//        startActivity(intent2);
-//
-//    }
 
     private class MyXAxisValueFormatter extends ValueFormatter {
         private String[] mValues;

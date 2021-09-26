@@ -53,7 +53,8 @@ public class Relaxation_Yearly extends AppCompatActivity {
     FirebaseUser mUser;
     String text;
     File localFile;
-    private ArrayList<String> list = new ArrayList<>();
+    ArrayList<String> list = new ArrayList<>();
+    ArrayList<Float> floatList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +62,10 @@ public class Relaxation_Yearly extends AppCompatActivity {
         setContentView(R.layout.activity_relaxation_yearly);
 
         barChart2 = findViewById(R.id.barChartYearly);
+        List<BarEntry> entries = new ArrayList<>();
+        daily = findViewById(R.id.daily);
+        weekly = findViewById(R.id.weekly);
+        monthly = findViewById(R.id.monthly);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference("chartTable");
@@ -107,7 +112,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
                 return false;
             }
         });
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUser.getUid();
         StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/yearly.txt");
@@ -120,6 +125,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
                 @Override
                 public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                     Toast.makeText(Relaxation_Yearly.this, "Success", Toast.LENGTH_SHORT).show();
+
                     try {
                         InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
 
@@ -136,12 +142,57 @@ public class Relaxation_Yearly extends AppCompatActivity {
 
                             list.add(line);
                             Log.d("Line", line);
-
                         }
+
                         Log.d("List", String.valueOf(list));
+
+                        for (int i = 0; i < list.size(); i++) {
+                            floatList.add(Float.parseFloat(list.get(i)));
+                            Log.d("FloatArrayList", String.valueOf(floatList));
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    Log.d("floatListTest", String.valueOf(floatList));
+                    String[] weeks = new String[]{"2018", "2019", "2020", "2021"};
+                    List<Float> creditsWeek = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 10f));
+                    float[] strengthWeek = new float[]{90f, 30f, 70f, 10f};
+
+                    for (int j = 0; j < floatList.size(); ++j) {
+                        entries.add(new BarEntry(j, floatList.get(j)));
+                    }
+
+
+                    float textSize = 16f;
+                    Relaxation_Yearly.MyBarDataset dataSet = new Relaxation_Yearly.MyBarDataset(entries, "data", creditsWeek);
+                    dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
+                            ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
+                            ContextCompat.getColor(getApplicationContext(), R.color.blue),
+                            ContextCompat.getColor(getApplicationContext(), R.color.Ldark),
+                            ContextCompat.getColor(getApplicationContext(), R.color.dark));
+                    BarData data = new BarData(dataSet);
+                    data.setDrawValues(false);
+                    data.setBarWidth(0.8f);
+
+                    barChart2.setData(data);
+                    barChart2.setFitBars(true);
+                    barChart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(weeks));
+                    barChart2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                    barChart2.getXAxis().setTextSize(textSize);
+                    barChart2.getAxisLeft().setTextSize(textSize);
+                    barChart2.setExtraBottomOffset(10f);
+
+                    barChart2.getAxisRight().setEnabled(false);
+                    Description desc = new Description();
+                    desc.setText("");
+                    barChart2.setDescription(desc);
+                    barChart2.getLegend().setEnabled(false);
+                    barChart2.getXAxis().setDrawGridLines(false);
+                    barChart2.getAxisLeft().setDrawGridLines(false);
+
+                    barChart2.invalidate();
+
+
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -149,54 +200,11 @@ public class Relaxation_Yearly extends AppCompatActivity {
                     Toast.makeText(Relaxation_Yearly.this, "Failed", Toast.LENGTH_SHORT).show();
                 }
             });
+
+
         } catch (IOException exception) {
             exception.printStackTrace();
         }
-
-
-
-        daily = findViewById(R.id.daily);
-        weekly = findViewById(R.id.weekly);
-        monthly = findViewById(R.id.monthly);
-
-        String[] weeks = new String[]{"2018", "2019", "2020", "2021"};
-        List<Float> creditsWeek = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 10f));
-        float[] strengthWeek = new float[]{90f, 30f, 70f, 10f};
-
-        List<BarEntry> entries = new ArrayList<>();
-        for (int i = 0; i < strengthWeek.length; ++i) {
-            entries.add(new BarEntry(i, strengthWeek[i]));
-        }
-
-        float textSize = 16f;
-        MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsWeek);
-        dataSet.setColors(ContextCompat.getColor(this, R.color.Bwhite),
-                ContextCompat.getColor(this, R.color.Lblue),
-                ContextCompat.getColor(this, R.color.blue),
-                ContextCompat.getColor(this, R.color.Ldark),
-                ContextCompat.getColor(this, R.color.dark));
-        BarData data = new BarData(dataSet);
-        data.setDrawValues(false);
-        data.setBarWidth(0.8f);
-
-        barChart2.setData(data);
-        barChart2.setFitBars(true);
-        barChart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(weeks));
-        barChart2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        barChart2.getXAxis().setTextSize(textSize);
-        barChart2.getAxisLeft().setTextSize(textSize);
-        barChart2.setExtraBottomOffset(10f);
-
-        barChart2.getAxisRight().setEnabled(false);
-        Description desc = new Description();
-        desc.setText("");
-        barChart2.setDescription(desc);
-        barChart2.getLegend().setEnabled(false);
-        barChart2.getXAxis().setDrawGridLines(false);
-        barChart2.getAxisLeft().setDrawGridLines(false);
-
-        barChart2.invalidate();
-
         //Initialize and Assign Variable
 
     }
