@@ -61,6 +61,12 @@ public class Relaxation_Yearly extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relaxation_yearly);
 
+        //Initialize and Assign Variable
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        //Set Home Selected
+        bottomNavigationView.setSelectedItemId(R.id.home);
+
         barChart2 = findViewById(R.id.barChartYearly);
         List<BarEntry> entries = new ArrayList<>();
         daily = findViewById(R.id.daily);
@@ -78,10 +84,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
-        //Set Home Selected
-        bottomNavigationView.setSelectedItemId(R.id.home);
 
         //Perform ItemSelectedListener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
