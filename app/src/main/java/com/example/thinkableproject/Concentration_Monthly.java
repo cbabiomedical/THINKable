@@ -40,13 +40,14 @@ import java.util.List;
 
 public class Concentration_Monthly extends AppCompatActivity {
 
-    BarChart barChart, barChart1, barChart2;
+    BarChart barChart, barChart1;
     private Context context;
     AppCompatButton daily, weekly, yearly;
     FirebaseUser mUser;
     File localFile;
     String text;
     ArrayList<String> list = new ArrayList();
+    ArrayList<Float> floatList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +56,8 @@ public class Concentration_Monthly extends AppCompatActivity {
         daily = findViewById(R.id.daily);
         weekly = findViewById(R.id.weekly);
         yearly = findViewById(R.id.yearly);
+        barChart = (BarChart) findViewById(R.id.barChartMonthly);
+        List<BarEntry> entries = new ArrayList<>();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -119,12 +122,59 @@ public class Concentration_Monthly extends AppCompatActivity {
 
                             list.add(line);
                             Log.d("Line", line);
-
                         }
+
                         Log.d("List", String.valueOf(list));
+
+                        for (int i = 0; i < list.size(); i++) {
+                            floatList.add(Float.parseFloat(list.get(i)));
+                            Log.d("FloatArrayList", String.valueOf(floatList));
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    Log.d("floatListTest", String.valueOf(floatList));
+                    String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
+                    List<Float> credits = new ArrayList<>(Arrays.asList(90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f));
+                    float[] strength = new float[]{90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f};
+
+
+                    for (int j = 0; j < floatList.size(); ++j) {
+                        entries.add(new BarEntry(j, floatList.get(j)));
+                    }
+
+
+                    float textSize = 16f;
+                    MyBarDataset dataSet = new MyBarDataset(entries, "data", credits);
+                    dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
+                            ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
+                            ContextCompat.getColor(getApplicationContext(), R.color.blue),
+                            ContextCompat.getColor(getApplicationContext(), R.color.Ldark),
+                            ContextCompat.getColor(getApplicationContext(), R.color.dark));
+                    BarData data = new BarData(dataSet);
+                    data.setDrawValues(false);
+                    data.setBarWidth(0.8f);
+
+                    barChart.setData(data);
+                    barChart.setFitBars(true);
+                    barChart.getXAxis
+                            ().setValueFormatter(new IndexAxisValueFormatter(months));
+                    barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                    barChart.getXAxis().setTextSize(textSize);
+                    barChart.getAxisLeft().setTextSize(textSize);
+                    barChart.setExtraBottomOffset(10f);
+
+                    barChart.getAxisRight().setEnabled(false);
+                    Description desc = new Description();
+                    desc.setText("");
+                    barChart.setDescription(desc);
+                    barChart.getLegend().setEnabled(false);
+                    barChart.getXAxis().setDrawGridLines(false);
+                    barChart.getAxisLeft().setDrawGridLines(false);
+
+                    barChart.invalidate();
+
+
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -132,49 +182,12 @@ public class Concentration_Monthly extends AppCompatActivity {
                     Toast.makeText(Concentration_Monthly.this, "Failed", Toast.LENGTH_SHORT).show();
                 }
             });
+
+
         } catch (IOException exception) {
             exception.printStackTrace();
         }
-        barChart = (BarChart) findViewById(R.id.barChartMonthly);
 
-        String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
-        List<Float> credits = new ArrayList<>(Arrays.asList(90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f));
-        float[] strength = new float[]{90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f};
-
-        List<BarEntry> entries = new ArrayList<>();
-        for (int i = 0; i < strength.length; ++i) {
-            entries.add(new BarEntry(i, strength[i]));
-        }
-
-        float textSize = 16f;
-
-        MyBarDataset dataSet = new MyBarDataset(entries, "data", credits);
-        dataSet.setColors(ContextCompat.getColor(this, R.color.Bwhite),
-                ContextCompat.getColor(this, R.color.Lblue),
-                ContextCompat.getColor(this, R.color.blue),
-                ContextCompat.getColor(this, R.color.Ldark),
-                ContextCompat.getColor(this, R.color.dark));
-        BarData data = new BarData(dataSet);
-        data.setDrawValues(false);
-        data.setBarWidth(0.9f);
-
-        barChart.setData(data);
-        barChart.setFitBars(true);
-        barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(months));
-        barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        barChart.getXAxis().setTextSize(textSize);
-        barChart.getAxisLeft().setTextSize(textSize);
-        barChart.setExtraBottomOffset(10f);
-
-        barChart.getAxisRight().setEnabled(false);
-        Description desc = new Description();
-        desc.setText("");
-        barChart.setDescription(desc);
-        barChart.getLegend().setEnabled(false);
-        barChart.getXAxis().setDrawGridLines(false);
-        barChart.getAxisLeft().setDrawGridLines(false);
-
-        barChart.invalidate();
 
         daily.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -211,13 +224,15 @@ public class Concentration_Monthly extends AppCompatActivity {
         startActivity(intentcm);
 
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(!isChangingConfigurations()) {
+        if (!isChangingConfigurations()) {
             deleteTempFiles(getCacheDir());
         }
     }
+
     private boolean deleteTempFiles(File file) {
         if (file.isDirectory()) {
             File[] files = file.listFiles();

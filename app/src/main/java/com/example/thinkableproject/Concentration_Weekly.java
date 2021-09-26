@@ -48,6 +48,7 @@ public class Concentration_Weekly extends AppCompatActivity {
     File localFile;
     ArrayList<String> list = new ArrayList<>();
     String text;
+    ArrayList<Float> floatList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +58,7 @@ public class Concentration_Weekly extends AppCompatActivity {
         monthly = findViewById(R.id.monthly);
         yearly = findViewById(R.id.yearly);
         daily = findViewById(R.id.daily);
+        List<BarEntry> entries = new ArrayList<>();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -92,6 +94,30 @@ public class Concentration_Weekly extends AppCompatActivity {
                 return false;
             }
         });
+
+        monthly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Concentration_Monthly.class);
+                startActivity(intent);
+            }
+        });
+
+        yearly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Concentration_Yearly.class);
+                startActivity(intent);
+            }
+        });
+        daily.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Concentration_Daily.class);
+                startActivity(intent);
+            }
+        });
+
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUser.getUid();
         StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/weekly.txt");
@@ -121,12 +147,57 @@ public class Concentration_Weekly extends AppCompatActivity {
 
                             list.add(line);
                             Log.d("Line", line);
-
                         }
+
                         Log.d("List", String.valueOf(list));
+
+                        for (int i = 0; i < list.size(); i++) {
+                            floatList.add(Float.parseFloat(list.get(i)));
+                            Log.d("FloatArrayList", String.valueOf(floatList));
+                        }
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
+                    Log.d("floatListTest", String.valueOf(floatList));
+                    String[] weeks = new String[]{"One", "Two", "Three", "Four"};
+                    List<Float> creditsWeek = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 10f));
+                    float[] strengthWeek = new float[]{90f, 30f, 70f, 10f};
+
+                    for (int j = 0; j < floatList.size(); ++j) {
+                        entries.add(new BarEntry(j, floatList.get(j)));
+                    }
+
+
+                    float textSize = 16f;
+                    MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsWeek);
+                    dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
+                            ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
+                            ContextCompat.getColor(getApplicationContext(), R.color.blue),
+                            ContextCompat.getColor(getApplicationContext(), R.color.Ldark),
+                            ContextCompat.getColor(getApplicationContext(), R.color.dark));
+                    BarData data = new BarData(dataSet);
+                    data.setDrawValues(false);
+                    data.setBarWidth(0.8f);
+
+                    barChart1.setData(data);
+                    barChart1.setFitBars(true);
+                    barChart1.getXAxis().setValueFormatter(new IndexAxisValueFormatter(weeks));
+                    barChart1.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                    barChart1.getXAxis().setTextSize(textSize);
+                    barChart1.getAxisLeft().setTextSize(textSize);
+                    barChart1.setExtraBottomOffset(10f);
+
+                    barChart1.getAxisRight().setEnabled(false);
+                    Description desc = new Description();
+                    desc.setText("");
+                    barChart1.setDescription(desc);
+                    barChart1.getLegend().setEnabled(false);
+                    barChart1.getXAxis().setDrawGridLines(false);
+                    barChart1.getAxisLeft().setDrawGridLines(false);
+
+                    barChart1.invalidate();
+
+
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -134,69 +205,12 @@ public class Concentration_Weekly extends AppCompatActivity {
                     Toast.makeText(Concentration_Weekly.this, "Failed", Toast.LENGTH_SHORT).show();
                 }
             });
+
+
         } catch (IOException exception) {
             exception.printStackTrace();
         }
-        monthly.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Concentration_Monthly.class);
-                startActivity(intent);
-            }
-        });
 
-        yearly.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Concentration_Yearly.class);
-                startActivity(intent);
-            }
-        });
-        daily.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Concentration_Daily.class);
-                startActivity(intent);
-            }
-        });
-
-        String[] weeks = new String[]{"One", "Two", "Three", "Four"};
-        List<Float> creditsWeek = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 10f));
-        float[] strengthWeek = new float[]{90f, 30f, 70f, 10f};
-
-        List<BarEntry> entries = new ArrayList<>();
-        for (int i = 0; i < strengthWeek.length; ++i) {
-            entries.add(new BarEntry(i, strengthWeek[i]));
-        }
-
-        float textSize = 16f;
-        MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsWeek);
-        dataSet.setColors(ContextCompat.getColor(this, R.color.Bwhite),
-                ContextCompat.getColor(this, R.color.Lblue),
-                ContextCompat.getColor(this, R.color.blue),
-                ContextCompat.getColor(this, R.color.Ldark),
-                ContextCompat.getColor(this, R.color.dark));
-        BarData data = new BarData(dataSet);
-        data.setDrawValues(false);
-        data.setBarWidth(0.9f);
-
-        barChart1.setData(data);
-        barChart1.setFitBars(true);
-        barChart1.getXAxis().setValueFormatter(new IndexAxisValueFormatter(weeks));
-        barChart1.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-        barChart1.getXAxis().setTextSize(textSize);
-        barChart1.getAxisLeft().setTextSize(textSize);
-        barChart1.setExtraBottomOffset(10f);
-
-        barChart1.getAxisRight().setEnabled(false);
-        Description desc = new Description();
-        desc.setText("");
-        barChart1.setDescription(desc);
-        barChart1.getLegend().setEnabled(false);
-        barChart1.getXAxis().setDrawGridLines(false);
-        barChart1.getAxisLeft().setDrawGridLines(false);
-
-        barChart1.invalidate();
     }
 
     public void gotoPopup3(View view) {
@@ -255,13 +269,15 @@ public class Concentration_Weekly extends AppCompatActivity {
 
 
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(!isChangingConfigurations()) {
+        if (!isChangingConfigurations()) {
             deleteTempFiles(getCacheDir());
         }
     }
+
     private boolean deleteTempFiles(File file) {
         if (file.isDirectory()) {
             File[] files = file.listFiles();
