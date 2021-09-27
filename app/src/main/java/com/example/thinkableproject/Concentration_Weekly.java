@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -43,7 +44,8 @@ public class Concentration_Weekly extends AppCompatActivity {
     BarChart barChart1;
     AppCompatButton monthly;
     AppCompatButton yearly;
-    AppCompatButton daily;
+    AppCompatButton daily,realTime;
+    ImageButton relaxationBtn;
     FirebaseUser mUser;
     File localFile;
     ArrayList<String> list = new ArrayList<>();
@@ -58,6 +60,8 @@ public class Concentration_Weekly extends AppCompatActivity {
         monthly = findViewById(R.id.monthly);
         yearly = findViewById(R.id.yearly);
         daily = findViewById(R.id.daily);
+        realTime=findViewById(R.id.realTime);
+        relaxationBtn=findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -114,6 +118,20 @@ public class Concentration_Weekly extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Concentration_Daily.class);
+                startActivity(intent);
+            }
+        });
+        relaxationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Relaxation_Weekly.class);
+                startActivity(intent);
+            }
+        });
+        realTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Calibration.class);
                 startActivity(intent);
             }
         });
