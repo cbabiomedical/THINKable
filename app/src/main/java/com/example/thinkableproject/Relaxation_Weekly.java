@@ -51,7 +51,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
     private Context context;
     AppCompatButton daily, yearly, monthly;
     AppCompatButton realtime, improverelaxation;
-    ImageButton concentration, music, meditation, video;
+    ImageButton concentration, relaxation, music, meditation, video;
     ActivityMainBinding binding;
     FirebaseUser mUser;
     TextView textView;
@@ -85,6 +85,40 @@ public class Relaxation_Weekly extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Concentration_Daily.class);
+                startActivity(intent);
+            }
+        });
+
+        relaxation = findViewById(R.id.relaxation);
+        relaxation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Relaxation_Daily.class);
+                startActivity(intent);
+            }
+        });
+
+        music = findViewById(R.id.music);
+        meditation = findViewById(R.id.meditations);
+        video = findViewById(R.id.video);
+        music.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Music.class);
+                startActivity(intent);
+            }
+        });
+        meditation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Meditation.class);
+                startActivity(intent);
+            }
+        });
+        video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Video.class);
                 startActivity(intent);
             }
         });
@@ -250,6 +284,22 @@ public class Relaxation_Weekly extends AppCompatActivity {
         Intent intentgp7 = new Intent(Relaxation_Weekly.this, Relaxation_popup.class);
 
         startActivity(intentgp7);
+    }
+
+    public void yearly(View v) {
+        Intent intent2 = new Intent(this, Relaxation_Yearly.class);
+        startActivity(intent2);
+
+    }
+
+    public void daily(View view) {
+        Intent intent2 = new Intent(this, Relaxation_Daily.class);
+        startActivity(intent2);
+    }
+
+    public void monthly(View view) {
+        Intent intent2 = new Intent(this, Relaxation_Monthly.class);
+        startActivity(intent2);
     }
 
     public class MyBarDataset extends BarDataSet {

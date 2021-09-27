@@ -48,8 +48,8 @@ import java.util.List;
 public class Relaxation_Yearly extends AppCompatActivity {
     BarChart barChart2;
     private Context context;
-    AppCompatButton daily, weekly, monthly;
-    ImageButton concentration;
+    AppCompatButton daily, weekly, monthly, realtime, improverelaxation;
+    ImageButton concentration, relaxation, music, meditation, video;
     FirebaseUser mUser;
     String text;
     File localFile;
@@ -85,6 +85,62 @@ public class Relaxation_Yearly extends AppCompatActivity {
             }
         });
 
+        relaxation = findViewById(R.id.relaxation);
+        relaxation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Relaxation_Daily.class);
+                startActivity(intent);
+            }
+        });
+
+        music = findViewById(R.id.music);
+        meditation = findViewById(R.id.meditations);
+        video = findViewById(R.id.video);
+        music.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Music.class);
+                startActivity(intent);
+            }
+        });
+        meditation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Meditation.class);
+                startActivity(intent);
+            }
+        });
+        video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Video.class);
+                startActivity(intent);
+            }
+        });
+
+
+        monthly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentr1 = new Intent(getApplicationContext(), Relaxation_Monthly.class);
+                startActivity(intentr1);
+            }
+        });
+        weekly.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentr1 = new Intent(getApplicationContext(), Relaxation_Weekly.class);
+                startActivity(intentr1);
+            }
+        });
+        daily.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentr1 = new Intent(getApplicationContext(), Relaxation_Daily.class);
+                startActivity(intentr1);
+            }
+        });
 
         //Perform ItemSelectedListener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -222,6 +278,22 @@ public class Relaxation_Yearly extends AppCompatActivity {
         Intent intentgp8 = new Intent(Relaxation_Yearly.this, Relaxation_popup.class);
 
         startActivity(intentgp8);
+    }
+
+    public void monthly(View v) {
+        Intent intent2 = new Intent(this, Relaxation_Monthly.class);
+        startActivity(intent2);
+
+    }
+
+    public void daily(View view) {
+        Intent intent2 = new Intent(this, Relaxation_Daily.class);
+        startActivity(intent2);
+    }
+
+    public void weekly(View view) {
+        Intent intent2 = new Intent(this, Relaxation_Weekly.class);
+        startActivity(intent2);
     }
 
     public class MyBarDataset extends BarDataSet {
