@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -47,6 +49,8 @@ import java.util.List;
 
 public class Relaxation_Weekly extends AppCompatActivity {
 
+    Dialog dialogrw;
+
     BarChart barChart, barChart1, barChart2;
     private Context context;
     AppCompatButton daily, yearly, monthly;
@@ -74,6 +78,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
         daily = findViewById(R.id.daily);
         yearly = findViewById(R.id.yearly);
         monthly = findViewById(R.id.monthly);
+        dialogrw = new Dialog(this);
         //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -281,9 +286,16 @@ public class Relaxation_Weekly extends AppCompatActivity {
     }
 
     public void gotoPopup7(View view) {
-        Intent intentgp7 = new Intent(Relaxation_Weekly.this, Relaxation_popup.class);
-
-        startActivity(intentgp7);
+        ImageView imageViewcancle;
+        dialogrw.setContentView(R.layout.activity_relaxation_popup);
+        imageViewcancle = (ImageView) dialogrw.findViewById(R.id.imageViewcancle);
+        imageViewcancle.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                dialogrw.dismiss();
+            }
+        });
+        dialogrw.show();
     }
 
     public void yearly(View v) {

@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,6 +13,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -40,6 +42,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Concentration_Monthly extends AppCompatActivity {
+    Dialog dialogcm;
 
     BarChart barChart, barChart1;
     private Context context;
@@ -62,6 +65,7 @@ public class Concentration_Monthly extends AppCompatActivity {
         realTime=findViewById(R.id.realTime);
         relaxationBtn=findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
+        dialogcm = new Dialog(this);
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -231,9 +235,17 @@ public class Concentration_Monthly extends AppCompatActivity {
     }
 
     public void gotoPopup2(View view) {
-        Intent intentgp2 = new Intent(Concentration_Monthly.this, Concentration_popup.class);
+        ImageView cancelcon;
+        dialogcm.setContentView(R.layout.activity_concentration_popup);
+        cancelcon = (ImageView) dialogcm.findViewById(R.id.cancelcon);
+        cancelcon.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                dialogcm.dismiss();
+            }
+        });
+        dialogcm.show();
 
-        startActivity(intentgp2);
     }
 
     public void calimonthly(View view) {

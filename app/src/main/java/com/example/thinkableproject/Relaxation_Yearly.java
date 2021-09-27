@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -12,10 +13,9 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.TextView;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.thinkableproject.databinding.ActivityMainBinding;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -46,6 +46,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Relaxation_Yearly extends AppCompatActivity {
+    Dialog dialogry;
     BarChart barChart2;
     private Context context;
     AppCompatButton daily, weekly, monthly, realtime, improverelaxation;
@@ -72,6 +73,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
         daily = findViewById(R.id.daily);
         weekly = findViewById(R.id.weekly);
         monthly = findViewById(R.id.monthly);
+        dialogry = new Dialog(this);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference("chartTable");
@@ -275,9 +277,16 @@ public class Relaxation_Yearly extends AppCompatActivity {
     }
 
     public void gotoPopup8(View view) {
-        Intent intentgp8 = new Intent(Relaxation_Yearly.this, Relaxation_popup.class);
-
-        startActivity(intentgp8);
+        ImageView imageViewcancle;
+        dialogry.setContentView(R.layout.activity_relaxation_popup);
+        imageViewcancle = (ImageView) dialogry.findViewById(R.id.imageViewcancle);
+        imageViewcancle.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                dialogry.dismiss();
+            }
+        });
+        dialogry.show();
     }
 
     public void monthly(View v) {

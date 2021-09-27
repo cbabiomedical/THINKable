@@ -5,12 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -41,6 +43,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Concentration_Yearly extends AppCompatActivity {
+    Dialog dialogcy;
     BarChart barChart2;
     AppCompatButton daily, weekly, monthly,realTime;
     ImageButton relaxationBtn;
@@ -64,6 +67,7 @@ public class Concentration_Yearly extends AppCompatActivity {
         relaxationBtn=findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        dialogcy = new Dialog(this);
 
         //Set Home Selected
         bottomNavigationView.setSelectedItemId(R.id.home);
@@ -231,9 +235,16 @@ public class Concentration_Yearly extends AppCompatActivity {
     }
 
     public void gotoPopup4(View view) {
-        Intent intentgp4 = new Intent(Concentration_Yearly.this, Concentration_popup.class);
-
-        startActivity(intentgp4);
+        ImageView cancelcon;
+        dialogcy.setContentView(R.layout.activity_concentration_popup);
+        cancelcon = (ImageView) dialogcy.findViewById(R.id.cancelcon);
+        cancelcon.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                dialogcy.dismiss();
+            }
+        });
+        dialogcy.show();
     }
 
     public void caliyearly(View view) {

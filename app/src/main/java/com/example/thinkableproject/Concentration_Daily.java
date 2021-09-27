@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -51,6 +53,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class Concentration_Daily extends AppCompatActivity {
+    Dialog dialogcd;
     BarChart barChartdaily;
     private Context context;
     AppCompatButton monthly, yearly, weekly,realTime;
@@ -77,6 +80,7 @@ public class Concentration_Daily extends AppCompatActivity {
         realTime=findViewById(R.id.realTime);
         relaxationBtn=findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
+        dialogcd = new Dialog(this);
 
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -249,9 +253,19 @@ public class Concentration_Daily extends AppCompatActivity {
     }
 
     public void gotoPopup1(View view) {
-        Intent intentgp1 = new Intent(Concentration_Daily.this, Concentration_popup.class);
-
-        startActivity(intentgp1);
+//        Intent intentgp1 = new Intent(Concentration_Daily.this, Concentration_popup.class);
+//
+//        startActivity(intentgp1);
+        ImageView cancelcon;
+        dialogcd.setContentView(R.layout.activity_concentration_popup);
+        cancelcon = (ImageView) dialogcd.findViewById(R.id.cancelcon);
+        cancelcon.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                dialogcd.dismiss();
+            }
+        });
+        dialogcd.show();
 
     }
 
