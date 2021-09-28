@@ -1,9 +1,245 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:background="@drawable/landing_background"
+    android:orientation="horizontal"
     tools:context=".RelaxationReportWeekly">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        >
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <RelativeLayout
+                android:id="@+id/toggleBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageButton
+                    android:id="@+id/concentration"
+                    android:layout_width="157dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="55dp"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/relaxattionbtn"
+                    android:elevation="5dp"
+                    android:src="@drawable/concentration_icon" />
+
+                <ImageButton
+                    android:id="@+id/relaxation"
+                    android:layout_width="160dp"
+                    android:layout_height="50dp"
+                    android:layout_alignEnd="@+id/concentration"
+                    android:layout_alignRight="@+id/concentration"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="-140dp"
+                    android:layout_marginRight="-150dp"
+                    android:background="@drawable/concentrationbtn"
+                    android:elevation="5dp"
+                    android:src="@drawable/relax" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/toggleBtn1"
+                android:layout_below="@+id/toggleBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/timeto"
+                    android:layout_width="160dp"
+                    android:layout_height="70dp"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/Buttonrelaxation"
+                    android:elevation="5dp"
+                    android:text="Progress"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:src="@drawable/concentration_icon" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/timestayed"
+                    android:layout_width="155dp"
+                    android:layout_height="70dp"
+                    android:layout_alignEnd="@+id/timeto"
+                    android:layout_alignRight="@+id/timeto"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginEnd="-138dp"
+                    android:layout_marginRight="-138dp"
+                    android:text="Where Am I"
+                    android:textAllCaps="false"
+                    android:textColor="@color/dark"
+                    android:textStyle="bold"
+                    android:background="@drawable/Buttonconcentration"
+                    android:elevation="5dp"
+                    android:src="@drawable/relax" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/btnLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/toggleBtn1"
+                android:layout_marginTop="20dp"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/daily"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/btn_daily"
+                    android:text="@string/daily"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"></androidx.appcompat.widget.AppCompatButton>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/monthly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/btn_daily"
+                    android:text="@string/monthly"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"></androidx.appcompat.widget.AppCompatButton>
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/yearly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:background="@drawable/btn_daily"
+                    android:text="@string/yearly"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"></androidx.appcompat.widget.AppCompatButton>
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/legends"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btnLayout"
+                android:gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/Group11"/>
+
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/timetoRelax"
+                android:layout_below="@+id/legends"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/timetorel"
+                    android:layout_width="300dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/Buttonrelaxation"
+                    android:elevation="5dp"
+                    android:text="Time to Relax"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barChartWeeklytimeto"
+                android:layout_width="360dp"
+                android:layout_height="322dp"
+                android:layout_below="@+id/timetoRelax"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="35dp"
+                android:background="@color/white" />
+
+
+            <RelativeLayout
+                android:id="@+id/timestayedRelax"
+                android:layout_below="@+id/barChartWeeklytimeto"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/timestayedrel"
+                    android:layout_width="300dp"
+                    android:layout_height="40dp"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/Buttonrelaxation"
+                    android:elevation="5dp"
+                    android:text="Time Stayed Relaxed"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="20dp"
+                    android:textStyle="bold" />
+
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/timestayedRelax"
+                android:layout_marginBottom="90dp"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barChartWeeklytimestayed"
+                    android:layout_width="360dp"
+                    android:layout_height="322dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginTop="35dp"
+                    android:background="@color/white" />
+
+
+            </LinearLayout>
+        </RelativeLayout>
+
+    </ScrollView>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemBackground="@color/dark"
+        app:itemIconTint="@drawable/selector"
+        app:itemTextColor="@drawable/selector"
+        app:menu="@menu/menu_navigation" />
+
+
+</RelativeLayout>
