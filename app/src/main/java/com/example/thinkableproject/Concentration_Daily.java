@@ -6,8 +6,8 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
@@ -15,10 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.example.thinkableproject.databinding.ActivityMainBinding;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -38,32 +35,33 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Scanner;
 
 public class Concentration_Daily extends AppCompatActivity {
     Dialog dialogcd;
     BarChart barChartdaily;
-    private Context context;
-    AppCompatButton monthly, yearly, weekly,realTime;
+    AppCompatButton monthly, yearly, weekly, realTime;
     ImageButton relaxationBtn;
     FirebaseUser mUser;
-    TextView textView;
-    private ArrayList<String> contents;
     String text;
     File localFile;
-    private final String filename = "";
+    Uri uri;
+    File fileName;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
 
@@ -71,14 +69,13 @@ public class Concentration_Daily extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        binding=ActivityMainBinding.inflate(getLayoutInflater().inflate());
         setContentView(R.layout.activity_concentration__daily);
         barChartdaily = (BarChart) findViewById(R.id.barChartDaily);
         monthly = findViewById(R.id.monthly);
         yearly = findViewById(R.id.yearly);
         weekly = findViewById(R.id.weekly);
-        realTime=findViewById(R.id.realTime);
-        relaxationBtn=findViewById(R.id.relaxation);
+        realTime = findViewById(R.id.realTime);
+        relaxationBtn = findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
         dialogcd = new Dialog(this);
 
@@ -117,9 +114,64 @@ public class Concentration_Daily extends AppCompatActivity {
                 return false;
             }
         });
+        ArrayList<Float> obj = new ArrayList<>(
+                Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f));  //Array list to write data to file
+
+        try {
+             fileName = new File(getCacheDir() + "/daily.txt");  //Writing data to file
+            String line = "";
+            FileWriter fw;
+            fw = new FileWriter(fileName);
+            BufferedWriter output = new BufferedWriter(fw);
+            int size = obj.size();
+            for (int i = 0; i < size; i++) {
+                output.write(obj.get(i).toString() + "\n");
+                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+            }
+            output.close();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
+
+
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUser.getUid();
+        // Uploading file created to firebase storage
+        StorageReference storageReference1=FirebaseStorage.getInstance().getReference(mUser.getUid());
+        try {
+            StorageReference mountainsRef = storageReference1.child("daily.txt");
+            InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
+           UploadTask uploadTask = mountainsRef.putStream(stream);
+           uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+               @Override
+               public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                   Toast.makeText(Concentration_Daily.this,"File Uploaded",Toast.LENGTH_SHORT).show();
+               }
+           }).addOnFailureListener(new OnFailureListener() {
+               @Override
+               public void onFailure(@NonNull Exception e) {
+                   Toast.makeText(Concentration_Daily.this,"File Uploading Failed",Toast.LENGTH_SHORT).show();
+               }
+           });
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+////        storageReference1.child("uploadDaily.txt").putFile(Uri.parse("/data/data/com.example.thinkableproject/cache/daily.txt")).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//            @Override
+//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                Toast.makeText(Concentration_Daily.this,"File Uploaded",Toast.LENGTH_SHORT).show();
+//            }
+//        }).addOnFailureListener(new OnFailureListener() {
+//            @Override
+//            public void onFailure(@NonNull Exception e) {
+//                Toast.makeText(Concentration_Daily.this,"File Uploading Failed",Toast.LENGTH_SHORT).show();
+//            }
+//        });
+        //Downloading file and displaying chart
         StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/daily.txt");
 
         try {
@@ -247,10 +299,12 @@ public class Concentration_Daily extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference("chartTable");
 
     }
+
+    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    DatabaseReference reference = database.getReference("chartTable");
+
 
     public void gotoPopup1(View view) {
 //        Intent intentgp1 = new Intent(Concentration_Daily.this, Concentration_popup.class);
@@ -259,9 +313,9 @@ public class Concentration_Daily extends AppCompatActivity {
         ImageView cancelcon;
         dialogcd.setContentView(R.layout.activity_concentration_popup);
         cancelcon = (ImageView) dialogcd.findViewById(R.id.cancelcon);
-        cancelcon.setOnClickListener(new View.OnClickListener(){
+        cancelcon.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 dialogcd.dismiss();
             }
         });
@@ -354,27 +408,21 @@ public class Concentration_Daily extends AppCompatActivity {
         startActivity(intent2);
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-        if (!isChangingConfigurations()) {
-            deleteTempFiles(getCacheDir());
-        }
-    }
+//    @Override
+//    protected void onDestroy() {
+//        Log.d("ONDESTROY  ","Cache  ");
+//        super.onDestroy();
+//        try {
+//            trimCache(this);
+//            Log.d("DELETE ","Cache Deleted");
+//            // Toast.makeText(this,"onDestroy " ,Toast.LENGTH_LONG).show();
+//        } catch (Exception e) {
+//            Log.d("NOT DELETE ","Cache NOT Deleted");
+//            // TODO Auto-generated catch block
+//            e.printStackTrace();
+//        }
+//
+//    }
 
-    private boolean deleteTempFiles(File file) {
-        if (file.isDirectory()) {
-            File[] files = file.listFiles();
-            if (files != null) {
-                for (File f : files) {
-                    if (f.isDirectory()) {
-                        deleteTempFiles(f);
-                    } else {
-                        f.delete();
-                    }
-                }
-            }
-        }
-        return file.delete();
-    }
+
 }

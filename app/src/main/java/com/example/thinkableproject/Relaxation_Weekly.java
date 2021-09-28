@@ -222,6 +222,8 @@ public class Relaxation_Weekly extends AppCompatActivity {
         }
 
 
+
+
         //Perform ItemSelectedListener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override

@@ -33,8 +33,10 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -232,6 +234,24 @@ public class Concentration_Monthly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        ArrayList<Float> obj = new ArrayList<>(
+                Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f,43f,23f,70f,73f,10f));
+
+        try {
+            File fileName = new File(getCacheDir() + "/monthly.txt");
+            String line = "";
+            FileWriter fw;
+            fw = new FileWriter(fileName);
+            BufferedWriter output=new BufferedWriter(fw);
+            int size=obj.size();
+            for(int i=0;i<size;i++){
+                output.write(obj.get(i).toString()+"\n");
+                Toast.makeText(this,"Success Writing",Toast.LENGTH_SHORT).show();
+            }
+            output.close();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
     }
 
     public void gotoPopup2(View view) {
