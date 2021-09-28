@@ -16,6 +16,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThinkableProject">
         <activity
+            android:name=".RelaxationReportWeekly"
+            android:exported="true" />
+        <activity
             android:name=".RelaxationReportMonthly"
             android:exported="true" />
         <activity
