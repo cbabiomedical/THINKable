@@ -183,7 +183,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
         });
 
         ArrayList<Float> obj = new ArrayList<>(
-                Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f));  //Array list to write data to file
+                Arrays.asList(30f, 86f, 10f, 50f));  //Array list to write data to file
 
         try {
             fileName = new File(getCacheDir() + "/relaxationyearly.txt");  //Writing data to file

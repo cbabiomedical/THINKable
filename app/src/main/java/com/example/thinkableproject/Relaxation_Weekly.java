@@ -133,7 +133,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
 //        });
 
         ArrayList<Float> obj = new ArrayList<>(
-                Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f));  //Array list to write data to file
+                Arrays.asList(30f, 86f, 10f, 50f));  //Array list to write data to file
 
         try {
             fileName = new File(getCacheDir() + "/relaxationweekly.txt");  //Writing data to file

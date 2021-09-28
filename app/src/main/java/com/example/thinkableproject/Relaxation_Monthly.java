@@ -130,7 +130,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
 //        });
 
         ArrayList<Float> obj = new ArrayList<>(
-                Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f));  //Array list to write data to file
+                Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f, 57f, 40f, 30f, 84f, 55f));  //Array list to write data to file
 
         try {
             fileName = new File(getCacheDir() + "/relaxationmonthly.txt");  //Writing data to file
