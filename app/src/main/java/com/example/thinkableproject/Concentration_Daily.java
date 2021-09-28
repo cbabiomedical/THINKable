@@ -116,6 +116,7 @@ public class Concentration_Daily extends AppCompatActivity {
                 return false;
             }
         });
+
         ArrayList<Float> obj = new ArrayList<>(
                 Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f));  //Array list to write data to file
 
@@ -160,17 +161,6 @@ public class Concentration_Daily extends AppCompatActivity {
             e.printStackTrace();
         }
 
-////        storageReference1.child("uploadDaily.txt").putFile(Uri.parse("/data/data/com.example.thinkableproject/cache/daily.txt")).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-//            @Override
-//            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                Toast.makeText(Concentration_Daily.this,"File Uploaded",Toast.LENGTH_SHORT).show();
-//            }
-//        }).addOnFailureListener(new OnFailureListener() {
-//            @Override
-//            public void onFailure(@NonNull Exception e) {
-//                Toast.makeText(Concentration_Daily.this,"File Uploading Failed",Toast.LENGTH_SHORT).show();
-//            }
-//        });
         final Handler handler = new Handler();
         final int delay =3000;
 

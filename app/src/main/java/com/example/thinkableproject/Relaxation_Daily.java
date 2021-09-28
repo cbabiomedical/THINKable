@@ -9,6 +9,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -37,11 +38,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,18 +56,12 @@ import java.util.List;
 public class Relaxation_Daily extends AppCompatActivity {
 
     Dialog dialogrd;
-
     BarChart barChartdaily;
-    private Context context;
-    AppCompatButton monthly, yearly, weekly;
-    ActivityMainBinding binding;
+    AppCompatButton monthly, yearly, weekly, realTime;
     FirebaseUser mUser;
-    TextView textView;
-    private ArrayList<String> contents;
     String text;
     File localFile;
-    private final String filename = "";
-    AppCompatButton realtime, improverelaxation;
+    File fileName;
     ImageButton concentration, music, meditation, video;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
@@ -71,10 +71,28 @@ public class Relaxation_Daily extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relaxation_daily);
         dialogrd = new Dialog(this);
-
+        barChartdaily = (BarChart) findViewById(R.id.barChartDaily);
+        List<BarEntry> entries = new ArrayList<>();
         music = findViewById(R.id.music);
         meditation = findViewById(R.id.meditations);
         video = findViewById(R.id.video);
+        realTime = findViewById(R.id.realTime);
+        concentration = findViewById(R.id.concentration);
+        //Initialize and Assign Variable
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        //Set Home Selected
+        bottomNavigationView.setSelectedItemId(R.id.home);
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference reference = database.getReference("chartTable");
+
+
+        realTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick (View view){
+                Intent intent = new Intent(getApplicationContext(), Calibration.class);
+                startActivity(intent);
+            }
+        });
         music.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -89,6 +107,7 @@ public class Relaxation_Daily extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
         video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -97,20 +116,6 @@ public class Relaxation_Daily extends AppCompatActivity {
             }
         });
 
-        barChartdaily = (BarChart) findViewById(R.id.barChartDaily);
-        List<BarEntry> entries = new ArrayList<>();
-
-        //Initialize and Assign Variable
-        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
-
-        //Set Home Selected
-        bottomNavigationView.setSelectedItemId(R.id.home);
-
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference reference = database.getReference("chartTable");
-
-
-        concentration = findViewById(R.id.concentration);
         concentration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,99 +124,150 @@ public class Relaxation_Daily extends AppCompatActivity {
             }
         });
 
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
-        mUser.getUid();
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/daily.txt");
+        ArrayList<Float> obj = new ArrayList<>(
+                Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f));  //Array list to write data to file
 
         try {
-            localFile = File.createTempFile("tempFile", ".txt");
-            text = localFile.getAbsolutePath();
-            Log.d("Bitmap", text);
-            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(Relaxation_Daily.this, "Success", Toast.LENGTH_SHORT).show();
-
-                    try {
-                        InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
-
-                        Log.d("FileName", localFile.getAbsolutePath());
-
-                        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                        String line = "";
-
-                        Log.d("First", line);
-                        if ((line = bufferedReader.readLine()) != null) {
-                            list.add(line);
-                        }
-                        while ((line = bufferedReader.readLine()) != null) {
-
-                            list.add(line);
-                            Log.d("Line", line);
-                        }
-
-                        Log.d("List", String.valueOf(list));
-
-                        for (int i = 0; i < list.size(); i++) {
-                            floatList.add(Float.parseFloat(list.get(i)));
-                            Log.d("FloatArrayList", String.valueOf(floatList));
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    Log.d("floatListTest", String.valueOf(floatList));
-                    String[] days = new String[]{"Mon", "Thu", "Wed", "Thur", "Fri", "Sat", "Sun"};
-                    List<Float> creditsMain = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f, 10f, 15f, 85f));
-                    float[] strengthDay = new float[]{90f, 30f, 70f, 50f, 10f, 15f, 85f};
-
-                    for (int j = 0; j < floatList.size(); ++j) {
-                        entries.add(new BarEntry(j, floatList.get(j)));
-                    }
-
-
-                    float textSize = 16f;
-                    MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsMain);
-                    dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
-                            ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
-                            ContextCompat.getColor(getApplicationContext(), R.color.blue),
-                            ContextCompat.getColor(getApplicationContext(), R.color.Ldark),
-                            ContextCompat.getColor(getApplicationContext(), R.color.dark));
-                    BarData data = new BarData(dataSet);
-                    data.setDrawValues(false);
-                    data.setBarWidth(0.8f);
-
-                    barChartdaily.setData(data);
-                    barChartdaily.setFitBars(true);
-                    barChartdaily.getXAxis().setValueFormatter(new IndexAxisValueFormatter(days));
-                    barChartdaily.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-                    barChartdaily.getXAxis().setTextSize(textSize);
-                    barChartdaily.getAxisLeft().setTextSize(textSize);
-                    barChartdaily.setExtraBottomOffset(10f);
-
-                    barChartdaily.getAxisRight().setEnabled(false);
-                    Description desc = new Description();
-                    desc.setText("");
-                    barChartdaily.setDescription(desc);
-                    barChartdaily.getLegend().setEnabled(false);
-                    barChartdaily.getXAxis().setDrawGridLines(false);
-                    barChartdaily.getAxisLeft().setDrawGridLines(false);
-
-                    barChartdaily.invalidate();
-
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Relaxation_Daily.this, "Failed", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-
+            fileName = new File(getCacheDir() + "/daily.txt");  //Writing data to file
+            String line = "";
+            FileWriter fw;
+            fw = new FileWriter(fileName);
+            BufferedWriter output = new BufferedWriter(fw);
+            int size = obj.size();
+            for (int i = 0; i < size; i++) {
+                output.write(obj.get(i).toString() + "\n");
+                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+            }
+            output.close();
         } catch (IOException exception) {
             exception.printStackTrace();
         }
 
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        mUser.getUid();
+        // Uploading file created to firebase storage
+        StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
+        try {
+            StorageReference mountainsRef = storageReference1.child("daily.txt");
+            InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
+            UploadTask uploadTask = mountainsRef.putStream(stream);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(Relaxation_Daily.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(Relaxation_Daily.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        final Handler handler = new Handler();
+        final int delay = 5000;
+
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/daily.txt");
+
+                try {
+                    localFile = File.createTempFile("tempFile", ".txt");
+                    text = localFile.getAbsolutePath();
+                    Log.d("Bitmap", text);
+                    storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(Relaxation_Daily.this, "Success", Toast.LENGTH_SHORT).show();
+
+                            try {
+                                InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
+
+                                Log.d("FileName", localFile.getAbsolutePath());
+
+                                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                                String line = "";
+
+                                Log.d("First", line);
+                                if ((line = bufferedReader.readLine()) != null) {
+                                    list.add(line);
+                                }
+                                while ((line = bufferedReader.readLine()) != null) {
+
+                                    list.add(line);
+                                    Log.d("Line", line);
+                                }
+
+                                Log.d("List", String.valueOf(list));
+
+                                for (int i = 0; i < list.size(); i++) {
+                                    floatList.add(Float.parseFloat(list.get(i)));
+                                    Log.d("FloatArrayList", String.valueOf(floatList));
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d("floatListTest", String.valueOf(floatList));
+                            String[] days = new String[]{"Mon", "Thu", "Wed", "Thur", "Fri", "Sat", "Sun"};
+                            List<Float> creditsMain = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f, 10f, 15f, 85f));
+                            float[] strengthDay = new float[]{90f, 30f, 70f, 50f, 10f, 15f, 85f};
+
+                            for (int j = 0; j < floatList.size(); ++j) {
+                                entries.add(new BarEntry(j, floatList.get(j)));
+                            }
+
+
+                            float textSize = 16f;
+                            Relaxation_Daily.MyBarDataset dataSet = new Relaxation_Daily.MyBarDataset(entries, "data", creditsMain);
+                            dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.blue),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.Ldark),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.dark));
+                            BarData data = new BarData(dataSet);
+                            data.setDrawValues(false);
+                            data.setBarWidth(0.8f);
+
+                            barChartdaily.setData(data);
+                            barChartdaily.setFitBars(true);
+                            barChartdaily.getXAxis().setValueFormatter(new IndexAxisValueFormatter(days));
+                            barChartdaily.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChartdaily.getXAxis().setTextSize(textSize);
+                            barChartdaily.getAxisLeft().setTextSize(textSize);
+                            barChartdaily.setExtraBottomOffset(10f);
+
+                            barChartdaily.getAxisRight().setEnabled(false);
+                            Description desc = new Description();
+                            desc.setText("");
+                            barChartdaily.setDescription(desc);
+                            barChartdaily.getLegend().setEnabled(false);
+                            barChartdaily.getXAxis().setDrawGridLines(false);
+                            barChartdaily.getAxisLeft().setDrawGridLines(false);
+
+                            barChartdaily.invalidate();
+
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(Relaxation_Daily.this, "Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+            }
+
+            //Downloading file and displaying chart
+        },delay);
 
         monthly = findViewById(R.id.monthly);
         yearly = findViewById(R.id.yearly);
