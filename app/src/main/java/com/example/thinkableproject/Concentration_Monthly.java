@@ -9,6 +9,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,13 +32,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,11 +52,12 @@ public class Concentration_Monthly extends AppCompatActivity {
 
     BarChart barChart, barChart1;
     private Context context;
-    AppCompatButton daily, weekly, yearly,realTime;
+    AppCompatButton daily, weekly, yearly, realTime;
     ImageButton relaxationBtn;
     FirebaseUser mUser;
     File localFile;
     String text;
+    File fileName;
     ArrayList<String> list = new ArrayList();
     ArrayList<Float> floatList = new ArrayList<>();
 
@@ -64,8 +69,8 @@ public class Concentration_Monthly extends AppCompatActivity {
         weekly = findViewById(R.id.weekly);
         yearly = findViewById(R.id.yearly);
         barChart = (BarChart) findViewById(R.id.barChartMonthly);
-        realTime=findViewById(R.id.realTime);
-        relaxationBtn=findViewById(R.id.relaxation);
+        realTime = findViewById(R.id.realTime);
+        relaxationBtn = findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
         dialogcm = new Dialog(this);
 
@@ -103,100 +108,149 @@ public class Concentration_Monthly extends AppCompatActivity {
                 return false;
             }
         });
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
-        mUser.getUid();
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/monthly.txt");
+        ArrayList<Float> obj = new ArrayList<>(
+                Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f, 43f, 23f, 70f, 73f, 10f));
 
         try {
-            localFile = File.createTempFile("tempFile", ".txt");
-            text = localFile.getAbsolutePath();
-            Log.d("Bitmap", text);
-            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+            fileName = new File(getCacheDir() + "/monthly.txt");
+            String line = "";
+            FileWriter fw;
+            fw = new FileWriter(fileName);
+            BufferedWriter output = new BufferedWriter(fw);
+            int size = obj.size();
+            for (int i = 0; i < size; i++) {
+                output.write(obj.get(i).toString() + "\n");
+                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+            }
+            output.close();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        mUser.getUid();
+        StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
+        try {
+            StorageReference mountainsRef = storageReference1.child("monthly.txt");
+            InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
+            UploadTask uploadTask = mountainsRef.putStream(stream);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(Concentration_Monthly.this, "Success", Toast.LENGTH_SHORT).show();
-
-                    try {
-                        InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
-
-                        Log.d("FileName", localFile.getAbsolutePath());
-
-                        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                        String line = "";
-
-                        Log.d("First", line);
-                        if ((line = bufferedReader.readLine()) != null) {
-                            list.add(line);
-                        }
-                        while ((line = bufferedReader.readLine()) != null) {
-
-                            list.add(line);
-                            Log.d("Line", line);
-                        }
-
-                        Log.d("List", String.valueOf(list));
-
-                        for (int i = 0; i < list.size(); i++) {
-                            floatList.add(Float.parseFloat(list.get(i)));
-                            Log.d("FloatArrayList", String.valueOf(floatList));
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    Log.d("floatListTest", String.valueOf(floatList));
-                    String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
-                    List<Float> credits = new ArrayList<>(Arrays.asList(90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f));
-                    float[] strength = new float[]{90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f};
-
-
-                    for (int j = 0; j < floatList.size(); ++j) {
-                        entries.add(new BarEntry(j, floatList.get(j)));
-                    }
-
-
-                    float textSize = 16f;
-                    MyBarDataset dataSet = new MyBarDataset(entries, "data", credits);
-                    dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
-                            ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
-                            ContextCompat.getColor(getApplicationContext(), R.color.blue),
-                            ContextCompat.getColor(getApplicationContext(), R.color.Ldark),
-                            ContextCompat.getColor(getApplicationContext(), R.color.dark));
-                    BarData data = new BarData(dataSet);
-                    data.setDrawValues(false);
-                    data.setBarWidth(0.8f);
-
-                    barChart.setData(data);
-                    barChart.setFitBars(true);
-                    barChart.getXAxis
-                            ().setValueFormatter(new IndexAxisValueFormatter(months));
-                    barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-                    barChart.getXAxis().setTextSize(textSize);
-                    barChart.getAxisLeft().setTextSize(textSize);
-                    barChart.setExtraBottomOffset(10f);
-
-                    barChart.getAxisRight().setEnabled(false);
-                    Description desc = new Description();
-                    desc.setText("");
-                    barChart.setDescription(desc);
-                    barChart.getLegend().setEnabled(false);
-                    barChart.getXAxis().setDrawGridLines(false);
-                    barChart.getAxisLeft().setDrawGridLines(false);
-
-                    barChart.invalidate();
-
-
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(Concentration_Monthly.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Concentration_Monthly.this, "Failed", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(Concentration_Monthly.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
-
-        } catch (IOException exception) {
-            exception.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
         }
+
+        final Handler handler = new Handler();
+        final int delay = 7000;
+
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/monthly.txt");
+
+                try {
+                    localFile = File.createTempFile("tempFile", ".txt");
+                    text = localFile.getAbsolutePath();
+                    Log.d("Bitmap", text);
+                    storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(Concentration_Monthly.this, "Success", Toast.LENGTH_SHORT).show();
+
+                            try {
+                                InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
+
+                                Log.d("FileName", localFile.getAbsolutePath());
+
+                                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                                String line = "";
+
+                                Log.d("First", line);
+                                if ((line = bufferedReader.readLine()) != null) {
+                                    list.add(line);
+                                }
+                                while ((line = bufferedReader.readLine()) != null) {
+
+                                    list.add(line);
+                                    Log.d("Line", line);
+                                }
+
+                                Log.d("List", String.valueOf(list));
+
+                                for (int i = 0; i < list.size(); i++) {
+                                    floatList.add(Float.parseFloat(list.get(i)));
+                                    Log.d("FloatArrayList", String.valueOf(floatList));
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d("floatListTest", String.valueOf(floatList));
+                            String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
+                            List<Float> credits = new ArrayList<>(Arrays.asList(90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f));
+                            float[] strength = new float[]{90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f};
+
+
+                            for (int j = 0; j < floatList.size(); ++j) {
+                                entries.add(new BarEntry(j, floatList.get(j)));
+                            }
+
+
+                            float textSize = 16f;
+                            MyBarDataset dataSet = new MyBarDataset(entries, "data", credits);
+                            dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.blue),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.Ldark),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.dark));
+                            BarData data = new BarData(dataSet);
+                            data.setDrawValues(false);
+                            data.setBarWidth(0.8f);
+
+                            barChart.setData(data);
+                            barChart.setFitBars(true);
+                            barChart.getXAxis
+                                    ().setValueFormatter(new IndexAxisValueFormatter(months));
+                            barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChart.getXAxis().setTextSize(textSize);
+                            barChart.getAxisLeft().setTextSize(textSize);
+                            barChart.setExtraBottomOffset(10f);
+
+                            barChart.getAxisRight().setEnabled(false);
+                            Description desc = new Description();
+                            desc.setText("");
+                            barChart.setDescription(desc);
+                            barChart.getLegend().setEnabled(false);
+                            barChart.getXAxis().setDrawGridLines(false);
+                            barChart.getAxisLeft().setDrawGridLines(false);
+
+                            barChart.invalidate();
+
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(Concentration_Monthly.this, "Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+            }
+        }, delay);
 
 
         daily.setOnClickListener(new View.OnClickListener() {
@@ -216,7 +270,7 @@ public class Concentration_Monthly extends AppCompatActivity {
         yearly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Concentration_Monthly.class);
+                Intent intent = new Intent(getApplicationContext(), Concentration_Yearly.class);
                 startActivity(intent);
             }
         });
@@ -234,33 +288,16 @@ public class Concentration_Monthly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        ArrayList<Float> obj = new ArrayList<>(
-                Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f,43f,23f,70f,73f,10f));
 
-        try {
-            File fileName = new File(getCacheDir() + "/monthly.txt");
-            String line = "";
-            FileWriter fw;
-            fw = new FileWriter(fileName);
-            BufferedWriter output=new BufferedWriter(fw);
-            int size=obj.size();
-            for(int i=0;i<size;i++){
-                output.write(obj.get(i).toString()+"\n");
-                Toast.makeText(this,"Success Writing",Toast.LENGTH_SHORT).show();
-            }
-            output.close();
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
     }
 
     public void gotoPopup2(View view) {
         ImageView cancelcon;
         dialogcm.setContentView(R.layout.activity_concentration_popup);
         cancelcon = (ImageView) dialogcm.findViewById(R.id.cancelcon);
-        cancelcon.setOnClickListener(new View.OnClickListener(){
+        cancelcon.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 dialogcm.dismiss();
             }
         });

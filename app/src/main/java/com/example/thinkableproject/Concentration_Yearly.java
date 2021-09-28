@@ -8,6 +8,7 @@ import androidx.core.content.ContextCompat;
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -32,13 +33,16 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -47,10 +51,11 @@ import java.util.List;
 public class Concentration_Yearly extends AppCompatActivity {
     Dialog dialogcy;
     BarChart barChart2;
-    AppCompatButton daily, weekly, monthly,realTime;
+    AppCompatButton daily, weekly, monthly, realTime;
     ImageButton relaxationBtn;
     FirebaseUser mUser;
     File localFile;
+    File fileName;
     String text;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
@@ -65,8 +70,8 @@ public class Concentration_Yearly extends AppCompatActivity {
         daily = findViewById(R.id.daily);
         weekly = findViewById(R.id.weekly);
         monthly = findViewById(R.id.monthly);
-        realTime=findViewById(R.id.realTime);
-        relaxationBtn=findViewById(R.id.relaxation);
+        realTime = findViewById(R.id.realTime);
+        relaxationBtn = findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         dialogcy = new Dialog(this);
@@ -141,116 +146,147 @@ public class Concentration_Yearly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
-        mUser.getUid();
-        StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/yearly.txt");
-
-        try {
-            localFile = File.createTempFile("tempFile", ".txt");
-            text = localFile.getAbsolutePath();
-            Log.d("Bitmap", text);
-            storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(Concentration_Yearly.this, "Success", Toast.LENGTH_SHORT).show();
-
-                    try {
-                        InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
-
-                        Log.d("FileName", localFile.getAbsolutePath());
-
-                        BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                        String line = "";
-
-                        Log.d("First", line);
-                        if ((line = bufferedReader.readLine()) != null) {
-                            list.add(line);
-                        }
-                        while ((line = bufferedReader.readLine()) != null) {
-
-                            list.add(line);
-                            Log.d("Line", line);
-                        }
-
-                        Log.d("List", String.valueOf(list));
-
-                        for (int i = 0; i < list.size(); i++) {
-                            floatList.add(Float.parseFloat(list.get(i)));
-                            Log.d("FloatArrayList", String.valueOf(floatList));
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    Log.d("floatListTest", String.valueOf(floatList));
-                    String[] weeks = new String[]{"2018", "2019", "2020", "2021"};
-                    List<Float> creditsWeek = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 10f));
-                    float[] strengthWeek = new float[]{90f, 30f, 70f, 10f};
-
-                    for (int j = 0; j < floatList.size(); ++j) {
-                        entries.add(new BarEntry(j, floatList.get(j)));
-                    }
-
-
-                    float textSize = 16f;
-                    MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsWeek);
-                    dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
-                            ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
-                            ContextCompat.getColor(getApplicationContext(), R.color.blue),
-                            ContextCompat.getColor(getApplicationContext(), R.color.Ldark),
-                            ContextCompat.getColor(getApplicationContext(), R.color.dark));
-                    BarData data = new BarData(dataSet);
-                    data.setDrawValues(false);
-                    data.setBarWidth(0.8f);
-
-                    barChart2.setData(data);
-                    barChart2.setFitBars(true);
-                    barChart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(weeks));
-                    barChart2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-                    barChart2.getXAxis().setTextSize(textSize);
-                    barChart2.getAxisLeft().setTextSize(textSize);
-                    barChart2.setExtraBottomOffset(10f);
-
-                    barChart2.getAxisRight().setEnabled(false);
-                    Description desc = new Description();
-                    desc.setText("");
-                    barChart2.setDescription(desc);
-                    barChart2.getLegend().setEnabled(false);
-                    barChart2.getXAxis().setDrawGridLines(false);
-                    barChart2.getAxisLeft().setDrawGridLines(false);
-
-                    barChart2.invalidate();
-
-
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Concentration_Yearly.this, "Failed", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
         ArrayList<Float> obj = new ArrayList<>(
                 Arrays.asList(30f, 86f, 10f, 50f));
 
         try {
-            File fileName = new File(getCacheDir() + "/yearly.txt");
+            fileName = new File(getCacheDir() + "/yearly.txt");
             String line = "";
             FileWriter fw;
             fw = new FileWriter(fileName);
-            BufferedWriter output=new BufferedWriter(fw);
-            int size=obj.size();
-            for(int i=0;i<size;i++){
-                output.write(obj.get(i).toString()+"\n");
-                Toast.makeText(this,"Success Writing",Toast.LENGTH_SHORT).show();
+            BufferedWriter output = new BufferedWriter(fw);
+            int size = obj.size();
+            for (int i = 0; i < size; i++) {
+                output.write(obj.get(i).toString() + "\n");
+                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
             }
             output.close();
         } catch (IOException exception) {
             exception.printStackTrace();
         }
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        mUser.getUid();
+        StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
+        try {
+            StorageReference mountainsRef = storageReference1.child("yearly.txt");
+            InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
+            UploadTask uploadTask = mountainsRef.putStream(stream);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(Concentration_Yearly.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(Concentration_Yearly.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+        final Handler handler = new Handler();
+        final int delay = 7000;
+
+        handler.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/yearly.txt");
+
+                try {
+                    localFile = File.createTempFile("tempFile", ".txt");
+                    text = localFile.getAbsolutePath();
+                    Log.d("Bitmap", text);
+                    storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(Concentration_Yearly.this, "Success", Toast.LENGTH_SHORT).show();
+
+                            try {
+                                InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
+
+                                Log.d("FileName", localFile.getAbsolutePath());
+
+                                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                                String line = "";
+
+                                Log.d("First", line);
+                                if ((line = bufferedReader.readLine()) != null) {
+                                    list.add(line);
+                                }
+                                while ((line = bufferedReader.readLine()) != null) {
+
+                                    list.add(line);
+                                    Log.d("Line", line);
+                                }
+
+                                Log.d("List", String.valueOf(list));
+
+                                for (int i = 0; i < list.size(); i++) {
+                                    floatList.add(Float.parseFloat(list.get(i)));
+                                    Log.d("FloatArrayList", String.valueOf(floatList));
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d("floatListTest", String.valueOf(floatList));
+                            String[] weeks = new String[]{"2018", "2019", "2020", "2021"};
+                            List<Float> creditsWeek = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 10f));
+                            float[] strengthWeek = new float[]{90f, 30f, 70f, 10f};
+
+                            for (int j = 0; j < floatList.size(); ++j) {
+                                entries.add(new BarEntry(j, floatList.get(j)));
+                            }
+
+
+                            float textSize = 16f;
+                            MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsWeek);
+                            dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.blue),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.Ldark),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.dark));
+                            BarData data = new BarData(dataSet);
+                            data.setDrawValues(false);
+                            data.setBarWidth(0.8f);
+
+                            barChart2.setData(data);
+                            barChart2.setFitBars(true);
+                            barChart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(weeks));
+                            barChart2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChart2.getXAxis().setTextSize(textSize);
+                            barChart2.getAxisLeft().setTextSize(textSize);
+                            barChart2.setExtraBottomOffset(10f);
+
+                            barChart2.getAxisRight().setEnabled(false);
+                            Description desc = new Description();
+                            desc.setText("");
+                            barChart2.setDescription(desc);
+                            barChart2.getLegend().setEnabled(false);
+                            barChart2.getXAxis().setDrawGridLines(false);
+                            barChart2.getAxisLeft().setDrawGridLines(false);
+
+                            barChart2.invalidate();
+
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(Concentration_Yearly.this, "Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+            }
+        }, delay);
 
     }
 
@@ -258,9 +294,9 @@ public class Concentration_Yearly extends AppCompatActivity {
         ImageView cancelcon;
         dialogcy.setContentView(R.layout.activity_concentration_popup);
         cancelcon = (ImageView) dialogcy.findViewById(R.id.cancelcon);
-        cancelcon.setOnClickListener(new View.OnClickListener(){
+        cancelcon.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 dialogcy.dismiss();
             }
         });
