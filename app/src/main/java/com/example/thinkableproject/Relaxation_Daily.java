@@ -73,9 +73,9 @@ public class Relaxation_Daily extends AppCompatActivity {
         dialogrd = new Dialog(this);
         barChartdaily = (BarChart) findViewById(R.id.barChartDaily);
         List<BarEntry> entries = new ArrayList<>();
-        music = findViewById(R.id.music);
-        meditation = findViewById(R.id.meditations);
-        video = findViewById(R.id.video);
+//        music = findViewById(R.id.music);
+//        meditation = findViewById(R.id.meditations);
+//        video = findViewById(R.id.video);
         realTime = findViewById(R.id.realTime);
         concentration = findViewById(R.id.concentration);
         //Initialize and Assign Variable
@@ -93,28 +93,28 @@ public class Relaxation_Daily extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        music.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Music.class);
-                startActivity(intent);
-            }
-        });
-        meditation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Meditation.class);
-                startActivity(intent);
-            }
-        });
-
-        video.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Video.class);
-                startActivity(intent);
-            }
-        });
+//        music.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), Music.class);
+//                startActivity(intent);
+//            }
+//        });
+//        meditation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), Meditation.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        video.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), Video.class);
+//                startActivity(intent);
+//            }
+//        });
 
         concentration.setOnClickListener(new View.OnClickListener() {
             @Override

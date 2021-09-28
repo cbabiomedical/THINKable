@@ -16,13 +16,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThinkableProject">
         <activity
+            android:name=".RelaxationReportYearly"
+            android:exported="true" />
+        <activity
+            android:name=".RelaxationReportDaily"
+            android:exported="true" />
+        <activity
             android:name=".RelaxationReportWeekly"
             android:exported="true" />
         <activity
             android:name=".RelaxationReportMonthly"
-            android:exported="true" />
-        <activity
-            android:name=".RelaxationReportDaily"
             android:exported="true" />
         <activity
             android:name=".Video"
