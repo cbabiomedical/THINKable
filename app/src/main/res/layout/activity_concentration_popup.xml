@@ -6,7 +6,8 @@
     android:layout_height="350dp"
     tools:context=".Concentration_popup"
     android:background="@drawable/gmc"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+   >
 
 
     <LinearLayout
