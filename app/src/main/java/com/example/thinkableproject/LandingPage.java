@@ -12,7 +12,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
@@ -21,10 +20,6 @@ import com.google.firebase.storage.UploadTask;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 public class LandingPage extends AppCompatActivity {
     private static final int PICK_FILE_REQUEST = 234;
@@ -161,5 +156,10 @@ public class LandingPage extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         Intent intentSignotGgl = new Intent(getApplicationContext(), RegisterActivity.class);
         startActivity(intentSignotGgl);
+    }
+
+    public void cq(View view) {
+        Intent intentcq = new Intent(getApplicationContext(), ConcentrationReportWhereamI.class);
+        startActivity(intentcq);
     }
 }
