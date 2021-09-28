@@ -133,7 +133,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
                 Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f));  //Array list to write data to file
 
         try {
-            fileName = new File(getCacheDir() + "/monthly.txt");  //Writing data to file
+            fileName = new File(getCacheDir() + "/relaxationmonthly.txt");  //Writing data to file
             String line = "";
             FileWriter fw;
             fw = new FileWriter(fileName);
@@ -154,7 +154,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
         // Uploading file created to firebase storage
         StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
         try {
-            StorageReference mountainsRef = storageReference1.child("monthly.txt");
+            StorageReference mountainsRef = storageReference1.child("relaxationmonthly.txt");
             InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
             UploadTask uploadTask = mountainsRef.putStream(stream);
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -179,7 +179,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/monthly.txt");
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/relaxationmonthly.txt");
 
                 try {
                     localFile = File.createTempFile("tempFile", ".txt");

@@ -128,7 +128,7 @@ public class Relaxation_Daily extends AppCompatActivity {
                 Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f));  //Array list to write data to file
 
         try {
-            fileName = new File(getCacheDir() + "/daily.txt");  //Writing data to file
+            fileName = new File(getCacheDir() + "/relaxationdaily.txt");  //Writing data to file
             String line = "";
             FileWriter fw;
             fw = new FileWriter(fileName);
@@ -148,7 +148,7 @@ public class Relaxation_Daily extends AppCompatActivity {
         // Uploading file created to firebase storage
         StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
         try {
-            StorageReference mountainsRef = storageReference1.child("daily.txt");
+            StorageReference mountainsRef = storageReference1.child("relaxationdaily.txt");
             InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
             UploadTask uploadTask = mountainsRef.putStream(stream);
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -174,7 +174,7 @@ public class Relaxation_Daily extends AppCompatActivity {
 
             @Override
             public void run() {
-                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/daily.txt");
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/relaxationdaily.txt");
 
                 try {
                     localFile = File.createTempFile("tempFile", ".txt");
