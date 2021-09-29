@@ -85,21 +85,21 @@ public class RelaxationReportDaily extends AppCompatActivity {
         monthly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentr1 = new Intent(getApplicationContext(), Relaxation_Monthly.class);
+                Intent intentr1 = new Intent(getApplicationContext(), RelaxationReportMonthly.class);
                 startActivity(intentr1);
             }
         });
         weekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentr1 = new Intent(getApplicationContext(), Relaxation_Weekly.class);
+                Intent intentr1 = new Intent(getApplicationContext(), RelaxationReportWeekly.class);
                 startActivity(intentr1);
             }
         });
         yearly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentr1 = new Intent(getApplicationContext(), Relaxation_Yearly.class);
+                Intent intentr1 = new Intent(getApplicationContext(), RelaxationReportYearly.class);
                 startActivity(intentr1);
             }
         });
