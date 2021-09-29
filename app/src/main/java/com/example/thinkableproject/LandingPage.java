@@ -12,7 +12,6 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
@@ -21,14 +20,10 @@ import com.google.firebase.storage.UploadTask;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.ui.AppBarConfiguration;
-import androidx.navigation.ui.NavigationUI;
 
 public class LandingPage extends AppCompatActivity {
     private static final int PICK_FILE_REQUEST = 234;
-    Button changepassword, logout, relaxationLanding, concentrationLanding;
+    Button changepassword, logout, relaxationLanding, concentrationLanding,reportConDaily;
     Button chooseFile, uploadFile;
     private Uri filePath;
     private StorageReference storageReference;
@@ -41,6 +36,7 @@ public class LandingPage extends AppCompatActivity {
         concentrationLanding = findViewById(R.id.concentrationDaily);
         chooseFile = findViewById(R.id.choose);
         uploadFile = findViewById(R.id.upload);
+        reportConDaily=findViewById(R.id.reportConDaily);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
@@ -64,6 +60,13 @@ public class LandingPage extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), Concentration_Daily.class);
+                startActivity(intent);
+            }
+        });
+        reportConDaily.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ConcentrationReportDaily.class);
                 startActivity(intent);
             }
         });
@@ -153,5 +156,10 @@ public class LandingPage extends AppCompatActivity {
         FirebaseAuth.getInstance().signOut();
         Intent intentSignotGgl = new Intent(getApplicationContext(), RegisterActivity.class);
         startActivity(intentSignotGgl);
+    }
+
+    public void cq(View view) {
+        Intent intentcq = new Intent(getApplicationContext(), ConcentrationReportWhereamI.class);
+        startActivity(intentcq);
     }
 }
