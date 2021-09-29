@@ -54,7 +54,6 @@ import java.util.List;
 public class Relaxation_Yearly extends AppCompatActivity {
     Dialog dialogry;
     BarChart barChart2;
-    private Context context;
     AppCompatButton daily, weekly, monthly, realTime;
     ImageButton concentration, relaxation, music, meditation, video;
     FirebaseUser mUser;
@@ -183,10 +182,10 @@ public class Relaxation_Yearly extends AppCompatActivity {
         });
 
         ArrayList<Float> obj = new ArrayList<>(
-                Arrays.asList(30f, 86f, 10f, 50f));  //Array list to write data to file
+                Arrays.asList(30f, 86f, 10f, 50f));
 
         try {
-            fileName = new File(getCacheDir() + "/relaxationyearly.txt");  //Writing data to file
+            fileName = new File(getCacheDir() + "/relaxationyearly.txt");
             String line = "";
             FileWriter fw;
             fw = new FileWriter(fileName);
@@ -201,10 +200,8 @@ public class Relaxation_Yearly extends AppCompatActivity {
             exception.printStackTrace();
         }
 
-
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUser.getUid();
-        // Uploading file created to firebase storage
         StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
         try {
             StorageReference mountainsRef = storageReference1.child("relaxationyearly.txt");
@@ -225,15 +222,16 @@ public class Relaxation_Yearly extends AppCompatActivity {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
-
         final Handler handler = new Handler();
-        final int delay = 5000;
+        final int delay = 7000;
 
         handler.postDelayed(new Runnable() {
+
             @Override
             public void run() {
+
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/relaxationyearly.txt");
+
                 try {
                     localFile = File.createTempFile("tempFile", ".txt");
                     text = localFile.getAbsolutePath();
