@@ -20,15 +20,16 @@
             android:layout_height="fill_parent">
 
             <RelativeLayout
+                android:layout_centerHorizontal="true"
                 android:id="@+id/toggleBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <ImageButton
                     android:id="@+id/concentration"
-                    android:layout_width="157dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="55dp"
+                    android:layout_width="160dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="35dp"
                     android:layout_marginTop="40dp"
                     android:background="@drawable/relaxattionbtn"
                     android:elevation="5dp"
@@ -37,19 +38,20 @@
                 <ImageButton
                     android:id="@+id/relaxation"
                     android:layout_width="160dp"
-                    android:layout_height="50dp"
+                    android:layout_height="60dp"
                     android:layout_alignEnd="@+id/concentration"
                     android:layout_alignRight="@+id/concentration"
                     android:layout_marginLeft="100dp"
                     android:layout_marginTop="40dp"
-                    android:layout_marginEnd="-140dp"
-                    android:layout_marginRight="-150dp"
+                    android:layout_marginEnd="-136dp"
+                    android:layout_marginRight="-144dp"
                     android:background="@drawable/concentrationbtn"
                     android:elevation="5dp"
                     android:src="@drawable/relax" />
             </RelativeLayout>
 
             <RelativeLayout
+                android:layout_centerHorizontal="true"
                 android:id="@+id/toggleBtn1"
                 android:layout_below="@+id/toggleBtn"
                 android:layout_width="match_parent"
@@ -57,36 +59,30 @@
                 >
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/timeto"
+                    android:id="@+id/whereAmI"
                     android:layout_width="160dp"
-                    android:layout_height="70dp"
-                    android:layout_marginLeft="50dp"
-                    android:layout_marginTop="40dp"
-                    android:background="@drawable/buttonrelaxation"
-                    android:elevation="5dp"
-                    android:text="Progress"
-                    android:textAllCaps="false"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:src="@drawable/concentration_icon" />
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/timestayed"
-                    android:layout_width="155dp"
-                    android:layout_height="70dp"
-                    android:layout_alignEnd="@+id/timeto"
-                    android:layout_alignRight="@+id/timeto"
+                    android:layout_height="60dp"
+                    android:layout_alignEnd="@+id/progress"
                     android:layout_marginLeft="100dp"
                     android:layout_marginTop="40dp"
-                    android:layout_marginEnd="-138dp"
-                    android:layout_marginRight="-138dp"
                     android:text="Where Am I"
-                    android:textAllCaps="false"
-                    android:textColor="@color/dark"
-                    android:textStyle="bold"
-                    android:background="@drawable/buttonconcentration"
+                    android:textColor="@color/blue"
+                    android:layout_marginEnd="-136dp"
+                    android:layout_marginRight="-144dp"
+                    android:background="@drawable/relaxattionbtn"
                     android:elevation="5dp"
-                    android:src="@drawable/relax" />
+                    android:layout_alignRight="@+id/progress" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/progress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:text="Progress"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="35dp"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/progressbtn"
+                    android:elevation="5dp" />
 
             </RelativeLayout>
 
