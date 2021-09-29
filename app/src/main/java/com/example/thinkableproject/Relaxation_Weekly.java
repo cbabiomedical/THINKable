@@ -98,39 +98,39 @@ public class Relaxation_Weekly extends AppCompatActivity {
             }
         });
 
-//        relaxation = findViewById(R.id.relaxation);
-//        relaxation.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), Relaxation_Daily.class);
-//                startActivity(intent);
-//            }
-//        });
+        relaxation = findViewById(R.id.relaxation);
+        relaxation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Relaxation_Daily.class);
+                startActivity(intent);
+            }
+        });
 
-//        music = findViewById(R.id.music);
-//        meditation = findViewById(R.id.meditations);
-//        video = findViewById(R.id.video);
-////        music.setOnClickListener(new View.OnClickListener() {
-////            @Override
-////            public void onClick(View view) {
-////                Intent intent = new Intent(getApplicationContext(), Music.class);
-////                startActivity(intent);
-////            }
-////        });
-//        meditation.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), Meditation.class);
-//                startActivity(intent);
-//            }
-//        });
-//        video.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), Video.class);
-//                startActivity(intent);
-//            }
-//        });
+        music = findViewById(R.id.music);
+        meditation = findViewById(R.id.meditations);
+        video = findViewById(R.id.video);
+        music.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Music.class);
+                startActivity(intent);
+            }
+        });
+        meditation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Meditation.class);
+                startActivity(intent);
+            }
+        });
+        video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Video.class);
+                startActivity(intent);
+            }
+        });
 
         ArrayList<Float> obj = new ArrayList<>(
                 Arrays.asList(30f, 86f, 10f, 50f));  //Array list to write data to file
