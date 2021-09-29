@@ -104,36 +104,36 @@ public class Relaxation_Monthly extends AppCompatActivity {
             }
         });
 
-        music = findViewById(R.id.music);
-        meditation = findViewById(R.id.meditations);
-        video = findViewById(R.id.video);
-        music.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Music.class);
-                startActivity(intent);
-            }
-        });
-        meditation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Meditation.class);
-                startActivity(intent);
-            }
-        });
-        video.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Video.class);
-                startActivity(intent);
-            }
-        });
+//        music = findViewById(R.id.music);
+//        meditation = findViewById(R.id.meditations);
+//        video = findViewById(R.id.video);
+//        music.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), Music.class);
+//                startActivity(intent);
+//            }
+//        });
+//        meditation.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), Meditation.class);
+//                startActivity(intent);
+//            }
+//        });
+//        video.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), Video.class);
+//                startActivity(intent);
+//            }
+//        });
 
         ArrayList<Float> obj = new ArrayList<>(
-                Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f, 57f, 40f, 30f, 84f, 55f));  //Array list to write data to file
+                Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f, 43f, 23f, 70f, 73f, 10f));
 
         try {
-            fileName = new File(getCacheDir() + "/relaxationmonthly.txt");  //Writing data to file
+            fileName = new File(getCacheDir() + "/relaxationmonthly.txt");
             String line = "";
             FileWriter fw;
             fw = new FileWriter(fileName);
@@ -148,10 +148,8 @@ public class Relaxation_Monthly extends AppCompatActivity {
             exception.printStackTrace();
         }
 
-
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUser.getUid();
-        // Uploading file created to firebase storage
         StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
         try {
             StorageReference mountainsRef = storageReference1.child("relaxationmonthly.txt");
@@ -174,9 +172,10 @@ public class Relaxation_Monthly extends AppCompatActivity {
         }
 
         final Handler handler = new Handler();
-        final int delay =3000;
+        final int delay = 7000;
 
         handler.postDelayed(new Runnable() {
+
             @Override
             public void run() {
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/relaxationmonthly.txt");
@@ -271,7 +270,6 @@ public class Relaxation_Monthly extends AppCompatActivity {
                 } catch (IOException exception) {
                     exception.printStackTrace();
                 }
-
             }
         }, delay);
 
