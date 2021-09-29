@@ -51,7 +51,6 @@ import java.util.List;
 
 public class RelaxationReportDaily extends AppCompatActivity {
 
-    Dialog dialogrd;
     BarChart barChartDailytimeto, barChartDailytimestayed;
     AppCompatButton monthly, yearly, weekly;
     FirebaseUser mUser;
@@ -85,21 +84,21 @@ public class RelaxationReportDaily extends AppCompatActivity {
         monthly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentr1 = new Intent(getApplicationContext(), Relaxation_Monthly.class);
+                Intent intentr1 = new Intent(getApplicationContext(), RelaxationReportMonthly.class);
                 startActivity(intentr1);
             }
         });
         weekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentr1 = new Intent(getApplicationContext(), Relaxation_Weekly.class);
+                Intent intentr1 = new Intent(getApplicationContext(), RelaxationReportWeekly.class);
                 startActivity(intentr1);
             }
         });
         yearly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentr1 = new Intent(getApplicationContext(), Relaxation_Yearly.class);
+                Intent intentr1 = new Intent(getApplicationContext(), RelaxationReportYearly.class);
                 startActivity(intentr1);
             }
         });
@@ -107,7 +106,7 @@ public class RelaxationReportDaily extends AppCompatActivity {
         concentration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Concentration_Daily.class);
+                Intent intent = new Intent(getApplicationContext(), ConcentrationReportDaily.class);
                 startActivity(intent);
             }
         });
@@ -343,7 +342,7 @@ public class RelaxationReportDaily extends AppCompatActivity {
                 StorageReference storageReference2 = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/relaxationdailytimestayed.txt");
 
                 try {
-                    localFile2 = File.createTempFile("tempFile", ".txt");
+                    localFile2 = File.createTempFile("tempFile1", ".txt");
                     text2 = localFile2.getAbsolutePath();
                     Log.d("Bitmap", text2);
                     storageReference2.getFile(localFile2).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
