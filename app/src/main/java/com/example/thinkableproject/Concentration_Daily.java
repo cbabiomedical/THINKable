@@ -4,12 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
-
 import android.app.Dialog;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
@@ -17,7 +14,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
-
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -30,29 +26,10 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.storage.FileDownloadTask;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import com.google.firebase.auth.*;
+import com.google.firebase.storage.*;
+import java.io.*;
+import java.util.*;
 
 public class Concentration_Daily extends AppCompatActivity {
     Dialog dialogcd;
@@ -61,9 +38,7 @@ public class Concentration_Daily extends AppCompatActivity {
     ImageButton relaxationBtn;
     FirebaseUser mUser;
     String text;
-    File localFile;
-    Uri uri;
-    File fileName;
+    File localFile, fileName;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
 
@@ -81,7 +56,7 @@ public class Concentration_Daily extends AppCompatActivity {
         List<BarEntry> entries = new ArrayList<>();
         dialogcd = new Dialog(this);
 
-
+        //Initialize bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         //Set Home Selected
@@ -117,12 +92,13 @@ public class Concentration_Daily extends AppCompatActivity {
             }
         });
 
+        //Initializing arraylist and storing data in arraylist
         ArrayList<Float> obj = new ArrayList<>(
-                Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f));  //Array list to write data to file
+                Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f));
 
+        //  Creating txt file and writing data in array list to file
         try {
             fileName = new File(getCacheDir() + "/daily.txt");  //Writing data to file
-            String line = "";
             FileWriter fw;
             fw = new FileWriter(fileName);
             BufferedWriter output = new BufferedWriter(fw);
@@ -137,9 +113,10 @@ public class Concentration_Daily extends AppCompatActivity {
         }
 
 
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        mUser = FirebaseAuth.getInstance().getCurrentUser(); // get current user
         mUser.getUid();
-        // Uploading file created to firebase storage
+
+        // Uploading saved data containing file to firebase storage
         StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
         try {
             StorageReference mountainsRef = storageReference1.child("daily.txt");
@@ -160,7 +137,7 @@ public class Concentration_Daily extends AppCompatActivity {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
+        //Providing handler to delay the process of displaying
         final Handler handler = new Handler();
         final int delay = 5000;
 
@@ -169,7 +146,7 @@ public class Concentration_Daily extends AppCompatActivity {
             @Override
             public void run() {
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/daily.txt");
-
+                //Downloading file from firebase and storing data into a tempFile in cache memory
                 try {
                     localFile = File.createTempFile("tempFile", ".txt");
                     text = localFile.getAbsolutePath();
@@ -178,6 +155,8 @@ public class Concentration_Daily extends AppCompatActivity {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                             Toast.makeText(Concentration_Daily.this, "Success", Toast.LENGTH_SHORT).show();
+
+                            // reading data from the tempFile and storing in array list
 
                             try {
                                 InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
@@ -198,7 +177,7 @@ public class Concentration_Daily extends AppCompatActivity {
                                 }
 
                                 Log.d("List", String.valueOf(list));
-
+                                //Converting string arraylist to float array list
                                 for (int i = 0; i < list.size(); i++) {
                                     floatList.add(Float.parseFloat(list.get(i)));
                                     Log.d("FloatArrayList", String.valueOf(floatList));
@@ -208,8 +187,7 @@ public class Concentration_Daily extends AppCompatActivity {
                             }
                             Log.d("floatListTest", String.valueOf(floatList));
                             String[] days = new String[]{"Mon", "Thu", "Wed", "Thur", "Fri", "Sat", "Sun"};
-                            List<Float> creditsMain = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f, 10f, 15f, 85f));
-                            float[] strengthDay = new float[]{90f, 30f, 70f, 50f, 10f, 15f, 85f};
+                            ArrayList<Float> creditsMain = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f, 10f, 15f, 85f));
 
                             for (int j = 0; j < floatList.size(); ++j) {
                                 entries.add(new BarEntry(j, floatList.get(j)));
@@ -217,6 +195,7 @@ public class Concentration_Daily extends AppCompatActivity {
 
 
                             float textSize = 16f;
+                            //Initializing object of MyBarDataset class and passing th arraylist to y axis of chart
                             MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsMain);
                             dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
                                     ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
@@ -263,7 +242,7 @@ public class Concentration_Daily extends AppCompatActivity {
             //Downloading file and displaying chart
         }, delay);
 
-
+        // On click listener of monthly button
         monthly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -271,6 +250,7 @@ public class Concentration_Daily extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        // On click listener of weekly button
         weekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -278,6 +258,7 @@ public class Concentration_Daily extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        // On click listener of yearly button
         yearly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -285,6 +266,7 @@ public class Concentration_Daily extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        // On click listener of relaxation toggle button
         relaxationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -292,6 +274,7 @@ public class Concentration_Daily extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        // On click listener of real time indication button
         realTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -302,10 +285,7 @@ public class Concentration_Daily extends AppCompatActivity {
 
     }
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
-    DatabaseReference reference = database.getReference("chartTable");
-
-
+// Popup window method for suggestions to improve concentration
     public void gotoPopup1(View view) {
 //        Intent intentgp1 = new Intent(Concentration_Daily.this, Concentration_popup.class);
 //
@@ -323,14 +303,6 @@ public class Concentration_Daily extends AppCompatActivity {
 
     }
 
-    private boolean isExternalStorageAvailableForRW() {
-        String storageState = Environment.getExternalStorageState();
-        if (storageState.equals(Environment.MEDIA_MOUNTED)) {
-            return true;
-        }
-        return false;
-    }
-
 
     public void calidaily(View view) {
         Intent intentcd = new Intent(Concentration_Daily.this, Calibration.class);
@@ -338,15 +310,11 @@ public class Concentration_Daily extends AppCompatActivity {
         startActivity(intentcd);
     }
 
-    private void retreive() {
-
-    }
-
     public class MyBarDataset extends BarDataSet {
 
         private List<Float> credits;
 
-        MyBarDataset(List<BarEntry> yVals, String label, List<Float> credits) {
+        MyBarDataset(List<BarEntry> yVals, String label, ArrayList<Float> credits) {
             super(yVals, label);
             this.credits = credits;
         }
@@ -369,11 +337,6 @@ public class Concentration_Daily extends AppCompatActivity {
 
         }
     }
-//    public void compare1(View view) {
-//        Intent intent2 = new Intent(this, Compare1.class);
-//        startActivity(intent2);
-//
-//    }
 
     private class MyXAxisValueFormatter extends ValueFormatter {
         private String[] mValues;

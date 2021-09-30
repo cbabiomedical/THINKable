@@ -10,7 +10,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -22,6 +24,7 @@ import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FileDownloadTask;
@@ -45,14 +48,15 @@ import java.util.List;
 public class ConcentrationReportMonthly extends AppCompatActivity {
     BarChart barChart, barChart2;
     private Context context;
-    File fileName, localFile,fileName1,localFile1;
+    File fileName, localFile, fileName1, localFile1;
     String text;
-    AppCompatButton daily, weekly, yearly;
+    AppCompatButton daily, weekly, yearly, whereAmI;
     FirebaseUser mUser;
+    ImageButton relaxationBtn;
     ArrayList<String> list = new ArrayList<>();
-    ArrayList<Float> floatList=new ArrayList<>();
+    ArrayList<Float> floatList = new ArrayList<>();
     ArrayList<String> list1 = new ArrayList<>();
-    ArrayList<Float> floatList1=new ArrayList<>();
+    ArrayList<Float> floatList1 = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,12 +68,46 @@ public class ConcentrationReportMonthly extends AppCompatActivity {
         yearly = findViewById(R.id.yearly);
         barChart = (BarChart) findViewById(R.id.barChartMonthly);
         barChart2 = findViewById(R.id.barChartMonthly2);
+        relaxationBtn = findViewById(R.id.relaxation);
+        whereAmI = findViewById(R.id.whereAmI);
+        //Initialize and Assign Variable
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+        //Set Home Selected
+        bottomNavigationView.setSelectedItemId(R.id.reports);
 
+        //Perform ItemSelectedListener
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext(), Concentration_Daily.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.exercise:
+                        startActivity(new Intent(getApplicationContext(), Exercise.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.reports:
+                        return true;
+                    case R.id.userprofiles:
+                        startActivity(new Intent(getApplicationContext(), UserProfile1.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.settings:
+                        startActivity(new Intent(getApplicationContext(), Setting.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                }
+                return false;
+            }
+        });
+        //Initializing arraylist and storing input data to arraylist
         ArrayList<Float> obj = new ArrayList<>(
                 Arrays.asList(30f, 85f, 10f, 50f, 20f, 60f, 80f, 43f, 23f, 70f, 73f, 10f));  //Array list to write data to file
-
+        //Writing data to file
         try {
-            fileName = new File(getCacheDir() + "/reportMonthly.txt");  //Writing data to file
+            fileName = new File(getCacheDir() + "/reportMonthly.txt");
             String line = "";
             FileWriter fw;
             fw = new FileWriter(fileName);
@@ -116,7 +154,7 @@ public class ConcentrationReportMonthly extends AppCompatActivity {
             @Override
             public void run() {
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportMonthly.txt");
-
+                //downloading the uploaded file and storing in arraylist
                 try {
                     localFile = File.createTempFile("tempFile", ".txt");
                     text = localFile.getAbsolutePath();
@@ -164,7 +202,7 @@ public class ConcentrationReportMonthly extends AppCompatActivity {
                             }
 
                             float textSize = 16f;
-
+                            //Initializing object of MyBarDataset class
                             MyBarDataset dataSet = new MyBarDataset(entries, "data", credits);
                             dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
                                     ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
@@ -207,9 +245,10 @@ public class ConcentrationReportMonthly extends AppCompatActivity {
                 }
             }
         }, delay);
+        //Initializing arraylist and storing input data to arraylist
         ArrayList<Float> obj1 = new ArrayList<>(
-                Arrays.asList(30f, 10f, 60f, 40f, 20f, 60f, 10f,45f,25f,70f,75f,35f));  //Array list to write data to file
-
+                Arrays.asList(30f, 10f, 60f, 40f, 20f, 60f, 10f, 45f, 25f, 70f, 75f, 35f));  //Array list to write data to file
+        //Write input data to file
         try {
             fileName1 = new File(getCacheDir() + "/reportMonthly2.txt");  //Writing data to file
             String line = "";
@@ -219,7 +258,7 @@ public class ConcentrationReportMonthly extends AppCompatActivity {
             int size = obj1.size();
             for (int i = 0; i < size; i++) {
                 output.write(obj1.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing2", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
             }
             output.close();
         } catch (IOException exception) {
@@ -231,13 +270,14 @@ public class ConcentrationReportMonthly extends AppCompatActivity {
         // Uploading file created to firebase storage
         storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
         try {
+            //downloading the uploaded file and storing in arraylist
             StorageReference mountainsRef = storageReference1.child("reportMonthly2.txt");
             InputStream stream = new FileInputStream(new File(fileName1.getAbsolutePath()));
             UploadTask uploadTask = mountainsRef.putStream(stream);
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(ConcentrationReportMonthly.this, "File Uploaded2", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ConcentrationReportMonthly.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
@@ -265,7 +305,7 @@ public class ConcentrationReportMonthly extends AppCompatActivity {
                     storageReference.getFile(localFile1).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(ConcentrationReportMonthly.this, "Success2", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(ConcentrationReportMonthly.this, "Success", Toast.LENGTH_SHORT).show();
 
                             try {
                                 InputStreamReader inputStreamReader1 = new InputStreamReader(new FileInputStream(localFile1.getAbsolutePath()));
@@ -304,7 +344,7 @@ public class ConcentrationReportMonthly extends AppCompatActivity {
                                 entries2.add(new BarEntry(j, floatList1.get(j)));
                             }
                             float textSize = 16f;
-                         MyBarDataset dataSet1 = new MyBarDataset(entries2, "data", credits1);
+                            MyBarDataset dataSet1 = new MyBarDataset(entries2, "data", credits1);
                             dataSet1.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
                                     ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
                                     ContextCompat.getColor(getApplicationContext(), R.color.blue),
@@ -349,7 +389,7 @@ public class ConcentrationReportMonthly extends AppCompatActivity {
 
             //Downloading file and displaying chart
         }, delay);
-
+        // On click listener of daily button
         daily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -357,6 +397,7 @@ public class ConcentrationReportMonthly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        // On click listener of weekly button
         weekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -364,10 +405,27 @@ public class ConcentrationReportMonthly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        // On click listener of yearly button
         yearly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ConcentrationReportYearly.class);
+                startActivity(intent);
+            }
+        });
+        // On click listener of relaxation toggle button
+        relaxationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), RelaxationReportMonthly.class);
+                startActivity(intent);
+            }
+        });
+        // On click listener of where am i toggle button
+        whereAmI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), ConcentrationReportWhereamI.class);
                 startActivity(intent);
             }
         });
