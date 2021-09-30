@@ -70,9 +70,14 @@ public class Relaxation_Daily extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relaxation_daily);
+
+        //Initialize pop up window
         dialogrd = new Dialog(this);
+        //Initialize bar chart
         barChartdaily = (BarChart) findViewById(R.id.barChartDaily);
+        //Initialize List entries
         List<BarEntry> entries = new ArrayList<>();
+        //Initialize buttons
         music = findViewById(R.id.music);
         meditation = findViewById(R.id.meditations);
         video = findViewById(R.id.video);
@@ -86,6 +91,7 @@ public class Relaxation_Daily extends AppCompatActivity {
         DatabaseReference reference = database.getReference("chartTable");
 
 
+        //go to calibration page
         realTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View view){
@@ -93,6 +99,8 @@ public class Relaxation_Daily extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        //go to misic-excercise page
         music.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -100,6 +108,7 @@ public class Relaxation_Daily extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //go to meditation-exercise page
         meditation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,7 +116,7 @@ public class Relaxation_Daily extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        //go to video-exercise page
         video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,7 +124,7 @@ public class Relaxation_Daily extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        //go to concentration daily landing page
         concentration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -124,11 +133,13 @@ public class Relaxation_Daily extends AppCompatActivity {
             }
         });
 
+        //Array list to write data to file
         ArrayList<Float> obj = new ArrayList<>(
-                Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f));  //Array list to write data to file
+                Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f));
 
+        //Writing data to file
         try {
-            fileName = new File(getCacheDir() + "/relaxationdaily.txt");  //Writing data to file
+            fileName = new File(getCacheDir() + "/relaxationdaily.txt");
             String line = "";
             FileWriter fw;
             fw = new FileWriter(fileName);
@@ -142,6 +153,7 @@ public class Relaxation_Daily extends AppCompatActivity {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
+
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUser.getUid();
@@ -167,6 +179,7 @@ public class Relaxation_Daily extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        //initialize file handler
         final Handler handler = new Handler();
         final int delay = 5000;
 
@@ -175,7 +188,7 @@ public class Relaxation_Daily extends AppCompatActivity {
             @Override
             public void run() {
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/relaxationdaily.txt");
-
+                //Downloading file and displaying chart
                 try {
                     localFile = File.createTempFile("tempFile", ".txt");
                     text = localFile.getAbsolutePath();
@@ -266,12 +279,14 @@ public class Relaxation_Daily extends AppCompatActivity {
                 }
             }
 
-            //Downloading file and displaying chart
+
         },delay);
 
+        //Iinitialize buttons monthly, yearly, weekly
         monthly = findViewById(R.id.monthly);
         yearly = findViewById(R.id.yearly);
         weekly = findViewById(R.id.weekly);
+        //go to relaxation monthly page
         monthly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -279,6 +294,7 @@ public class Relaxation_Daily extends AppCompatActivity {
                 startActivity(intentr1);
             }
         });
+        //go to relaxation weekly page
         weekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -286,6 +302,7 @@ public class Relaxation_Daily extends AppCompatActivity {
                 startActivity(intentr1);
             }
         });
+        //go to relaxation yearly page
         yearly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -326,12 +343,14 @@ public class Relaxation_Daily extends AppCompatActivity {
 
     }
 
+
     public void calidaily1(View view) {
         Intent intentrd = new Intent(Relaxation_Daily.this, Calibration.class);
 
         startActivity(intentrd);
     }
 
+    //improve relaxation pop up window
     public void gotoPopup5(View view) {
         ImageView imageViewcancle;
         dialogrd.setContentView(R.layout.activity_relaxation_popup);
@@ -345,6 +364,7 @@ public class Relaxation_Daily extends AppCompatActivity {
         dialogrd.show();
     }
 
+    //set up x and y axis data
     public class MyBarDataset extends BarDataSet {
 
         private List<Float> credits;
@@ -354,6 +374,7 @@ public class Relaxation_Daily extends AppCompatActivity {
             this.credits = credits;
         }
 
+        //set up color of bars on chart
         @Override
         public int getColor(int index) {
             float c = credits.get(index);
@@ -403,6 +424,7 @@ public class Relaxation_Daily extends AppCompatActivity {
         }
     }
 
+    //delete temporary file
     @Override
     protected void onDestroy() {
         super.onDestroy();

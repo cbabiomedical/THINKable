@@ -69,9 +69,13 @@ public class Relaxation_Monthly extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relaxation_monthly);
+        //Initialize pop up window
         dialogrm = new Dialog(this);
+        //Initialize bar chart
         barChart = (BarChart) findViewById(R.id.barChartMonthly);
+        //Initialize List entries
         List<BarEntry> entries = new ArrayList<>();
+        //Initialize buttons
         realTime = findViewById(R.id.realTime);
         daily = findViewById(R.id.daily);
         yearly = findViewById(R.id.yearly);
@@ -86,20 +90,13 @@ public class Relaxation_Monthly extends AppCompatActivity {
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference("chartTable");
 
+        //Initialize buttons
         concentration = findViewById(R.id.concentration);
+        //go to concentration daily landing page
         concentration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Concentration_Daily.class);
-                startActivity(intent);
-            }
-        });
-
-        relaxation = findViewById(R.id.relaxation);
-        relaxation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Relaxation_Daily.class);
+                Intent intent = new Intent(getApplicationContext(), Concentration_Monthly.class);
                 startActivity(intent);
             }
         });
@@ -129,9 +126,11 @@ public class Relaxation_Monthly extends AppCompatActivity {
 //            }
 //        });
 
+        //Array list to write data to file
         ArrayList<Float> obj = new ArrayList<>(
                 Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f, 43f, 23f, 70f, 73f, 10f));
 
+        //Writing data to file
         try {
             fileName = new File(getCacheDir() + "/relaxationmonthly.txt");
             String line = "";
@@ -150,6 +149,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUser.getUid();
+        // Uploading file created to firebase storage
         StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
         try {
             StorageReference mountainsRef = storageReference1.child("relaxationmonthly.txt");
@@ -171,6 +171,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        //initialize file handler
         final Handler handler = new Handler();
         final int delay = 7000;
 
@@ -181,6 +182,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/relaxationmonthly.txt");
 
                 try {
+                    //Downloading file and displaying chart
                     localFile = File.createTempFile("tempFile", ".txt");
                     text = localFile.getAbsolutePath();
                     Log.d("Bitmap", text);
@@ -273,6 +275,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
             }
         }, delay);
 
+        //go to relaxation daily page
         daily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -280,6 +283,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //go to relaxation weekly page
         weekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -287,6 +291,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //go to relaxation yearly page
         yearly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -294,6 +299,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //go to calibration page
         realTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick (View view){
@@ -341,6 +347,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
         startActivity(intentrm);
     }
 
+    //improve relaxation pop up window
     public void gotoPopup6(View view) {
         ImageView imageViewcancle;
         dialogrm.setContentView(R.layout.activity_relaxation_popup);
@@ -371,6 +378,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
     }
 
 
+    //set up x and y axis data
     public class MyBarDataset extends BarDataSet {
 
         private List<Float> credits;
@@ -380,6 +388,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
             this.credits = credits;
         }
 
+        //set up color of bars on chart
         @Override
         public int getColor(int index) {
             float c = credits.get(index);
@@ -398,6 +407,8 @@ public class Relaxation_Monthly extends AppCompatActivity {
 
         }
     }
+
+    //delete temporary file
     @Override
     protected void onDestroy() {
         super.onDestroy();

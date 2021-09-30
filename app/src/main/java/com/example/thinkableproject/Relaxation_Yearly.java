@@ -74,38 +74,36 @@ public class Relaxation_Yearly extends AppCompatActivity {
         //Set Home Selected
         bottomNavigationView.setSelectedItemId(R.id.home);
 
+        //Initialize bar chart
         barChart2 = findViewById(R.id.barChartYearly);
+        //Initialize List entries
         List<BarEntry> entries = new ArrayList<>();
+        //Initialize buttons
         realTime = findViewById(R.id.realTime);
         daily = findViewById(R.id.daily);
         weekly = findViewById(R.id.weekly);
         monthly = findViewById(R.id.monthly);
+        //Initialize pop up window
         dialogry = new Dialog(this);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference("chartTable");
 
+        //go to concentration yearly landing page
         concentration = findViewById(R.id.concentration);
         concentration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Concentration_Daily.class);
+                Intent intent = new Intent(getApplicationContext(), Concentration_Yearly.class);
                 startActivity(intent);
             }
         });
 
-        relaxation = findViewById(R.id.relaxation);
-        relaxation.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Relaxation_Daily.class);
-                startActivity(intent);
-            }
-        });
-
+        //Initialize buttons
         music = findViewById(R.id.music);
         meditation = findViewById(R.id.meditations);
         video = findViewById(R.id.video);
+        //go to music-exercise page
         music.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -113,6 +111,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //go to meditation-exercise page
         meditation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,6 +119,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //go to video-exercise page
         video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -128,7 +128,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
             }
         });
 
-
+        //go to relaxation monthly page
         monthly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -136,6 +136,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
                 startActivity(intentr1);
             }
         });
+        //go to relaxation weekly page
         weekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -143,6 +144,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
                 startActivity(intentr1);
             }
         });
+        //go to relaxation daily page
         daily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -181,9 +183,11 @@ public class Relaxation_Yearly extends AppCompatActivity {
             }
         });
 
+        //Array list to write data to file
         ArrayList<Float> obj = new ArrayList<>(
                 Arrays.asList(30f, 86f, 10f, 50f));
 
+        //Writing data to file
         try {
             fileName = new File(getCacheDir() + "/relaxationyearly.txt");
             String line = "";
@@ -202,6 +206,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUser.getUid();
+        // Uploading file created to firebase storage
         StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
         try {
             StorageReference mountainsRef = storageReference1.child("relaxationyearly.txt");
@@ -222,6 +227,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+        //initialize file handler
         final Handler handler = new Handler();
         final int delay = 7000;
 
@@ -230,6 +236,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
             @Override
             public void run() {
 
+                //Downloading file and displaying chart
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/relaxationyearly.txt");
 
                 try {
@@ -332,6 +339,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
         startActivity(intentry);
     }
 
+    //improve relaxation pop up window
     public void gotoPopup8(View view) {
         ImageView imageViewcancle;
         dialogry.setContentView(R.layout.activity_relaxation_popup);
@@ -361,6 +369,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
         startActivity(intent2);
     }
 
+    //set up x and y axis data
     public class MyBarDataset extends BarDataSet {
 
         private List<Float> creditsWeek;
@@ -370,6 +379,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
             this.creditsWeek = creditsWeek;
         }
 
+        //set up color of bars on chart
         @Override
         public int getColor(int index) {
             float c = creditsWeek.get(index);
@@ -403,6 +413,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
         }
 
     }
+    //delete temporary file
     @Override
     protected void onDestroy() {
         super.onDestroy();

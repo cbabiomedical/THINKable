@@ -70,20 +70,25 @@ public class RelaxationReportWeekly extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relaxation_report_weekly);
 
+        //Initialize buttons
         whereAmI = findViewById(R.id.whereAmI);
         progress = findViewById(R.id.progress);
         timetorel = findViewById(R.id.timetorel);
         timestayedrel = findViewById(R.id.timestayedrel);
+        //Initialize bar chart
         barChartWeeklytimeto = findViewById(R.id.barChartWeeklytimeto);
         barChartWeeklytimestayed = findViewById(R.id.barChartWeeklytimestayed);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference("chartTable");
+        //Initialize List entries
         List<BarEntry> entries = new ArrayList<>();
         List<BarEntry> entries2 = new ArrayList<>();
+        //Initialize buttons
         concentration = findViewById(R.id.concentration);
         daily = findViewById(R.id.daily);
         yearly = findViewById(R.id.yearly);
         monthly = findViewById(R.id.monthly);
+        //go to relaxation daily page
         daily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,6 +96,7 @@ public class RelaxationReportWeekly extends AppCompatActivity {
                 startActivity(intentr1);
             }
         });
+        //go to relaxation monthly page
         monthly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -98,6 +104,7 @@ public class RelaxationReportWeekly extends AppCompatActivity {
                 startActivity(intentr1);
             }
         });
+        //go to relaxation yearly page
         yearly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -106,6 +113,7 @@ public class RelaxationReportWeekly extends AppCompatActivity {
             }
         });
 
+        //go to RQ Page with comparison to occupation and age factors
         whereAmI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -114,6 +122,7 @@ public class RelaxationReportWeekly extends AppCompatActivity {
             }
         });
 
+        //go to concentration report weekly page
         concentration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -122,9 +131,11 @@ public class RelaxationReportWeekly extends AppCompatActivity {
             }
         });
 
+        //Array list to write data to file
         ArrayList<Float> obj = new ArrayList<>(
                 Arrays.asList(30f, 86f, 10f, 50f));  //Array list to write data to file
 
+        //Writing data to file
         try {
             fileName = new File(getCacheDir() + "/relaxationweeklytimeto.txt");  //Writing data to file
             String line = "";
@@ -169,9 +180,11 @@ public class RelaxationReportWeekly extends AppCompatActivity {
         final Handler handler = new Handler();
         final int delay = 5000;
 
+        //initialize file handler
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                //Downloading file and displaying chart
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/relaxationweeklytimeto.txt");
 
                 try {
@@ -267,9 +280,11 @@ public class RelaxationReportWeekly extends AppCompatActivity {
         }, delay);
 
 
+        //Array list to write data to file
         ArrayList<Float> obj2 = new ArrayList<>(
                 Arrays.asList(30f, 86f, 10f, 50f));  //Array list to write data to file
 
+        //Writing data to file
         try {
             fileName2 = new File(getCacheDir() + "/relaxationweeklytimestayed.txt");  //Writing data to file
             String line = "";
@@ -311,12 +326,14 @@ public class RelaxationReportWeekly extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        //initialize file handler
         final Handler handler2 = new Handler();
         final int delay2 = 5000;
 
         handler2.postDelayed(new Runnable() {
             @Override
             public void run() {
+                //Downloading file and displaying chart
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/relaxationweeklytimestayed.txt");
 
                 try {
@@ -445,6 +462,7 @@ public class RelaxationReportWeekly extends AppCompatActivity {
         });
     }
 
+    //set up x and y axis data
     public class MyBarDataset extends BarDataSet {
 
         private List<Float> credits;
@@ -454,6 +472,7 @@ public class RelaxationReportWeekly extends AppCompatActivity {
             this.credits = credits;
         }
 
+        //set up color of bars on chart
         @Override
         public int getColor(int index) {
             float c = credits.get(index);
@@ -488,6 +507,7 @@ public class RelaxationReportWeekly extends AppCompatActivity {
         }
 
     }
+    //delete temporary file
     @Override
     protected void onDestroy() {
         super.onDestroy();

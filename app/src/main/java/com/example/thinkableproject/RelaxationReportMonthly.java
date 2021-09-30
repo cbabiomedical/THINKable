@@ -67,20 +67,25 @@ public class RelaxationReportMonthly extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //Initialize buttons
         whereAmI = findViewById(R.id.whereAmI);
         progress = findViewById(R.id.progress);
         timetorel = findViewById(R.id.timetorel);
         timestayedrel = findViewById(R.id.timestayedrel);
+        //Initialize bar chart
         barChartMonthlytimeto = findViewById(R.id.barChartMonthlytimeto);
         barChartMonthlytimestayed = findViewById(R.id.barChartMonthlytimestayed);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference("chartTable");
+        //Initialize List entries
         List<BarEntry> entries = new ArrayList<>();
         List<BarEntry> entries2 = new ArrayList<>();
+        //Initialize buttons
         concentration = findViewById(R.id.concentration);
         daily = findViewById(R.id.daily);
         yearly = findViewById(R.id.yearly);
         weekly = findViewById(R.id.weekly);
+        //go to relaxation daily page
         daily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -88,6 +93,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
                 startActivity(intentr1);
             }
         });
+        //go to relaxation weekly page
         weekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -95,6 +101,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
                 startActivity(intentr1);
             }
         });
+        //go to relaxation yearly page
         yearly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -103,6 +110,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
             }
         });
 
+        //go to RQ Page with comparison to occupation and age factors
         whereAmI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -111,6 +119,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
             }
         });
 
+        //go to concentration daily landing page
         concentration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -119,9 +128,11 @@ public class RelaxationReportMonthly extends AppCompatActivity {
             }
         });
 
+        //Array list to write data to file
         ArrayList<Float> obj = new ArrayList<>(
                 Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f, 43f, 23f, 70f, 73f, 10f));
 
+        //Writing data to file
         try {
             fileName = new File(getCacheDir() + "/relaxationmonthlytimeto.txt");
             String line = "";
@@ -140,6 +151,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUser.getUid();
+        // Uploading file created to firebase storage
         StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
         try {
             StorageReference mountainsRef = storageReference1.child("relaxationmonthlytimeto.txt");
@@ -161,6 +173,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        //initialize file handler
         final Handler handler = new Handler();
         final int delay = 7000;
 
@@ -168,6 +181,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
 
             @Override
             public void run() {
+                //Downloading file and displaying chart
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/relaxationmonthlytimeto.txt");
 
                 try {
@@ -297,9 +311,11 @@ public class RelaxationReportMonthly extends AppCompatActivity {
             }
         });
 
+        //Array list to write data to file
         ArrayList<Float> obj2 = new ArrayList<>(
                 Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f, 43f, 23f, 70f, 73f, 10f));
 
+        //Writing data to file
         try {
             fileName2 = new File(getCacheDir() + "/relaxationmonthlytimestayed.txt");
             String line = "";
@@ -318,6 +334,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUser.getUid();
+        // Uploading file created to firebase storage
         StorageReference storageReference2 = FirebaseStorage.getInstance().getReference(mUser.getUid());
         try {
             StorageReference mountainsRef = storageReference2.child("relaxationmonthlytimestayed.txt");
@@ -339,6 +356,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
             e.printStackTrace();
         }
 
+        //initialize file handler
         final Handler handler1 = new Handler();
         final int delay1 = 7000;
 
@@ -346,6 +364,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
 
             @Override
             public void run() {
+                //Downloading file and displaying chart
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/relaxationmonthlytimestayed.txt");
 
                 try {
@@ -442,6 +461,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
         }, delay1);
     }
 
+    //set up x and y axis data
     public class MyBarDataset extends BarDataSet {
 
         private List<Float> credits;
@@ -451,6 +471,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
             this.credits = credits;
         }
 
+        //set up color of bars on chart
         @Override
         public int getColor(int index) {
             float c = credits.get(index);
@@ -485,6 +506,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
         }
     }
 
+    //delete temporary file
     @Override
     protected void onDestroy() {
         super.onDestroy();
