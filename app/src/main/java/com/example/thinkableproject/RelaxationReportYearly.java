@@ -51,7 +51,7 @@ import java.util.List;
 public class RelaxationReportYearly extends AppCompatActivity {
 
     BarChart barChartYearlytimeto, barChartYearlytimestayed;
-    AppCompatButton daily, weekly, monthly;
+    AppCompatButton daily, weekly, monthly, whereAmI, progress, timetorel, timestayedrel;
     FirebaseUser mUser;
     String text;
     String text2;
@@ -70,6 +70,10 @@ public class RelaxationReportYearly extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relaxation_report_yearly);
 
+        whereAmI = findViewById(R.id.whereAmI);
+        progress = findViewById(R.id.progress);
+        timetorel = findViewById(R.id.timetorel);
+        timestayedrel = findViewById(R.id.timestayedrel);
         barChartYearlytimeto = findViewById(R.id.barChartYearlytimeto);
         barChartYearlytimestayed = findViewById(R.id.barChartYearlytimestayed);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -98,6 +102,14 @@ public class RelaxationReportYearly extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intentr1 = new Intent(getApplicationContext(), RelaxationReportWeekly.class);
+                startActivity(intentr1);
+            }
+        });
+
+        whereAmI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentr1 = new Intent(getApplicationContext(), RelaxationReportWhereamI.class);
                 startActivity(intentr1);
             }
         });

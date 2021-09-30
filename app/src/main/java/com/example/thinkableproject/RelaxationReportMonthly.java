@@ -53,20 +53,24 @@ public class RelaxationReportMonthly extends AppCompatActivity {
 
     BarChart barChartMonthlytimeto, barChartMonthlytimestayed;
     private Context context;
-    File fileName, localFile,fileName1,localFile1;
-    String text;
-    AppCompatButton daily, weekly, yearly;
+    File fileName, localFile,fileName2,localFile2;
+    String text, text2;
+    AppCompatButton daily, weekly, yearly, whereAmI, progress, timetorel, timestayedrel;
     FirebaseUser mUser;
     ImageButton concentration;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList=new ArrayList<>();
-    ArrayList<String> list1 = new ArrayList<>();
-    ArrayList<Float> floatList1=new ArrayList<>();
+    ArrayList<String> list2 = new ArrayList<>();
+    ArrayList<Float> floatList2=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        whereAmI = findViewById(R.id.whereAmI);
+        progress = findViewById(R.id.progress);
+        timetorel = findViewById(R.id.timetorel);
+        timestayedrel = findViewById(R.id.timestayedrel);
         barChartMonthlytimeto = findViewById(R.id.barChartMonthlytimeto);
         barChartMonthlytimestayed = findViewById(R.id.barChartMonthlytimestayed);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
@@ -99,6 +103,14 @@ public class RelaxationReportMonthly extends AppCompatActivity {
             }
         });
 
+        whereAmI.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentr1 = new Intent(getApplicationContext(), RelaxationReportWhereamI.class);
+                startActivity(intentr1);
+            }
+        });
+
         concentration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -107,12 +119,11 @@ public class RelaxationReportMonthly extends AppCompatActivity {
             }
         });
 
-
         ArrayList<Float> obj = new ArrayList<>(
-                Arrays.asList(30f, 85f, 10f, 50f, 20f, 60f, 80f, 43f, 23f, 70f, 73f, 10f));  //Array list to write data to file
+                Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f, 43f, 23f, 70f, 73f, 10f));
 
         try {
-            fileName = new File(getCacheDir() + "/reportMonthly.txt");  //Writing data to file
+            fileName = new File(getCacheDir() + "/relaxationmonthlytimeto.txt");
             String line = "";
             FileWriter fw;
             fw = new FileWriter(fileName);
@@ -129,10 +140,9 @@ public class RelaxationReportMonthly extends AppCompatActivity {
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUser.getUid();
-        // Uploading file created to firebase storage
         StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
         try {
-            StorageReference mountainsRef = storageReference1.child("reportMonthly.txt");
+            StorageReference mountainsRef = storageReference1.child("relaxationmonthlytimeto.txt");
             InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
             UploadTask uploadTask = mountainsRef.putStream(stream);
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -158,7 +168,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
 
             @Override
             public void run() {
-                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportMonthly.txt");
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/relaxationmonthlytimeto.txt");
 
                 try {
                     localFile = File.createTempFile("tempFile", ".txt");
@@ -196,18 +206,18 @@ public class RelaxationReportMonthly extends AppCompatActivity {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-
+                            Log.d("floatListTest", String.valueOf(floatList));
                             String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
                             List<Float> credits = new ArrayList<>(Arrays.asList(90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f));
                             float[] strength = new float[]{90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f};
 
-                            List<BarEntry> entries = new ArrayList<>();
+
                             for (int j = 0; j < floatList.size(); ++j) {
                                 entries.add(new BarEntry(j, floatList.get(j)));
                             }
 
-                            float textSize = 16f;
 
+                            float textSize = 16f;
                             RelaxationReportMonthly.MyBarDataset dataSet = new RelaxationReportMonthly.MyBarDataset(entries, "data", credits);
                             dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
                                     ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
@@ -216,11 +226,12 @@ public class RelaxationReportMonthly extends AppCompatActivity {
                                     ContextCompat.getColor(getApplicationContext(), R.color.dark));
                             BarData data = new BarData(dataSet);
                             data.setDrawValues(false);
-                            data.setBarWidth(0.9f);
+                            data.setBarWidth(0.8f);
 
                             barChartMonthlytimeto.setData(data);
                             barChartMonthlytimeto.setFitBars(true);
-                            barChartMonthlytimeto.getXAxis().setValueFormatter(new IndexAxisValueFormatter(months));
+                            barChartMonthlytimeto.getXAxis
+                                    ().setValueFormatter(new IndexAxisValueFormatter(months));
                             barChartMonthlytimeto.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
                             barChartMonthlytimeto.getXAxis().setTextSize(textSize);
                             barChartMonthlytimeto.getAxisLeft().setTextSize(textSize);
@@ -236,6 +247,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
 
                             barChartMonthlytimeto.invalidate();
 
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -249,149 +261,6 @@ public class RelaxationReportMonthly extends AppCompatActivity {
                     exception.printStackTrace();
                 }
             }
-        }, delay);
-
-        ArrayList<Float> obj1 = new ArrayList<>(
-                Arrays.asList(30f, 10f, 60f, 40f, 20f, 60f, 10f,45f,25f,70f,75f,35f));  //Array list to write data to file
-
-        try {
-            fileName1 = new File(getCacheDir() + "/reportMonthly2.txt");  //Writing data to file
-            String line = "";
-            FileWriter fw;
-            fw = new FileWriter(fileName1);
-            BufferedWriter output = new BufferedWriter(fw);
-            int size = obj1.size();
-            for (int i = 0; i < size; i++) {
-                output.write(obj1.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing2", Toast.LENGTH_SHORT).show();
-            }
-            output.close();
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
-
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
-        mUser.getUid();
-        // Uploading file created to firebase storage
-        storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
-        try {
-            StorageReference mountainsRef = storageReference1.child("reportMonthly2.txt");
-            InputStream stream = new FileInputStream(new File(fileName1.getAbsolutePath()));
-            UploadTask uploadTask = mountainsRef.putStream(stream);
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(RelaxationReportMonthly.this, "File Uploaded2", Toast.LENGTH_SHORT).show();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(RelaxationReportMonthly.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        final Handler handler1 = new Handler();
-        final int delay1 = 5000;
-
-        handler1.postDelayed(new Runnable() {
-
-            @Override
-            public void run() {
-                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportMonthly2.txt");
-
-                try {
-                    localFile1 = File.createTempFile("tempFile", ".txt");
-                    text = localFile1.getAbsolutePath();
-                    Log.d("Bitmap", text);
-                    storageReference.getFile(localFile1).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(RelaxationReportMonthly.this, "Success2", Toast.LENGTH_SHORT).show();
-
-                            try {
-                                InputStreamReader inputStreamReader1 = new InputStreamReader(new FileInputStream(localFile1.getAbsolutePath()));
-
-                                Log.d("FileName", localFile1.getAbsolutePath());
-
-                                BufferedReader bufferedReader = new BufferedReader(inputStreamReader1);
-                                String line = "";
-
-                                Log.d("First", line);
-                                if ((line = bufferedReader.readLine()) != null) {
-                                    list1.add(line);
-                                }
-                                while ((line = bufferedReader.readLine()) != null) {
-
-                                    list1.add(line);
-                                    Log.d("Line", line);
-                                }
-
-                                Log.d("List", String.valueOf(list1));
-
-                                for (int i = 0; i < list1.size(); i++) {
-                                    floatList1.add(Float.parseFloat(list1.get(i)));
-                                    Log.d("FloatArrayList2", String.valueOf(floatList1));
-                                }
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-
-                            String[] months1 = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
-                            List<Float> credits1 = new ArrayList<>(Arrays.asList(90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f));
-                            float[] strength = new float[]{90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f};
-
-                            List<BarEntry> entries2 = new ArrayList<>();
-                            for (int j = 0; j < floatList1.size(); ++j) {
-                                entries2.add(new BarEntry(j, floatList1.get(j)));
-                            }
-                            float textSize = 16f;
-                            RelaxationReportMonthly.MyBarDataset dataSet1 = new RelaxationReportMonthly.MyBarDataset(entries2, "data", credits1);
-                            dataSet1.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
-                                    ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
-                                    ContextCompat.getColor(getApplicationContext(), R.color.blue),
-                                    ContextCompat.getColor(getApplicationContext(), R.color.Ldark),
-                                    ContextCompat.getColor(getApplicationContext(), R.color.dark));
-                            BarData data1 = new BarData(dataSet1);
-                            data1.setDrawValues(false);
-                            data1.setBarWidth(0.9f);
-
-                            barChartMonthlytimestayed.setData(data1);
-                            barChartMonthlytimestayed.setFitBars(true);
-                            barChartMonthlytimestayed.getXAxis().setValueFormatter(new IndexAxisValueFormatter(months1));
-                            barChartMonthlytimestayed.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-                            barChartMonthlytimestayed.getXAxis().setTextSize(textSize);
-                            barChartMonthlytimestayed.getAxisLeft().setTextSize(textSize);
-                            barChartMonthlytimestayed.setExtraBottomOffset(10f);
-
-                            barChartMonthlytimestayed.getAxisRight().setEnabled(false);
-                            Description desc1 = new Description();
-                            desc1.setText("");
-                            barChartMonthlytimestayed.setDescription(desc1);
-                            barChartMonthlytimestayed.getLegend().setEnabled(false);
-                            barChartMonthlytimestayed.getXAxis().setDrawGridLines(false);
-                            barChartMonthlytimestayed.getAxisLeft().setDrawGridLines(false);
-
-                            barChartMonthlytimestayed.invalidate();
-
-//
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(RelaxationReportMonthly.this, "Failed", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                }
-            }
-
-            //Downloading file and displaying chart
         }, delay);
 
         setContentView(R.layout.activity_relaxation_report_monthly);
@@ -427,6 +296,150 @@ public class RelaxationReportMonthly extends AppCompatActivity {
                 return false;
             }
         });
+
+        ArrayList<Float> obj2 = new ArrayList<>(
+                Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f, 43f, 23f, 70f, 73f, 10f));
+
+        try {
+            fileName2 = new File(getCacheDir() + "/relaxationmonthlytimestayed.txt");
+            String line = "";
+            FileWriter fw;
+            fw = new FileWriter(fileName2);
+            BufferedWriter output = new BufferedWriter(fw);
+            int size = obj2.size();
+            for (int i = 0; i < size; i++) {
+                output.write(obj2.get(i).toString() + "\n");
+                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+            }
+            output.close();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        mUser.getUid();
+        StorageReference storageReference2 = FirebaseStorage.getInstance().getReference(mUser.getUid());
+        try {
+            StorageReference mountainsRef = storageReference2.child("relaxationmonthlytimestayed.txt");
+            InputStream stream = new FileInputStream(new File(fileName2.getAbsolutePath()));
+            UploadTask uploadTask = mountainsRef.putStream(stream);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(RelaxationReportMonthly.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(RelaxationReportMonthly.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        final Handler handler1 = new Handler();
+        final int delay1 = 7000;
+
+        handler1.postDelayed(new Runnable() {
+
+            @Override
+            public void run() {
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/relaxationmonthlytimestayed.txt");
+
+                try {
+                    localFile2 = File.createTempFile("tempFile", ".txt");
+                    text2 = localFile2.getAbsolutePath();
+                    Log.d("Bitmap", text2);
+                    storageReference.getFile(localFile2).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(RelaxationReportMonthly.this, "Success", Toast.LENGTH_SHORT).show();
+
+                            try {
+                                InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile2.getAbsolutePath()));
+
+                                Log.d("FileName", localFile2.getAbsolutePath());
+
+                                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                                String line = "";
+
+                                Log.d("First", line);
+                                if ((line = bufferedReader.readLine()) != null) {
+                                    list2.add(line);
+                                }
+                                while ((line = bufferedReader.readLine()) != null) {
+
+                                    list2.add(line);
+                                    Log.d("Line", line);
+                                }
+
+                                Log.d("List", String.valueOf(list2));
+
+                                for (int i = 0; i < list2.size(); i++) {
+                                    floatList2.add(Float.parseFloat(list2.get(i)));
+                                    Log.d("FloatArrayList", String.valueOf(floatList2));
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                            Log.d("floatListTest", String.valueOf(floatList2));
+                            String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
+                            List<Float> credits = new ArrayList<>(Arrays.asList(90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f));
+                            float[] strength = new float[]{90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f};
+
+
+                            for (int j = 0; j < floatList2.size(); ++j) {
+                                entries2.add(new BarEntry(j, floatList2.get(j)));
+                            }
+
+
+                            float textSize = 16f;
+                            RelaxationReportMonthly.MyBarDataset dataSet = new RelaxationReportMonthly.MyBarDataset(entries2, "data", credits);
+                            dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.blue),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.Ldark),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.dark));
+                            BarData data = new BarData(dataSet);
+                            data.setDrawValues(false);
+                            data.setBarWidth(0.8f);
+
+                            barChartMonthlytimestayed.setData(data);
+                            barChartMonthlytimestayed.setFitBars(true);
+                            barChartMonthlytimestayed.getXAxis
+                                    ().setValueFormatter(new IndexAxisValueFormatter(months));
+                            barChartMonthlytimestayed.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChartMonthlytimestayed.getXAxis().setTextSize(textSize);
+                            barChartMonthlytimestayed.getAxisLeft().setTextSize(textSize);
+                            barChartMonthlytimestayed.setExtraBottomOffset(10f);
+
+                            barChartMonthlytimestayed.getAxisRight().setEnabled(false);
+                            Description desc = new Description();
+                            desc.setText("");
+                            barChartMonthlytimestayed.setDescription(desc);
+                            barChartMonthlytimestayed.getLegend().setEnabled(false);
+                            barChartMonthlytimestayed.getXAxis().setDrawGridLines(false);
+                            barChartMonthlytimestayed.getAxisLeft().setDrawGridLines(false);
+
+                            barChartMonthlytimestayed.invalidate();
+
+
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(RelaxationReportMonthly.this, "Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+            }
+        }, delay1);
     }
 
     public class MyBarDataset extends BarDataSet {
