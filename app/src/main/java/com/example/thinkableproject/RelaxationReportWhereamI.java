@@ -50,22 +50,22 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
     File localFiler, localFilear, localFilemr, localFilea2r,localFilenr, localFilea3r, localFileor, localFile4ar;
     String textr, textar, textmr, texta2r, textnr, texta3r, textor, text4ar;
 
-    //for chart4a 1
+    //for chart4aa 1
     ArrayList<String> listr = new ArrayList<>();
     ArrayList<Float> floatListr = new ArrayList<>();
     ArrayList<String> listar = new ArrayList<>();
     ArrayList<Float> floatListar = new ArrayList<>();
-    //for chart4a 2
+    //for chart4aa 2
     ArrayList<String> listmr = new ArrayList<>();
     ArrayList<Float> floatListmr = new ArrayList<>();
     ArrayList<String> lista1r = new ArrayList<>();
     ArrayList<Float> floatLista1r = new ArrayList<>();
-    //for chart4a 3
+    //for chart4aa 3
     ArrayList<String> listnr = new ArrayList<>();
     ArrayList<Float> floatListnr = new ArrayList<>();
     ArrayList<String> lista2r = new ArrayList<>();
     ArrayList<Float> floatLista2r = new ArrayList<>();
-    //for chart4a 4
+    //for chart4aa 4
     ArrayList<String> listor = new ArrayList<>();
     ArrayList<Float> floatListor = new ArrayList<>();
     ArrayList<String> lista3r = new ArrayList<>();
@@ -79,17 +79,17 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
 
     ArrayList<IScatterDataSet> dataSetor = new ArrayList<>();
 
-    private ScatterChart chart4a, chart5, chart6, chart7;
+    private ScatterChart chart4aa, chart5, chart6, chart7;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_concentration_report_wheream_i);
+        setContentView(R.layout.activity_relaxation_report_wheream_i);
 
-//        1----> chart4a
-//        1 -----> chart4a
+//        1----> chart4aa
+//        1 -----> chart4aa
         ArrayList<Float> objr = new ArrayList<>(
                 Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f));
 
@@ -240,26 +240,26 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             }
 
 
-                            chart4a = findViewById(R.id.charta);
+                            chart4aa = findViewById(R.id.chartw);
                             Description descChartDescription = new Description();
                             descChartDescription.setEnabled(true);
-                            chart4a.setDescription(descChartDescription);
-                            chart4a.setDrawGridBackground(false);
-                            chart4a.setTouchEnabled(true);
-                            chart4a.setMaxHighlightDistance(50f);
-                            chart4a.setDragEnabled(true);
-                            chart4a.setScaleEnabled(true);
-                            chart4a.setMaxVisibleValueCount(200);
-                            chart4a.setPinchZoom(true);
-                            Legend lr = chart4a.getLegend();
+                            chart4aa.setDescription(descChartDescription);
+                            chart4aa.setDrawGridBackground(false);
+                            chart4aa.setTouchEnabled(true);
+                            chart4aa.setMaxHighlightDistance(50f);
+                            chart4aa.setDragEnabled(true);
+                            chart4aa.setScaleEnabled(true);
+                            chart4aa.setMaxVisibleValueCount(200);
+                            chart4aa.setPinchZoom(true);
+                            Legend lr = chart4aa.getLegend();
 
-                            YAxis ylr = chart4a.getAxisLeft();
+                            YAxis ylr = chart4aa.getAxisLeft();
                             ylr.setAxisMinimum(0f);
-                            chart4a.getAxisRight().setEnabled(false);
-                            XAxis xlr = chart4a.getXAxis();
+                            chart4aa.getAxisRight().setEnabled(false);
+                            XAxis xlr = chart4aa.getXAxis();
                             xlr.setDrawGridLines(false);
                             String[] daysS = new String[]{"Mon","Tue","Wed","Thu","Fri","Sat","Sun"};
-                            XAxis xAxisr = chart4a.getXAxis();
+                            XAxis xAxisr = chart4aa.getXAxis();
                             xAxisr.setValueFormatter(new IndexAxisValueFormatter(daysS));
                             xAxisr.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
                             xAxisr.setGranularity(1);
@@ -281,8 +281,8 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             dataSetsr.add(set1r); // add the datar sets
 
                             ScatterData datar = new ScatterData(dataSetsr);
-                            chart4a.setData(datar);
-                            chart4a.invalidate();
+                            chart4aa.setData(datar);
+                            chart4aa.invalidate();
 
 
                         }
@@ -359,7 +359,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                 }
             }
 
-            //Downloading file and displaying chart4a
+            //Downloading file and displaying chart4aa
         }, delayr);
 
 
@@ -372,7 +372,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                 Arrays.asList(25f, 56f, 20f, 40f, 50f, 40f, 89f));// Avearage Array listr to write data to file
 
         try {
-            fileNamemr = new File(getCacheDir() + "/reportConcenWhereaiTR_age.txt");  //Writing data to file
+            fileNamemr = new File(getCacheDir() + "/reportRelaxWhereamiTR_age.txt");  //Writing data to file
             String line = "";
             FileWriter fwmr;
             fwmr = new FileWriter(fileNamemr);
@@ -391,7 +391,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
 
         //Avg
         try {
-            fileNamea2r = new File(getCacheDir() + "/reportConcenWhereamiTR_ageAvg.txt");  //Writing data to file
+            fileNamea2r = new File(getCacheDir() + "/reportRelaxWhereamiTR_ageAvg.txt");  //Writing data to file
             String line = "";
             FileWriter fwa2r;
             fwa2r = new FileWriter(fileNamea2r);
@@ -411,7 +411,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
         // Uploading file created to firebase storage
         StorageReference storageReference2r = FirebaseStorage.getInstance().getReference(mUser.getUid());
         try {
-            StorageReference mountainsRef = storageReference2r.child("reportConcenWhereamiTR_age.txt");
+            StorageReference mountainsRef = storageReference2r.child("reportRelaxWhereamiTR_age.txt");
             InputStream stream = new FileInputStream(new File(fileNamemr.getAbsolutePath()));
             UploadTask uploadTask = mountainsRef.putStream(stream);
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -434,7 +434,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
 
         StorageReference storageReferencea2r = FirebaseStorage.getInstance().getReference(mUser.getUid());
         try {
-            StorageReference mountainsRef = storageReferencea2r.child("reportConcenWhereamiTR_ageAvg.txt");
+            StorageReference mountainsRef = storageReferencea2r.child("reportRelaxWhereamiTR_ageAvg.txt");
             InputStream stream = new FileInputStream(new File(fileNamea2r.getAbsolutePath()));
             UploadTask uploadTask = mountainsRef.putStream(stream);
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -460,8 +460,8 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
 
             @Override
             public void run() {
-                StorageReference storageReferencemr = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportConcenWhereamiTR_age.txt");
-                StorageReference storageReferencea2r = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportConcenWhereamiTR_ageAvg.txt");
+                StorageReference storageReferencemr = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportRelaxWhereamiTR_age.txt");
+                StorageReference storageReferencea2r = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportRelaxWhereamiTR_ageAvg.txt");
                 //download and read the file
 
                 try {
@@ -515,7 +515,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             }
 
 
-                            chart5 = findViewById(R.id.chartb);
+                            chart5 = findViewById(R.id.chartx);
                             Description descChartDescription = new Description();
                             descChartDescription.setEnabled(true);
                             chart5.setDescription(descChartDescription);
@@ -643,7 +643,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
 
 
 
-        //3 -----> chart4a
+        //3 -----> chart4aa
         ArrayList<Float> objnr = new ArrayList<>(
                 Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f));
 
@@ -651,7 +651,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                 Arrays.asList(50f, 56f, 20f, 40f, 50f, 40f, 89f));// Avearage Array listr to write data to file
 
         try {
-            fileNamenr = new File(getCacheDir() + "/reportRelaxWhereamiTSC_job.txt");  //Writing data to file
+            fileNamenr = new File(getCacheDir() + "/reportRelaxWhereamiTCS_job.txt");  //Writing data to file
             String line = "";
             FileWriter fwnr;
             fwnr = new FileWriter(fileNamenr);
@@ -670,7 +670,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
 
         //Avg
         try {
-            fileNamea3r = new File(getCacheDir() + "/reportRelaxWhereamiTSC_jobAvg.txt");  //Writing data to file
+            fileNamea3r = new File(getCacheDir() + "/reportRelaxWhereamiTCS_jobAvg.txt");  //Writing data to file
             String line = "";
             FileWriter fwa3r;
             fwa3r = new FileWriter(fileNamea3r);
@@ -690,7 +690,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
         // Uploading file created to firebase storage
         StorageReference storageReferencenr = FirebaseStorage.getInstance().getReference(mUser.getUid());
         try {
-            StorageReference mountainsRef = storageReferencenr.child("reportRelaxWhereamiTSC_job.txt");
+            StorageReference mountainsRef = storageReferencenr.child("reportRelaxWhereamiTCS_job.txt");
             InputStream stream = new FileInputStream(new File(fileNamenr.getAbsolutePath()));
             UploadTask uploadTask = mountainsRef.putStream(stream);
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -713,7 +713,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
 
         StorageReference storageReferencea3r = FirebaseStorage.getInstance().getReference(mUser.getUid());
         try {
-            StorageReference mountainsRef = storageReferencea3r.child("reportRelaxWhereamiTSC_jobAvg.txt");
+            StorageReference mountainsRef = storageReferencea3r.child("reportRelaxWhereamiTCS_jobAvg.txt");
             InputStream stream = new FileInputStream(new File(fileNamea3r.getAbsolutePath()));
             UploadTask uploadTask = mountainsRef.putStream(stream);
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -739,8 +739,8 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
 
             @Override
             public void run() {
-                StorageReference storageReferencenr = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportRelaxWhereamiTSC_job.txt");
-                StorageReference storageReferencea3r = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportRelaxWhereamiTSC_jobAvg.txt");
+                StorageReference storageReferencenr = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportRelaxWhereamiTCS_job.txt");
+                StorageReference storageReferencea3r = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportRelaxWhereamiTCS_jobAvg.txt");
                 //download and read the file
 
                 try {
@@ -794,7 +794,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             }
 
 
-                            chart6 = findViewById(R.id.chartc);
+                            chart6 = findViewById(R.id.charty);
                             Description descChartDescription = new Description();
                             descChartDescription.setEnabled(true);
                             chart6.setDescription(descChartDescription);
@@ -913,7 +913,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                 }
             }
 
-            //Downloading file and displaying chart4a
+            //Downloading file and displaying chart4aa
         }, delay3r);
 
 
@@ -921,7 +921,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
 
 
 
-        //4 -----> chart4a
+        //4 -----> chart4aa
         ArrayList<Float> objor = new ArrayList<>(
                 Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f));
 
@@ -929,7 +929,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                 Arrays.asList(50f, 56f, 20f, 40f, 50f, 40f, 89f));// Avearage Array listr to write data to file
 
         try {
-            fileNameor = new File(getCacheDir() + "/reportRelaxWhereamiTSC_age.txt");  //Writing data to file
+            fileNameor = new File(getCacheDir() + "/reportRelaxWhereamiTCS_job.txt");  //Writing data to file
             String line = "";
             FileWriter fwor;
             fwor = new FileWriter(fileNameor);
@@ -948,7 +948,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
 
         //Avg
         try {
-            fileNamea4r = new File(getCacheDir() + "/reportRelaxWhereamiTCS_ageAvg.txt");  //Writing data to file
+            fileNamea4r = new File(getCacheDir() + "/reportRelaxWhereamiTCS_jobAvg.txt");  //Writing data to file
             String line = "";
             FileWriter fwa4r;
             fwa4r = new FileWriter(fileNamea4r);
@@ -968,7 +968,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
         // Uploading file created to firebase storage
         StorageReference storageReferenceor = FirebaseStorage.getInstance().getReference(mUser.getUid());
         try {
-            StorageReference mountainsRef = storageReferenceor.child("reportRelaxWhereamiTCS_age.txt");
+            StorageReference mountainsRef = storageReferenceor.child("reportRelaxWhereamiTCS_job.txt");
             InputStream stream = new FileInputStream(new File(fileNameor.getAbsolutePath()));
             UploadTask uploadTask = mountainsRef.putStream(stream);
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -991,7 +991,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
 
         StorageReference storageReferencea4r = FirebaseStorage.getInstance().getReference(mUser.getUid());
         try {
-            StorageReference mountainsRef = storageReferencea4r.child("reportRelaxWhereamiTCS_ageAvg.txt");
+            StorageReference mountainsRef = storageReferencea4r.child("reportRelaxWhereamiTCS_jobAvg.txt");
             InputStream stream = new FileInputStream(new File(fileNamea4r.getAbsolutePath()));
             UploadTask uploadTask = mountainsRef.putStream(stream);
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -1017,8 +1017,8 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
 
             @Override
             public void run() {
-                StorageReference storageReferenceor = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportRelaxWhereamiTCS_age.txt");
-                StorageReference storageReferencea4r = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportRelaxWhereamiTCS_ageAvg.txt");
+                StorageReference storageReferenceor = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportRelaxWhereamiTCS_job.txt");
+                StorageReference storageReferencea4r = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportRelaxWhereamiTCS_jobAvg.txt");
                 //download and read the file
 
                 try {
@@ -1071,7 +1071,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             }
 
 
-                            chart7 = findViewById(R.id.chartd);
+                            chart7 = findViewById(R.id.chartz);
                             Description descChartDescription = new Description();
                             descChartDescription.setEnabled(true);
                             chart7.setDescription(descChartDescription);
@@ -1189,7 +1189,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                 }
             }
 
-            //Downloading file and displaying chart4a
+            //Downloading file and displaying chart4aa
         }, delay4r);
 
 

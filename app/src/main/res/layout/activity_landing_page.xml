@@ -10,6 +10,14 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/editProfile2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reportLanding"
+        android:text="Edit Profile" />
+
     <Button
         android:id="@+id/changepassword"
         android:layout_width="wrap_content"
@@ -105,6 +113,17 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/reportLanding"
         android:text="Edit Profile" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="454dp"
+        android:layout_marginEnd="73dp"
+        android:text="notify"
+        android:onClick="notificationPage"/>
 </RelativeLayout>
 
 </ScrollView>

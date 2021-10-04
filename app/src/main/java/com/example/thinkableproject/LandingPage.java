@@ -177,4 +177,9 @@ public class LandingPage extends AppCompatActivity {
         Intent intentcq = new Intent(getApplicationContext(), ConcentrationReportWhereamI.class);
         startActivity(intentcq);
     }
+
+    public void notificationPage(View view) {
+        Intent intentnp = new Intent(getApplicationContext(), Notification.class);
+        startActivity(intentnp);
+    }
 }

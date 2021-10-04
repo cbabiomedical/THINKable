@@ -154,6 +154,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
             e.printStackTrace();
         }
 
+
         //Avg
 
         StorageReference storageReference1a = FirebaseStorage.getInstance().getReference(mUser.getUid());
@@ -176,7 +177,6 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
         final Handler handler = new Handler();
         final int delay = 5000;
 
@@ -1188,7 +1188,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
     }
 
     public void relaxCQ(View view) {
-        Intent intentrelaxCQ = new Intent(getApplicationContext(), ConcentrationReportWhereamI.class);
+        Intent intentrelaxCQ = new Intent(getApplicationContext(), RelaxationReportWhereamI.class);
         startActivity(intentrelaxCQ);
     }
 }
