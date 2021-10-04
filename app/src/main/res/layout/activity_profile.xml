@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/user_details"
+    tools:context=".Profile">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:id="@+id/info"
+        android:paddingVertical="10dp"
+        android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="20dp"
+        app:cornerRadius="23dp"
+        android:background="@drawable/border_background"
+        android:layout_height="wrap_content">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/picture"
+            android:layout_marginStart="15dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/image1"/>
+
+        <TextView
+            android:id="@+id/user"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/picture"
+            android:text="UserName"
+            android:textColor="@color/black"
+            android:textSize="22sp"
+            android:layout_toEndOf="@+id/picture"
+            android:layout_marginStart="20dp"/>
+        <ImageView
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_toEndOf="@+id/userName"
+            android:src="@drawable/ic_edit"/>
+    </RelativeLayout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/downloads"
+        android:layout_marginTop="30dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_below="@+id/info"
+        android:background="@drawable/border_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="My Downloads"
+        android:paddingHorizontal="10dp"
+        app:cornerRadius="13dp"
+        android:drawableStart="@drawable/ic_file_download"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/favourites"
+        android:layout_marginTop="15dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_below="@+id/downloads"
+        android:background="@drawable/border_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="My Favourites"
+        android:paddingHorizontal="10dp"
+        app:cornerRadius="13dp"
+        android:drawableStart="@drawable/ic_favorite"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cal_reminder"
+        android:layout_marginTop="15dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_below="@+id/favourites"
+        android:background="@drawable/border_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Calendar and Reminders "
+        android:paddingHorizontal="10dp"
+        app:cornerRadius="13dp"
+        android:drawableStart="@drawable/ic_baseline_calendar_today_24"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/history"
+        android:layout_marginTop="15dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_below="@+id/cal_reminder"
+        android:background="@drawable/border_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="History"
+        android:paddingHorizontal="10dp"
+        app:cornerRadius="13dp"
+        android:drawableStart="@drawable/ic_history"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bePremium"
+        android:layout_marginTop="15dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_below="@+id/history"
+        android:background="@drawable/border_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Be Premium "
+        android:paddingHorizontal="10dp"
+        app:cornerRadius="13dp"
+        android:drawableStart="@drawable/ic_star"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/about"
+        android:layout_marginTop="15dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_below="@+id/bePremium"
+        android:background="@drawable/border_background"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="About App "
+        android:paddingHorizontal="10dp"
+        app:cornerRadius="13dp"
+        android:drawableStart="@drawable/ic_info"/>
+
+    <RelativeLayout
+        android:layout_centerVertical="true"
+        android:id="@+id/socialMedia"
+        android:paddingVertical="15dp"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/about"
+        android:layout_marginBottom="20dp"
+        android:layout_marginHorizontal="20dp"
+        android:background="@drawable/border_background">
+
+        <ImageView
+            android:id="@+id/facebook"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="10dp"
+            android:src="@drawable/facebook" />
+        <ImageView
+            android:id="@+id/insta"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/facebook"
+            android:src="@drawable/insta1"/>
+
+        <ImageView
+            android:id="@+id/twitter"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/insta"
+            android:src="@drawable/twit"/>
+        <ImageView
+            android:id="@+id/youtube"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
+            android:layout_marginStart="10dp"
+            android:layout_toEndOf="@+id/twitter"
+            android:src="@drawable/youtube1"/>
+    </RelativeLayout>
+    </RelativeLayout>
+
+</ScrollView>

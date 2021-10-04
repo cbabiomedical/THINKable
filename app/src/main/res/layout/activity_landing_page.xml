@@ -99,6 +99,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/cq"
         android:text="Report Landing Page" />
+    <Button
+        android:id="@+id/editProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/reportLanding"
+        android:text="Edit Profile" />
 </RelativeLayout>
 
 </ScrollView>
