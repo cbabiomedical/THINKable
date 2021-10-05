@@ -6,15 +6,89 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageButton;
+import android.widget.ImageView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Setting extends AppCompatActivity {
 
+    ImageButton buttonpro, accountsettings1, changepassword1, location2, theme2, preferences1, notifications2, help3;
+    ImageView upgradetopro;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting);
+
+        //Initialize and Assign Buttons
+        buttonpro = findViewById(R.id.buttonpro);
+        accountsettings1 = findViewById(R.id.accountsettings1);
+        changepassword1 = findViewById(R.id.changepassword1);
+        location2 = findViewById(R.id.location2);
+        theme2 = findViewById(R.id.theme2);
+        preferences1 = findViewById(R.id.preferences1);
+        notifications2 = findViewById(R.id.notifications2);
+        help3 = findViewById(R.id.help3);
+
+        buttonpro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        accountsettings1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        changepassword1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intentr1 = new Intent(getApplicationContext(), ChangePassword.class);
+                startActivity(intentr1);
+            }
+        });
+
+        location2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        theme2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        preferences1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        notifications2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
+        help3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
+
         //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         //Set Home Selected

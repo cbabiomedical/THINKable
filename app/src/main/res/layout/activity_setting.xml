@@ -9,11 +9,312 @@
     android:background="@drawable/landing_background"
     android:orientation="horizontal"
     tools:context=".Concentration_Daily">
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        >
+        android:gravity="center">
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
+
+            <RelativeLayout
+                android:id="@+id/toggleBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/pro"
+                    android:layout_width="match_parent"
+                    android:layout_height="315dp"
+                    android:layout_marginTop="50dp"
+                    android:src="@drawable/settingbg" />
+
+                <ImageView
+                    android:id="@+id/freeplan"
+                    android:layout_width="300dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="100dp"
+                    android:src="@drawable/youareonourfreeplan" />
+
+                <ImageView
+                    android:id="@+id/getbetter"
+                    android:layout_width="300dp"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/freeplan"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="25dp"
+                    android:src="@drawable/wanttomakemostofit" />
+
+                <ImageButton
+                    android:id="@+id/buttonpro"
+                    android:layout_width="300dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/getbetter"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="30dp"
+                    android:radius="4dp"
+                    android:src="@drawable/path2" />
+
+                <ImageView
+                    android:id="@+id/upgradetopro"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/getbetter"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="25dp"
+                    android:src="@drawable/opgradetpro" />
+
+
+                <RelativeLayout
+                    android:id="@+id/accountsettings"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/pro">
+
+                    <ImageButton
+                        android:id="@+id/accountsettings1"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/path5"/>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/accicon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/useraccounticon" />
+
+                    <TextView
+                        android:id="@+id/accsetting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@+id/accicon"
+                        android:layout_toRightOf="@+id/accicon"
+                        android:gravity="center"
+                        android:text="Account Settings"
+                        android:textColor="@color/dark"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/changepassword"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/accountsettings">
+
+                    <ImageButton
+                        android:id="@+id/changepassword1"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/path22"/>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/image"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/iconawesomelock" />
+
+                    <TextView
+                        android:id="@+id/image_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@+id/image"
+                        android:layout_toRightOf="@+id/image"
+                        android:gravity="center"
+                        android:text="Change Password"
+                        android:textColor="@color/dark"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/location"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/changepassword">
+
+                    <ImageButton
+                        android:id="@+id/location2"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/path5"/>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/location1"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="6dp"
+                        android:src="@drawable/location" />
+
+                    <TextView
+                        android:id="@+id/userlocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@+id/location1"
+                        android:layout_toRightOf="@+id/location1"
+                        android:gravity="center"
+                        android:text="My Current Location"
+                        android:textColor="@color/dark"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/theme"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/location">
+
+                    <ImageButton
+                        android:id="@+id/theme2"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/path22"/>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/theme1"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="6dp"
+                        android:src="@drawable/theme" />
+
+                    <TextView
+                        android:id="@+id/usertheme"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@+id/theme1"
+                        android:layout_toRightOf="@+id/theme1"
+                        android:gravity="center"
+                        android:text="My Theme"
+                        android:textColor="@color/dark"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/preferences"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/theme">
+
+                    <ImageButton
+                        android:id="@+id/preferences1"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/path5"/>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/prefrences1"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="6dp"
+                        android:src="@drawable/settings" />
+
+                    <TextView
+                        android:id="@+id/userpreference"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@+id/prefrences1"
+                        android:layout_toRightOf="@+id/prefrences1"
+                        android:gravity="center"
+                        android:text="Preferences"
+                        android:textColor="@color/dark"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/notifications"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/preferences">
+
+                    <ImageButton
+                        android:id="@+id/notifications2"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/path22"/>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/notifications1"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="6dp"
+                        android:src="@drawable/notofications" />
+
+                    <TextView
+                        android:id="@+id/usernotifications"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@+id/notifications1"
+                        android:layout_toRightOf="@+id/notifications1"
+                        android:gravity="center"
+                        android:text="Notifications"
+                        android:textColor="@color/dark"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/help"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/notifications"
+                    android:layout_marginBottom="90dp">
+
+                    <ImageButton
+                        android:id="@+id/help3"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/path22"/>
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/help1"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="6dp"
+                        android:src="@drawable/help" />
+
+                    <TextView
+                        android:id="@+id/help2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@+id/help1"
+                        android:layout_toRightOf="@+id/help1"
+                        android:gravity="center"
+                        android:text="Help"
+                        android:textColor="@color/dark"
+                        android:textSize="17sp"
+                        android:textStyle="bold" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
 
     </ScrollView>
     <com.google.android.material.bottomnavigation.BottomNavigationView
