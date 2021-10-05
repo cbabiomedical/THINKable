@@ -149,7 +149,7 @@
 
             </LinearLayout>
             <com.github.mikephil.charting.charts.ScatterChart
-                android:id="@+id/charta"
+                android:id="@+id/chartw"
                 android:layout_width="232dp"
                 android:layout_height="295dp"
                 android:layout_marginLeft="104dp"
@@ -187,7 +187,7 @@
             </LinearLayout>
 
             <com.github.mikephil.charting.charts.ScatterChart
-                android:id="@+id/chartb"
+                android:id="@+id/chartx"
                 android:layout_width="232dp"
                 android:layout_height="295dp"
                 android:layout_marginLeft="104dp"
@@ -261,7 +261,7 @@
             </LinearLayout>
 
             <com.github.mikephil.charting.charts.ScatterChart
-                android:id="@+id/chartc"
+                android:id="@+id/charty"
                 android:layout_width="232dp"
                 android:layout_height="295dp"
                 android:layout_marginStart="104dp"
@@ -300,7 +300,7 @@
             </LinearLayout>
 
             <com.github.mikephil.charting.charts.ScatterChart
-                android:id="@+id/chartd"
+                android:id="@+id/chartz"
                 android:layout_width="232dp"
                 android:layout_height="295dp"
                 android:layout_marginLeft="104dp"

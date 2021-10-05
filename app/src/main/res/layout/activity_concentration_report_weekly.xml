@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -7,9 +7,12 @@
     android:layout_height="match_parent"
     android:background="@drawable/landing_background"
     tools:context=".Concentration_Weekly">
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent">
         <RelativeLayout
             android:layout_centerHorizontal="true"
             android:id="@+id/toggleBtn"
@@ -162,7 +165,7 @@
             app:cornerRadius="13dp"
             android:textColor="@color/white"
             android:textStyle="bold"
-            android:text="Time Stayed Concentrate "
+            android:text="Time Stayed Concentrated"
             android:background="@drawable/progressbtn"/>
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/barChartWeekly2"
@@ -172,10 +175,21 @@
             android:layout_centerHorizontal="true"
             android:layout_marginStart="4dp"
             android:layout_marginTop="20dp"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="70dp"
             android:background="@color/background"
             app:cornerRadius="13dp" />
+        </RelativeLayout>
 
-    </RelativeLayout>
+    </ScrollView>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemBackground="@color/dark"
+        app:itemIconTint="@drawable/selector"
+        app:itemTextColor="@drawable/selector"
+        app:menu="@menu/menu_navigation" />
 
-</ScrollView>
+
+</RelativeLayout>

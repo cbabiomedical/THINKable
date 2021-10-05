@@ -15,7 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ThinkableProject">
-        <activity android:name=".RelaxationReportWhereamI"></activity>
+        <activity android:name=".Notification" />
+        <activity android:name=".Profile" />
+        <activity android:name=".UserDetails" />
+        <activity android:name=".RelaxationReportWhereamI" />
         <activity android:name=".ConcentrationReportWhereamI" />
         <activity android:name=".ConcentrationReportYearly" />
         <activity android:name=".ConcentrationReportMonthly" />

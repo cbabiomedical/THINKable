@@ -51,13 +51,10 @@ import java.util.List;
 public class Concentration_Weekly extends AppCompatActivity {
     Dialog dialogcw;
     BarChart barChart1;
-    AppCompatButton monthly;
-    AppCompatButton yearly;
-    AppCompatButton daily, realTime;
+    AppCompatButton monthly, yearly, daily, realTime;
     ImageButton relaxationBtn;
     FirebaseUser mUser;
-    File localFile;
-    File fileName;
+    File localFile, fileName;
     ArrayList<String> list = new ArrayList<>();
     String text;
     ArrayList<Float> floatList = new ArrayList<>();
@@ -74,7 +71,7 @@ public class Concentration_Weekly extends AppCompatActivity {
         relaxationBtn = findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
         dialogcw = new Dialog(this);
-
+        //Initializing bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         //Set Home Selected
@@ -109,7 +106,7 @@ public class Concentration_Weekly extends AppCompatActivity {
                 return false;
             }
         });
-
+        // On click listener of monthly button
         monthly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -117,7 +114,7 @@ public class Concentration_Weekly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
+        // On click listener of yearly button
         yearly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,6 +122,7 @@ public class Concentration_Weekly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        // On click listener of daily button
         daily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,6 +130,7 @@ public class Concentration_Weekly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        // On click listener of relaxation button
         relaxationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,6 +138,7 @@ public class Concentration_Weekly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        // On click listener of realTime indication button
         realTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,9 +146,10 @@ public class Concentration_Weekly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //Initializing arraylist and storing data
         ArrayList<Float> obj = new ArrayList<>(
                 Arrays.asList(30f, 86f, 10f, 50f));
-
+        // Creating file in cache memory and writing data in arraylist to file
         try {
             fileName = new File(getCacheDir() + "/weekly.txt");
             String line = "";
@@ -164,10 +165,12 @@ public class Concentration_Weekly extends AppCompatActivity {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
+        //getting cuurent user id from FirebaseUser class
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUser.getUid();
 
         StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
+        //Uploading file created to firebase storage
         try {
             StorageReference mountainsRef = storageReference1.child("weekly.txt");
             InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
@@ -198,7 +201,7 @@ public class Concentration_Weekly extends AppCompatActivity {
             public void run() {
 
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/weekly.txt");
-
+                //downloding the uploaded file from firebase and read and store data in file to arraylist
                 try {
                     localFile = File.createTempFile("tempFile", ".txt");
                     text = localFile.getAbsolutePath();
@@ -244,8 +247,8 @@ public class Concentration_Weekly extends AppCompatActivity {
                                 entries.add(new BarEntry(j, floatList.get(j)));
                             }
 
-
                             float textSize = 16f;
+                            //Initializing object of MyBarDataset class
                             MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsWeek);
                             dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
                                     ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
@@ -294,7 +297,7 @@ public class Concentration_Weekly extends AppCompatActivity {
 
     }
 
-
+        //popup window method to provide suggestions for improve concentration
     public void gotoPopup3(View view) {
         ImageView cancelcon;
         dialogcw.setContentView(R.layout.activity_concentration_popup);

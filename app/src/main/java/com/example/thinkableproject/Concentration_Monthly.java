@@ -49,16 +49,14 @@ import java.util.List;
 
 public class Concentration_Monthly extends AppCompatActivity {
     Dialog dialogcm;
-
-    BarChart barChart, barChart1;
+    BarChart barChart;
     private Context context;
     AppCompatButton daily, weekly, yearly, realTime;
     ImageButton relaxationBtn;
     FirebaseUser mUser;
-    File localFile;
+    File localFile,fileName;
     String text;
-    File fileName;
-    ArrayList<String> list = new ArrayList();
+    ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
 
     @Override
@@ -73,7 +71,7 @@ public class Concentration_Monthly extends AppCompatActivity {
         relaxationBtn = findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
         dialogcm = new Dialog(this);
-
+        //Initializing bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         //Set Home Selected
@@ -108,9 +106,10 @@ public class Concentration_Monthly extends AppCompatActivity {
                 return false;
             }
         });
+        //Creating arraylist and storing input data
         ArrayList<Float> obj = new ArrayList<>(
                 Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f, 43f, 23f, 70f, 73f, 10f));
-
+        //Writing data in arraylist into a file
         try {
             fileName = new File(getCacheDir() + "/monthly.txt");
             String line = "";
@@ -126,9 +125,10 @@ public class Concentration_Monthly extends AppCompatActivity {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
-
+        //getting current user id from Firebase User class
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUser.getUid();
+        //Uploadinf the file containing input data into firebase storage
         StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
         try {
             StorageReference mountainsRef = storageReference1.child("monthly.txt");
@@ -158,7 +158,7 @@ public class Concentration_Monthly extends AppCompatActivity {
             @Override
             public void run() {
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/monthly.txt");
-
+                    //downloading uploaded file and storing the data in an temp txt file
                 try {
                     localFile = File.createTempFile("tempFile", ".txt");
                     text = localFile.getAbsolutePath();
@@ -167,7 +167,7 @@ public class Concentration_Monthly extends AppCompatActivity {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
                             Toast.makeText(Concentration_Monthly.this, "Success", Toast.LENGTH_SHORT).show();
-
+                                //reading data form tem txt file and storing in an arraylist
                             try {
                                 InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
 
@@ -198,7 +198,6 @@ public class Concentration_Monthly extends AppCompatActivity {
                             Log.d("floatListTest", String.valueOf(floatList));
                             String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
                             List<Float> credits = new ArrayList<>(Arrays.asList(90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f));
-                            float[] strength = new float[]{90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f};
 
 
                             for (int j = 0; j < floatList.size(); ++j) {
@@ -207,6 +206,7 @@ public class Concentration_Monthly extends AppCompatActivity {
 
 
                             float textSize = 16f;
+                            //Initializing object of MyBarDataset class
                             MyBarDataset dataSet = new MyBarDataset(entries, "data", credits);
                             dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
                                     ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
@@ -252,7 +252,7 @@ public class Concentration_Monthly extends AppCompatActivity {
             }
         }, delay);
 
-
+        // On click listener of daily button
         daily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -260,6 +260,7 @@ public class Concentration_Monthly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        // On click listener of weekly button
         weekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -267,6 +268,7 @@ public class Concentration_Monthly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        // On click listener of yearly button
         yearly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -274,6 +276,7 @@ public class Concentration_Monthly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //  // On click listener of relaxation toggle button
         relaxationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -281,6 +284,7 @@ public class Concentration_Monthly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        // On click listener of real time indication button
         realTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -290,7 +294,7 @@ public class Concentration_Monthly extends AppCompatActivity {
         });
 
     }
-
+    //popup window method to display suggestions to improve concentration
     public void gotoPopup2(View view) {
         ImageView cancelcon;
         dialogcm.setContentView(R.layout.activity_concentration_popup);

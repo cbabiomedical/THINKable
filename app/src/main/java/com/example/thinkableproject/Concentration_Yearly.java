@@ -54,12 +54,10 @@ public class Concentration_Yearly extends AppCompatActivity {
     AppCompatButton daily, weekly, monthly, realTime;
     ImageButton relaxationBtn;
     FirebaseUser mUser;
-    File localFile;
-    File fileName;
+    File localFile, fileName;
     String text;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
-    float value;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +71,7 @@ public class Concentration_Yearly extends AppCompatActivity {
         realTime = findViewById(R.id.realTime);
         relaxationBtn = findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
+        //Initialize bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         dialogcy = new Dialog(this);
 
@@ -110,7 +109,7 @@ public class Concentration_Yearly extends AppCompatActivity {
         });
 
         Log.d("Outside", String.valueOf(floatList));
-
+        //onClick listener for daily button
         daily.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -118,6 +117,7 @@ public class Concentration_Yearly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //onClick listener for monthly button
         monthly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -125,6 +125,7 @@ public class Concentration_Yearly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //onClick listener for weekly button
         weekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -132,6 +133,7 @@ public class Concentration_Yearly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //onClick listener for relaxation toggle button
         relaxationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -139,6 +141,7 @@ public class Concentration_Yearly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //onClick listener for real time indication button
         realTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -146,9 +149,10 @@ public class Concentration_Yearly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        //Initializing arraylist an storing data
         ArrayList<Float> obj = new ArrayList<>(
                 Arrays.asList(30f, 86f, 10f, 50f));
-
+        // Creating file in cache memory and storing data in arraylist into a file
         try {
             fileName = new File(getCacheDir() + "/yearly.txt");
             String line = "";
@@ -164,10 +168,11 @@ public class Concentration_Yearly extends AppCompatActivity {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
-
+        //getting current user id from
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUser.getUid();
         StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
+        // uploading created file to firebase
         try {
             StorageReference mountainsRef = storageReference1.child("yearly.txt");
             InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
@@ -196,7 +201,7 @@ public class Concentration_Yearly extends AppCompatActivity {
             public void run() {
 
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/yearly.txt");
-
+                // downloading file and storing data into an arraylist
                 try {
                     localFile = File.createTempFile("tempFile", ".txt");
                     text = localFile.getAbsolutePath();
@@ -236,7 +241,7 @@ public class Concentration_Yearly extends AppCompatActivity {
                             Log.d("floatListTest", String.valueOf(floatList));
                             String[] weeks = new String[]{"2018", "2019", "2020", "2021"};
                             List<Float> creditsWeek = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 10f));
-                            float[] strengthWeek = new float[]{90f, 30f, 70f, 10f};
+//                            float[] strengthWeek = new float[]{90f, 30f, 70f, 10f};
 
                             for (int j = 0; j < floatList.size(); ++j) {
                                 entries.add(new BarEntry(j, floatList.get(j)));
@@ -244,6 +249,7 @@ public class Concentration_Yearly extends AppCompatActivity {
 
 
                             float textSize = 16f;
+                            //Initializing object of MyBarDataset class
                             MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsWeek);
                             dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
                                     ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
@@ -271,8 +277,6 @@ public class Concentration_Yearly extends AppCompatActivity {
                             barChart2.getAxisLeft().setDrawGridLines(false);
 
                             barChart2.invalidate();
-
-
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -289,7 +293,7 @@ public class Concentration_Yearly extends AppCompatActivity {
         }, delay);
 
     }
-
+//popup window method to provide suggesstions to improve concentration
     public void gotoPopup4(View view) {
         ImageView cancelcon;
         dialogcy.setContentView(R.layout.activity_concentration_popup);

@@ -24,7 +24,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class LandingPage extends AppCompatActivity {
     private static final int PICK_FILE_REQUEST = 234;
     Button changepassword, logout, relaxationLanding, concentrationLanding,reportConDaily,reportRelDaily;
-    Button chooseFile, uploadFile;
+    Button chooseFile, uploadFile,edit;
     private Uri filePath;
     private StorageReference storageReference;
     FirebaseUser mUser;
@@ -37,6 +37,7 @@ public class LandingPage extends AppCompatActivity {
         chooseFile = findViewById(R.id.choose);
         uploadFile = findViewById(R.id.upload);
         reportConDaily=findViewById(R.id.reportConDaily);
+        edit=findViewById(R.id.editProfile);
         reportRelDaily=findViewById(R.id.reportLanding);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -48,7 +49,13 @@ public class LandingPage extends AppCompatActivity {
                 showFileChooser();
             }
         });
-
+    edit.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent intent=new Intent(getApplicationContext(),Profile.class);
+            startActivity(intent);
+        }
+    });
 
         storageReference = FirebaseStorage.getInstance().getReference().child(mUser.getUid());
         uploadFile.setOnClickListener(new View.OnClickListener() {
@@ -169,5 +176,10 @@ public class LandingPage extends AppCompatActivity {
     public void cq(View view) {
         Intent intentcq = new Intent(getApplicationContext(), ConcentrationReportWhereamI.class);
         startActivity(intentcq);
+    }
+
+    public void notificationPage(View view) {
+        Intent intentnp = new Intent(getApplicationContext(), Notification.class);
+        startActivity(intentnp);
     }
 }
