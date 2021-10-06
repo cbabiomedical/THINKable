@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Notification1"
+    android:background="@drawable/user_detail">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/notititle"
+            android:id="@+id/notititle"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"/>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="4dp"
+            app:cardCornerRadius="4dp"
+            android:backgroundTint="#EAE9FF"
+            android:layout_below="@+id/notititle"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/notia"
+           >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp">
+
+
+                <TextView
+                    android:id="@+id/textViewNo1"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView"
+                    android:layout_marginStart="8dp"
+                    android:layout_toEndOf="@+id/imageView"
+                    android:text="Pop up Notifications"
+                    android:textColor="#040067"
+                    android:textSize="20dp"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/times"
+                    android:textStyle="bold"/>
+                <androidx.appcompat.widget.SwitchCompat
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/textViewNo1"
+                    android:id="@+id/sw1"/>
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="4dp"
+            android:backgroundTint="#EAE9FF"
+            android:layout_below="@+id/notia"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/notib"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp">
+
+
+                <TextView
+                    android:id="@+id/textViewNob"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView"
+                    android:layout_marginStart="8dp"
+                    android:layout_toEndOf="@+id/imageView"
+                    android:text="High Piority Notifications "
+                    android:textColor="#040067"
+                    android:textSize="20dp"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/times"
+                    android:textStyle="bold"/>
+                <androidx.appcompat.widget.SwitchCompat
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/textViewNob"
+                    android:id="@+id/swb"/>
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="4dp"
+            android:backgroundTint="#EAE9FF"
+            android:layout_below="@+id/notib"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/notic"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp">
+
+
+                <TextView
+                    android:id="@+id/textViewNoc"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView"
+                    android:layout_marginStart="8dp"
+                    android:layout_toEndOf="@+id/imageView"
+                    android:text="Vibrate"
+                    android:textColor="#040067"
+                    android:textSize="20dp"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/times"
+                    android:textStyle="bold"/>
+                <androidx.appcompat.widget.SwitchCompat
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/textViewNoc"
+                    android:id="@+id/swc"/>
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <androidx.cardview.widget.CardView
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="4dp"
+            android:backgroundTint="#EAE9FF"
+            android:layout_below="@+id/notic"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:id="@+id/notid"
+            >
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="4dp">
+
+
+                <TextView
+                    android:id="@+id/textViewNod"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textView"
+                    android:layout_marginStart="8dp"
+                    android:layout_toEndOf="@+id/imageView"
+                    android:text="Quote Notifications"
+                    android:textColor="#040067"
+                    android:textSize="20dp"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/times"
+                    android:textStyle="bold"/>
+                <androidx.appcompat.widget.SwitchCompat
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/textViewNod"
+                    android:id="@+id/swd"/>
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/notify"
+            android:layout_below="@+id/notid"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:id="@+id/noti1"
+            />
+
+        <Button
+            android:id="@+id/buttonNO"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/notid"
+            android:layout_alignEnd="@+id/noti1"
+            android:layout_alignBottom="@+id/notid"
+            android:layout_marginTop="84dp"
+            android:layout_marginEnd="150dp"
+            android:layout_marginBottom="-122dp"
+            android:text="Button" />
+
+
+    </RelativeLayout>
+
+
+
+
+
+
+</ScrollView>
