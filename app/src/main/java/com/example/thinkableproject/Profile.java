@@ -2,6 +2,7 @@ package com.example.thinkableproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.arch.core.executor.TaskExecutor;
 
 import android.content.Intent;
@@ -33,6 +34,7 @@ public class Profile extends AppCompatActivity {
     TextView userName;
     FirebaseUser mUser;
     StorageReference storageReference;
+    AppCompatButton calendar;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +42,7 @@ public class Profile extends AppCompatActivity {
         editProfile=findViewById(R.id.edit);
         userName=findViewById(R.id.user);
         profilePic=findViewById(R.id.picture);
+        calendar=findViewById(R.id.cal_reminder);
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,6 +68,13 @@ public class Profile extends AppCompatActivity {
                     DataSnapshot dataSnapshot=task.getResult();
                     userName.setText(String.valueOf(dataSnapshot.child("userName").getValue()));
                 }
+            }
+        });
+        calendar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),Calendar_Reminder.class);
+                startActivity(intent);
             }
         });
     }

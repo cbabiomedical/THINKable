@@ -35,7 +35,7 @@ public class Concentration_Daily extends AppCompatActivity {
     Dialog dialogcd;
     BarChart barChartdaily;
     AppCompatButton monthly, yearly, weekly, realTime;
-    ImageButton relaxationBtn;
+    ImageButton relaxationBtn,games;
     FirebaseUser mUser;
     String text;
     File localFile, fileName;
@@ -49,6 +49,7 @@ public class Concentration_Daily extends AppCompatActivity {
         setContentView(R.layout.activity_concentration__daily);
         barChartdaily = (BarChart) findViewById(R.id.barChartDaily);
         monthly = findViewById(R.id.monthly);
+        games=findViewById(R.id.game);
         yearly = findViewById(R.id.yearly);
         weekly = findViewById(R.id.weekly);
         realTime = findViewById(R.id.realTime);
@@ -255,6 +256,13 @@ public class Concentration_Daily extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Concentration_Weekly.class);
+                startActivity(intent);
+            }
+        });
+        games.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),ConcentrationExcercise.class);
                 startActivity(intent);
             }
         });

@@ -22,7 +22,7 @@
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
         android:backgroundTint="@color/black"
-        android:src="@drawable/image1"/>
+        android:src="@drawable/user"/>
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/iv_camera"
             android:layout_width="40dp"
