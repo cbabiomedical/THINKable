@@ -144,24 +144,29 @@
             android:gravity="center"
             android:layout_below="@+id/improveRelaxation">
             <ImageButton
-
+                android:id="@+id/music"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rectangle"
-                android:src="@drawable/music_logo"/>
+                android:src="@drawable/music_logo"
+                android:contentDescription="TODO" />
             <ImageButton
+                android:id="@+id/meditation"
                 android:layout_marginLeft="10dp"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rectangle"
-                android:src="@drawable/meditation_logo"/>
+                android:src="@drawable/meditation_logo"
+                android:contentDescription="TODO" />
 
             <ImageButton
+                android:id="@+id/video"
                 android:layout_marginLeft="10dp"
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:background="@drawable/rectangle"
-                android:src="@drawable/video_logo"/>
+                android:src="@drawable/video_logo"
+                android:contentDescription="TODO" />
 
 
         </LinearLayout>

@@ -162,7 +162,7 @@ public class Concentration_Yearly extends AppCompatActivity {
             int size = obj.size();
             for (int i = 0; i < size; i++) {
                 output.write(obj.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
             }
             output.close();
         } catch (IOException exception) {
@@ -180,12 +180,12 @@ public class Concentration_Yearly extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(Concentration_Yearly.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Concentration_Yearly.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Concentration_Yearly.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Concentration_Yearly.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -209,7 +209,7 @@ public class Concentration_Yearly extends AppCompatActivity {
                     storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(Concentration_Yearly.this, "Success", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(Concentration_Yearly.this, "Success", Toast.LENGTH_SHORT).show();
 
                             try {
                                 InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
@@ -281,7 +281,7 @@ public class Concentration_Yearly extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Concentration_Yearly.this, "Failed", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(Concentration_Yearly.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     });
 

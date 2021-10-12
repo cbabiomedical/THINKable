@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,11 +12,17 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.StorageReference;
 
 public class Setting extends AppCompatActivity {
 
-    ImageButton buttonpro, accountsettings1, changepassword1, location2, theme2, preferences1, notifications2, help3;
+    ImageButton buttonpro, accountsettings1, changepassword1, location2, theme2, preferences1, notifications2, help3, logout;
     ImageView upgradetopro;
+    private Uri filePath;
+    private StorageReference storageReference;
+    FirebaseUser mUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +37,17 @@ public class Setting extends AppCompatActivity {
         theme2 = findViewById(R.id.theme2);
         preferences1 = findViewById(R.id.preferences1);
         notifications2 = findViewById(R.id.notifications2);
-        help3 = findViewById(R.id.help3);
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        logout = findViewById(R.id.logout);
+
+        logout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(Setting.this, SignInActivity.class));
+            }
+        });
 
         buttonpro.setOnClickListener(new View.OnClickListener() {
             @Override

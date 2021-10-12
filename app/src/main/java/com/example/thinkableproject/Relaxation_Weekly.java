@@ -104,7 +104,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
         });
 
         music = findViewById(R.id.music);
-        meditation = findViewById(R.id.meditations);
+        meditation = findViewById(R.id.meditation);
         video = findViewById(R.id.video);
         //go to misic-excercise page
         music.setOnClickListener(new View.OnClickListener() {

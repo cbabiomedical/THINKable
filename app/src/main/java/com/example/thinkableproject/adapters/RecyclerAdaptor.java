@@ -127,7 +127,7 @@ public class RecyclerAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.mTouchHelper = itemTouchHelper;
     }
 
-    private class ViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener, GestureDetector.OnGestureListener {
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener, GestureDetector.OnGestureListener {
 
         private CircleImageView mImage;
         private TextView mName;

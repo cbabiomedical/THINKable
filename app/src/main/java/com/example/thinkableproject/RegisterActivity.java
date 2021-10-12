@@ -307,6 +307,7 @@ public class RegisterActivity extends AppCompatActivity {
         Log.d("job", occupation);
         String preference = "";
         String suggestions = "";
+        String favourites="";
         // Assigning male to gender variable if male radio button is checked
         if (male.isChecked()) {
             gender = "Male";
@@ -373,7 +374,8 @@ public class RegisterActivity extends AppCompatActivity {
                             gender,
                             dob,
                             preference,
-                            suggestions
+                            suggestions,
+                            favourites
                     );
                     // getting an instance of firebase database using getInstance()
                     // accessign the location in database to write data
