@@ -37,6 +37,7 @@ public class Setting extends AppCompatActivity {
         theme2 = findViewById(R.id.theme2);
         preferences1 = findViewById(R.id.preferences1);
         notifications2 = findViewById(R.id.notifications2);
+        help3=findViewById(R.id.help3);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         logout = findViewById(R.id.logout);
@@ -59,6 +60,8 @@ public class Setting extends AppCompatActivity {
         accountsettings1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(),Profile.class);
+                startActivity(intent);
 
             }
         });

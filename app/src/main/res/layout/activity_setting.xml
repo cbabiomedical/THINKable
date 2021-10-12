@@ -25,10 +25,11 @@
                 android:layout_height="wrap_content">
 
                 <ImageView
+                    app:cornerRadius="13dp"
                     android:id="@+id/pro"
                     android:layout_width="match_parent"
                     android:layout_height="315dp"
-                    android:layout_marginTop="50dp"
+                    android:layout_marginTop="0dp"
                     android:src="@drawable/settingbg" />
 
                 <ImageView
@@ -36,7 +37,8 @@
                     android:layout_width="300dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="50dp"
-                    android:layout_marginTop="100dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="40dp"
                     android:src="@drawable/youareonourfreeplan" />
 
                 <ImageView
@@ -44,6 +46,7 @@
                     android:layout_width="300dp"
                     android:layout_height="match_parent"
                     android:layout_below="@+id/freeplan"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginLeft="50dp"
                     android:layout_marginTop="25dp"
                     android:src="@drawable/wanttomakemostofit" />
@@ -55,6 +58,8 @@
                     android:layout_below="@+id/getbetter"
                     android:layout_marginLeft="50dp"
                     android:layout_marginTop="30dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_centerHorizontal="true"
                     android:radius="4dp"
                     android:src="@drawable/path2" />
 
@@ -62,13 +67,16 @@
                     android:id="@+id/upgradetopro"
                     android:layout_width="200dp"
                     android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
                     android:layout_below="@+id/getbetter"
                     android:layout_marginLeft="100dp"
                     android:layout_marginTop="25dp"
+                    android:layout_marginBottom="20dp"
                     android:src="@drawable/opgradetpro" />
 
 
                 <RelativeLayout
+                    android:layout_marginTop="20dp"
                     android:id="@+id/accountsettings"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
