@@ -93,13 +93,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 >
-<!--                <ImageView-->
-<!--                    android:layout_width="250dp"-->
-<!--                    android:layout_height="70dp"-->
-<!--                    android:src="@drawable/timetorelaxbtn"-->
-<!--                    android:layout_marginLeft="55dp">-->
+                <ImageView
+                    android:layout_width="250dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/timetorelax"
+                    android:layout_marginLeft="55dp">
 
-<!--                </ImageView>-->
+                </ImageView>
             </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -201,13 +201,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 >
-<!--                <ImageView-->
-<!--                    android:layout_width="250dp"-->
-<!--                    android:layout_height="70dp"-->
-<!--                    android:src="@drawable/timestay"-->
-<!--                    android:layout_marginLeft="55dp">-->
+                <ImageView
+                    android:layout_width="250dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/timestayrelaxed"
+                    android:layout_marginLeft="55dp">
 
-<!--                </ImageView>-->
+                </ImageView>
             </RelativeLayout>
 
 
