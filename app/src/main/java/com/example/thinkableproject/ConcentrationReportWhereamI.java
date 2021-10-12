@@ -104,7 +104,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
             int size = obj.size();
             for (int i = 0; i < size; i++) {
                 output.write(obj.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
             }
             output.close();
         } catch (IOException exception) {
@@ -123,7 +123,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
             int size = obja.size();
             for (int i = 0; i < size; i++) {
                 outputa.write(obja.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
             }
             outputa.close();
         } catch (IOException exception) {
@@ -141,12 +141,12 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -165,12 +165,12 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -201,7 +201,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                     storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(ConcentrationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ConcentrationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
 
                             try {
                                 InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
@@ -286,7 +286,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(ConcentrationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ConcentrationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -294,7 +294,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                     storageReferencea.getFile(localFilea).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(ConcentrationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ConcentrationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
 
                             try {
                                 InputStreamReader inputStreamReadera = new InputStreamReader(new FileInputStream(localFilea.getAbsolutePath()));
@@ -346,7 +346,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(ConcentrationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ConcentrationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -377,7 +377,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
             int size = objm.size();
             for (int i = 0; i < size; i++) {
                 outputm.write(objm.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
             }
             outputm.close();
         } catch (IOException exception) {
@@ -396,7 +396,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
             int size = obja1.size();
             for (int i = 0; i < size; i++) {
                 outputa2.write(obja1.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
             }
             outputa2.close();
         } catch (IOException exception) {
@@ -414,12 +414,12 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -437,12 +437,12 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -559,7 +559,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(ConcentrationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ConcentrationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -567,7 +567,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                     storageReferencea2.getFile(localFilea2).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(ConcentrationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ConcentrationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
 
                             try {
                                 InputStreamReader inputStreamReadera2 = new InputStreamReader(new FileInputStream(localFilea2.getAbsolutePath()));
@@ -619,7 +619,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(ConcentrationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ConcentrationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -655,7 +655,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
             int size = objn.size();
             for (int i = 0; i < size; i++) {
                 outputn.write(objn.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
             }
             outputn.close();
         } catch (IOException exception) {
@@ -674,7 +674,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
             int size = obja2.size();
             for (int i = 0; i < size; i++) {
                 outputa3.write(obja2.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
             }
             outputa3.close();
         } catch (IOException exception) {
@@ -692,12 +692,12 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -715,12 +715,12 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -752,7 +752,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                     storageReferencen.getFile(localFilen).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(ConcentrationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ConcentrationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
 
                             try {
                                 InputStreamReader inputStreamReadern = new InputStreamReader(new FileInputStream(localFilen.getAbsolutePath()));
@@ -837,7 +837,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(ConcentrationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ConcentrationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -845,7 +845,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                     storageReferencea3.getFile(localFilea3).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(ConcentrationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ConcentrationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
 
                             try {
                                 InputStreamReader inputStreamReadera3 = new InputStreamReader(new FileInputStream(localFilea3.getAbsolutePath()));
@@ -897,7 +897,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(ConcentrationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ConcentrationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -931,7 +931,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
             int size = objo.size();
             for (int i = 0; i < size; i++) {
                 outputo.write(objo.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
             }
             outputo.close();
         } catch (IOException exception) {
@@ -950,7 +950,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
             int size = obja3.size();
             for (int i = 0; i < size; i++) {
                 outputa4.write(obja3.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
             }
             outputa4.close();
         } catch (IOException exception) {
@@ -968,12 +968,12 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -991,12 +991,12 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ConcentrationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -1028,7 +1028,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                     storageReferenceo.getFile(localFileo).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(ConcentrationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ConcentrationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
 
                             try {
                                 InputStreamReader inputStreamReadero = new InputStreamReader(new FileInputStream(localFileo.getAbsolutePath()));
@@ -1112,7 +1112,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(ConcentrationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ConcentrationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -1171,7 +1171,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(ConcentrationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ConcentrationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     });
 

@@ -106,7 +106,7 @@ public class Concentration_Daily extends AppCompatActivity {
             int size = obj.size();
             for (int i = 0; i < size; i++) {
                 output.write(obj.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
             }
             output.close();
         } catch (IOException exception) {
@@ -126,12 +126,12 @@ public class Concentration_Daily extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(Concentration_Daily.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Concentration_Daily.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Concentration_Daily.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Concentration_Daily.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -155,7 +155,7 @@ public class Concentration_Daily extends AppCompatActivity {
                     storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(Concentration_Daily.this, "Success", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(Concentration_Daily.this, "Success", Toast.LENGTH_SHORT).show();
 
                             // reading data from the tempFile and storing in array list
 
@@ -230,7 +230,7 @@ public class Concentration_Daily extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Concentration_Daily.this, "Failed", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(Concentration_Daily.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     });
 

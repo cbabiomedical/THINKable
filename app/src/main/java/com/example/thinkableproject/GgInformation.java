@@ -184,6 +184,7 @@ public class GgInformation extends AppCompatActivity {
         String email = emailAddress.getText().toString().trim();
         String dob = dateButton.getText().toString().trim();
         String occupation = act.getText().toString();
+        String favourites="";
         Log.d("job", occupation);
         String preference = "";
         String suggestions = "";
@@ -230,7 +231,9 @@ public class GgInformation extends AppCompatActivity {
                 gender,
                 dob,
                 preference,
-                suggestions
+                suggestions,
+                favourites
+
         );
         // getting an instance of firebase database using getInstance()
         // accessign the location in database to write data
