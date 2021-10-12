@@ -19,7 +19,7 @@
             android:layout_height="fill_parent">
         <RelativeLayout
             android:id="@+id/toggleBtn"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             >
@@ -50,8 +50,9 @@
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/barChartWeekly"
-            android:layout_width="match_parent"
-            android:layout_height="263dp"
+            android:layout_width="325dp"
+            android:layout_height="250dp"
+            android:layout_centerHorizontal="true"
             android:layout_below="@+id/toggleBtn"
             android:layout_marginStart="4dp"
             android:layout_marginTop="20dp"

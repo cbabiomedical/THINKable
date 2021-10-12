@@ -51,9 +51,9 @@
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/barChartYearly"
-            android:layout_width="360dp"
+            android:layout_width="325dp"
             android:layout_centerHorizontal="true"
-            android:layout_height="322dp"
+            android:layout_height="250dp"
             android:layout_marginHorizontal="0dp"
             android:layout_below="@+id/toggleBtn"
             android:layout_marginStart="4dp"

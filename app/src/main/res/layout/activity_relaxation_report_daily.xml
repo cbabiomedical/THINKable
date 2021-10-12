@@ -170,14 +170,14 @@
 
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barChartDailytimeto"
-                android:layout_width="360dp"
-                android:layout_height="322dp"
+                android:layout_width="325dp"
+                android:layout_height="214dp"
                 android:layout_below="@+id/timetoRelax"
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="4dp"
                 android:layout_marginLeft="4dp"
                 android:layout_marginTop="35dp"
-                android:background="@color/white" />
+                android:background="@color/background" />
 
 
             <RelativeLayout
@@ -213,13 +213,13 @@
 
                 <com.github.mikephil.charting.charts.BarChart
                     android:id="@+id/barChartDailytimestayed"
-                    android:layout_width="360dp"
-                    android:layout_height="322dp"
+                    android:layout_width="325dp"
+                    android:layout_height="214dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginStart="4dp"
                     android:layout_marginLeft="4dp"
                     android:layout_marginTop="35dp"
-                    android:background="@color/white" />
+                    android:background="@color/background" />
 
 
             </LinearLayout>

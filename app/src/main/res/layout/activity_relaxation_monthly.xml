@@ -52,14 +52,14 @@
 
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/barChartMonthly"
-            android:layout_width="360dp"
-            android:layout_height="322dp"
+            android:layout_width="325dp"
+            android:layout_height="250dp"
             android:layout_below="@+id/toggleBtn"
             android:layout_marginStart="4dp"
             android:layout_marginLeft="4dp"
             android:layout_marginTop="35dp"
             android:layout_centerHorizontal="true"
-            android:background="@color/white" />
+            android:background="@color/background" />
 
         <LinearLayout
             android:id="@+id/btnLayout"

@@ -58,29 +58,28 @@
             >
 
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/concentration1"
-                android:layout_width="150dp"
-                android:layout_height="70dp"
+                android:id="@+id/progresscon"
+                android:layout_width="160dp"
+                android:layout_height="60dp"
                 android:layout_marginLeft="35dp"
                 android:background="@drawable/pgbtn"
                 android:elevation="5dp"
-                android:fontFamily="@font/times"
                 android:text="Progress"
-                android:textColor="#3F51B5"
-                android:textStyle="bold"
-                android:textSize="18dp"/>
+                android:textColor="#3F51B5"/>
 
 
-            <ImageButton
-                android:id="@+id/relaxation1"
-                android:layout_width="150dp"
-                android:layout_height="70dp"
-                android:layout_alignEnd="@+id/concentration1"
-                android:layout_alignRight="@+id/concentration1"
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/relwhereAmI"
+                android:layout_width="160dp"
+                android:layout_height="60dp"
+                android:layout_alignEnd="@+id/progresscon"
+                android:layout_alignRight="@+id/progresscon"
                 android:layout_marginLeft="100dp"
                 android:layout_marginEnd="-136dp"
                 android:layout_marginRight="-144dp"
-                android:background="@drawable/whereami"
+                android:text="WHERE AM I"
+                android:textColor="@color/white"
+                android:background="@drawable/progressbtn"
                 android:elevation="5dp"
 
                 />

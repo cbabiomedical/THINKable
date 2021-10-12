@@ -2,6 +2,7 @@ package com.example.thinkableproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -43,7 +44,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class ConcentrationReportWhereamI extends AppCompatActivity {
-
+    AppCompatButton progressConcentration;
     File fileName,fileNamea,fileNamem,fileNamea2,fileNamen,fileNamea3,fileNameo,fileNamea4;
     FirebaseUser mUser;
     File localFile,localFilea,localFilem,localFilea2,localFilen,localFilea3,localFileo,localFile4a;
@@ -86,6 +87,16 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_concentration_report_wheream_i);
+        progressConcentration=findViewById(R.id.progresscon);
+
+
+        progressConcentration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),ConcentrationReportDaily.class);
+                startActivity(intent);
+            }
+        });
 
         //1----> chart
         //1 -----> chart

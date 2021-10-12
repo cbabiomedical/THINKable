@@ -2,6 +2,7 @@ package com.example.thinkableproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -44,6 +45,7 @@ import java.util.Arrays;
 import java.util.List;
 
 public class RelaxationReportWhereamI extends AppCompatActivity {
+    AppCompatButton relaxationProgress;
 
     File fileNamer, fileNamear, fileNamemr, fileNamea2r, fileNamenr, fileNamea3r, fileNameor, fileNamea4r;
     FirebaseUser mUser;
@@ -87,6 +89,15 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relaxation_report_wheream_i);
+        relaxationProgress=findViewById(R.id.progressrel);
+
+        relaxationProgress.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(),RelaxationReportDaily.class);
+                startActivity(intent);
+            }
+        });
 
 //        1----> chart4aa
 //        1 -----> chart4aa
