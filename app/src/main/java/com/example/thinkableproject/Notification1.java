@@ -29,23 +29,35 @@ public class Notification1 extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification1);
 
-        sw1=findViewById(R.id.sw1);
-        swb=findViewById(R.id.swb);
-        swc=findViewById(R.id.swc);
-        swd=findViewById(R.id.swd);
-        buttonNO=findViewById(R.id.buttonNO);
-        vibrator=(Vibrator) getSystemService(VIBRATOR_SERVICE);
+        sw1 = findViewById(R.id.sw1);
+        swb = findViewById(R.id.swb);
+        swc = findViewById(R.id.swc);
+        swd = findViewById(R.id.swd);
+        buttonNO = findViewById(R.id.buttonNO);
+        vibrator = (Vibrator) getSystemService(VIBRATOR_SERVICE);
+
+        createNotificationChannels();
+    }
+
+    private void createNotificationChannels(){
 
         if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.O){
-            NotificationChannel channel = new NotificationChannel("My Notification","My Notification", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel channel = new NotificationChannel("My Notification","Popup Notifications",
+                    NotificationManager.IMPORTANCE_MIN);
+            channel.enableLights(true);
+            channel.setDescription("Popup Notifications");
             NotificationManager manager = getSystemService(NotificationManager.class);
             manager.createNotificationChannel(channel);
 
-            NotificationChannel channel1 = new NotificationChannel("My Notification1","My Notification1", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel channel1 = new NotificationChannel("My Notification1","High pority Notifications",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            channel1.setDescription("High pority Notifications");
             NotificationManager manager1 = getSystemService(NotificationManager.class);
             manager1.createNotificationChannel(channel1);
 
-            NotificationChannel channel2 = new NotificationChannel("My Notification2","My Notification2", NotificationManager.IMPORTANCE_DEFAULT);
+            NotificationChannel channel2 = new NotificationChannel("My Notification2","Quote Notifications",
+                    NotificationManager.IMPORTANCE_DEFAULT);
+            channel2.setDescription("Quote Notifications");
             NotificationManager manager2 = getSystemService(NotificationManager.class);
             manager2.createNotificationChannel(channel2);
         }
@@ -64,7 +76,7 @@ public class Notification1 extends AppCompatActivity {
                     builder.setContentText("Hellooooo");
                     builder.setSmallIcon(R.drawable.splashlogo);
                     builder.setAutoCancel(true);
-                    builder.setPriority(NotificationCompat.PRIORITY_HIGH);
+                    builder.setPriority(NotificationCompat.PRIORITY_LOW);
                     builder.setDefaults(NotificationCompat.DEFAULT_ALL);
                     
 

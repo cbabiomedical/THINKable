@@ -3,7 +3,6 @@ package com.example.thinkableproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.arch.core.executor.TaskExecutor;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -23,8 +22,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
-
-import java.io.InputStreamReader;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -73,8 +70,8 @@ public class Profile extends AppCompatActivity {
         calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),Calendar_Reminder.class);
-                startActivity(intent);
+                Intent intentcalen =new Intent(getApplicationContext(),Calendar_Reminder.class);
+                startActivity(intentcalen);
             }
         });
     }
