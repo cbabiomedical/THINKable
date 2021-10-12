@@ -179,7 +179,7 @@ public class LandingPage extends AppCompatActivity {
     }
 
     public void notificationPage(View view) {
-        Intent intentnp = new Intent(getApplicationContext(), Notification.class);
+        Intent intentnp = new Intent(getApplicationContext(), Notification1.class);
         startActivity(intentnp);
     }
 }

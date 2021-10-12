@@ -195,7 +195,7 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuthggl.getCurrentUser();
-                            Intent intentg = new Intent(getApplicationContext(), EnterPhoneActivity.class);
+                            Intent intentg = new Intent(getApplicationContext(), GgInformation.class);
                             startActivity(intentg);
 
                         } else {

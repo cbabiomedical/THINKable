@@ -146,6 +146,7 @@
             android:layout_below="@+id/improveConcentration">
 
             <ImageButton
+                android:id="@+id/game"
                 android:layout_width="130dp"
                 android:layout_height="80dp"
                 android:background="@drawable/concentpreference"

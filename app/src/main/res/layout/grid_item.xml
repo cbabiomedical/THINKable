@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:layout_margin="10dp"
+    android:gravity="center">
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:padding="10dp"
+        app:cornerRadius="15dp"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+    <ImageView
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:scaleType="centerCrop"
+        android:id="@+id/gridImage"/>
+        <RelativeLayout
+            android:gravity="center_vertical"
+            android:layout_gravity="center_horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/item_name"
+                android:layout_width="117dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="Rose"
+                android:textSize="22sp" />
+        <ImageView
+            android:id="@+id/favouritesIcon"
+            android:layout_width="wrap_content"
+            android:layout_toRightOf="@+id/item_name"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:foregroundGravity="center_vertical"
+            android:baselineAlignBottom="true"
+            android:src="@drawable/ic_favorite"
+            android:contentDescription="TODO" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

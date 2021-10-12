@@ -10,20 +10,33 @@
 <RelativeLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
+    <FrameLayout
+        android:id="@id/profilePicLayout"
+        android:layout_centerHorizontal="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/profilePic"
         android:layout_marginTop="30dp"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="@color/white"
-        android:src="@drawable/image1"/>
+        android:backgroundTint="@color/black"
+        android:src="@drawable/user"/>
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/iv_camera"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="bottom|right"
+            app:srcCompat="@drawable/ic_camera"
+            />
 
+    </FrameLayout>
     <EditText
         android:id="@+id/userName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/profilePic"
+        android:layout_below="@+id/profilePicLayout"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="25dp"
         android:gravity="center_horizontal"
