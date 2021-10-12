@@ -361,21 +361,21 @@ public class Relaxation_Monthly extends AppCompatActivity {
         dialogrm.show();
     }
 
-    public void yearly(View v) {
-        Intent intent2 = new Intent(this, Relaxation_Yearly.class);
-        startActivity(intent2);
-
-    }
-
-    public void daily(View view) {
-        Intent intent2 = new Intent(this, Relaxation_Daily.class);
-        startActivity(intent2);
-    }
-
-    public void weekly(View view) {
-        Intent intent2 = new Intent(this, Relaxation_Weekly.class);
-        startActivity(intent2);
-    }
+//    public void yearly(View v) {
+//        Intent intent2 = new Intent(this, Relaxation_Yearly.class);
+//        startActivity(intent2);
+//
+//    }
+//
+//    public void daily(View view) {
+//        Intent intent2 = new Intent(this, Relaxation_Daily.class);
+//        startActivity(intent2);
+//    }
+//
+//    public void weekly(View view) {
+//        Intent intent2 = new Intent(this, Relaxation_Weekly.class);
+//        startActivity(intent2);
+//    }
 
 
     //set up x and y axis data

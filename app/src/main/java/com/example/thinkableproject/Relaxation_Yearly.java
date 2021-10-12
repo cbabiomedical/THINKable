@@ -353,21 +353,21 @@ public class Relaxation_Yearly extends AppCompatActivity {
         dialogry.show();
     }
 
-    public void monthly(View v) {
-        Intent intent2 = new Intent(this, Relaxation_Monthly.class);
-        startActivity(intent2);
-
-    }
-
-    public void daily(View view) {
-        Intent intent2 = new Intent(this, Relaxation_Daily.class);
-        startActivity(intent2);
-    }
-
-    public void weekly(View view) {
-        Intent intent2 = new Intent(this, Relaxation_Weekly.class);
-        startActivity(intent2);
-    }
+//    public void monthly(View v) {
+//        Intent intent2 = new Intent(this, Relaxation_Monthly.class);
+//        startActivity(intent2);
+//
+//    }
+//
+//    public void daily(View view) {
+//        Intent intent2 = new Intent(this, Relaxation_Daily.class);
+//        startActivity(intent2);
+//    }
+//
+//    public void weekly(View view) {
+//        Intent intent2 = new Intent(this, Relaxation_Weekly.class);
+//        startActivity(intent2);
+//    }
 
     //set up x and y axis data
     public class MyBarDataset extends BarDataSet {

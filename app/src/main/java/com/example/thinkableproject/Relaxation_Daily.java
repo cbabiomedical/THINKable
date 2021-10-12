@@ -394,21 +394,21 @@ public class Relaxation_Daily extends AppCompatActivity {
         }
     }
 
-    public void monthly(View v) {
-        Intent intent2 = new Intent(this, Relaxation_Monthly.class);
-        startActivity(intent2);
-
-    }
-
-    public void yearly(View view) {
-        Intent intent2 = new Intent(this, Relaxation_Yearly.class);
-        startActivity(intent2);
-    }
-
-    public void weekly(View view) {
-        Intent intent2 = new Intent(this, Relaxation_Weekly.class);
-        startActivity(intent2);
-    }
+//    public void monthly(View v) {
+//        Intent intent2 = new Intent(this, Relaxation_Monthly.class);
+//        startActivity(intent2);
+//
+//    }
+//
+//    public void yearly(View view) {
+//        Intent intent2 = new Intent(this, Relaxation_Yearly.class);
+//        startActivity(intent2);
+//    }
+//
+//    public void weekly(View view) {
+//        Intent intent2 = new Intent(this, Relaxation_Weekly.class);
+//        startActivity(intent2);
+//    }
 
     private class MyXAxisValueFormatter extends ValueFormatter {
         private String[] mValues;
