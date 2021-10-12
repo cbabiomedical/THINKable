@@ -71,7 +71,8 @@ public class Setting extends AppCompatActivity {
         preferences1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intentr1 = new Intent(getApplicationContext(), PreferencesSecPage.class);
+                startActivity(intentr1);
             }
         });
 
