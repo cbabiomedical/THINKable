@@ -15,11 +15,11 @@
         app:cornerRadius="15dp"
         android:orientation="vertical"
         android:layout_margin="10dp">
-    <ImageView
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:scaleType="centerCrop"
-        android:id="@+id/gridImage"/>
+        <ImageView
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:scaleType="centerCrop"
+            android:id="@+id/gridImage"/>
         <RelativeLayout
             android:gravity="center_vertical"
             android:layout_gravity="center_horizontal"
@@ -32,18 +32,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="Rose"
+                android:text=""
                 android:textSize="16sp" />
-        <ImageView
-            android:id="@+id/favouritesIcon"
-            android:layout_width="wrap_content"
-            android:layout_toRightOf="@+id/item_name"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:foregroundGravity="center_vertical"
-            android:baselineAlignBottom="true"
-            android:src="@drawable/ic_favorite"
-            android:contentDescription="TODO" />
+            <ImageView
+                android:id="@+id/favouritesIcon"
+                android:layout_width="wrap_content"
+                android:layout_toRightOf="@+id/item_name"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:foregroundGravity="center_vertical"
+                android:baselineAlignBottom="true"
+
+                android:contentDescription="TODO" />
         </RelativeLayout>
     </LinearLayout>
 

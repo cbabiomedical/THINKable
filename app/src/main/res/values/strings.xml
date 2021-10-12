@@ -45,6 +45,7 @@
     <string name="weekly">Weekly</string>
     <string name="monthly">Monthly</string>
     <string name="yearly">Yearly</string>
+    <string name="zero">zero</string>
 
 
 </resources>

@@ -3,7 +3,6 @@ package com.example.thinkableproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.arch.core.executor.TaskExecutor;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -24,8 +23,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
 
-import java.io.InputStreamReader;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class Profile extends AppCompatActivity {
@@ -35,6 +32,7 @@ public class Profile extends AppCompatActivity {
     FirebaseUser mUser;
     StorageReference storageReference;
     AppCompatButton calendar;
+    AppCompatButton myFavourites;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,10 +41,18 @@ public class Profile extends AppCompatActivity {
         userName=findViewById(R.id.user);
         profilePic=findViewById(R.id.picture);
         calendar=findViewById(R.id.cal_reminder);
+        myFavourites=findViewById(R.id.favourites);
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(getApplicationContext(),UserDetails.class);
+                startActivity(intent);
+            }
+        });
+        myFavourites.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),FavouriteActivity.class);
                 startActivity(intent);
             }
         });
@@ -73,8 +79,8 @@ public class Profile extends AppCompatActivity {
         calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),Calendar_Reminder.class);
-                startActivity(intent);
+                Intent intentcalen =new Intent(getApplicationContext(),Calendar_Reminder.class);
+                startActivity(intentcalen);
             }
         });
     }

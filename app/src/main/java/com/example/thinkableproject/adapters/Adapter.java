@@ -16,6 +16,7 @@ import com.example.thinkableproject.R;
 import com.example.thinkableproject.sample.ItemTouchHelperAdapter;
 import com.example.thinkableproject.sample.ModelClass;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;

@@ -1,84 +1,56 @@
 package com.example.thinkableproject;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ImageView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thinkableproject.adapters.GridAdapter;
-import com.example.thinkableproject.databinding.ActivityConcentrationExcerciseBinding;
+import com.example.thinkableproject.sample.GameModelClass;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ConcentrationExcercise extends AppCompatActivity {
-    ActivityConcentrationExcerciseBinding binding;
-    ImageView favouriteBtn;
+    RecyclerView recyclerView;
+    GridLayoutManager linearLayoutManager;
+    List<GameModelClass> gameList;
+    GridAdapter adapter;
 
-    boolean isFavourite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityConcentrationExcerciseBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_concentration_excercise);
+        recyclerView = findViewById(R.id.gridView);
         //  favouriteBtn = findViewById(R.id.favouritesIcon);
 
-        String[] gameName = {"Puzzles", "Chess", "Sudoku", "CrossWord"};
-        int[] gameImages = {
-                R.drawable.images, R.drawable.chess, R.drawable.sudoku, R.drawable.crossword
-        };
+        initData();
+        //Calling initRecyclerView function
+        initRecyclerView();
 
+    }
+    private void initData() {
+        gameList = new ArrayList<>();
+        //Adding user preferences to arraylist
+        gameList.add(new GameModelClass(R.drawable.chess, "Chess",R.drawable.ic_favorite));
+        gameList.add(new GameModelClass(R.drawable.images, "Puzzle",R.drawable.ic_favorite));
+        gameList.add(new GameModelClass(R.drawable.sudoku, "Sudoku",R.drawable.ic_favorite));
+        gameList.add(new GameModelClass(R.drawable.crossword, "CrossWord",R.drawable.ic_favorite));
 
-        GridAdapter gridAdapter = new GridAdapter(ConcentrationExcercise.this, gameName, gameImages, isFavourite);
-        binding.gridView.setAdapter(gridAdapter);
-        binding.gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-                Toast.makeText(getApplicationContext(), "You clicked on " + gameName[position], Toast.LENGTH_SHORT).show();
-            }
-        });
-        LayoutInflater inflater = getLayoutInflater();
-        View dialogLayout = inflater.inflate(R.layout.grid_item, null);
-        favouriteBtn = dialogLayout.findViewById(R.id.favouritesIcon);
-        favouriteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                if (isFavourite) {
-                    favouriteBtn.setBackgroundResource(R.drawable.ic_favorite_filled);
-                    isFavourite = false;
-                    saveStae(isFavourite);
-
-                } else {
-                    favouriteBtn.setBackgroundResource(R.drawable.ic_favorite);
-                    isFavourite = true;
-                    saveStae(isFavourite);
-
-                }
-
-            }
-        });
+    }
+    private void initRecyclerView() {
+        //Initializing liner layout manager
+        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        adapter = new GridAdapter(gameList);
+        recyclerView.setAdapter(adapter);
+//        recyclerView.setLayoutManager(linearLayoutManager);
+//        //Initializing adapter
+//        adapter = new GridAdapter(gameList);
+//        recyclerView.setAdapter(adapter);
 
     }
 
-    private void saveStae(boolean isFavourite) {
-        SharedPreferences aSharedPreferenes = this.getSharedPreferences(
-                "Favourite", Context.MODE_PRIVATE);
-        SharedPreferences.Editor aSharedPreferenesEdit = aSharedPreferenes
-                .edit();
-        aSharedPreferenesEdit.putBoolean("State", isFavourite);
-        aSharedPreferenesEdit.apply();
-    }
 
-    private boolean readStae() {
-        SharedPreferences aSharedPreferenes = this.getSharedPreferences(
-                "Favourite", Context.MODE_PRIVATE);
-        return aSharedPreferenes.getBoolean("State", true);
-    }
 }

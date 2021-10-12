@@ -91,7 +91,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
 //        1----> chart4aa
 //        1 -----> chart4aa
         ArrayList<Float> objr = new ArrayList<>(
-                Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f));
+                Arrays.asList(30f, 86f, 40f, 50f, 20f, 60f, 80f));
 
         ArrayList<Float> objar = new ArrayList<>(
                 Arrays.asList(50f, 56f, 20f, 40f, 50f, 40f, 89f));// Avearage Array listr to write data to file
@@ -233,10 +233,9 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             }
 
 
-
-                            List<Entry> scatterEntries  = new ArrayList<>();
+                            List<Entry> scatterEntries = new ArrayList<>();
                             for (int j = 0; j < floatListr.size(); ++j) {
-                                scatterEntries .add(new Entry(j, floatListr.get(j)));
+                                scatterEntries.add(new Entry(j, floatListr.get(j)));
                             }
 
 
@@ -258,7 +257,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             chart4aa.getAxisRight().setEnabled(false);
                             XAxis xlr = chart4aa.getXAxis();
                             xlr.setDrawGridLines(false);
-                            String[] daysS = new String[]{"Mon","Tue","Wed","Thu","Fri","Sat","Sun"};
+                            String[] daysS = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
                             XAxis xAxisr = chart4aa.getXAxis();
                             xAxisr.setValueFormatter(new IndexAxisValueFormatter(daysS));
                             xAxisr.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
@@ -328,7 +327,6 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             }
 
 
-
                             List<Entry> scatterEntriesar = new ArrayList<>();
                             for (int j = 0; j < floatListar.size(); ++j) {
                                 scatterEntriesar.add(new Entry(j, floatListar.get(j)));
@@ -372,7 +370,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                 Arrays.asList(25f, 56f, 20f, 40f, 50f, 40f, 89f));// Avearage Array listr to write data to file
 
         try {
-            fileNamemr = new File(getCacheDir() + "/reportRelaxWhereamiTR_age.txt");  //Writing data to file
+            fileNamemr = new File(getCacheDir() + "/reportRelaxWhereaiTR_age.txt");  //Writing data to file
             String line = "";
             FileWriter fwmr;
             fwmr = new FileWriter(fileNamemr);
@@ -460,8 +458,8 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
 
             @Override
             public void run() {
-                StorageReference storageReferencemr = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportRelaxWhereamiTR_age.txt");
-                StorageReference storageReferencea2r = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportRelaxWhereamiTR_ageAvg.txt");
+                StorageReference storageReferencemr = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportConcenWhereamiTR_age.txt");
+                StorageReference storageReferencea2r = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportConcenWhereamiTR_ageAvg.txt");
                 //download and read the file
 
                 try {
@@ -510,15 +508,13 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
 
 
                             List<Entry> scatterEntriesmr = new ArrayList<>();
-                            for (int j = 0; j < floatLista1r.size(); ++j) {
-                                scatterEntriesmr.add(new Entry(j, floatLista1r.get(j)));
+                            for (int j = 0; j < floatListmr.size(); ++j) {
+                                scatterEntriesmr.add(new Entry(j, floatListmr.get(j)));
                             }
 
 
                             chart5 = findViewById(R.id.chartx);
-                            Description descChartDescription = new Description();
-                            descChartDescription.setEnabled(true);
-                            chart5.setDescription(descChartDescription);
+                            chart5.getDescription().setEnabled(false);
                             chart5.setDrawGridBackground(false);
                             chart5.setTouchEnabled(true);
                             chart5.setMaxHighlightDistance(50f);
@@ -531,14 +527,14 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             YAxis yl1r = chart5.getAxisLeft();
                             yl1r.setAxisMinimum(0f);
                             chart5.getAxisRight().setEnabled(false);
-                            XAxis xl15 = chart5.getXAxis();
-                            xl15.setDrawGridLines(false);
-                            String[] daysS15 = new String[]{"Mon","Tue","Wed","Thu","Fri","Sat","Sun"};
-                            XAxis xAxis15 = chart5.getXAxis();
-                            xAxis15.setValueFormatter(new IndexAxisValueFormatter(daysS15));
-                            xAxis15.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
-                            xAxis15.setGranularity(1);
-                            xAxis15.setCenterAxisLabels(true);
+                            XAxis xl1r = chart5.getXAxis();
+                            xl1r.setDrawGridLines(false);
+                            String[] daysS1r = new String[]{"Mon","Tue","Wed","Thu","Fri","Sat","Sun"};
+                            XAxis xAxis1r = chart5.getXAxis();
+                            xAxis1r.setValueFormatter(new IndexAxisValueFormatter(daysS1r));
+                            xAxis1r.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
+                            xAxis1r.setGranularity(1);
+                            xAxis1r.setCenterAxisLabels(true);
 
                             l1r.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
                             l1r.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
@@ -584,19 +580,19 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
 
                                 Log.d("First", line);
                                 if ((line = bufferedReadera2r.readLine()) != null) {
-                                    lista1r.add(line);
+                                    lista2r.add(line);
                                 }
                                 while ((line = bufferedReadera2r.readLine()) != null) {
 
-                                    lista1r.add(line);
+                                    lista2r.add(line);
                                     Log.d("Line", line);
                                 }
 
-                                Log.d("List", String.valueOf(lista1r));
+                                Log.d("List", String.valueOf(lista2r));
 
-                                for (int i = 0; i < lista1r.size(); i++) {
-                                    floatLista1r.add(Float.parseFloat(lista1r.get(i)));
-                                    Log.d("FloatArrayList", String.valueOf(floatLista1r));
+                                for (int i = 0; i < lista2r.size(); i++) {
+                                    floatLista2r.add(Float.parseFloat(lista2r.get(i)));
+                                    Log.d("FloatArrayList", String.valueOf(floatLista2r));
                                 }
                             } catch (IOException e) {
                                 e.printStackTrace();
@@ -604,21 +600,21 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
 
 
 
-                            List<Entry> scatterEntriesa1r = new ArrayList<>();
-                            for (int j = 0; j < floatLista1r.size(); ++j) {
-                                scatterEntriesa1r.add(new Entry(j, floatLista1r.get(j)));
+                            List<Entry> scatterEntriesa2r = new ArrayList<>();
+                            for (int j = 0; j < floatLista2r.size(); ++j) {
+                                scatterEntriesa2r.add(new Entry(j, floatLista2r.get(j)));
                             }
 
-                            ScatterDataSet seta1r = new ScatterDataSet(scatterEntriesa1r, "Other");
-                            seta1r.setScatterShape(ScatterChart.ScatterShape.CIRCLE);
-                            seta1r.setScatterShapeHoleColor(ColorTemplate.COLORFUL_COLORS[3]);
-                            seta1r.setScatterShapeHoleRadius(3f);
+                            ScatterDataSet seta2r = new ScatterDataSet(scatterEntriesa2r, "Other");
+                            seta2r.setScatterShape(ScatterChart.ScatterShape.CIRCLE);
+                            seta2r.setScatterShapeHoleColor(ColorTemplate.COLORFUL_COLORS[3]);
+                            seta2r.setScatterShapeHoleRadius(3f);
 
-                            seta1r.setColor(ColorTemplate.COLORFUL_COLORS[1]);
+                            seta2r.setColor(ColorTemplate.COLORFUL_COLORS[1]);
 
-                            seta1r.setScatterShapeSize(8f);
+                            seta2r.setScatterShapeSize(8f);
 
-                            dataSetsmr.add(seta1r);
+                            dataSetsmr.add(seta2r);
 
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -637,15 +633,9 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
             //Downloading file and displaying chart
         }, delay1r);
 
-
-
-
-
-
-
         //3 -----> chart4aa
         ArrayList<Float> objnr = new ArrayList<>(
-                Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f));
+                Arrays.asList(30f, 86f, 40f, 50f, 20f, 60f, 80f));
 
         ArrayList<Float> obja2r = new ArrayList<>(
                 Arrays.asList(50f, 56f, 20f, 40f, 50f, 40f, 89f));// Avearage Array listr to write data to file
@@ -916,14 +906,9 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
             //Downloading file and displaying chart4aa
         }, delay3r);
 
-
-
-
-
-
         //4 -----> chart4aa
         ArrayList<Float> objor = new ArrayList<>(
-                Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f));
+                Arrays.asList(30f, 86f, 40f, 50f, 20f, 60f, 80f));
 
         ArrayList<Float> obja3r = new ArrayList<>(
                 Arrays.asList(50f, 56f, 20f, 40f, 50f, 40f, 89f));// Avearage Array listr to write data to file
@@ -1011,7 +996,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
         }
 
         final Handler handler4r = new Handler();
-        final int delay4r = 5000;
+        final int delay4r = 1000;
 
         handler4r.postDelayed(new Runnable() {
 
@@ -1191,6 +1176,22 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
 
             //Downloading file and displaying chart4aa
         }, delay4r);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     }
