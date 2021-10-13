@@ -13,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Toast;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -35,7 +34,7 @@ public class Concentration_Daily extends AppCompatActivity {
     Dialog dialogcd;
     BarChart barChartdaily;
     AppCompatButton monthly, yearly, weekly, realTime;
-    ImageButton relaxationBtn,games;
+    ImageButton relaxationBtn,games,memory;
     FirebaseUser mUser;
     String text;
     File localFile, fileName;
@@ -56,6 +55,16 @@ public class Concentration_Daily extends AppCompatActivity {
         relaxationBtn = findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
         dialogcd = new Dialog(this);
+        memory=findViewById(R.id.memory);
+
+
+        memory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(),ConcentrationMemory.class);
+                startActivity(intent);
+            }
+        });
 
         //Initialize bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
