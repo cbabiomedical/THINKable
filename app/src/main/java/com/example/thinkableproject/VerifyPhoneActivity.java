@@ -58,7 +58,8 @@ public class VerifyPhoneActivity extends AppCompatActivity {
                     return;
                 }
                 verifyCode(code);
-                Intent intentSUGGESTIONS = new Intent(VerifyPhoneActivity.this, LandingPage.class);
+                FirebaseAuth.getInstance().signOut();
+                    Intent intentSUGGESTIONS = new Intent(VerifyPhoneActivity.this, SignInActivity.class);
                 intentSUGGESTIONS.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
                 startActivity(intentSUGGESTIONS);
@@ -146,7 +147,8 @@ public class VerifyPhoneActivity extends AppCompatActivity {
 
 
     public void gotoLandingPage(View view) {
-        Intent intentGotoSU = new Intent(VerifyPhoneActivity.this, LandingPage.class);
+        FirebaseAuth.getInstance().signOut();
+        Intent intentGotoSU = new Intent(VerifyPhoneActivity.this, SignInActivity.class);
         startActivity(intentGotoSU);
     }
 }

@@ -60,8 +60,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
     //for chart4aa 2
     ArrayList<String> listmr = new ArrayList<>();
     ArrayList<Float> floatListmr = new ArrayList<>();
-    ArrayList<String> lista1r = new ArrayList<>();
-    ArrayList<Float> floatLista1r = new ArrayList<>();
+
     //for chart4aa 3
     ArrayList<String> listnr = new ArrayList<>();
     ArrayList<Float> floatListnr = new ArrayList<>();
@@ -116,7 +115,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
             int size = objr.size();
             for (int i = 0; i < size; i++) {
                 outputr.write(objr.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
             }
             outputr.close();
         } catch (IOException exception) {
@@ -135,7 +134,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
             int size = objar.size();
             for (int i = 0; i < size; i++) {
                 outputar.write(objar.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
             }
             outputar.close();
         } catch (IOException exception) {
@@ -153,12 +152,12 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -176,12 +175,12 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -213,7 +212,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                     storageReferencer.getFile(localFiler).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(RelaxationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(RelaxationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
 
                             try {
                                 InputStreamReader inputStreamReaderr = new InputStreamReader(new FileInputStream(localFiler.getAbsolutePath()));
@@ -299,7 +298,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(RelaxationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(RelaxationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -307,7 +306,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                     storageReferencear.getFile(localFilear).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(RelaxationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(RelaxationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
 
                             try {
                                 InputStreamReader inputStreamReaderar = new InputStreamReader(new FileInputStream(localFilear.getAbsolutePath()));
@@ -358,7 +357,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(RelaxationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(RelaxationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -389,7 +388,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
             int size = objmr.size();
             for (int i = 0; i < size; i++) {
                 outputmr.write(objmr.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
             }
             outputmr.close();
         } catch (IOException exception) {
@@ -408,7 +407,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
             int size = obja1r.size();
             for (int i = 0; i < size; i++) {
                 outputa2r.write(obja1r.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
             }
             outputa2r.close();
         } catch (IOException exception) {
@@ -426,12 +425,12 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -449,12 +448,12 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -486,7 +485,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                     storageReferencemr.getFile(localFilemr).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(RelaxationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(RelaxationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
 
                             try {
                                 InputStreamReader inputStreamReadermr = new InputStreamReader(new FileInputStream(localFilemr.getAbsolutePath()));
@@ -571,7 +570,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(RelaxationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(RelaxationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -579,7 +578,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                     storageReferencea2r.getFile(localFilea2r).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(RelaxationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(RelaxationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
 
                             try {
                                 InputStreamReader inputStreamReadera2r = new InputStreamReader(new FileInputStream(localFilea2r.getAbsolutePath()));
@@ -631,7 +630,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(RelaxationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(RelaxationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -660,7 +659,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
             int size = objnr.size();
             for (int i = 0; i < size; i++) {
                 outputnr.write(objnr.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
             }
             outputnr.close();
         } catch (IOException exception) {
@@ -679,7 +678,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
             int size = obja2r.size();
             for (int i = 0; i < size; i++) {
                 outputa3r.write(obja2r.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
             }
             outputa3r.close();
         } catch (IOException exception) {
@@ -697,12 +696,12 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -720,12 +719,12 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -757,7 +756,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                     storageReferencenr.getFile(localFilenr).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(RelaxationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(RelaxationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
 
                             try {
                                 InputStreamReader inputStreamReadernr = new InputStreamReader(new FileInputStream(localFilenr.getAbsolutePath()));
@@ -844,7 +843,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(RelaxationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(RelaxationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -852,7 +851,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                     storageReferencea3r.getFile(localFilea3r).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(RelaxationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(RelaxationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
 
                             try {
                                 InputStreamReader inputStreamReadera3r = new InputStreamReader(new FileInputStream(localFilea3r.getAbsolutePath()));
@@ -904,7 +903,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(RelaxationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(RelaxationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -933,7 +932,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
             int size = objor.size();
             for (int i = 0; i < size; i++) {
                 outputor.write(objor.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
             }
             outputor.close();
         } catch (IOException exception) {
@@ -952,7 +951,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
             int size = obja3r.size();
             for (int i = 0; i < size; i++) {
                 outputa4r.write(obja3r.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
             }
             outputa4r.close();
         } catch (IOException exception) {
@@ -970,12 +969,12 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -993,12 +992,12 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RelaxationReportWhereamI.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -1030,7 +1029,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                     storageReferenceor.getFile(localFileor).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(RelaxationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(RelaxationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
 
                             try {
                                 InputStreamReader inputStreamReaderor = new InputStreamReader(new FileInputStream(localFileor.getAbsolutePath()));
@@ -1116,7 +1115,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(RelaxationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(RelaxationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -1124,7 +1123,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                     storageReferencea4r.getFile(localFile4ar).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(RelaxationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(RelaxationReportWhereamI.this, "Success", Toast.LENGTH_SHORT).show();
 
                             try {
                                 InputStreamReader inputStreamReadera4r = new InputStreamReader(new FileInputStream(localFile4ar.getAbsolutePath()));
@@ -1175,7 +1174,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(RelaxationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(RelaxationReportWhereamI.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     });
 
