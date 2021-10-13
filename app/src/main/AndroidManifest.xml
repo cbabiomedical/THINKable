@@ -17,6 +17,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ThinkableProject">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="@string/google_maps_key" />
+
         <activity android:name=".ConcentrationReportMemoryDaily"></activity>
         <activity android:name=".MusicPlayer" />
         <activity android:name=".concentration_music" />
@@ -39,10 +44,12 @@
             android:exported="true" />
         <activity
             android:name=".MapsActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="title_activity_maps" />
         <activity
             android:name=".RetrieveMapsActivity"
-            android:exported="true" />
+            android:exported="true"
+            android:label="title_activity_retrieve_maps" />
         <activity
             android:name=".RelaxationReportDaily"
             android:exported="true" />
