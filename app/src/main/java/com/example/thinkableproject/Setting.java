@@ -77,7 +77,8 @@ public class Setting extends AppCompatActivity {
         location2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                Intent intentr1 = new Intent(getApplicationContext(), UserLocation.class);
+                startActivity(intentr1);
             }
         });
 

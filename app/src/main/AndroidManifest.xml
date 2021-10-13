@@ -33,6 +33,9 @@
             android:name=".RelaxationReportYearly"
             android:exported="true" />
         <activity
+            android:name=".UserLocation"
+            android:exported="true" />
+        <activity
             android:name=".RelaxationReportDaily"
             android:exported="true" />
         <activity

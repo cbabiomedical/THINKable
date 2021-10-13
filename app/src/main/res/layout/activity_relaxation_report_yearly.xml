@@ -27,27 +27,39 @@
 
                 <ImageButton
                     android:id="@+id/concentration"
-                    android:layout_width="160dp"
-                    android:layout_height="60dp"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
                     android:layout_marginLeft="35dp"
                     android:layout_marginTop="40dp"
-                    android:background="@drawable/relaxattionbtn"
+                    android:background="@drawable/buttonconcentration1"
                     android:elevation="5dp"
-                    android:src="@drawable/concentration_icon" />
+                    android:src="@drawable/concentrationicon8" />
 
                 <ImageButton
                     android:id="@+id/relaxation"
-                    android:layout_width="160dp"
-                    android:layout_height="60dp"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
                     android:layout_alignEnd="@+id/concentration"
                     android:layout_alignRight="@+id/concentration"
                     android:layout_marginLeft="100dp"
                     android:layout_marginTop="40dp"
-                    android:layout_marginEnd="-136dp"
-                    android:layout_marginRight="-144dp"
-                    android:background="@drawable/concentrationbtn"
+                    android:layout_marginRight="-100dp"
+                    android:background="@drawable/bconcentration2"
                     android:elevation="5dp"
                     android:src="@drawable/relax" />
+
+                <ImageButton
+                    android:id="@+id/memory"
+                    android:layout_width="100dp"
+                    android:layout_height="50dp"
+                    android:layout_alignEnd="@+id/relaxation"
+                    android:layout_alignRight="@+id/relaxation"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="40dp"
+                    android:layout_marginRight="-100dp"
+                    android:background="@drawable/buttonconcentration1"
+                    android:elevation="5dp"
+                    android:src="@drawable/memory" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -63,15 +75,15 @@
                     android:layout_width="160dp"
                     android:layout_height="60dp"
                     android:layout_alignEnd="@+id/progress"
+                    android:layout_alignRight="@+id/progress"
                     android:layout_marginLeft="100dp"
                     android:layout_marginTop="40dp"
-                    android:text="Where Am I"
-                    android:textColor="@color/blue"
                     android:layout_marginEnd="-136dp"
                     android:layout_marginRight="-144dp"
                     android:background="@drawable/relaxattionbtn"
                     android:elevation="5dp"
-                    android:layout_alignRight="@+id/progress" />
+                    android:text="Where Am I"
+                    android:textColor="@color/blue" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/progress"
