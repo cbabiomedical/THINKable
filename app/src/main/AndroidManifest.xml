@@ -38,6 +38,12 @@
             android:name=".UserLocation"
             android:exported="true" />
         <activity
+            android:name=".MapsActivity"
+            android:exported="true" />
+        <activity
+            android:name=".RetrieveMapsActivity"
+            android:exported="true" />
+        <activity
             android:name=".RelaxationReportDaily"
             android:exported="true" />
         <activity
