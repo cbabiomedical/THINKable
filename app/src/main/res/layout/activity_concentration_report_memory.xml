@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/landing_background"
+    tools:context=".ConcentrationReportMemoryDaily">
+    <RelativeLayout
+        android:layout_centerHorizontal="true"
+        android:id="@+id/toggleBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        >
+        <ImageButton
+            android:id="@+id/memory"
+            android:layout_width="110dp"
+            android:layout_height="50dp"
+            android:layout_alignEnd="@+id/relaxation"
+            android:layout_alignRight="@+id/concentration"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="-97dp"
+            android:layout_marginRight="-191dp"
+            android:background="@drawable/concen"
+            android:elevation="5dp"
+            android:src="@drawable/memory" />
+        <ImageButton
+            android:id="@+id/relaxation"
+            android:layout_width="110dp"
+            android:layout_height="50dp"
+            android:layout_alignEnd="@+id/concentration"
+            android:layout_alignRight="@+id/concentration"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="40dp"
+            android:layout_marginEnd="-94dp"
+            android:layout_marginRight="-94dp"
+            android:background="@drawable/bconcentration"
+            android:elevation="5dp"
+            android:src="@drawable/relax" />
+
+
+
+        <ImageButton
+            android:id="@+id/concentration"
+            android:layout_width="110dp"
+            android:layout_height="50dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginTop="40dp"
+            android:background="@drawable/bconcentration"
+            android:elevation="5dp"
+            android:src="@drawable/concentration_icon" />
+    </RelativeLayout>
+</RelativeLayout>
