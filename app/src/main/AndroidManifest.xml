@@ -5,6 +5,8 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
@@ -17,12 +19,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ThinkableProject">
+        <activity android:name=".BineuralAcivity"></activity>
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
 
-        <activity android:name=".ConcentrationReportMemoryDaily"></activity>
+        <activity android:name=".ConcentrationReportMemoryDaily" />
         <activity android:name=".MusicPlayer" />
         <activity android:name=".concentration_music" />
         <activity android:name=".Notification1" />
@@ -36,7 +39,7 @@
         <activity android:name=".ConcentrationReportWeekly" />
         <activity android:name=".ConcentrationReportDaily" />
         <activity android:name=".ConcentrationMemory" />
-        <activity android:name=".ConcentrationExcercise"/>
+        <activity android:name=".ConcentrationExcercise" />
         <activity
             android:name=".RelaxationReportYearly"
             android:exported="true" />
@@ -76,9 +79,9 @@
         <activity android:name=".Concentration_Monthly" />
         <activity android:name=".Concentration_Weekly" />
         <activity android:name=".Concentration_Daily" />
-        <activity android:name=".FavouriteActivity"/>
-        <activity android:name=".Calendar_Reminder"/>
-        <activity android:name=".MeditationExercise"/>
+        <activity android:name=".FavouriteActivity" />
+        <activity android:name=".Calendar_Reminder" />
+        <activity android:name=".MeditationExercise" />
         <activity
             android:name=".UserProfile1"
             android:exported="true" />

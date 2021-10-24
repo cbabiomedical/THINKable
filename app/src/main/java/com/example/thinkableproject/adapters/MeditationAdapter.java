@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.request.RequestOptions;
 import com.example.thinkableproject.R;
+import com.example.thinkableproject.sample.FavouriteModelClass;
 import com.example.thinkableproject.sample.GameModelClass;
 import com.example.thinkableproject.sample.MeditationModelClass;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -28,7 +29,7 @@ import java.util.List;
 public class MeditationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<MeditationModelClass> meditationList;
     private Context context;
-    ArrayList faveList=new ArrayList();
+    ArrayList<FavouriteModelClass> faveList=new ArrayList();
     HashMap<String,Object> fav=new HashMap<>();
 
     public MeditationAdapter(List<MeditationModelClass> gameList) {
@@ -56,37 +57,41 @@ public class MeditationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
         ((ViewHolder) viewHolder).isFav.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ((ViewHolder) viewHolder).mUser= FirebaseAuth.getInstance().getCurrentUser();
+
+                ((ViewHolder) viewHolder).mUser=FirebaseAuth.getInstance().getCurrentUser();
                 if (((ViewHolder) viewHolder).isFavourite) {
                     ((ViewHolder) viewHolder).isFav.setBackgroundResource(R.drawable.ic_favorite_filled);
                     ((ViewHolder) viewHolder).isFavourite = false;
-
-                    faveList.add(meditationList.get(i));
+                    FavouriteModelClass favouriteModelClass=new FavouriteModelClass();
+                    favouriteModelClass.favName=meditationList.get(i).getMeditationName();
+                    favouriteModelClass.imageView=meditationList.get(i).getImageView();
+                    favouriteModelClass.setIsFave(R.drawable.ic_favorite_filled);
+                    faveList.add(favouriteModelClass);
 //                    faveList.addAll((Collection) gameList.get(i));
 
 
                     fav.put("favourites",faveList);
 
-//                    FirebaseDatabase.getInstance().getReference().child("Users").child(((ViewHolder) viewHolder).mUser.getUid()).updateChildren(fav).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task) {
-//                            // Display Toast on successful update functionality
-//
-//                        }
-//                    });
+                    FirebaseDatabase.getInstance().getReference().child("Users").child(((ViewHolder) viewHolder).mUser.getUid()).updateChildren(fav).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            // Display Toast on successful update functionality
+
+                        }
+                    });
 
                 } else {
                     ((ViewHolder) viewHolder).isFav.setBackgroundResource(R.drawable.ic_favorite);
                     ((ViewHolder) viewHolder).isFavourite = true;
-                    faveList.remove(meditationList.get(i));
-                    fav.put("favourites",faveList);
-//                    FirebaseDatabase.getInstance().getReference().child("Users").child(((ViewHolder) viewHolder).mUser.getUid()).updateChildren(fav).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task) {
-//                            // Display Toast on successful update functionality
+//                                faveList.remove(gameList.get(i));
+//                                fav.put("favourites",faveList);
+//                                FirebaseDatabase.getInstance().getReference().child("Users").child(((ViewHolder) viewHolder).mUser.getUid()).updateChildren(fav).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                                    @Override
+//                                        public void onComplete(@NonNull Task<Void> task) {
+//                                            // Display Toast on successful update functionality
 //
-//                        }
-//                    });
+//                                        }
+//                                    });
 
 
                 }
@@ -94,6 +99,7 @@ public class MeditationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             }
 
         });
+
     }
 
     @Override

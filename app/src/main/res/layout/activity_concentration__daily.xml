@@ -168,6 +168,7 @@
                 android:src="@drawable/musiccon"/>
 
             <ImageButton
+                android:id="@+id/music"
                 android:layout_marginLeft="20dp"
                 android:layout_width="130dp"
                 android:layout_height="80dp"

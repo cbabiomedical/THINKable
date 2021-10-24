@@ -352,7 +352,7 @@ public class Relaxation_Daily extends AppCompatActivity {
 
     //improve relaxation pop up window
     public void gotoPopup5(View view) {
-        ImageView imageViewcancle;
+        ImageView imageViewcancle,imageViewBineural;
         dialogrd.setContentView(R.layout.activity_relaxation_popup);
         imageViewcancle = (ImageView) dialogrd.findViewById(R.id.imageViewcancle);
         imageViewcancle.setOnClickListener(new View.OnClickListener(){
@@ -361,6 +361,13 @@ public class Relaxation_Daily extends AppCompatActivity {
                 dialogrd.dismiss();
             }
         });
+        imageViewBineural=findViewById(R.id.imageViewbw);
+//        imageViewBineural.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getApplicationContext(),BineuralAcivity.class));
+//            }
+//        });
         dialogrd.show();
     }
 

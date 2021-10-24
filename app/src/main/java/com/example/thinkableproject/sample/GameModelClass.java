@@ -11,6 +11,9 @@ public class GameModelClass {
         this.isFavourite = isFavourite;
     }
 
+    public GameModelClass() {
+    }
+
     public int getImageView() {
         return imageView;
     }
