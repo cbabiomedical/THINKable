@@ -36,6 +36,7 @@
         <activity android:name=".ConcentrationReportWeekly" />
         <activity android:name=".ConcentrationReportDaily" />
         <activity android:name=".ConcentrationMemory" />
+        <activity android:name=".ConcentrationExcercise"/>
         <activity
             android:name=".RelaxationReportYearly"
             android:exported="true" />
@@ -75,6 +76,9 @@
         <activity android:name=".Concentration_Monthly" />
         <activity android:name=".Concentration_Weekly" />
         <activity android:name=".Concentration_Daily" />
+        <activity android:name=".FavouriteActivity"/>
+        <activity android:name=".Calendar_Reminder"/>
+        <activity android:name=".MeditationExercise"/>
         <activity
             android:name=".UserProfile1"
             android:exported="true" />
