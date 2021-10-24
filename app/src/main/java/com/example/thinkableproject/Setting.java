@@ -130,7 +130,7 @@ public class Setting extends AppCompatActivity {
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.reports:
-                        startActivity(new Intent(getApplicationContext(), Reports.class));
+                        startActivity(new Intent(getApplicationContext(), ConcentrationReportDaily.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.userprofiles:

@@ -132,14 +132,12 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .withListener(new PermissionListener() {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse response) {
-                        Log.d("TAG", "---------------------I-----------------------");
                         isPermission = true;
                     }
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse response) {
                         if (response.isPermanentlyDenied()){
-                            Log.d("TAG", "---------------------J-----------------------");
 
                             isPermission = false;
                         }
@@ -177,7 +175,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-        Log.d("TAG", "---------------------L-----------------------");
 
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED &&
@@ -187,7 +184,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
         startLocationUpdates();
-        Log.d("TAG", "---------------------M-----------------------");
 
         mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
@@ -200,16 +196,18 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void startLocationUpdates() {
-        Log.d("TAG", "---------------------N-----------------------");
 
+        mLocationRequest = com.google.android.gms.location.LocationRequest.create()
+                .setPriority(com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY)
+                .setInterval(UPDATE_INTERVAL).setFastestInterval(FASTEST_INTERVAL);
 
-        mLocationRequest = com.google.android.gms.location.LocationRequest.create().setPriority(com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY).setInterval(UPDATE_INTERVAL).setFastestInterval(FASTEST_INTERVAL);
-        Log.d("TAG", "---------------------O-----------------------");
-
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED){
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
+                PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(this,
+                        Manifest.permission.ACCESS_COARSE_LOCATION) !=
+                        PackageManager.PERMISSION_GRANTED){
             return;
         }
-        Log.d("TAG", "---------------------P-----------------------");
 
         LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
     }
@@ -226,33 +224,33 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location) {
-        Log.d("TAG", "---------------------Q-----------------------");
 
         String msg = "Update Location: " +
                 Double.toString(location.getLatitude()) + "," +
                 Double.toString(location.getLongitude());
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 
-        LocationHelper helper = new LocationHelper(
-                location.getLongitude(),
-                location.getLatitude()
-        );
+//        LocationHelper helper = new LocationHelper(
+//                location.getLongitude(),
+//                location.getLatitude()
+//        );
 
-        FirebaseDatabase.getInstance().getReference("Current Location").setValue(helper).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()){
-                    Toast.makeText(MapsActivity.this, "Location Saved", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(MapsActivity.this, "Location Not Saved", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
+//        FirebaseDatabase.getInstance().getReference("Current Location").setValue(helper).addOnCompleteListener(new OnCompleteListener<Void>() {
+//            @Override
+//            public void onComplete(@NonNull Task<Void> task) {
+//                if (task.isSuccessful()){
+//                    Toast.makeText(MapsActivity.this, "Location Saved", Toast.LENGTH_SHORT).show();
+//                }
+//                else{
+//                    Toast.makeText(MapsActivity.this, "Location Not Saved", Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
 
         latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
     }
@@ -260,8 +258,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onStart() {
         super.onStart();
-
-        Log.d("TAG", "---------------------R-----------------------");
 
         if(mGoogleApiClient != null){
             mGoogleApiClient.connect();
@@ -271,8 +267,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onStop() {
         super.onStop();
-
-        Log.d("TAG", "---------------------S-----------------------");
 
         if(mGoogleApiClient.isConnected()){
             mGoogleApiClient.disconnect();

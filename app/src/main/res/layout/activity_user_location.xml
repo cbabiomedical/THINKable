@@ -8,27 +8,38 @@
     android:background="@drawable/googlemap"
     tools:context=".UserLocation">
 
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="match_parent"
-        android:layout_height="65dp"
-        android:layout_alignParentBottom="true"
-        android:backgroundTint="@color/design_default_color_primary_dark"
-        android:textColor="#ffffff"
-        android:text="CURRENT LOCATION"
-        android:textSize="22sp"
-        android:layout_margin="30dp" />
+<!--    <Button-->
+<!--        android:id="@+id/button4"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="65dp"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:backgroundTint="@color/design_default_color_primary_dark"-->
+<!--        android:textColor="#ffffff"-->
+<!--        android:text="CURRENT LOCATION"-->
+<!--        android:textSize="22sp"-->
+<!--        android:layout_margin="30dp" />-->
 
     <Button
         android:id="@+id/button2"
         android:layout_width="325dp"
         android:layout_marginLeft="40dp"
         android:layout_height="65dp"
+        android:layout_alignParentBottom="true"
         android:backgroundTint="@color/design_default_color_primary"
         android:text="Retrieve Location"
         android:textColor="#ffffff"
-        android:layout_above="@+id/button4"
+        android:layout_marginBottom="100dp"
         android:textSize="22sp" />
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        app:itemBackground="@color/dark"
+        app:itemIconTint="@drawable/selector"
+        app:itemTextColor="@drawable/selector"
+        app:menu="@menu/menu_navigation" />
 
 
 </RelativeLayout>
