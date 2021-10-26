@@ -18,6 +18,7 @@
         android:layout_marginBottom="300dp"
         android:backgroundTint="@color/design_default_color_primary_dark"
         android:text="CURRENT LOCATION"
+        android:onClick="btnCurrentLocation"
         android:textColor="#ffffff"
         android:textSize="22sp" />
 

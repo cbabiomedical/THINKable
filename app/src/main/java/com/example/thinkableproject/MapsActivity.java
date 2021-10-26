@@ -29,7 +29,6 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.thinkableproject.databinding.ActivityMapsBinding;
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.FirebaseDatabase;
 import com.karumi.dexter.Dexter;
@@ -89,7 +88,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     private boolean checkLocation() {
 
-        Log.d("TAG", "---------------------D-----------------------");
         if(!isLocationEnabled()){
             showAlert();
         }
@@ -120,7 +118,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private boolean isLocationEnabled() {
-        Log.d("TAG", "---------------------G-----------------------");
         locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
         return locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER) ||
                 locationManager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
@@ -132,12 +129,14 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 .withListener(new PermissionListener() {
                     @Override
                     public void onPermissionGranted(PermissionGrantedResponse response) {
+                        Log.d("TAG", "---------------------I-----------------------");
                         isPermission = true;
                     }
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse response) {
                         if (response.isPermanentlyDenied()){
+                            Log.d("TAG", "---------------------J-----------------------");
 
                             isPermission = false;
                         }
@@ -150,6 +149,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 }).check();
 
         return isPermission;
+
     }
 
     /**
@@ -165,17 +165,15 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        if(latLng!=null) {
-            Log.d("TAG", "---------------------K-----------------------");
+        if(latLng!=null){
 
             mMap.addMarker(new MarkerOptions().position(latLng).title("Marker in Current Location"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14F));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,14F));
         }
     }
 
     @Override
     public void onConnected(@Nullable Bundle bundle) {
-
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this,
@@ -193,6 +191,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         else {
             Toast.makeText(this, "Location Not Detected", Toast.LENGTH_SHORT).show();
         }
+
     }
 
     private void startLocationUpdates() {
@@ -224,7 +223,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     @Override
     public void onLocationChanged(Location location) {
-
         String msg = "Update Location: " +
                 Double.toString(location.getLatitude()) + "," +
                 Double.toString(location.getLongitude());
@@ -249,8 +247,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
     }
@@ -259,7 +256,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onStart() {
         super.onStart();
 
-        if(mGoogleApiClient != null){
+        if (mGoogleApiClient != null) {
             mGoogleApiClient.connect();
         }
     }
