@@ -4,21 +4,21 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="5dp"
+    android:padding="2dp"
+    android:background="@drawable/layout_bg"
     android:layout_margin="10dp"
     android:gravity="center">
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/white"
-        android:padding="10dp"
+        android:padding="0dp"
         app:cornerRadius="15dp"
         android:orientation="vertical"
         android:layout_margin="10dp">
     <ImageView
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:scaleType="centerCrop"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
         android:id="@+id/gridImage"/>
         <RelativeLayout
             android:gravity="center_vertical"
@@ -48,3 +48,60 @@
     </LinearLayout>
 
 </LinearLayout>
+
+<!--&lt;!&ndash;<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"&ndash;&gt;-->
+<!--    xmlns:app="http://schemas.android.com/apk/res-auto"-->
+<!--    xmlns:tools="http://schemas.android.com/tools"-->
+<!--    android:background="@drawable/layout_bg"-->
+<!--    android:layout_width="150dp"-->
+<!--    android:layout_marginBottom="20dp"-->
+<!--    android:layout_height="250dp">-->
+
+<!--    <ImageView-->
+<!--        android:id="@+id/gridImage"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="230dp"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="parent"-->
+<!--        app:srcCompat="@drawable/after" />-->
+
+<!--    <LinearLayout-->
+
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:orientation="horizontal"-->
+<!--        android:background="@drawable/shadow_back"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/gridImage"-->
+<!--        app:layout_constraintStart_toStartOf="parent">-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/item_name"-->
+<!--            android:layout_width="90dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="16dp"-->
+<!--            android:layout_marginStart="5dp"-->
+<!--            android:fontFamily="sans-serif-condensed"-->
+<!--            android:text="TextView"-->
+<!--            android:textSize="16sp"-->
+<!--            android:textColor="#E5F1F0"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintHorizontal_bias="1.0"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/imageView_details" />-->
+
+<!--        <ImageView-->
+<!--            android:id="@+id/favouritesIcon"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_gravity="bottom"-->
+<!--            android:foregroundGravity="bottom"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/imageView_details"-->
+<!--            android:src="@drawable/ic_favorite" />-->
+
+
+<!--    </LinearLayout>-->
+
+
+
+<!--</androidx.constraintlayout.widget.ConstraintLayout>-->

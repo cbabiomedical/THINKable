@@ -47,7 +47,7 @@ public class FavouriteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
         ((ViewHolder) viewHolder).mName.setText(faveList.get(position).getFavName());
         ((ViewHolder) viewHolder).isFav.setImageResource(faveList.get(position).getIsFave());
 //
-        ((ViewHolder) viewHolder).mImage.setImageResource(faveList.get(position).getImageView());
+//        ((ViewHolder) viewHolder).mImage.setImageResource(faveList.get(position).getImageView());
     }
 
     @Override

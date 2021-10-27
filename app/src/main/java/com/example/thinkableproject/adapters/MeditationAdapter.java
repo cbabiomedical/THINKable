@@ -23,6 +23,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 
@@ -62,11 +63,11 @@ public class MeditationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 if (((ViewHolder) viewHolder).isFavourite) {
                     ((ViewHolder) viewHolder).isFav.setBackgroundResource(R.drawable.ic_favorite_filled);
                     ((ViewHolder) viewHolder).isFavourite = false;
-                    FavouriteModelClass favouriteModelClass=new FavouriteModelClass();
-                    favouriteModelClass.favName=meditationList.get(i).getMeditationName();
-                    favouriteModelClass.imageView=meditationList.get(i).getImageView();
-                    favouriteModelClass.setIsFave(R.drawable.ic_favorite_filled);
-                    faveList.add(favouriteModelClass);
+//                    FavouriteModelClass favouriteModelClass=new FavouriteModelClass();
+//                    favouriteModelClass.favName=meditationList.get(i).getMeditationName();
+//                    favouriteModelClass.imageView=meditationList.get(i).getImageView();
+//                    favouriteModelClass.setIsFave(R.drawable.ic_favorite_filled);
+//                    faveList.add(favouriteModelClass);
 //                    faveList.addAll((Collection) gameList.get(i));
 
 

@@ -64,7 +64,7 @@ import java.util.List;
                                 ((ViewHolder) viewHolder).isFavourite = false;
                                 FavouriteModelClass favouriteModelClass=new FavouriteModelClass();
                                 favouriteModelClass.favName=gameList.get(i).getGameName();
-                                favouriteModelClass.imageView=gameList.get(i).getImageView();
+//                                favouriteModelClass.imageView=gameList.get(i).getImageView();
                                 favouriteModelClass.setIsFave(R.drawable.ic_favorite_filled);
                                 faveList.add(favouriteModelClass);
 //                    faveList.addAll((Collection) gameList.get(i));
