@@ -63,6 +63,7 @@
         <activity android:name=".ConcentrationReportDaily" />
         <activity android:name=".ConcentrationMemory" />
         <activity android:name=".ConcentrationExcercise" />
+        <activity android:name=".AboutApp"/>
         <activity
             android:name=".RelaxationReportYearly"
             android:exported="true" />

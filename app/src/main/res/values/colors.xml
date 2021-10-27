@@ -14,4 +14,5 @@
     <color name="Lblue">#2A9DF4</color>
     <color name="Bwhite">#ADEFFF</color>
     <color name="background">#80FFFFFF</color>
+    <color name="aboutBackground">#ffffff</color>
 </resources>
