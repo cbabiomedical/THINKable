@@ -1,9 +1,11 @@
 package com.example.thinkableproject;
 
 import android.os.Bundle;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thinkableproject.adapters.GridAdapter;
@@ -12,10 +14,10 @@ import com.example.thinkableproject.sample.GameModelClass;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ConcentrationExcercise extends AppCompatActivity {
+public class GameActivity extends AppCompatActivity {
     RecyclerView recyclerView;
-    GridLayoutManager linearLayoutManager;
-    List<GameModelClass> gameList;
+    LinearLayout linearLayoutManager;
+    ArrayList<GameModelClass> gameList;
     GridAdapter adapter;
 
 
@@ -29,28 +31,23 @@ public class ConcentrationExcercise extends AppCompatActivity {
         initData();
         //Calling initRecyclerView function
         initRecyclerView();
-
     }
     private void initData() {
         gameList = new ArrayList<>();
         //Adding user preferences to arraylist
-        gameList.add(new GameModelClass(R.drawable.chess, "Chess",R.drawable.ic_favorite));
-        gameList.add(new GameModelClass(R.drawable.images, "Puzzle",R.drawable.ic_favorite));
-        gameList.add(new GameModelClass(R.drawable.sudoku, "Sudoku",R.drawable.ic_favorite));
-        gameList.add(new GameModelClass(R.drawable.crossword, "CrossWord",R.drawable.ic_favorite));
+        gameList.add(new GameModelClass(R.drawable.chess, "Chess","0","0"));
+        gameList.add(new GameModelClass(R.drawable.images, "Puzzle","1","0"));
+        gameList.add(new GameModelClass(R.drawable.sudoku, "Sudoku","2","0"));
+        gameList.add(new GameModelClass(R.drawable.crossword, "CrossWord","3","0"));
 
     }
     private void initRecyclerView() {
         //Initializing liner layout manager
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-        adapter = new GridAdapter(gameList);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        adapter = new GridAdapter(gameList,getApplicationContext());
         recyclerView.setAdapter(adapter);
-//        recyclerView.setLayoutManager(linearLayoutManager);
-//        //Initializing adapter
-//        adapter = new GridAdapter(gameList);
-//        recyclerView.setAdapter(adapter);
+
 
     }
-
 
 }

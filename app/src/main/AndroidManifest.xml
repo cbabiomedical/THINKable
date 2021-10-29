@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.thinkableproject">
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -14,6 +13,10 @@
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+
 
     <application
         android:allowBackup="true"
@@ -24,7 +27,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ThinkableProject">
-
+        <activity android:name=".Connection"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -62,8 +65,9 @@
         <activity android:name=".ConcentrationReportWeekly" />
         <activity android:name=".ConcentrationReportDaily" />
         <activity android:name=".ConcentrationMemory" />
-        <activity android:name=".ConcentrationExcercise" />
-        <activity android:name=".AboutApp"/>
+        <activity android:name=".GameActivity" />
+        <activity android:name=".AboutApp" />
+        <activity android:name=".Activity_BTLE_Services"/>
         <activity
             android:name=".RelaxationReportYearly"
             android:exported="true" />
@@ -143,6 +147,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <service
+            android:name=".Service_BTLE_GATT"
+            android:enabled="true"
+            android:exported="true"></service>
+        <receiver android:name=".Calibration" />
 
         <meta-data
             android:name="preloaded_fonts"

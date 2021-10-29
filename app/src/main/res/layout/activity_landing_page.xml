@@ -17,6 +17,12 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/reportLanding"
         android:text="Edit Profile" />
+    <Button
+        android:id="@+id/ble"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/editProfile"
+        android:text="BLE" />
 
     <Button
         android:id="@+id/changepassword"

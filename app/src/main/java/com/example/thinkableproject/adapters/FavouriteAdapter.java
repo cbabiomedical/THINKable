@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thinkableproject.FavouriteActivity;
 import com.example.thinkableproject.R;
+import com.example.thinkableproject.repositories.FavDB;
 import com.example.thinkableproject.sample.FavouriteModelClass;
 import com.example.thinkableproject.sample.GameModelClass;
 import com.google.firebase.database.DatabaseReference;
@@ -21,66 +23,69 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class FavouriteAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.ViewHolder> {
 
-    private List<GameModelClass> gameList;
     private Context context;
-    ArrayList<FavouriteModelClass> faveList;
-    HashMap<String, Object> fav = new HashMap<>();
+    private List<FavouriteModelClass> favItemList;
+    private FavDB favDB;
 
 
-    public FavouriteAdapter(ArrayList<FavouriteModelClass> faveList) {
-        this.faveList = faveList;
+    public FavouriteAdapter(Context context, List<FavouriteModelClass> favItemList) {
+        this.context = context;
+        this.favItemList = favItemList;
     }
 
     @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(
-                R.layout.grid_fav_item, parent, false);
-        ViewHolder vh = new ViewHolder(view);
-        return vh;
+    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fav_item,
+                parent, false);
+        favDB = new FavDB(context);
+        return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int position) {
-        ((ViewHolder) viewHolder).mName.setText(faveList.get(position).getFavName());
-        ((ViewHolder) viewHolder).isFav.setImageResource(faveList.get(position).getIsFave());
-//
-//        ((ViewHolder) viewHolder).mImage.setImageResource(faveList.get(position).getImageView());
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        holder.favTextView.setText(favItemList.get(position).getItem_title());
+        holder.favImageView.setImageResource(favItemList.get(position).getItem_image());
     }
+
 
     @Override
     public int getItemCount() {
-        return faveList.size();
+        return favItemList.size();
     }
-    public static class ViewHolder extends RecyclerView.ViewHolder {
 
-        private ImageView mImage;
-        private TextView mName;
-        ImageView isFav;
-        boolean isFavourite = false;
-        DatabaseReference favouriteRef;
-        FirebaseDatabase database=FirebaseDatabase.getInstance();
-        Boolean favChecker=false;
-        FavouriteModelClass favouriteModelClass;
+    public class ViewHolder extends RecyclerView.ViewHolder {
 
-
-
+        TextView favTextView;
+        Button favBtn;
+        ImageView favImageView;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            mImage = itemView.findViewById(R.id.gridImage);
-            mName = itemView.findViewById(R.id.item_name);
-            isFav = itemView.findViewById(R.id.favouritesIcon);
+            favTextView = itemView.findViewById(R.id.favTextView);
+            favBtn = itemView.findViewById(R.id.favBtn2);
+            favImageView = itemView.findViewById(R.id.favImageView);
 
-            favouriteModelClass=new FavouriteModelClass();
-            favouriteRef=database.getReference("favourites");
+//
+            //remove from fav after click
+            favBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position = getAdapterPosition();
+                    final FavouriteModelClass favItem = favItemList.get(position);
+                    favDB.remove_fav(favItem.getKey_id());
+                    removeItem(position);
 
-
-
+                }
+            });
         }
-
     }
 
+    private void removeItem(int position) {
+        favItemList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, favItemList.size());
+    }
 }

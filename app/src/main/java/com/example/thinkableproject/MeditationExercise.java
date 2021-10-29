@@ -2,10 +2,12 @@ package com.example.thinkableproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.LinearLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -29,7 +31,7 @@ import java.util.List;
 
 public class MeditationExercise extends AppCompatActivity {
     RecyclerView recyclerView;
-    GridLayoutManager linearLayoutManager;
+    LinearLayout linearLayoutManager;
     List<MeditationModelClass> meditationList;
     MeditationAdapter adapter;
 
@@ -72,7 +74,7 @@ public class MeditationExercise extends AppCompatActivity {
                         meditationModelClass.setMeditation_url(meditationObject.getString("title").toString());
                         meditationList.add(meditationModelClass);
                         Log.d("List", String.valueOf(meditationList));
-                        recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+                        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                         adapter = new MeditationAdapter(meditationList);
                         recyclerView.setAdapter(adapter);
 

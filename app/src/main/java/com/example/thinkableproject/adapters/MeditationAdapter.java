@@ -8,6 +8,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.request.RequestOptions;
@@ -50,19 +51,18 @@ public class MeditationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
 
         ((ViewHolder) viewHolder).mName.setText(meditationList.get(i).getMeditationName());
-        ((ViewHolder) viewHolder).isFav.setImageResource(meditationList.get(i).getIsFavourite());
+//        ((ViewHolder) viewHolder).isFav.setImageResource(meditationList.get(i).getIsFavourite());
 //
         ((ViewHolder) viewHolder).mImage.setImageResource(meditationList.get(i).getImageView());
-        RequestOptions defaultOptions = new RequestOptions()
-                .error(R.drawable.ic_launcher_background);
-        ((ViewHolder) viewHolder).isFav.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-                ((ViewHolder) viewHolder).mUser=FirebaseAuth.getInstance().getCurrentUser();
-                if (((ViewHolder) viewHolder).isFavourite) {
-                    ((ViewHolder) viewHolder).isFav.setBackgroundResource(R.drawable.ic_favorite_filled);
-                    ((ViewHolder) viewHolder).isFavourite = false;
+//        ((ViewHolder) viewHolder).isFav.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//
+//                ((ViewHolder) viewHolder).mUser=FirebaseAuth.getInstance().getCurrentUser();
+//                if (((ViewHolder) viewHolder).isFavourite) {
+//                    ((ViewHolder) viewHolder).isFav.setBackgroundResource(R.drawable.ic_favorite_filled);
+//                    ((ViewHolder) viewHolder).isFavourite = false;
 //                    FavouriteModelClass favouriteModelClass=new FavouriteModelClass();
 //                    favouriteModelClass.favName=meditationList.get(i).getMeditationName();
 //                    favouriteModelClass.imageView=meditationList.get(i).getImageView();
@@ -70,36 +70,36 @@ public class MeditationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 //                    faveList.add(favouriteModelClass);
 //                    faveList.addAll((Collection) gameList.get(i));
 
-
-                    fav.put("favourites",faveList);
-
-                    FirebaseDatabase.getInstance().getReference().child("Users").child(((ViewHolder) viewHolder).mUser.getUid()).updateChildren(fav).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            // Display Toast on successful update functionality
-
-                        }
-                    });
-
-                } else {
-                    ((ViewHolder) viewHolder).isFav.setBackgroundResource(R.drawable.ic_favorite);
-                    ((ViewHolder) viewHolder).isFavourite = true;
-//                                faveList.remove(gameList.get(i));
-//                                fav.put("favourites",faveList);
-//                                FirebaseDatabase.getInstance().getReference().child("Users").child(((ViewHolder) viewHolder).mUser.getUid()).updateChildren(fav).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                                    @Override
-//                                        public void onComplete(@NonNull Task<Void> task) {
-//                                            // Display Toast on successful update functionality
 //
-//                                        }
-//                                    });
+//                    fav.put("favourites",faveList);
+//
+//                    FirebaseDatabase.getInstance().getReference().child("Users").child(((ViewHolder) viewHolder).mUser.getUid()).updateChildren(fav).addOnCompleteListener(new OnCompleteListener<Void>() {
+//                        @Override
+//                        public void onComplete(@NonNull Task<Void> task) {
+//                            // Display Toast on successful update functionality
+//
+//                        }
+//                    });
 
-
-                }
-
-            }
-
-        });
+//                } else {
+//                    ((ViewHolder) viewHolder).isFav.setBackgroundResource(R.drawable.ic_favorite);
+//                    ((ViewHolder) viewHolder).isFavourite = true;
+////                                faveList.remove(gameList.get(i));
+////                                fav.put("favourites",faveList);
+////                                FirebaseDatabase.getInstance().getReference().child("Users").child(((ViewHolder) viewHolder).mUser.getUid()).updateChildren(fav).addOnCompleteListener(new OnCompleteListener<Void>() {
+////                                    @Override
+////                                        public void onComplete(@NonNull Task<Void> task) {
+////                                            // Display Toast on successful update functionality
+////
+////                                        }
+////                                    });
+//
+//
+//                }
+//
+//            }
+//
+//        });
 
     }
 
@@ -112,7 +112,7 @@ public class MeditationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
         private ImageView mImage;
         private TextView mName;
-        ImageView isFav;
+        AppCompatButton isFav;
         boolean isFavourite = false;
         DatabaseReference reference;
         FirebaseUser mUser;
@@ -121,7 +121,7 @@ public class MeditationAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
             super(itemView);
             mImage = itemView.findViewById(R.id.gridImage);
             mName = itemView.findViewById(R.id.item_name);
-            isFav = itemView.findViewById(R.id.favouritesIcon);
+            isFav = itemView.findViewById(R.id.favouritesIcon1);
             mUser = FirebaseAuth.getInstance().getCurrentUser();
 
 

@@ -3,15 +3,18 @@ package com.example.thinkableproject.sample;
 public class GameModelClass {
     private int imageView;
     private String gameName;
-    private int isFavourite;
+    private String id;
+    private String fav;
 
-    public GameModelClass(int imageView, String gameName, int isFavourite) {
-        this.imageView = imageView;
-        this.gameName = gameName;
-        this.isFavourite = isFavourite;
-    }
 
     public GameModelClass() {
+    }
+
+    public GameModelClass(int imageView, String gameName, String id, String fav) {
+        this.imageView = imageView;
+        this.gameName = gameName;
+        this.id = id;
+        this.fav = fav;
     }
 
     public int getImageView() {
@@ -30,11 +33,19 @@ public class GameModelClass {
         this.gameName = gameName;
     }
 
-    public int  getIsFavourite() {
-        return isFavourite;
+    public String getId() {
+        return id;
     }
 
-    public void setFavourite(int favourite) {
-        isFavourite = favourite;
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    public String getFav() {
+        return fav;
+    }
+
+    public void setFav(String fav) {
+        this.fav = fav;
     }
 }
