@@ -52,7 +52,7 @@ public class Concentration_Weekly extends AppCompatActivity {
     Dialog dialogcw;
     BarChart barChart1;
     AppCompatButton monthly, yearly, daily, realTime;
-    ImageButton relaxationBtn;
+    ImageButton relaxationBtn,memoryBtn;
     FirebaseUser mUser;
     File localFile, fileName;
     ArrayList<String> list = new ArrayList<>();
@@ -71,6 +71,7 @@ public class Concentration_Weekly extends AppCompatActivity {
         relaxationBtn = findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
         dialogcw = new Dialog(this);
+        memoryBtn=findViewById(R.id.memory);
         //Initializing bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -144,6 +145,12 @@ public class Concentration_Weekly extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Calibration.class);
                 startActivity(intent);
+            }
+        });
+        memoryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),Memory_Weekly.class));
             }
         });
         //Initializing arraylist and storing data

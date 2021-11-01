@@ -60,7 +60,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
     BarChart barChart, barChart1, barChart2;
     private Context context;
     AppCompatButton daily, yearly, monthly, realTime;
-    ImageButton concentration, relaxation, music, meditation, video;
+    ImageButton concentration,  music, meditation, video,memoryBtn;
     FirebaseUser mUser;
     String text;
     File localFile;
@@ -95,6 +95,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
 
         //go to concentration weekly landing page
         concentration = findViewById(R.id.concentration);
+        memoryBtn=findViewById(R.id.memory);
         concentration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -333,6 +334,12 @@ public class Relaxation_Weekly extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Relaxation_Yearly.class);
                 startActivity(intent);
+            }
+        });
+        memoryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),Memory_Weekly.class));
             }
         });
 

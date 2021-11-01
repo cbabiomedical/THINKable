@@ -62,7 +62,7 @@ public class Relaxation_Daily extends AppCompatActivity {
     String text;
     File localFile;
     File fileName;
-    ImageButton concentration, music, meditation, video;
+    ImageButton concentration, music, meditation, video,memoryBtn;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
 
@@ -83,6 +83,7 @@ public class Relaxation_Daily extends AppCompatActivity {
         video = findViewById(R.id.video);
         realTime = findViewById(R.id.realTime);
         concentration = findViewById(R.id.concentration);
+        memoryBtn=findViewById(R.id.memory);
         //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         //Set Home Selected
@@ -130,6 +131,12 @@ public class Relaxation_Daily extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Concentration_Daily.class);
                 startActivity(intent);
+            }
+        });
+        memoryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),Memory_Daily.class));
             }
         });
 

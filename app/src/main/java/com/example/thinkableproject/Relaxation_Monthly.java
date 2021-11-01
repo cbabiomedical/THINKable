@@ -57,7 +57,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
 
     BarChart barChart;
     AppCompatButton daily, yearly, weekly, realTime;
-    ImageButton concentration, relaxation, music, meditation, video;
+    ImageButton concentration, relaxation, music, meditation, video,memoryBtn;
     FirebaseUser mUser;
     File localFile;
     String text;
@@ -80,6 +80,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
         daily = findViewById(R.id.daily);
         yearly = findViewById(R.id.yearly);
         weekly = findViewById(R.id.weekly);
+        memoryBtn=findViewById(R.id.memory);
 
         //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -305,6 +306,13 @@ public class Relaxation_Monthly extends AppCompatActivity {
             public void onClick (View view){
                 Intent intent = new Intent(getApplicationContext(), Calibration.class);
                 startActivity(intent);
+            }
+        });
+
+        memoryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),MemoryMonthly.class));
             }
         });
 

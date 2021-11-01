@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ConcentrationReportWhereamI"
+    >
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/report_whereami">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_centerHorizontal="true"
+                android:id="@+id/toggleBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <ImageButton
+                    android:id="@+id/memory"
+                    android:layout_width="110dp"
+                    android:layout_height="50dp"
+                    android:layout_alignEnd="@+id/relaxation"
+                    android:layout_alignRight="@+id/concentration"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="-97dp"
+                    android:layout_marginRight="-191dp"
+                    android:background="@drawable/concen"
+                    android:elevation="5dp"
+                    android:src="@drawable/memory" />
+                <ImageButton
+                    android:id="@+id/relaxation"
+                    android:layout_width="110dp"
+                    android:layout_height="50dp"
+                    android:layout_alignEnd="@+id/concentration"
+                    android:layout_alignRight="@+id/concentration"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="-94dp"
+                    android:layout_marginRight="-94dp"
+                    android:background="@drawable/bconcentration"
+                    android:elevation="5dp"
+                    android:src="@drawable/relax" />
+
+
+                <ImageButton
+                    android:id="@+id/concentration"
+                    android:layout_width="110dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="30dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/bconcentration"
+                    android:elevation="5dp"
+                    android:src="@drawable/concentration_icon" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/toggleBtn1"
+                android:layout_marginTop="80dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/progresscon"
+                    android:layout_width="160dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="35dp"
+                    android:background="@drawable/pgbtn"
+                    android:elevation="5dp"
+                    android:text="Progress"
+                    android:textColor="#3F51B5"/>
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/relwhereAmI"
+                    android:layout_width="160dp"
+                    android:layout_height="60dp"
+                    android:layout_alignEnd="@+id/progresscon"
+                    android:layout_alignRight="@+id/progresscon"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginEnd="-136dp"
+                    android:layout_marginRight="-144dp"
+                    android:text="WHERE AM I"
+                    android:textColor="@color/white"
+                    android:background="@drawable/progressbtn"
+                    android:elevation="5dp"
+
+                    />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/togglewhere"
+                android:layout_marginTop="160dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <ImageView
+                    android:layout_width="250dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/timetoconcentrate"
+                    android:layout_marginLeft="55dp">
+
+                </ImageView>
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="700dp"
+                    android:background="#000000"
+                    android:layout_marginTop="260dp"
+                    android:layout_marginLeft="20dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <View
+                        android:id="@+id/hi"
+                        android:layout_width="20dp"
+                        android:layout_height="2dp"
+                        android:background="#000000"
+                        android:layout_marginTop="270dp"
+                        android:layout_marginLeft="20dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="268dp"
+                        android:fontFamily="@font/lemon"
+                        android:text="Job"
+                        android:textColor="#000000"/>
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+            <com.github.mikephil.charting.charts.ScatterChart
+                android:id="@+id/chart1"
+                android:layout_width="232dp"
+                android:layout_height="295dp"
+                android:layout_marginLeft="104dp"
+                android:layout_marginTop="250dp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <View
+                        android:id="@+id/hi3"
+                        android:layout_width="20dp"
+                        android:layout_height="2dp"
+                        android:background="#000000"
+                        android:layout_marginTop="570dp"
+                        android:layout_marginLeft="20dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="570dp"
+                        android:fontFamily="@font/lemon"
+                        android:text="Age"
+                        android:textColor="#000000"/>
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+            <com.github.mikephil.charting.charts.ScatterChart
+                android:id="@+id/chart3"
+                android:layout_width="232dp"
+                android:layout_height="295dp"
+                android:layout_marginLeft="104dp"
+                android:layout_marginTop="570dp" />
+
+
+
+            <RelativeLayout
+                android:id="@+id/togglewhere1"
+                android:layout_marginTop="970dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+                <ImageView
+                    android:layout_width="250dp"
+                    android:layout_height="70dp"
+                    android:src="@drawable/timestayedconcent"
+                    android:layout_marginLeft="55dp">
+
+                </ImageView>
+            </RelativeLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+
+
+
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="700dp"
+                    android:background="#000000"
+                    android:layout_marginTop="1060dp"
+                    android:layout_marginLeft="20dp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <View
+                        android:id="@+id/hi2"
+                        android:layout_width="20dp"
+                        android:layout_height="2dp"
+                        android:background="#000000"
+                        android:layout_marginTop="1060dp"
+                        android:layout_marginLeft="20dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="1060dp"
+                        android:fontFamily="@font/lemon"
+                        android:text="Job"
+                        android:textColor="#000000"/>
+                </LinearLayout>
+
+
+
+
+
+            </LinearLayout>
+
+            <com.github.mikephil.charting.charts.ScatterChart
+                android:id="@+id/chart2"
+                android:layout_width="232dp"
+                android:layout_height="295dp"
+                android:layout_marginStart="104dp"
+                android:layout_marginTop="1060dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <View
+                        android:id="@+id/hi4"
+                        android:layout_width="20dp"
+                        android:layout_height="2dp"
+                        android:background="#000000"
+                        android:layout_marginTop="1380dp"
+                        android:layout_marginLeft="20dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="1380dp"
+                        android:fontFamily="@font/lemon"
+                        android:text="Age"
+                        android:textColor="#000000"/>
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+
+            <com.github.mikephil.charting.charts.ScatterChart
+                android:id="@+id/chart4"
+                android:layout_width="232dp"
+                android:layout_height="295dp"
+                android:layout_marginLeft="104dp"
+                android:layout_marginTop="1380dp" />
+
+
+
+
+
+
+
+
+
+
+        </RelativeLayout>
+
+
+
+
+
+
+
+
+
+    </ScrollView>
+
+
+</RelativeLayout>

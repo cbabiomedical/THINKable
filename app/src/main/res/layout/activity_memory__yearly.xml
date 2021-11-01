@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -8,7 +9,7 @@
     android:layout_gravity="center"
     android:background="@drawable/landing_background"
     android:orientation="horizontal"
-    tools:context=".Concentration_Daily">
+    tools:context=".Concentration_Yearly">
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -62,96 +63,92 @@
                     android:elevation="5dp"
                     android:src="@drawable/concentration_icon" />
             </RelativeLayout>
-
             <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/barChartDaily"
+                android:id="@+id/barChartYearly"
                 android:layout_width="325dp"
-                android:layout_height="250dp"
-                android:layout_below="@+id/toggleBtn"
                 android:layout_centerHorizontal="true"
+                android:layout_height="250dp"
+                android:layout_marginHorizontal="0dp"
+                android:layout_below="@+id/toggleBtn"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="20dp"
                 android:background="@color/background"
-                app:cornerRadius="13dp"
                 android:layout_marginLeft="4dp" />
 
             <LinearLayout
                 android:id="@+id/btnLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/barChartDaily"
+                android:layout_below="@+id/barChartYearly"
                 android:orientation="horizontal"
-                android:background="@android:color/transparent"
                 android:gravity="center"
                 android:layout_marginTop="20dp">
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/daily"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/daily"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:background="@drawable/btn_daily"
+                    android:textAllCaps="false">
+                </androidx.appcompat.widget.AppCompatButton>
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/weekly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/weekly"
                     android:textColor="@color/white"
+                    android:layout_marginLeft="20dp"
                     android:textStyle="bold"
                     android:background="@drawable/btn_daily"
                     android:textAllCaps="false">
                 </androidx.appcompat.widget.AppCompatButton>
+
+
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/monthly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
                     android:text="@string/monthly"
                     android:textColor="@color/white"
                     android:textStyle="bold"
-                    android:background="@drawable/btn_daily"
-                    android:textAllCaps="false">
-                </androidx.appcompat.widget.AppCompatButton>
-
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/yearly"
                     android:layout_marginLeft="20dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/yearly"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
                     android:background="@drawable/btn_daily"
                     android:textAllCaps="false">
                 </androidx.appcompat.widget.AppCompatButton>
             </LinearLayout>
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/realTime"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/btnLayout"
                 android:textColor="@color/white"
+                android:layout_below="@+id/btnLayout"
                 android:textStyle="bold"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
                 android:background="@drawable/realtime"
                 android:textAllCaps="false"
-                android:onClick="calidaily"
-                >
+                android:onClick="caliyearly">
             </androidx.appcompat.widget.AppCompatButton>
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/improveConcentration"
-
-                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingHorizontal="10dp"
                 android:text="Improve Memory"
+                android:paddingHorizontal="10dp"
+                android:textColor="@color/white"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/realTime"
-                android:textColor="@color/white"
+                android:layout_marginTop="10dp"
                 android:textStyle="bold"
                 android:background="@drawable/btn_daily"
                 android:textAllCaps="false"
-                android:onClick="gotoPopup1">
+                android:onClick="gotoPopup4">
             </androidx.appcompat.widget.AppCompatButton>
             <LinearLayout
-                android:id="@+id/sugLayout"
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="70dp"
                 android:layout_width="match_parent"
@@ -159,16 +156,13 @@
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:layout_below="@+id/improveConcentration">
-
                 <ImageButton
-                    android:id="@+id/game"
                     android:layout_width="130dp"
                     android:layout_height="80dp"
                     android:background="@drawable/concentpreference"
                     android:src="@drawable/musiccon"/>
 
                 <ImageButton
-                    android:id="@+id/music"
                     android:layout_marginLeft="20dp"
                     android:layout_width="130dp"
                     android:layout_height="80dp"
@@ -177,7 +171,6 @@
 
 
             </LinearLayout>
-
         </RelativeLayout>
     </ScrollView>
     <com.google.android.material.bottomnavigation.BottomNavigationView
@@ -189,6 +182,4 @@
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menu_navigation" />
-
-
 </RelativeLayout>

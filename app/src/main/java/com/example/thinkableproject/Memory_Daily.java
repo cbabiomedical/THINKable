@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -25,16 +27,32 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.*;
-import com.google.firebase.storage.*;
-import java.io.*;
-import java.util.*;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.storage.FileDownloadTask;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
-public class Concentration_Daily extends AppCompatActivity {
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+public class Memory_Daily extends AppCompatActivity {
+
     Dialog dialogcd;
     BarChart barChartdaily;
     AppCompatButton monthly, yearly, weekly, realTime;
-    ImageButton relaxationBtn,games,memory,music;
+    ImageButton relaxationBtn,games,music,concentrationBtn;
     FirebaseUser mUser;
     String text;
     File localFile, fileName;
@@ -45,7 +63,7 @@ public class Concentration_Daily extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_concentration__daily);
+        setContentView(R.layout.activity_concentration_memory);
         barChartdaily = (BarChart) findViewById(R.id.barChartDaily);
         monthly = findViewById(R.id.monthly);
         games=findViewById(R.id.game);
@@ -56,20 +74,13 @@ public class Concentration_Daily extends AppCompatActivity {
         relaxationBtn = findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
         dialogcd = new Dialog(this);
-        memory=findViewById(R.id.memory);
+        concentrationBtn=findViewById(R.id.concentration);
 
 
-        memory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(), Memory_Daily.class);
-                startActivity(intent);
-            }
-        });
         music.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Music.class));
+                startActivity(new Intent(getApplicationContext(),BineuralAcivity.class));
             }
         });
 
@@ -115,7 +126,7 @@ public class Concentration_Daily extends AppCompatActivity {
 
         //  Creating txt file and writing data in array list to file
         try {
-            fileName = new File(getCacheDir() + "/daily.txt");  //Writing data to file
+            fileName = new File(getCacheDir() + "/memDaily.txt");  //Writing data to file
             FileWriter fw;
             fw = new FileWriter(fileName);
             BufferedWriter output = new BufferedWriter(fw);
@@ -136,7 +147,7 @@ public class Concentration_Daily extends AppCompatActivity {
         // Uploading saved data containing file to firebase storage
         StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
         try {
-            StorageReference mountainsRef = storageReference1.child("daily.txt");
+            StorageReference mountainsRef = storageReference1.child("memDaily.txt");
             InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
             UploadTask uploadTask = mountainsRef.putStream(stream);
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
@@ -162,7 +173,7 @@ public class Concentration_Daily extends AppCompatActivity {
 
             @Override
             public void run() {
-                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/daily.txt");
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/memDaily.txt");
                 //Downloading file from firebase and storing data into a tempFile in cache memory
                 try {
                     localFile = File.createTempFile("tempFile", ".txt");
@@ -263,7 +274,7 @@ public class Concentration_Daily extends AppCompatActivity {
         monthly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Concentration_Monthly.class);
+                Intent intent = new Intent(getApplicationContext(), MemoryMonthly.class);
                 startActivity(intent);
             }
         });
@@ -271,7 +282,7 @@ public class Concentration_Daily extends AppCompatActivity {
         weekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Concentration_Weekly.class);
+                Intent intent = new Intent(getApplicationContext(), Memory_Weekly.class);
                 startActivity(intent);
             }
         });
@@ -286,7 +297,7 @@ public class Concentration_Daily extends AppCompatActivity {
         yearly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Concentration_Yearly.class);
+                Intent intent = new Intent(getApplicationContext(), Memory_Yearly.class);
                 startActivity(intent);
             }
         });
@@ -306,10 +317,16 @@ public class Concentration_Daily extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        concentrationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),Concentration_Daily.class));
+            }
+        });
 
     }
 
-// Popup window method for suggestions to improve concentration
+    // Popup window method for suggestions to improve concentration
     public void gotoPopup1(View view) {
 //        Intent intentgp1 = new Intent(Concentration_Daily.this, Concentration_popup.class);
 //
@@ -327,12 +344,6 @@ public class Concentration_Daily extends AppCompatActivity {
 
     }
 
-
-    public void calidaily(View view) {
-        Intent intentcd = new Intent(Concentration_Daily.this, Calibration.class);
-
-        startActivity(intentcd);
-    }
 
     public class MyBarDataset extends BarDataSet {
 

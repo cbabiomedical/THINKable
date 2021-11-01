@@ -51,7 +51,6 @@ public class MeditationExercise extends AppCompatActivity {
 
     private void initData() {
         meditationList = new ArrayList<>();
-        meditationList = new ArrayList<>();
 //        Adding user preferences to arraylist
         meditationList.add(new MeditationModelClass( "Mindfulness",R.drawable.mindful, "0","0"));
         meditationList.add(new MeditationModelClass( "Body Scan",R.drawable.maxresdefault, "1","0"));

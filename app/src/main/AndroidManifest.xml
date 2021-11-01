@@ -75,6 +75,20 @@
         <activity android:name=".ConcentrationReportDaily" />
         <activity android:name=".ConcentrationMemory" />
         <activity android:name=".ConcentrationExcercise" />
+        <activity android:name=".MusicPlayer"/>
+        <activity android:name=".MainActivity2"/>
+        <activity android:name=".GameActivity"/>
+        <activity android:name=".MeditationExercise"/>
+        <activity android:name=".Memory_Daily"/>
+        <activity android:name=".Memory_Weekly"/>
+        <activity android:name=".MemoryMonthly"/>
+        <activity android:name=".Memory_Yearly"/>
+        <activity android:name=".MemoryReportDaily"/>
+        <activity android:name=".MemoryReportWeekly"/>
+        <activity android:name=".MemoryReportMonthly"/>
+        <activity android:name=".MemoryReportYearly"/>
+        <activity android:name=".MemoryWhereAmI"/>
+
         <activity
             android:name=".RelaxationReportYearly"
             android:exported="true" />

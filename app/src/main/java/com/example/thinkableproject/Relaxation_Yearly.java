@@ -55,7 +55,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
     Dialog dialogry;
     BarChart barChart2;
     AppCompatButton daily, weekly, monthly, realTime;
-    ImageButton concentration, relaxation, music, meditation, video;
+    ImageButton concentration, music, meditation, video,memoryBtn;
     FirebaseUser mUser;
     String text;
     File fileName;
@@ -83,6 +83,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
         daily = findViewById(R.id.daily);
         weekly = findViewById(R.id.weekly);
         monthly = findViewById(R.id.monthly);
+        memoryBtn=findViewById(R.id.memory);
         //Initialize pop up window
         dialogry = new Dialog(this);
 
@@ -150,6 +151,12 @@ public class Relaxation_Yearly extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intentr1 = new Intent(getApplicationContext(), Relaxation_Daily.class);
                 startActivity(intentr1);
+            }
+        });
+        memoryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),Memory_Yearly.class));
             }
         });
 

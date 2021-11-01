@@ -52,7 +52,7 @@ public class Concentration_Yearly extends AppCompatActivity {
     Dialog dialogcy;
     BarChart barChart2;
     AppCompatButton daily, weekly, monthly, realTime;
-    ImageButton relaxationBtn;
+    ImageButton relaxationBtn,memoryBtn;
     FirebaseUser mUser;
     File localFile, fileName;
     String text;
@@ -70,6 +70,7 @@ public class Concentration_Yearly extends AppCompatActivity {
         monthly = findViewById(R.id.monthly);
         realTime = findViewById(R.id.realTime);
         relaxationBtn = findViewById(R.id.relaxation);
+        memoryBtn=findViewById(R.id.memory);
         List<BarEntry> entries = new ArrayList<>();
         //Initialize bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -139,6 +140,12 @@ public class Concentration_Yearly extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Relaxation_Yearly.class);
                 startActivity(intent);
+            }
+        });
+        memoryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),Memory_Yearly.class));
             }
         });
         //onClick listener for real time indication button

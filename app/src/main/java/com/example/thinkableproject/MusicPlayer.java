@@ -44,6 +44,7 @@ public class MusicPlayer extends AppCompatActivity {
     private int time;
     private String name;
     boolean play = true;
+    int image;
     String uri;
     Thread updateSeekBar;
 
@@ -82,16 +83,18 @@ public class MusicPlayer extends AppCompatActivity {
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            uri = extras.getString("uri");
-            time_selected = extras.getString("time");
+            uri = extras.getString("url");
+//            time_selected = extras.getString("time");
             name = extras.getString("name");
-            time = Integer.parseInt(time_selected);
+//            time = Integer.parseInt(time_selected);
             music_title.setText(name);
+            image=extras.getInt("image");
+
             prepareMediaPlayer();
 
             Log.d("MUSIC", uri + "");
-            Log.d("DURATION", time_selected);
-            Log.d("NAME", name);
+//            Log.d("DURATION", time_selected);
+//            Log.d("NAME", name);
 
         } else {
             Log.d("ERROR", "Error in getting null value");
@@ -178,13 +181,7 @@ public class MusicPlayer extends AppCompatActivity {
                 }
             });
             int noOfRuns = time / mediaPlayer.getDuration();
-//            for (int i = 1; i <= noOfRuns+1; i++) {
-//                mediaPlayer.setLooping(true);
-//
-//                Log.d("FOR LOOP", String.valueOf(i));
-//                int totalTimetoPlay=noOfRuns*mediaPlayer.getDuration()+mediaPlayer.getCurrentPosition();
-////
-//            }
+
 
             final Handler handler = new Handler();
             final int delay = 1000;

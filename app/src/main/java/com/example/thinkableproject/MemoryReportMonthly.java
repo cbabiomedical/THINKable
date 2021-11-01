@@ -15,14 +15,12 @@ import android.view.View;
 import android.widget.ImageButton;
 
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -46,46 +44,33 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-public class ConcentrationReportDaily extends AppCompatActivity {
-    BarChart barChartdaily, barChartdaily2;
+public class MemoryReportMonthly extends AppCompatActivity {
+
+    BarChart barChart, barChart2;
     private Context context;
-    AppCompatButton monthly, yearly, weekly, whereAmI;
-    File fileName, fileName1, localFile, localFile1;
-    FirebaseUser mUser;
-    ImageButton relaxationBtn,memory;
+    File fileName, localFile, fileName1, localFile1;
     String text;
+    AppCompatButton daily, weekly, yearly, whereAmI;
+    FirebaseUser mUser;
+    ImageButton relaxationBtn,concentrationBtn;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
     ArrayList<String> list1 = new ArrayList<>();
     ArrayList<Float> floatList1 = new ArrayList<>();
 
-
-    public Context getContext() {
-        return context;
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_concentration_report_daily);
+        setContentView(R.layout.activity_memory_report_monthly);
 
-        barChartdaily = (BarChart) findViewById(R.id.barChartDaily);
-        barChartdaily2 = (BarChart) findViewById(R.id.barChartDaily2);
-        monthly = findViewById(R.id.monthly);
-        yearly = findViewById(R.id.yearly);
+        daily = findViewById(R.id.daily);
         weekly = findViewById(R.id.weekly);
+        yearly = findViewById(R.id.yearly);
+        barChart = (BarChart) findViewById(R.id.barChartMonthly);
+        barChart2 = findViewById(R.id.barChartMonthly2);
         relaxationBtn = findViewById(R.id.relaxation);
         whereAmI = findViewById(R.id.whereAmI);
-        memory=findViewById(R.id.memory);
-
-        memory.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(), MemoryReportDaily.class);
-                startActivity(intent);
-            }
-        });
-
+        concentrationBtn=findViewById(R.id.concentration);
         //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         //Set Home Selected
@@ -120,10 +105,10 @@ public class ConcentrationReportDaily extends AppCompatActivity {
         });
         //Initializing arraylist and storing input data to arraylist
         ArrayList<Float> obj = new ArrayList<>(
-                Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f));
+                Arrays.asList(30f, 85f, 10f, 50f, 20f, 60f, 80f, 43f, 23f, 70f, 73f, 10f));  //Array list to write data to file
         //Writing data to file
         try {
-            fileName = new File(getCacheDir() + "/reportDaily.txt");
+            fileName = new File(getCacheDir() + "/reportMemMonthly.txt");
             String line = "";
             FileWriter fw;
             fw = new FileWriter(fileName);
@@ -143,33 +128,34 @@ public class ConcentrationReportDaily extends AppCompatActivity {
         // Uploading file created to firebase storage
         StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
         try {
-            StorageReference mountainsRef = storageReference1.child("reportDaily.txt");
+            StorageReference mountainsRef = storageReference1.child("reportMemMonthly.txt");
             InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
             UploadTask uploadTask = mountainsRef.putStream(stream);
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                    Toast.makeText(ConcentrationReportDaily.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ConcentrationReportMonthly.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-//                    Toast.makeText(ConcentrationReportDaily.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ConcentrationReportMonthly.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
+
         final Handler handler = new Handler();
-        final int delay = 5000;
+        final int delay = 7000;
 
         handler.postDelayed(new Runnable() {
 
             @Override
             public void run() {
-                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportDaily.txt");
-                    //downloading the uploaded file and storing in arraylist
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportMemMonthly.txt");
+                //downloading the uploaded file and storing in arraylist
                 try {
                     localFile = File.createTempFile("tempFile", ".txt");
                     text = localFile.getAbsolutePath();
@@ -177,7 +163,7 @@ public class ConcentrationReportDaily extends AppCompatActivity {
                     storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-//                            Toast.makeText(ConcentrationReportDaily.this, "Success", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ConcentrationReportMonthly.this, "Success", Toast.LENGTH_SHORT).show();
 
                             try {
                                 InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
@@ -207,17 +193,18 @@ public class ConcentrationReportDaily extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                            String[] days = new String[]{"Mon", "Thu", "Wed", "Thur", "Fri", "Sat", "Sun"};
-                            List<Float> creditsMain = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f, 10f, 15f, 85f));
-                            float[] strengthDay = new float[]{90f, 30f, 70f, 50f, 10f, 15f, 85f};
+                            String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
+                            List<Float> credits = new ArrayList<>(Arrays.asList(90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f));
+                            float[] strength = new float[]{90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f};
 
                             List<BarEntry> entries = new ArrayList<>();
                             for (int j = 0; j < floatList.size(); ++j) {
                                 entries.add(new BarEntry(j, floatList.get(j)));
                             }
+
                             float textSize = 16f;
                             //Initializing object of MyBarDataset class
-                            MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsMain);
+                           MyBarDataset dataSet = new MyBarDataset(entries, "data", credits);
                             dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
                                     ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
                                     ContextCompat.getColor(getApplicationContext(), R.color.blue),
@@ -227,30 +214,29 @@ public class ConcentrationReportDaily extends AppCompatActivity {
                             data.setDrawValues(false);
                             data.setBarWidth(0.9f);
 
-                            barChartdaily.setData(data);
-                            barChartdaily.setFitBars(true);
-                            barChartdaily.getXAxis().setValueFormatter(new IndexAxisValueFormatter(days));
-                            barChartdaily.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-                            barChartdaily.getXAxis().setTextSize(textSize);
-                            barChartdaily.getAxisLeft().setTextSize(textSize);
-                            barChartdaily.setExtraBottomOffset(10f);
+                            barChart.setData(data);
+                            barChart.setFitBars(true);
+                            barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(months));
+                            barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChart.getXAxis().setTextSize(textSize);
+                            barChart.getAxisLeft().setTextSize(textSize);
+                            barChart.setExtraBottomOffset(10f);
 
-                            barChartdaily.getAxisRight().setEnabled(false);
+                            barChart.getAxisRight().setEnabled(false);
                             Description desc = new Description();
                             desc.setText("");
-                            barChartdaily.setDescription(desc);
-                            barChartdaily.getLegend().setEnabled(false);
-                            barChartdaily.getXAxis().setDrawGridLines(false);
-                            barChartdaily.getAxisLeft().setDrawGridLines(false);
+                            barChart.setDescription(desc);
+                            barChart.getLegend().setEnabled(false);
+                            barChart.getXAxis().setDrawGridLines(false);
+                            barChart.getAxisLeft().setDrawGridLines(false);
 
-                            barChartdaily.invalidate();
+                            barChart.invalidate();
 
-//
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-//                            Toast.makeText(ConcentrationReportDaily.this, "Failed", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ConcentrationReportMonthly.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -259,15 +245,13 @@ public class ConcentrationReportDaily extends AppCompatActivity {
                     exception.printStackTrace();
                 }
             }
-
-            //Downloading file and displaying chart
         }, delay);
-//Initializing arraylist and storing input data to arraylist
+        //Initializing arraylist and storing input data to arraylist
         ArrayList<Float> obj1 = new ArrayList<>(
-                Arrays.asList(60f, 40f, 70f, 20f, 20f, 50f, 80f));  //Array list to write data to file
+                Arrays.asList(30f, 10f, 60f, 40f, 20f, 60f, 10f, 45f, 25f, 70f, 75f, 35f));  //Array list to write data to file
         //Write input data to file
         try {
-            fileName1 = new File(getCacheDir() + "/reportDaily2.txt");  //Writing data to file
+            fileName1 = new File(getCacheDir() + "/reportMemMonthly2.txt");  //Writing data to file
             String line = "";
             FileWriter fw;
             fw = new FileWriter(fileName1);
@@ -286,20 +270,20 @@ public class ConcentrationReportDaily extends AppCompatActivity {
         mUser.getUid();
         // Uploading file created to firebase storage
         storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
-        //downloading the uploaded file and storing in arraylist
         try {
-            StorageReference mountainsRef = storageReference1.child("reportDaily2.txt");
+            //downloading the uploaded file and storing in arraylist
+            StorageReference mountainsRef = storageReference1.child("reportMemMonthly2.txt");
             InputStream stream = new FileInputStream(new File(fileName1.getAbsolutePath()));
             UploadTask uploadTask = mountainsRef.putStream(stream);
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                    Toast.makeText(ConcentrationReportDaily.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ConcentrationReportMonthly.this, "File Uploaded", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-//                    Toast.makeText(ConcentrationReportDaily.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(ConcentrationReportMonthly.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -313,7 +297,7 @@ public class ConcentrationReportDaily extends AppCompatActivity {
 
             @Override
             public void run() {
-                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportDaily2.txt");
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportMemMonthly2.txt");
 
                 try {
                     localFile1 = File.createTempFile("tempFile", ".txt");
@@ -322,7 +306,7 @@ public class ConcentrationReportDaily extends AppCompatActivity {
                     storageReference.getFile(localFile1).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-//                            Toast.makeText(ConcentrationReportDaily.this, "Success", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ConcentrationReportMonthly.this, "Success", Toast.LENGTH_SHORT).show();
 
                             try {
                                 InputStreamReader inputStreamReader1 = new InputStreamReader(new FileInputStream(localFile1.getAbsolutePath()));
@@ -346,22 +330,22 @@ public class ConcentrationReportDaily extends AppCompatActivity {
 
                                 for (int i = 0; i < list1.size(); i++) {
                                     floatList1.add(Float.parseFloat(list1.get(i)));
-                                    Log.d("FloatArrayList", String.valueOf(floatList1));
+                                    Log.d("FloatArrayList2", String.valueOf(floatList1));
                                 }
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
 
-                            String[] days = new String[]{"Mon", "Thu", "Wed", "Thur", "Fri", "Sat", "Sun"};
-                            List<Float> creditsMain1 = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f, 10f, 15f, 85f));
-                            float[] strengthDay = new float[]{90f, 30f, 70f, 50f, 10f, 15f, 85f};
+                            String[] months1 = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
+                            List<Float> credits1 = new ArrayList<>(Arrays.asList(90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f));
+                            float[] strength = new float[]{90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f};
 
                             List<BarEntry> entries2 = new ArrayList<>();
                             for (int j = 0; j < floatList1.size(); ++j) {
                                 entries2.add(new BarEntry(j, floatList1.get(j)));
                             }
                             float textSize = 16f;
-                            MyBarDataset dataSet1 = new MyBarDataset(entries2, "data", creditsMain1);
+                           MyBarDataset dataSet1 = new MyBarDataset(entries2, "data", credits1);
                             dataSet1.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
                                     ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
                                     ContextCompat.getColor(getApplicationContext(), R.color.blue),
@@ -371,30 +355,30 @@ public class ConcentrationReportDaily extends AppCompatActivity {
                             data1.setDrawValues(false);
                             data1.setBarWidth(0.9f);
 
-                            barChartdaily2.setData(data1);
-                            barChartdaily2.setFitBars(true);
-                            barChartdaily2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(days));
-                            barChartdaily2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-                            barChartdaily2.getXAxis().setTextSize(textSize);
-                            barChartdaily2.getAxisLeft().setTextSize(textSize);
-                            barChartdaily2.setExtraBottomOffset(10f);
+                            barChart2.setData(data1);
+                            barChart2.setFitBars(true);
+                            barChart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(months1));
+                            barChart2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChart2.getXAxis().setTextSize(textSize);
+                            barChart2.getAxisLeft().setTextSize(textSize);
+                            barChart2.setExtraBottomOffset(10f);
 
-                            barChartdaily2.getAxisRight().setEnabled(false);
+                            barChart2.getAxisRight().setEnabled(false);
                             Description desc1 = new Description();
                             desc1.setText("");
-                            barChartdaily2.setDescription(desc1);
-                            barChartdaily2.getLegend().setEnabled(false);
-                            barChartdaily2.getXAxis().setDrawGridLines(false);
-                            barChartdaily2.getAxisLeft().setDrawGridLines(false);
+                            barChart2.setDescription(desc1);
+                            barChart2.getLegend().setEnabled(false);
+                            barChart2.getXAxis().setDrawGridLines(false);
+                            barChart2.getAxisLeft().setDrawGridLines(false);
 
-                            barChartdaily2.invalidate();
+                            barChart2.invalidate();
 
 //
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
                         public void onFailure(@NonNull Exception e) {
-//                            Toast.makeText(ConcentrationReportDaily.this, "Failed", Toast.LENGTH_SHORT).show();
+//                            Toast.makeText(ConcentrationReportMonthly.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
                     });
 
@@ -406,20 +390,19 @@ public class ConcentrationReportDaily extends AppCompatActivity {
 
             //Downloading file and displaying chart
         }, delay);
-
+        // On click listener of daily button
+        daily.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MemoryReportDaily.class);
+                startActivity(intent);
+            }
+        });
         // On click listener of weekly button
         weekly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ConcentrationReportWeekly.class);
-                startActivity(intent);
-            }
-        });
-        // On click listener of monthly button
-        monthly.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ConcentrationReportMonthly.class);
+                Intent intent = new Intent(getApplicationContext(), MemoryReportWeekly.class);
                 startActivity(intent);
             }
         });
@@ -427,7 +410,7 @@ public class ConcentrationReportDaily extends AppCompatActivity {
         yearly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), ConcentrationReportYearly.class);
+                Intent intent = new Intent(getApplicationContext(), MemoryReportYearly.class);
                 startActivity(intent);
             }
         });
@@ -435,7 +418,7 @@ public class ConcentrationReportDaily extends AppCompatActivity {
         relaxationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), RelaxationReportDaily.class);
+                Intent intent = new Intent(getApplicationContext(), RelaxationReportMonthly.class);
                 startActivity(intent);
             }
         });
@@ -443,10 +426,17 @@ public class ConcentrationReportDaily extends AppCompatActivity {
         whereAmI.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(), ConcentrationReportWhereamI.class);
+                Intent intent = new Intent(getApplicationContext(), MemoryWhereAmI.class);
                 startActivity(intent);
             }
         });
+        concentrationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ConcentrationReportMonthly.class));
+            }
+        });
+
     }
 
 
@@ -477,36 +467,4 @@ public class ConcentrationReportDaily extends AppCompatActivity {
 
         }
     }
-
-    private class MyXAxisValueFormatter extends ValueFormatter {
-        private String[] mValues;
-
-        public MyXAxisValueFormatter(String[] values) {
-            this.mValues = values;
-            Log.d("Tag", "monthly clicked hi");
-        }
-
-        @Override
-        public String getFormattedValue(float value, AxisBase axis) {
-            return mValues[(int) value];
-        }
-
-    }
-
-    public void monthly(View v) {
-        Intent intent2 = new Intent(this, ConcentrationReportMonthly.class);
-        startActivity(intent2);
-
-    }
-
-    public void yearly(View view) {
-        Intent intent2 = new Intent(this, ConcentrationReportYearly.class);
-        startActivity(intent2);
-    }
-
-    public void weekly(View view) {
-        Intent intent2 = new Intent(this, ConcentrationReportWeekly.class);
-        startActivity(intent2);
-    }
-
 }
