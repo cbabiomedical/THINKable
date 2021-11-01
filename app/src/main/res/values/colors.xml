@@ -14,4 +14,19 @@
     <color name="Lblue">#2A9DF4</color>
     <color name="Bwhite">#ADEFFF</color>
     <color name="background">#80FFFFFF</color>
+
+    <color name="colorPrimary">#673AB7</color>
+    <color name="colorPrimaryDark">#673AB7</color>
+    <color name="colorAccent">#03DAC5</color>
+
+    <color name="colorPurple">#673AB7</color>
+    <color name="colorBlue">#3F51B5</color>
+
+    <color name="orange">#FF9800</color>
+
+    <color name="darkOrange">#FF5722</color>
+    <color name="shadow_color">#3C3C3C</color>
+    <color name="color_white">#FFFFFF</color>
+
+    <color name="light_grey">#E8E8E8</color>
 </resources>

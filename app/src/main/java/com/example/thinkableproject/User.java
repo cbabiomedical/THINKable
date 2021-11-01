@@ -4,7 +4,8 @@ package com.example.thinkableproject;
 public class User {
     // Creating private variables to store user data
     // private variables for encapsulation
-    private String userName, email, occupation, Gender, dob, preferences, suggestions,favourites,location;
+    private String userName, email, occupation, Gender, dob, preferences, suggestions,favourites,location, profile;
+    private long coins = 25;
 
     // Default constructor
     public User() {
@@ -99,5 +100,21 @@ public class User {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public long getCoins() {
+        return coins;
+    }
+
+    public void setCoins(long coins) {
+        this.coins = coins;
+    }
+
+    public String getProfile() {
+        return profile;
+    }
+
+    public void setProfile(String profile) {
+        this.profile = profile;
     }
 }
