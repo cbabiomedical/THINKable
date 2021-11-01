@@ -1,31 +1,20 @@
 package com.example.thinkableproject.sample;
 
 public class MeditationModelClass {
-    private int imageView;
     private String meditationName;
-    private int isFavourite;
-    private String meditation_url;
+    private int imageView;
+    private String id;
+    private String fav;
+
 
     public MeditationModelClass() {
     }
-    public MeditationModelClass(int imageView, String meditationName, String meditation_url) {
+
+    public MeditationModelClass( String meditationName,int imageView, String id, String fav) {
         this.imageView = imageView;
         this.meditationName = meditationName;
-        this.meditation_url = meditation_url;
-    }
-    public MeditationModelClass(int imageView, String meditationName, int isFavourite) {
-        this.imageView = imageView;
-        this.meditationName = meditationName;
-        this.isFavourite = isFavourite;
-    }
-
-
-
-    public MeditationModelClass(int imageView, String meditationName, int isFavourite, String meditation_url) {
-        this.imageView = imageView;
-        this.meditationName = meditationName;
-        this.isFavourite = isFavourite;
-        this.meditation_url = meditation_url;
+        this.id = id;
+        this.fav = fav;
     }
 
     public int getImageView() {
@@ -40,32 +29,23 @@ public class MeditationModelClass {
         return meditationName;
     }
 
-    public void setMeditationName(String meditationName) {
-        this.meditationName = meditationName;
+    public void setMeditationName(String gameName) {
+        this.meditationName = gameName;
     }
 
-    public int getIsFavourite() {
-        return isFavourite;
+    public String getId() {
+        return id;
     }
 
-    public void setIsFavourite(int isFavourite) {
-        this.isFavourite = isFavourite;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public String getMeditation_url() {
-        return meditation_url;
+    public String getFav() {
+        return fav;
     }
 
-    public void setMeditation_url(String meditation_url) {
-        this.meditation_url = meditation_url;
-    }
-
-    @Override
-    public String toString() {
-        return "MeditationModelClass{" +
-                "imageView=" + imageView +
-                ", meditationName='" + meditationName + '\'' +
-                ", isFavourite=" + isFavourite +
-                '}';
+    public void setFav(String fav) {
+        this.fav = fav;
     }
 }

@@ -44,6 +44,7 @@
             android:name=".RetrieveMapActivity"
             android:exported="false"
             android:label="@string/title_activity_retrieve_map" />
+        <activity android:name=".MainActivity2"/>
         <activity
             android:name=".MapsActivity"
             android:exported="false"

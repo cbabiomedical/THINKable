@@ -10,7 +10,7 @@ app:cardCornerRadius="20dp"
 android:elevation="3dp"
 android:layout_marginStart="10dp"
 android:layout_marginEnd="10dp"
-android:layout_marginBottom="10dp"
+    android:layout_marginBottom="10dp"
 android:layout_marginTop="10dp">
 
 <ImageView
@@ -18,13 +18,14 @@ android:layout_marginTop="10dp">
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:scaleType="centerCrop"
-    android:src="@drawable/mindful"/>
+    android:src="@drawable/love_kind"/>
+
 
 <TextView
     android:id="@+id/item_name"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:text="Mindfulness"
+    android:text="Love Kind"
     android:gravity="bottom"
     android:textColor="#fff"
     android:textSize="26sp"
@@ -32,19 +33,15 @@ android:layout_marginTop="10dp">
     android:layout_gravity="bottom"
     android:layout_marginStart="18dp"
     android:layout_marginBottom="1dp"/>
+    <androidx.appcompat.widget.AppCompatButton
 
-<androidx.appcompat.widget.AppCompatButton
-    android:id="@+id/favouritesIcon1"
-    android:layout_width="30dp"
-    android:gravity="bottom"
-    android:layout_height="30dp"
-    android:layout_gravity="right|bottom"
-    android:layout_marginEnd="10dp"
-    android:background="@drawable/ic_favorite_filled"/>
-
-
-
-
+        android:id="@+id/favouritesIcon2"
+        android:layout_width="30dp"
+        android:gravity="bottom"
+        android:layout_height="30dp"
+        android:layout_gravity="right|bottom"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/ic_favorite_filled"/>
 
 
 

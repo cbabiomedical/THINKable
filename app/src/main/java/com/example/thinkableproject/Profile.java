@@ -60,7 +60,7 @@ public class Profile extends AppCompatActivity {
         myFavourites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),FavouriteActivity.class);
+                Intent intent=new Intent(getApplicationContext(),MainActivity2.class);
                 startActivity(intent);
             }
         });
