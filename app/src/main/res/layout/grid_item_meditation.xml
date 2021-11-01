@@ -1,50 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:orientation="vertical"
+android:layout_width="match_parent"
+android:layout_height="200dp"
+style="@style/CardView.Light"
+app:cardCornerRadius="20dp"
+android:elevation="3dp"
+android:layout_marginStart="10dp"
+android:layout_marginEnd="10dp"
+    android:layout_marginBottom="10dp"
+android:layout_marginTop="10dp">
+
+<ImageView
+    android:id="@+id/gridImage"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scaleType="centerCrop"
+    android:src="@drawable/love_kind"/>
+
+
+<TextView
+    android:id="@+id/item_name"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="5dp"
-    android:layout_margin="10dp"
-    android:gravity="center">
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white"
-        android:padding="10dp"
-        app:cornerRadius="15dp"
-        android:orientation="vertical"
-        android:layout_margin="10dp">
-    <ImageView
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:scaleType="centerCrop"
-        android:id="@+id/gridImage"/>
-        <RelativeLayout
-            android:gravity="center_vertical"
-            android:layout_gravity="center_horizontal"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+    android:text="Love Kind"
+    android:gravity="bottom"
+    android:textColor="#fff"
+    android:textSize="26sp"
+    style="@style/TextAppearance.AppCompat.Title"
+    android:layout_gravity="bottom"
+    android:layout_marginStart="18dp"
+    android:layout_marginBottom="1dp"/>
+    <androidx.appcompat.widget.AppCompatButton
 
-            <TextView
-                android:id="@+id/item_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="6dp"
-                android:text="Rose"
-                android:textSize="16sp" />
-        <ImageView
-            android:id="@+id/favouritesIcon"
-            android:layout_width="wrap_content"
-            android:layout_toRightOf="@+id/item_name"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:foregroundGravity="center_vertical"
-            android:baselineAlignBottom="true"
-            android:src="@drawable/ic_favorite"
-            android:contentDescription="TODO" />
-        </RelativeLayout>
-    </LinearLayout>
+        android:id="@+id/favouritesIcon2"
+        android:layout_width="30dp"
+        android:gravity="bottom"
+        android:layout_height="30dp"
+        android:layout_gravity="right|bottom"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/ic_favorite_filled"/>
 
-</LinearLayout>
+
+
+</androidx.cardview.widget.CardView>

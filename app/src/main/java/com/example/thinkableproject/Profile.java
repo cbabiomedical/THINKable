@@ -31,7 +31,7 @@ public class Profile extends AppCompatActivity {
     TextView userName;
     FirebaseUser mUser;
     StorageReference storageReference;
-    AppCompatButton calendar;
+    AppCompatButton calendar,aboutApp;
     AppCompatButton myFavourites;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,14 @@ public class Profile extends AppCompatActivity {
         profilePic=findViewById(R.id.picture);
         calendar=findViewById(R.id.cal_reminder);
         myFavourites=findViewById(R.id.favourites);
+        aboutApp=findViewById(R.id.about);
+
+        aboutApp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),AboutApp.class));
+            }
+        });
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -52,7 +60,7 @@ public class Profile extends AppCompatActivity {
         myFavourites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),FavouriteActivity.class);
+                Intent intent=new Intent(getApplicationContext(),MainActivity2.class);
                 startActivity(intent);
             }
         });

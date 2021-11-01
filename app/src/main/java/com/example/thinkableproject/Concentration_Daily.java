@@ -278,7 +278,7 @@ public class Concentration_Daily extends AppCompatActivity {
         games.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),ConcentrationExcercise.class);
+                Intent intent=new Intent(getApplicationContext(), GameActivity.class);
                 startActivity(intent);
             }
         });

@@ -1,50 +1,39 @@
 package com.example.thinkableproject.sample;
 
 public class FavouriteModelClass {
-    public int imageView;
-    public String favName;
-    public int isFave;
-
-    public FavouriteModelClass(int imageView, String favName, int isFave) {
-
-        this.imageView = imageView;
-        this.favName = favName;
-        this.isFave = isFave;
-    }
+    private String item_title;
+    private String key_id;
+    private int item_image;
 
     public FavouriteModelClass() {
     }
 
-    public int getImageView() {
-        return imageView;
+    public FavouriteModelClass(String item_title, String key_id, int item_image) {
+        this.item_title = item_title;
+        this.key_id = key_id;
+        this.item_image = item_image;
     }
 
-    public void setImageView(int imageView) {
-        this.imageView = imageView;
+    public String getItem_title() {
+        return item_title;
     }
 
-    public String getFavName() {
-        return favName;
+    public void setItem_title(String item_title) {
+        this.item_title = item_title;
     }
 
-    public void setFavName(String favName) {
-        this.favName = favName;
+    public String getKey_id() {
+        return key_id;
     }
 
-    public int getIsFave() {
-        return isFave;
+    public void setKey_id(String key_id) {
+        this.key_id = key_id;
     }
 
-    public void setIsFave(int isFave) {
-        this.isFave = isFave;
+    public int getItem_image() {
+        return item_image;
     }
 
-    @Override
-    public String toString() {
-        return "FavouriteModelClass{" +
-                "imageView=" + imageView +
-                ", favName='" + favName + '\'' +
-                ", isFave=" + isFave +
-                '}';
-    }
-}
+    public void setItem_image(int item_image) {
+        this.item_image = item_image;
+    }}

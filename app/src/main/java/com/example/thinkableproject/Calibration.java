@@ -2,10 +2,20 @@ package com.example.thinkableproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.bluetooth.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothGattService;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.IBinder;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ExpandableListView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.github.mikephil.charting.animation.Easing;
@@ -16,12 +26,70 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class Calibration extends AppCompatActivity {
 
     private PieChart pieChart;
+    String action;
+    ImageView connectDevice;
     private TextView textViewcali;
+    private BroadcastReceiver_BTLE_GATT mGattUpdateReceiver;
+    private final static String TAG = Activity_BTLE_Services.class.getSimpleName();
 
+    public static final String EXTRA_NAME = "android.aviles.bletutorial.Activity_BTLE_Services.NAME";
+    public static final String EXTRA_ADDRESS = "android.aviles.bletutorial.Activity_BTLE_Services.ADDRESS";
+
+    private ListAdapter_BTLE_Services expandableListAdapter;
+    private ExpandableListView expandableListView;
+
+    private ArrayList<BluetoothGattService> services_ArrayList;
+    private HashMap<String, BluetoothGattCharacteristic> characteristics_HashMap;
+    private HashMap<String, ArrayList<BluetoothGattCharacteristic>> characteristics_HashMapList;
+
+    private Intent mBTLE_Service_Intent;
+    private Service_BTLE_GATT mBTLE_Service;
+    private boolean mBTLE_Service_Bound;
+
+    private String name;
+    private String address;
+
+    private ServiceConnection mBTLE_ServiceConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className, IBinder service) {
+
+            // We've bound to LocalService, cast the IBinder and get LocalService instance
+            Service_BTLE_GATT.BTLeServiceBinder binder = (Service_BTLE_GATT.BTLeServiceBinder) service;
+            mBTLE_Service = binder.getService();
+            mBTLE_Service_Bound = true;
+
+            if (!mBTLE_Service.initialize()) {
+                Log.e(TAG, "Unable to initialize Bluetooth");
+                finish();
+            }
+
+            mBTLE_Service.connect(address);
+
+            // Automatically connects to the device upon successful start-up initialization.
+//            mBTLeService.connect(mBTLeDeviceAddress);
+
+//            mBluetoothGatt = mBTLeService.getmBluetoothGatt();
+//            mGattUpdateReceiver.setBluetoothGatt(mBluetoothGatt);
+//            mGattUpdateReceiver.setBTLeService(mBTLeService);
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+            mBTLE_Service = null;
+            mBTLE_Service_Bound = false;
+
+//            mBluetoothGatt = null;
+//            mGattUpdateReceiver.setBluetoothGatt(null);
+//            mGattUpdateReceiver.setBTLeService(null);
+        }
+    };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +98,43 @@ public class Calibration extends AppCompatActivity {
 
         pieChart = findViewById(R.id.piechart);
         textViewcali = findViewById(R.id.textViewcali);
+        connectDevice=findViewById(R.id.imageView7);
+
+        connectDevice.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),Connection.class));
+            }
+        });
+        Intent intent = getIntent();
+
+
+        name = intent.getStringExtra(Activity_BTLE_Services.EXTRA_NAME);
+        address = intent.getStringExtra(Activity_BTLE_Services.EXTRA_ADDRESS);
+
+        services_ArrayList = new ArrayList<>();
+        characteristics_HashMap = new HashMap<>();
+        characteristics_HashMapList = new HashMap<>();
+
+//        expandableListAdapter = new ListAdapter_BTLE_Services(
+//                this, services_ArrayList, characteristics_HashMapList);
+//
+//        expandableListView = (ExpandableListView) findViewById(R.id.lv_expandable);
+//        expandableListView.setAdapter(expandableListAdapter);
+
+        pieChart = findViewById(R.id.piechart);
+        textViewcali = findViewById(R.id.textViewcali);
+
+//
+
+        pieChart = findViewById(R.id.piechart);
+        textViewcali = findViewById(R.id.textViewcali);
+        setupTextView();
+        setupPieChart();
+        loadPieChartData();
+
+        mGattUpdateReceiver = new BroadcastReceiver_BTLE_GATT(this);
+        ;
 
 //
 
@@ -125,6 +230,72 @@ public class Calibration extends AppCompatActivity {
             textViewcali.setText("Your Device is not Connected");
         }
     }
+    public void updateServices() {
 
+        if (mBTLE_Service != null) {
+
+            services_ArrayList.clear();
+            characteristics_HashMap.clear();
+            characteristics_HashMapList.clear();
+
+            List<BluetoothGattService> servicesList = mBTLE_Service.getSupportedGattServices();
+
+            for (BluetoothGattService service : servicesList) {
+
+                services_ArrayList.add(service);
+
+                List<BluetoothGattCharacteristic> characteristicsList = service.getCharacteristics();
+                ArrayList<BluetoothGattCharacteristic> newCharacteristicsList = new ArrayList<>();
+
+                for (BluetoothGattCharacteristic characteristic: characteristicsList) {
+                    characteristics_HashMap.put(characteristic.getUuid().toString(), characteristic);
+                    newCharacteristicsList.add(characteristic);
+                }
+
+                characteristics_HashMapList.put(service.getUuid().toString(), newCharacteristicsList);
+            }
+
+            if (servicesList != null && servicesList.size() > 0) {
+//                expandableListAdapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+    public void updateCharacteristic() {
+//        expandableListAdapter.notifyDataSetChanged();
+    }
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+        mGattUpdateReceiver = new BroadcastReceiver_BTLE_GATT(this);
+        registerReceiver(mGattUpdateReceiver, Utils.makeGattUpdateIntentFilter());
+
+        mBTLE_Service_Intent = new Intent(this, Service_BTLE_GATT.class);
+        bindService(mBTLE_Service_Intent, mBTLE_ServiceConnection, Context.BIND_AUTO_CREATE);
+        startService(mBTLE_Service_Intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        unregisterReceiver(mGattUpdateReceiver);
+        unbindService(mBTLE_ServiceConnection);
+        mBTLE_Service_Intent = null;
+    }
 
 }
+
+
+

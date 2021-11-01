@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+<!--    <style name="Widget.App.AboutPage" parent=".AboutApp">-->
+<!--        <item name="aboutBackground">#ffffff</item>-->
+<!--        <item name="aboutElementIconTint">#333333</item>-->
+<!--        <item name="aboutSeparatorColor">#999999</item>-->
+<!--        <item name="aboutDescriptionTextAppearance">@style/TextAppearance.App.AboutPage.Description</item>-->
+
+<!--        &lt;!&ndash; similarly, you can also apply the following text appearances &ndash;&gt;-->
+<!--        <item name="aboutElementTextAppearance">@style/about_elementTextAppearance.Dark</item>-->
+<!--        <item name="aboutGroupTextAppearance">@style/about_groupTextAppearance</item>-->
+<!--    </style>-->
+
+<!--    <style name="TextAppearance.App.AboutPage.Description" parent="about_descriptionTextAppearance.Dark">-->
+<!--        <item name="android:textStyle">bold|italic</item>-->
+<!--    </style>-->
+</resources>
