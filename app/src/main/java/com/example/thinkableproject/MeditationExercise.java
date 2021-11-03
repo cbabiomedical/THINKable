@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.LinearLayout;
@@ -29,7 +30,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MeditationExercise extends AppCompatActivity {
+public class MeditationExercise extends AppCompatActivity implements MeditationAdapter.OnNoteListner{
     RecyclerView recyclerView;
     LinearLayout linearLayoutManager;
     ArrayList<MeditationModelClass> meditationList;
@@ -52,13 +53,13 @@ public class MeditationExercise extends AppCompatActivity {
     private void initData() {
         meditationList = new ArrayList<>();
 //        Adding user preferences to arraylist
-        meditationList.add(new MeditationModelClass( "Mindfulness",R.drawable.mindful, "0","0"));
-        meditationList.add(new MeditationModelClass( "Body Scan",R.drawable.maxresdefault, "1","0"));
-        meditationList.add(new MeditationModelClass( "Loving", R.drawable.love_kind,"2","0"));
-        meditationList.add(new MeditationModelClass( "transcendental ",R.drawable.transidental,"3","0"));
+        meditationList.add(new MeditationModelClass( "Mindfulness",R.drawable.mindful, "0","https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c","0"));
+        meditationList.add(new MeditationModelClass( "Body Scan",R.drawable.maxresdefault, "1","https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c","0"));
+        meditationList.add(new MeditationModelClass( "Loving", R.drawable.love_kind,"2","https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c","0"));
+        meditationList.add(new MeditationModelClass( "Transcendental ",R.drawable.transidental,"3","https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c","0"));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                        adapter = new MeditationAdapter(meditationList,getApplicationContext());
+                        adapter = new MeditationAdapter(meditationList,getApplicationContext(),this::onNoteClick);
                         recyclerView.setAdapter(adapter);
 
 //        RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -96,4 +97,13 @@ public class MeditationExercise extends AppCompatActivity {
     }
 
 
+    @Override
+    public void onNoteClick(int position) {
+        meditationList.get(position);
+        String songName=meditationList.get(position).getMeditationName();
+        String url=meditationList.get(position).getUrl();
+        int image=meditationList.get(position).getImageView();
+        Log.d("Url",url);
+        startActivity(new Intent(getApplicationContext(),PlayMeditation.class).putExtra("url",url).putExtra("name",songName).putExtra("image",image));
+    }
 }

@@ -64,12 +64,12 @@ ble.setOnClickListener(new View.OnClickListener() {
     });
 
         storageReference = FirebaseStorage.getInstance().getReference().child(mUser.getUid());
-        uploadFile.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                uploadFileD();
-            }
-        });
+//        uploadFile.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                uploadFileD();
+//            }
+//        });
         concentrationLanding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

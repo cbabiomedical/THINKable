@@ -53,9 +53,13 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
         recyclerView = findViewById(R.id.recycler_view);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
-
-//        musicList.add(new MusicModelClass(R.drawable.music1,"Chilled Acoustic","0","https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/chilled-acoustic-indie-folk-instrumental-background-music-for-videos-5720.mp3?alt=media&token=c61afc5b-1833-47a0-af5c-645872eae852"));
-//        musicList.add(new MusicModelClass(R.drawable.music1,"Melody Of Nature","1","https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c"));
+        musicList=new ArrayList<>();
+//        musicList.add(new MusicModelClass(R.drawable.music1,"Chilled Acoustic","1","https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/chilled-acoustic-indie-folk-instrumental-background-music-for-videos-5720.mp3?alt=media&token=c61afc5b-1833-47a0-af5c-645872eae852"));
+//        musicList.add(new MusicModelClass(R.drawable.music1,"Melody Of Nature","2","https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c"));
+//        HashMap<String,Object> songs=new HashMap<>();
+//        songs.put("songList",musicList);
+//        DatabaseReference reference=FirebaseDatabase.getInstance().getReference("Music");
+//        reference.setValue(songs);
 
 
 
@@ -65,7 +69,7 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
     }
 
     private void initData() {
-    musicList=new ArrayList<>();
+
         DatabaseReference reference=FirebaseDatabase.getInstance().getReference("Music").child("songList");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -102,6 +106,6 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
         String url=musicList.get(position).getUrl();
         int image=musicList.get(position).getImageView();
         Log.d("Url",url);
-        startActivity(new Intent(getApplicationContext(),MusicPlayer.class).putExtra("url",url).putExtra("name",songName).putExtra("image",image));
+        startActivity(new Intent(getApplicationContext(),MusicPlayer.class).putExtra("url",url).putExtra("name",songName).putExtra("image",image).putExtra("pos",position));
     }
 }

@@ -45,7 +45,7 @@
     <string name="weekly">Weekly</string>
     <string name="monthly">Monthly</string>
     <string name="yearly">Yearly</string>
-    <string name="zero">zero</string>
+    <string name="zero">0:00</string>
     <string name="title_activity_maps">MapsActivity</string>
     <string name="title_activity_retrieve_maps">RetrieveMapsActivity</string>
     <!--    <string name="default_web_client_id" translatable="false">417444273764-8063e4mavdbkqmlvhp1o10gb2snomk67.apps.googleusercontent.com</string>-->

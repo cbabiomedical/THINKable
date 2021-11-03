@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/onemin"
+        android:title="1 min" />
+    <item
+        android:id="@+id/onehalfmin"
+        android:title="1.5 min" />
+    <item
+        android:id="@+id/twomin"
+        android:title="2 min" />
+    <item
+        android:id="@+id/twohalfmin"
+        android:title="2.5 min" />
+</menu>

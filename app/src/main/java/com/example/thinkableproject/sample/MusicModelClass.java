@@ -25,6 +25,7 @@ public class MusicModelClass {
         this.url = url;
     }
 
+
     public int getImageView() {
         return imageView;
     }
@@ -63,5 +64,16 @@ public class MusicModelClass {
 
     public void setIsFav(String isFav) {
         this.isFav = isFav;
+    }
+
+    @Override
+    public String toString() {
+        return "MusicModelClass{" +
+                "imageView=" + imageView +
+                ", songName='" + songName + '\'' +
+                ", id='" + id + '\'' +
+                ", url='" + url + '\'' +
+                ", isFav='" + isFav + '\'' +
+                '}';
     }
 }

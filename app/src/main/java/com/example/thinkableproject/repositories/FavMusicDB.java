@@ -10,7 +10,7 @@ import android.util.Log;
 public class FavMusicDB extends SQLiteOpenHelper {
 
     private static int DB_VERSIONMUS = 1;
-    private static String DATABASE_NAMEMUS = "CoffeeDB";
+    private static String DATABASE_NAMEMUS = "MusicDB";
     private static String TABLE_NAMEMUS = "favoriteTable";
     public static String KEY_IDMUS = "id";
     public static String ITEM_TITLEMUS = "itemTitle";
