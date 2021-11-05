@@ -1,9 +1,12 @@
 package com.example.thinkableproject.adapters;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thinkableproject.R;
@@ -58,6 +62,12 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
         readCursorDataMed(coffeeItem, holder);
         holder.imageView.setImageResource(coffeeItem.getImageView());
         holder.titleTextView.setText(coffeeItem.getMeditationName());
+        holder.download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                downloadFile(context,coffeeItems.get(position).getMeditationName(),".mp3", Environment.DIRECTORY_DOWNLOADS,coffeeItems.get(position).getUrl());
+            }
+        });
     }
 
 
@@ -72,6 +82,7 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
         TextView titleTextView, likeCountTextView;
         Button favBtn;
         OnNoteListner onNoteListner;
+        AppCompatButton download;
 
         public ViewHolder(@NonNull View itemView,OnNoteListner onNoteListner) {
             super(itemView);
@@ -79,6 +90,7 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
             imageView = itemView.findViewById(R.id.gridImage);
             titleTextView = itemView.findViewById(R.id.item_name);
             favBtn = itemView.findViewById(R.id.favouritesIcon2);
+            download=itemView.findViewById(R.id.download);
             this.onNoteListner=onNoteListner;
             itemView.setOnClickListener(this);
 
@@ -141,6 +153,19 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
         }
 
     }
+    public void downloadFile(Context context, String fileName, String fileExtension, String destinationDirectory, String url) {
+
+        DownloadManager downloadmanager = (DownloadManager) context.
+                getSystemService(Context.DOWNLOAD_SERVICE);
+        Uri uri = Uri.parse(url);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalFilesDir(context, destinationDirectory, fileName + fileExtension);
+
+        downloadmanager.enqueue(request);
+    }
+
     public interface OnNoteListner{
         void onNoteClick(int position);
     }

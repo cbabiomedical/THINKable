@@ -1,9 +1,11 @@
 package com.example.thinkableproject.adapters;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -27,6 +29,7 @@ import com.example.thinkableproject.sample.MusicModelClass;
 import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
+import static android.os.Environment.DIRECTORY_DOWNLOADS;
 
 public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> {
     private ArrayList<MusicModelClass> musicList;
@@ -64,9 +67,12 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
         readCursorDataMed(coffeeItem, holder);
         holder.imageView.setImageResource(musicList.get(position).getImageView());
         holder.title.setText(musicList.get(position).getSongName());
-        String[] time= new String[]{"1 min","1.5 min","2 min","2.5 min","3 min"};
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(context, android.R.layout.simple_spinner_item, time);
-
+       holder.download.setOnClickListener(new View.OnClickListener() {
+           @Override
+           public void onClick(View v) {
+               downloadFile(context,musicList.get(position).getSongName(),".mp3",DIRECTORY_DOWNLOADS,musicList.get(position).getUrl());
+           }
+       });
     }
 
     @Override
@@ -194,9 +200,25 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
         }
 
     }
+    public void downloadFile(Context context, String fileName, String fileExtension, String destinationDirectory, String url) {
+
+        DownloadManager downloadmanager = (DownloadManager) context.
+                getSystemService(Context.DOWNLOAD_SERVICE);
+        Uri uri = Uri.parse(url);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalFilesDir(context, destinationDirectory, fileName + fileExtension);
+
+        downloadmanager.enqueue(request);
+    }
+
+
 
 
     public interface OnNoteListner{
         void onNoteClick(int position);
     }
+
+
 }

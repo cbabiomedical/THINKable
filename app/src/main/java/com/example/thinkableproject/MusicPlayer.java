@@ -50,6 +50,7 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
     ImageView imageView;
     String uri;
     String name;
+    int time;
     String music_title;
 
     public static final String EXTRA_NAME = "songName";
@@ -99,9 +100,8 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             uri = extras.getString("url");
-//            time_selected = extras.getString("time");
             name = extras.getString("name");
-//            time = Integer.parseInt(time_selected);
+            time = extras.getInt("time");
             txtsongName.setText(name);
 //            image=extras.getInt("image");
 //            linearLayout.setBackgroundResource(image);
@@ -143,7 +143,7 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
 
                     int totalDuration = mediaPlayer.getDuration();
                     int currentPosition = 0;
-                    while (currentPosition < totalDuration) {
+                    while (currentPosition < time) {
                         try {
                             sleep(500);
                             currentPosition = mediaPlayer.getCurrentPosition();
@@ -154,12 +154,18 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
                         } catch (InterruptedException | IllegalStateException e) {
                             e.printStackTrace();
                         }
+                        if (currentPosition > time) {
+                            mediaPlayer.stop();
+                            startActivity(new Intent(getApplicationContext(),Music.class));
+                        }
                     }
 
-                }
+
+
+                    }
             };
 
-            seekBar.setMax(mediaPlayer.getDuration());
+            seekBar.setMax(time);
             updateSeekBar.start();
             seekBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
             seekBar.getThumb().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_IN);
@@ -180,7 +186,7 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
                 }
             });
 
-            String endTime=millisecondsToTimer(mediaPlayer.getDuration());
+            String endTime=millisecondsToTimer(time);
             txtStop.setText(endTime);
 //            int noOfRuns = time / mediaPlayer.getDuration();
 
