@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         if(item.getItemId() == R.id.wallet) {
             Toast.makeText(this, "user Prof.", Toast.LENGTH_SHORT).show();
+            startActivity(new Intent(getApplicationContext(), ResultActivity.class));
         }
         return super.onOptionsItemSelected(item);
     }
