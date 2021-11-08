@@ -36,7 +36,7 @@ public class Meditation extends AppCompatActivity {
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.userprofiles:
-                        startActivity(new Intent(getApplicationContext(), UserProfile1.class));
+                        startActivity(new Intent(getApplicationContext(), ResultActivity.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.settings:

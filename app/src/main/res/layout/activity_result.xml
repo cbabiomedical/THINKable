@@ -121,18 +121,18 @@
         app:layout_constraintStart_toEndOf="@+id/shareBtn"
         app:layout_constraintTop_toBottomOf="@+id/earnedCoins" />
 
-    <Button
-        android:id="@+id/leaderboard"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="88dp"
-        android:background="@drawable/button_1"
-        android:text="LeaderBoard"
-        android:textColor="@color/color_white"
-        app:layout_constraintEnd_toEndOf="@+id/restartBtn"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/shareBtn"
-        app:layout_constraintTop_toBottomOf="@+id/earnedCoins" />
+<!--    <Button-->
+<!--        android:id="@+id/leaderboard"-->
+<!--        android:layout_width="0dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginTop="88dp"-->
+<!--        android:background="@drawable/button_1"-->
+<!--        android:text="LeaderBoard"-->
+<!--        android:textColor="@color/color_white"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/restartBtn"-->
+<!--        app:layout_constraintHorizontal_bias="1.0"-->
+<!--        app:layout_constraintStart_toStartOf="@+id/shareBtn"-->
+<!--        app:layout_constraintTop_toBottomOf="@+id/earnedCoins" />-->
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
@@ -144,7 +144,6 @@
         app:itemTextColor="@drawable/selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/leaderboard"
         app:layout_constraintVertical_bias="1.0"
         app:menu="@menu/menu_navigation" />
 </androidx.constraintlayout.widget.ConstraintLayout>
