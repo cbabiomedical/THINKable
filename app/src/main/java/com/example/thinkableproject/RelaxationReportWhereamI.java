@@ -1244,23 +1244,6 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
             //Downloading file and displaying chart4aa
         }, delay4r);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     }
 
     public void concq(View view) {

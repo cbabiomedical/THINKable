@@ -324,8 +324,30 @@ public class Concentration_Weekly extends AppCompatActivity {
 
         //popup window method to provide suggestions for improve concentration
     public void gotoPopup3(View view) {
-        ImageView cancelcon;
+        ImageView cancelcon, games, music1;
+
+
         dialogcw.setContentView(R.layout.activity_concentration_popup);
+
+        games = (ImageView) dialogcw.findViewById(R.id.games);
+        music1 = (ImageView) dialogcw.findViewById(R.id.music1);
+
+        games.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), GameActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        music1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Music.class);
+                startActivity(intent);
+            }
+        });
+
         cancelcon = (ImageView) dialogcw.findViewById(R.id.cancelcon);
         cancelcon.setOnClickListener(new View.OnClickListener() {
             @Override

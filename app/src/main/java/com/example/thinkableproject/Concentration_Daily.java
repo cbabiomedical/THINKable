@@ -46,17 +46,19 @@ public class Concentration_Daily extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_concentration__daily);
+        setContentView(R.layout.activity_concentration_popup);
         barChartdaily = (BarChart) findViewById(R.id.barChartDaily);
         monthly = findViewById(R.id.monthly);
         games=findViewById(R.id.game);
         yearly = findViewById(R.id.yearly);
         weekly = findViewById(R.id.weekly);
-        music=findViewById(R.id.music);
+        music= findViewById(R.id.music);
         realTime = findViewById(R.id.realTime);
         relaxationBtn = findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
         dialogcd = new Dialog(this);
         memory=findViewById(R.id.memory);
+
 
 
         memory.setOnClickListener(new View.OnClickListener() {
@@ -314,8 +316,30 @@ public class Concentration_Daily extends AppCompatActivity {
 //        Intent intentgp1 = new Intent(Concentration_Daily.this, Concentration_popup.class);
 //
 //        startActivity(intentgp1);
-        ImageView cancelcon;
+        ImageView cancelcon, games, music1;
+
+
         dialogcd.setContentView(R.layout.activity_concentration_popup);
+
+        games = (ImageView) dialogcd.findViewById(R.id.games);
+        music1 = (ImageView) dialogcd.findViewById(R.id.music1);
+
+        games.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), GameActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        music1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Music.class);
+                startActivity(intent);
+            }
+        });
+
         cancelcon = (ImageView) dialogcd.findViewById(R.id.cancelcon);
         cancelcon.setOnClickListener(new View.OnClickListener() {
             @Override

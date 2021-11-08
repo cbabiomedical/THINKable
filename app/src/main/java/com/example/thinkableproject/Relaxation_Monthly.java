@@ -360,8 +360,55 @@ public class Relaxation_Monthly extends AppCompatActivity {
 
     //improve relaxation pop up window
     public void gotoPopup6(View view) {
-        ImageView imageViewcancle;
+        ImageView imageViewcancle, imageViewmed, imageViewsong, imageViewvdo, imageViewbw, imageViewit;
+
         dialogrm.setContentView(R.layout.activity_relaxation_popup);
+
+        imageViewmed = (ImageView) dialogrm.findViewById(R.id.imageViewmed);
+        imageViewmed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MeditationExercise.class);
+                startActivity(intent);
+            }
+        });
+
+        imageViewsong = (ImageView) dialogrm.findViewById(R.id.imageViewsong);
+        imageViewsong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Music.class);
+                startActivity(intent);
+            }
+        });
+
+        imageViewvdo = (ImageView) dialogrm.findViewById(R.id.imageViewvdo);
+        imageViewvdo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Video.class);
+                startActivity(intent);
+            }
+        });
+
+        imageViewbw = (ImageView) dialogrm.findViewById(R.id.imageViewbw);
+        imageViewbw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), BineuralAcivity.class);
+                startActivity(intent);
+            }
+        });
+
+        imageViewit = (ImageView) dialogrm.findViewById(R.id.imageViewit);
+        imageViewit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), IsochronicTones.class);
+                startActivity(intent);
+            }
+        });
+
         imageViewcancle = (ImageView) dialogrm.findViewById(R.id.imageViewcancle);
         imageViewcancle.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -369,6 +416,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
                 dialogrm.dismiss();
             }
         });
+
         dialogrm.show();
     }
 

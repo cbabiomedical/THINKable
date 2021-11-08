@@ -62,7 +62,7 @@ public class Relaxation_Daily extends AppCompatActivity {
     String text;
     File localFile;
     File fileName;
-    ImageButton concentration, music, meditation, video,memoryBtn;
+    ImageButton concentration, music, meditation, video, memoryBtn;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
 
@@ -359,8 +359,55 @@ public class Relaxation_Daily extends AppCompatActivity {
 
     //improve relaxation pop up window
     public void gotoPopup5(View view) {
-        ImageView imageViewcancle,imageViewBineural;
+        ImageView imageViewcancle, imageViewmed, imageViewsong, imageViewvdo, imageViewbw, imageViewit;
+
         dialogrd.setContentView(R.layout.activity_relaxation_popup);
+
+        imageViewmed = (ImageView) dialogrd.findViewById(R.id.imageViewmed);
+        imageViewmed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MeditationExercise.class);
+                startActivity(intent);
+            }
+        });
+
+        imageViewsong = (ImageView) dialogrd.findViewById(R.id.imageViewsong);
+        imageViewsong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Music.class);
+                startActivity(intent);
+            }
+        });
+
+        imageViewvdo = (ImageView) dialogrd.findViewById(R.id.imageViewvdo);
+        imageViewvdo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Video.class);
+                startActivity(intent);
+            }
+        });
+
+        imageViewbw = (ImageView) dialogrd.findViewById(R.id.imageViewbw);
+        imageViewbw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), BineuralAcivity.class);
+                startActivity(intent);
+            }
+        });
+
+        imageViewit = (ImageView) dialogrd.findViewById(R.id.imageViewit);
+        imageViewit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), IsochronicTones.class);
+                startActivity(intent);
+            }
+        });
+
         imageViewcancle = (ImageView) dialogrd.findViewById(R.id.imageViewcancle);
         imageViewcancle.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -368,13 +415,7 @@ public class Relaxation_Daily extends AppCompatActivity {
                 dialogrd.dismiss();
             }
         });
-        imageViewBineural=findViewById(R.id.imageViewbw);
-//        imageViewBineural.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                startActivity(new Intent(getApplicationContext(),BineuralAcivity.class));
-//            }
-//        });
+
         dialogrd.show();
     }
 

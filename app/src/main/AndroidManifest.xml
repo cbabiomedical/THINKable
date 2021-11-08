@@ -25,7 +25,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThinkableProject"
         android:usesCleartextTraffic="true">
-        <activity android:name=".PlayMeditation"></activity>
+        <activity
+            android:name=".IsochronicTones"
+            android:exported="false" />
+        <activity android:name=".PlayMeditation" />
         <activity
             android:name=".SpinnerActivity"
             android:exported="false" />
@@ -61,7 +64,6 @@
         <activity android:name=".BineuralAcivity" /> <!-- <meta-data -->
         <!-- android:name="com.google.android.geo.API_KEY" -->
         <!-- android:value="@string/google_maps_key" /> -->
-        <activity android:name=".ConcentrationReportMemoryDaily" />
         <activity android:name=".MusicPlayer" />
         <activity android:name=".concentration_music" />
         <activity android:name=".Notification1" />
@@ -74,9 +76,7 @@
         <activity android:name=".ConcentrationReportMonthly" />
         <activity android:name=".ConcentrationReportWeekly" />
         <activity android:name=".ConcentrationReportDaily" />
-        <activity android:name=".ConcentrationMemory" />
-        <activity android:name=".ConcentrationExcercise" />
-        <activity android:name=".MusicPlayer" />
+<!--        <activity android:name=".MusicPlayer" />-->
         <activity android:name=".MainActivity2" />
         <activity android:name=".GameActivity" />
         <activity android:name=".MeditationExercise" />
@@ -122,7 +122,7 @@
         <activity android:name=".Concentration_Daily" />
         <activity android:name=".FavouriteActivity" />
         <activity android:name=".Calendar_Reminder" />
-       <activity android:name=".AboutApp"/>
+        <activity android:name=".AboutApp" />
         <activity
             android:name=".UserProfile1"
             android:exported="true" />

@@ -321,8 +321,32 @@ public class Concentration_Monthly extends AppCompatActivity {
     }
     //popup window method to display suggestions to improve concentration
     public void gotoPopup2(View view) {
-        ImageView cancelcon;
+
+
+        ImageView cancelcon, games, music1;
+
+
         dialogcm.setContentView(R.layout.activity_concentration_popup);
+
+        games = (ImageView) dialogcm.findViewById(R.id.games);
+        music1 = (ImageView) dialogcm.findViewById(R.id.music1);
+
+        games.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), GameActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        music1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Music.class);
+                startActivity(intent);
+            }
+        });
+
         cancelcon = (ImageView) dialogcm.findViewById(R.id.cancelcon);
         cancelcon.setOnClickListener(new View.OnClickListener() {
             @Override
