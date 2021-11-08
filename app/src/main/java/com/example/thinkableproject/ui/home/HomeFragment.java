@@ -24,7 +24,7 @@ import java.util.List;
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
     private FavDB favDB;
-    private List<FavouriteModelClass> favItemList = new ArrayList<>();
+    private ArrayList<FavouriteModelClass> favItemList = new ArrayList<>();
     private FavouriteAdapter favAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,

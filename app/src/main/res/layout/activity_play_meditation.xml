@@ -5,7 +5,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bgplayer"
+    android:background="@drawable/medb"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:weightSum="10"
@@ -87,6 +87,7 @@
                 android:id="@+id/playBtn"
                 android:layout_centerHorizontal="true"
                 android:background="@drawable/ic_baseline_pause_24"/>
+
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/fForward"

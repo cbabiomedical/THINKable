@@ -1,9 +1,12 @@
 package com.example.thinkableproject.adapters;
 
+import android.app.DownloadManager;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,32 +18,23 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.request.RequestOptions;
 import com.example.thinkableproject.R;
 import com.example.thinkableproject.repositories.FavMeditationDB;
-import com.example.thinkableproject.sample.FavouriteModelClass;
-import com.example.thinkableproject.sample.GameModelClass;
+
 import com.example.thinkableproject.sample.MeditationModelClass;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
 
 public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.ViewHolder> {
     private ArrayList<MeditationModelClass> coffeeItems;
     private Context context;
+   OnNoteListner onNoteListner;
     private FavMeditationDB favDB;
 
-    public MeditationAdapter(ArrayList<MeditationModelClass> coffeeItems, Context context) {
+    public MeditationAdapter(ArrayList<MeditationModelClass> coffeeItems, Context context, OnNoteListner onNoteListner) {
         this.coffeeItems = coffeeItems;
         this.context = context;
+        this.onNoteListner=onNoteListner;
     }
 
     @NonNull
@@ -56,7 +50,7 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item_meditation,
                 parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view,onNoteListner);
     }
 
 
@@ -68,6 +62,12 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
         readCursorDataMed(coffeeItem, holder);
         holder.imageView.setImageResource(coffeeItem.getImageView());
         holder.titleTextView.setText(coffeeItem.getMeditationName());
+        holder.download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                downloadFile(context,coffeeItems.get(position).getMeditationName(),".mp3", Environment.DIRECTORY_DOWNLOADS,coffeeItems.get(position).getUrl());
+            }
+        });
     }
 
 
@@ -76,18 +76,24 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
         return coffeeItems.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView imageView;
         TextView titleTextView, likeCountTextView;
         Button favBtn;
+        OnNoteListner onNoteListner;
+        AppCompatButton download;
 
-        public ViewHolder(@NonNull View itemView) {
+        public ViewHolder(@NonNull View itemView,OnNoteListner onNoteListner) {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.gridImage);
             titleTextView = itemView.findViewById(R.id.item_name);
             favBtn = itemView.findViewById(R.id.favouritesIcon2);
+            download=itemView.findViewById(R.id.download);
+            this.onNoteListner=onNoteListner;
+            itemView.setOnClickListener(this);
+
 
 
             //add to fav btn
@@ -108,6 +114,11 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
                 }
 
             });
+        }
+
+        @Override
+        public void onClick(View v) {
+            onNoteListner.onNoteClick(getAdapterPosition());
         }
     }
 
@@ -141,6 +152,22 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
             db.close();
         }
 
+    }
+    public void downloadFile(Context context, String fileName, String fileExtension, String destinationDirectory, String url) {
+
+        DownloadManager downloadmanager = (DownloadManager) context.
+                getSystemService(Context.DOWNLOAD_SERVICE);
+        Uri uri = Uri.parse(url);
+        DownloadManager.Request request = new DownloadManager.Request(uri);
+
+        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
+        request.setDestinationInExternalFilesDir(context, destinationDirectory, fileName + fileExtension);
+
+        downloadmanager.enqueue(request);
+    }
+
+    public interface OnNoteListner{
+        void onNoteClick(int position);
     }
 
     // like click
