@@ -25,6 +25,11 @@ public class MusicModelClass {
         this.url = url;
     }
 
+    public MusicModelClass(int imageView, String songName) {
+        this.imageView=imageView;
+        this.songName=songName;
+    }
+
 
     public int getImageView() {
         return imageView;

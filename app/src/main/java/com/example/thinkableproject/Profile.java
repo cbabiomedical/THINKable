@@ -32,7 +32,7 @@ public class Profile extends AppCompatActivity {
     FirebaseUser mUser;
     StorageReference storageReference;
     AppCompatButton calendar,aboutApp;
-    AppCompatButton myFavourites;
+    AppCompatButton myFavourites,myDownloads;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +43,7 @@ public class Profile extends AppCompatActivity {
         calendar=findViewById(R.id.cal_reminder);
         myFavourites=findViewById(R.id.favourites);
         aboutApp=findViewById(R.id.about);
+        myDownloads=findViewById(R.id.downloads);
 
         aboutApp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +90,12 @@ public class Profile extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intentcalen =new Intent(getApplicationContext(),Calendar_Reminder.class);
                 startActivity(intentcalen);
+            }
+        });
+        myDownloads.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),MyDownloads.class));
             }
         });
     }

@@ -14,6 +14,72 @@
         android:layout_height="match_parent"
         android:gravity="center"
         >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <TextView
+            android:id="@+id/musicTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Music"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:textColor="@color/white"
+            android:textSize="28sp"
+
+            />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/musicRecyclerView"
+                android:layout_below="@+id/musicTitle"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/meditationTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="Meditation"
+                android:layout_below="@id/musicRecyclerView"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/meditationRecyclerView"
+                android:layout_below="@+id/meditationTitle"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/gameTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="Games"
+                android:layout_below="@id/meditationRecyclerView"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:textSize="28sp"
+                />
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/gamesRecyclerView"
+                android:layout_below="@+id/gameTitle"
+                android:layout_marginTop="20dp"
+                android:layout_width="match_parent"
+                android:layout_marginBottom="100dp"
+                android:layout_height="wrap_content"/>
+
+
+
+
+        </RelativeLayout>
 
     </ScrollView>
     <com.google.android.material.bottomnavigation.BottomNavigationView

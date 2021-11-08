@@ -59,7 +59,7 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
         meditationList.add(new MeditationModelClass( "Transcendental ",R.drawable.transidental,"3","https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c","0"));
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                        adapter = new MeditationAdapter(meditationList,getApplicationContext(),this::onNoteClick);
+                        adapter = new MeditationAdapter(meditationList,getApplicationContext(),this::onNoteClickMeditation);
                         recyclerView.setAdapter(adapter);
 
 //        RequestQueue requestQueue = Volley.newRequestQueue(this);
@@ -98,7 +98,7 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
 
 
     @Override
-    public void onNoteClick(int position) {
+    public void onNoteClickMeditation(int position) {
         meditationList.get(position);
         String songName=meditationList.get(position).getMeditationName();
         String url=meditationList.get(position).getUrl();

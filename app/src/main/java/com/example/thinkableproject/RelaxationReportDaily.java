@@ -131,6 +131,12 @@ public class RelaxationReportDaily extends AppCompatActivity {
                 startActivity(intentr1);
             }
         });
+        memoryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),MemoryReportDaily.class));
+            }
+        });
 
         //go to concentration daily landing page
         concentration.setOnClickListener(new View.OnClickListener() {
