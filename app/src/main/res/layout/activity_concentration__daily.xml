@@ -50,8 +50,6 @@
                     android:elevation="5dp"
                     android:src="@drawable/relax" />
 
-
-
                 <ImageButton
                     android:id="@+id/concentration"
                     android:layout_width="110dp"
