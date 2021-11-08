@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.ScatterChart;
@@ -49,6 +50,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
     AppCompatButton progressConcentration;
     File fileName,fileNamea,fileNamem,fileNamea2,fileNamen,fileNamea3,fileNameo,fileNamea4;
     FirebaseUser mUser;
+    ImageButton relaxationBtn, memory;
     File localFile,localFilea,localFilem,localFilea2,localFilen,localFilea3,localFileo,localFile4a;
     String text,texta,textm,texta2,textn,texta3,texto,text4a;
 
@@ -84,12 +86,29 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
     private ScatterChart chart,chart1,chart2,chart3;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_concentration_report_wheream_i);
         progressConcentration=findViewById(R.id.progresscon);
+        relaxationBtn = findViewById(R.id.relaxation);
+        memory=findViewById(R.id.memory);
+
+        memory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(), MemoryReportDaily.class);
+                startActivity(intent);
+            }
+        });
+
+        relaxationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), RelaxationReportWeekly.class);
+                startActivity(intent);
+            }
+        });
 
         //Initialize bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);

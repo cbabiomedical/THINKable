@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.ScatterChart;
@@ -84,13 +85,31 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
 
     private ScatterChart chart4aa, chart5, chart6, chart7;
 
-
+    ImageButton concentration, memory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relaxation_report_wheream_i);
         relaxationProgress=findViewById(R.id.progressrel);
+        memory = findViewById(R.id.memory);
+        concentration = findViewById(R.id.concentration);
+
+        memory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(), MemoryReportDaily.class);
+                startActivity(intent);
+            }
+        });
+
+        concentration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), ConcentrationReportWeekly.class);
+                startActivity(intent);
+            }
+        });
 
         //Initialize bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);

@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.ScatterChart;
@@ -52,6 +53,7 @@ public class MemoryWhereAmI extends AppCompatActivity {
     FirebaseUser mUser;
     File localFile,localFilea,localFilem,localFilea2,localFilen,localFilea3,localFileo,localFile4a;
     String text,texta,textm,texta2,textn,texta3,texto,text4a;
+    ImageButton relaxationBtn,concentrationBtn;
 
     //for chart 1
     ArrayList<String> list = new ArrayList<>();
@@ -91,6 +93,24 @@ public class MemoryWhereAmI extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memory_where_am_i);
         progressConcentration=findViewById(R.id.progresscon);
+
+        relaxationBtn = findViewById(R.id.relaxation);
+        concentrationBtn = findViewById(R.id.concentration);
+
+        relaxationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), RelaxationReportYearly.class);
+                startActivity(intent);
+            }
+        });
+
+        concentrationBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),ConcentrationReportYearly.class));
+            }
+        });
 
         //Initialize bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
