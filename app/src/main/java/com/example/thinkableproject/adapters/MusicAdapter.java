@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -21,11 +22,18 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thinkableproject.R;
+import com.example.thinkableproject.repositories.DownloadMusic;
 import com.example.thinkableproject.repositories.FavMeditationDB;
 import com.example.thinkableproject.repositories.FavMusicDB;
+import com.example.thinkableproject.sample.DownloadMusicModelClass;
 import com.example.thinkableproject.sample.MeditationModelClass;
 import com.example.thinkableproject.sample.MusicModelClass;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import static android.content.ContentValues.TAG;
@@ -36,13 +44,28 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
     private Context context;
     private OnNoteListner onNoteListner;
     private FavMusicDB favDB;
+   public static  ViewHolder viewHolder;
 
+    public static ViewHolder getViewHolder() {
+        return viewHolder;
+    }
 
-    public MusicAdapter( ArrayList<MusicModelClass> musicList,Context context,OnNoteListner onNoteListner) {
+    public static void setViewHolder(ViewHolder viewHolder) {
+        MusicAdapter.viewHolder = viewHolder;
+    }
+
+    ArrayList <DownloadMusicModelClass>downoadSong=new ArrayList<>();
+    FirebaseUser mUser;
+
+    public MusicAdapter() {
+    }
+
+    public MusicAdapter(ArrayList<MusicModelClass> musicList, Context context, OnNoteListner onNoteListner) {
         this.musicList = musicList;
         this.context = context;
         this.onNoteListner=onNoteListner;
     }
+
 
     @NonNull
     @Override
@@ -70,7 +93,22 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
        holder.download.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
+
+               String fname = musicList.get(position).getSongName();
+               File file = new File(DIRECTORY_DOWNLOADS +"/"+ fname);
+               if (file.exists())
+                   file.delete();
+
+               DownloadMusicModelClass musicModelClass=new DownloadMusicModelClass(musicList.get(position).getSongName(),musicList.get(position).getImageView());
                downloadFile(context,musicList.get(position).getSongName(),".mp3",DIRECTORY_DOWNLOADS,musicList.get(position).getUrl());
+               mUser= FirebaseAuth.getInstance().getCurrentUser();
+               downoadSong.add(musicModelClass);
+
+               DatabaseReference database=FirebaseDatabase.getInstance().getReference("Downloads").child(mUser.getUid());
+               database.setValue(downoadSong);
+
+               holder.download.setEnabled(false);
+
            }
        });
     }
@@ -91,8 +129,22 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
         OnNoteListner onNoteListner;
         TextView time;
         AppCompatButton download;
+       int timeOfMusic;
 
-        public ViewHolder(@NonNull View itemView,OnNoteListner onNoteListner) {
+
+        public int getTimeOfMusic() {
+            return timeOfMusic;
+        }
+
+        public void setTimeOfMusic(int timeOfMusic) {
+            this.timeOfMusic = timeOfMusic;
+        }
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+        }
+
+        public ViewHolder(@NonNull View itemView, OnNoteListner onNoteListner) {
             super(itemView);
             imageView=itemView.findViewById(R.id.gridImage);
             title=itemView.findViewById(R.id.item_name);
@@ -113,16 +165,20 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
                             switch (item.getItemId()) {
                                 case R.id.onemin:
                                     time.setText("1 min");
+                                    timeOfMusic=60000;
 
                                     return true;
                                 case R.id.onehalfmin:
                                     time.setText("1.5 min");
+                                    timeOfMusic=90000;
                                     return true;
                                 case R.id.twomin:
                                     time.setText("2 min");
+                                    timeOfMusic=120000;
                                     return true;
                                 case R.id.twohalfmin:
                                     time.setText("2.5 min");
+                                    timeOfMusic=150000;
                                     return true;
                                 default:
                                     return false;
@@ -132,6 +188,8 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
                     popupMenu.show();
                 }
             });
+            timeOfMusic=60000;
+
 
             favBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -160,6 +218,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
 
         }
     }
+
     private void popUpMenu(View view){
 
     }
@@ -211,6 +270,8 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
         request.setDestinationInExternalFilesDir(context, destinationDirectory, fileName + fileExtension);
 
         downloadmanager.enqueue(request);
+
+
     }
 
 

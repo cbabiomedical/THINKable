@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.thinkableproject">
+    package="com.example.thinkableproject" >
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -24,8 +24,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ThinkableProject"
-        android:usesCleartextTraffic="true">
-        <activity android:name=".PlayMeditation"></activity>
+        android:usesCleartextTraffic="true" >
+        <activity
+            android:name=".DownloadingActivity"
+            android:label="@string/title_activity_downloading" >
+        </activity>
+        <activity android:name=".PlayMeditation" />
         <activity
             android:name=".SpinnerActivity"
             android:exported="false" />
@@ -61,7 +65,6 @@
         <activity android:name=".BineuralAcivity" /> <!-- <meta-data -->
         <!-- android:name="com.google.android.geo.API_KEY" -->
         <!-- android:value="@string/google_maps_key" /> -->
-        <activity android:name=".ConcentrationReportMemoryDaily" />
         <activity android:name=".MusicPlayer" />
         <activity android:name=".concentration_music" />
         <activity android:name=".Notification1" />
@@ -74,9 +77,6 @@
         <activity android:name=".ConcentrationReportMonthly" />
         <activity android:name=".ConcentrationReportWeekly" />
         <activity android:name=".ConcentrationReportDaily" />
-        <activity android:name=".ConcentrationMemory" />
-        <activity android:name=".ConcentrationExcercise" />
-        <activity android:name=".MusicPlayer" />
         <activity android:name=".MainActivity2" />
         <activity android:name=".GameActivity" />
         <activity android:name=".MeditationExercise" />
@@ -89,6 +89,8 @@
         <activity android:name=".MemoryReportMonthly" />
         <activity android:name=".MemoryReportYearly" />
         <activity android:name=".MemoryWhereAmI" />
+        <activity android:name=".MyDownloads" />
+        <activity android:name=".Connection" />
         <activity
             android:name=".RelaxationReportYearly"
             android:exported="true" />
@@ -122,7 +124,7 @@
         <activity android:name=".Concentration_Daily" />
         <activity android:name=".FavouriteActivity" />
         <activity android:name=".Calendar_Reminder" />
-       <activity android:name=".AboutApp"/>
+        <activity android:name=".AboutApp" />
         <activity
             android:name=".UserProfile1"
             android:exported="true" />
@@ -161,7 +163,7 @@
         <activity android:name=".ChangePassword" />
         <activity android:name=".ForgetPasswordActivity" />
         <activity android:name=".SignInActivity" />
-        <activity android:name=".StartActivity">
+        <activity android:name=".StartActivity" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

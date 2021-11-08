@@ -63,7 +63,6 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music);
 
-        MusicAdapter.ViewHolder viewHolder;
 //        Log.d("Time of Music",String.valueOf(MusicAdapter.getTimeOfmusic()));
         recyclerView = findViewById(R.id.recycler_view);
         Spinner dropdown_time = (Spinner) findViewById(R.id.spinner2);
@@ -97,14 +96,18 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
 
             }
         });
+//        MusicAdapter musicAdapter=new MusicAdapter();
+//        final int timeOfMus= MusicAdapter.getViewHolder().getTimeOfMusic();
+//        Log.d("Time", String.valueOf(timeOfMus));
+
 
         musicList = new ArrayList<>();
-        musicList.add(new MusicModelClass(R.drawable.music1,"Chilled Acoustic","1","https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/chilled-acoustic-indie-folk-instrumental-background-music-for-videos-5720.mp3?alt=media&token=c61afc5b-1833-47a0-af5c-645872eae852"));
-        musicList.add(new MusicModelClass(R.drawable.music1,"Melody Of Nature","2","https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c"));
-        HashMap<String,Object> songs=new HashMap<>();
-        songs.put("songList",musicList);
-        DatabaseReference reference=FirebaseDatabase.getInstance().getReference("Music");
-        reference.setValue(songs);
+//        musicList.add(new MusicModelClass(R.drawable.music1,"Chilled Acoustic","1","https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/chilled-acoustic-indie-folk-instrumental-background-music-for-videos-5720.mp3?alt=media&token=c61afc5b-1833-47a0-af5c-645872eae852"));
+//        musicList.add(new MusicModelClass(R.drawable.music1,"Melody Of Nature","2","https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c"));
+//        HashMap<String,Object> songs=new HashMap<>();
+//        songs.put("songList",musicList);
+//        DatabaseReference reference=FirebaseDatabase.getInstance().getReference("Music");
+//        reference.setValue(songs);
 
 
         initData();
@@ -124,26 +127,26 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
 
     private void initData() {
 
-//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Music").child("songList");
-//        reference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot postDatasnapshot : snapshot.getChildren()) {
-//                    MusicModelClass post = postDatasnapshot.getValue(MusicModelClass.class);
-//                    Log.d("Post", String.valueOf(post));
-//                    musicList.add(post);
-//                }
-//                Log.d("List", String.valueOf(musicList));
-//
-//
-//            }
-//
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Music").child("songList");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot postDatasnapshot : snapshot.getChildren()) {
+                    MusicModelClass post = postDatasnapshot.getValue(MusicModelClass.class);
+                    Log.d("Post", String.valueOf(post));
+                    musicList.add(post);
+                }
+                Log.d("List", String.valueOf(musicList));
+
+
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         adapter = new MusicAdapter(musicList, getApplicationContext(), this::onNoteClick);
         recyclerView.setAdapter(adapter);
@@ -155,6 +158,7 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
 
     @Override
     public void onNoteClick(int position) {
+
         musicList.get(position);
         String songName = musicList.get(position).getSongName();
         String url = musicList.get(position).getUrl();

@@ -156,7 +156,7 @@
                 app:cornerRadius="13dp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:text="Time to Concentrate "
+                android:text="How much can be remembered"
                 android:background="@drawable/progressbtn"/>
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barChartDaily"
@@ -180,7 +180,7 @@
                 app:cornerRadius="13dp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:text="Time Stayed Concentrated "
+                android:text="How Fast Can Remember "
                 android:background="@drawable/progressbtn"/>
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barChartDaily2"

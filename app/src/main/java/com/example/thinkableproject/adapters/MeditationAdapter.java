@@ -118,7 +118,7 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
 
         @Override
         public void onClick(View v) {
-            onNoteListner.onNoteClick(getAdapterPosition());
+            onNoteListner.onNoteClickMeditation(getAdapterPosition());
         }
     }
 
@@ -167,7 +167,7 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
     }
 
     public interface OnNoteListner{
-        void onNoteClick(int position);
+        void onNoteClickMeditation(int position);
     }
 
     // like click
