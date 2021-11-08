@@ -52,7 +52,7 @@ public class Concentration_Monthly extends AppCompatActivity {
     BarChart barChart;
     private Context context;
     AppCompatButton daily, weekly, yearly, realTime;
-    ImageButton relaxationBtn,memoryBtn;
+    ImageButton relaxationBtn,memoryBtn, games, music;
     FirebaseUser mUser;
     File localFile,fileName;
     String text;
@@ -72,6 +72,24 @@ public class Concentration_Monthly extends AppCompatActivity {
         List<BarEntry> entries = new ArrayList<>();
         dialogcm = new Dialog(this);
         memoryBtn=findViewById(R.id.memory);
+        games = findViewById(R.id.game);
+        music = findViewById(R.id.music);
+
+        music.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Music.class));
+            }
+        });
+
+        games.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(), GameActivity.class);
+                startActivity(intent);
+            }
+        });
+
         //Initializing bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 

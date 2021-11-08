@@ -52,7 +52,7 @@ public class Concentration_Yearly extends AppCompatActivity {
     Dialog dialogcy;
     BarChart barChart2;
     AppCompatButton daily, weekly, monthly, realTime;
-    ImageButton relaxationBtn,memoryBtn;
+    ImageButton relaxationBtn,memoryBtn, music, games;
     FirebaseUser mUser;
     File localFile, fileName;
     String text;
@@ -75,6 +75,23 @@ public class Concentration_Yearly extends AppCompatActivity {
         //Initialize bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         dialogcy = new Dialog(this);
+        music = findViewById(R.id.music);
+        games = findViewById(R.id.game);
+
+        music.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Music.class));
+            }
+        });
+
+        games.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(), GameActivity.class);
+                startActivity(intent);
+            }
+        });
 
         //Set Home Selected
         bottomNavigationView.setSelectedItemId(R.id.home);

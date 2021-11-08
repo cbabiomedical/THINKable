@@ -69,7 +69,7 @@ public class Concentration_Daily extends AppCompatActivity {
         music.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Music.class));
+                startActivity(new Intent(getApplicationContext(), Music.class));
             }
         });
 
