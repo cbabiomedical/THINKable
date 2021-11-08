@@ -8,7 +8,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 
 //import com.android.volley.Request;
 //import com.android.volley.RequestQueue;
@@ -35,6 +39,8 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
     LinearLayout linearLayoutManager;
     ArrayList<MeditationModelClass> meditationList;
     MeditationAdapter adapter;
+    int time;
+    String selected_time;
 
     private static String JSON_URL = "https://jsonplaceholder.typicode.com/posts";
 
@@ -43,6 +49,34 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meditation_exercise);
         recyclerView = findViewById(R.id.gridView);
+        Spinner dropdown_time = (Spinner) findViewById(R.id.spinner2);
+        String[] items = new String[]{"1 min", "1.5 min", "2 min", "2.5 min", "3 min"};
+        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+        dropdown_time.setAdapter(adapter1);
+        dropdown_time.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                selected_time=parent.getItemAtPosition(position).toString();
+                if(position==0){
+                    time=60000;
+                    Log.d("TIME", String.valueOf(time));
+                }else if(position==1){
+                    time=90000;
+                    Log.d("TIME", String.valueOf(time));
+                }else if(position==2){
+                    time=120000;
+                }else if(position==3){
+                    time=150000;
+                }else{
+                    time=180000;
+                }
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
         //  favouriteBtn = findViewById(R.id.favouritesIcon);
         meditationList = new ArrayList<>();
 
@@ -104,6 +138,6 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
         String url=meditationList.get(position).getUrl();
         int image=meditationList.get(position).getImageView();
         Log.d("Url",url);
-        startActivity(new Intent(getApplicationContext(),PlayMeditation.class).putExtra("url",url).putExtra("name",songName).putExtra("image",image));
+        startActivity(new Intent(getApplicationContext(),PlayMeditation.class).putExtra("url",url).putExtra("name",songName).putExtra("image",image).putExtra("time",time));
     }
 }

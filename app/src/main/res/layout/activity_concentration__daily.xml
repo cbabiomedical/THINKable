@@ -24,7 +24,7 @@
                 android:layout_height="wrap_content"
                 >
                 <ImageButton
-                    android:id="@+id/memory"
+                    android:id="@+id/memoryBtn"
                     android:layout_width="110dp"
                     android:layout_height="50dp"
                     android:layout_alignEnd="@+id/relaxation"

@@ -10,6 +10,11 @@ public class GameModelClass {
     public GameModelClass() {
     }
 
+    public GameModelClass(int imageView, String gameName) {
+        this.imageView = imageView;
+        this.gameName = gameName;
+    }
+
     public GameModelClass(int imageView, String gameName, String id, String fav) {
         this.imageView = imageView;
         this.gameName = gameName;

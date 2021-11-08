@@ -46,7 +46,7 @@ public class Concentration_Daily extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_concentration__daily);
-        setContentView(R.layout.activity_concentration_popup);
+//        setContentView(R.layout.activity_concentration_popup);
         barChartdaily = (BarChart) findViewById(R.id.barChartDaily);
         monthly = findViewById(R.id.monthly);
         games=findViewById(R.id.game);
@@ -57,17 +57,17 @@ public class Concentration_Daily extends AppCompatActivity {
         relaxationBtn = findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
         dialogcd = new Dialog(this);
-        memory=findViewById(R.id.memory);
-
+        memory=findViewById(R.id.memoryBtn);
 
 
         memory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(), Memory_Daily.class);
-                startActivity(intent);
+                startActivity(new Intent(getApplicationContext(),Memory_Daily.class));
             }
         });
+
+
         music.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

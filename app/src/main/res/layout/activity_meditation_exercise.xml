@@ -9,9 +9,22 @@
     android:weightSum="10"
     android:background="@drawable/exebg"
     tools:context=".GameActivity">
+    <Spinner
+    android:layout_marginTop="20dp"
+    android:id="@+id/spinner2"
+    android:layout_width="match_parent"
+    android:layout_marginHorizontal="20dp"
+    android:layout_height="wrap_content"
+    android:background="@android:drawable/btn_dropdown"
+    android:layout_marginBottom="30dp"
+    android:spinnerMode="dropdown" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/gridView" />
+    </ScrollView>
 </LinearLayout>
