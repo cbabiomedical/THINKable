@@ -7,6 +7,11 @@
     android:background="@drawable/landing_background"
     tools:context=".ResultActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center" >
+
     <ImageView
         android:id="@+id/imageView6"
         android:layout_width="200dp"
@@ -121,6 +126,8 @@
         app:layout_constraintStart_toEndOf="@+id/shareBtn"
         app:layout_constraintTop_toBottomOf="@+id/earnedCoins" />
 
+    </ScrollView>
+
 <!--    <Button-->
 <!--        android:id="@+id/leaderboard"-->
 <!--        android:layout_width="0dp"-->
@@ -133,6 +140,7 @@
 <!--        app:layout_constraintHorizontal_bias="1.0"-->
 <!--        app:layout_constraintStart_toStartOf="@+id/shareBtn"-->
 <!--        app:layout_constraintTop_toBottomOf="@+id/earnedCoins" />-->
+
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
