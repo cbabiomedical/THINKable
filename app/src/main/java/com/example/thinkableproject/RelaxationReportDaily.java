@@ -115,6 +115,14 @@ public class RelaxationReportDaily extends AppCompatActivity {
             }
         });
 
+        memoryBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(), MemoryReportDaily.class);
+                startActivity(intent);
+            }
+        });
+
         //go to RQ Page with comparison to occupasion and age factors
         whereAmI.setOnClickListener(new View.OnClickListener() {
             @Override

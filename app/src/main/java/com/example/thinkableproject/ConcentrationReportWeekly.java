@@ -53,7 +53,7 @@ public class ConcentrationReportWeekly extends AppCompatActivity {
     AppCompatButton daily, whereAmI;
     File fileName, localFile, fileName1, localFile1;
     FirebaseUser mUser;
-    ImageButton relaxationBtn;
+    ImageButton relaxationBtn, memory;
     String text;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
@@ -72,6 +72,15 @@ public class ConcentrationReportWeekly extends AppCompatActivity {
         daily = findViewById(R.id.daily);
         relaxationBtn = findViewById(R.id.relaxation);
         whereAmI = findViewById(R.id.whereAmI);
+        memory=findViewById(R.id.memory);
+
+        memory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(), MemoryReportDaily.class);
+                startActivity(intent);
+            }
+        });
 
         //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);

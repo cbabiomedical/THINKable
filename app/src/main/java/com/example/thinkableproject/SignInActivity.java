@@ -85,7 +85,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 
         //signin authentication and redirect to landing page
         if (FirebaseAuth.getInstance().getCurrentUser() != null) {
-            Intent intent = new Intent(this, LandingPage.class);
+            Intent intent = new Intent(this, Concentration_Daily.class);
             intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
             startActivity(intent);
@@ -140,7 +140,7 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 //                    Log.d("USERLOGIN", "----------------------G----------------------------");
                     //check whether user details are correct and authenticate with firebase userdata and redirect user to landing page
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    startActivity(new Intent(SignInActivity.this, LandingPage.class));
+                    startActivity(new Intent(SignInActivity.this, Concentration_Daily.class));
 
                      /*if (user.isEmailVerified()) {
                         // redirect to user profile

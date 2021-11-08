@@ -81,6 +81,9 @@ public class Relaxation_Monthly extends AppCompatActivity {
         yearly = findViewById(R.id.yearly);
         weekly = findViewById(R.id.weekly);
         memoryBtn=findViewById(R.id.memory);
+        music = findViewById(R.id.music);
+        meditation = findViewById(R.id.meditations);
+        video = findViewById(R.id.video);
 
         //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -102,30 +105,30 @@ public class Relaxation_Monthly extends AppCompatActivity {
             }
         });
 
-//        music = findViewById(R.id.music);
-//        meditation = findViewById(R.id.meditations);
-//        video = findViewById(R.id.video);
-//        music.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), Music.class);
-//                startActivity(intent);
-//            }
-//        });
-//        meditation.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), Meditation.class);
-//                startActivity(intent);
-//            }
-//        });
-//        video.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(getApplicationContext(), Video.class);
-//                startActivity(intent);
-//            }
-//        });
+//go to misic-excercise page
+        music.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Music.class);
+                startActivity(intent);
+            }
+        });
+        //go to meditation-exercise page
+        meditation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MeditationExercise.class);
+                startActivity(intent);
+            }
+        });
+        //go to video-exercise page
+        video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Video.class);
+                startActivity(intent);
+            }
+        });
 
         //Array list to write data to file
         ArrayList<Float> obj = new ArrayList<>(

@@ -57,7 +57,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
     String text, text2;
     AppCompatButton daily, weekly, yearly, whereAmI, progress, timetorel, timestayedrel;
     FirebaseUser mUser;
-    ImageButton concentration;
+    ImageButton concentration, memory;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList=new ArrayList<>();
     ArrayList<String> list2 = new ArrayList<>();
@@ -85,6 +85,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
         daily = findViewById(R.id.daily);
         yearly = findViewById(R.id.yearly);
         weekly = findViewById(R.id.weekly);
+        memory = findViewById(R.id.memory);
         //go to relaxation daily page
         daily.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,6 +108,14 @@ public class RelaxationReportMonthly extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intentr1 = new Intent(getApplicationContext(), RelaxationReportYearly.class);
                 startActivity(intentr1);
+            }
+        });
+
+        memory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(), MemoryReportDaily.class);
+                startActivity(intent);
             }
         });
 

@@ -59,7 +59,7 @@ public class RelaxationReportYearly extends AppCompatActivity {
     File localFile2;
     File fileName;
     File fileName2;
-    ImageButton concentration;
+    ImageButton concentration, memory;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<String> list2 = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
@@ -88,6 +88,7 @@ public class RelaxationReportYearly extends AppCompatActivity {
         daily = findViewById(R.id.daily);
         weekly = findViewById(R.id.weekly);
         monthly = findViewById(R.id.monthly);
+        memory = findViewById(R.id.memory);
         //go to relaxation daily page
         daily.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -111,6 +112,14 @@ public class RelaxationReportYearly extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intentr1 = new Intent(getApplicationContext(), RelaxationReportWeekly.class);
                 startActivity(intentr1);
+            }
+        });
+
+        memory.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent=new Intent(getApplicationContext(), MemoryReportDaily.class);
+                startActivity(intent);
             }
         });
 
