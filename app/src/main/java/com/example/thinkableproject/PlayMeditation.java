@@ -49,6 +49,7 @@ public class PlayMeditation extends AppCompatActivity {
     String uri;
     String name;
     String music_title;
+    int time;
 
     public static final String EXTRA_NAME = "songName";
     static MediaPlayer mediaPlayer;
@@ -100,6 +101,7 @@ public class PlayMeditation extends AppCompatActivity {
 //            time_selected = extras.getString("time");
             name = extras.getString("name");
 //            time = Integer.parseInt(time_selected);
+            time = extras.getInt("time");
             txtsongName.setText(name);
 //            image=extras.getInt("image");
 //            linearLayout.setBackgroundResource(image);
@@ -139,7 +141,7 @@ public class PlayMeditation extends AppCompatActivity {
                 @Override
                 public void run() {
 
-                    int totalDuration = mediaPlayer.getDuration();
+                    int totalDuration = time;
                     int currentPosition = 0;
                     while (currentPosition < totalDuration) {
                         try {
@@ -157,7 +159,7 @@ public class PlayMeditation extends AppCompatActivity {
                 }
             };
 
-            seekBar.setMax(mediaPlayer.getDuration());
+            seekBar.setMax(time);
             updateSeekBar.start();
             seekBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
             seekBar.getThumb().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_IN);
@@ -178,7 +180,7 @@ public class PlayMeditation extends AppCompatActivity {
                 }
             });
 
-            String endTime=millisecondsToTimer(mediaPlayer.getDuration());
+            String endTime=millisecondsToTimer(time);
             txtStop.setText(endTime);
 //            int noOfRuns = time / mediaPlayer.getDuration();
 

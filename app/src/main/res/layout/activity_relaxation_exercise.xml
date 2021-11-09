@@ -34,8 +34,7 @@
                     android:layout_marginTop="40dp"
                     android:layout_marginEnd="-94dp"
                     android:layout_marginRight="-94dp"
-                    android:layout_centerHorizontal="true"
-                    android:background="@drawable/bconcentration"
+                    android:background="@drawable/concen"
                     android:elevation="5dp"
                     android:src="@drawable/relax" />
 
@@ -44,27 +43,27 @@
                 <ImageButton
                     android:id="@+id/concentration"
                     android:layout_width="110dp"
-                    android:layout_marginLeft="70dp"
                     android:layout_height="50dp"
+                    android:layout_marginLeft="70dp"
                     android:layout_marginTop="40dp"
-                    android:background="@drawable/concen"
+                    android:background="@drawable/bconcentration"
                     android:elevation="5dp"
                     android:src="@drawable/concentration_icon" />
             </RelativeLayout>
 
-        <TextView
-            android:layout_below="@id/toggleBtn"
-            android:id="@+id/musicTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:text="Music"
-            android:layout_marginTop="20dp"
-            android:layout_centerHorizontal="true"
-            android:textColor="@color/white"
-            android:textSize="28sp"
+            <TextView
+                android:layout_below="@id/toggleBtn"
+                android:id="@+id/musicTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAlignment="center"
+                android:text="Music"
+                android:layout_marginTop="20dp"
+                android:layout_centerHorizontal="true"
+                android:textColor="@color/white"
+                android:textSize="28sp"
 
-            />
+                />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/musicRecyclerView"
                 android:layout_below="@+id/musicTitle"
@@ -72,15 +71,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-
-
-
             <TextView
-                android:id="@+id/gameTitle"
+                android:id="@+id/meditationTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textAlignment="center"
-                android:text="Games"
+                android:text="Meditation"
                 android:layout_below="@id/musicRecyclerView"
                 android:layout_marginTop="20dp"
                 android:layout_centerHorizontal="true"
@@ -88,12 +84,13 @@
                 android:textSize="28sp"
                 />
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/gamesRecyclerView"
-                android:layout_below="@+id/gameTitle"
+                android:id="@+id/meditationRecyclerView"
+                android:layout_below="@+id/meditationTitle"
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
-                android:layout_marginBottom="100dp"
                 android:layout_height="wrap_content"/>
+
+
 
 
 

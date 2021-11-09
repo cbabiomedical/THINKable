@@ -44,17 +44,20 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
     private Context context;
     private OnNoteListner onNoteListner;
     private FavMusicDB favDB;
-   public static  ViewHolder viewHolder;
+    public static ViewHolder viewHolder;
 
     public static ViewHolder getViewHolder() {
+        Log.d("Time", String.valueOf(viewHolder.timeOfMusic));
         return viewHolder;
+
     }
 
     public static void setViewHolder(ViewHolder viewHolder) {
         MusicAdapter.viewHolder = viewHolder;
+
     }
 
-    ArrayList <DownloadMusicModelClass>downoadSong=new ArrayList<>();
+    ArrayList<DownloadMusicModelClass> downoadSong = new ArrayList<>();
     FirebaseUser mUser;
 
     public MusicAdapter() {
@@ -63,7 +66,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
     public MusicAdapter(ArrayList<MusicModelClass> musicList, Context context, OnNoteListner onNoteListner) {
         this.musicList = musicList;
         this.context = context;
-        this.onNoteListner=onNoteListner;
+        this.onNoteListner = onNoteListner;
     }
 
 
@@ -80,7 +83,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item_music,
                 parent, false);
 
-        return new ViewHolder(view,onNoteListner);
+        return new ViewHolder(view, onNoteListner);
     }
 
     @Override
@@ -90,27 +93,34 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
         readCursorDataMed(coffeeItem, holder);
         holder.imageView.setImageResource(musicList.get(position).getImageView());
         holder.title.setText(musicList.get(position).getSongName());
-       holder.download.setOnClickListener(new View.OnClickListener() {
-           @Override
-           public void onClick(View v) {
+        holder.download.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-               String fname = musicList.get(position).getSongName();
-               File file = new File(DIRECTORY_DOWNLOADS +"/"+ fname);
-               if (file.exists())
-                   file.delete();
+                //Checking if file is already downloaded
 
-               DownloadMusicModelClass musicModelClass=new DownloadMusicModelClass(musicList.get(position).getSongName(),musicList.get(position).getImageView());
-               downloadFile(context,musicList.get(position).getSongName(),".mp3",DIRECTORY_DOWNLOADS,musicList.get(position).getUrl());
-               mUser= FirebaseAuth.getInstance().getCurrentUser();
-               downoadSong.add(musicModelClass);
+                File sdCard = Environment.getExternalStorageDirectory();
+                File file = new File(sdCard.getAbsolutePath() +
+                        "/Download/", musicList.get(position).getSongName()+".mp3");
+                Log.d("file path", String.valueOf(file));
+                if(file.exists())
+                {
+                    boolean flag = file.delete();
+                    Log.d("file", "file deleted " + flag);
+                }
 
-               DatabaseReference database=FirebaseDatabase.getInstance().getReference("Downloads").child(mUser.getUid());
-               database.setValue(downoadSong);
+                DownloadMusicModelClass musicModelClass = new DownloadMusicModelClass(musicList.get(position).getSongName(), musicList.get(position).getImageView());
+                downloadFile(context, musicList.get(position).getSongName(), ".mp3", DIRECTORY_DOWNLOADS, musicList.get(position).getUrl());
+                mUser = FirebaseAuth.getInstance().getCurrentUser();
+                downoadSong.add(musicModelClass);
 
-               holder.download.setEnabled(false);
+                DatabaseReference database = FirebaseDatabase.getInstance().getReference("Downloads").child(mUser.getUid());
+                database.setValue(downoadSong);
 
-           }
-       });
+                holder.download.setEnabled(false);
+
+            }
+        });
     }
 
     @Override
@@ -119,8 +129,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
     }
 
 
-
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView imageView;
         TextView title;
@@ -129,7 +138,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
         OnNoteListner onNoteListner;
         TextView time;
         AppCompatButton download;
-       int timeOfMusic;
+        int timeOfMusic = 60000;
 
 
         public int getTimeOfMusic() {
@@ -146,49 +155,13 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
 
         public ViewHolder(@NonNull View itemView, OnNoteListner onNoteListner) {
             super(itemView);
-            imageView=itemView.findViewById(R.id.gridImage);
-            title=itemView.findViewById(R.id.item_name);
-            favBtn=itemView.findViewById(R.id.favouritesIcon3);
-            timing=itemView.findViewById(R.id.occupation);
-            time=itemView.findViewById(R.id.time);
-            download=itemView.findViewById(R.id.download);
-            this.onNoteListner=onNoteListner;
+            imageView = itemView.findViewById(R.id.gridImage);
+            title = itemView.findViewById(R.id.item_name);
+            favBtn = itemView.findViewById(R.id.favouritesIcon3);
+            time = itemView.findViewById(R.id.time);
+            download = itemView.findViewById(R.id.download);
+            this.onNoteListner = onNoteListner;
             itemView.setOnClickListener(this);
-            timing.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    PopupMenu popupMenu=new PopupMenu(context,v);
-                    popupMenu.inflate(R.menu.pop_up_menu_time);
-                    popupMenu.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
-                        @Override
-                        public boolean onMenuItemClick(MenuItem item) {
-                            switch (item.getItemId()) {
-                                case R.id.onemin:
-                                    time.setText("1 min");
-                                    timeOfMusic=60000;
-
-                                    return true;
-                                case R.id.onehalfmin:
-                                    time.setText("1.5 min");
-                                    timeOfMusic=90000;
-                                    return true;
-                                case R.id.twomin:
-                                    time.setText("2 min");
-                                    timeOfMusic=120000;
-                                    return true;
-                                case R.id.twohalfmin:
-                                    time.setText("2.5 min");
-                                    timeOfMusic=150000;
-                                    return true;
-                                default:
-                                    return false;
-                            }
-                        }
-                    });
-                    popupMenu.show();
-                }
-            });
-            timeOfMusic=60000;
 
 
             favBtn.setOnClickListener(new View.OnClickListener() {
@@ -215,20 +188,18 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
             onNoteListner.onNoteClick(getAdapterPosition());
 
 
-
         }
     }
 
-    private void popUpMenu(View view){
 
-    }
 
-    private void timepopUpMenu(View view){
+    private void timepopUpMenu(View view) {
 //        PopupMenu popupMenu=new PopupMenu(view.getContext(),view);
 //        popupMenu.inflate(R.menu.pop_up_menu_time);
 //        popupMenu.setOnMenuItemClickListener(this);
 //        popupMenu.show();
     }
+
     private void createTableOnFirstStart() {
         favDB.insertEmptyMusic();
 
@@ -237,6 +208,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
         editor.putBoolean("firstStart", false);
         editor.apply();
     }
+
     private void readCursorDataMed(MusicModelClass coffeeItem, ViewHolder viewHolder) {
         Cursor cursor = favDB.read_all_data_mus(coffeeItem.getId());
         SQLiteDatabase db = favDB.getReadableDatabase();
@@ -259,6 +231,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
         }
 
     }
+
     public void downloadFile(Context context, String fileName, String fileExtension, String destinationDirectory, String url) {
 
         DownloadManager downloadmanager = (DownloadManager) context.
@@ -275,9 +248,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
     }
 
 
-
-
-    public interface OnNoteListner{
+    public interface OnNoteListner {
         void onNoteClick(int position);
     }
 

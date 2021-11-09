@@ -82,7 +82,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
         weekly = findViewById(R.id.weekly);
         memoryBtn=findViewById(R.id.memory);
         music = findViewById(R.id.music);
-        meditation = findViewById(R.id.meditations);
+        meditation = findViewById(R.id.meditation);
         video = findViewById(R.id.video);
 
         //Initialize and Assign Variable
