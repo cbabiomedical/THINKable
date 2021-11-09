@@ -406,27 +406,27 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 }
                             });
-//                    String uid = task.getResult().getUser().getUid();
-//                    database.collection("users").document(uid).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
-//                        @Override
-//                        public void onComplete(@NonNull Task<Void> task) {
-//                            if(task.isSuccessful()){
-//                                //If task complete navigating from Register Activity to Suggestions Activity
-//                                Intent intentveri = new Intent(RegisterActivity.this, Suggestions.class);
-//                                startActivity(intentveri);
-//                                // Display Toast message "Registration successful"
-//                                Toast.makeText(RegisterActivity.this, "Registration Complete", Toast.LENGTH_SHORT).show();
-//
-//                            } else {
-//                                // Display Toast message "Registration failed" if error occurs
-//                                Toast.makeText(RegisterActivity.this, "Registration Unsuccessful. Try Again!", Toast.LENGTH_LONG)
-//                                        .show();
-//                            }
-//                            // Setting visibility of progress bar once the registration function is complete
-//                            progressBar.setVisibility(View.GONE);
-//
-//                        }
-//                    });
+                    String uid = task.getResult().getUser().getUid();
+                    database.collection("users").document(uid).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                //If task complete navigating from Register Activity to Suggestions Activity
+                                Intent intentveri = new Intent(RegisterActivity.this, Suggestions.class);
+                                startActivity(intentveri);
+                                // Display Toast message "Registration successful"
+                                Toast.makeText(RegisterActivity.this, "Registration Complete", Toast.LENGTH_SHORT).show();
+
+                            } else {
+                                // Display Toast message "Registration failed" if error occurs
+                                Toast.makeText(RegisterActivity.this, "Registration Unsuccessful. Try Again!", Toast.LENGTH_LONG)
+                                        .show();
+                            }
+                            // Setting visibility of progress bar once the registration function is complete
+                            progressBar.setVisibility(View.GONE);
+
+                        }
+                    });
                 }
             }
         });
