@@ -14,49 +14,45 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
             <RelativeLayout
-                android:layout_centerHorizontal="true"
                 android:id="@+id/toggleBtn"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_height="wrap_content">
+
                 <ImageButton
-                    android:id="@+id/memory"
-                    android:layout_width="110dp"
+                    android:id="@+id/concentration"
+                    android:layout_width="100dp"
                     android:layout_height="50dp"
-                    android:layout_alignEnd="@+id/relaxation"
-                    android:layout_alignRight="@+id/concentration"
-                    android:layout_marginLeft="100dp"
+                    android:layout_marginLeft="35dp"
                     android:layout_marginTop="40dp"
-                    android:layout_marginEnd="-97dp"
-                    android:layout_marginRight="-191dp"
-                    android:background="@drawable/concen"
+                    android:background="@drawable/bconcentration"
                     android:elevation="5dp"
-                    android:src="@drawable/memory" />
+                    android:src="@drawable/concentrationicon8" />
+
                 <ImageButton
                     android:id="@+id/relaxation"
-                    android:layout_width="110dp"
+                    android:layout_width="100dp"
                     android:layout_height="50dp"
                     android:layout_alignEnd="@+id/concentration"
                     android:layout_alignRight="@+id/concentration"
                     android:layout_marginLeft="100dp"
                     android:layout_marginTop="40dp"
-                    android:layout_marginEnd="-94dp"
-                    android:layout_marginRight="-94dp"
+                    android:layout_marginRight="-100dp"
                     android:background="@drawable/bconcentration"
                     android:elevation="5dp"
                     android:src="@drawable/relax" />
 
-
-
                 <ImageButton
-                    android:id="@+id/concentration"
-                    android:layout_width="110dp"
+                    android:id="@+id/memory"
+                    android:layout_width="100dp"
                     android:layout_height="50dp"
-                    android:layout_marginLeft="30dp"
+                    android:layout_alignEnd="@+id/relaxation"
+                    android:layout_alignRight="@+id/relaxation"
+                    android:layout_marginLeft="100dp"
                     android:layout_marginTop="40dp"
-                    android:background="@drawable/bconcentration"
+                    android:layout_marginRight="-100dp"
+                    android:background="@drawable/bconcentration2"
                     android:elevation="5dp"
-                    android:src="@drawable/concentration_icon" />
+                    android:src="@drawable/memory" />
             </RelativeLayout>
             <RelativeLayout
                 android:layout_centerHorizontal="true"

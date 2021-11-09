@@ -97,6 +97,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
             titleTextView = itemView.findViewById(R.id.item_name);
             favBtn = itemView.findViewById(R.id.favIcon);
             this.onNoteListner=onNoteListner;
+            itemView.setOnClickListener(this);
 
 
             //add to fav btn

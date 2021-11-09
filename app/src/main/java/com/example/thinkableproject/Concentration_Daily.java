@@ -57,7 +57,7 @@ public class Concentration_Daily extends AppCompatActivity {
         relaxationBtn = findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
         dialogcd = new Dialog(this);
-        memory=findViewById(R.id.memoryBtn);
+        memory=findViewById(R.id.memory);
 
 
         memory.setOnClickListener(new View.OnClickListener() {

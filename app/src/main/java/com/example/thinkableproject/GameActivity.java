@@ -50,35 +50,35 @@ public class GameActivity extends AppCompatActivity implements  GridAdapter.OnNo
     private void initData() {
         gameList = new ArrayList<>();
 //        //Adding user preferences to arraylist
-//        gameList.add(new GameModelClass(R.drawable.chess, "Chess","0","0"));
-//        gameList.add(new GameModelClass(R.drawable.images, "Puzzle","1","0"));
-//        gameList.add(new GameModelClass(R.drawable.sudoku, "Sudoku","2","0"));
-//        gameList.add(new GameModelClass(R.drawable.crossword, "CrossWord","3","0"));
+        gameList.add(new GameModelClass(R.drawable.chess, "Chess","0","0"));
+        gameList.add(new GameModelClass(R.drawable.images, "Puzzle","1","0"));
+        gameList.add(new GameModelClass(R.drawable.sudoku, "Sudoku","2","0"));
+        gameList.add(new GameModelClass(R.drawable.crossword, "CrossWord","3","0"));
 //////
 ////        HashMap<String, Object> games=new HashMap<>();
 ////        games.put("games",gameList);
-//        DatabaseReference reference= FirebaseDatabase.getInstance().getReference("Games").child(mUser.getUid());
-//        reference.setValue(gameList);
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Games").child(mUser.getUid());
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot postDatasnapshot : snapshot.getChildren()) {
-                    GameModelClass post = postDatasnapshot.getValue(GameModelClass.class);
-                    Log.d("Post", String.valueOf(post));
-                    gameList.add(post);
-                }
-
-
-            }
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        Log.d("List", String.valueOf(gameList));
+        DatabaseReference reference= FirebaseDatabase.getInstance().getReference("Games").child(mUser.getUid());
+        reference.setValue(gameList);
+//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Games").child(mUser.getUid());
+//        reference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                for (DataSnapshot postDatasnapshot : snapshot.getChildren()) {
+//                    GameModelClass post = postDatasnapshot.getValue(GameModelClass.class);
+//                    Log.d("Post", String.valueOf(post));
+//                    gameList.add(post);
+//                }
+//
+//
+//            }
+//
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//        Log.d("List", String.valueOf(gameList));
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         adapter = new GridAdapter(gameList,getApplicationContext(),this::onNoteClickGame);
         recyclerView.setAdapter(adapter);
@@ -90,11 +90,15 @@ public class GameActivity extends AppCompatActivity implements  GridAdapter.OnNo
 
     @Override
     public void onNoteClickGame(int position) {
+        ArrayList<GameModelClass> downloadGames=new ArrayList<>();
         gameList.get(position);
         Toast.makeText(getApplicationContext(),"You clicked "+gameList.get(position).getGameName(),Toast.LENGTH_SHORT).show();
+
         DatabaseReference reference=FirebaseDatabase.getInstance().getReference("UsersGame").child(mUser.getUid());
         GameModelClass gameModelClass=new GameModelClass(gameList.get(position).getImageView(),gameList.get(position).getGameName());
-        reference.setValue(gameList.get(position));
-        startActivity(new Intent(getApplicationContext(), DownloadMusic.class));
+        downloadGames.add(gameModelClass);
+        Log.d("Downloada", String.valueOf(downloadGames));
+        reference.setValue(gameModelClass);
+        startActivity(new Intent(getApplicationContext(), MyDownloads.class));
     }
 }

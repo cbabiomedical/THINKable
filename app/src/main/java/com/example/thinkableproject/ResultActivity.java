@@ -29,7 +29,7 @@ public class ResultActivity extends AppCompatActivity {
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         //Set Home Selected
-        bottomNavigationView.setSelectedItemId(R.id.home);
+        bottomNavigationView.setSelectedItemId(R.id.userprofiles);
 
         //Perform ItemSelectedListener
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -49,8 +49,6 @@ public class ResultActivity extends AppCompatActivity {
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.userprofiles:
-                        startActivity(new Intent(getApplicationContext(), ResultActivity.class));
-                        overridePendingTransition(0, 0);
                         return true;
                     case R.id.settings:
                         startActivity(new Intent(getApplicationContext(), Setting.class));
