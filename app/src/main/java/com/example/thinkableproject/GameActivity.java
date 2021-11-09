@@ -100,5 +100,13 @@ public class GameActivity extends AppCompatActivity implements  GridAdapter.OnNo
         Log.d("Downloada", String.valueOf(downloadGames));
         reference.setValue(gameModelClass);
         startActivity(new Intent(getApplicationContext(), MyDownloads.class));
+
+        Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.vending");
+        if(launchIntent != null){
+            Log.d("Tagopenapp", "---------------------B--------------------------");
+            startActivity(launchIntent);
+        }else{
+            Toast.makeText(GameActivity.this, "There is no package", Toast.LENGTH_LONG).show();
+        }
     }
 }

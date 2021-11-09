@@ -181,7 +181,7 @@ public class SpinnerActivity extends AppCompatActivity {
         FirebaseFirestore database = FirebaseFirestore.getInstance();
 
         database
-                .collection("Users")
+                .collection("users")
                 .document(FirebaseAuth.getInstance().getUid())
                 .update("coins", FieldValue.increment(cash)).addOnSuccessListener(new OnSuccessListener<Void>() {
             @Override

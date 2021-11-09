@@ -406,6 +406,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                                 }
                             });
+
                     String uid = task.getResult().getUser().getUid();
                     database.collection("users").document(uid).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
