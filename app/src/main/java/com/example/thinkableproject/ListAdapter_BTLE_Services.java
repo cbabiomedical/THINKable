@@ -98,7 +98,6 @@ public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
         return convertView;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
@@ -136,17 +135,18 @@ public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
         TextView tv_value = (TextView) convertView.findViewById(R.id.tv_value);
 
         byte[] data = new byte[0];
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
+
             data = bluetoothGattCharacteristic.getValue();
-        }
+            Log.d("Data", String.valueOf(bluetoothGattCharacteristic.getValue()));
+
         if (data != null) {
             tv_value.setText("Value: " + Utils.hexToString(data));
             dataValues.add(Utils.hexToString(data));
             Log.d("value", Utils.hexToString(data));
 
             try {
-                fileName = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/values.txt");  //Writing data to file
-                System.out.println("Path" + Environment.getExternalStorageDirectory().getAbsolutePath());
+                fileName = new File( Environment.getExternalStorageDirectory() +  "/values.txt");  //Writing data to file
+                System.out.println("Path"+Environment.getExternalStorageDirectory().getAbsolutePath());
                 String line = "";
                 FileWriter fwa;
                 fwa = new FileWriter(fileName);
@@ -165,6 +165,7 @@ public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
         } else {
             tv_value.setText("Value: ---");
         }
+
 
 
         return convertView;

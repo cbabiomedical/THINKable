@@ -31,14 +31,17 @@ public class Connection extends AppCompatActivity implements View.OnClickListene
     private ListAdapter_BTLE_Devices adapter;
     private ListView listView;
 
-    private Button btn_Scan;
+    private Button btn_Scan,calibration;
+
 
     private BroadcastReceiver_BTState mBTStateUpdateReceiver;
     private Scanner_BTLE mBTLeScanner;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection);
+
 
 
         // Use this check to determine whether BLE is supported on the device. Then

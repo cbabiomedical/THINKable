@@ -7,6 +7,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Environment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,18 +22,25 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.thinkableproject.R;
 import com.example.thinkableproject.repositories.FavMeditationDB;
 
+import com.example.thinkableproject.sample.DownloadMeditationClass;
+import com.example.thinkableproject.sample.DownloadMusicModelClass;
 import com.example.thinkableproject.sample.MeditationModelClass;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
 public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.ViewHolder> {
-    private ArrayList<MeditationModelClass> coffeeItems;
+    private ArrayList<MeditationModelClass> downloadMeditation;
     private Context context;
    OnNoteListner onNoteListner;
     private FavMeditationDB favDB;
+    FirebaseUser mUser;
 
     public MeditationAdapter(ArrayList<MeditationModelClass> coffeeItems, Context context, OnNoteListner onNoteListner) {
-        this.coffeeItems = coffeeItems;
+        this.downloadMeditation = coffeeItems;
         this.context = context;
         this.onNoteListner=onNoteListner;
     }
@@ -57,15 +65,27 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        final MeditationModelClass coffeeItem = coffeeItems.get(position);
-
+        ArrayList<DownloadMeditationClass> downoadSong = new ArrayList<>();
+        final MeditationModelClass coffeeItem = downloadMeditation.get(position);
+        mUser=FirebaseAuth.getInstance().getCurrentUser();
         readCursorDataMed(coffeeItem, holder);
         holder.imageView.setImageResource(coffeeItem.getImageView());
         holder.titleTextView.setText(coffeeItem.getMeditationName());
         holder.download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                downloadFile(context,coffeeItems.get(position).getMeditationName(),".mp3", Environment.DIRECTORY_DOWNLOADS,coffeeItems.get(position).getUrl());
+                DownloadMeditationClass meditationClass = new DownloadMeditationClass(downloadMeditation.get(position).getMeditationName(), downloadMeditation.get(position).getImageView());
+                downloadFile(context,downloadMeditation.get(position).getMeditationName(),".mp3", Environment.DIRECTORY_DOWNLOADS,downloadMeditation.get(position).getUrl());
+                mUser = FirebaseAuth.getInstance().getCurrentUser();
+                downoadSong.add(meditationClass);
+                Log.d("Downloaded Music", String.valueOf(meditationClass));
+                Log.d("Download List", String.valueOf(downoadSong));
+
+                DatabaseReference database = FirebaseDatabase.getInstance().getReference("DownloadsMeditation").child(mUser.getUid());
+                database.setValue(downoadSong);
+
+                holder.download.setEnabled(false);
+
             }
         });
     }
@@ -73,7 +93,7 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return coffeeItems.size();
+        return downloadMeditation.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -101,7 +121,7 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition();
-                    MeditationModelClass gameModelClass = coffeeItems.get(position);
+                    MeditationModelClass gameModelClass = downloadMeditation.get(position);
                     if (gameModelClass.getFav().equals("0")) {
                         gameModelClass.setFav("1");
                         favDB.insertIntoTheDatabaseMed(gameModelClass.getMeditationName(), gameModelClass.getImageView(), gameModelClass.getId(), gameModelClass.getFav());

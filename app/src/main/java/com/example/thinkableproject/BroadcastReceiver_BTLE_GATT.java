@@ -48,14 +48,14 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
             activity.finish();
         }
         else if (Service_BTLE_GATT.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
-            activity.updateServices();
+//            activity.updateServices();
         }
         else if (Service_BTLE_GATT.ACTION_DATA_AVAILABLE.equals(action)) {
 
 //            String uuid = intent.getStringExtra(Service_BTLE_GATT.EXTRA_UUID);
 //            String data = intent.getStringExtra(Service_BTLE_GATT.EXTRA_DATA);
 
-            activity.updateCharacteristic();
+//            activity.updateCharacteristic();
         }
 
         return;

@@ -95,7 +95,7 @@ public class Profile extends AppCompatActivity {
         myDownloads.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MyDownloads.class));
+                startActivity(new Intent(getApplicationContext(),Downloads.class));
             }
         });
     }

@@ -25,10 +25,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThinkableProject"
         android:usesCleartextTraffic="true">
-        <activity android:name=".RelaxationExercise"></activity>
+        <activity android:name=".Downloads"></activity>
+        <activity
+            android:name=".MainActivity3"
+            android:label="@string/title_activity_main3"></activity>
+        <activity android:name=".RelaxationExercise" />
         <activity android:name=".PlayMeditation" />
-        <activity android:name=".MyDownloads"
-/>      <activity android:name=".Connection"/>
+        <activity android:name=".MyDownloads" />
+        <activity android:name=".Connection" />
         <activity
             android:name=".SpinnerActivity"
             android:exported="false" />
@@ -67,9 +71,9 @@
         <!-- android:value="@string/google_maps_key" /> -->
         <activity android:name=".ConcentrationReportMemoryDaily" />
         <activity android:name=".MusicPlayer" />
-        <activity android:name=".concentration_music"
-            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            />
+        <activity
+            android:name=".concentration_music"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
         <activity android:name=".Notification1" />
         <activity android:name=".Notification" />
         <activity android:name=".Profile" />
@@ -79,9 +83,7 @@
         <activity android:name=".ConcentrationReportYearly" />
         <activity android:name=".ConcentrationReportMonthly" />
         <activity android:name=".ConcentrationReportWeekly" />
-        <activity android:name=".ConcentrationReportDaily"/>
-<!--            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"-->
-
+        <activity android:name=".ConcentrationReportDaily" /> <!-- android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" -->
         <activity android:name=".ConcentrationMemory" />
         <activity android:name=".ConcentrationExcercise" />
         <activity android:name=".MusicPlayer" />

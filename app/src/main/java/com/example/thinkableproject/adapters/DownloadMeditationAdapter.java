@@ -11,15 +11,17 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thinkableproject.R;
+import com.example.thinkableproject.sample.DownloadMeditationClass;
 import com.example.thinkableproject.sample.DownloadMusicModelClass;
 
 import java.util.ArrayList;
 
-public class DownloadMusicAdapter extends RecyclerView.Adapter<DownloadMusicAdapter.ViewHolder> {
-    private Context context;
-    private ArrayList<DownloadMusicModelClass> downloadMusic;
+public class DownloadMeditationAdapter extends RecyclerView.Adapter<DownloadMeditationAdapter.ViewHolder> {
 
-    public DownloadMusicAdapter(Context context, ArrayList<DownloadMusicModelClass> downloadMusic) {
+    private Context context;
+    private ArrayList<DownloadMeditationClass> downloadMusic;
+
+    public DownloadMeditationAdapter(Context context, ArrayList<DownloadMeditationClass> downloadMusic) {
         this.context = context;
         this.downloadMusic = downloadMusic;
     }
@@ -27,7 +29,7 @@ public class DownloadMusicAdapter extends RecyclerView.Adapter<DownloadMusicAdap
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item_download_music,parent,false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item_download_meditation, parent, false);
         return new ViewHolder(view);
     }
 
@@ -43,17 +45,18 @@ public class DownloadMusicAdapter extends RecyclerView.Adapter<DownloadMusicAdap
         return downloadMusic.size();
     }
 
-    public static class ViewHolder extends  RecyclerView.ViewHolder{
+    public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView songTitle;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-            imageView=itemView.findViewById(R.id.downloadImage);
-            songTitle=itemView.findViewById(R.id.downloadTitle);
+            imageView = itemView.findViewById(R.id.downloadImage);
+            songTitle = itemView.findViewById(R.id.downloadTitle);
 
         }
     }
+
 
 }

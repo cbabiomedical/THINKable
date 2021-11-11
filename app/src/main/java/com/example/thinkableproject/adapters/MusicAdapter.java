@@ -99,20 +99,12 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
 
                 //Checking if file is already downloaded
 
-                File sdCard = Environment.getExternalStorageDirectory();
-                File file = new File(sdCard.getAbsolutePath() +
-                        "/Download/", musicList.get(position).getSongName()+".mp3");
-                Log.d("file path", String.valueOf(file));
-                if(file.exists())
-                {
-                    boolean flag = file.delete();
-                    Log.d("file", "file deleted " + flag);
-                }
-
                 DownloadMusicModelClass musicModelClass = new DownloadMusicModelClass(musicList.get(position).getSongName(), musicList.get(position).getImageView());
                 downloadFile(context, musicList.get(position).getSongName(), ".mp3", DIRECTORY_DOWNLOADS, musicList.get(position).getUrl());
                 mUser = FirebaseAuth.getInstance().getCurrentUser();
                 downoadSong.add(musicModelClass);
+                Log.d("Downloaded Music", String.valueOf(musicModelClass));
+                Log.d("Download List", String.valueOf(downoadSong));
 
                 DatabaseReference database = FirebaseDatabase.getInstance().getReference("Downloads").child(mUser.getUid());
                 database.setValue(downoadSong);
