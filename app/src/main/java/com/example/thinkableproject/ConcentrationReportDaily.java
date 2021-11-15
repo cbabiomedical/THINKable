@@ -414,6 +414,7 @@ public class ConcentrationReportDaily extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ConcentrationReportWeekly.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
         // On click listener of monthly button
@@ -422,6 +423,7 @@ public class ConcentrationReportDaily extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ConcentrationReportMonthly.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
         // On click listener of yearly button
@@ -430,6 +432,7 @@ public class ConcentrationReportDaily extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ConcentrationReportYearly.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
         // On click listener of relaxation toggle button
@@ -438,6 +441,7 @@ public class ConcentrationReportDaily extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), RelaxationReportDaily.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
         // On click listener of where am i toggle button
@@ -446,6 +450,7 @@ public class ConcentrationReportDaily extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ConcentrationReportWhereamI.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
     }

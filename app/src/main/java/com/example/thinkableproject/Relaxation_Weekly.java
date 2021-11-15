@@ -101,6 +101,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Concentration_Weekly.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 
@@ -319,6 +320,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Relaxation_Daily.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
         //go to relaxation monthly page
@@ -327,6 +329,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Relaxation_Monthly.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
         //go to relaxation yearly page
@@ -335,12 +338,14 @@ public class Relaxation_Weekly extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Relaxation_Yearly.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
         memoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),Memory_Weekly.class));
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 

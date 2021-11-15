@@ -82,6 +82,8 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item_music,
                 parent, false);
+        View view1=LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item,parent,false);
+
 
         return new ViewHolder(view, onNoteListner);
     }
@@ -182,6 +184,20 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
 
         }
     }
+//    public class  ViewHolder1 extends RecyclerView.ViewHolder{
+//
+//        ImageView imageViewEx;
+//        TextView titleEx;
+//        AppCompatButton favBtnEx;
+//        AppCompatButton downloadEx;
+//        public ViewHolder1(@NonNull View itemView) {
+//            super(itemView);
+//            imageViewEx=itemView.findViewById(R.id.gridImageExercise);
+//            titleEx=itemView.findViewById(R.id.item_name_exercise);
+//            favBtnEx=itemView.findViewById(R.id.favouritesIconExercise);
+//            downloadEx=itemView.findViewById(R.id.downloadExercise);
+//        }
+//    }
 
 
     private void timepopUpMenu(View view) {

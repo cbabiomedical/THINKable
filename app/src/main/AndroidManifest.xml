@@ -252,8 +252,7 @@
             android:label="@string/title_activity_landing_page" />
         <activity
             android:name=".ChangePassword"
-            android:parentActivityName=".Setting"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:parentActivityName=".Setting" />
         <activity
             android:name=".ForgetPasswordActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

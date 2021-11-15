@@ -67,6 +67,7 @@ public class Concentration_Daily extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Memory_Daily.class));
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 
@@ -243,7 +244,9 @@ public class Concentration_Daily extends AppCompatActivity {
                             barChartdaily.getLegend().setEnabled(false);
                             barChartdaily.getXAxis().setDrawGridLines(false);
                             barChartdaily.getAxisLeft().setDrawGridLines(false);
-
+                            barChartdaily.setDescription(null);
+                            barChartdaily.setNoDataText("No Chart Loaded.."); // this is the top line// this is one line below the no-data-text
+                            barChartdaily.invalidate();
                             barChartdaily.invalidate();
 
 
@@ -270,6 +273,7 @@ public class Concentration_Daily extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Concentration_Monthly.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
         // On click listener of weekly button
@@ -278,6 +282,7 @@ public class Concentration_Daily extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Concentration_Weekly.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
         games.setOnClickListener(new View.OnClickListener() {
@@ -293,6 +298,7 @@ public class Concentration_Daily extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Concentration_Yearly.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
         // On click listener of relaxation toggle button
@@ -301,6 +307,7 @@ public class Concentration_Daily extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Relaxation_Daily.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
         // On click listener of real time indication button

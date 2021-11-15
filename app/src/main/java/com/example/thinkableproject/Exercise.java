@@ -66,6 +66,7 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),RelaxationExercise.class));
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 

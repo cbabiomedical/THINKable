@@ -133,6 +133,7 @@ public class Concentration_Yearly extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Concentration_Daily.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
         //onClick listener for monthly button
@@ -141,6 +142,7 @@ public class Concentration_Yearly extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Concentration_Monthly.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
         //onClick listener for weekly button
@@ -149,6 +151,7 @@ public class Concentration_Yearly extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Concentration_Weekly.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
         //onClick listener for relaxation toggle button
@@ -157,12 +160,14 @@ public class Concentration_Yearly extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Relaxation_Yearly.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
         memoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),Memory_Yearly.class));
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
         //onClick listener for real time indication button

@@ -66,6 +66,7 @@ public class RelaxationExercise extends AppCompatActivity implements MusicAdapte
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Exercise.class));
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);

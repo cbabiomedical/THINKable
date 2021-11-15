@@ -95,6 +95,7 @@ public class RelaxationReportWeekly extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intentr1 = new Intent(getApplicationContext(), RelaxationReportDaily.class);
                 startActivity(intentr1);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
         //go to relaxation monthly page
@@ -103,6 +104,7 @@ public class RelaxationReportWeekly extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intentr1 = new Intent(getApplicationContext(), RelaxationReportMonthly.class);
                 startActivity(intentr1);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
         //go to relaxation yearly page
@@ -111,6 +113,7 @@ public class RelaxationReportWeekly extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intentr1 = new Intent(getApplicationContext(), RelaxationReportYearly.class);
                 startActivity(intentr1);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 
@@ -119,6 +122,7 @@ public class RelaxationReportWeekly extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MemoryReportDaily.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 
@@ -128,6 +132,7 @@ public class RelaxationReportWeekly extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intentr1 = new Intent(getApplicationContext(), RelaxationReportWhereamI.class);
                 startActivity(intentr1);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 
@@ -137,6 +142,7 @@ public class RelaxationReportWeekly extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), ConcentrationReportWeekly.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 
