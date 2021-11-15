@@ -7,6 +7,7 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.usage.NetworkStats;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,7 +30,10 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.thinkableproject.databinding.ActivityMapsBinding;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.PermissionToken;
@@ -45,7 +49,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         com.google.android.gms.location.LocationListener{
 
     private GoogleMap mMap;
-    private ActivityMapsBinding binding;
 
     private GoogleApiClient mGoogleApiClient;
     private Location mLocation;
@@ -61,9 +64,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        binding = ActivityMapsBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_maps);
 
         if (requestSinglePermission()) {
             // Obtain the SupportMapFragment and get notified when the map is ready to be used.
@@ -87,7 +88,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private boolean checkLocation() {
-
         if(!isLocationEnabled()){
             showAlert();
         }
@@ -95,7 +95,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private void showAlert() {
-        Log.d("TAG", "---------------------E-----------------------");
         final AlertDialog.Builder dialog = new AlertDialog.Builder(this);
         dialog.setTitle("Enable Location")
                 .setMessage("Your Location Settings is set to 'off'.\nPlease Enable Location to " + "use this app")
@@ -124,6 +123,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private boolean requestSinglePermission() {
+
         Dexter.withActivity(this)
                 .withPermission(Manifest.permission.ACCESS_FINE_LOCATION)
                 .withListener(new PermissionListener() {
@@ -152,6 +152,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
     }
 
+
     /**
      * Manipulates the map once available.
      * This callback is triggered when the map is ready to be used.
@@ -166,6 +167,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mMap = googleMap;
 
         if(latLng!=null){
+            Log.d("TAG", "---------------------K-----------------------");
 
             mMap.addMarker(new MarkerOptions().position(latLng).title("Marker in Current Location"));
             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,14F));
@@ -182,6 +184,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
             return;
         }
         startLocationUpdates();
+        Log.d("TAG", "---------------------M-----------------------");
 
         mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
@@ -191,7 +194,6 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         else {
             Toast.makeText(this, "Location Not Detected", Toast.LENGTH_SHORT).show();
         }
-
     }
 
     private void startLocationUpdates() {
@@ -199,16 +201,20 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         mLocationRequest = com.google.android.gms.location.LocationRequest.create()
                 .setPriority(com.google.android.gms.location.LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(UPDATE_INTERVAL).setFastestInterval(FASTEST_INTERVAL);
+        Log.d("TAG", "---------------------O-----------------------");
 
-        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) !=
+        if (ActivityCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION) !=
                 PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this,
                         Manifest.permission.ACCESS_COARSE_LOCATION) !=
                         PackageManager.PERMISSION_GRANTED){
             return;
         }
+        Log.d("TAG", "---------------------P-----------------------");
 
-        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient, mLocationRequest, this);
+        LocationServices.FusedLocationApi.requestLocationUpdates(mGoogleApiClient,
+                mLocationRequest, this);
     }
 
     @Override
@@ -228,28 +234,29 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 Double.toString(location.getLongitude());
         Toast.makeText(this, msg, Toast.LENGTH_SHORT).show();
 
-//        LocationHelper helper = new LocationHelper(
-//                location.getLongitude(),
-//                location.getLatitude()
-//        );
+        LocationHelper helper = new LocationHelper(
+                location.getLongitude(),
+                location.getLatitude()
+        );
 
-//        FirebaseDatabase.getInstance().getReference("Current Location").setValue(helper).addOnCompleteListener(new OnCompleteListener<Void>() {
-//            @Override
-//            public void onComplete(@NonNull Task<Void> task) {
-//                if (task.isSuccessful()){
-//                    Toast.makeText(MapsActivity.this, "Location Saved", Toast.LENGTH_SHORT).show();
-//                }
-//                else{
-//                    Toast.makeText(MapsActivity.this, "Location Not Saved", Toast.LENGTH_SHORT).show();
-//                }
-//            }
-//        });
+        FirebaseUser mUser;
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        FirebaseDatabase.getInstance().getReference("Current Location").child(mUser.getUid()).setValue(helper).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()){
+                    Toast.makeText(MapsActivity.this, "Location Saved", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(MapsActivity.this, "Location Not Saved", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         latLng = new LatLng(location.getLatitude(), location.getLongitude());
 
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
     }
 
     @Override

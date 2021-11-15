@@ -51,14 +51,11 @@ public class UserLocation extends AppCompatActivity {
         });
     }
 
-    public void btnCurrentLocation(View view) {
-
+    public void btnCurrentLocation(View view){
         startActivity(new Intent(this, MapsActivity.class));
     }
 
-//    public void btnRetrieveLocation (View view) {
-//
-//        startActivity(new Intent(getApplicationContext(), RetrieveMapsActivity.class));
-//
-//    }
+    public void btnRetrieveLocation(View view){
+        startActivity(new Intent(getApplicationContext(), RetrieveMapActivity.class));
+    }
 }

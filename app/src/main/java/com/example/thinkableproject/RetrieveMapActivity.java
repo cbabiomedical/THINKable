@@ -12,6 +12,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.example.thinkableproject.databinding.ActivityRetrieveMapBinding;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -21,14 +23,12 @@ import com.google.firebase.database.ValueEventListener;
 public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private ActivityRetrieveMapBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        binding = ActivityRetrieveMapBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+        setContentView(R.layout.activity_retrieve_map);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
@@ -48,26 +48,26 @@ public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyC
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        FirebaseUser mUser;
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Current Location").child(mUser.getUid());
 
-//        DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Current Location");
-//
-//        ValueEventListener listener = databaseReference.addValueEventListener (new ValueEventListener(){
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot){
-//
-//                Double latitude = dataSnapshot.child("latitude").getValue(Double.class);
-//                Double longtitude = dataSnapshot.child("longitude").getValue(Double.class);
-//                LatLng location = new LatLng(latitude, longtitude);
-//
-//                mMap.addMarker(new MarkerOptions().position(location).title("Marker in Sydney"));
-//                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14F));
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError){
-//
-//            }
-//        });
-//    }
+        ValueEventListener listener = databaseReference.addValueEventListener (new ValueEventListener(){
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot){
+
+                Double latitude = dataSnapshot.child("latitude").getValue(Double.class);
+                Double longtitude = dataSnapshot.child("longitude").getValue(Double.class);
+                LatLng location = new LatLng(latitude, longtitude);
+
+                mMap.addMarker(new MarkerOptions().position(location).title("Marker in Sydney"));
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(location, 14F));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError){
+
+            }
+        });
     }
 }

@@ -22,17 +22,18 @@
         android:textColor="#ffffff"
         android:textSize="22sp" />
 
-<!--    <Button-->
-<!--        android:id="@+id/button2"-->
-<!--        android:layout_width="325dp"-->
-<!--        android:layout_marginLeft="40dp"-->
-<!--        android:layout_height="65dp"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:backgroundTint="@color/design_default_color_primary"-->
-<!--        android:text="Retrieve Location"-->
-<!--        android:textColor="#ffffff"-->
-<!--        android:layout_marginBottom="100dp"-->
-<!--        android:textSize="22sp" />-->
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="325dp"
+        android:layout_marginLeft="40dp"
+        android:layout_height="65dp"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/design_default_color_primary"
+        android:text="Retrieve Location"
+        android:textColor="#ffffff"
+        android:onClick="btnRetrieveLocation"
+        android:layout_marginBottom="100dp"
+        android:textSize="22sp" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
