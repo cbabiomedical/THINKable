@@ -1,8 +1,8 @@
 package com.example.thinkableproject.sample;
 
 public class DownloadGameModelClass {
-private int imageView;
-private String gameTitle;
+    private int imageView;
+    private String gameTitle;
 
     public DownloadGameModelClass() {
     }
@@ -28,12 +28,5 @@ private String gameTitle;
         this.gameTitle = gameTitle;
     }
 
-    @Override
-    public String toString() {
-        return "DownloadGameModelClass{" +
-                "imageView=" + imageView +
-                ", gameTitle='" + gameTitle + '\'' +
-                '}';
-    }
 }
 

@@ -104,13 +104,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 >
-                <ImageView
-                    android:layout_width="250dp"
-                    android:layout_height="70dp"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_marginTop="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:text="Time to Relax"
+                    android:textStyle="bold"
+                    android:paddingHorizontal="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"
+                    android:background="@drawable/progressbtn"
                     android:src="@drawable/timetorelax"
                     android:layout_marginLeft="55dp">
 
-                </ImageView>
+                </androidx.appcompat.widget.AppCompatButton>
             </RelativeLayout>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -209,13 +216,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 >
-                <ImageView
-                    android:layout_width="250dp"
-                    android:layout_height="70dp"
-                    android:src="@drawable/timestayrelaxed"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:layout_width="wrap_content"
+                    android:layout_height="35dp"
+                    android:background="@drawable/progressbtn"
+                    android:layout_centerHorizontal="true"
+                    android:textStyle="bold"
+                    android:text="Time Stayed Relaxed"
+                    android:textColor="@color/white"
+                    android:paddingHorizontal="20dp"
                     android:layout_marginLeft="55dp">
 
-                </ImageView>
+                </androidx.appcompat.widget.AppCompatButton>
             </RelativeLayout>
 
 

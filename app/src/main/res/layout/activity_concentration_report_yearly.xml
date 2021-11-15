@@ -146,14 +146,17 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_timeCon"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="35dp"
                 android:layout_below="@+id/colorDesc"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
+                android:textAllCaps="false"
+                android:elevation="5dp"
                 android:background="@drawable/progressbtn"
                 android:paddingHorizontal="20dp"
                 android:text="Time to Concentrate "
+                android:textSize="20sp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 app:cornerRadius="13dp" />
@@ -171,13 +174,16 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_timeStayedCon"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="35dp"
                 android:layout_below="@+id/barChartYearly"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/progressbtn"
+                android:textSize="20sp"
                 android:paddingHorizontal="20dp"
+                android:textAllCaps="false"
+                android:elevation="5dp"
                 android:text="Time Stayed Concentrated "
                 android:textColor="@color/white"
                 android:textStyle="bold"

@@ -146,13 +146,15 @@
                 android:layout_marginTop="20dp"
                 android:layout_centerHorizontal="true"
                 android:paddingHorizontal="20dp"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="35dp"
                 android:layout_below="@+id/colorDesc"
                 app:cornerRadius="13dp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:text="How much can be remembered"
+                android:textAllCaps="false"
+                android:textSize="20sp"
+                android:text="Rate of Retrieval of Memory"
                 android:background="@drawable/progressbtn"/>
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barChartDaily"
@@ -162,6 +164,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="20dp"
+                android:elevation="5dp"
                 android:background="@color/background"
                 app:cornerRadius="13dp" />
 
@@ -170,13 +173,16 @@
                 android:layout_marginTop="20dp"
                 android:layout_centerHorizontal="true"
                 android:paddingHorizontal="20dp"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="35dp"
                 android:layout_below="@+id/barChartDaily"
                 app:cornerRadius="13dp"
                 android:textColor="@color/white"
+                android:textAllCaps="false"
                 android:textStyle="bold"
-                android:text="How Fast Can Remember "
+                android:elevation="5dp"
+                android:text="Capacity of Memory "
+                android:textSize="20sp"
                 android:background="@drawable/progressbtn"/>
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barChartDaily2"
