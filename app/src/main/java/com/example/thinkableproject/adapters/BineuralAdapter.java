@@ -40,8 +40,8 @@ public class BineuralAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
         ((ViewHolder) viewHolder).mName.setText(bineuralList.get(i).getBineuralName());
-        ((ViewHolder) viewHolder).isFav.setImageResource(bineuralList.get(i).getIsFav());
-//
+//        ((ViewHolder) viewHolder).isFav.setImageResource(bineuralList.get(i).getIsFav());
+
         ((ViewHolder) viewHolder).mImage.setImageResource(bineuralList.get(i).getBineuralImage());
     }
 
@@ -64,7 +64,7 @@ public class BineuralAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
             super(itemView);
             mImage = itemView.findViewById(R.id.gridImage);
             mName = itemView.findViewById(R.id.item_name);
-            isFav = itemView.findViewById(R.id.favouritesIcon);
+
             mUser = FirebaseAuth.getInstance().getCurrentUser();
 
 

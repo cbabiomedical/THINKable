@@ -2,6 +2,7 @@ package com.example.thinkableproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -46,7 +47,7 @@ public class BineuralAcivity extends AppCompatActivity {
 
     private void initRecyclerView() {
         //Initializing liner layout manager
-        recyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         adapter = new BineuralAdapter(bineralList);
         recyclerView.setAdapter(adapter);
     }

@@ -275,6 +275,7 @@ public class RelaxationReportDaily extends AppCompatActivity {
                             barChartDailytimeto.getLegend().setEnabled(false);
                             barChartDailytimeto.getXAxis().setDrawGridLines(false);
                             barChartDailytimeto.getAxisLeft().setDrawGridLines(false);
+                            barChartDailytimeto.setNoDataText("Data Loading Please Wait...");
 
                             barChartDailytimeto.invalidate();
 
@@ -448,6 +449,7 @@ public class RelaxationReportDaily extends AppCompatActivity {
                             barChartDailytimestayed.getXAxis().setTextSize(textSize);
                             barChartDailytimestayed.getAxisLeft().setTextSize(textSize);
                             barChartDailytimestayed.setExtraBottomOffset(10f);
+                            barChartDailytimestayed.setNoDataText("Data Loading Please Wait");
 
                             barChartDailytimestayed.getAxisRight().setEnabled(false);
                             Description desc = new Description();

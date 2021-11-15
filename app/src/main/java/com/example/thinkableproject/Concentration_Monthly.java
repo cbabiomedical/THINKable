@@ -252,7 +252,7 @@ public class Concentration_Monthly extends AppCompatActivity {
                             barChart.getLegend().setEnabled(false);
                             barChart.getXAxis().setDrawGridLines(false);
                             barChart.getAxisLeft().setDrawGridLines(false);
-
+                            barChart.setNoDataText("Data Loading Please Wait....");
                             barChart.invalidate();
 
 

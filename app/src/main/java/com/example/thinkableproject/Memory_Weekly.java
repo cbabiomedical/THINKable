@@ -281,7 +281,7 @@ public class Memory_Weekly extends AppCompatActivity {
                             barChart1.getLegend().setEnabled(false);
                             barChart1.getXAxis().setDrawGridLines(false);
                             barChart1.getAxisLeft().setDrawGridLines(false);
-
+                            barChart1.setNoDataText("Data Loading Please Wait");
                             barChart1.invalidate();
 
 

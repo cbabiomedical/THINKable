@@ -48,7 +48,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     public GridAdapter(ArrayList<GameModelClass> coffeeItems, Context context, OnNoteListner onNoteListner) {
         this.coffeeItems = coffeeItems;
         this.context = context;
-        this.onNoteListner=onNoteListner;
+        this.onNoteListner = onNoteListner;
     }
 
     @NonNull
@@ -64,7 +64,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item,
                 parent, false);
-        return new ViewHolder(view,onNoteListner);
+        return new ViewHolder(view, onNoteListner);
     }
 
 
@@ -83,12 +83,12 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
         return coffeeItems.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView imageView;
         TextView titleTextView, likeCountTextView;
         Button favBtn;
-       OnNoteListner onNoteListner;
+        OnNoteListner onNoteListner;
 
         public ViewHolder(@NonNull View itemView, OnNoteListner onNoteListner) {
             super(itemView);
@@ -96,7 +96,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
             imageView = itemView.findViewById(R.id.gridImage);
             titleTextView = itemView.findViewById(R.id.item_name);
             favBtn = itemView.findViewById(R.id.favIcon);
-            this.onNoteListner=onNoteListner;
+            this.onNoteListner = onNoteListner;
             itemView.setOnClickListener(this);
 
 
@@ -240,7 +240,8 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
 
 
     }
-    public interface OnNoteListner{
+
+    public interface OnNoteListner {
         void onNoteClickGame(int position);
     }
 }

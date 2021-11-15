@@ -242,6 +242,7 @@ public class Memory_Daily extends AppCompatActivity {
                             barChartdaily.getAxisLeft().setTextSize(textSize);
                             barChartdaily.setExtraBottomOffset(10f);
 
+
                             barChartdaily.getAxisRight().setEnabled(false);
                             Description desc = new Description();
                             desc.setText("");
@@ -249,7 +250,7 @@ public class Memory_Daily extends AppCompatActivity {
                             barChartdaily.getLegend().setEnabled(false);
                             barChartdaily.getXAxis().setDrawGridLines(false);
                             barChartdaily.getAxisLeft().setDrawGridLines(false);
-
+                            barChartdaily.setNoDataText("Data Loading Please Wait...");
                             barChartdaily.invalidate();
 
 

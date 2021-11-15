@@ -51,7 +51,7 @@ public class MemoryReportYearly extends AppCompatActivity {
     AppCompatButton daily, weekly, monthly, whereAmI;
     File fileName, localFile, fileName1, localFile1;
     String text;
-    ImageButton relaxationBtn,concentrationBtn;
+    ImageButton relaxationBtn, concentrationBtn;
     FirebaseUser mUser;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
@@ -70,7 +70,7 @@ public class MemoryReportYearly extends AppCompatActivity {
         monthly = findViewById(R.id.monthly);
         relaxationBtn = findViewById(R.id.relaxation);
         whereAmI = findViewById(R.id.whereAmI);
-        concentrationBtn=findViewById(R.id.concentration);
+        concentrationBtn = findViewById(R.id.concentration);
 
         //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -231,7 +231,7 @@ public class MemoryReportYearly extends AppCompatActivity {
                             barChart2.getLegend().setEnabled(false);
                             barChart2.getXAxis().setDrawGridLines(false);
                             barChart2.getAxisLeft().setDrawGridLines(false);
-
+                            barChart2.setNoDataText("Data Loading Please Wait...");
                             barChart2.invalidate();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -372,6 +372,7 @@ public class MemoryReportYearly extends AppCompatActivity {
                             barChart1.getLegend().setEnabled(false);
                             barChart1.getXAxis().setDrawGridLines(false);
                             barChart1.getAxisLeft().setDrawGridLines(false);
+                            barChart1.setNoDataText("Data Loading Please Wait...");
 
                             barChart1.invalidate();
 
@@ -412,7 +413,7 @@ public class MemoryReportYearly extends AppCompatActivity {
         monthly.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),MemoryReportMonthly.class);
+                Intent intent = new Intent(getApplicationContext(), MemoryReportMonthly.class);
                 startActivity(intent);
             }
         });
@@ -436,7 +437,7 @@ public class MemoryReportYearly extends AppCompatActivity {
         concentrationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),ConcentrationReportYearly.class));
+                startActivity(new Intent(getApplicationContext(), ConcentrationReportYearly.class));
             }
         });
     }

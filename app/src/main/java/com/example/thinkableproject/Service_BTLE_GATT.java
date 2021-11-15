@@ -27,7 +27,7 @@ public class Service_BTLE_GATT extends Service {
      * Service for managing connection and data communication with a GATT server hosted on a
      * given Bluetooth LE device.
      */
-    private final static String TAG = Service_BTLE_GATT.class.getSimpleName();
+    private final static String TAG =Service_BTLE_GATT.class.getSimpleName();
 
     private BluetoothManager mBluetoothManager;
     private BluetoothAdapter mBluetoothAdapter;
@@ -137,7 +137,7 @@ public class Service_BTLE_GATT extends Service {
 
     public class BTLeServiceBinder extends Binder {
 
-       Service_BTLE_GATT getService() {
+        Service_BTLE_GATT getService() {
             return Service_BTLE_GATT.this;
         }
     }

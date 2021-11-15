@@ -33,6 +33,7 @@ public class Calibration extends AppCompatActivity {
 
     private PieChart pieChart;
     String action;
+    BroadcastReceiver_BTLE_GATT broadcastReceiver_btle_gatt;
     ImageView connectDevice;
     private TextView textViewcali;
     private BroadcastReceiver_BTLE_GATT mGattUpdateReceiver;
@@ -149,6 +150,7 @@ public class Calibration extends AppCompatActivity {
 
 
     private void setupPieChart() {
+
         pieChart.setDrawHoleEnabled(true);
         pieChart.setEntryLabelTextSize(12);
         pieChart.setEntryLabelColor(Color.BLACK);
@@ -181,17 +183,23 @@ public class Calibration extends AppCompatActivity {
 
             if (color[0] == 0 | color[1] == 0 | color[2] == 0 | color[3] == 0 | color[4] == 0) {
 
-                pieChart.setCenterText("Not Connected");
+//                pieChart.setCenterText("Not Connected");
                 pieChart.setCenterTextSize(20f);
                 pieChart.setHoleRadius(80f);
 
 
             } else if (color[0] == 1 & color[1] == 1 & color[2] == 1 & color[3] == 1 & color[4] == 1) {
-                pieChart.setCenterText("Connected");
+//                pieChart.setCenterText("Connected");
                 pieChart.setCenterTextSize(20f);
                 pieChart.getDescription().setEnabled(false);
                 pieChart.setHoleRadius(80f);
             }
+//            if(broadcastReceiver_btle_gatt.getAction().equals(Service_BTLE_GATT.ACTION_GATT_CONNECTED)){
+//                pieChart.setCenterText("Device Connected");
+//            }
+//            else if(!broadcastReceiver_btle_gatt.getAction().equals(Service_BTLE_GATT.ACTION_GATT_DISCONNECTED)){
+//                pieChart.setCenterText("Device Not Connected");
+//            }
 
             //if 0 ----> not connected ----> red
             if (color[i] == 0) {

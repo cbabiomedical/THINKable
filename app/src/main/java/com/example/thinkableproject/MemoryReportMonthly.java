@@ -52,7 +52,7 @@ public class MemoryReportMonthly extends AppCompatActivity {
     String text;
     AppCompatButton daily, weekly, yearly, whereAmI;
     FirebaseUser mUser;
-    ImageButton relaxationBtn,concentrationBtn;
+    ImageButton relaxationBtn, concentrationBtn;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
     ArrayList<String> list1 = new ArrayList<>();
@@ -70,7 +70,7 @@ public class MemoryReportMonthly extends AppCompatActivity {
         barChart2 = findViewById(R.id.barChartMonthly2);
         relaxationBtn = findViewById(R.id.relaxation);
         whereAmI = findViewById(R.id.whereAmI);
-        concentrationBtn=findViewById(R.id.concentration);
+        concentrationBtn = findViewById(R.id.concentration);
         //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         //Set Home Selected
@@ -204,7 +204,7 @@ public class MemoryReportMonthly extends AppCompatActivity {
 
                             float textSize = 16f;
                             //Initializing object of MyBarDataset class
-                           MyBarDataset dataSet = new MyBarDataset(entries, "data", credits);
+                            MyBarDataset dataSet = new MyBarDataset(entries, "data", credits);
                             dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
                                     ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
                                     ContextCompat.getColor(getApplicationContext(), R.color.blue),
@@ -229,7 +229,7 @@ public class MemoryReportMonthly extends AppCompatActivity {
                             barChart.getLegend().setEnabled(false);
                             barChart.getXAxis().setDrawGridLines(false);
                             barChart.getAxisLeft().setDrawGridLines(false);
-
+                            barChart.setNoDataText("Data Loading Please Wait....");
                             barChart.invalidate();
 
                         }
@@ -345,7 +345,7 @@ public class MemoryReportMonthly extends AppCompatActivity {
                                 entries2.add(new BarEntry(j, floatList1.get(j)));
                             }
                             float textSize = 16f;
-                           MyBarDataset dataSet1 = new MyBarDataset(entries2, "data", credits1);
+                            MyBarDataset dataSet1 = new MyBarDataset(entries2, "data", credits1);
                             dataSet1.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
                                     ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
                                     ContextCompat.getColor(getApplicationContext(), R.color.blue),
@@ -370,7 +370,7 @@ public class MemoryReportMonthly extends AppCompatActivity {
                             barChart2.getLegend().setEnabled(false);
                             barChart2.getXAxis().setDrawGridLines(false);
                             barChart2.getAxisLeft().setDrawGridLines(false);
-
+                            barChart2.setNoDataText("Data Loading Please Wait...");
                             barChart2.invalidate();
 
 //
@@ -433,7 +433,7 @@ public class MemoryReportMonthly extends AppCompatActivity {
         concentrationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),ConcentrationReportMonthly.class));
+                startActivity(new Intent(getApplicationContext(), ConcentrationReportMonthly.class));
             }
         });
 

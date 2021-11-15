@@ -3,6 +3,7 @@ package com.example.thinkableproject;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 /**
  * Created by Kelvin on 5/8/16.
@@ -25,6 +26,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
     // ACTION_DATA_AVAILABLE: received data from the device. This can be a
     // result of read or notification operations.
 
+
     public String getAction() {
         return action;
     }
@@ -41,21 +43,23 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
         if (Service_BTLE_GATT.ACTION_GATT_CONNECTED.equals(action)) {
             mConnected = true;
             Utils.toast(activity.getApplicationContext(), "Device Connected");
+            Log.d("Connection","Device Connected");
         }
         else if (Service_BTLE_GATT.ACTION_GATT_DISCONNECTED.equals(action)) {
             mConnected = false;
             Utils.toast(activity.getApplicationContext(), "Disconnected From Device");
+            Log.d("Connection","Device Disconnected");
             activity.finish();
         }
         else if (Service_BTLE_GATT.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
-            activity.updateServices();
+//            activity.updateServices();
         }
         else if (Service_BTLE_GATT.ACTION_DATA_AVAILABLE.equals(action)) {
 
 //            String uuid = intent.getStringExtra(Service_BTLE_GATT.EXTRA_UUID);
 //            String data = intent.getStringExtra(Service_BTLE_GATT.EXTRA_DATA);
 
-            activity.updateCharacteristic();
+//            activity.updateCharacteristic();
         }
 
         return;

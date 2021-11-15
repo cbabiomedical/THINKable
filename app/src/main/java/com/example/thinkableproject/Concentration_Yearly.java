@@ -299,7 +299,7 @@ public class Concentration_Yearly extends AppCompatActivity {
                             barChart2.getLegend().setEnabled(false);
                             barChart2.getXAxis().setDrawGridLines(false);
                             barChart2.getAxisLeft().setDrawGridLines(false);
-
+                            barChart2.setNoDataText("Data Loading Please Wait....");
                             barChart2.invalidate();
                         }
                     }).addOnFailureListener(new OnFailureListener() {

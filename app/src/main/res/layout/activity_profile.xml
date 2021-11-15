@@ -88,23 +88,23 @@
         android:paddingHorizontal="10dp"
         app:cornerRadius="13dp"
         android:drawableStart="@drawable/ic_baseline_calendar_today_24"/>
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/history"
-        android:layout_marginTop="15dp"
-        android:layout_marginHorizontal="20dp"
-        android:layout_below="@+id/cal_reminder"
-        android:background="@drawable/border_background"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="History"
-        android:paddingHorizontal="10dp"
-        app:cornerRadius="13dp"
-        android:drawableStart="@drawable/ic_history"/>
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/history"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        android:layout_marginHorizontal="20dp"-->
+<!--        android:layout_below="@+id/cal_reminder"-->
+<!--        android:background="@drawable/border_background"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="History"-->
+<!--        android:paddingHorizontal="10dp"-->
+<!--        app:cornerRadius="13dp"-->
+<!--        android:drawableStart="@drawable/ic_history"/>-->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/bePremium"
         android:layout_marginTop="15dp"
         android:layout_marginHorizontal="20dp"
-        android:layout_below="@+id/history"
+        android:layout_below="@+id/cal_reminder"
         android:background="@drawable/border_background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -134,6 +134,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/about"
         android:layout_marginBottom="20dp"
+        android:layout_centerHorizontal="true"
         android:layout_marginHorizontal="20dp"
         android:background="@drawable/border_background">
 

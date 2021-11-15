@@ -269,6 +269,7 @@ public class RelaxationReportYearly extends AppCompatActivity {
                             barChartYearlytimeto.getLegend().setEnabled(false);
                             barChartYearlytimeto.getXAxis().setDrawGridLines(false);
                             barChartYearlytimeto.getAxisLeft().setDrawGridLines(false);
+                            barChartYearlytimeto.setNoDataText("Data Loading Please Wait...");
 
                             barChartYearlytimeto.invalidate();
 
@@ -417,6 +418,7 @@ public class RelaxationReportYearly extends AppCompatActivity {
                             barChartYearlytimestayed.getLegend().setEnabled(false);
                             barChartYearlytimestayed.getXAxis().setDrawGridLines(false);
                             barChartYearlytimestayed.getAxisLeft().setDrawGridLines(false);
+                            barChartYearlytimestayed.setNoDataText("Data Loading Please Wait...");
 
                             barChartYearlytimestayed.invalidate();
 

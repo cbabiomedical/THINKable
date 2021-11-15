@@ -40,7 +40,6 @@ public class FavouriteMusicAdapter extends RecyclerView.Adapter<FavouriteMusicAd
     }
 
 
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.favTextView.setText(favItemList.get(position).getItem_title());
@@ -53,7 +52,7 @@ public class FavouriteMusicAdapter extends RecyclerView.Adapter<FavouriteMusicAd
         return favItemList.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder{
+    public class ViewHolder extends RecyclerView.ViewHolder {
         TextView favTextView;
         Button favBtn;
         ImageView favImageView;
@@ -77,6 +76,7 @@ public class FavouriteMusicAdapter extends RecyclerView.Adapter<FavouriteMusicAd
             });
         }
     }
+
     private void removeItem(int position) {
         favItemList.remove(position);
         notifyItemRemoved(position);

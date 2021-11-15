@@ -234,6 +234,7 @@ public class ConcentrationReportDaily extends AppCompatActivity {
                             barChartdaily.getXAxis().setTextSize(textSize);
                             barChartdaily.getAxisLeft().setTextSize(textSize);
                             barChartdaily.setExtraBottomOffset(10f);
+                            barChartdaily.setNoDataText("Data Loading Please Wait...");
 
                             barChartdaily.getAxisRight().setEnabled(false);
                             Description desc = new Description();
@@ -386,7 +387,7 @@ public class ConcentrationReportDaily extends AppCompatActivity {
                             barChartdaily2.getLegend().setEnabled(false);
                             barChartdaily2.getXAxis().setDrawGridLines(false);
                             barChartdaily2.getAxisLeft().setDrawGridLines(false);
-
+                            barChartdaily2.setNoDataText("Data Loading Please Wait...");
                             barChartdaily2.invalidate();
 
 //
