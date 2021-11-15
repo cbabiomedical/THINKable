@@ -327,6 +327,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                             xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
                             xAxis.setGranularity(1);
                             xAxis.setCenterAxisLabels(true);
+                            chart.setNoDataText("Data Loading Please Wait....");
 
                             l.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
                             l.setHorizontalAlignment(Legend.LegendHorizontalAlignment.RIGHT);
@@ -588,6 +589,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                             chart1.setMaxVisibleValueCount(200);
                             chart1.setPinchZoom(true);
                             Legend l1 = chart1.getLegend();
+                            chart1.setNoDataText("Data Loading Please Wait....");
 
                             YAxis yl1 = chart1.getAxisLeft();
                             yl1.setAxisMinimum(0f);

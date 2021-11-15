@@ -223,6 +223,7 @@ public class ConcentrationReportWeekly extends AppCompatActivity {
                             data.setDrawValues(false);
                             data.setBarWidth(0.9f);
 
+
                             barChart1.setData(data);
                             barChart1.setFitBars(true);
                             barChart1.getXAxis().setValueFormatter(new IndexAxisValueFormatter(weeks));
@@ -238,7 +239,7 @@ public class ConcentrationReportWeekly extends AppCompatActivity {
                             barChart1.getLegend().setEnabled(false);
                             barChart1.getXAxis().setDrawGridLines(false);
                             barChart1.getAxisLeft().setDrawGridLines(false);
-
+                            barChart1.setNoDataText("Data Loading Please Wait...");
                             barChart1.invalidate();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -378,6 +379,7 @@ public class ConcentrationReportWeekly extends AppCompatActivity {
                             barChart2.getLegend().setEnabled(false);
                             barChart2.getXAxis().setDrawGridLines(false);
                             barChart2.getAxisLeft().setDrawGridLines(false);
+                            barChart2.setNoDataText("Data Loading Please Wait...");
 
                             barChart2.invalidate();
 

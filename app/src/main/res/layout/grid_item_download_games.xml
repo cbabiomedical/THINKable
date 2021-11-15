@@ -8,17 +8,18 @@
     android:layout_marginEnd="8dp">
 
     <ImageView
-        android:id="@+id/downloadImage"
+        android:id="@+id/downloadImageGame"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:src="@drawable/music1"
         android:scaleType="centerCrop"/>
 
     <TextView
-        android:id="@+id/downloadTitle"
+        android:id="@+id/downloadTitleGame"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Chill Acoustic"
+        android:textColor="@color/black"
         style="@style/TextAppearance.AppCompat.Medium"
         android:layout_gravity="center|start"
         android:layout_marginStart="120dp"/>

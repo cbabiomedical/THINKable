@@ -66,6 +66,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_relaxation_report_monthly);
 
         //Initialize buttons
         whereAmI = findViewById(R.id.whereAmI);
@@ -267,6 +268,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
                             barChartMonthlytimeto.getLegend().setEnabled(false);
                             barChartMonthlytimeto.getXAxis().setDrawGridLines(false);
                             barChartMonthlytimeto.getAxisLeft().setDrawGridLines(false);
+                            barChartMonthlytimeto.setNoDataText("Data Loading Please Wait...");
 
                             barChartMonthlytimeto.invalidate();
 
@@ -450,6 +452,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
                             barChartMonthlytimestayed.getLegend().setEnabled(false);
                             barChartMonthlytimestayed.getXAxis().setDrawGridLines(false);
                             barChartMonthlytimestayed.getAxisLeft().setDrawGridLines(false);
+                            barChartMonthlytimestayed.setNoDataText("Data Loading Please Wait...");
 
                             barChartMonthlytimestayed.invalidate();
 

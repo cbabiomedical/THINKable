@@ -52,7 +52,7 @@ public class Concentration_Weekly extends AppCompatActivity {
     Dialog dialogcw;
     BarChart barChart1;
     AppCompatButton monthly, yearly, daily, realTime;
-    ImageButton relaxationBtn,memoryBtn, music, games;
+    ImageButton relaxationBtn, memoryBtn, music, games;
     FirebaseUser mUser;
     File localFile, fileName;
     ArrayList<String> list = new ArrayList<>();
@@ -71,7 +71,7 @@ public class Concentration_Weekly extends AppCompatActivity {
         relaxationBtn = findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
         dialogcw = new Dialog(this);
-        memoryBtn=findViewById(R.id.memory);
+        memoryBtn = findViewById(R.id.memory);
         music = findViewById(R.id.music);
         games = findViewById(R.id.game);
 
@@ -85,7 +85,7 @@ public class Concentration_Weekly extends AppCompatActivity {
         games.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(), GameActivity.class);
+                Intent intent = new Intent(getApplicationContext(), GameActivity.class);
                 startActivity(intent);
             }
         });
@@ -168,7 +168,7 @@ public class Concentration_Weekly extends AppCompatActivity {
         memoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Memory_Weekly.class));
+                startActivity(new Intent(getApplicationContext(), Memory_Weekly.class));
             }
         });
         //Initializing arraylist and storing data
@@ -299,6 +299,7 @@ public class Concentration_Weekly extends AppCompatActivity {
                             barChart1.getLegend().setEnabled(false);
                             barChart1.getXAxis().setDrawGridLines(false);
                             barChart1.getAxisLeft().setDrawGridLines(false);
+                            barChart1.setNoDataText("Data Loading Please Wait....");
 
                             barChart1.invalidate();
 
@@ -322,7 +323,7 @@ public class Concentration_Weekly extends AppCompatActivity {
 
     }
 
-        //popup window method to provide suggestions for improve concentration
+    //popup window method to provide suggestions for improve concentration
     public void gotoPopup3(View view) {
         ImageView cancelcon, games, music1;
 

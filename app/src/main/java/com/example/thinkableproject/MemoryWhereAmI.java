@@ -317,6 +317,7 @@ public class MemoryWhereAmI extends AppCompatActivity {
                             chart.setScaleEnabled(true);
                             chart.setMaxVisibleValueCount(200);
                             chart.setPinchZoom(true);
+                            chart.setNoDataText("Data Loading Please Wait...");
                             Legend l = chart.getLegend();
 
                             YAxis yl = chart.getAxisLeft();
@@ -590,6 +591,7 @@ public class MemoryWhereAmI extends AppCompatActivity {
                             chart1.setScaleEnabled(true);
                             chart1.setMaxVisibleValueCount(200);
                             chart1.setPinchZoom(true);
+                            chart1.setNoDataText("Data Loading Please Wait");
                             Legend l1 = chart1.getLegend();
 
                             YAxis yl1 = chart1.getAxisLeft();

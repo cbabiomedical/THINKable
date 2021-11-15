@@ -52,7 +52,7 @@ public class Memory_Yearly extends AppCompatActivity {
     Dialog dialogcy;
     BarChart barChart2;
     AppCompatButton daily, weekly, monthly, realTime;
-    ImageButton relaxationBtn,concentrationBtn;
+    ImageButton relaxationBtn, concentrationBtn;
     FirebaseUser mUser;
     File localFile, fileName;
     String text;
@@ -70,7 +70,7 @@ public class Memory_Yearly extends AppCompatActivity {
         monthly = findViewById(R.id.monthly);
         realTime = findViewById(R.id.realTime);
         relaxationBtn = findViewById(R.id.relaxation);
-        concentrationBtn=findViewById(R.id.concentration);
+        concentrationBtn = findViewById(R.id.concentration);
         List<BarEntry> entries = new ArrayList<>();
         //Initialize bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -145,7 +145,7 @@ public class Memory_Yearly extends AppCompatActivity {
         concentrationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Concentration_Yearly.class));
+                startActivity(new Intent(getApplicationContext(), Concentration_Yearly.class));
             }
         });
         //onClick listener for real time indication button
@@ -257,7 +257,7 @@ public class Memory_Yearly extends AppCompatActivity {
 
                             float textSize = 16f;
                             //Initializing object of MyBarDataset class
-                           MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsWeek);
+                            MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsWeek);
                             dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
                                     ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
                                     ContextCompat.getColor(getApplicationContext(), R.color.blue),
@@ -282,6 +282,7 @@ public class Memory_Yearly extends AppCompatActivity {
                             barChart2.getLegend().setEnabled(false);
                             barChart2.getXAxis().setDrawGridLines(false);
                             barChart2.getAxisLeft().setDrawGridLines(false);
+                            barChart2.setNoDataText("Data Loading Please Wait....");
 
                             barChart2.invalidate();
                         }
@@ -300,6 +301,7 @@ public class Memory_Yearly extends AppCompatActivity {
         }, delay);
 
     }
+
     //popup window method to provide suggesstions to improve concentration
     public void gotoPopup4(View view) {
         ImageView cancelcon;

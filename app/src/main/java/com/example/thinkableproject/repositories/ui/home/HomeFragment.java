@@ -32,22 +32,19 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class HomeFragment extends Fragment {
-
     private RecyclerView recyclerView;
     FirebaseUser mUser;
-
-    private ArrayList<DownloadGameModelClass> downloadGameModelClassArrayList = new ArrayList<>();
+    private ArrayList<DownloadGameModelClass> downloadGameList = new ArrayList<>();
     private DownloadGameModelAdapter downloadGameModelAdapter;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_home_down, container, false);
-        mUser= FirebaseAuth.getInstance().getCurrentUser();
 
         recyclerView = root.findViewById(R.id.recyclerview);
 //        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-
+        mUser=FirebaseAuth.getInstance().getCurrentUser();
         // add item touch helper
 
         loadData();
@@ -55,17 +52,19 @@ public class HomeFragment extends Fragment {
         return root;
     }
     private void loadData() {
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("UsersGame").child(mUser.getUid());
-        reference.addValueEventListener(new ValueEventListener() {
+        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("UsersGame").child(mUser.getUid());
+        reference1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     DownloadGameModelClass post = dataSnapshot.getValue(DownloadGameModelClass.class);
-                    downloadGameModelClassArrayList.add(post);
                     Log.d("Post", String.valueOf(post));
+                    downloadGameList.add(post);
+                    Log.d("GameList", String.valueOf(downloadGameList));
+
                 }
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                downloadGameModelAdapter= new DownloadGameModelAdapter(getActivity(), downloadGameModelClassArrayList);
+                downloadGameModelAdapter= new DownloadGameModelAdapter(getActivity(), downloadGameList);
                 recyclerView.setAdapter(downloadGameModelAdapter);
             }
 
@@ -74,6 +73,9 @@ public class HomeFragment extends Fragment {
 
             }
         });
+
+
+
     }
 
 

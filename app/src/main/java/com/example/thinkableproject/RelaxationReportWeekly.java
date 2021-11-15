@@ -117,7 +117,7 @@ public class RelaxationReportWeekly extends AppCompatActivity {
         memory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(), MemoryReportDaily.class);
+                Intent intent = new Intent(getApplicationContext(), MemoryReportDaily.class);
                 startActivity(intent);
             }
         });
@@ -268,6 +268,7 @@ public class RelaxationReportWeekly extends AppCompatActivity {
                             barChartWeeklytimeto.getLegend().setEnabled(false);
                             barChartWeeklytimeto.getXAxis().setDrawGridLines(false);
                             barChartWeeklytimeto.getAxisLeft().setDrawGridLines(false);
+                            barChartWeeklytimeto.setNoDataText("Data Loading Please Wait...");
 
                             barChartWeeklytimeto.invalidate();
 
@@ -516,14 +517,16 @@ public class RelaxationReportWeekly extends AppCompatActivity {
         }
 
     }
+
     //delete temporary file
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(!isChangingConfigurations()) {
+        if (!isChangingConfigurations()) {
             deleteTempFiles(getCacheDir());
         }
     }
+
     private boolean deleteTempFiles(File file) {
         if (file.isDirectory()) {
             File[] files = file.listFiles();

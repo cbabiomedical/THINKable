@@ -35,14 +35,14 @@ import java.util.ArrayList;
 public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.ViewHolder> {
     private ArrayList<MeditationModelClass> downloadMeditation;
     private Context context;
-   OnNoteListner onNoteListner;
+    OnNoteListner onNoteListner;
     private FavMeditationDB favDB;
     FirebaseUser mUser;
 
     public MeditationAdapter(ArrayList<MeditationModelClass> coffeeItems, Context context, OnNoteListner onNoteListner) {
         this.downloadMeditation = coffeeItems;
         this.context = context;
-        this.onNoteListner=onNoteListner;
+        this.onNoteListner = onNoteListner;
     }
 
     @NonNull
@@ -58,16 +58,15 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item_meditation,
                 parent, false);
-        return new ViewHolder(view,onNoteListner);
+        return new ViewHolder(view, onNoteListner);
     }
-
 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         ArrayList<DownloadMeditationClass> downoadSong = new ArrayList<>();
         final MeditationModelClass coffeeItem = downloadMeditation.get(position);
-        mUser=FirebaseAuth.getInstance().getCurrentUser();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
         readCursorDataMed(coffeeItem, holder);
         holder.imageView.setImageResource(coffeeItem.getImageView());
         holder.titleTextView.setText(coffeeItem.getMeditationName());
@@ -75,7 +74,7 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
             @Override
             public void onClick(View v) {
                 DownloadMeditationClass meditationClass = new DownloadMeditationClass(downloadMeditation.get(position).getMeditationName(), downloadMeditation.get(position).getImageView());
-                downloadFile(context,downloadMeditation.get(position).getMeditationName(),".mp3", Environment.DIRECTORY_DOWNLOADS,downloadMeditation.get(position).getUrl());
+                downloadFile(context, downloadMeditation.get(position).getMeditationName(), ".mp3", Environment.DIRECTORY_DOWNLOADS, downloadMeditation.get(position).getUrl());
                 mUser = FirebaseAuth.getInstance().getCurrentUser();
                 downoadSong.add(meditationClass);
                 Log.d("Downloaded Music", String.valueOf(meditationClass));
@@ -104,16 +103,15 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
         OnNoteListner onNoteListner;
         AppCompatButton download;
 
-        public ViewHolder(@NonNull View itemView,OnNoteListner onNoteListner) {
+        public ViewHolder(@NonNull View itemView, OnNoteListner onNoteListner) {
             super(itemView);
 
             imageView = itemView.findViewById(R.id.gridImage);
             titleTextView = itemView.findViewById(R.id.item_name);
             favBtn = itemView.findViewById(R.id.favouritesIcon2);
-            download=itemView.findViewById(R.id.download);
-            this.onNoteListner=onNoteListner;
+            download = itemView.findViewById(R.id.download);
+            this.onNoteListner = onNoteListner;
             itemView.setOnClickListener(this);
-
 
 
             //add to fav btn
@@ -173,6 +171,7 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
         }
 
     }
+
     public void downloadFile(Context context, String fileName, String fileExtension, String destinationDirectory, String url) {
 
         DownloadManager downloadmanager = (DownloadManager) context.
@@ -186,7 +185,7 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
         downloadmanager.enqueue(request);
     }
 
-    public interface OnNoteListner{
+    public interface OnNoteListner {
         void onNoteClickMeditation(int position);
     }
 

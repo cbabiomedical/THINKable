@@ -70,12 +70,12 @@ public class ConcentrationReportYearly extends AppCompatActivity {
         monthly = findViewById(R.id.monthly);
         relaxationBtn = findViewById(R.id.relaxation);
         whereAmI = findViewById(R.id.whereAmI);
-        memory=findViewById(R.id.memory);
+        memory = findViewById(R.id.memory);
 
         memory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(), MemoryReportDaily.class);
+                Intent intent = new Intent(getApplicationContext(), MemoryReportDaily.class);
                 startActivity(intent);
             }
         });
@@ -239,7 +239,7 @@ public class ConcentrationReportYearly extends AppCompatActivity {
                             barChart2.getLegend().setEnabled(false);
                             barChart2.getXAxis().setDrawGridLines(false);
                             barChart2.getAxisLeft().setDrawGridLines(false);
-
+                            barChart2.setNoDataText("Data Loading Please Wait...");
                             barChart2.invalidate();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -380,6 +380,7 @@ public class ConcentrationReportYearly extends AppCompatActivity {
                             barChart1.getLegend().setEnabled(false);
                             barChart1.getXAxis().setDrawGridLines(false);
                             barChart1.getAxisLeft().setDrawGridLines(false);
+                            barChart1.setNoDataText("Data Loading Please Wait");
 
                             barChart1.invalidate();
 

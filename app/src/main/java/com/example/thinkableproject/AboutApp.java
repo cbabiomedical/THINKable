@@ -16,13 +16,10 @@ import mehdi.sakout.aboutpage.Element;
 
 public class AboutApp extends AppCompatActivity {
 
-    @SuppressLint("UseCompatLoadingForDrawables")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_app);
-
-        Element adsElement = new Element();
         View aboutPage = new AboutPage(this)
                 .isRTL(false).setImage(R.drawable.splashlogo1)
                 .setDescription(" Welcome to THINKable!" +
@@ -39,7 +36,7 @@ public class AboutApp extends AppCompatActivity {
                 .create();
         setContentView(aboutPage);
         aboutPage.setFocusable(true);
-        aboutPage.setBackgroundColor(getResources().getColor(R.color.av_green));
+//       aboutPage.setBackground(getResources().getDrawable(R.drawable.about));
 //        aboutPage.setBackgroundDrawable(getResources().getDrawable(R.drawable.about));
 //        aboutPage.setBackgroundColor(getResources().getColor(R.color.heading_color));
     }

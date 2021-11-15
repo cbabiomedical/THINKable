@@ -53,7 +53,7 @@ public class MemoryReportWeekly extends AppCompatActivity {
     AppCompatButton daily, whereAmI;
     File fileName, localFile, fileName1, localFile1;
     FirebaseUser mUser;
-    ImageButton relaxationBtn,concentrationBtn;
+    ImageButton relaxationBtn, concentrationBtn;
     String text;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
@@ -72,7 +72,7 @@ public class MemoryReportWeekly extends AppCompatActivity {
         daily = findViewById(R.id.daily);
         relaxationBtn = findViewById(R.id.relaxation);
         whereAmI = findViewById(R.id.whereAmI);
-        concentrationBtn=findViewById(R.id.concentration);
+        concentrationBtn = findViewById(R.id.concentration);
 
         //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -205,7 +205,7 @@ public class MemoryReportWeekly extends AppCompatActivity {
                             }
                             float textSize = 16f;
                             //Initializing arraylist and storing input data to arraylist
-                           MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsWeek);
+                            MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsWeek);
                             dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
                                     ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
                                     ContextCompat.getColor(getApplicationContext(), R.color.blue),
@@ -230,6 +230,7 @@ public class MemoryReportWeekly extends AppCompatActivity {
                             barChart1.getLegend().setEnabled(false);
                             barChart1.getXAxis().setDrawGridLines(false);
                             barChart1.getAxisLeft().setDrawGridLines(false);
+                            barChart1.setNoDataText("Data Loading Please Wait....");
 
                             barChart1.invalidate();
                         }
@@ -370,7 +371,7 @@ public class MemoryReportWeekly extends AppCompatActivity {
                             barChart2.getLegend().setEnabled(false);
                             barChart2.getXAxis().setDrawGridLines(false);
                             barChart2.getAxisLeft().setDrawGridLines(false);
-
+                            barChart2.setNoDataText("Data Loading Please Wait...");
                             barChart2.invalidate();
 
 //
@@ -433,7 +434,7 @@ public class MemoryReportWeekly extends AppCompatActivity {
         concentrationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),ConcentrationReportWeekly.class));
+                startActivity(new Intent(getApplicationContext(), ConcentrationReportWeekly.class));
             }
         });
     }

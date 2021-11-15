@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -27,6 +29,7 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.*;
 import com.google.firebase.storage.*;
+
 import java.io.*;
 import java.util.*;
 
@@ -34,7 +37,7 @@ public class Concentration_Daily extends AppCompatActivity {
     Dialog dialogcd;
     BarChart barChartdaily;
     AppCompatButton monthly, yearly, weekly, realTime;
-    ImageButton relaxationBtn,games,memory,music;
+    ImageButton relaxationBtn, games, memory, music;
     FirebaseUser mUser;
     String text;
     File localFile, fileName;
@@ -49,21 +52,21 @@ public class Concentration_Daily extends AppCompatActivity {
 //        setContentView(R.layout.activity_concentration_popup);
         barChartdaily = (BarChart) findViewById(R.id.barChartDaily);
         monthly = findViewById(R.id.monthly);
-        games=findViewById(R.id.game);
+        games = findViewById(R.id.game);
         yearly = findViewById(R.id.yearly);
         weekly = findViewById(R.id.weekly);
-        music= findViewById(R.id.music);
+        music = findViewById(R.id.music);
         realTime = findViewById(R.id.realTime);
         relaxationBtn = findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
         dialogcd = new Dialog(this);
-        memory=findViewById(R.id.memory);
+        memory = findViewById(R.id.memory);
 
 
         memory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Memory_Daily.class));
+                startActivity(new Intent(getApplicationContext(), Memory_Daily.class));
             }
         });
 
@@ -224,7 +227,7 @@ public class Concentration_Daily extends AppCompatActivity {
                             BarData data = new BarData(dataSet);
                             data.setDrawValues(false);
                             data.setBarWidth(0.8f);
-
+                            barChartdaily.setNoDataText("Data Loading Please Wait....");
                             barChartdaily.setData(data);
                             barChartdaily.setFitBars(true);
                             barChartdaily.getXAxis().setValueFormatter(new IndexAxisValueFormatter(days));
@@ -280,7 +283,7 @@ public class Concentration_Daily extends AppCompatActivity {
         games.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(), GameActivity.class);
+                Intent intent = new Intent(getApplicationContext(), GameActivity.class);
                 startActivity(intent);
             }
         });
@@ -311,7 +314,7 @@ public class Concentration_Daily extends AppCompatActivity {
 
     }
 
-// Popup window method for suggestions to improve concentration
+    // Popup window method for suggestions to improve concentration
     public void gotoPopup1(View view) {
 //        Intent intentgp1 = new Intent(Concentration_Daily.this, Concentration_popup.class);
 //

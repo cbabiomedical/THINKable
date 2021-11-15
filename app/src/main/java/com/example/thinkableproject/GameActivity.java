@@ -100,6 +100,22 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
         GameModelClass gameModelClass = new GameModelClass(gameList.get(position).getImageView(), gameList.get(position).getGameName());
 
         downloadGames.add(gameModelClass);
+        Log.d("DownloadGames", String.valueOf(downloadGames));
+        Log.d("CHECK UPLOAD","-------------------------CHECKING FIREBASE UPLOAD-----------------");
+        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("UsersGame").child(mUser.getUid());
+
+        reference1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                reference1.setValue(downloadGames);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        Log.d("CHECK UPLOAD","------------------------CHECK AFTER UPLOAD------------");
 
         Log.d("Downloads", String.valueOf(downloadGames));
         startActivity(new Intent(getApplicationContext(), MyDownloads.class));
@@ -112,9 +128,7 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
             Toast.makeText(GameActivity.this, "There is no package", Toast.LENGTH_LONG).show();
         }
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("UsersGame").child(mUser.getUid());
 
-        reference.setValue(downloadGames);
 
     }
 

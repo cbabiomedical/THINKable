@@ -52,7 +52,7 @@ public class MemoryReportDaily extends AppCompatActivity {
     AppCompatButton monthly, yearly, weekly, whereAmI;
     File fileName, fileName1, localFile, localFile1;
     FirebaseUser mUser;
-    ImageButton relaxationBtn,concentrationBtn;
+    ImageButton relaxationBtn, concentrationBtn;
     String text;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
@@ -76,7 +76,7 @@ public class MemoryReportDaily extends AppCompatActivity {
         weekly = findViewById(R.id.weekly);
         relaxationBtn = findViewById(R.id.relaxation);
         whereAmI = findViewById(R.id.whereAmI);
-        concentrationBtn=findViewById(R.id.concentration);
+        concentrationBtn = findViewById(R.id.concentration);
 
 
         //Initialize and Assign Variable
@@ -235,6 +235,7 @@ public class MemoryReportDaily extends AppCompatActivity {
                             barChartdaily.getLegend().setEnabled(false);
                             barChartdaily.getXAxis().setDrawGridLines(false);
                             barChartdaily.getAxisLeft().setDrawGridLines(false);
+                            barChartdaily.setNoDataText("Data Loading Please Wait....");
 
                             barChartdaily.invalidate();
 
@@ -354,7 +355,7 @@ public class MemoryReportDaily extends AppCompatActivity {
                                 entries2.add(new BarEntry(j, floatList1.get(j)));
                             }
                             float textSize = 16f;
-                           MyBarDataset dataSet1 = new MyBarDataset(entries2, "data", creditsMain1);
+                            MyBarDataset dataSet1 = new MyBarDataset(entries2, "data", creditsMain1);
                             dataSet1.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
                                     ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
                                     ContextCompat.getColor(getApplicationContext(), R.color.blue),
@@ -379,6 +380,7 @@ public class MemoryReportDaily extends AppCompatActivity {
                             barChartdaily2.getLegend().setEnabled(false);
                             barChartdaily2.getXAxis().setDrawGridLines(false);
                             barChartdaily2.getAxisLeft().setDrawGridLines(false);
+                            barChartdaily2.setNoDataText("Data Loading Please Wait...");
 
                             barChartdaily2.invalidate();
 
@@ -443,7 +445,7 @@ public class MemoryReportDaily extends AppCompatActivity {
         concentrationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),ConcentrationReportDaily.class));
+                startActivity(new Intent(getApplicationContext(), ConcentrationReportDaily.class));
             }
         });
     }

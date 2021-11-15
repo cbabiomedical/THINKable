@@ -5,7 +5,11 @@
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the "MyLocation" functionality.
+
     -->
+    <permission
+        android:name="my.package.name.permission.MAPS_RECEIVE"
+        android:protectionLevel="signature"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -14,6 +18,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
 
     <application
         android:allowBackup="true"
@@ -25,12 +30,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThinkableProject"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Downloads"></activity>
         <activity
-            android:name=".MainActivity3"
-            android:label="@string/title_activity_main3"></activity>
-        <activity android:name=".RelaxationExercise" />
-        <activity android:name=".PlayMeditation" />
+            android:name=".Downloads"
+            android:label="My Downloads"/>
+
+        <activity
+            android:name=".RelaxationExercise"
+            android:label="Training Exercise" />
+        <activity android:name=".PlayMeditation"
+            android:parentActivityName=".MeditationExercise"
+
+            />
         <activity android:name=".MyDownloads" />
         <activity android:name=".Connection" />
         <activity
@@ -38,13 +48,15 @@
             android:exported="false" />
         <activity
             android:name=".ResultActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="UserProfile" />
         <activity
             android:name=".QuizActivity"
             android:exported="false" />
         <activity android:name=".IsochronicTones" />
         <activity
             android:name=".MainActivity"
+            android:label="Main Activity"
             android:exported="false" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
@@ -69,51 +81,93 @@
         <activity android:name=".BineuralAcivity" /> <!-- <meta-data -->
         <!-- android:name="com.google.android.geo.API_KEY" -->
         <!-- android:value="@string/google_maps_key" /> -->
-        <activity android:name=".ConcentrationReportMemoryDaily" />
-        <activity android:name=".MusicPlayer" />
+        <activity android:name=".MusicPlayer"
+            android:parentActivityName=".Music"
+
+            />
         <activity
             android:name=".concentration_music"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
         <activity android:name=".Notification1" />
         <activity android:name=".Notification" />
-        <activity android:name=".Profile" />
-        <activity android:name=".UserDetails" />
+        <activity
+            android:name=".Profile"
+            android:label="Profile"
+            android:parentActivityName=".Setting"
+
+
+            />
+        <activity
+            android:name=".UserDetails"
+            android:label="Edit Profile" />
         <activity android:name=".RelaxationReportWhereamI" />
         <activity android:name=".ConcentrationReportWhereamI" />
-        <activity android:name=".ConcentrationReportYearly" />
-        <activity android:name=".ConcentrationReportMonthly" />
-        <activity android:name=".ConcentrationReportWeekly" />
-        <activity android:name=".ConcentrationReportDaily" /> <!-- android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" -->
-        <activity android:name=".ConcentrationMemory" />
-        <activity android:name=".ConcentrationExcercise" />
-        <activity android:name=".MusicPlayer" />
-        <activity android:name=".MainActivity2" />
+        <activity
+            android:name=".ConcentrationReportYearly"
+            android:label="Concentration Yearly Report" />
+        <activity
+            android:name=".ConcentrationReportMonthly"
+            android:label="ConcentrationMonthly Report" />
+        <activity
+            android:name=".ConcentrationReportWeekly"
+            android:label="Concentration Weekly Report" />
+        <activity
+            android:name=".ConcentrationReportDaily"
+            android:label="Concentration Daily Report" />
+        <!-- android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" -->
+        <activity
+            android:name=".MainActivity2"
+            android:label="My Favourites"
+            android:parentActivityName=".Profile" />
+
         <activity android:name=".GameActivity" />
         <activity android:name=".MeditationExercise" />
-        <activity android:name=".Memory_Daily" />
-        <activity android:name=".Memory_Weekly" />
-        <activity android:name=".MemoryMonthly" />
-        <activity android:name=".Memory_Yearly" />
-        <activity android:name=".MemoryReportDaily" />
-        <activity android:name=".MemoryReportWeekly" />
-        <activity android:name=".MemoryReportMonthly" />
-        <activity android:name=".MemoryReportYearly" />
+        <activity
+            android:name=".Memory_Daily"
+            android:label="THINKable" />
+        <activity
+            android:name=".Memory_Weekly"
+            android:label="THINKable" />
+        <activity
+            android:name=".MemoryMonthly"
+            android:label="THINKable" />
+        <activity
+            android:name=".Memory_Yearly"
+            android:label="THINKable" />
+        <activity
+            android:name=".MemoryReportDaily"
+            android:label="Memory Daily Report" />
+        <activity
+            android:name=".MemoryReportWeekly"
+            android:label="Memory Weekly Report" />
+        <activity
+            android:name=".MemoryReportMonthly"
+            android:label="Memory Monthly Report" />
+        <activity
+            android:name=".MemoryReportYearly"
+            android:label="Memory Yearly Report" />
         <activity android:name=".MemoryWhereAmI" />
         <activity
             android:name=".RelaxationReportYearly"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Relaxation Yearly Report" />
         <activity
             android:name=".UserLocation"
-            android:exported="true" />
+            android:exported="true"
+
+            android:parentActivityName=".Setting" />
         <activity
             android:name=".RelaxationReportDaily"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Relaxation Daily Report" />
         <activity
             android:name=".RelaxationReportWeekly"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Relaxation Weekly Report" />
         <activity
             android:name=".RelaxationReportMonthly"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Relaxation Monthly Report" />
         <activity
             android:name=".Video"
             android:exported="true" />
@@ -126,25 +180,43 @@
         <activity android:name=".Relaxation_popup" />
         <activity android:name=".Concentration_popup" />
         <activity android:name=".Calibration" />
-        <activity android:name=".Concentration_Yearly" />
-        <activity android:name=".Concentration_Monthly" />
-        <activity android:name=".Concentration_Weekly" />
-        <activity android:name=".Concentration_Daily" />
+        <activity
+            android:name=".Concentration_Yearly"
+            android:label="THINKable"
+            android:logo="@drawable/braingym_logo" />
+        <activity
+            android:name=".Concentration_Monthly"
+            android:label="THINKable" />
+        <activity
+            android:name=".Concentration_Weekly"
+            android:label="THINKable" />
+        <activity
+            android:name=".Concentration_Daily"
+            android:label="THINKable" />
         <activity android:name=".FavouriteActivity" />
-        <activity android:name=".Calendar_Reminder" />
-        <activity android:name=".AboutApp" />
+        <activity
+            android:name=".Calendar_Reminder"
+            android:label="Calendar and Reminder"
+            android:parentActivityName=".Profile" />
+        <activity
+            android:name=".AboutApp"
+            android:label="About App"
+            android:parentActivityName=".Profile" />
         <activity
             android:name=".UserProfile1"
             android:exported="true" />
         <activity
             android:name=".Relaxation_Yearly"
-            android:exported="true" />
+            android:exported="true"
+            android:label="THINkable" />
         <activity
             android:name=".Relaxation_Monthly"
-            android:exported="true" />
+            android:exported="true"
+            android:label="THINKable" />
         <activity
             android:name=".Setting"
-            android:exported="true" /> <!-- <activity -->
+            android:exported="true"
+            android:label="Settings" /> <!-- <activity -->
         <!-- android:name=".ui.login.UserProfile" -->
         <!-- android:exported="true" -->
         <!-- android:label="@string/title_activity_user_profile" /> -->
@@ -153,25 +225,44 @@
             android:exported="true" />
         <activity
             android:name=".Exercise"
-            android:exported="true" />
+            android:exported="true"
+            android:label="Training Exercises" />
         <activity
             android:name=".Relaxation_Weekly"
-            android:exported="true" />
+            android:exported="true"
+            android:label="THINKable" />
         <activity
             android:name=".Relaxation_Daily"
-            android:exported="true" />
+            android:exported="true"
+            android:label="THINkable" />
         <activity android:name=".Suggestions" />
         <activity android:name=".VerifyPhoneActivity" />
         <activity android:name=".EnterPhoneActivity" />
-        <activity android:name=".PreferencesSecPage" />
-        <activity android:name=".RegisterActivity" />
+        <activity
+            android:name=".PreferencesSecPage"
+
+            />
+        <activity
+            android:name=".RegisterActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+
+            />
         <activity
             android:name=".LandingPage"
             android:label="@string/title_activity_landing_page" />
-        <activity android:name=".ChangePassword" />
-        <activity android:name=".ForgetPasswordActivity" />
-        <activity android:name=".SignInActivity" />
-        <activity android:name=".StartActivity">
+        <activity
+            android:name=".ChangePassword"
+            android:parentActivityName=".Setting"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".ForgetPasswordActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".SignInActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
+            android:name=".StartActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

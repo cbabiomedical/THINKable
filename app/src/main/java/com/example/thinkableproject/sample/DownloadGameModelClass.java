@@ -1,46 +1,39 @@
 package com.example.thinkableproject.sample;
 
 public class DownloadGameModelClass {
-    private String item_title;
-    private int item_image;
-
+private int imageView;
+private String gameTitle;
 
     public DownloadGameModelClass() {
     }
 
-    public DownloadGameModelClass(String item_title,  int item_image) {
-        this.item_title = item_title;
-
-        this.item_image = item_image;
-
+    public DownloadGameModelClass(int imageView, String gameTitle) {
+        this.imageView = imageView;
+        this.gameTitle = gameTitle;
     }
 
-
-    public String getItem_title() {
-        return item_title;
+    public int getImageView() {
+        return imageView;
     }
 
-    public void setItem_title(String item_title) {
-        this.item_title = item_title;
+    public void setImageView(int imageView) {
+        this.imageView = imageView;
     }
 
-
-
-    public int getItem_image() {
-        return item_image;
+    public String getGameTitle() {
+        return gameTitle;
     }
 
-    public void setItem_image(int item_image) {
-        this.item_image = item_image;
+    public void setGameTitle(String gameTitle) {
+        this.gameTitle = gameTitle;
     }
-
-
 
     @Override
     public String toString() {
         return "DownloadGameModelClass{" +
-                "item_title='" + item_title + '\'' +
-                ", item_image=" + item_image +
+                "imageView=" + imageView +
+                ", gameTitle='" + gameTitle + '\'' +
                 '}';
     }
 }
+

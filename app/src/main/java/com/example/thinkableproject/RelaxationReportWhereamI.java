@@ -318,6 +318,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             chart4aa.setScaleEnabled(true);
                             chart4aa.setMaxVisibleValueCount(200);
                             chart4aa.setPinchZoom(true);
+                            chart4aa.setNoDataText("Data Loading Please Wait...");
                             Legend lr = chart4aa.getLegend();
 
                             YAxis ylr = chart4aa.getAxisLeft();
@@ -590,6 +591,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             chart5.setScaleEnabled(true);
                             chart5.setMaxVisibleValueCount(200);
                             chart5.setPinchZoom(true);
+                            chart5.setNoDataText("Data Loading Please Wait...");
                             Legend l1r = chart5.getLegend();
 
                             YAxis yl1r = chart5.getAxisLeft();
