@@ -12,28 +12,26 @@
         android:id="@+id/button4"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="30dp"
-        android:layout_marginBottom="300dp"
         android:backgroundTint="@color/design_default_color_primary_dark"
+        android:textColor="#ffffff"
+        android:layout_above="@+id/button2"
         android:text="CURRENT LOCATION"
         android:onClick="btnCurrentLocation"
-        android:textColor="#ffffff"
-        android:textSize="22sp" />
+        android:textSize="22sp"
+        android:layout_margin="30dp" />
 
     <Button
         android:id="@+id/button2"
-        android:layout_width="325dp"
-        android:layout_marginLeft="40dp"
+        android:layout_width="345dp"
+        android:layout_marginLeft="32dp"
         android:layout_height="65dp"
-        android:layout_alignParentBottom="true"
-        android:backgroundTint="@color/design_default_color_primary"
+        android:backgroundTint="@color/design_default_color_primary_dark"
         android:text="Retrieve Location"
         android:textColor="#ffffff"
         android:onClick="btnRetrieveLocation"
-        android:layout_marginBottom="100dp"
-        android:textSize="22sp" />
+        android:layout_alignParentBottom="true"
+        android:textSize="22sp"
+        android:layout_marginBottom="80dp"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
