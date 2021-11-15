@@ -394,6 +394,12 @@ public class Concentration_Monthly extends AppCompatActivity {
         return file.delete();
     }
 
+    public void calidaily(View view) {
+    }
+
+    public void gotoPopup1(View view) {
+    }
+
 
     public class MyBarDataset extends BarDataSet {
 

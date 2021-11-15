@@ -10,10 +10,11 @@
     <color name="heading_color">#23408E</color>
     <color name="dark">#03254C</color>
     <color name="Ldark">#1167b1</color>
-    <color name="blue">#187BCD</color>
+    <color name="blue">#AEC6CF</color>
     <color name="Lblue">#2A9DF4</color>
     <color name="Bwhite">#ADEFFF</color>
     <color name="background">#80FFFFFF</color>
+    <color name="transparent">#00000000</color>
 
     <color name="colorPrimary">#673AB7</color>
     <color name="colorPrimaryDark">#673AB7</color>

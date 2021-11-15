@@ -185,7 +185,7 @@ ble.setOnClickListener(new View.OnClickListener() {
     }
 
     public void notificationPage(View view) {
-        Intent intentnp = new Intent(getApplicationContext(), concentration_music.class);
+        Intent intentnp = new Intent(getApplicationContext(), Notification1.class);
         startActivity(intentnp);
     }
 }

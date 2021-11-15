@@ -364,6 +364,12 @@ public class Concentration_Yearly extends AppCompatActivity {
         startActivity(intentcy);
     }
 
+    public void calidaily(View view) {
+    }
+
+    public void gotoPopup1(View view) {
+    }
+
 
     public class MyBarDataset extends BarDataSet {
 

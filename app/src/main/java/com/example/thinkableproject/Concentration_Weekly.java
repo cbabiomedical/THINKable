@@ -370,6 +370,12 @@ public class Concentration_Weekly extends AppCompatActivity {
         startActivity(intentcw);
     }
 
+    public void calidaily(View view) {
+    }
+
+    public void gotoPopup1(View view) {
+    }
+
 
     public class MyBarDataset extends BarDataSet {
 

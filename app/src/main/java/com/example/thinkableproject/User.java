@@ -30,6 +30,9 @@ public class User {
         this.preferences = preferences;
     }
 
+    public User(String userName, String email, String occupation, String gender, String dob, String preference, String suggestions, String favourites) {
+    }
+
     public String getPreferences() {
         return preferences;
     }
