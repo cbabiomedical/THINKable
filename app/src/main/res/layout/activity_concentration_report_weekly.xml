@@ -144,15 +144,19 @@
         <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btn_timeCon"
             android:layout_marginTop="20dp"
+            android:textAllCaps="false"
             android:layout_centerHorizontal="true"
             android:paddingHorizontal="20dp"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="35dp"
             android:layout_below="@+id/colorDesc"
             app:cornerRadius="13dp"
             android:textColor="@color/white"
             android:textStyle="bold"
+            android:textSize="20sp"
+            android:elevation="5dp"
             android:text="Time to Concentrate "
+
             android:background="@drawable/progressbtn"/>
         <com.github.mikephil.charting.charts.BarChart
             android:id="@+id/barChartWeekly"
@@ -170,12 +174,15 @@
             android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
             android:paddingHorizontal="20dp"
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="35dp"
             android:layout_below="@+id/barChartWeekly"
             app:cornerRadius="13dp"
             android:textColor="@color/white"
             android:textStyle="bold"
+            android:textSize="20sp"
+            android:textAllCaps="false"
+            android:elevation="5dp"
             android:text="Time Stayed Concentrated"
             android:background="@drawable/progressbtn"/>
         <com.github.mikephil.charting.charts.BarChart

@@ -146,16 +146,19 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_timeCon"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="35dp"
                 android:layout_below="@+id/colorDesc"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
                 android:background="@drawable/progressbtn"
                 android:paddingHorizontal="20dp"
-                android:text="Time to Concentrate "
+                android:textAllCaps="false"
+                android:text="Rate of Retrieval of Memory"
+                android:textSize="20sp"
                 android:textColor="@color/white"
                 android:textStyle="bold"
+                android:elevation="5dp"
                 app:cornerRadius="13dp" />
 
             <com.github.mikephil.charting.charts.BarChart
@@ -171,14 +174,17 @@
 
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btn_timeStayedCon"
-                android:layout_width="wrap_content"
+                android:layout_width="300dp"
                 android:layout_height="35dp"
                 android:layout_below="@+id/barChartYearly"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="20dp"
+                android:elevation="5dp"
+                android:textAllCaps="false"
                 android:background="@drawable/progressbtn"
                 android:paddingHorizontal="20dp"
-                android:text="Time Stayed Concentrated "
+                android:textSize="20sp"
+                android:text="Capacity of Memory "
                 android:textColor="@color/white"
                 android:textStyle="bold"
                 app:cornerRadius="13dp" />
