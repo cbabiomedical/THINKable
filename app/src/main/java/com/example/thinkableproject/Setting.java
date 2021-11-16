@@ -100,6 +100,7 @@ public class Setting extends AppCompatActivity {
         notifications2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(),Notification.class));
 
             }
         });

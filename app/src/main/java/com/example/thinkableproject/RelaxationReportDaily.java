@@ -74,8 +74,8 @@ public class RelaxationReportDaily extends AppCompatActivity {
         //Initialize buttons
         whereAmI = findViewById(R.id.whereAmI);
         progress = findViewById(R.id.progress);
-        timetorel = findViewById(R.id.timetorel);
-        timestayedrel = findViewById(R.id.timestayedrel);
+//        timetorel = findViewById(R.id.btn_timeCon);
+//        timestayedrel = findViewById(R.id.btn_timeStayedCon);
         memoryBtn=findViewById(R.id.memory);
         //initials bar charts
         barChartDailytimeto = findViewById(R.id.barChartDailytimeto);

@@ -11,7 +11,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/report_whereami">
+        android:background="@drawable/newbg">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -20,152 +20,207 @@
 
             <RelativeLayout
                 android:id="@+id/toggleBtn"
-                android:layout_marginTop="40dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
 
-                <ImageButton
-                    android:id="@+id/concentration"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="35dp"
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:orientation="vertical"
+                    android:id="@+id/tg1"
+                    >
+                    <ImageButton
+                        android:id="@+id/concentration"
+                        android:layout_width="100dp"
+                        android:layout_height="70dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="@+id/relaxation"
+                        android:background="@drawable/clicked"
 
-                    android:background="@drawable/bconcentration2"
-                    android:elevation="5dp"
-                    android:src="@drawable/concentrationicon8" />
 
-                <ImageButton
-                    android:id="@+id/relaxation"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:layout_alignEnd="@+id/concentration"
-                    android:layout_alignRight="@+id/concentration"
-                    android:layout_marginLeft="100dp"
 
-                    android:layout_marginRight="-100dp"
-                    android:background="@drawable/bconcentration"
-                    android:elevation="5dp"
-                    android:src="@drawable/relax" />
+                        android:layout_marginLeft="35dp"
+                        android:layout_marginTop="40dp"
 
-                <ImageButton
-                    android:id="@+id/memory"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:layout_alignEnd="@+id/relaxation"
-                    android:layout_alignRight="@+id/relaxation"
-                    android:layout_marginLeft="100dp"
+                        android:elevation="5dp"
+                        android:src="@drawable/conctgb"
+                        />
 
-                    android:layout_marginRight="-100dp"
-                    android:background="@drawable/buttonconcentration1"
-                    android:elevation="5dp"
-                    android:src="@drawable/memory" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:id="@+id/tg2">
+
+                    <ImageButton
+                        android:id="@+id/relaxation"
+                        android:layout_width="100dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/newtg"
+                        android:layout_alignEnd="@+id/concentration"
+                        android:layout_alignRight="@+id/memo"
+
+                        android:layout_marginTop="40dp"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintLeft_toLeftOf="@+id/concentration"
+
+
+
+                        android:elevation="5dp"
+                        android:src="@drawable/relaxtga"
+                        />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="end"
+                    android:gravity="end"
+                    android:orientation="vertical"
+                    android:id="@+id/tg3">
+
+                    <ImageButton
+                        android:id="@+id/memory"
+                        android:layout_width="100dp"
+                        android:layout_height="70dp"
+                        android:layout_marginRight="35dp"
+                        android:background="@drawable/newtg"
+
+                        android:layout_marginTop="40dp"
+
+
+                        android:elevation="5dp"
+                        android:src="@drawable/memorytga" />
+
+
+                </LinearLayout>
+
+
+
+
+
+
             </RelativeLayout>
-        <RelativeLayout
-            android:id="@+id/toggleBtn1"
-            android:layout_marginTop="100dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
+            <RelativeLayout
+                android:layout_centerHorizontal="true"
+                android:id="@+id/toggleBtn2"
+                android:layout_below="@+id/toggleBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/progresscon"
-                android:layout_width="160dp"
-                android:layout_height="60dp"
-                android:layout_marginLeft="35dp"
-                android:background="@drawable/pgbtn"
-                android:elevation="5dp"
-                android:text="Progress"
-                android:textColor="#3F51B5"/>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/progresscon"
+                    android:layout_width="160dp"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="65dp"
+                    android:layout_marginTop="40dp"
 
-
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/relwhereAmI"
-                android:layout_width="160dp"
-                android:layout_height="60dp"
-                android:layout_alignEnd="@+id/progresscon"
-                android:layout_alignRight="@+id/progresscon"
-                android:layout_marginLeft="100dp"
-                android:layout_marginEnd="-136dp"
-                android:layout_marginRight="-144dp"
-                android:text="WHERE AM I"
-                android:textColor="@color/white"
-                android:background="@drawable/progressbtn"
-                android:elevation="5dp"
-
-                />
+                    android:background="@drawable/pgbtn"
+                    android:text="Progress"
+                    android:textColor="#3F51B5"
+                    />
 
 
-        </RelativeLayout>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/whereAmI"
+                    android:layout_width="160dp"
+                    android:layout_height="60dp"
+                    android:layout_alignEnd="@+id/progresscon"
+                    android:layout_alignRight="@+id/progresscon"
 
-        <RelativeLayout
-            android:id="@+id/togglewhere"
-            android:layout_marginTop="180dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <androidx.appcompat.widget.AppCompatButton
-                android:layout_width="300dp"
-                android:layout_height="35dp"
-                android:paddingHorizontal="20dp"
-               android:layout_centerHorizontal="true"
-                android:textColor="@color/white"
-                android:textAllCaps="false"
-                android:elevation="5dp"
-                android:text="Time to Concentrate"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:background="@drawable/progressbtn"
-                android:src="@drawable/timetoconcentrate"
-                android:layout_marginLeft="55dp">
+                    android:layout_marginEnd="-136dp"
+                    android:layout_marginLeft="130dp"
+                    android:layout_marginTop="40dp"
+                    android:text="WHERE AM I"
+                    android:textColor="@color/white"
+                    android:layout_marginRight="-144dp"
+                    android:background="@drawable/progressbtn"
+                    android:elevation="5dp"
 
-            </androidx.appcompat.widget.AppCompatButton>
-        </RelativeLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+                    />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/togglewhere"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/toggleBtn2"
+                >
+                <ImageView
+                    android:id="@+id/btn_timeCon"
+                    android:layout_marginTop="20dp"
+                    android:layout_centerHorizontal="true"
+                    android:paddingHorizontal="20dp"
+                    android:layout_width="300dp"
+                    android:layout_height="35dp"
+
+
+                    android:src="@drawable/timetoconcentrate"/>
+            </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
 
 
 
-            <View
-                android:layout_width="2dp"
-                android:layout_height="700dp"
-                android:background="#000000"
-                android:layout_marginTop="260dp"
-                android:layout_marginLeft="20dp"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+                <View
+                    android:layout_width="2dp"
+                    android:layout_height="700dp"
+                    android:background="#000000"
+                    android:layout_marginTop="260dp"
+                    android:layout_marginLeft="20dp"/>
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal">
-                <View
-                    android:id="@+id/hi"
-                    android:layout_width="20dp"
-                    android:layout_height="2dp"
-                    android:background="#000000"
-                    android:layout_marginTop="270dp"
-                    android:layout_marginLeft="20dp"/>
+                android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="268dp"
-                    android:fontFamily="@font/lemon"
-                    android:text="Job"
-                    android:textColor="#000000"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <View
+                        android:id="@+id/hi"
+                        android:layout_width="20dp"
+                        android:layout_height="2dp"
+                        android:background="#000000"
+                        android:layout_marginTop="270dp"
+                        android:layout_marginLeft="20dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="268dp"
+                        android:fontFamily="@font/lemon"
+                        android:text="Job"
+                        android:textColor="#000000"/>
+                </LinearLayout>
+
+
+
+
             </LinearLayout>
-
-
-
-
-        </LinearLayout>
             <com.github.mikephil.charting.charts.ScatterChart
                 android:id="@+id/chart1"
                 android:layout_width="232dp"
@@ -258,40 +313,40 @@
                 android:layout_height="match_parent"
                 android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal">
-                <View
-                    android:id="@+id/hi2"
-                    android:layout_width="20dp"
-                    android:layout_height="2dp"
-                    android:background="#000000"
-                    android:layout_marginTop="1060dp"
-                    android:layout_marginLeft="20dp"/>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <View
+                        android:id="@+id/hi2"
+                        android:layout_width="20dp"
+                        android:layout_height="2dp"
+                        android:background="#000000"
+                        android:layout_marginTop="1060dp"
+                        android:layout_marginLeft="20dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="1060dp"
-                    android:fontFamily="@font/lemon"
-                    android:text="Job"
-                    android:textColor="#000000"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginTop="1060dp"
+                        android:fontFamily="@font/lemon"
+                        android:text="Job"
+                        android:textColor="#000000"/>
+                </LinearLayout>
+
+
+
+
+
             </LinearLayout>
 
-
-
-
-
-        </LinearLayout>
-
-    <com.github.mikephil.charting.charts.ScatterChart
-        android:id="@+id/chart2"
-        android:layout_width="232dp"
-        android:layout_height="295dp"
-        android:layout_marginStart="104dp"
-        android:layout_marginTop="1060dp" />
+            <com.github.mikephil.charting.charts.ScatterChart
+                android:id="@+id/chart2"
+                android:layout_width="232dp"
+                android:layout_height="295dp"
+                android:layout_marginStart="104dp"
+                android:layout_marginTop="1060dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -341,10 +396,10 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:itemBackground="@color/dark"
+        app:itemBackground="@color/Ldark"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menu_navigation" />
 
 
-    </RelativeLayout>
+</RelativeLayout>

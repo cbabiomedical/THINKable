@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
@@ -51,7 +52,8 @@ import java.util.List;
 public class RelaxationReportWeekly extends AppCompatActivity {
 
     BarChart barChartWeeklytimeto, barChartWeeklytimestayed;
-    AppCompatButton daily, yearly, monthly, whereAmI, progress, timetorel, timestayedrel;
+    AppCompatButton daily, yearly, monthly, whereAmI, progress ;
+    ImageView timetorel, timestayedrel;
     FirebaseUser mUser;
     String text;
     String text2;
@@ -73,11 +75,11 @@ public class RelaxationReportWeekly extends AppCompatActivity {
         //Initialize buttons
         whereAmI = findViewById(R.id.whereAmI);
         progress = findViewById(R.id.progress);
-        timetorel = findViewById(R.id.timetorel);
-        timestayedrel = findViewById(R.id.timestayedrel);
+//        timetorel = findViewById(R.id.btn_timeCon);
+//        timestayedrel = findViewById(R.id.barChartDailytimeto);
         //Initialize bar chart
-        barChartWeeklytimeto = findViewById(R.id.barChartWeeklytimeto);
-        barChartWeeklytimestayed = findViewById(R.id.barChartWeeklytimestayed);
+        barChartWeeklytimeto = findViewById(R.id.barChartDailytimeto);
+        barChartWeeklytimestayed = findViewById(R.id.barChartDailytimestayed);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference("chartTable");
         //Initialize List entries

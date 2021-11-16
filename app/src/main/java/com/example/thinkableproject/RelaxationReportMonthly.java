@@ -71,11 +71,11 @@ public class RelaxationReportMonthly extends AppCompatActivity {
         //Initialize buttons
         whereAmI = findViewById(R.id.whereAmI);
         progress = findViewById(R.id.progress);
-        timetorel = findViewById(R.id.timetorel);
-        timestayedrel = findViewById(R.id.timestayedrel);
+//        timetorel = findViewById(R.id.btn_timeCon);
+//        timestayedrel = findViewById(R.id.btn_timeStayedCon);
         //Initialize bar chart
-        barChartMonthlytimeto = findViewById(R.id.barChartMonthlytimeto);
-        barChartMonthlytimestayed = findViewById(R.id.barChartMonthlytimestayed);
+        barChartMonthlytimeto = findViewById(R.id.barChartDailytimeto);
+        barChartMonthlytimestayed = findViewById(R.id.barChartDailytimestayed);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference("chartTable");
         //Initialize List entries

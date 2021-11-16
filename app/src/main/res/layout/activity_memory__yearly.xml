@@ -7,7 +7,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/landing_background"
+    android:background="@drawable/newbg"
     android:orientation="horizontal"
     tools:context=".Concentration_Yearly">
     <ScrollView
@@ -21,54 +21,109 @@
             <RelativeLayout
                 android:id="@+id/toggleBtn"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
 
-                <ImageButton
-                    android:id="@+id/concentration"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="35dp"
-                    android:layout_marginTop="40dp"
-                    android:background="@drawable/bconcentration"
-                    android:elevation="5dp"
-                    android:src="@drawable/concentrationicon8" />
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:orientation="vertical"
+                    android:id="@+id/tg1"
+                    >
+                    <ImageButton
+                        android:id="@+id/concentration"
+                        android:layout_width="100dp"
+                        android:layout_height="70dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="@+id/relaxation"
+                        android:background="@drawable/newtg"
 
-                <ImageButton
-                    android:id="@+id/relaxation"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:layout_alignEnd="@+id/concentration"
-                    android:layout_alignRight="@+id/concentration"
-                    android:layout_marginLeft="100dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginRight="-100dp"
-                    android:background="@drawable/bconcentration"
-                    android:elevation="5dp"
-                    android:src="@drawable/relax" />
 
-                <ImageButton
-                    android:id="@+id/memory"
-                    android:layout_width="100dp"
-                    android:layout_height="50dp"
-                    android:layout_alignEnd="@+id/relaxation"
-                    android:layout_alignRight="@+id/relaxation"
-                    android:layout_marginLeft="100dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginRight="-100dp"
-                    android:background="@drawable/bconcentration2"
-                    android:elevation="5dp"
-                    android:src="@drawable/memory" />
+
+                        android:layout_marginLeft="35dp"
+                        android:layout_marginTop="40dp"
+
+                        android:elevation="5dp"
+                        android:src="@drawable/conctgb"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:id="@+id/tg2">
+
+                    <ImageButton
+                        android:id="@+id/relaxation"
+                        android:layout_width="100dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/newtg"
+                        android:layout_alignEnd="@+id/concentration"
+                        android:layout_alignRight="@+id/memo"
+
+                        android:layout_marginTop="40dp"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintLeft_toLeftOf="@+id/concentration"
+
+
+
+                        android:elevation="5dp"
+                        android:src="@drawable/relaxtga"
+                        />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="end"
+                    android:gravity="end"
+                    android:orientation="vertical"
+                    android:id="@+id/tg3">
+
+                    <ImageButton
+                        android:id="@+id/memory"
+                        android:layout_width="100dp"
+                        android:layout_height="70dp"
+                        android:layout_marginRight="35dp"
+                        android:background="@drawable/clicked"
+
+                        android:layout_marginTop="40dp"
+
+
+                        android:elevation="5dp"
+                        android:src="@drawable/memorytga" />
+
+
+                </LinearLayout>
+
+
+
+
+
+
             </RelativeLayout>
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barChartYearly"
                 android:layout_width="325dp"
-                android:layout_centerHorizontal="true"
                 android:layout_height="250dp"
-                android:layout_marginHorizontal="0dp"
+                android:layout_centerHorizontal="true"
                 android:layout_below="@+id/toggleBtn"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="20dp"
-                android:background="@color/background"
+                android:background="@color/transparent"
                 android:layout_marginLeft="4dp" />
 
             <LinearLayout
@@ -79,25 +134,27 @@
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:layout_marginTop="20dp">
+
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/daily"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/daily"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:background="@drawable/btn_daily"
+                    android:textColor="@color/black"
+
+                    android:background="@drawable/hibtn"
                     android:textAllCaps="false">
                 </androidx.appcompat.widget.AppCompatButton>
+
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/weekly"
+                    android:layout_marginLeft="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/weekly"
-                    android:textColor="@color/white"
-                    android:layout_marginLeft="20dp"
-                    android:textStyle="bold"
-                    android:background="@drawable/btn_daily"
+                    android:text="Weekly"
+                    android:textColor="@color/black"
+
+                    android:background="@drawable/hibtn"
                     android:textAllCaps="false">
                 </androidx.appcompat.widget.AppCompatButton>
 
@@ -106,11 +163,11 @@
                     android:id="@+id/monthly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/monthly"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
+                    android:text="Monthly"
+                    android:textColor="@color/black"
+
                     android:layout_marginLeft="20dp"
-                    android:background="@drawable/btn_daily"
+                    android:background="@drawable/hibtn"
                     android:textAllCaps="false">
                 </androidx.appcompat.widget.AppCompatButton>
             </LinearLayout>
@@ -119,31 +176,34 @@
                 android:id="@+id/realTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:layout_below="@+id/btnLayout"
-                android:textStyle="bold"
                 android:layout_marginTop="20dp"
                 android:layout_centerHorizontal="true"
-                android:background="@drawable/realtime"
+                android:layout_below="@+id/btnLayout"
+                android:textColor="@color/white"
+                android:textStyle="bold"
+                android:background="@drawable/cnnect"
                 android:textAllCaps="false"
-                android:onClick="caliyearly">
+                android:onClick="caliweekly"
+                >
             </androidx.appcompat.widget.AppCompatButton>
 
-            <androidx.appcompat.widget.AppCompatButton
+            <Button
                 android:id="@+id/improveConcentration"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Improve Memory"
-                android:paddingHorizontal="10dp"
-                android:textColor="@color/white"
-                android:layout_centerHorizontal="true"
+                android:layout_height="61dp"
                 android:layout_below="@+id/realTime"
                 android:layout_marginTop="10dp"
-                android:textStyle="bold"
-                android:background="@drawable/btn_daily"
+                android:text="Want to Improve Memory?"
+                android:paddingHorizontal="10dp"
+                android:textColor="@color/black"
+                app:cornerRadius="13dp"
+
+                android:layout_centerHorizontal="true"
+                android:backgroundTint="@color/white"
                 android:textAllCaps="false"
-                android:onClick="gotoPopup4">
-            </androidx.appcompat.widget.AppCompatButton>
+                android:onClick="gotoPopup3">
+            </Button>
+
             <LinearLayout
                 android:layout_marginTop="20dp"
                 android:layout_marginBottom="70dp"
@@ -152,20 +212,20 @@
                 android:orientation="horizontal"
                 android:gravity="center"
                 android:layout_below="@+id/improveConcentration">
-                <ImageButton
-                    android:layout_width="130dp"
-                    android:layout_height="80dp"
-                    android:background="@drawable/concentpreference"
-                    android:src="@drawable/musiccon"/>
+                <ImageView
+                    android:id="@+id/game"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
-                <ImageButton
+                    android:src="@drawable/gamef"/>
+
+                <ImageView
+                    android:id="@+id/music"
                     android:layout_marginLeft="20dp"
-                    android:layout_width="130dp"
-                    android:layout_height="80dp"
-                    android:background="@drawable/concentpreference"
-                    android:src="@drawable/musicconcen"/>
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
-
+                    android:src="@drawable/musicf"/>
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>
@@ -174,8 +234,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:itemBackground="@color/dark"
+        app:itemBackground="@color/Ldark"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menu_navigation" />
+
 </RelativeLayout>

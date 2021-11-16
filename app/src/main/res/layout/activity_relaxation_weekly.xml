@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/landing_background"
+    android:background="@drawable/newbg"
     android:orientation="horizontal"
     tools:context=".Relaxation_Weekly">
 
@@ -19,169 +19,225 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
-        <RelativeLayout
-            android:id="@+id/toggleBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-
-            <ImageButton
-                android:id="@+id/concentration"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:layout_marginLeft="35dp"
-                android:layout_marginTop="40dp"
-                android:background="@drawable/buttonconcentration1"
-                android:elevation="5dp"
-                android:src="@drawable/concentrationicon8" />
-
-            <ImageButton
-                android:id="@+id/relaxation"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:layout_alignEnd="@+id/concentration"
-                android:layout_alignRight="@+id/concentration"
-                android:layout_marginLeft="100dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginRight="-100dp"
-                android:background="@drawable/bconcentration2"
-                android:elevation="5dp"
-                android:src="@drawable/relax" />
-
-            <ImageButton
-                android:id="@+id/memory"
-                android:layout_width="100dp"
-                android:layout_height="50dp"
-                android:layout_alignEnd="@+id/relaxation"
-                android:layout_alignRight="@+id/relaxation"
-                android:layout_marginLeft="100dp"
-                android:layout_marginTop="40dp"
-                android:layout_marginRight="-100dp"
-                android:background="@drawable/buttonconcentration1"
-                android:elevation="5dp"
-                android:src="@drawable/memory" />
-        </RelativeLayout>
-
-        <com.github.mikephil.charting.charts.BarChart
-            android:id="@+id/barChartWeekly"
-            android:layout_width="325dp"
-            android:layout_height="250dp"
-            android:layout_below="@+id/toggleBtn"
-            android:layout_marginStart="4dp"
-            android:layout_marginLeft="4dp"
-            android:layout_marginTop="35dp"
-            android:layout_centerHorizontal="true"
-            android:background="@color/background" />
-
-        <LinearLayout
-            android:id="@+id/btnLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/barChartWeekly"
-            android:orientation="horizontal"
-            android:background="@android:color/transparent"
-            android:gravity="center"
-            android:layout_marginTop="20dp">
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/monthly"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/monthly"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:background="@drawable/btn_daily"
-                android:textAllCaps="false">
-            </androidx.appcompat.widget.AppCompatButton>
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/daily"
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/toggleBtn"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:text="@string/daily"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:background="@drawable/btn_daily"
-                android:textAllCaps="false">
-            </androidx.appcompat.widget.AppCompatButton>
+                android:layout_marginRight="20dp"
+
+                >
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:orientation="vertical"
+                    android:id="@+id/tg1"
+                    >
+                    <ImageButton
+                        android:id="@+id/concentration"
+                        android:layout_width="100dp"
+                        android:layout_height="70dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="@+id/relaxation"
+                        android:background="@drawable/newtg"
 
 
+
+                        android:layout_marginLeft="35dp"
+                        android:layout_marginTop="40dp"
+
+                        android:elevation="5dp"
+                        android:src="@drawable/conctgb"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:id="@+id/tg2">
+
+                    <ImageButton
+                        android:id="@+id/relaxation"
+                        android:layout_width="100dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/clicked"
+                        android:layout_alignEnd="@+id/concentration"
+                        android:layout_alignRight="@+id/memo"
+
+                        android:layout_marginTop="40dp"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintLeft_toLeftOf="@+id/concentration"
+
+
+
+                        android:elevation="5dp"
+                        android:src="@drawable/relaxtga"
+                        />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="end"
+                    android:gravity="end"
+                    android:orientation="vertical"
+                    android:id="@+id/tg3">
+
+                    <ImageButton
+                        android:id="@+id/memory"
+                        android:layout_width="100dp"
+                        android:layout_height="70dp"
+                        android:layout_marginRight="35dp"
+                        android:background="@drawable/newtg"
+
+                        android:layout_marginTop="40dp"
+
+
+                        android:elevation="5dp"
+                        android:src="@drawable/memorytga" />
+
+
+                </LinearLayout>
+
+
+
+
+
+
+            </RelativeLayout>
+
+            <com.github.mikephil.charting.charts.BarChart
+                android:id="@+id/barChartWeekly"
+                android:layout_width="325dp"
+                android:layout_height="250dp"
+                android:layout_below="@+id/toggleBtn"
+                android:layout_marginStart="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="35dp"
+                android:layout_centerHorizontal="true"
+                android:background="@color/transparent" />
+
+            <LinearLayout
+                android:id="@+id/btnLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/barChartWeekly"
+                android:orientation="horizontal"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:layout_marginTop="20dp">
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/monthly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Monthly"
+                    android:textColor="@color/black"
+
+                    android:background="@drawable/hibtn"
+                    android:textAllCaps="false">
+                </androidx.appcompat.widget.AppCompatButton>
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/daily"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/daily"
+                    android:textColor="@color/black"
+
+                    android:background="@drawable/hibtn"
+                    android:textAllCaps="false">
+                </androidx.appcompat.widget.AppCompatButton>
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/yearly"
+                    android:layout_marginLeft="20dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/yearly"
+                    android:textColor="@color/black"
+
+                    android:background="@drawable/hibtn"
+                    android:textAllCaps="false">
+                </androidx.appcompat.widget.AppCompatButton>
+            </LinearLayout>
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/yearly"
-                android:layout_marginLeft="20dp"
+                android:id="@+id/realTime"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/yearly"
+                android:layout_below="@+id/btnLayout"
                 android:textColor="@color/white"
                 android:textStyle="bold"
-                android:background="@drawable/btn_daily"
-                android:textAllCaps="false">
+                android:background="@drawable/cnnect"
+                android:textAllCaps="false"
+                android:onClick="calimonthly1">
             </androidx.appcompat.widget.AppCompatButton>
-        </LinearLayout>
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/realTime"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btnLayout"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:background="@drawable/realtime"
-            android:textAllCaps="false"
-            android:onClick="caliweekly1">
-        </androidx.appcompat.widget.AppCompatButton>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/improveRelaxation"
+            <Button
+                android:id="@+id/improveRelaxation"
 
-            android:layout_marginTop="10dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingHorizontal="10dp"
-            android:text="Improve Relaxation"
-            android:layout_centerHorizontal="true"
-            android:layout_below="@+id/realTime"
-            android:textColor="@color/white"
-            android:textStyle="bold"
-            android:background="@drawable/btn_daily"
-            android:textAllCaps="false"
-            android:onClick="gotoPopup7">
-        </androidx.appcompat.widget.AppCompatButton>
-        <LinearLayout
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="70dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center"
-            android:layout_below="@+id/improveRelaxation">
-            <ImageButton
-                android:id="@+id/music"
-                android:layout_width="100dp"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="61dp"
+                android:paddingHorizontal="10dp"
+                android:text="Want to Improve Relaxation?"
+                android:layout_centerHorizontal="true"
+                android:layout_below="@+id/realTime"
+                android:textColor="@color/black"
+                android:backgroundTint="@color/white"
+                app:cornerRadius="13dp"
+
+                android:textAllCaps="false"
+                android:onClick="gotoPopup6">
+            </Button>
+            <LinearLayout
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="70dp"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/rectangle"
-                android:src="@drawable/music_logo"
-                android:contentDescription="TODO" />
-            <ImageButton
-                android:id="@+id/meditation"
-                android:layout_marginLeft="10dp"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rectangle"
-                android:src="@drawable/meditation_logo"
-                android:contentDescription="TODO" />
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_below="@+id/improveRelaxation">
 
-            <ImageButton
-                android:id="@+id/video"
-                android:layout_marginLeft="10dp"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rectangle"
-                android:src="@drawable/video_logo"
-                android:contentDescription="TODO" />
+                <ImageView
+                    android:id="@+id/music"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+
+                    android:src="@drawable/musicf" />
+
+                <ImageView
+                    android:id="@+id/meditations"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+
+                    android:src="@drawable/medif" />
+
+                <ImageView
+                    android:id="@+id/video"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+
+                    android:src="@drawable/videof" />
 
 
-        </LinearLayout>
+
+            </LinearLayout>
         </RelativeLayout>
     </ScrollView>
 
@@ -190,10 +246,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:itemBackground="@color/dark"
+        app:itemBackground="@color/Ldark"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menu_navigation" />
-
 </RelativeLayout>
-

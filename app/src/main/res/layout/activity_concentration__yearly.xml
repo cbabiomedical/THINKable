@@ -202,7 +202,7 @@
 
 
                 android:textAllCaps="false"
-                android:onClick="gotoPopup4">
+                android:onClick="gotoPopup1">
             </Button>
             <LinearLayout
                 android:id="@+id/sugLayout"

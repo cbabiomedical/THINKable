@@ -52,7 +52,8 @@ public class Memory_Daily extends AppCompatActivity {
     Dialog dialogcd;
     BarChart barChartdaily;
     AppCompatButton monthly, yearly, weekly, realTime;
-    ImageButton relaxationBtn, games, music, concentrationBtn;
+    ImageButton relaxationBtn, concentrationBtn;
+    ImageView games, music;
     FirebaseUser mUser;
     String text;
     File localFile, fileName;

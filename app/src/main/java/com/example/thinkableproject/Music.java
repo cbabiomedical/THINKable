@@ -75,19 +75,19 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
         dropdown_time.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selected_time=parent.getItemAtPosition(position).toString();
-                if(position==0){
-                    time=60000;
+                selected_time = parent.getItemAtPosition(position).toString();
+                if (position == 0) {
+                    time = 60000;
                     Log.d("TIME", String.valueOf(time));
-                }else if(position==1){
-                    time=90000;
+                } else if (position == 1) {
+                    time = 90000;
                     Log.d("TIME", String.valueOf(time));
-                }else if(position==2){
-                    time=120000;
-                }else if(position==3){
-                    time=150000;
-                }else{
-                    time=180000;
+                } else if (position == 2) {
+                    time = 120000;
+                } else if (position == 3) {
+                    time = 150000;
+                } else {
+                    time = 180000;
                 }
             }
 
@@ -102,11 +102,11 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
 
 
         musicList = new ArrayList<>();
-        musicList.add(new MusicModelClass(R.drawable.music1,"Chilled Acoustic","1","https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/chilled-acoustic-indie-folk-instrumental-background-music-for-videos-5720.mp3?alt=media&token=c61afc5b-1833-47a0-af5c-645872eae852"));
-        musicList.add(new MusicModelClass(R.drawable.music1,"Melody Of Nature","2","https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c"));
-        HashMap<String,Object> songs=new HashMap<>();
-        songs.put("songList",musicList);
-        DatabaseReference reference=FirebaseDatabase.getInstance().getReference("Music");
+        musicList.add(new MusicModelClass(R.drawable.music1, "Chilled Acoustic", "1", "https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/chilled-acoustic-indie-folk-instrumental-background-music-for-videos-5720.mp3?alt=media&token=c61afc5b-1833-47a0-af5c-645872eae852"));
+        musicList.add(new MusicModelClass(R.drawable.music1, "Melody Of Nature", "2", "https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c"));
+        HashMap<String, Object> songs = new HashMap<>();
+        songs.put("songList", musicList);
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Music");
         reference.setValue(songs);
 
 
@@ -155,7 +155,6 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
     }
 
 
-
     @Override
     public void onNoteClick(int position) {
 
@@ -164,6 +163,6 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
         String url = musicList.get(position).getUrl();
         int image = musicList.get(position).getImageView();
         Log.d("Url", url);
-        startActivity(new Intent(getApplicationContext(), MusicPlayer.class).putExtra("url", url).putExtra("name", songName).putExtra("image", image).putExtra("time",time));
+        startActivity(new Intent(getApplicationContext(), MusicPlayer.class).putExtra("url", url).putExtra("name", songName).putExtra("image", image).putExtra("time", time));
     }
 }

@@ -60,7 +60,8 @@ public class Relaxation_Weekly extends AppCompatActivity {
     BarChart barChart, barChart1, barChart2;
     private Context context;
     AppCompatButton daily, yearly, monthly, realTime;
-    ImageButton concentration,  music, meditation, video,memoryBtn;
+    ImageButton concentration  ,memoryBtn;
+    ImageView music, meditation, video;
     FirebaseUser mUser;
     String text;
     File localFile;
@@ -85,6 +86,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
         daily = findViewById(R.id.daily);
         yearly = findViewById(R.id.yearly);
         monthly = findViewById(R.id.monthly);
+
         //Initialize pop up window
         dialogrw = new Dialog(this);
         //Initialize and Assign Variable
@@ -106,7 +108,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
         });
 
         music = findViewById(R.id.music);
-        meditation = findViewById(R.id.meditation);
+        meditation = findViewById(R.id.meditations);
         video = findViewById(R.id.video);
         //go to misic-excercise page
         music.setOnClickListener(new View.OnClickListener() {

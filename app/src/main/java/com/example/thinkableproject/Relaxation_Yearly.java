@@ -55,9 +55,10 @@ public class Relaxation_Yearly extends AppCompatActivity {
     Dialog dialogry;
     BarChart barChart2;
     AppCompatButton daily, weekly, monthly, realTime;
-    ImageButton concentration, music, meditation, video,memoryBtn;
+    ImageButton concentration ,memoryBtn;
     FirebaseUser mUser;
     String text;
+    ImageView music, meditation, video;
     File fileName;
     File localFile;
     ArrayList<String> list = new ArrayList<>();

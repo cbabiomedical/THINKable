@@ -11,7 +11,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/report_whereami">
+        android:background="@drawable/newbg">
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -19,54 +19,106 @@
             android:orientation="vertical">
 
             <RelativeLayout
-                android:layout_centerHorizontal="true"
                 android:id="@+id/toggleBtn"
-                android:layout_marginTop="40dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+
                 >
-                <ImageButton
-                    android:id="@+id/memory"
-                    android:layout_width="110dp"
-                    android:layout_height="50dp"
-                    android:layout_alignEnd="@+id/relaxation"
-                    android:layout_alignRight="@+id/concentration"
-                    android:layout_marginLeft="100dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="-97dp"
-                    android:layout_marginRight="-191dp"
-                    android:background="@drawable/concen"
-                    android:elevation="5dp"
-                    android:src="@drawable/memory" />
-                <ImageButton
-                    android:id="@+id/relaxation"
-                    android:layout_width="110dp"
-                    android:layout_height="50dp"
-                    android:layout_alignEnd="@+id/concentration"
-                    android:layout_alignRight="@+id/concentration"
-                    android:layout_marginLeft="100dp"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginEnd="-94dp"
-                    android:layout_marginRight="-94dp"
-                    android:background="@drawable/bconcentration"
-                    android:elevation="5dp"
-                    android:src="@drawable/relax" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:orientation="vertical"
+                    android:id="@+id/tg1"
+                    >
+                    <ImageButton
+                        android:id="@+id/concentration"
+                        android:layout_width="100dp"
+                        android:layout_height="70dp"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="@+id/relaxation"
+                        android:background="@drawable/newtg"
 
 
-                <ImageButton
-                    android:id="@+id/concentration"
-                    android:layout_width="110dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="30dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/bconcentration"
-                    android:elevation="5dp"
-                    android:src="@drawable/concentration_icon" />
+
+                        android:layout_marginLeft="35dp"
+                        android:layout_marginTop="40dp"
+
+                        android:elevation="5dp"
+                        android:src="@drawable/conctgb"
+                        />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:id="@+id/tg2">
+
+                    <ImageButton
+                        android:id="@+id/relaxation"
+                        android:layout_width="100dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/newtg"
+                        android:layout_alignEnd="@+id/concentration"
+                        android:layout_alignRight="@+id/memo"
+
+                        android:layout_marginTop="40dp"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintLeft_toLeftOf="@+id/concentration"
+
+
+
+                        android:elevation="5dp"
+                        android:src="@drawable/relaxtga"
+                        />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="end"
+                    android:gravity="end"
+                    android:orientation="vertical"
+                    android:id="@+id/tg3">
+
+                    <ImageButton
+                        android:id="@+id/memory"
+                        android:layout_width="100dp"
+                        android:layout_height="70dp"
+                        android:layout_marginRight="35dp"
+                        android:background="@drawable/clicked"
+
+                        android:layout_marginTop="40dp"
+
+
+                        android:elevation="5dp"
+                        android:src="@drawable/memorytga" />
+
+
+                </LinearLayout>
+
+
+
+
+
+
             </RelativeLayout>
-
             <RelativeLayout
-                android:id="@+id/toggleBtn1"
-                android:layout_marginTop="120dp"
+                android:layout_centerHorizontal="true"
+                android:id="@+id/toggleBtn2"
+                android:layout_below="@+id/toggleBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 >
@@ -75,37 +127,39 @@
                     android:id="@+id/progresscon"
                     android:layout_width="160dp"
                     android:layout_height="60dp"
-                    android:layout_marginLeft="35dp"
+                    android:layout_marginLeft="65dp"
+                    android:layout_marginTop="40dp"
+
                     android:background="@drawable/pgbtn"
-                    android:elevation="5dp"
                     android:text="Progress"
-                    android:textColor="#3F51B5"/>
+                    android:textColor="#3F51B5"
+                    />
 
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/relwhereAmI"
+                    android:id="@+id/whereAmI"
                     android:layout_width="160dp"
                     android:layout_height="60dp"
                     android:layout_alignEnd="@+id/progresscon"
                     android:layout_alignRight="@+id/progresscon"
-                    android:layout_marginLeft="100dp"
+
                     android:layout_marginEnd="-136dp"
-                    android:layout_marginRight="-144dp"
+                    android:layout_marginLeft="130dp"
+                    android:layout_marginTop="40dp"
                     android:text="WHERE AM I"
                     android:textColor="@color/white"
+                    android:layout_marginRight="-144dp"
                     android:background="@drawable/progressbtn"
                     android:elevation="5dp"
 
                     />
 
-
             </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/togglewhere"
-                android:layout_marginTop="200dp"
+                android:layout_marginTop="230dp"
                 android:layout_width="match_parent"
-                android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
                 >
                 <androidx.appcompat.widget.AppCompatButton
@@ -348,7 +402,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:itemBackground="@color/dark"
+        app:itemBackground="@color/Ldark"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menu_navigation" />

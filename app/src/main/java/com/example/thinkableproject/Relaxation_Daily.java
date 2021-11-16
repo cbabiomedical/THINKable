@@ -58,11 +58,12 @@ public class Relaxation_Daily extends AppCompatActivity {
     Dialog dialogrd;
     BarChart barChartdaily;
     AppCompatButton monthly, yearly, weekly, realTime;
+    ImageView meditation,music,video;
     FirebaseUser mUser;
     String text;
     File localFile;
     File fileName;
-    ImageButton concentration, music, meditation, video, memoryBtn;
+    ImageButton concentration,  memoryBtn;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
 

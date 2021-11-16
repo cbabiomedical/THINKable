@@ -57,8 +57,9 @@ public class Relaxation_Monthly extends AppCompatActivity {
 
     BarChart barChart;
     AppCompatButton daily, yearly, weekly, realTime;
-    ImageButton concentration, relaxation, music, meditation, video,memoryBtn;
+    ImageButton concentration, relaxation,memoryBtn;
     FirebaseUser mUser;
+    ImageView meditation, music,video;
     File localFile;
     String text;
     File fileName;
@@ -82,7 +83,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
         weekly = findViewById(R.id.weekly);
         memoryBtn=findViewById(R.id.memory);
         music = findViewById(R.id.music);
-        meditation = findViewById(R.id.meditation);
+        meditation = findViewById(R.id.meditations);
         video = findViewById(R.id.video);
 
         //Initialize and Assign Variable
