@@ -5,11 +5,11 @@
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
          location permissions for the "MyLocation" functionality.
-
     -->
     <permission
         android:name="my.package.name.permission.MAPS_RECEIVE"
-        android:protectionLevel="signature"/>
+        android:protectionLevel="signature" />
+
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -18,7 +18,7 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES"/>
+    <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
 
     <application
         android:allowBackup="true"
@@ -31,16 +31,23 @@
         android:theme="@style/Theme.ThinkableProject"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".NotificationMessage"
+            android:exported="false" />
+        <activity
+            android:name=".CreateEvent"
+            android:exported="false" />
+        <activity
+            android:name=".CalenderAndNotification"
+            android:exported="false" />
+        <activity
             android:name=".Downloads"
-            android:label="My Downloads"/>
-
+            android:label="My Downloads" />
         <activity
             android:name=".RelaxationExercise"
             android:label="Training Exercise" />
-        <activity android:name=".PlayMeditation"
-            android:parentActivityName=".MeditationExercise"
-
-            />
+        <activity
+            android:name=".PlayMeditation"
+            android:parentActivityName=".MeditationExercise" />
         <activity android:name=".MyDownloads" />
         <activity android:name=".Connection" />
         <activity
@@ -56,8 +63,8 @@
         <activity android:name=".IsochronicTones" />
         <activity
             android:name=".MainActivity"
-            android:label="Main Activity"
-            android:exported="false" />
+            android:exported="false"
+            android:label="Main Activity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -81,10 +88,9 @@
         <activity android:name=".BineuralAcivity" /> <!-- <meta-data -->
         <!-- android:name="com.google.android.geo.API_KEY" -->
         <!-- android:value="@string/google_maps_key" /> -->
-        <activity android:name=".MusicPlayer"
-            android:parentActivityName=".Music"
-
-            />
+        <activity
+            android:name=".MusicPlayer"
+            android:parentActivityName=".Music" />
         <activity
             android:name=".concentration_music"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
@@ -93,10 +99,7 @@
         <activity
             android:name=".Profile"
             android:label="Profile"
-            android:parentActivityName=".Setting"
-
-
-            />
+            android:parentActivityName=".Setting" />
         <activity
             android:name=".UserDetails"
             android:label="Edit Profile" />
@@ -113,13 +116,11 @@
             android:label="Concentration Weekly Report" />
         <activity
             android:name=".ConcentrationReportDaily"
-            android:label="Concentration Daily Report" />
-        <!-- android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" -->
+            android:label="Concentration Daily Report" /> <!-- android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" -->
         <activity
             android:name=".MainActivity2"
             android:label="My Favourites"
             android:parentActivityName=".Profile" />
-
         <activity android:name=".GameActivity" />
         <activity android:name=".MeditationExercise" />
         <activity
@@ -154,7 +155,6 @@
         <activity
             android:name=".UserLocation"
             android:exported="true"
-
             android:parentActivityName=".Setting" />
         <activity
             android:name=".RelaxationReportDaily"
@@ -238,15 +238,10 @@
         <activity android:name=".Suggestions" />
         <activity android:name=".VerifyPhoneActivity" />
         <activity android:name=".EnterPhoneActivity" />
-        <activity
-            android:name=".PreferencesSecPage"
-
-            />
+        <activity android:name=".PreferencesSecPage" />
         <activity
             android:name=".RegisterActivity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-
-            />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".LandingPage"
             android:label="@string/title_activity_landing_page" />
@@ -269,13 +264,13 @@
             </intent-filter>
         </activity>
 
-        <service android:name="com.example.PushNotificationService" android:exported="false">
+        <service
+            android:name="com.example.PushNotificationService"
+            android:exported="false">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"></action>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
-
         </service>
-
 
         <meta-data
             android:name="preloaded_fonts"

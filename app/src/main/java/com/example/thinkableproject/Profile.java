@@ -88,7 +88,7 @@ public class Profile extends AppCompatActivity {
         calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentcalen =new Intent(getApplicationContext(),Calendar_Reminder.class);
+                Intent intentcalen =new Intent(getApplicationContext(), CalenderAndNotification.class);
                 startActivity(intentcalen);
             }
         });
