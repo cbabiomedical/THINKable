@@ -83,6 +83,7 @@ public class ConcentrationReportDaily extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent=new Intent(getApplicationContext(), MemoryReportDaily.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 
@@ -502,17 +503,20 @@ public class ConcentrationReportDaily extends AppCompatActivity {
     public void monthly(View v) {
         Intent intent2 = new Intent(this, ConcentrationReportMonthly.class);
         startActivity(intent2);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
     }
 
     public void yearly(View view) {
         Intent intent2 = new Intent(this, ConcentrationReportYearly.class);
         startActivity(intent2);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     public void weekly(View view) {
         Intent intent2 = new Intent(this, ConcentrationReportWeekly.class);
         startActivity(intent2);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
 }

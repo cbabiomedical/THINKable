@@ -590,9 +590,11 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                             chart1.setDragEnabled(true);
                             chart1.setScaleEnabled(true);
                             chart1.setMaxVisibleValueCount(200);
+                            chart1.setNoDataText("");
                             chart1.setPinchZoom(true);
                             Legend l1 = chart1.getLegend();
                             chart1.setNoDataText("Data Loading Please Wait....");
+                            chart1.setDescription(null);
 
                             YAxis yl1 = chart1.getAxisLeft();
                             yl1.setAxisMinimum(0f);

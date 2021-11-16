@@ -116,7 +116,7 @@
 
             </RelativeLayout>
             <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/barChartDaily"
+                android:id="@+id/barChartWeekly"
                 android:layout_width="325dp"
                 android:layout_height="250dp"
                 android:layout_below="@+id/toggleBtn"
@@ -131,7 +131,7 @@
                 android:id="@+id/btnLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/barChartDaily"
+                android:layout_below="@+id/barChartWeekly"
                 android:orientation="horizontal"
                 android:background="@android:color/transparent"
                 android:gravity="center"
@@ -202,7 +202,7 @@
 
 
                 android:textAllCaps="false"
-                android:onClick="gotoPopup1">
+                android:onClick="gotoPopup3">
             </Button>
             <LinearLayout
                 android:id="@+id/sugLayout"

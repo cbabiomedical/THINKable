@@ -52,7 +52,8 @@ public class Concentration_Yearly extends AppCompatActivity {
     Dialog dialogcy;
     BarChart barChart2;
     AppCompatButton daily, weekly, monthly, realTime;
-    ImageButton relaxationBtn,memoryBtn, music, games;
+    ImageButton relaxationBtn,memoryBtn;
+    ImageView music, games;
     FirebaseUser mUser;
     File localFile, fileName;
     String text;

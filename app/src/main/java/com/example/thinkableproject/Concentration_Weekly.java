@@ -52,8 +52,9 @@ public class Concentration_Weekly extends AppCompatActivity {
     Dialog dialogcw;
     BarChart barChart1;
     AppCompatButton monthly, yearly, daily, realTime;
-    ImageButton relaxationBtn, memoryBtn, music, games;
+    ImageButton relaxationBtn, memoryBtn;
     FirebaseUser mUser;
+    ImageView music, games;
     File localFile, fileName;
     ArrayList<String> list = new ArrayList<>();
     String text;

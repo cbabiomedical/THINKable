@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -15,7 +16,9 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
@@ -36,8 +39,10 @@ import java.util.*;
 public class Concentration_Daily extends AppCompatActivity {
     Dialog dialogcd;
     BarChart barChartdaily;
+    ImageView games;
     AppCompatButton monthly, yearly, weekly, realTime;
-    ImageButton relaxationBtn, games, memory, music;
+    ImageButton relaxationBtn,  memory;
+    ImageView  music;
     FirebaseUser mUser;
     String text;
     File localFile, fileName;
@@ -239,14 +244,15 @@ public class Concentration_Daily extends AppCompatActivity {
 
                             barChartdaily.getAxisRight().setEnabled(false);
                             Description desc = new Description();
-                            desc.setText("");
+                            desc.setText("Chart Loading" );
+                            desc.setEnabled(false);
+                            desc.setTextAlign(Paint.Align.CENTER);
                             barChartdaily.setDescription(desc);
                             barChartdaily.getLegend().setEnabled(false);
                             barChartdaily.getXAxis().setDrawGridLines(false);
                             barChartdaily.getAxisLeft().setDrawGridLines(false);
-                            barChartdaily.setDescription(null);
-                            barChartdaily.setNoDataText("No Chart Loaded.."); // this is the top line// this is one line below the no-data-text
-                            barChartdaily.invalidate();
+                            barChartdaily.setNoDataTextColor(R.color.white);
+                            barChartdaily.setNoDataText("Chart Loading Please Wait...");
                             barChartdaily.invalidate();
 
 

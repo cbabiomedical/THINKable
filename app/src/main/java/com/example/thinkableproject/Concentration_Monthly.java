@@ -51,8 +51,9 @@ public class Concentration_Monthly extends AppCompatActivity {
     Dialog dialogcm;
     BarChart barChart;
     private Context context;
+    ImageView games,music;
     AppCompatButton daily, weekly, yearly, realTime;
-    ImageButton relaxationBtn,memoryBtn, games, music;
+    ImageButton relaxationBtn,memoryBtn;
     FirebaseUser mUser;
     File localFile,fileName;
     String text;
