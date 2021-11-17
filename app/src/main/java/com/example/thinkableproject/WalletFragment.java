@@ -45,7 +45,7 @@ public class WalletFragment extends Fragment {
                 user = documentSnapshot.toObject(User.class);
                 binding.currentCoins.setText(String.valueOf(user.getCoins()));
 
-                //binding.currentCoins.setText(user.getCoins() + "");
+                binding.currentCoins.setText(user.getCoins() + "");
 
             }
         });
