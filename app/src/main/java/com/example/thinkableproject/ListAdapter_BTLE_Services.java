@@ -13,12 +13,22 @@ import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
+
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -26,7 +36,6 @@ import java.util.HashMap;
  * Created by Kelvin on 5/8/16.
  */
 public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
-    String path;
     private Activity activity;
     private ArrayList<BluetoothGattService> services_ArrayList;
     private HashMap<String, ArrayList<BluetoothGattCharacteristic>> characteristics_HashMap;
@@ -46,7 +55,6 @@ public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
         return services_ArrayList.size();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     @Override
     public int getChildrenCount(int groupPosition) {
         return characteristics_HashMap.get(
@@ -93,7 +101,7 @@ public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
         }
 
         TextView tv_service = (TextView) convertView.findViewById(R.id.tv_service_uuid);
-        tv_service.setText("S:" + serviceUUID);
+        tv_service.setText("S: " + serviceUUID);
 
         return convertView;
     }
@@ -130,23 +138,19 @@ public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
             sb.append("N");
         }
 
+
         tv_property.setText(sb.toString());
 
         TextView tv_value = (TextView) convertView.findViewById(R.id.tv_value);
 
-        byte[] data = new byte[0];
-
-            data = bluetoothGattCharacteristic.getValue();
-            Log.d("Data", String.valueOf(bluetoothGattCharacteristic.getValue()));
-
+        byte[] data = bluetoothGattCharacteristic.getValue();
         if (data != null) {
             tv_value.setText("Value: " + Utils.hexToString(data));
             dataValues.add(Utils.hexToString(data));
-            Log.d("value", Utils.hexToString(data));
 
             try {
-                fileName = new File( Environment.getExternalStorageDirectory() +  "/values.txt");  //Writing data to file
-                System.out.println("Path"+Environment.getExternalStorageDirectory().getAbsolutePath());
+                fileName = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/values.txt");
+                System.out.println("Path" + Environment.getExternalStorageDirectory().getAbsolutePath());
                 String line = "";
                 FileWriter fwa;
                 fwa = new FileWriter(fileName);
@@ -161,16 +165,34 @@ public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
+            StorageReference storageReference1 = FirebaseStorage.getInstance().getReference("BLE Values");
+            try {
+                StorageReference mountainsRef = storageReference1.child("values.txt");
+                InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
+                UploadTask uploadTask = mountainsRef.putStream(stream);
+                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                    Toast.makeText(ConcentrationReportMonthly.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+//                    Toast.makeText(ConcentrationReportMonthly.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
 
         } else {
             tv_value.setText("Value: ---");
         }
 
-
-
         return convertView;
     }
-
 
     @Override
     public boolean isChildSelectable(int groupPosition, int childPosition) {

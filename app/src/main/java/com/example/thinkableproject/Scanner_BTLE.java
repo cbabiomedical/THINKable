@@ -23,7 +23,7 @@ public class Scanner_BTLE {
     private long scanPeriod;
     private int signalStrength;
 
-
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR2)
     public Scanner_BTLE(Connection mainActivity, long scanPeriod, int signalStrength) {
         ma = mainActivity;
 

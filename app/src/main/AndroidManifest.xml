@@ -48,6 +48,7 @@
         <activity
             android:name=".PlayMeditation"
             android:parentActivityName=".MeditationExercise" />
+        <activity android:name=".Activity_BTLE_Services"/>
         <activity android:name=".MyDownloads" />
         <activity android:name=".Connection" />
         <activity

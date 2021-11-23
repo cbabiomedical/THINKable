@@ -12,10 +12,9 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
 
     private boolean mConnected = false;
 
-    private Calibration activity;
-    String action;
+    private Activity_BTLE_Services activity;
 
-    public BroadcastReceiver_BTLE_GATT(Calibration activity) {
+    public BroadcastReceiver_BTLE_GATT(Activity_BTLE_Services activity) {
         this.activity = activity;
     }
 
@@ -26,50 +25,30 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
     // ACTION_DATA_AVAILABLE: received data from the device. This can be a
     // result of read or notification operations.
 
-
-    public String getAction() {
-        return action;
-    }
-
-    public void setAction(String action) {
-        this.action = action;
-    }
-
     @Override
     public void onReceive(Context context, Intent intent) {
-        action = intent.getAction();
-
+        final String action = intent.getAction();
 
         if (Service_BTLE_GATT.ACTION_GATT_CONNECTED.equals(action)) {
             mConnected = true;
             Utils.toast(activity.getApplicationContext(), "Device Connected");
-            Log.d("Connection","Device Connected");
         }
         else if (Service_BTLE_GATT.ACTION_GATT_DISCONNECTED.equals(action)) {
             mConnected = false;
             Utils.toast(activity.getApplicationContext(), "Disconnected From Device");
-            Log.d("Connection","Device Disconnected");
             activity.finish();
         }
         else if (Service_BTLE_GATT.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
-//            activity.updateServices();
+            activity.updateServices();
         }
         else if (Service_BTLE_GATT.ACTION_DATA_AVAILABLE.equals(action)) {
 
 //            String uuid = intent.getStringExtra(Service_BTLE_GATT.EXTRA_UUID);
 //            String data = intent.getStringExtra(Service_BTLE_GATT.EXTRA_DATA);
 
-//            activity.updateCharacteristic();
+            activity.updateCharacteristic();
         }
 
         return;
-    }
-
-    public boolean ismConnected() {
-        return mConnected;
-    }
-
-    public void setmConnected(boolean mConnected) {
-        this.mConnected = mConnected;
     }
 }

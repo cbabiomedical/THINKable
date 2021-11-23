@@ -105,12 +105,12 @@ public class Activity_BTLE_Services extends AppCompatActivity implements Expanda
     protected void onStart() {
         super.onStart();
 
-////        mGattUpdateReceiver = new BroadcastReceiver_BTLE_GATT(this);
-//        registerReceiver(mGattUpdateReceiver, Utils.makeGattUpdateIntentFilter());
-//
-//        mBTLE_Service_Intent = new Intent(this, Service_BTLE_GATT.class);
-//        bindService(mBTLE_Service_Intent, mBTLE_ServiceConnection, Context.BIND_AUTO_CREATE);
-//        startService(mBTLE_Service_Intent);
+        mGattUpdateReceiver = new BroadcastReceiver_BTLE_GATT(this);
+        registerReceiver(mGattUpdateReceiver, Utils.makeGattUpdateIntentFilter());
+
+        mBTLE_Service_Intent = new Intent(this, Service_BTLE_GATT.class);
+        bindService(mBTLE_Service_Intent, mBTLE_ServiceConnection, Context.BIND_AUTO_CREATE);
+        startService(mBTLE_Service_Intent);
     }
 
     @Override
@@ -123,18 +123,18 @@ public class Activity_BTLE_Services extends AppCompatActivity implements Expanda
         super.onPause();
     }
 
-//    @Override
-//    protected void onStop() {
-//        super.onStop();
-//
-//        unregisterReceiver(mGattUpdateReceiver);
-//        unbindService(mBTLE_ServiceConnection);
-//        mBTLE_Service_Intent = null;
-//    }
+    @Override
+    protected void onStop() {
+        super.onStop();
+
+        unregisterReceiver(mGattUpdateReceiver);
+        unbindService(mBTLE_ServiceConnection);
+        mBTLE_Service_Intent = null;
+    }
 
     @Override
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-
+        Log.d("Clicked","This Character was clicked");
         BluetoothGattCharacteristic characteristic = characteristics_HashMapList.get(
                 services_ArrayList.get(groupPosition).getUuid().toString())
                 .get(childPosition);
@@ -160,40 +160,40 @@ public class Activity_BTLE_Services extends AppCompatActivity implements Expanda
         }
 
         return false;
-    }}
+    }
 
-//    public void updateServices() {
-//
-//        if (mBTLE_Service != null) {
-//
-//            services_ArrayList.clear();
-//            characteristics_HashMap.clear();
-//            characteristics_HashMapList.clear();
-//
-//            List<BluetoothGattService> servicesList = mBTLE_Service.getSupportedGattServices();
-//
-//            for (BluetoothGattService service : servicesList) {
-//
-//                services_ArrayList.add(service);
-//
-//                List<BluetoothGattCharacteristic> characteristicsList = service.getCharacteristics();
-//                ArrayList<BluetoothGattCharacteristic> newCharacteristicsList = new ArrayList<>();
-//
-//                for (BluetoothGattCharacteristic characteristic: characteristicsList) {
-//                    characteristics_HashMap.put(characteristic.getUuid().toString(), characteristic);
-//                    newCharacteristicsList.add(characteristic);
-//                }
-//
-//                characteristics_HashMapList.put(service.getUuid().toString(), newCharacteristicsList);
-//            }
-//
-//            if (servicesList != null && servicesList.size() > 0) {
-//                expandableListAdapter.notifyDataSetChanged();
-//            }
-//        }
-//    }
-//
-//    public void updateCharacteristic() {
-//        expandableListAdapter.notifyDataSetChanged();
-//    }
-//}
+    public void updateServices() {
+
+        if (mBTLE_Service != null) {
+
+            services_ArrayList.clear();
+            characteristics_HashMap.clear();
+            characteristics_HashMapList.clear();
+
+            List<BluetoothGattService> servicesList = mBTLE_Service.getSupportedGattServices();
+
+            for (BluetoothGattService service : servicesList) {
+
+                services_ArrayList.add(service);
+
+                List<BluetoothGattCharacteristic> characteristicsList = service.getCharacteristics();
+                ArrayList<BluetoothGattCharacteristic> newCharacteristicsList = new ArrayList<>();
+
+                for (BluetoothGattCharacteristic characteristic: characteristicsList) {
+                    characteristics_HashMap.put(characteristic.getUuid().toString(), characteristic);
+                    newCharacteristicsList.add(characteristic);
+                }
+
+                characteristics_HashMapList.put(service.getUuid().toString(), newCharacteristicsList);
+            }
+
+            if (servicesList != null && servicesList.size() > 0) {
+                expandableListAdapter.notifyDataSetChanged();
+            }
+        }
+    }
+
+    public void updateCharacteristic() {
+        expandableListAdapter.notifyDataSetChanged();
+    }
+}

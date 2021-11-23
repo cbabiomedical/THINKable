@@ -134,7 +134,7 @@ public class Connection extends AppCompatActivity implements View.OnClickListene
         String name = mBTDevicesArrayList.get(position).getName();
         String address = mBTDevicesArrayList.get(position).getAddress();
 
-        Intent intent = new Intent(this, Calibration.class);
+        Intent intent = new Intent(this, Activity_BTLE_Services.class);
         intent.putExtra(Activity_BTLE_Services.EXTRA_NAME, name);
         intent.putExtra(Activity_BTLE_Services.EXTRA_ADDRESS, address);
         startActivityForResult(intent, BTLE_SERVICES);

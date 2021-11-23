@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/landing_background"
+    android:background="@drawable/newbg"
     android:orientation="horizontal"
     tools:context=".Concentration_Daily">
     <ScrollView
@@ -18,39 +18,60 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <RelativeLayout
-                android:layout_centerHorizontal="true"
                 android:id="@+id/toggleBtn"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                >
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:orientation="vertical"
+                    android:id="@+id/tg1"
+                    >
+                    <ImageButton
+                        android:id="@+id/concentration"
+                        android:layout_width="100dp"
+                        android:layout_height="70dp"
+                        android:layout_gravity="left"
+                        app:layout_constraintRight_toRightOf="@+id/relaxation"
+                        android:background="@drawable/newtg"
+                        android:layout_marginLeft="75dp"
+                        android:layout_marginTop="40dp"
 
-                <ImageButton
-                    android:id="@+id/relaxation"
-                    android:layout_width="110dp"
-                    android:layout_height="50dp"
-                    android:layout_alignEnd="@+id/concentration"
-                    android:layout_alignRight="@+id/concentration"
-                    android:layout_marginLeft="100dp"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginEnd="-94dp"
-                    android:layout_marginRight="-94dp"
-                    android:background="@drawable/concen"
-                    android:elevation="5dp"
-                    android:src="@drawable/relax" />
+                        android:elevation="5dp"
+                        android:src="@drawable/conctgb"
+                        tools:ignore="RtlHardcoded" />
+
+                </LinearLayout>
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="vertical"
+                    android:id="@+id/tg2">
+
+                    <ImageButton
+                        android:id="@+id/relaxation"
+                        android:layout_width="100dp"
+                        android:layout_height="70dp"
+                        android:background="@drawable/clicked"
+                        android:layout_alignEnd="@+id/concentration"
+                        android:layout_alignRight="@+id/memo"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginLeft="50dp"
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintLeft_toLeftOf="@+id/concentration"
+                        android:elevation="5dp"
+                        android:src="@drawable/relaxtga"
+                        />
 
 
-
-                <ImageButton
-                    android:id="@+id/concentration"
-                    android:layout_width="110dp"
-                    android:layout_height="50dp"
-                    android:layout_marginLeft="70dp"
-                    android:layout_marginTop="40dp"
-                    android:background="@drawable/bconcentration"
-                    android:elevation="5dp"
-                    android:src="@drawable/concentration_icon" />
+                </LinearLayout>
             </RelativeLayout>
-
             <TextView
                 android:layout_below="@id/toggleBtn"
                 android:id="@+id/musicTitle"
@@ -104,7 +125,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:itemBackground="@color/dark"
+        app:itemBackground="@color/Ldark"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menu_navigation" />

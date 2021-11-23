@@ -134,7 +134,7 @@ public class Calibration extends AppCompatActivity {
         setupPieChart();
         loadPieChartData();
 
-        mGattUpdateReceiver = new BroadcastReceiver_BTLE_GATT(this);
+//        mGattUpdateReceiver = new BroadcastReceiver_BTLE_GATT(this);
         ;
 
 //
@@ -276,7 +276,7 @@ public class Calibration extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
 
-        mGattUpdateReceiver = new BroadcastReceiver_BTLE_GATT(this);
+//        mGattUpdateReceiver = new BroadcastReceiver_BTLE_GATT(this);
         registerReceiver(mGattUpdateReceiver, Utils.makeGattUpdateIntentFilter());
 
         mBTLE_Service_Intent = new Intent(this, Service_BTLE_GATT.class);
@@ -298,9 +298,9 @@ public class Calibration extends AppCompatActivity {
     protected void onStop() {
         super.onStop();
 
-        unregisterReceiver(mGattUpdateReceiver);
-        unbindService(mBTLE_ServiceConnection);
-        mBTLE_Service_Intent = null;
+//        unregisterReceiver(mGattUpdateReceiver);
+//        unbindService(mBTLE_ServiceConnection);
+//        mBTLE_Service_Intent = null;
     }
 
 }
