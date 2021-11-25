@@ -1,7 +1,7 @@
 package com.example.thinkableproject.sample;
 
 public class GameModelClass {
-    private int imageView;
+    private String imageView;
     private String gameName;
     private String id;
     private String fav;
@@ -10,23 +10,23 @@ public class GameModelClass {
     public GameModelClass() {
     }
 
-    public GameModelClass(int imageView, String gameName) {
+    public GameModelClass(String imageView, String gameName) {
         this.imageView = imageView;
         this.gameName = gameName;
     }
 
-    public GameModelClass(int imageView, String gameName, String id, String fav) {
+    public GameModelClass(String imageView, String gameName, String id, String fav) {
         this.imageView = imageView;
         this.gameName = gameName;
         this.id = id;
         this.fav = fav;
     }
 
-    public int getImageView() {
+    public String getImageView() {
         return imageView;
     }
 
-    public void setImageView(int imageView) {
+    public void setImageView(String imageView) {
         this.imageView = imageView;
     }
 

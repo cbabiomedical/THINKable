@@ -136,10 +136,10 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
 
 
 
-        gameList.add(new GameModelClass(R.drawable.chess, "Chess","0","0"));
-        gameList.add(new GameModelClass(R.drawable.images, "Puzzle","1","0"));
-        gameList.add(new GameModelClass(R.drawable.sudoku, "Sudoku","2","0"));
-        gameList.add(new GameModelClass(R.drawable.crossword, "CrossWord","3","0"));
+//        gameList.add(new GameModelClass(R.drawable.chess, "Chess","0","0"));
+//        gameList.add(new GameModelClass(R.drawable.images, "Puzzle","1","0"));
+//        gameList.add(new GameModelClass(R.drawable.sudoku, "Sudoku","2","0"));
+//        gameList.add(new GameModelClass(R.drawable.crossword, "CrossWord","3","0"));
         gameRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         gameAdapter = new GridAdapter(gameList,getApplicationContext(),this::onNoteClickGame);
         gameRecyclerView.setAdapter(gameAdapter);
@@ -149,9 +149,9 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
     @Override
     public void onNoteClick(int position) {
         musicList.get(position);
-        String songName = musicList.get(position).getSongName();
+        String songName = musicList.get(position).getSongTitle1();
         String url = musicList.get(position).getUrl();
-        int image = musicList.get(position).getImageView();
+        String image = musicList.get(position).getImageUrl();
         Log.d("Url", url);
         startActivity(new Intent(getApplicationContext(), MusicPlayer.class).putExtra("url", url).putExtra("name", songName).putExtra("image", image));
     }

@@ -52,10 +52,10 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
     private void initData() {
         gameList = new ArrayList<>();
 //        //Adding user preferences to arraylist
-        gameList.add(new GameModelClass(R.drawable.chess, "Chess", "0", "0"));
-        gameList.add(new GameModelClass(R.drawable.images, "Puzzle", "1", "0"));
-        gameList.add(new GameModelClass(R.drawable.sudoku, "Sudoku", "2", "0"));
-        gameList.add(new GameModelClass(R.drawable.crossword, "CrossWord", "3", "0"));
+//        gameList.add(new GameModelClass(R.drawable.chess, "Chess", "0", "0"));
+//        gameList.add(new GameModelClass(R.drawable.images, "Puzzle", "1", "0"));
+//        gameList.add(new GameModelClass(R.drawable.sudoku, "Sudoku", "2", "0"));
+//        gameList.add(new GameModelClass(R.drawable.crossword, "CrossWord", "3", "0"));
 //////
 ////        HashMap<String, Object> games=new HashMap<>();
 ////        games.put("games",gameList);

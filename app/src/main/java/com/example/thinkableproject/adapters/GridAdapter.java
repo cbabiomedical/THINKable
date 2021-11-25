@@ -33,6 +33,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -73,7 +74,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
         final GameModelClass coffeeItem = coffeeItems.get(position);
 
         readCursorData(coffeeItem, holder);
-        holder.imageView.setImageResource(coffeeItem.getImageView());
+        Picasso.get().load(coffeeItems.get(position).getImageView()).into(holder.imageView);
         holder.titleTextView.setText(coffeeItem.getGameName());
     }
 

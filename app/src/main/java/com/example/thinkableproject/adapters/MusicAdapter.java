@@ -32,6 +32,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -93,16 +94,17 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
         final MusicModelClass coffeeItem = musicList.get(position);
 
         readCursorDataMed(coffeeItem, holder);
-        holder.imageView.setImageResource(musicList.get(position).getImageView());
-        holder.title.setText(musicList.get(position).getSongName());
+        Picasso.get().load(musicList.get(position).getImageUrl()).into(holder.imageView);
+
+        holder.title.setText(musicList.get(position).getSongTitle1());
         holder.download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 //Checking if file is already downloaded
 
-                DownloadMusicModelClass musicModelClass = new DownloadMusicModelClass(musicList.get(position).getSongName(), musicList.get(position).getImageView());
-                downloadFile(context, musicList.get(position).getSongName(), ".mp3", DIRECTORY_DOWNLOADS, musicList.get(position).getUrl());
+                DownloadMusicModelClass musicModelClass = new DownloadMusicModelClass(musicList.get(position).getSongTitle1(), musicList.get(position).getImageUrl());
+                downloadFile(context, musicList.get(position).getSongTitle1(), ".mp3", DIRECTORY_DOWNLOADS, musicList.get(position).getUrl());
                 mUser = FirebaseAuth.getInstance().getCurrentUser();
                 downoadSong.add(musicModelClass);
                 Log.d("Downloaded Music", String.valueOf(musicModelClass));
@@ -165,7 +167,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
                     MusicModelClass gameModelClass = musicList.get(position);
                     if (gameModelClass.getIsFav().equals("0")) {
                         gameModelClass.setIsFav("1");
-                        favDB.insertIntoTheDatabaseMusic(gameModelClass.getSongName(), gameModelClass.getImageView(), gameModelClass.getId(), gameModelClass.getIsFav());
+                        favDB.insertIntoTheDatabaseMusic(gameModelClass.getSongTitle1(), gameModelClass.getImageUrl(), gameModelClass.getId(), gameModelClass.getIsFav());
                         favBtn.setBackgroundResource(R.drawable.ic_favorite_filled);
                     } else {
                         gameModelClass.setIsFav("0");
