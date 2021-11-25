@@ -255,7 +255,7 @@ public class RelaxationReportWeekly extends AppCompatActivity {
                             dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
                                     ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
                                     ContextCompat.getColor(getApplicationContext(), R.color.blue),
-                                    ContextCompat.getColor(getApplicationContext(), R.color.Ldark),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.bluebar),
                                     ContextCompat.getColor(getApplicationContext(), R.color.dark));
                             BarData data = new BarData(dataSet);
                             data.setDrawValues(false);

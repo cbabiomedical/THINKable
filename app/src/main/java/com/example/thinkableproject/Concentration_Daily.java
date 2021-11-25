@@ -214,7 +214,7 @@ public class Concentration_Daily extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             Log.d("floatListTest", String.valueOf(floatList));
-                            String[] days = new String[]{"Mon", "Thu", "Wed", "Thur", "Fri", "Sat", "Sun"};
+                            String[] days = new String[]{"Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"};
                             ArrayList<Float> creditsMain = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f, 10f, 15f, 85f));
 
                             for (int j = 0; j < floatList.size(); ++j) {
@@ -228,7 +228,7 @@ public class Concentration_Daily extends AppCompatActivity {
                             dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
                                     ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
                                     ContextCompat.getColor(getApplicationContext(), R.color.blue),
-                                    ContextCompat.getColor(getApplicationContext(), R.color.Ldark),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.bluebar),
                                     ContextCompat.getColor(getApplicationContext(), R.color.dark));
                             BarData data = new BarData(dataSet);
                             data.setDrawValues(false);
