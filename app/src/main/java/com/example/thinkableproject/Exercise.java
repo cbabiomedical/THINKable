@@ -111,7 +111,7 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
     private void initData() {
         musicAdapter = new MusicAdapter(musicList, getApplicationContext(), this::onNoteClick);
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Music").child("songList");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Songs_Admin");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -133,13 +133,22 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
             }
         });
 
+        DatabaseReference reference1=FirebaseDatabase.getInstance().getReference("Games_Admin");
+        reference1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+                    GameModelClass post=dataSnapshot.getValue(GameModelClass.class);
+                    gameList.add(post);
 
+                }
+            }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
 
-//        gameList.add(new GameModelClass(R.drawable.chess, "Chess","0","0"));
-//        gameList.add(new GameModelClass(R.drawable.images, "Puzzle","1","0"));
-//        gameList.add(new GameModelClass(R.drawable.sudoku, "Sudoku","2","0"));
-//        gameList.add(new GameModelClass(R.drawable.crossword, "CrossWord","3","0"));
+            }
+        });
         gameRecyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.HORIZONTAL,false));
         gameAdapter = new GridAdapter(gameList,getApplicationContext(),this::onNoteClickGame);
         gameRecyclerView.setAdapter(gameAdapter);

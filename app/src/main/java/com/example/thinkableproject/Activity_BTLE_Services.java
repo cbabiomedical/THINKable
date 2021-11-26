@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -51,6 +52,7 @@ public class Activity_BTLE_Services extends AppCompatActivity implements Expanda
             mBTLE_Service = binder.getService();
             mBTLE_Service_Bound = true;
 
+
             if (!mBTLE_Service.initialize()) {
                 Log.e(TAG, "Unable to initialize Bluetooth");
                 finish();
@@ -70,6 +72,8 @@ public class Activity_BTLE_Services extends AppCompatActivity implements Expanda
         public void onServiceDisconnected(ComponentName arg0) {
             mBTLE_Service = null;
             mBTLE_Service_Bound = false;
+            Toast.makeText(Activity_BTLE_Services.this,"No Services Found",Toast.LENGTH_SHORT).show();
+            Log.d("STATUS","Unable to find Services");
 
 //            mBluetoothGatt = null;
 //            mGattUpdateReceiver.setBluetoothGatt(null);
@@ -127,9 +131,9 @@ public class Activity_BTLE_Services extends AppCompatActivity implements Expanda
     protected void onStop() {
         super.onStop();
 
-        unregisterReceiver(mGattUpdateReceiver);
-        unbindService(mBTLE_ServiceConnection);
-        mBTLE_Service_Intent = null;
+//        unregisterReceiver(mGattUpdateReceiver);
+//        unbindService(mBTLE_ServiceConnection);
+//        mBTLE_Service_Intent = null;
     }
 
     @Override
