@@ -50,7 +50,7 @@
     <string name="title_activity_retrieve_maps">RetrieveMapsActivity</string>
     <!--    <string name="default_web_client_id" translatable="false">417444273764-8063e4mavdbkqmlvhp1o10gb2snomk67.apps.googleusercontent.com</string>-->
     <string name="title_activity_retrieve_map">RetrieveMapActivity</string>
-    <string name="CLIENT_CHARACTERISTIC_CONFIG"></string>
+    <string name="CLIENT_CHARACTERISTIC_CONFIG">00002902-0000-1000-8000-00805f9b34fb"</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_download">MainActivity</string>

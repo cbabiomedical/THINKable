@@ -18,6 +18,8 @@ import androidx.annotation.RequiresApi;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
@@ -40,6 +42,7 @@ public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
     private ArrayList<BluetoothGattService> services_ArrayList;
     private HashMap<String, ArrayList<BluetoothGattCharacteristic>> characteristics_HashMap;
     ArrayList dataValues = new ArrayList();
+    FirebaseUser mUser;
     File fileName;
 
     public ListAdapter_BTLE_Services(Activity activity, ArrayList<BluetoothGattService> listDataHeader,
@@ -147,6 +150,7 @@ public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
         if (data != null) {
             tv_value.setText("Value: " + Utils.hexToString(data));
             dataValues.add(Utils.hexToString(data));
+            mUser= FirebaseAuth.getInstance().getCurrentUser();
 
             try {
                 fileName = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/values.txt");
@@ -165,7 +169,7 @@ public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
-            StorageReference storageReference1 = FirebaseStorage.getInstance().getReference("BLE Values");
+            StorageReference storageReference1 = FirebaseStorage.getInstance().getReference( mUser.getUid());
             try {
                 StorageReference mountainsRef = storageReference1.child("values.txt");
                 InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
