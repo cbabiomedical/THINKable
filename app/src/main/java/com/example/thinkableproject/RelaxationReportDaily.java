@@ -60,7 +60,7 @@ public class RelaxationReportDaily extends AppCompatActivity {
     File localFile2;
     File fileName;
     File fileName2;
-    ImageButton concentration,memoryBtn;
+    ImageButton concentration, memoryBtn;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<String> list2 = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
@@ -76,7 +76,7 @@ public class RelaxationReportDaily extends AppCompatActivity {
         progress = findViewById(R.id.progress);
 //        timetorel = findViewById(R.id.btn_timeCon);
 //        timestayedrel = findViewById(R.id.btn_timeStayedCon);
-        memoryBtn=findViewById(R.id.memory);
+        memoryBtn = findViewById(R.id.memory);
         //initials bar charts
         barChartDailytimeto = findViewById(R.id.barChartDailytimeto);
         barChartDailytimestayed = findViewById(R.id.barChartDailytimestayed);
@@ -121,7 +121,7 @@ public class RelaxationReportDaily extends AppCompatActivity {
         memoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(), MemoryReportDaily.class);
+                Intent intent = new Intent(getApplicationContext(), MemoryReportDaily.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
@@ -139,7 +139,7 @@ public class RelaxationReportDaily extends AppCompatActivity {
         memoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MemoryReportDaily.class));
+                startActivity(new Intent(getApplicationContext(), MemoryReportDaily.class));
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
@@ -261,7 +261,7 @@ public class RelaxationReportDaily extends AppCompatActivity {
                             dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
                                     ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
                                     ContextCompat.getColor(getApplicationContext(), R.color.blue),
-                                    ContextCompat.getColor(getApplicationContext(), R.color.Ldark),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.bluebar),
                                     ContextCompat.getColor(getApplicationContext(), R.color.dark));
                             BarData data = new BarData(dataSet);
                             data.setDrawValues(false);
@@ -301,7 +301,7 @@ public class RelaxationReportDaily extends AppCompatActivity {
                 }
             }
 
-        },delay);
+        }, delay);
 
         //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -483,7 +483,7 @@ public class RelaxationReportDaily extends AppCompatActivity {
                 }
             }
 
-        },delay1);
+        }, delay1);
     }
 
     //set up x and y axis data
@@ -550,7 +550,7 @@ public class RelaxationReportDaily extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(!isChangingConfigurations()) {
+        if (!isChangingConfigurations()) {
             deleteTempFiles(getCacheDir());
         }
     }

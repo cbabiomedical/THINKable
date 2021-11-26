@@ -3,12 +3,12 @@ package com.example.thinkableproject.sample;
 public class FavouriteMusicClass {
     private String item_title;
     private String key_id;
-    private int item_image;
+    private String item_image;
 
     public FavouriteMusicClass() {
     }
 
-    public FavouriteMusicClass(String item_title, String key_id, int item_image) {
+    public FavouriteMusicClass(String item_title, String key_id, String item_image) {
         this.item_title = item_title;
         this.key_id = key_id;
         this.item_image = item_image;
@@ -30,12 +30,13 @@ public class FavouriteMusicClass {
         this.key_id = key_id;
     }
 
-    public int getItem_image() {
+    public String getItem_image() {
         return item_image;
     }
 
-    public void setItem_image(int item_image) {
+    public void setItem_image(String item_image) {
         this.item_image = item_image;
-    }}
+    }
+}
 
 

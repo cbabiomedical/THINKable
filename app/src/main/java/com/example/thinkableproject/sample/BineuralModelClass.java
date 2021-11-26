@@ -2,7 +2,7 @@ package com.example.thinkableproject.sample;
 
 public class BineuralModelClass {
 
-    private int  bineuralImage;
+    private int bineuralImage;
     private String bineuralName;
     private int isFav;
 

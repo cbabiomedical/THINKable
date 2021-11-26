@@ -44,7 +44,7 @@ public class FavouriteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favourite);
         recyclerView = findViewById(R.id.gridView);
-        favDB=new FavDB(getApplicationContext());
+        favDB = new FavDB(getApplicationContext());
 
         loadData();
 
@@ -52,7 +52,7 @@ public class FavouriteActivity extends AppCompatActivity {
     }
 
     private void loadData() {
-        favouriteList=new ArrayList<>();
+        favouriteList = new ArrayList<>();
         if (favouriteList != null) {
             favouriteList.clear();
         }
@@ -62,7 +62,7 @@ public class FavouriteActivity extends AppCompatActivity {
             while (cursor.moveToNext()) {
                 String title = cursor.getString(cursor.getColumnIndex(FavDB.ITEM_TITLE));
                 String id = cursor.getString(cursor.getColumnIndex(FavDB.KEY_ID));
-                int image = Integer.parseInt(cursor.getString(cursor.getColumnIndex(FavDB.ITEM_IMAGE)));
+                String image = cursor.getString(cursor.getColumnIndex(FavDB.ITEM_IMAGE));
                 FavouriteModelClass favItem = new FavouriteModelClass(title, id, image);
                 favouriteList.add(favItem);
                 Log.d("Fav List =", String.valueOf(favouriteList));
@@ -74,7 +74,7 @@ public class FavouriteActivity extends AppCompatActivity {
         }
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new FavouriteAdapter(this,favouriteList);
+        adapter = new FavouriteAdapter(this, favouriteList);
         recyclerView.setAdapter(adapter);
 
     }

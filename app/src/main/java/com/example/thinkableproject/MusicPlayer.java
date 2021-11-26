@@ -72,9 +72,9 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
         txtStop = findViewById(R.id.txtStop);
         txtsongName = findViewById(R.id.txtsongName);
         mediaPlayer = new MediaPlayer();
-        imageView=findViewById(R.id.imageView);
-        btnff=findViewById(R.id.fForward);
-        btnfr=findViewById(R.id.fRewind);
+        imageView = findViewById(R.id.imageView);
+        btnff = findViewById(R.id.fForward);
+        btnfr = findViewById(R.id.fRewind);
 //        barVisualizer = findViewById(R.id.visualizer);
         mediaPlayer = new MediaPlayer();
 
@@ -156,13 +156,12 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
                         }
                         if (currentPosition > time) {
                             mediaPlayer.stop();
-                            startActivity(new Intent(getApplicationContext(),Music.class));
+                            startActivity(new Intent(getApplicationContext(), Music.class));
                         }
                     }
 
 
-
-                    }
+                }
             };
 
             seekBar.setMax(time);
@@ -186,7 +185,7 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
                 }
             });
 
-            String endTime=millisecondsToTimer(time);
+            String endTime = millisecondsToTimer(time);
             txtStop.setText(endTime);
 //            int noOfRuns = time / mediaPlayer.getDuration();
 
@@ -209,8 +208,8 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
         btnff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mediaPlayer.isPlaying()){
-                    mediaPlayer.seekTo(mediaPlayer.getCurrentPosition()+2000);
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.seekTo(mediaPlayer.getCurrentPosition() + 2000);
                 }
             }
         });
@@ -218,8 +217,8 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
         btnfr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mediaPlayer.isPlaying()){
-                    mediaPlayer.seekTo(mediaPlayer.getCurrentPosition()-2000);
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.seekTo(mediaPlayer.getCurrentPosition() - 2000);
                 }
             }
         });

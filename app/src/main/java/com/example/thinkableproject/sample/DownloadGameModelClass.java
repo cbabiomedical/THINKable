@@ -2,14 +2,14 @@ package com.example.thinkableproject.sample;
 
 public class DownloadGameModelClass {
     private int imageView;
-    private String gameTitle;
+    private String gameName;
 
     public DownloadGameModelClass() {
     }
 
-    public DownloadGameModelClass(int imageView, String gameTitle) {
+    public DownloadGameModelClass(int imageView, String gameName) {
         this.imageView = imageView;
-        this.gameTitle = gameTitle;
+        this.gameName = gameName;
     }
 
     public int getImageView() {
@@ -20,13 +20,21 @@ public class DownloadGameModelClass {
         this.imageView = imageView;
     }
 
-    public String getGameTitle() {
-        return gameTitle;
+    public String getGameName() {
+        return gameName;
     }
 
-    public void setGameTitle(String gameTitle) {
-        this.gameTitle = gameTitle;
+    public void setGameName(String gameName) {
+        this.gameName = gameName;
     }
 
+    @Override
+    public String toString() {
+        return "DownloadGameModelClass{" +
+                "imageView=" + imageView +
+                ", gameName='" + gameName + '\'' +
+                '}';
+    }
 }
+
 

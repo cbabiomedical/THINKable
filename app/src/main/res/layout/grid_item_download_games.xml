@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="90dp"
+    android:background="@drawable/bgre"
     style="@style/CardView.Light"
     android:layout_marginTop="8dp"
     android:layout_marginStart="8dp"
     android:layout_marginEnd="8dp">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
     <ImageView
         android:id="@+id/downloadImageGame"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
         android:src="@drawable/music1"
         android:scaleType="centerCrop"/>
 
@@ -19,9 +24,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Chill Acoustic"
+        android:layout_centerVertical="true"
         android:textColor="@color/black"
+        android:textStyle="bold"
+        android:textSize="20sp"
         style="@style/TextAppearance.AppCompat.Medium"
         android:layout_gravity="center|start"
         android:layout_marginStart="120dp"/>
+    <ImageView
+        android:id="@+id/deleteDownloadGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_delete_24"
+        android:layout_marginRight="30dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"/>
 
-</androidx.cardview.widget.CardView>
+    </RelativeLayout>
+</RelativeLayout>

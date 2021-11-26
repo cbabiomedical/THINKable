@@ -52,9 +52,9 @@ public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyC
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("Current Location").child(mUser.getUid());
 
-        ValueEventListener listener = databaseReference.addValueEventListener (new ValueEventListener(){
+        ValueEventListener listener = databaseReference.addValueEventListener(new ValueEventListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot){
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
                 Double latitude = dataSnapshot.child("latitude").getValue(Double.class);
                 Double longtitude = dataSnapshot.child("longitude").getValue(Double.class);
@@ -65,7 +65,7 @@ public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyC
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError){
+            public void onCancelled(@NonNull DatabaseError databaseError) {
 
             }
         });

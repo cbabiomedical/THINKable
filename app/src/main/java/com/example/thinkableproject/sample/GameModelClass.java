@@ -1,33 +1,34 @@
 package com.example.thinkableproject.sample;
 
 public class GameModelClass {
-    private int imageView;
+    private String gameImage;
     private String gameName;
-    private String id;
+    private String gameId;
     private String fav;
 
 
     public GameModelClass() {
     }
 
-    public GameModelClass(int imageView, String gameName) {
-        this.imageView = imageView;
-        this.gameName = gameName;
-    }
 
-    public GameModelClass(int imageView, String gameName, String id, String fav) {
-        this.imageView = imageView;
+    public GameModelClass(String gameImage, String gameName, String gameId, String fav) {
+        this.gameImage = gameImage;
         this.gameName = gameName;
-        this.id = id;
+        this.gameId = gameId;
         this.fav = fav;
     }
 
-    public int getImageView() {
-        return imageView;
+    public GameModelClass(String gameImage, String gameName) {
+        this.gameImage=gameImage;
+        this.gameName=gameName;
     }
 
-    public void setImageView(int imageView) {
-        this.imageView = imageView;
+    public String getGameImage() {
+        return gameImage;
+    }
+
+    public void setGameImage(String imageView) {
+        this.gameImage = imageView;
     }
 
     public String getGameName() {
@@ -38,12 +39,12 @@ public class GameModelClass {
         this.gameName = gameName;
     }
 
-    public String getId() {
-        return id;
+    public String getGameId() {
+        return gameId;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.gameId = gameId;
     }
 
     public String getFav() {
@@ -52,5 +53,15 @@ public class GameModelClass {
 
     public void setFav(String fav) {
         this.fav = fav;
+    }
+
+    @Override
+    public String toString() {
+        return "GameModelClass{" +
+                "gameImage='" + gameImage + '\'' +
+                ", gameName='" + gameName + '\'' +
+                ", gameId='" + gameId + '\'' +
+                ", fav='" + fav + '\'' +
+                '}';
     }
 }

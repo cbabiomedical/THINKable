@@ -54,7 +54,7 @@ public class DashboardFragment extends Fragment {
             while (cursor.moveToNext()) {
                 String title = cursor.getString(cursor.getColumnIndex(FavMeditationDB.ITEM_TITLEMED));
                 String id = cursor.getString(cursor.getColumnIndex(FavMeditationDB.KEY_IDMED));
-                int image = Integer.parseInt(cursor.getString(cursor.getColumnIndex(FavMeditationDB.ITEM_IMAGEMED)));
+                String image = cursor.getString(cursor.getColumnIndex(FavMeditationDB.ITEM_IMAGEMED));
                 FavouriteModelMeditationClass favItem = new FavouriteModelMeditationClass(title, id, image);
                 favItemList.add(favItem);
             }

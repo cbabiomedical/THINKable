@@ -46,8 +46,7 @@ public class Scanner_BTLE {
         if (!Utils.checkBluetooth(mBluetoothAdapter)) {
             Utils.requestUserBluetooth(ma);
             ma.stopScan();
-        }
-        else {
+        } else {
             scanLeDevice(true);
         }
     }
@@ -81,8 +80,7 @@ public class Scanner_BTLE {
             mScanning = true;
             mBluetoothAdapter.startLeScan(mLeScanCallback);
 //            mBluetoothAdapter.startLeScan(uuids, mLeScanCallback);
-        }
-        else {
+        } else {
             mScanning = false;
             mBluetoothAdapter.stopLeScan(mLeScanCallback);
         }

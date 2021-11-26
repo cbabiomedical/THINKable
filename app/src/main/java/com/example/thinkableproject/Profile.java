@@ -31,56 +31,57 @@ public class Profile extends AppCompatActivity {
     TextView userName;
     FirebaseUser mUser;
     StorageReference storageReference;
-    AppCompatButton calendar,aboutApp;
-    AppCompatButton myFavourites,myDownloads;
+    AppCompatButton calendar, aboutApp;
+    AppCompatButton myFavourites, myDownloads;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
-        editProfile=findViewById(R.id.edit);
-        userName=findViewById(R.id.user);
-        profilePic=findViewById(R.id.picture);
-        calendar=findViewById(R.id.cal_reminder);
-        myFavourites=findViewById(R.id.favourites);
-        aboutApp=findViewById(R.id.about);
-        myDownloads=findViewById(R.id.downloads);
+        editProfile = findViewById(R.id.edit);
+        userName = findViewById(R.id.user);
+        profilePic = findViewById(R.id.picture);
+        calendar = findViewById(R.id.cal_reminder);
+        myFavourites = findViewById(R.id.favourites);
+        aboutApp = findViewById(R.id.about);
+        myDownloads = findViewById(R.id.downloads);
 
         aboutApp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),AboutApp.class));
+                startActivity(new Intent(getApplicationContext(), AboutApp.class));
             }
         });
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),UserDetails.class);
+                Intent intent = new Intent(getApplicationContext(), UserDetails.class);
                 startActivity(intent);
             }
         });
         myFavourites.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),MainActivity2.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
                 startActivity(intent);
             }
         });
 
 
-        mUser= FirebaseAuth.getInstance().getCurrentUser();
-        storageReference= FirebaseStorage.getInstance().getReference().child(mUser.getUid()).child("profilePic.jpg");
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        storageReference = FirebaseStorage.getInstance().getReference().child(mUser.getUid()).child("profilePic.jpg");
         storageReference.getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
             @Override
             public void onSuccess(Uri uri) {
                 Picasso.get().load(uri).into(profilePic);
             }
         });
-        DatabaseReference reference= FirebaseDatabase.getInstance().getReference("Users");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users");
         reference.child(mUser.getUid()).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if(task.isSuccessful()){
-                    DataSnapshot dataSnapshot=task.getResult();
+                if (task.isSuccessful()) {
+                    DataSnapshot dataSnapshot = task.getResult();
                     userName.setText(String.valueOf(dataSnapshot.child("userName").getValue()));
                 }
             }
@@ -88,14 +89,14 @@ public class Profile extends AppCompatActivity {
         calendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intentcalen =new Intent(getApplicationContext(), CalenderAndNotification.class);
+                Intent intentcalen = new Intent(getApplicationContext(), CalenderAndNotification.class);
                 startActivity(intentcalen);
             }
         });
         myDownloads.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Downloads.class));
+                startActivity(new Intent(getApplicationContext(), Downloads.class));
             }
         });
     }

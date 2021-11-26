@@ -46,8 +46,7 @@ public class ListAdapter_BTLE_Devices extends ArrayAdapter<BTLE_Device> {
         tv = (TextView) convertView.findViewById(R.id.tv_name);
         if (name != null && name.length() > 0) {
             tv.setText(device.getName());
-        }
-        else {
+        } else {
             tv.setText("No Name");
         }
 
@@ -57,8 +56,7 @@ public class ListAdapter_BTLE_Devices extends ArrayAdapter<BTLE_Device> {
         tv = (TextView) convertView.findViewById(R.id.tv_macaddr);
         if (address != null && address.length() > 0) {
             tv.setText(device.getAddress());
-        }
-        else {
+        } else {
             tv.setText("No Address");
         }
 

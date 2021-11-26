@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.thinkableproject.R;
 import com.example.thinkableproject.repositories.FavMeditationDB;
 import com.example.thinkableproject.sample.FavouriteModelMeditationClass;
+import com.squareup.picasso.Picasso;
 
 import java.util.List;
 
@@ -41,7 +42,8 @@ public class FavouriteMeditationAdapter extends RecyclerView.Adapter<FavouriteMe
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.favTextView.setText(favItemList.get(position).getItem_title());
-        holder.favImageView.setImageResource(favItemList.get(position).getItem_image());
+//        holder.favImageView.setImageResource(favItemList.get(position).getItem_image());
+        Picasso.get().load(favItemList.get(position).getItem_image()).into(holder.favImageView);
     }
 
 

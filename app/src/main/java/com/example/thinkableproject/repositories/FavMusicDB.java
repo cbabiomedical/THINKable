@@ -18,10 +18,12 @@ public class FavMusicDB extends SQLiteOpenHelper {
     public static String FAVORITE_STATUSMUS = "fStatus";
     // dont forget write this spaces
     private static String CREATE_TABLEMUS = "CREATE TABLE " + TABLE_NAMEMUS + "("
-            + KEY_IDMUS + " TEXT," + ITEM_TITLEMUS+ " TEXT,"
-            + ITEM_IMAGEMUS + " TEXT," + FAVORITE_STATUSMUS+" TEXT)";
+            + KEY_IDMUS + " TEXT," + ITEM_TITLEMUS + " TEXT,"
+            + ITEM_IMAGEMUS + " TEXT," + FAVORITE_STATUSMUS + " TEXT)";
 
-    public FavMusicDB(Context context) { super(context,DATABASE_NAMEMUS,null,DB_VERSIONMUS);}
+    public FavMusicDB(Context context) {
+        super(context, DATABASE_NAMEMUS, null, DB_VERSIONMUS);
+    }
 
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
@@ -42,12 +44,12 @@ public class FavMusicDB extends SQLiteOpenHelper {
             cv.put(KEY_IDMUS, x);
             cv.put(FAVORITE_STATUSMUS, "0");
 
-            db.insert(TABLE_NAMEMUS,null, cv);
+            db.insert(TABLE_NAMEMUS, null, cv);
         }
     }
 
     // insert data into database
-    public void insertIntoTheDatabaseMusic(String item_title, int item_image, String id, String fav_status) {
+    public void insertIntoTheDatabaseMusic(String item_title, String item_image, String id, String fav_status) {
         SQLiteDatabase db;
         db = this.getWritableDatabase();
         ContentValues cv = new ContentValues();
@@ -55,21 +57,21 @@ public class FavMusicDB extends SQLiteOpenHelper {
         cv.put(ITEM_IMAGEMUS, item_image);
         cv.put(KEY_IDMUS, id);
         cv.put(FAVORITE_STATUSMUS, fav_status);
-        db.insert(TABLE_NAMEMUS,null, cv);
-        Log.d("FavDB Status", item_title + ", favstatus - "+fav_status+" - . " + cv);
+        db.insert(TABLE_NAMEMUS, null, cv);
+        Log.d("FavDB Status", item_title + ", favstatus - " + fav_status + " - . " + cv);
     }
 
     // read all data
     public Cursor read_all_data_mus(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String sql = "select * from " + TABLE_NAMEMUS + " where " + KEY_IDMUS+"="+id+"";
-        return db.rawQuery(sql,null,null);
+        String sql = "select * from " + TABLE_NAMEMUS + " where " + KEY_IDMUS + "=" + id + "";
+        return db.rawQuery(sql, null, null);
     }
 
     // remove line from database
     public void remove_fav_mus(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sql = "UPDATE " + TABLE_NAMEMUS + " SET  "+ FAVORITE_STATUSMUS+" ='0' WHERE "+KEY_IDMUS+"="+id+"";
+        String sql = "UPDATE " + TABLE_NAMEMUS + " SET  " + FAVORITE_STATUSMUS + " ='0' WHERE " + KEY_IDMUS + "=" + id + "";
         db.execSQL(sql);
         Log.d("remove", id.toString());
 
@@ -79,12 +81,9 @@ public class FavMusicDB extends SQLiteOpenHelper {
 
     public Cursor select_all_favorite_list_mus() {
         SQLiteDatabase db = this.getReadableDatabase();
-        String sql = "SELECT * FROM "+TABLE_NAMEMUS+" WHERE "+FAVORITE_STATUSMUS+" ='1'";
-        return db.rawQuery(sql,null,null);
+        String sql = "SELECT * FROM " + TABLE_NAMEMUS + " WHERE " + FAVORITE_STATUSMUS + " ='1'";
+        return db.rawQuery(sql, null, null);
     }
-
-
-
 
 
 }

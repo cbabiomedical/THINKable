@@ -1,50 +1,50 @@
 package com.example.thinkableproject.sample;
 
 public class MusicModelClass {
-    private int imageView;
-    private String songName;
+    private String imageUrl;
+    private String songTitle1;
     private String id;
-    private String url;
+   private String name;
     private String isFav;
 
     public MusicModelClass() {
     }
 
-    public MusicModelClass(int imageView, String songName, String id, String url, String isFav) {
-        this.imageView = imageView;
-        this.songName = songName;
+    public MusicModelClass(String imageUrl, String songTitle1, String id, String name, String isFav) {
+        this.imageUrl = imageUrl;
+        this.songTitle1 = songTitle1;
         this.id = id;
-        this.url = url;
+        this.name = name;
         this.isFav = isFav;
     }
 
-    public MusicModelClass(int imageView, String songName, String id, String url) {
-        this.imageView = imageView;
-        this.songName = songName;
+    public MusicModelClass(String imageUrl, String songTitle1, String id, String name) {
+        this.imageUrl = imageUrl;
+        this.songTitle1 = songTitle1;
         this.id = id;
-        this.url = url;
+        this.name = name;
     }
 
-    public MusicModelClass(int imageView, String songName) {
-        this.imageView=imageView;
-        this.songName=songName;
+    public MusicModelClass(String imageUrl, String songTitle1) {
+        this.imageUrl=imageUrl;
+        this.songTitle1=songTitle1;
     }
 
 
-    public int getImageView() {
-        return imageView;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImageView(int imageView) {
-        this.imageView = imageView;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
 
-    public String getSongName() {
-        return songName;
+    public String getSongTitle1() {
+        return songTitle1;
     }
 
-    public void setSongName(String songName) {
-        this.songName = songName;
+    public void setSongTitle1(String songTitle1) {
+        this.songTitle1 = songTitle1;
     }
 
     public String getId() {
@@ -55,12 +55,12 @@ public class MusicModelClass {
         this.id = id;
     }
 
-    public String getUrl() {
-        return url;
+    public String getName() {
+        return name;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getIsFav() {
@@ -74,10 +74,10 @@ public class MusicModelClass {
     @Override
     public String toString() {
         return "MusicModelClass{" +
-                "imageView=" + imageView +
-                ", songName='" + songName + '\'' +
+                "imageView=" + imageUrl +
+                ", songName='" + songTitle1 + '\'' +
                 ", id='" + id + '\'' +
-                ", url='" + url + '\'' +
+                ", name='" + name + '\'' +
                 ", isFav='" + isFav + '\'' +
                 '}';
     }

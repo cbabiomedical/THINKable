@@ -120,7 +120,7 @@ public class RelaxationReportYearly extends AppCompatActivity {
         memory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(), MemoryReportDaily.class);
+                Intent intent = new Intent(getApplicationContext(), MemoryReportDaily.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
@@ -253,7 +253,7 @@ public class RelaxationReportYearly extends AppCompatActivity {
                             dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
                                     ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
                                     ContextCompat.getColor(getApplicationContext(), R.color.blue),
-                                    ContextCompat.getColor(getApplicationContext(), R.color.Ldark),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.bluebar),
                                     ContextCompat.getColor(getApplicationContext(), R.color.dark));
                             BarData data = new BarData(dataSet);
                             data.setDrawValues(false);
@@ -526,10 +526,11 @@ public class RelaxationReportYearly extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(!isChangingConfigurations()) {
+        if (!isChangingConfigurations()) {
             deleteTempFiles(getCacheDir());
         }
     }
+
     private boolean deleteTempFiles(File file) {
         if (file.isDirectory()) {
             File[] files = file.listFiles();

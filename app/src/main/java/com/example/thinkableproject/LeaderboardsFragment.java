@@ -21,11 +21,9 @@ import java.util.ArrayList;
 public class LeaderboardsFragment extends Fragment {
 
 
-
     public LeaderboardsFragment() {
         // Required empty public constructor
     }
-
 
 
     @Override
@@ -53,7 +51,7 @@ public class LeaderboardsFragment extends Fragment {
                 .orderBy("coins", Query.Direction.DESCENDING).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                for(DocumentSnapshot snapshot : queryDocumentSnapshots) {
+                for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
                     User user = snapshot.toObject(User.class);
                     users.add(user);
                 }

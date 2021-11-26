@@ -18,7 +18,7 @@ import android.widget.ScrollView;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Connection extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener  {
+public class Connection extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     private final static String TAG = Connection.class.getSimpleName();
 
@@ -31,7 +31,7 @@ public class Connection extends AppCompatActivity implements View.OnClickListene
     private ListAdapter_BTLE_Devices adapter;
     private ListView listView;
 
-    private Button btn_Scan,calibration;
+    private Button btn_Scan, calibration;
 
 
     private BroadcastReceiver_BTState mBTStateUpdateReceiver;
@@ -41,7 +41,6 @@ public class Connection extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection);
-
 
 
         // Use this check to determine whether BLE is supported on the device. Then
@@ -150,8 +149,7 @@ public class Connection extends AppCompatActivity implements View.OnClickListene
 
                 if (!mBTLeScanner.isScanning()) {
                     startScan();
-                }
-                else {
+                } else {
                     stopScan();
                 }
 
@@ -171,15 +169,14 @@ public class Connection extends AppCompatActivity implements View.OnClickListene
 
             mBTDevicesHashMap.put(address, btleDevice);
             mBTDevicesArrayList.add(btleDevice);
-        }
-        else {
+        } else {
             mBTDevicesHashMap.get(address).setRSSI(rssi);
         }
 
         adapter.notifyDataSetChanged();
     }
 
-    public void startScan(){
+    public void startScan() {
         btn_Scan.setText("Scanning...");
 
         mBTDevicesArrayList.clear();

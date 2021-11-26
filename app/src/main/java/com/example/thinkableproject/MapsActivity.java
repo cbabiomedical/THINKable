@@ -46,7 +46,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener,
         //com.google.android.gms.location.LocationListener
-        com.google.android.gms.location.LocationListener{
+        com.google.android.gms.location.LocationListener {
 
     private GoogleMap mMap;
 
@@ -88,7 +88,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     }
 
     private boolean checkLocation() {
-        if(!isLocationEnabled()){
+        if (!isLocationEnabled()) {
             showAlert();
         }
         return isLocationEnabled();
@@ -135,7 +135,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
                     @Override
                     public void onPermissionDenied(PermissionDeniedResponse response) {
-                        if (response.isPermanentlyDenied()){
+                        if (response.isPermanentlyDenied()) {
                             Log.d("TAG", "---------------------J-----------------------");
 
                             isPermission = false;
@@ -166,11 +166,11 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
-        if(latLng!=null){
+        if (latLng != null) {
             Log.d("TAG", "---------------------K-----------------------");
 
             mMap.addMarker(new MarkerOptions().position(latLng).title("Marker in Current Location"));
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng,14F));
+            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 14F));
         }
     }
 
@@ -180,7 +180,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 != PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this,
                         Manifest.permission.ACCESS_COARSE_LOCATION) !=
-                        PackageManager.PERMISSION_GRANTED){
+                        PackageManager.PERMISSION_GRANTED) {
             return;
         }
         startLocationUpdates();
@@ -188,10 +188,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
 
         mLocation = LocationServices.FusedLocationApi.getLastLocation(mGoogleApiClient);
 
-        if (mLocation == null){
+        if (mLocation == null) {
             startLocationUpdates();
-        }
-        else {
+        } else {
             Toast.makeText(this, "Location Not Detected", Toast.LENGTH_SHORT).show();
         }
     }
@@ -208,7 +207,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
                 PackageManager.PERMISSION_GRANTED &&
                 ActivityCompat.checkSelfPermission(this,
                         Manifest.permission.ACCESS_COARSE_LOCATION) !=
-                        PackageManager.PERMISSION_GRANTED){
+                        PackageManager.PERMISSION_GRANTED) {
             return;
         }
         Log.d("TAG", "---------------------P-----------------------");
@@ -244,10 +243,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         FirebaseDatabase.getInstance().getReference("Current Location").child(mUser.getUid()).setValue(helper).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                if (task.isSuccessful()){
+                if (task.isSuccessful()) {
                     Toast.makeText(MapsActivity.this, "Location Saved", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     Toast.makeText(MapsActivity.this, "Location Not Saved", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -272,7 +270,7 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
     protected void onStop() {
         super.onStop();
 
-        if(mGoogleApiClient.isConnected()){
+        if (mGoogleApiClient.isConnected()) {
             mGoogleApiClient.disconnect();
         }
     }

@@ -50,7 +50,7 @@ public class QuizActivity extends AppCompatActivity {
                 .limit(5).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                if(queryDocumentSnapshots.getDocuments().size() < 5) {
+                if (queryDocumentSnapshots.getDocuments().size() < 5) {
                     database.collection("categories")
                             .document(catId)
                             .collection("questions")
@@ -59,7 +59,7 @@ public class QuizActivity extends AppCompatActivity {
                             .limit(5).get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                         @Override
                         public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            for(DocumentSnapshot snapshot : queryDocumentSnapshots) {
+                            for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
                                 Question question = snapshot.toObject(Question.class);
                                 questions.add(question);
                             }
@@ -67,7 +67,7 @@ public class QuizActivity extends AppCompatActivity {
                         }
                     });
                 } else {
-                    for(DocumentSnapshot snapshot : queryDocumentSnapshots) {
+                    for (DocumentSnapshot snapshot : queryDocumentSnapshots) {
                         Question question = snapshot.toObject(Question.class);
                         questions.add(question);
                     }
@@ -77,16 +77,15 @@ public class QuizActivity extends AppCompatActivity {
         });
 
 
-
         resetTimer();
 
     }
 
     void resetTimer() {
-        timer = new CountDownTimer(30000,1000) {
+        timer = new CountDownTimer(30000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
-                binding.timer.setText(String.valueOf(millisUntilFinished/1000));
+                binding.timer.setText(String.valueOf(millisUntilFinished / 1000));
             }
 
             @Override
@@ -97,23 +96,23 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     void showAnswer() {
-        if(question.getAnswer().equals(binding.option1.getText().toString()))
+        if (question.getAnswer().equals(binding.option1.getText().toString()))
             binding.option1.setBackground(getResources().getDrawable(R.drawable.option_right));
-        else if(question.getAnswer().equals(binding.option2.getText().toString()))
+        else if (question.getAnswer().equals(binding.option2.getText().toString()))
             binding.option2.setBackground(getResources().getDrawable(R.drawable.option_right));
-        else if(question.getAnswer().equals(binding.option3.getText().toString()))
+        else if (question.getAnswer().equals(binding.option3.getText().toString()))
             binding.option3.setBackground(getResources().getDrawable(R.drawable.option_right));
-        else if(question.getAnswer().equals(binding.option4.getText().toString()))
+        else if (question.getAnswer().equals(binding.option4.getText().toString()))
             binding.option4.setBackground(getResources().getDrawable(R.drawable.option_right));
     }
 
     void setNextQuestion() {
-        if(timer != null)
+        if (timer != null)
             timer.cancel();
 
         timer.start();
-        if(index < questions.size()) {
-            binding.questionCounter.setText(String.format("%d/%d", (index+1), questions.size()));
+        if (index < questions.size()) {
+            binding.questionCounter.setText(String.format("%d/%d", (index + 1), questions.size()));
             question = questions.get(index);
             binding.question.setText(question.getQuestion());
             binding.option1.setText(question.getOption1());
@@ -125,7 +124,7 @@ public class QuizActivity extends AppCompatActivity {
 
     void checkAnswer(TextView textView) {
         String selectedAnswer = textView.getText().toString();
-        if(selectedAnswer.equals(question.getAnswer())) {
+        if (selectedAnswer.equals(question.getAnswer())) {
             correctAnswers++;
             textView.setBackground(getResources().getDrawable(R.drawable.option_right));
         } else {
@@ -142,12 +141,12 @@ public class QuizActivity extends AppCompatActivity {
     }
 
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.option_1:
             case R.id.option_2:
             case R.id.option_3:
             case R.id.option_4:
-                if(timer!=null)
+                if (timer != null)
                     timer.cancel();
                 TextView selected = (TextView) view;
                 checkAnswer(selected);
@@ -155,7 +154,7 @@ public class QuizActivity extends AppCompatActivity {
                 break;
             case R.id.nextBtn:
                 reset();
-                if(index <= questions.size()) {
+                if (index <= questions.size()) {
                     index++;
                     setNextQuestion();
                 } else {

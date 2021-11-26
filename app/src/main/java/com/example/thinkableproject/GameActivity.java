@@ -34,6 +34,7 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
     ArrayList<GameModelClass> gameList;
     GridAdapter adapter;
     FirebaseUser mUser;
+    HashMap<String, Object> games = new HashMap<>();
     ArrayList<GameModelClass> downloadGames = new ArrayList<>();
 
     @Override
@@ -51,36 +52,23 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
 
     private void initData() {
         gameList = new ArrayList<>();
-//        //Adding user preferences to arraylist
-        gameList.add(new GameModelClass(R.drawable.chess, "Chess", "0", "0"));
-        gameList.add(new GameModelClass(R.drawable.images, "Puzzle", "1", "0"));
-        gameList.add(new GameModelClass(R.drawable.sudoku, "Sudoku", "2", "0"));
-        gameList.add(new GameModelClass(R.drawable.crossword, "CrossWord", "3", "0"));
-//////
-////        HashMap<String, Object> games=new HashMap<>();
-////        games.put("games",gameList);
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Games").child(mUser.getUid());
-        reference.setValue(gameList);
-//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Games").child(mUser.getUid());
-//        reference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot postDatasnapshot : snapshot.getChildren()) {
-//                    GameModelClass post = postDatasnapshot.getValue(GameModelClass.class);
-//                    Log.d("Post", String.valueOf(post));
-//                    gameList.add(post);
-//                }
-//
-//
-//            }
-//
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-//        Log.d("List", String.valueOf(gameList));
+        DatabaseReference reference=FirebaseDatabase.getInstance().getReference("Games_Admin");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+                    GameModelClass post=dataSnapshot.getValue(GameModelClass.class);
+                    gameList.add(post);
+                    Log.d("Post", String.valueOf(post));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        Log.d("List", String.valueOf(gameList));
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         adapter = new GridAdapter(gameList, getApplicationContext(), this::onNoteClickGame);
         recyclerView.setAdapter(adapter);
@@ -97,37 +85,39 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
         Toast.makeText(getApplicationContext(), "You clicked " + gameList.get(position).getGameName(), Toast.LENGTH_SHORT).show();
 
 
-        GameModelClass gameModelClass = new GameModelClass(gameList.get(position).getImageView(), gameList.get(position).getGameName());
+        GameModelClass gameModelClass = new GameModelClass(gameList.get(position).getGameImage(), gameList.get(position).getGameName());
 
         downloadGames.add(gameModelClass);
         Log.d("DownloadGames", String.valueOf(downloadGames));
-        Log.d("CHECK UPLOAD","-------------------------CHECKING FIREBASE UPLOAD-----------------");
+        games.put(downloadGames.get(position).getGameName(), gameModelClass);
+
+        Log.d("CHECK UPLOAD", "-------------------------CHECKING FIREBASE UPLOAD-----------------");
         DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("UsersGame").child(mUser.getUid());
+        reference1.setValue(games);
+//        reference1.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
-        reference1.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                reference1.setValue(downloadGames);
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-        Log.d("CHECK UPLOAD","------------------------CHECK AFTER UPLOAD------------");
+        Log.d("CHECK UPLOAD", "------------------------CHECK AFTER UPLOAD------------");
 
         Log.d("Downloads", String.valueOf(downloadGames));
-        startActivity(new Intent(getApplicationContext(), MyDownloads.class));
 
         Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.vending");
-        if(launchIntent != null){
+        if (launchIntent != null) {
             Log.d("Tagopenapp", "---------------------B--------------------------");
             startActivity(launchIntent);
-        }else{
+        } else {
             Toast.makeText(GameActivity.this, "There is no package", Toast.LENGTH_LONG).show();
         }
-
 
 
     }

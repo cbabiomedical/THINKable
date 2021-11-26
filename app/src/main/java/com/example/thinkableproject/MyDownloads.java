@@ -32,21 +32,21 @@ public class MyDownloads extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_downloads);
-        recyclerView=findViewById(R.id.recycler_view);
+        recyclerView = findViewById(R.id.recycler_view);
 
-        downloadMusic=new ArrayList<>();
-        mUser= FirebaseAuth.getInstance().getCurrentUser();
+        downloadMusic = new ArrayList<>();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        DatabaseReference reference=FirebaseDatabase.getInstance().getReference("Downloads").child(mUser.getUid());
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Downloads").child(mUser.getUid());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot:snapshot.getChildren()){
-                    DownloadMusicModelClass post=dataSnapshot.getValue(DownloadMusicModelClass.class);
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    DownloadMusicModelClass post = dataSnapshot.getValue(DownloadMusicModelClass.class);
                     downloadMusic.add(post);
                 }
                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                adapter = new DownloadMusicAdapter( getApplicationContext(),downloadMusic);
+                adapter = new DownloadMusicAdapter(getApplicationContext(), downloadMusic);
                 recyclerView.setAdapter(adapter);
             }
 
@@ -55,9 +55,6 @@ public class MyDownloads extends AppCompatActivity {
 
             }
         });
-
-
-
 
 
     }

@@ -28,7 +28,6 @@ import java.util.List;
 
 public class PreferencesSecPage extends AppCompatActivity {
 
-    private static final String TAG = "MainActivity";
     private Button done;
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;

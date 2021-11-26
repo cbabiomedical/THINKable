@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thinkableproject.R;
 import com.example.thinkableproject.sample.DownloadMusicModelClass;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -33,7 +34,10 @@ public class DownloadMusicAdapter extends RecyclerView.Adapter<DownloadMusicAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.imageView.setImageResource(downloadMusic.get(position).getItem_image());
+
+
+
+       Picasso.get().load(downloadMusic.get(position).getItem_image()).into(holder.imageView);
         holder.songTitle.setText(downloadMusic.get(position).getItem_title());
 
     }

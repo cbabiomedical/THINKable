@@ -11,10 +11,13 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.example.SettingsPreference;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.StorageReference;
+
+import java.util.Set;
 
 public class Setting extends AppCompatActivity {
 
@@ -37,7 +40,7 @@ public class Setting extends AppCompatActivity {
         theme2 = findViewById(R.id.theme2);
         preferences1 = findViewById(R.id.preferences1);
         notifications2 = findViewById(R.id.notifications2);
-        help3=findViewById(R.id.help3);
+        help3 = findViewById(R.id.help3);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         logout = findViewById(R.id.logout);
@@ -60,7 +63,7 @@ public class Setting extends AppCompatActivity {
         accountsettings1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(getApplicationContext(),Profile.class);
+                Intent intent = new Intent(getApplicationContext(), Profile.class);
                 startActivity(intent);
 
             }
@@ -92,7 +95,7 @@ public class Setting extends AppCompatActivity {
         preferences1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentr1 = new Intent(getApplicationContext(), PreferencesSecPage.class);
+                Intent intentr1 = new Intent(getApplicationContext(), SettingsPreference.class);
                 startActivity(intentr1);
             }
         });
@@ -100,7 +103,7 @@ public class Setting extends AppCompatActivity {
         notifications2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(),Notification.class));
+                startActivity(new Intent(getApplicationContext(), Notification.class));
 
             }
         });

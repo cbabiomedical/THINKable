@@ -49,11 +49,11 @@ import java.util.List;
 public class MemoryWhereAmI extends AppCompatActivity {
 
     AppCompatButton progressConcentration;
-    File fileName,fileNamea,fileNamem,fileNamea2,fileNamen,fileNamea3,fileNameo,fileNamea4;
+    File fileName, fileNamea, fileNamem, fileNamea2, fileNamen, fileNamea3, fileNameo, fileNamea4;
     FirebaseUser mUser;
-    File localFile,localFilea,localFilem,localFilea2,localFilen,localFilea3,localFileo,localFile4a;
-    String text,texta,textm,texta2,textn,texta3,texto,text4a;
-    ImageButton relaxationBtn,concentrationBtn;
+    File localFile, localFilea, localFilem, localFilea2, localFilen, localFilea3, localFileo, localFile4a;
+    String text, texta, textm, texta2, textn, texta3, texto, text4a;
+    ImageButton relaxationBtn, concentrationBtn;
 
     //for chart 1
     ArrayList<String> list = new ArrayList<>();
@@ -84,15 +84,14 @@ public class MemoryWhereAmI extends AppCompatActivity {
 
     ArrayList<IScatterDataSet> dataSeto = new ArrayList<>();
 
-    private ScatterChart chart,chart1,chart2,chart3;
-
+    private ScatterChart chart, chart1, chart2, chart3;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memory_where_am_i);
-        progressConcentration=findViewById(R.id.progresscon);
+        progressConcentration = findViewById(R.id.progresscon);
 
         relaxationBtn = findViewById(R.id.relaxation);
         concentrationBtn = findViewById(R.id.concentration);
@@ -109,7 +108,7 @@ public class MemoryWhereAmI extends AppCompatActivity {
         concentrationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),ConcentrationReportYearly.class));
+                startActivity(new Intent(getApplicationContext(), ConcentrationReportYearly.class));
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
@@ -153,7 +152,7 @@ public class MemoryWhereAmI extends AppCompatActivity {
         progressConcentration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(),MemoryReportDaily.class);
+                Intent intent = new Intent(getApplicationContext(), MemoryReportDaily.class);
                 startActivity(intent);
             }
         });
@@ -303,10 +302,9 @@ public class MemoryWhereAmI extends AppCompatActivity {
                             }
 
 
-
-                            List<Entry> scatterEntries  = new ArrayList<>();
+                            List<Entry> scatterEntries = new ArrayList<>();
                             for (int j = 0; j < floatList.size(); ++j) {
-                                scatterEntries .add(new Entry(j, floatList.get(j)));
+                                scatterEntries.add(new Entry(j, floatList.get(j)));
                             }
 
 
@@ -327,7 +325,7 @@ public class MemoryWhereAmI extends AppCompatActivity {
                             chart.getAxisRight().setEnabled(false);
                             XAxis xl = chart.getXAxis();
                             xl.setDrawGridLines(false);
-                            String[] daysS = new String[]{"Mon","Tue","Wed","Thu","Fri","Sat","Sun"};
+                            String[] daysS = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
                             XAxis xAxis = chart.getXAxis();
                             xAxis.setValueFormatter(new IndexAxisValueFormatter(daysS));
                             xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
@@ -397,10 +395,9 @@ public class MemoryWhereAmI extends AppCompatActivity {
                             }
 
 
-
-                            List<Entry> scatterEntriesa  = new ArrayList<>();
+                            List<Entry> scatterEntriesa = new ArrayList<>();
                             for (int j = 0; j < floatLista.size(); ++j) {
-                                scatterEntriesa .add(new Entry(j, floatLista.get(j)));
+                                scatterEntriesa.add(new Entry(j, floatLista.get(j)));
                             }
 
                             ScatterDataSet seta = new ScatterDataSet(scatterEntriesa, "Other");
@@ -577,10 +574,9 @@ public class MemoryWhereAmI extends AppCompatActivity {
                             }
 
 
-
-                            List<Entry> scatterEntriesm  = new ArrayList<>();
+                            List<Entry> scatterEntriesm = new ArrayList<>();
                             for (int j = 0; j < floatListm.size(); ++j) {
-                                scatterEntriesm .add(new Entry(j, floatListm.get(j)));
+                                scatterEntriesm.add(new Entry(j, floatListm.get(j)));
                             }
 
 
@@ -601,7 +597,7 @@ public class MemoryWhereAmI extends AppCompatActivity {
                             chart1.getAxisRight().setEnabled(false);
                             XAxis xl1 = chart1.getXAxis();
                             xl1.setDrawGridLines(false);
-                            String[] daysS1 = new String[]{"Mon","Tue","Wed","Thu","Fri","Sat","Sun"};
+                            String[] daysS1 = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
                             XAxis xAxis1 = chart1.getXAxis();
                             xAxis1.setValueFormatter(new IndexAxisValueFormatter(daysS1));
                             xAxis1.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
@@ -671,10 +667,9 @@ public class MemoryWhereAmI extends AppCompatActivity {
                             }
 
 
-
-                            List<Entry> scatterEntriesa2  = new ArrayList<>();
+                            List<Entry> scatterEntriesa2 = new ArrayList<>();
                             for (int j = 0; j < floatLista2.size(); ++j) {
-                                scatterEntriesa2 .add(new Entry(j, floatLista2.get(j)));
+                                scatterEntriesa2.add(new Entry(j, floatLista2.get(j)));
                             }
 
                             ScatterDataSet seta2 = new ScatterDataSet(scatterEntriesa2, "Other");
@@ -704,12 +699,6 @@ public class MemoryWhereAmI extends AppCompatActivity {
 
             //Downloading file and displaying chart
         }, delay1);
-
-
-
-
-
-
 
 
         //3 -----> chart
@@ -856,10 +845,9 @@ public class MemoryWhereAmI extends AppCompatActivity {
                             }
 
 
-
-                            List<Entry> scatterEntriesn  = new ArrayList<>();
+                            List<Entry> scatterEntriesn = new ArrayList<>();
                             for (int j = 0; j < floatListn.size(); ++j) {
-                                scatterEntriesn .add(new Entry(j, floatListn.get(j)));
+                                scatterEntriesn.add(new Entry(j, floatListn.get(j)));
                             }
 
 
@@ -879,7 +867,7 @@ public class MemoryWhereAmI extends AppCompatActivity {
                             chart2.getAxisRight().setEnabled(false);
                             XAxis xl3 = chart2.getXAxis();
                             xl3.setDrawGridLines(false);
-                            String[] daysS3 = new String[]{"Mon","Tue","Wed","Thu","Fri","Sat","Sun"};
+                            String[] daysS3 = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
                             XAxis xAxis3 = chart2.getXAxis();
                             xAxis3.setValueFormatter(new IndexAxisValueFormatter(daysS3));
                             xAxis3.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
@@ -949,10 +937,9 @@ public class MemoryWhereAmI extends AppCompatActivity {
                             }
 
 
-
-                            List<Entry> scatterEntriesa3  = new ArrayList<>();
+                            List<Entry> scatterEntriesa3 = new ArrayList<>();
                             for (int j = 0; j < floatLista3.size(); ++j) {
-                                scatterEntriesa3 .add(new Entry(j, floatLista3.get(j)));
+                                scatterEntriesa3.add(new Entry(j, floatLista3.get(j)));
                             }
 
                             ScatterDataSet seta3 = new ScatterDataSet(scatterEntriesa3, "Other");
@@ -982,10 +969,6 @@ public class MemoryWhereAmI extends AppCompatActivity {
 
             //Downloading file and displaying chart
         }, delay3);
-
-
-
-
 
 
         //4 -----> chart

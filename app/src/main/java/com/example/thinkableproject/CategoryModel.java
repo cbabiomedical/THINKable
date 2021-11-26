@@ -9,7 +9,8 @@ public class CategoryModel {
         this.categoryImage = categoryImage;
     }
 
-    public CategoryModel() {}
+    public CategoryModel() {
+    }
 
     public String getCategoryId() {
         return categoryId;
