@@ -52,7 +52,7 @@ public class HomeFragment extends Fragment {
             while (cursor.moveToNext()) {
                 String title = cursor.getString(cursor.getColumnIndex(FavDB.ITEM_TITLE));
                 String id = cursor.getString(cursor.getColumnIndex(FavDB.KEY_ID));
-                int image = Integer.parseInt(cursor.getString(cursor.getColumnIndex(FavDB.ITEM_IMAGE)));
+                String image = cursor.getString(cursor.getColumnIndex(FavDB.ITEM_IMAGE));
                 FavouriteModelClass favItem = new FavouriteModelClass(title, id, image);
                 favItemList.add(favItem);
             }

@@ -53,15 +53,15 @@ public class RelaxationReportMonthly extends AppCompatActivity {
 
     BarChart barChartMonthlytimeto, barChartMonthlytimestayed;
     private Context context;
-    File fileName, localFile,fileName2,localFile2;
+    File fileName, localFile, fileName2, localFile2;
     String text, text2;
     AppCompatButton daily, weekly, yearly, whereAmI, progress, timetorel, timestayedrel;
     FirebaseUser mUser;
     ImageButton concentration, memory;
     ArrayList<String> list = new ArrayList<>();
-    ArrayList<Float> floatList=new ArrayList<>();
+    ArrayList<Float> floatList = new ArrayList<>();
     ArrayList<String> list2 = new ArrayList<>();
-    ArrayList<Float> floatList2=new ArrayList<>();
+    ArrayList<Float> floatList2 = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,7 +117,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
         memory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(), MemoryReportDaily.class);
+                Intent intent = new Intent(getApplicationContext(), MemoryReportDaily.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
@@ -527,7 +527,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(!isChangingConfigurations()) {
+        if (!isChangingConfigurations()) {
             deleteTempFiles(getCacheDir());
         }
     }

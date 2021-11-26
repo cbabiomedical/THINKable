@@ -60,7 +60,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
     BarChart barChart, barChart1, barChart2;
     private Context context;
     AppCompatButton daily, yearly, monthly, realTime;
-    ImageButton concentration  ,memoryBtn;
+    ImageButton concentration, memoryBtn;
     ImageView music, meditation, video;
     FirebaseUser mUser;
     String text;
@@ -97,7 +97,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
 
         //go to concentration weekly landing page
         concentration = findViewById(R.id.concentration);
-        memoryBtn=findViewById(R.id.memory);
+        memoryBtn = findViewById(R.id.memory);
         concentration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -346,7 +346,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
         memoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Memory_Weekly.class));
+                startActivity(new Intent(getApplicationContext(), Memory_Weekly.class));
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
@@ -413,9 +413,9 @@ public class Relaxation_Weekly extends AppCompatActivity {
         });
 
         imageViewcancle = (ImageView) dialogrw.findViewById(R.id.imageViewcancle);
-        imageViewcancle.setOnClickListener(new View.OnClickListener(){
+        imageViewcancle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 dialogrw.dismiss();
             }
         });
@@ -484,14 +484,16 @@ public class Relaxation_Weekly extends AppCompatActivity {
         }
 
     }
+
     //delete temporary file
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(!isChangingConfigurations()) {
+        if (!isChangingConfigurations()) {
             deleteTempFiles(getCacheDir());
         }
     }
+
     private boolean deleteTempFiles(File file) {
         if (file.isDirectory()) {
             File[] files = file.listFiles();

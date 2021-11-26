@@ -57,9 +57,9 @@ public class Relaxation_Monthly extends AppCompatActivity {
 
     BarChart barChart;
     AppCompatButton daily, yearly, weekly, realTime;
-    ImageButton concentration, relaxation,memoryBtn;
+    ImageButton concentration, relaxation, memoryBtn;
     FirebaseUser mUser;
-    ImageView meditation, music,video;
+    ImageView meditation, music, video;
     File localFile;
     String text;
     File fileName;
@@ -81,7 +81,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
         daily = findViewById(R.id.daily);
         yearly = findViewById(R.id.yearly);
         weekly = findViewById(R.id.weekly);
-        memoryBtn=findViewById(R.id.memory);
+        memoryBtn = findViewById(R.id.memory);
         music = findViewById(R.id.music);
         meditation = findViewById(R.id.meditations);
         video = findViewById(R.id.video);
@@ -311,7 +311,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
         //go to calibration page
         realTime.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View view){
+            public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Calibration.class);
                 startActivity(intent);
             }
@@ -320,7 +320,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
         memoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MemoryMonthly.class));
+                startActivity(new Intent(getApplicationContext(), MemoryMonthly.class));
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
@@ -416,9 +416,9 @@ public class Relaxation_Monthly extends AppCompatActivity {
         });
 
         imageViewcancle = (ImageView) dialogrm.findViewById(R.id.imageViewcancle);
-        imageViewcancle.setOnClickListener(new View.OnClickListener(){
+        imageViewcancle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 dialogrm.dismiss();
             }
         });
@@ -477,10 +477,11 @@ public class Relaxation_Monthly extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(!isChangingConfigurations()) {
+        if (!isChangingConfigurations()) {
             deleteTempFiles(getCacheDir());
         }
     }
+
     private boolean deleteTempFiles(File file) {
         if (file.isDirectory()) {
             File[] files = file.listFiles();

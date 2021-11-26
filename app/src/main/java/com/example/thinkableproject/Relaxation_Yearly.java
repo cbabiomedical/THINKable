@@ -55,7 +55,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
     Dialog dialogry;
     BarChart barChart2;
     AppCompatButton daily, weekly, monthly, realTime;
-    ImageButton concentration ,memoryBtn;
+    ImageButton concentration, memoryBtn;
     FirebaseUser mUser;
     String text;
     ImageView music, meditation, video;
@@ -84,7 +84,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
         daily = findViewById(R.id.daily);
         weekly = findViewById(R.id.weekly);
         monthly = findViewById(R.id.monthly);
-        memoryBtn=findViewById(R.id.memory);
+        memoryBtn = findViewById(R.id.memory);
         //Initialize pop up window
         dialogry = new Dialog(this);
 
@@ -161,7 +161,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
         memoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Memory_Yearly.class));
+                startActivity(new Intent(getApplicationContext(), Memory_Yearly.class));
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
@@ -343,7 +343,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
                 }
             }
         }, delay);
-        
+
 
     }
 
@@ -405,9 +405,9 @@ public class Relaxation_Yearly extends AppCompatActivity {
         });
 
         imageViewcancle = (ImageView) dialogry.findViewById(R.id.imageViewcancle);
-        imageViewcancle.setOnClickListener(new View.OnClickListener(){
+        imageViewcancle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 dialogry.dismiss();
             }
         });
@@ -475,14 +475,16 @@ public class Relaxation_Yearly extends AppCompatActivity {
         }
 
     }
+
     //delete temporary file
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(!isChangingConfigurations()) {
+        if (!isChangingConfigurations()) {
             deleteTempFiles(getCacheDir());
         }
     }
+
     private boolean deleteTempFiles(File file) {
         if (file.isDirectory()) {
             File[] files = file.listFiles();

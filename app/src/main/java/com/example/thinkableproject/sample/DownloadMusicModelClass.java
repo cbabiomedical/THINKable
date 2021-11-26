@@ -52,4 +52,14 @@ public class DownloadMusicModelClass {
     public void setUrl(String url) {
         this.url = url;
     }
+
+    @Override
+    public String toString() {
+        return "DownloadMusicModelClass{" +
+                "item_title='" + item_title + '\'' +
+                ", key_id='" + key_id + '\'' +
+                ", item_image='" + item_image + '\'' +
+                ", url='" + url + '\'' +
+                '}';
+    }
 }

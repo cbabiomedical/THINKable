@@ -59,7 +59,7 @@ public class NotificationsFragment extends Fragment {
             while (cursor.moveToNext()) {
                 String title = cursor.getString(cursor.getColumnIndex(FavMusicDB.ITEM_TITLEMUS));
                 String id = cursor.getString(cursor.getColumnIndex(FavMusicDB.KEY_IDMUS));
-                int image = Integer.parseInt(cursor.getString(cursor.getColumnIndex(FavMusicDB.ITEM_IMAGEMUS)));
+                String image = cursor.getString(cursor.getColumnIndex(FavMusicDB.ITEM_IMAGEMUS));
                 FavouriteMusicClass favItem = new FavouriteMusicClass(title, id, image);
                 favItemList.add(favItem);
             }

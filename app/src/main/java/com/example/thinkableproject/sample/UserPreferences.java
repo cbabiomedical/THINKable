@@ -1,7 +1,5 @@
 package com.example.thinkableproject.sample;
 
-import com.example.thinkableproject.User;
-
 public class UserPreferences {
     // private variables to store imageUrl and name of preference
     int imageUrl;

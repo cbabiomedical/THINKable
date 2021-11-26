@@ -1,8 +1,7 @@
 package com.example.thinkableproject.repositories.ui.dashboard;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,12 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thinkableproject.R;
 import com.example.thinkableproject.adapters.DownloadMeditationAdapter;
-import com.example.thinkableproject.adapters.DownloadMusicAdapter;
-import com.example.thinkableproject.adapters.FavouriteMeditationAdapter;
-import com.example.thinkableproject.repositories.FavMeditationDB;
 import com.example.thinkableproject.sample.DownloadMeditationClass;
-import com.example.thinkableproject.sample.DownloadMusicModelClass;
-import com.example.thinkableproject.sample.FavouriteModelMeditationClass;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -29,7 +23,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class DashboardFragment extends Fragment {
 
@@ -47,7 +40,7 @@ public class DashboardFragment extends Fragment {
         recyclerView = root.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mUser= FirebaseAuth.getInstance().getCurrentUser();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         // add item touch helper
 
@@ -64,11 +57,13 @@ public class DashboardFragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     DownloadMeditationClass post = dataSnapshot.getValue(DownloadMeditationClass.class);
+                    Log.d("PostMeditation", String.valueOf(post));
                     downloadMeditationClassArrayList.add(post);
                 }
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                downloadMeditationAdapter= new DownloadMeditationAdapter(getActivity(), downloadMeditationClassArrayList);
+                downloadMeditationAdapter = new DownloadMeditationAdapter(getActivity(), downloadMeditationClassArrayList);
                 recyclerView.setAdapter(downloadMeditationAdapter);
+
             }
 
             @Override
@@ -76,6 +71,7 @@ public class DashboardFragment extends Fragment {
 
             }
         });
+
 
 
     }

@@ -6,15 +6,11 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.PopupMenu;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,11 +18,9 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thinkableproject.R;
-import com.example.thinkableproject.repositories.DownloadMusic;
 import com.example.thinkableproject.repositories.FavMeditationDB;
 import com.example.thinkableproject.repositories.FavMusicDB;
 import com.example.thinkableproject.sample.DownloadMusicModelClass;
-import com.example.thinkableproject.sample.MeditationModelClass;
 import com.example.thinkableproject.sample.MusicModelClass;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,10 +28,9 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.squareup.picasso.Picasso;
 
-import java.io.File;
 import java.util.ArrayList;
+import java.util.HashMap;
 
-import static android.content.ContentValues.TAG;
 import static android.os.Environment.DIRECTORY_DOWNLOADS;
 
 public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> {
@@ -46,6 +39,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
     private OnNoteListner onNoteListner;
     private FavMusicDB favDB;
     public static ViewHolder viewHolder;
+    HashMap<String, Object> music=new HashMap<>();
 
     public static ViewHolder getViewHolder() {
         Log.d("Time", String.valueOf(viewHolder.timeOfMusic));
@@ -83,7 +77,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item_music,
                 parent, false);
-        View view1=LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item,parent,false);
+        View view1 = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
 
 
         return new ViewHolder(view, onNoteListner);
@@ -96,24 +90,28 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
         readCursorDataMed(coffeeItem, holder);
         Picasso.get().load(musicList.get(position).getImageUrl()).into(holder.imageView);
 
-        holder.title.setText(musicList.get(position).getSongTitle1());
+        holder.title.setText(musicList.get(position).getName());
         holder.download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 //Checking if file is already downloaded
 
-                DownloadMusicModelClass musicModelClass = new DownloadMusicModelClass(musicList.get(position).getSongTitle1(), musicList.get(position).getImageUrl());
-                downloadFile(context, musicList.get(position).getSongTitle1(), ".mp3", DIRECTORY_DOWNLOADS, musicList.get(position).getUrl());
+                DownloadMusicModelClass musicModelClass = new DownloadMusicModelClass(musicList.get(position).getName(), musicList.get(position).getImageUrl());
+                Log.d("ImageUrl",musicList.get(position).getImageUrl());
+                downloadFile(context, musicList.get(position).getName(), ".mp3", DIRECTORY_DOWNLOADS, musicList.get(position).getSongTitle1());
                 mUser = FirebaseAuth.getInstance().getCurrentUser();
                 downoadSong.add(musicModelClass);
+                music.put(downoadSong.get(position).getItem_title(),musicModelClass);
                 Log.d("Downloaded Music", String.valueOf(musicModelClass));
                 Log.d("Download List", String.valueOf(downoadSong));
 
-                DatabaseReference database = FirebaseDatabase.getInstance().getReference("Downloads").child(mUser.getUid());
-                database.setValue(downoadSong);
+
 
                 holder.download.setEnabled(false);
+//
+                DatabaseReference database = FirebaseDatabase.getInstance().getReference("Downloads").child(mUser.getUid());
+                database.setValue(music);
 
             }
         });
@@ -167,7 +165,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
                     MusicModelClass gameModelClass = musicList.get(position);
                     if (gameModelClass.getIsFav().equals("0")) {
                         gameModelClass.setIsFav("1");
-                        favDB.insertIntoTheDatabaseMusic(gameModelClass.getSongTitle1(), gameModelClass.getImageUrl(), gameModelClass.getId(), gameModelClass.getIsFav());
+                        favDB.insertIntoTheDatabaseMusic(gameModelClass.getName(), gameModelClass.getImageUrl(), gameModelClass.getId(), gameModelClass.getIsFav());
                         favBtn.setBackgroundResource(R.drawable.ic_favorite_filled);
                     } else {
                         gameModelClass.setIsFav("0");

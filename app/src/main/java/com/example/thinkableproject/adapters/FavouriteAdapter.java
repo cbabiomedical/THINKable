@@ -18,6 +18,7 @@ import com.example.thinkableproject.sample.FavouriteModelClass;
 import com.example.thinkableproject.sample.GameModelClass;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -47,7 +48,8 @@ public class FavouriteAdapter extends RecyclerView.Adapter<FavouriteAdapter.View
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.favTextView.setText(favItemList.get(position).getItem_title());
-        holder.favImageView.setImageResource(favItemList.get(position).getItem_image());
+//        holder.favImageView.setImageResource(favItemList.get(position).getItem_image());
+        Picasso.get().load(favItemList.get(position).getItem_image()).into(holder.favImageView);
     }
 
 

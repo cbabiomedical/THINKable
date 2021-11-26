@@ -74,7 +74,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
         final GameModelClass coffeeItem = coffeeItems.get(position);
 
         readCursorData(coffeeItem, holder);
-        Picasso.get().load(coffeeItems.get(position).getImageView()).into(holder.imageView);
+        Picasso.get().load(coffeeItems.get(position).getGameImage()).into(holder.imageView);
         holder.titleTextView.setText(coffeeItem.getGameName());
     }
 
@@ -109,11 +109,11 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
                     GameModelClass gameModelClass = coffeeItems.get(position);
                     if (gameModelClass.getFav().equals("0")) {
                         gameModelClass.setFav("1");
-                        favDB.insertIntoTheDatabase(gameModelClass.getGameName(), gameModelClass.getImageView(), gameModelClass.getId(), gameModelClass.getFav());
+                        favDB.insertIntoTheDatabase(gameModelClass.getGameName(), gameModelClass.getGameImage(), gameModelClass.getGameId(), gameModelClass.getFav());
                         favBtn.setBackgroundResource(R.drawable.ic_favorite_filled);
                     } else {
                         gameModelClass.setFav("0");
-                        favDB.remove_fav(gameModelClass.getId());
+                        favDB.remove_fav(gameModelClass.getGameId());
                         favBtn.setBackgroundResource(R.drawable.ic_favorite);
                     }
                 }
@@ -138,7 +138,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     }
 
     private void readCursorData(GameModelClass coffeeItem, ViewHolder viewHolder) {
-        Cursor cursor = favDB.read_all_data(coffeeItem.getId());
+        Cursor cursor = favDB.read_all_data(coffeeItem.getGameId());
         SQLiteDatabase db = favDB.getReadableDatabase();
         try {
             while (cursor.moveToNext()) {
@@ -163,13 +163,13 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     // like click
     private void likeClick(GameModelClass coffeeItem, Button favBtn, final TextView textLike) {
         DatabaseReference refLike = FirebaseDatabase.getInstance().getReference().child("likes");
-        final DatabaseReference upvotesRefLike = refLike.child(coffeeItem.getId());
+        final DatabaseReference upvotesRefLike = refLike.child(coffeeItem.getGameId());
 
         if (coffeeItem.getFav().equals("0")) {
 
             coffeeItem.setFav("1");
-            favDB.insertIntoTheDatabase(coffeeItem.getGameName(), coffeeItem.getImageView(),
-                    coffeeItem.getId(), coffeeItem.getGameName());
+            favDB.insertIntoTheDatabase(coffeeItem.getGameName(), coffeeItem.getGameImage()                                                                                         ,
+                    coffeeItem.getGameId(), coffeeItem.getGameName());
             favBtn.setBackgroundResource(R.drawable.ic_favorite_filled);
             favBtn.setSelected(true);
 
@@ -205,7 +205,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
 
         } else if (coffeeItem.getFav().equals("1")) {
             coffeeItem.setFav("0");
-            favDB.remove_fav(coffeeItem.getId());
+            favDB.remove_fav(coffeeItem.getGameId());
             favBtn.setBackgroundResource(R.drawable.ic_favorite_filled);
             favBtn.setSelected(false);
 

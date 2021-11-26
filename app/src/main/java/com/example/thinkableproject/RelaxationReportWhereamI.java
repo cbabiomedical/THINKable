@@ -53,7 +53,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
 
     File fileNamer, fileNamear, fileNamemr, fileNamea2r, fileNamenr, fileNamea3r, fileNameor, fileNamea4r;
     FirebaseUser mUser;
-    File localFiler, localFilear, localFilemr, localFilea2r,localFilenr, localFilea3r, localFileor, localFile4ar;
+    File localFiler, localFilear, localFilemr, localFilea2r, localFilenr, localFilea3r, localFileor, localFile4ar;
     String textr, textar, textmr, texta2r, textnr, texta3r, textor, text4ar;
 
     //for chart4aa 1
@@ -92,14 +92,14 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relaxation_report_wheream_i);
-        relaxationProgress=findViewById(R.id.progressrel);
+        relaxationProgress = findViewById(R.id.progressrel);
         memory = findViewById(R.id.memory);
         concentration = findViewById(R.id.concentration);
 
         memory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(), MemoryReportDaily.class);
+                Intent intent = new Intent(getApplicationContext(), MemoryReportDaily.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
@@ -153,7 +153,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
         relaxationProgress.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getApplicationContext(),RelaxationReportDaily.class);
+                Intent intent = new Intent(getApplicationContext(), RelaxationReportDaily.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
@@ -578,7 +578,6 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             }
 
 
-
                             List<Entry> scatterEntriesmr = new ArrayList<>();
                             for (int j = 0; j < floatListmr.size(); ++j) {
                                 scatterEntriesmr.add(new Entry(j, floatListmr.get(j)));
@@ -602,7 +601,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             chart5.getAxisRight().setEnabled(false);
                             XAxis xl1r = chart5.getXAxis();
                             xl1r.setDrawGridLines(false);
-                            String[] daysS1r = new String[]{"Mon","Tue","Wed","Thu","Fri","Sat","Sun"};
+                            String[] daysS1r = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
                             XAxis xAxis1r = chart5.getXAxis();
                             xAxis1r.setValueFormatter(new IndexAxisValueFormatter(daysS1r));
                             xAxis1r.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
@@ -670,7 +669,6 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-
 
 
                             List<Entry> scatterEntriesa2r = new ArrayList<>();
@@ -850,7 +848,6 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             }
 
 
-
                             List<Entry> scatterEntriesnr = new ArrayList<>();
                             for (int j = 0; j < floatListnr.size(); ++j) {
                                 scatterEntriesnr.add(new Entry(j, floatListnr.get(j)));
@@ -875,7 +872,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             chart6.getAxisRight().setEnabled(false);
                             XAxis xl3r = chart6.getXAxis();
                             xl3r.setDrawGridLines(false);
-                            String[] daysS3r = new String[]{"Mon","Tue","Wed","Thu","Fri","Sat","Sun"};
+                            String[] daysS3r = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
                             XAxis xAxis3r = chart6.getXAxis();
                             xAxis3r.setValueFormatter(new IndexAxisValueFormatter(daysS3r));
                             xAxis3r.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
@@ -943,7 +940,6 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
-
 
 
                             List<Entry> scatterEntriesa3r = new ArrayList<>();

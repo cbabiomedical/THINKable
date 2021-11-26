@@ -63,8 +63,7 @@ public class Service_BTLE_GATT extends Service {
                 Log.i(TAG, "Connected to GATT server.");
                 // Attempts to discover services after successful connection.
                 Log.i(TAG, "Attempting to start service discovery:" + mBluetoothGatt.discoverServices());
-            }
-            else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
+            } else if (newState == BluetoothProfile.STATE_DISCONNECTED) {
                 intentAction = ACTION_GATT_DISCONNECTED;
 
                 mConnectionState = STATE_DISCONNECTED;
@@ -80,8 +79,7 @@ public class Service_BTLE_GATT extends Service {
 
             if (status == BluetoothGatt.GATT_SUCCESS) {
                 broadcastUpdate(ACTION_GATT_SERVICES_DISCOVERED);
-            }
-            else {
+            } else {
                 Log.w(TAG, "onServicesDiscovered received: " + status);
             }
         }
@@ -127,8 +125,7 @@ public class Service_BTLE_GATT extends Service {
         if (data != null && data.length > 0) {
 
             intent.putExtra(EXTRA_DATA, new String(data) + "\n" + Utils.hexToString(data));
-        }
-        else {
+        } else {
             intent.putExtra(EXTRA_DATA, "0");
         }
 
@@ -192,11 +189,10 @@ public class Service_BTLE_GATT extends Service {
      * Connects to the GATT server hosted on the Bluetooth LE device.
      *
      * @param address The device address of the destination device.
-     *
      * @return Return true if the connection is initiated successfully. The connection result
-     *         is reported asynchronously through the
-     *         {@code BluetoothGattCallback#onConnectionStateChange(android.bluetooth.BluetoothGatt, int, int)}
-     *         callback.
+     * is reported asynchronously through the
+     * {@code BluetoothGattCallback#onConnectionStateChange(android.bluetooth.BluetoothGatt, int, int)}
+     * callback.
      */
     public boolean connect(final String address) {
 
@@ -212,8 +208,7 @@ public class Service_BTLE_GATT extends Service {
             if (mBluetoothGatt.connect()) {
                 mConnectionState = STATE_CONNECTING;
                 return true;
-            }
-            else {
+            } else {
                 return false;
             }
         }
@@ -300,7 +295,7 @@ public class Service_BTLE_GATT extends Service {
      * Enables or disables notification on a give characteristic.
      *
      * @param characteristic Characteristic to act on.
-     * @param enabled If true, enable notification.  False otherwise.
+     * @param enabled        If true, enable notification.  False otherwise.
      */
     public void setCharacteristicNotification(BluetoothGattCharacteristic characteristic, boolean enabled) {
 
@@ -316,8 +311,7 @@ public class Service_BTLE_GATT extends Service {
 
         if (enabled) {
             descriptor.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
-        }
-        else {
+        } else {
             descriptor.setValue(BluetoothGattDescriptor.DISABLE_NOTIFICATION_VALUE);
         }
 

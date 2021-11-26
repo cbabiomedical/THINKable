@@ -52,9 +52,9 @@ public class MemoryMonthly extends AppCompatActivity {
     BarChart barChart;
     private Context context;
     AppCompatButton daily, weekly, yearly, realTime;
-    ImageButton relaxationBtn,concentrationBtn;
+    ImageButton relaxationBtn, concentrationBtn;
     FirebaseUser mUser;
-    File localFile,fileName;
+    File localFile, fileName;
     String text;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
@@ -71,7 +71,7 @@ public class MemoryMonthly extends AppCompatActivity {
         relaxationBtn = findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
         dialogcm = new Dialog(this);
-        concentrationBtn=findViewById(R.id.concentration);
+        concentrationBtn = findViewById(R.id.concentration);
         //Initializing bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -292,7 +292,7 @@ public class MemoryMonthly extends AppCompatActivity {
         concentrationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Concentration_Monthly.class));
+                startActivity(new Intent(getApplicationContext(), Concentration_Monthly.class));
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
@@ -306,6 +306,7 @@ public class MemoryMonthly extends AppCompatActivity {
         });
 
     }
+
     //popup window method to display suggestions to improve concentration
     public void gotoPopup2(View view) {
         ImageView cancelcon;

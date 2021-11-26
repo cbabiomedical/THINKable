@@ -58,12 +58,12 @@ public class Relaxation_Daily extends AppCompatActivity {
     Dialog dialogrd;
     BarChart barChartdaily;
     AppCompatButton monthly, yearly, weekly, realTime;
-    ImageView meditation,music,video;
+    ImageView meditation, music, video;
     FirebaseUser mUser;
     String text;
     File localFile;
     File fileName;
-    ImageButton concentration,  memoryBtn;
+    ImageButton concentration, memoryBtn;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
 
@@ -84,7 +84,7 @@ public class Relaxation_Daily extends AppCompatActivity {
         video = findViewById(R.id.video);
         realTime = findViewById(R.id.realTime);
         concentration = findViewById(R.id.concentration);
-        memoryBtn=findViewById(R.id.memory);
+        memoryBtn = findViewById(R.id.memory);
         //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         //Set Home Selected
@@ -96,7 +96,7 @@ public class Relaxation_Daily extends AppCompatActivity {
         //go to calibration page
         realTime.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View view){
+            public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Calibration.class);
                 startActivity(intent);
             }
@@ -138,7 +138,7 @@ public class Relaxation_Daily extends AppCompatActivity {
         memoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Memory_Daily.class));
+                startActivity(new Intent(getApplicationContext(), Memory_Daily.class));
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
@@ -291,7 +291,7 @@ public class Relaxation_Daily extends AppCompatActivity {
             }
 
 
-        },delay);
+        }, delay);
 
         //Iinitialize buttons monthly, yearly, weekly
         monthly = findViewById(R.id.monthly);
@@ -416,9 +416,9 @@ public class Relaxation_Daily extends AppCompatActivity {
         });
 
         imageViewcancle = (ImageView) dialogrd.findViewById(R.id.imageViewcancle);
-        imageViewcancle.setOnClickListener(new View.OnClickListener(){
+        imageViewcancle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 dialogrd.dismiss();
             }
         });
@@ -490,7 +490,7 @@ public class Relaxation_Daily extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(!isChangingConfigurations()) {
+        if (!isChangingConfigurations()) {
             deleteTempFiles(getCacheDir());
         }
     }

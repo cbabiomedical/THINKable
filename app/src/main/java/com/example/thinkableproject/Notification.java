@@ -31,12 +31,12 @@ public class Notification extends AppCompatActivity {
         thumbStates.addState(new int[]{}, new ColorDrawable(colorOff)); // this one has to come last
         switchInput.setThumbDrawable(thumbStates);
 
-         RecyclerView mRecyclerView;
-         RecyclerView.Adapter mAdapter;
-         RecyclerView.LayoutManager mLayoutManager;
+        RecyclerView mRecyclerView;
+        RecyclerView.Adapter mAdapter;
+        RecyclerView.LayoutManager mLayoutManager;
 
         ArrayList<ExampleItem> exampleList = new ArrayList<>();
-        exampleList.add(new ExampleItem ("Popup Notifications"));
+        exampleList.add(new ExampleItem("Popup Notifications"));
         exampleList.add(new ExampleItem("User high priority Notifications "));
         exampleList.add(new ExampleItem("Vibrate"));
         exampleList.add(new ExampleItem("Quote Notifications"));
@@ -50,7 +50,6 @@ public class Notification extends AppCompatActivity {
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(mAdapter);
     }
-
 
 
 }

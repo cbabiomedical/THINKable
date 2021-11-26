@@ -1,5 +1,6 @@
 package com.example.thinkableproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,6 +26,11 @@ import com.example.thinkableproject.adapters.GridAdapter;
 import com.example.thinkableproject.adapters.MeditationAdapter;
 import com.example.thinkableproject.sample.GameModelClass;
 import com.example.thinkableproject.sample.MeditationModelClass;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.gson.JsonObject;
 
 import org.json.JSONArray;
@@ -34,7 +40,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MeditationExercise extends AppCompatActivity implements MeditationAdapter.OnNoteListner{
+public class MeditationExercise extends AppCompatActivity implements MeditationAdapter.OnNoteListner {
     RecyclerView recyclerView;
     LinearLayout linearLayoutManager;
     ArrayList<MeditationModelClass> meditationList;
@@ -56,19 +62,19 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
         dropdown_time.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selected_time=parent.getItemAtPosition(position).toString();
-                if(position==0){
-                    time=60000;
+                selected_time = parent.getItemAtPosition(position).toString();
+                if (position == 0) {
+                    time = 60000;
                     Log.d("TIME", String.valueOf(time));
-                }else if(position==1){
-                    time=90000;
+                } else if (position == 1) {
+                    time = 90000;
                     Log.d("TIME", String.valueOf(time));
-                }else if(position==2){
-                    time=120000;
-                }else if(position==3){
-                    time=150000;
-                }else{
-                    time=180000;
+                } else if (position == 2) {
+                    time = 120000;
+                } else if (position == 3) {
+                    time = 150000;
+                } else {
+                    time = 180000;
                 }
             }
 
@@ -87,14 +93,31 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
     private void initData() {
         meditationList = new ArrayList<>();
 //        Adding user preferences to arraylist
-        meditationList.add(new MeditationModelClass( "Mindfulness",R.drawable.mindful, "0","https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c","0"));
-        meditationList.add(new MeditationModelClass( "Body Scan",R.drawable.maxresdefault, "1","https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c","0"));
-        meditationList.add(new MeditationModelClass( "Loving", R.drawable.love_kind,"2","https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c","0"));
-        meditationList.add(new MeditationModelClass( "Transcendental ",R.drawable.transidental,"3","https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c","0"));
+//        meditationList.add(new MeditationModelClass("Mindfulness", R.drawable.mindful, "0", "https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c", "0"));
+//        meditationList.add(new MeditationModelClass("Body Scan", R.drawable.maxresdefault, "1", "https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c", "0"));
+//        meditationList.add(new MeditationModelClass("Loving", R.drawable.love_kind, "2", "https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c", "0"));
+//        meditationList.add(new MeditationModelClass("Transcendental ", R.drawable.transidental, "3", "https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c", "0"));
+
+        DatabaseReference reference= FirebaseDatabase.getInstance().getReference("Meditation_Admin");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for(DataSnapshot dataSnapshot:snapshot.getChildren()){
+                    MeditationModelClass post=dataSnapshot.getValue(MeditationModelClass.class);
+                    meditationList.add(post);
+                    Log.d("MeditationPost", String.valueOf(post));
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                        adapter = new MeditationAdapter(meditationList,getApplicationContext(),this::onNoteClickMeditation);
-                        recyclerView.setAdapter(adapter);
+        adapter = new MeditationAdapter(meditationList, getApplicationContext(), this::onNoteClickMeditation);
+        recyclerView.setAdapter(adapter);
 
 //        RequestQueue requestQueue = Volley.newRequestQueue(this);
 //        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, JSON_URL, null, new Response.Listener<JSONArray>() {
@@ -134,10 +157,10 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
     @Override
     public void onNoteClickMeditation(int position) {
         meditationList.get(position);
-        String songName=meditationList.get(position).getMeditationName();
-        String url=meditationList.get(position).getUrl();
-        int image=meditationList.get(position).getImageView();
-        Log.d("Url",url);
-        startActivity(new Intent(getApplicationContext(),PlayMeditation.class).putExtra("url",url).putExtra("name",songName).putExtra("image",image).putExtra("time",time));
+        String songName = meditationList.get(position).getMeditateName();
+        String url = meditationList.get(position).getUrl();
+        String image = meditationList.get(position).getMeditateImage();
+        Log.d("Url", url);
+        startActivity(new Intent(getApplicationContext(), PlayMeditation.class).putExtra("url", url).putExtra("name", songName).putExtra("image", image).putExtra("time", time));
     }
 }

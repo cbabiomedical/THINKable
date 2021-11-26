@@ -23,8 +23,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class LandingPage extends AppCompatActivity {
     private static final int PICK_FILE_REQUEST = 234;
-    Button changepassword, logout, relaxationLanding, concentrationLanding,reportConDaily,reportRelDaily;
-    Button chooseFile, uploadFile,edit,ble;
+    Button changepassword, logout, relaxationLanding, concentrationLanding, reportConDaily, reportRelDaily;
+    Button chooseFile, uploadFile, edit, ble;
     private Uri filePath;
     private StorageReference storageReference;
     FirebaseUser mUser;
@@ -35,18 +35,18 @@ public class LandingPage extends AppCompatActivity {
         setContentView(R.layout.activity_landing_page);
         concentrationLanding = findViewById(R.id.concentrationDaily);
         chooseFile = findViewById(R.id.choose);
-        ble=findViewById(R.id.ble);
+        ble = findViewById(R.id.ble);
         uploadFile = findViewById(R.id.upload);
-        reportConDaily=findViewById(R.id.reportConDaily);
-        edit=findViewById(R.id.editProfile);
-        reportRelDaily=findViewById(R.id.reportLanding);
+        reportConDaily = findViewById(R.id.reportConDaily);
+        edit = findViewById(R.id.editProfile);
+        reportRelDaily = findViewById(R.id.reportLanding);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
-ble.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        startActivity(new Intent(getApplicationContext(),Connection.class));
-    }
-});
+        ble.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Connection.class));
+            }
+        });
 
         Log.d("User", mUser.getUid());
         chooseFile.setOnClickListener(new View.OnClickListener() {
@@ -55,13 +55,13 @@ ble.setOnClickListener(new View.OnClickListener() {
                 showFileChooser();
             }
         });
-    edit.setOnClickListener(new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            Intent intent=new Intent(getApplicationContext(),Profile.class);
-            startActivity(intent);
-        }
-    });
+        edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getApplicationContext(), Profile.class);
+                startActivity(intent);
+            }
+        });
 
         storageReference = FirebaseStorage.getInstance().getReference().child(mUser.getUid());
 //        uploadFile.setOnClickListener(new View.OnClickListener() {

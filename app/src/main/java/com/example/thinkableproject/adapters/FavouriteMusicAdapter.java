@@ -1,6 +1,7 @@
 package com.example.thinkableproject.adapters;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.example.thinkableproject.repositories.FavMeditationDB;
 import com.example.thinkableproject.repositories.FavMusicDB;
 import com.example.thinkableproject.sample.FavouriteModelMeditationClass;
 import com.example.thinkableproject.sample.FavouriteMusicClass;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +35,7 @@ public class FavouriteMusicAdapter extends RecyclerView.Adapter<FavouriteMusicAd
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fav_item_meditation,
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fav_music,
                 parent, false);
         favDB = new FavMusicDB(context);
         return new ViewHolder(view);
@@ -43,7 +45,9 @@ public class FavouriteMusicAdapter extends RecyclerView.Adapter<FavouriteMusicAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.favTextView.setText(favItemList.get(position).getItem_title());
-        holder.favImageView.setImageResource(favItemList.get(position).getItem_image());
+        Log.d("FavouriteTitle",favItemList.get(position).getItem_image());
+//        holder.favImageView.setImageResource(favItemList.get(position).getItem_image());
+        Picasso.get().load(favItemList.get(position).getItem_image()).into(holder.favImageView);
 
     }
 

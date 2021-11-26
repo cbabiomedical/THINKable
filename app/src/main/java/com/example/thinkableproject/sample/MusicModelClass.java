@@ -4,25 +4,25 @@ public class MusicModelClass {
     private String imageUrl;
     private String songTitle1;
     private String id;
-    private String url;
+   private String name;
     private String isFav;
 
     public MusicModelClass() {
     }
 
-    public MusicModelClass(String imageUrl, String songTitle1, String id, String url, String isFav) {
+    public MusicModelClass(String imageUrl, String songTitle1, String id, String name, String isFav) {
         this.imageUrl = imageUrl;
         this.songTitle1 = songTitle1;
         this.id = id;
-        this.url = url;
+        this.name = name;
         this.isFav = isFav;
     }
 
-    public MusicModelClass(String imageUrl, String songTitle1, String id, String url) {
+    public MusicModelClass(String imageUrl, String songTitle1, String id, String name) {
         this.imageUrl = imageUrl;
         this.songTitle1 = songTitle1;
         this.id = id;
-        this.url = url;
+        this.name = name;
     }
 
     public MusicModelClass(String imageUrl, String songTitle1) {
@@ -55,12 +55,12 @@ public class MusicModelClass {
         this.id = id;
     }
 
-    public String getUrl() {
-        return url;
+    public String getName() {
+        return name;
     }
 
-    public void setUrl(String url) {
-        this.url = url;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getIsFav() {
@@ -77,7 +77,7 @@ public class MusicModelClass {
                 "imageView=" + imageUrl +
                 ", songName='" + songTitle1 + '\'' +
                 ", id='" + id + '\'' +
-                ", url='" + url + '\'' +
+                ", name='" + name + '\'' +
                 ", isFav='" + isFav + '\'' +
                 '}';
     }

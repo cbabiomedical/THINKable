@@ -184,11 +184,11 @@ public class GgInformation extends AppCompatActivity {
         String email = emailAddress.getText().toString().trim();
         String dob = dateButton.getText().toString().trim();
         String occupation = act.getText().toString();
-        String favourites="";
+        String favourites = "";
         Log.d("job", occupation);
         String preference = "";
         String suggestions = "";
-        String location="";
+        String location = "";
         // Assigning male to gender variable if male radio button is checked
         if (male.isChecked()) {
             gender = "Male";

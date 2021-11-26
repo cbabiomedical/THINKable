@@ -42,7 +42,7 @@
         android:layout_height="30dp"
         android:layout_gravity="right|bottom"
         android:layout_marginEnd="10dp"
-        android:background="@drawable/ic_favorite_filled"/>
+        android:background="@drawable/ic_favorite"/>
 <!--    <ImageView-->
 <!--        android:id="@+id/occupation"-->
 <!--        android:layout_width="30dp"-->

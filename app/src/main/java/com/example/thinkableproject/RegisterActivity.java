@@ -310,8 +310,8 @@ public class RegisterActivity extends AppCompatActivity {
         Log.d("job", occupation);
         String preference = "";
         String suggestions = "";
-        String favourites="";
-        String location="";
+        String favourites = "";
+        String location = "";
         // Assigning male to gender variable if male radio button is checked
         if (male.isChecked()) {
             gender = "Male";
@@ -411,7 +411,7 @@ public class RegisterActivity extends AppCompatActivity {
                     database.collection("users").document(uid).set(user).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
-                            if(task.isSuccessful()){
+                            if (task.isSuccessful()) {
                                 //If task complete navigating from Register Activity to Suggestions Activity
                                 Intent intentveri = new Intent(RegisterActivity.this, Suggestions.class);
                                 startActivity(intentveri);

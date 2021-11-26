@@ -52,7 +52,7 @@ import java.util.List;
 public class RelaxationReportWeekly extends AppCompatActivity {
 
     BarChart barChartWeeklytimeto, barChartWeeklytimestayed;
-    AppCompatButton daily, yearly, monthly, whereAmI, progress ;
+    AppCompatButton daily, yearly, monthly, whereAmI, progress;
     ImageView timetorel, timestayedrel;
     FirebaseUser mUser;
     String text;

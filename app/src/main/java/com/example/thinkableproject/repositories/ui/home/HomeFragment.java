@@ -1,7 +1,5 @@
 package com.example.thinkableproject.repositories.ui.home;
 
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -15,12 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thinkableproject.R;
 import com.example.thinkableproject.adapters.DownloadGameModelAdapter;
-import com.example.thinkableproject.adapters.DownloadMeditationAdapter;
-import com.example.thinkableproject.adapters.FavouriteAdapter;
-import com.example.thinkableproject.repositories.FavDB;
 import com.example.thinkableproject.sample.DownloadGameModelClass;
-import com.example.thinkableproject.sample.DownloadMeditationClass;
-import com.example.thinkableproject.sample.FavouriteModelClass;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -46,7 +39,7 @@ public class HomeFragment extends Fragment {
         recyclerView = root.findViewById(R.id.recyclerview);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mUser= FirebaseAuth.getInstance().getCurrentUser();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         // add item touch helper
 
@@ -64,11 +57,14 @@ public class HomeFragment extends Fragment {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                     DownloadGameModelClass post = dataSnapshot.getValue(DownloadGameModelClass.class);
                     downloadGames.add(post);
+                    Log.d("Post", String.valueOf(post));
                 }
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-                downloadGameAdapter= new DownloadGameModelAdapter(getActivity(), downloadGames);
+                downloadGameAdapter = new DownloadGameModelAdapter(getActivity(), downloadGames);
                 recyclerView.setAdapter(downloadGameAdapter);
+
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {

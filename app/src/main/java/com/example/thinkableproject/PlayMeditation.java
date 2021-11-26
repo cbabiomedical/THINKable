@@ -70,9 +70,9 @@ public class PlayMeditation extends AppCompatActivity {
         txtStop = findViewById(R.id.txtStop);
         txtsongName = findViewById(R.id.txtsongName);
         mediaPlayer = new MediaPlayer();
-        imageView=findViewById(R.id.imageView);
-        btnff=findViewById(R.id.fForward);
-        btnfr=findViewById(R.id.fRewind);
+        imageView = findViewById(R.id.imageView);
+        btnff = findViewById(R.id.fForward);
+        btnfr = findViewById(R.id.fRewind);
 //        barVisualizer = findViewById(R.id.visualizer);
         mediaPlayer = new MediaPlayer();
 
@@ -180,7 +180,7 @@ public class PlayMeditation extends AppCompatActivity {
                 }
             });
 
-            String endTime=millisecondsToTimer(time);
+            String endTime = millisecondsToTimer(time);
             txtStop.setText(endTime);
 //            int noOfRuns = time / mediaPlayer.getDuration();
 
@@ -203,8 +203,8 @@ public class PlayMeditation extends AppCompatActivity {
         btnff.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mediaPlayer.isPlaying()){
-                    mediaPlayer.seekTo(mediaPlayer.getCurrentPosition()+2000);
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.seekTo(mediaPlayer.getCurrentPosition() + 2000);
                 }
             }
         });
@@ -212,8 +212,8 @@ public class PlayMeditation extends AppCompatActivity {
         btnfr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mediaPlayer.isPlaying()){
-                    mediaPlayer.seekTo(mediaPlayer.getCurrentPosition()-2000);
+                if (mediaPlayer.isPlaying()) {
+                    mediaPlayer.seekTo(mediaPlayer.getCurrentPosition() - 2000);
                 }
             }
         });

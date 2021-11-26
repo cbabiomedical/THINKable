@@ -4,7 +4,7 @@ package com.example.thinkableproject;
 public class User {
     // Creating private variables to store user data
     // private variables for encapsulation
-    private String userName, email, occupation, Gender, dob, preferences, suggestions,favourites,location, profile;
+    private String userName, email, occupation, Gender, dob, preferences, suggestions, favourites, location, profile;
     private long coins = 25;
 
     // Default constructor
@@ -13,7 +13,7 @@ public class User {
     }
 
     // Parameterized constructor to create user object
-    public User(String userName, String email, String occupation, String gender, String dob, String preferences, String suggestions,String favourites,String location) {
+    public User(String userName, String email, String occupation, String gender, String dob, String preferences, String suggestions, String favourites, String location) {
         this.userName = userName;
         this.email = email;
         this.occupation = occupation;
@@ -21,8 +21,8 @@ public class User {
         this.dob = dob;
         this.preferences = preferences;
         this.suggestions = suggestions;
-        this.favourites=favourites;
-        this.location=location;
+        this.favourites = favourites;
+        this.location = location;
     }
 
     // Getters and Setters to access variable outside class

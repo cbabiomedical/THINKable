@@ -1,9 +1,9 @@
 package com.example.thinkableproject.sample;
 
 public class MeditationModelClass {
-    private String meditationName;
-    private int imageView;
-    private String id;
+    private String meditateName;
+    private String meditateImage;
+    private String mediateId;
     private String url;
     private String fav;
 
@@ -11,43 +11,43 @@ public class MeditationModelClass {
     public MeditationModelClass() {
     }
 
-    public MeditationModelClass( String meditationName,int imageView, String id, String url, String fav) {
-        this.imageView = imageView;
-        this.meditationName = meditationName;
-        this.id = id;
-        this.url=url;
+    public MeditationModelClass(String meditateName, String meditateImage, String mediateId, String url, String fav) {
+        this.meditateImage = meditateImage;
+        this.meditateName = meditateName;
+        this.mediateId = mediateId;
+        this.url = url;
         this.fav = fav;
     }
 
-    public MeditationModelClass(String meditationName, int imageView, String id, String url) {
-        this.meditationName = meditationName;
-        this.imageView = imageView;
-        this.id = id;
+    public MeditationModelClass(String meditateName, String meditateImage, String mediateId, String url) {
+        this.meditateName = meditateName;
+        this.meditateImage = meditateImage;
+        this.mediateId = mediateId;
         this.url = url;
     }
 
-    public int getImageView() {
-        return imageView;
+    public String getMeditateImage() {
+        return meditateImage;
     }
 
-    public void setImageView(int imageView) {
-        this.imageView = imageView;
+    public void setMeditateImage(String meditateImage) {
+        this.meditateImage = meditateImage;
     }
 
-    public String getMeditationName() {
-        return meditationName;
+    public String getMeditateName() {
+        return meditateName;
     }
 
-    public void setMeditationName(String gameName) {
-        this.meditationName = gameName;
+    public void setMeditateName(String gameName) {
+        this.meditateName = gameName;
     }
 
-    public String getId() {
-        return id;
+    public String getMediateId() {
+        return mediateId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setMediateId(String mediateId) {
+        this.mediateId = mediateId;
     }
 
     public String getUrl() {
@@ -64,5 +64,16 @@ public class MeditationModelClass {
 
     public void setFav(String fav) {
         this.fav = fav;
+    }
+
+    @Override
+    public String toString() {
+        return "MeditationModelClass{" +
+                "meditateName='" + meditateName + '\'' +
+                ", meditateImage='" + meditateImage + '\'' +
+                ", mediateId='" + mediateId + '\'' +
+                ", url='" + url + '\'' +
+                ", fav='" + fav + '\'' +
+                '}';
     }
 }

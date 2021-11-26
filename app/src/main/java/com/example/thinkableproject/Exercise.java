@@ -150,7 +150,7 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
     public void onNoteClick(int position) {
         musicList.get(position);
         String songName = musicList.get(position).getSongTitle1();
-        String url = musicList.get(position).getUrl();
+        String url = musicList.get(position).getName();
         String image = musicList.get(position).getImageUrl();
         Log.d("Url", url);
         startActivity(new Intent(getApplicationContext(), MusicPlayer.class).putExtra("url", url).putExtra("name", songName).putExtra("image", image));

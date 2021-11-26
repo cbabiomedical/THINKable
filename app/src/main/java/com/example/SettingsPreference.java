@@ -1,4 +1,4 @@
-package com.example.thinkableproject;
+package com.example;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -12,7 +12,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
+import com.example.thinkableproject.R;
+import com.example.thinkableproject.Setting;
 import com.example.thinkableproject.adapters.Adapter;
 import com.example.thinkableproject.sample.ModelClass;
 import com.example.thinkableproject.sample.MyItemTouchHelper;
@@ -20,14 +21,16 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
+import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
-public class PreferencesSecPage extends AppCompatActivity {
-
+public class SettingsPreference extends AppCompatActivity {
     private Button done;
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
@@ -41,7 +44,7 @@ public class PreferencesSecPage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_preferences_sec_page);
+        setContentView(R.layout.activity_settings_preference);
         recyclerView = findViewById(R.id.recycler_view);
         done = findViewById(R.id.done);
 //
@@ -67,13 +70,23 @@ public class PreferencesSecPage extends AppCompatActivity {
     private void initData() {
         userList = new ArrayList<>();
         //Adding user preferences to arraylist
-        userList.add(new ModelClass(R.drawable.video, "Videos"));
-        userList.add(new ModelClass(R.drawable.music, "Music"));
-        userList.add(new ModelClass(R.drawable.meditation, "Meditation"));
-        userList.add(new ModelClass(R.drawable.controller, "Games"));
-        userList.add(new ModelClass(R.drawable.binaural, "Bineural Waves"));
-        userList.add(new ModelClass(R.drawable.playtime, "Kids"));
-        userList.add(new ModelClass(R.drawable.book, "Sleep Stories"));
+        mUser=FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("preferences");
+        Log.d("ReferencePath", String.valueOf(reference));
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+                    ModelClass post=dataSnapshot.getValue(ModelClass.class);
+                    userList.add(post);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     private void initRecyclerView() {
@@ -110,8 +123,8 @@ public class PreferencesSecPage extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 // Display Toast on successful update functionality
-                Toast.makeText(PreferencesSecPage.this, "Successful", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(PreferencesSecPage.this, EnterPhoneActivity.class);
+                Toast.makeText(SettingsPreference.this, "Successful", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(SettingsPreference.this, Setting.class);
                 startActivity(intent);
             }
         });
@@ -136,7 +149,7 @@ public class PreferencesSecPage extends AppCompatActivity {
 
     public void GOTOSIGNIN(View view) {
 
-        Intent intentGotoSI = new Intent(PreferencesSecPage.this, SignInActivity.class);
+        Intent intentGotoSI = new Intent(SettingsPreference.this, Setting.class);
         startActivity(intentGotoSI);
 
     }

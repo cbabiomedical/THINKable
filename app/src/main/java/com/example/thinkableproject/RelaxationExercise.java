@@ -33,11 +33,10 @@ public class RelaxationExercise extends AppCompatActivity implements MusicAdapte
     RecyclerView musicRecyclerView, meditationRecyclerView;
     MusicAdapter musicAdapter;
     MeditationAdapter meditationAdapter;
-    TextView music,meditation;
+    TextView music, meditation;
 
     ArrayList<MusicModelClass> musicList;
     ArrayList<MeditationModelClass> meditationModelClassArrayList;
-
 
 
     @Override
@@ -47,19 +46,19 @@ public class RelaxationExercise extends AppCompatActivity implements MusicAdapte
         musicRecyclerView = findViewById(R.id.musicRecyclerView);
         meditationRecyclerView = findViewById(R.id.meditationRecyclerView);
         concentrationBtn = findViewById(R.id.concentration);
-        music=findViewById(R.id.musicTitle);
-        meditation=findViewById(R.id.meditationTitle);
+        music = findViewById(R.id.musicTitle);
+        meditation = findViewById(R.id.meditationTitle);
 
         music.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Music.class));
+                startActivity(new Intent(getApplicationContext(), Music.class));
             }
         });
         meditation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MeditationExercise.class));
+                startActivity(new Intent(getApplicationContext(), MeditationExercise.class));
             }
         });
         concentrationBtn.setOnClickListener(new View.OnClickListener() {
@@ -100,8 +99,8 @@ public class RelaxationExercise extends AppCompatActivity implements MusicAdapte
                 return false;
             }
         });
-        meditationModelClassArrayList=new ArrayList<>();
-        musicList=new ArrayList<>();
+        meditationModelClassArrayList = new ArrayList<>();
+        musicList = new ArrayList<>();
 
         initData();
 
@@ -111,7 +110,7 @@ public class RelaxationExercise extends AppCompatActivity implements MusicAdapte
     private void initData() {
         musicAdapter = new MusicAdapter(musicList, getApplicationContext(), this::onNoteClick);
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Music").child("songList");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Songs_Admin");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -133,12 +132,22 @@ public class RelaxationExercise extends AppCompatActivity implements MusicAdapte
             }
         });
 
+        DatabaseReference reference1=FirebaseDatabase.getInstance().getReference("Meditation_Admin");
+        reference1.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
+                    MeditationModelClass post=dataSnapshot.getValue(MeditationModelClass.class);
+                    meditationModelClassArrayList.add(post);
+                    Log.d("MeditationPost", String.valueOf(post));
+                }
+            }
 
-        meditationModelClassArrayList.add(new MeditationModelClass("Mindfulness", R.drawable.mindful, "0", "https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c", "0"));
-        meditationModelClassArrayList.add(new MeditationModelClass("Body Scan", R.drawable.maxresdefault, "1", "https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c", "0"));
-        meditationModelClassArrayList.add(new MeditationModelClass("Loving", R.drawable.love_kind, "2", "https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c", "0"));
-        meditationModelClassArrayList.add(new MeditationModelClass("Transcendental ", R.drawable.transidental, "3", "https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c", "0"));
-//
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
         meditationRecyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
         meditationAdapter = new MeditationAdapter(meditationModelClassArrayList, getApplicationContext(), this::onNoteClickMeditation);
         meditationRecyclerView.setAdapter(meditationAdapter);
@@ -149,9 +158,9 @@ public class RelaxationExercise extends AppCompatActivity implements MusicAdapte
     @Override
     public void onNoteClickMeditation(int position) {
         meditationModelClassArrayList.get(position);
-        String songName = meditationModelClassArrayList.get(position).getMeditationName();
+        String songName = meditationModelClassArrayList.get(position).getMeditateName();
         String url = meditationModelClassArrayList.get(position).getUrl();
-        int image = meditationModelClassArrayList.get(position).getImageView();
+        String image = meditationModelClassArrayList.get(position).getMeditateImage();
         Log.d("Url", url);
         startActivity(new Intent(getApplicationContext(), PlayMeditation.class).putExtra("url", url).putExtra("name", songName).putExtra("image", image));
     }
