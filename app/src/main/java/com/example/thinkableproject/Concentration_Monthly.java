@@ -15,8 +15,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
@@ -52,10 +54,12 @@ public class Concentration_Monthly extends AppCompatActivity {
     BarChart barChart;
     private Context context;
     ImageView games,music;
-    AppCompatButton daily, weekly, yearly, realTime;
+    AppCompatButton daily, weekly, yearly;
     ImageButton relaxationBtn,memoryBtn;
     FirebaseUser mUser;
     File localFile,fileName;
+    LottieAnimationView anim;
+    TextView realTime;
     String text;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
@@ -75,6 +79,7 @@ public class Concentration_Monthly extends AppCompatActivity {
         memoryBtn=findViewById(R.id.memory);
         games = findViewById(R.id.game);
         music = findViewById(R.id.music);
+        anim=findViewById(R.id.animation);
 
         music.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -324,6 +329,15 @@ public class Concentration_Monthly extends AppCompatActivity {
             }
         });
 
+        anim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Calibration.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
     //popup window method to display suggestions to improve concentration
     public void gotoPopup2(View view) {
@@ -399,6 +413,9 @@ public class Concentration_Monthly extends AppCompatActivity {
     }
 
     public void gotoPopup1(View view) {
+    }
+
+    public void gotoPopup3(View view) {
     }
 
 

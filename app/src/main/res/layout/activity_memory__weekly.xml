@@ -41,7 +41,7 @@
                         android:layout_height="70dp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="@+id/relaxation"
-                        android:background="@drawable/concentrationunclicked"
+                        android:background="@drawable/concentrationun"
 
 
 
@@ -67,7 +67,7 @@
                         android:id="@+id/relaxation"
                         android:layout_width="100dp"
                         android:layout_height="70dp"
-                        android:background="@drawable/relaxationunclicked"
+                        android:background="@drawable/relaxationun"
                         android:layout_alignEnd="@+id/concentration"
                         android:layout_alignRight="@+id/memo"
 
@@ -98,7 +98,7 @@
                         android:layout_width="100dp"
                         android:layout_height="70dp"
                         android:layout_marginRight="35dp"
-                        android:background="@drawable/memoryclicked"
+                        android:background="@drawable/memoryclickedd"
 
                         android:layout_marginTop="40dp"
 
@@ -117,7 +117,7 @@
             </RelativeLayout>
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barChartWeekly"
-                android:layout_width="325dp"
+                android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_centerHorizontal="true"
                 android:layout_below="@+id/toggleBtn"
@@ -172,20 +172,36 @@
                 </androidx.appcompat.widget.AppCompatButton>
             </LinearLayout>
 
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/realTime"
+            <com.airbnb.lottie.LottieAnimationView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+
                 android:layout_centerHorizontal="true"
-                android:layout_below="@+id/btnLayout"
+
+
+                app:lottie_autoPlay="true"
+                app:lottie_rawRes="@raw/connectiondevicethree"
+
+                app:lottie_loop="true"
+                android:id="@+id/animation"
+                android:layout_below="@+id/btnLayout"/>
+
+            <TextView
+                android:id="@+id/realTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
                 android:textColor="@color/white"
+                android:fontFamily="@font/lemon"
+                android:layout_marginTop="2dp"
+                android:layout_marginEnd="20dp"
+
+
+                android:text="Click Here to Connect device!"
+                android:textSize="10sp"
                 android:textStyle="bold"
-                android:background="@drawable/cnnect"
-                android:textAllCaps="false"
-                android:onClick="caliweekly"
-                >
-            </androidx.appcompat.widget.AppCompatButton>
+                android:layout_below="@+id/animation"/>
 
             <Button
                 android:id="@+id/improveConcentration"

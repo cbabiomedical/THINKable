@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.thinkableproject.databinding.ActivityMainBinding;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
@@ -56,7 +57,9 @@ public class Relaxation_Monthly extends AppCompatActivity {
     Dialog dialogrm;
 
     BarChart barChart;
-    AppCompatButton daily, yearly, weekly, realTime;
+    AppCompatButton daily, yearly, weekly;
+    TextView realTime;
+    LottieAnimationView anim;
     ImageButton concentration, relaxation, memoryBtn;
     FirebaseUser mUser;
     ImageView meditation, music, video;
@@ -85,6 +88,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
         music = findViewById(R.id.music);
         meditation = findViewById(R.id.meditations);
         video = findViewById(R.id.video);
+        anim=findViewById(R.id.animation);
 
         //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -310,6 +314,14 @@ public class Relaxation_Monthly extends AppCompatActivity {
         });
         //go to calibration page
         realTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Calibration.class);
+                startActivity(intent);
+            }
+        });
+
+        anim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Calibration.class);

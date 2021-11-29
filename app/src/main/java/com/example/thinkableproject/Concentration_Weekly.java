@@ -14,8 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -51,8 +53,10 @@ import java.util.List;
 public class Concentration_Weekly extends AppCompatActivity {
     Dialog dialogcw;
     BarChart barChart1;
-    AppCompatButton monthly, yearly, daily, realTime;
+    AppCompatButton monthly, yearly, daily;
+    TextView realTime;
     ImageButton relaxationBtn, memoryBtn;
+    LottieAnimationView anim;
     FirebaseUser mUser;
     ImageView music, games;
     File localFile, fileName;
@@ -75,6 +79,7 @@ public class Concentration_Weekly extends AppCompatActivity {
         memoryBtn = findViewById(R.id.memory);
         music = findViewById(R.id.music);
         games = findViewById(R.id.game);
+        anim=findViewById(R.id.animation);
 
         music.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -164,6 +169,14 @@ public class Concentration_Weekly extends AppCompatActivity {
         });
         // On click listener of realTime indication button
         realTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Calibration.class);
+                startActivity(intent);
+            }
+        });
+
+        anim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Calibration.class);

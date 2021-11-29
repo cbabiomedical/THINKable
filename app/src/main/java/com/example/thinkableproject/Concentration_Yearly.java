@@ -14,8 +14,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -51,7 +53,9 @@ import java.util.List;
 public class Concentration_Yearly extends AppCompatActivity {
     Dialog dialogcy;
     BarChart barChart2;
-    AppCompatButton daily, weekly, monthly, realTime;
+    AppCompatButton daily, weekly, monthly;
+    TextView realTime;
+    LottieAnimationView anim;
     ImageButton relaxationBtn,memoryBtn;
     ImageView music, games;
     FirebaseUser mUser;
@@ -78,6 +82,7 @@ public class Concentration_Yearly extends AppCompatActivity {
         dialogcy = new Dialog(this);
         music = findViewById(R.id.music);
         games = findViewById(R.id.game);
+        anim=findViewById(R.id.animation);
 
         music.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,6 +184,15 @@ public class Concentration_Yearly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+        anim.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Calibration.class);
+                startActivity(intent);
+            }
+        });
+
         //Initializing arraylist an storing data
         ArrayList<Float> obj = new ArrayList<>(
                 Arrays.asList(30f, 86f, 10f, 50f));
@@ -369,6 +383,9 @@ public class Concentration_Yearly extends AppCompatActivity {
     }
 
     public void gotoPopup1(View view) {
+    }
+
+    public void gotoPopup3(View view) {
     }
 
 
