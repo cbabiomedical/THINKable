@@ -7,13 +7,26 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:background="@drawable/newbg"
+
+
     android:orientation="horizontal"
     tools:context=".Concentration_Daily">
+
+<!--    <pl.droidsonroids.gif.GifImageView-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:scaleType="centerCrop"-->
+<!--        android:src="@drawable/wallpapernew" />-->
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
         >
+
+
+
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
@@ -41,7 +54,7 @@
                         android:layout_height="70dp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="@+id/relaxation"
-                        android:background="@drawable/concentrationclicked"
+                        android:background="@drawable/concentrationclickedd"
 
 
 
@@ -67,7 +80,7 @@
                         android:id="@+id/relaxation"
                         android:layout_width="100dp"
                         android:layout_height="70dp"
-                        android:background="@drawable/relaxationunclicked"
+                        android:background="@drawable/relaxationun"
                         android:layout_alignEnd="@+id/concentration"
                         android:layout_alignRight="@+id/memo"
 
@@ -98,7 +111,7 @@
                         android:layout_width="100dp"
                         android:layout_height="70dp"
                         android:layout_marginRight="35dp"
-                        android:background="@drawable/memoryunclicked"
+                        android:background="@drawable/memoryun"
 
                         android:layout_marginTop="40dp"
 
@@ -171,20 +184,61 @@
                     android:textAllCaps="false">
                 </androidx.appcompat.widget.AppCompatButton>
             </LinearLayout>
-            <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/realTime"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="20dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/btnLayout"
-                android:textColor="@color/white"
-                android:textStyle="bold"
-                android:background="@drawable/cnnect"
-                android:textAllCaps="false"
-                android:onClick="calidaily"
-                >
-            </androidx.appcompat.widget.AppCompatButton>
+
+
+
+
+                <com.airbnb.lottie.LottieAnimationView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="20dp"
+
+                    android:layout_centerHorizontal="true"
+
+
+                    app:lottie_autoPlay="true"
+                    app:lottie_rawRes="@raw/connectiondevicethree"
+
+                    app:lottie_loop="true"
+                    android:id="@+id/animation"
+                    android:layout_below="@+id/btnLayout"/>
+
+                <TextView
+                    android:id="@+id/realTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/lemon"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="20dp"
+
+
+                    android:text="Click Here to Connect device!"
+                    android:textSize="10sp"
+                    android:textStyle="bold"
+                    android:layout_below="@+id/animation"/>
+
+
+
+
+
+
+<!--            <com.airbnb.lottie.LottieAnimationView-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_below="@+id/realTime"-->
+
+<!--                android:id="@+id/animation_view"-->
+<!--                android:text="hiii"-->
+<!--                app:lottie_rawRes="@raw/connectdevice"-->
+<!--                app:lottie_autoPlay="true"-->
+<!--                app:lottie_loop="true"/>-->
+
+
+
+
+
 
             <Button
                 android:id="@+id/improveConcentration"

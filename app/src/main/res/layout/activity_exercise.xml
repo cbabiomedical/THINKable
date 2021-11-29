@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/newbg"
+    android:background="@drawable/exercisebg"
     android:orientation="horizontal"
     tools:context=".Concentration_Daily">
     <ScrollView
@@ -82,6 +82,7 @@
             android:layout_height="wrap_content"
             android:textAlignment="center"
             android:text="Music"
+
             android:layout_marginTop="20dp"
             android:layout_centerHorizontal="true"
             android:textColor="@color/white"
