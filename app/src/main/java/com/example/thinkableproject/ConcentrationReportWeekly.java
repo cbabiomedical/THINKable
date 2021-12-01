@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,8 +11,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
-import android.widget.Toast;
-
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -32,7 +29,6 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -72,12 +68,12 @@ public class ConcentrationReportWeekly extends AppCompatActivity {
         daily = findViewById(R.id.daily);
         relaxationBtn = findViewById(R.id.relaxation);
         whereAmI = findViewById(R.id.whereAmI);
-        memory=findViewById(R.id.memory);
+        memory = findViewById(R.id.memory);
 
         memory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(), MemoryReportDaily.class);
+                Intent intent = new Intent(getApplicationContext(), MemoryReportDaily.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }

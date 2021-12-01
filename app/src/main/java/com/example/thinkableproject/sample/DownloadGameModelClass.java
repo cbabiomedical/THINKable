@@ -1,23 +1,25 @@
 package com.example.thinkableproject.sample;
 
 public class DownloadGameModelClass {
-    private int imageView;
-    private String gameName;
+    private String gameImage;
+    private String gameName;  //private variables for encapsulation
 
     public DownloadGameModelClass() {
     }
 
-    public DownloadGameModelClass(int imageView, String gameName) {
-        this.imageView = imageView;
+    //constructor
+    public DownloadGameModelClass(String gameImage, String gameName) {
+        this.gameImage = gameImage;
         this.gameName = gameName;
     }
 
-    public int getImageView() {
-        return imageView;
+    //public getters and setters
+    public String getGameImage() {
+        return gameImage;
     }
 
-    public void setImageView(int imageView) {
-        this.imageView = imageView;
+    public void setGameImage(String gameImage) {
+        this.gameImage = gameImage;
     }
 
     public String getGameName() {
@@ -31,7 +33,7 @@ public class DownloadGameModelClass {
     @Override
     public String toString() {
         return "DownloadGameModelClass{" +
-                "imageView=" + imageView +
+                "gameImage='" + gameImage + '\'' +
                 ", gameName='" + gameName + '\'' +
                 '}';
     }

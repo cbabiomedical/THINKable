@@ -2,47 +2,28 @@ package com.example.thinkableproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
-
-//import com.android.volley.Request;
-//import com.android.volley.RequestQueue;
-//import com.android.volley.Response;
-//import com.android.volley.VolleyError;
-//import com.android.volley.toolbox.JsonArrayRequest;
-//import com.android.volley.toolbox.JsonObjectRequest;
-//import com.android.volley.toolbox.Volley;
-import com.example.thinkableproject.adapters.GridAdapter;
 import com.example.thinkableproject.adapters.MeditationAdapter;
-import com.example.thinkableproject.sample.GameModelClass;
 import com.example.thinkableproject.sample.MeditationModelClass;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.gson.JsonObject;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.util.ArrayList;
-import java.util.List;
 
 public class MeditationExercise extends AppCompatActivity implements MeditationAdapter.OnNoteListner {
     RecyclerView recyclerView;
-    LinearLayout linearLayoutManager;
     ArrayList<MeditationModelClass> meditationList;
     MeditationAdapter adapter;
     int time;
@@ -54,6 +35,39 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meditation_exercise);
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        //Set Home Selected
+        bottomNavigationView.setSelectedItemId(R.id.exercise);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext(), Relaxation_Daily.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.exercise:
+                        startActivity(new Intent(getApplicationContext(), Exercise.class));
+                        return true;
+                    case R.id.reports:
+                        startActivity(new Intent(getApplicationContext(), ConcentrationReportDaily.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.userprofiles:
+                        startActivity(new Intent(getApplicationContext(), ResultActivity.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.settings:
+                        startActivity(new Intent(getApplicationContext(), Setting.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                }
+                return false;
+            }
+        });
+
         recyclerView = findViewById(R.id.gridView);
         Spinner dropdown_time = (Spinner) findViewById(R.id.spinner2);
         String[] items = new String[]{"1 min", "1.5 min", "2 min", "2.5 min", "3 min"};
@@ -106,6 +120,7 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
                     MeditationModelClass post=dataSnapshot.getValue(MeditationModelClass.class);
                     meditationList.add(post);
                     Log.d("MeditationPost", String.valueOf(post));
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 }
             }
 
@@ -115,7 +130,7 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
             }
         });
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
         adapter = new MeditationAdapter(meditationList, getApplicationContext(), this::onNoteClickMeditation);
         recyclerView.setAdapter(adapter);
 

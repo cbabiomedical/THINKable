@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.GridView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -13,10 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.example.thinkableproject.adapters.Adapter;
 import com.example.thinkableproject.adapters.SuggestionsAdapter;
-import com.example.thinkableproject.sample.ModelClass;
 import com.example.thinkableproject.sample.MyItemTouchHelper;
 import com.example.thinkableproject.sample.SuggestionsModel;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -24,11 +20,9 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-
 public class Suggestions extends AppCompatActivity {
 
     //    private static final String TAG = "MainActivity";
@@ -53,18 +47,6 @@ public class Suggestions extends AppCompatActivity {
         done = findViewById(R.id.done);
         next = findViewById(R.id.next);
 
-//        coursesGV = findViewById(R.id.idGVcourses);
-//
-//        ArrayList<CourseModel> courseModelArrayList = new ArrayList<CourseModel>();
-//        courseModelArrayList.add(new CourseModel("Anxiety Reducing", R.drawable.calmit));
-//        courseModelArrayList.add(new CourseModel("Stress Reducing", R.drawable.wav));
-//        courseModelArrayList.add(new CourseModel("Sleep Better", R.drawable.moono));
-//        courseModelArrayList.add(new CourseModel("Focus Improvement", R.drawable.tar));
-//        courseModelArrayList.add(new CourseModel("Increase Concentration", R.drawable.medi));
-//        courseModelArrayList.add(new CourseModel("Increase Happiness", R.drawable.aff));
-//
-//        CourseGVAdapter adapter = new CourseGVAdapter(this, courseModelArrayList);
-//        coursesGV.setAdapter(adapter);
 
         //store data in database
         done.setOnClickListener(new View.OnClickListener() {

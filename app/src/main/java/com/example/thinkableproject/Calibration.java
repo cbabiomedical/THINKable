@@ -13,18 +13,15 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
-
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -32,7 +29,6 @@ import java.util.List;
 public class Calibration extends AppCompatActivity {
 
     private PieChart pieChart;
-    String action;
     BroadcastReceiver_BTLE_GATT broadcastReceiver_btle_gatt;
     ImageView connectDevice;
     private TextView textViewcali;
@@ -99,12 +95,12 @@ public class Calibration extends AppCompatActivity {
 
         pieChart = findViewById(R.id.piechart);
         textViewcali = findViewById(R.id.textViewcali);
-        connectDevice=findViewById(R.id.imageView7);
+        connectDevice = findViewById(R.id.imageView7);
 
         connectDevice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Connection.class));
+                startActivity(new Intent(getApplicationContext(), Connection.class));
             }
         });
         Intent intent = getIntent();
@@ -238,6 +234,7 @@ public class Calibration extends AppCompatActivity {
             textViewcali.setText("Your Device is not Connected");
         }
     }
+
     public void updateServices() {
 
         if (mBTLE_Service != null) {
@@ -255,7 +252,7 @@ public class Calibration extends AppCompatActivity {
                 List<BluetoothGattCharacteristic> characteristicsList = service.getCharacteristics();
                 ArrayList<BluetoothGattCharacteristic> newCharacteristicsList = new ArrayList<>();
 
-                for (BluetoothGattCharacteristic characteristic: characteristicsList) {
+                for (BluetoothGattCharacteristic characteristic : characteristicsList) {
                     characteristics_HashMap.put(characteristic.getUuid().toString(), characteristic);
                     newCharacteristicsList.add(characteristic);
                 }
@@ -272,6 +269,7 @@ public class Calibration extends AppCompatActivity {
     public void updateCharacteristic() {
 //        expandableListAdapter.notifyDataSetChanged();
     }
+
     @Override
     protected void onStart() {
         super.onStart();

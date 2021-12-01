@@ -4,14 +4,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.os.Bundle;
-
 import com.example.thinkableproject.adapters.BineuralAdapter;
-import com.example.thinkableproject.adapters.GridAdapter;
 import com.example.thinkableproject.sample.BineuralModelClass;
-import com.example.thinkableproject.sample.GameModelClass;
-
 import java.util.ArrayList;
 import java.util.List;
 

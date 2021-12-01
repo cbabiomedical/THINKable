@@ -3,16 +3,19 @@ package com.example.thinkableproject.sample;
 public class FavouriteModelClass {
     private String item_title;
     private String key_id;
-    private String item_image;
+    private String item_image;      //private variables for encapsulation
 
     public FavouriteModelClass() {
     }
 
+    //Constructor
     public FavouriteModelClass(String item_title, String key_id, String item_image) {
         this.item_title = item_title;
         this.key_id = key_id;
         this.item_image = item_image;
     }
+
+    //public getters and setters to access variables outside class
 
     public String getItem_title() {
         return item_title;
@@ -36,5 +39,14 @@ public class FavouriteModelClass {
 
     public void setItem_image(String item_image) {
         this.item_image = item_image;
+    }
+    //toString
+    @Override
+    public String toString() {
+        return "FavouriteModelClass{" +
+                "item_title='" + item_title + '\'' +
+                ", key_id='" + key_id + '\'' +
+                ", item_image='" + item_image + '\'' +
+                '}';
     }
 }

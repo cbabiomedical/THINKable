@@ -5,15 +5,12 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
-import android.animation.AnimatorSet;
-import android.animation.ObjectAnimator;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
-import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -46,7 +43,6 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
     AppCompatButton btnPLay, btnNext, btnPrev, btnff, btnfr;
     TextView txtsongName, txtStart, txtStop;
     SeekBar seekBar;
-    BarVisualizer barVisualizer;
     ImageView imageView;
     String uri;
     String name;
@@ -55,8 +51,6 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
 
     public static final String EXTRA_NAME = "songName";
     static MediaPlayer mediaPlayer;
-    int position;
-    String sName;
     Thread updateSeekBar;
     ArrayList<MusicModelClass> songs = new ArrayList<>();
 
@@ -75,7 +69,6 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
         imageView = findViewById(R.id.imageView);
         btnff = findViewById(R.id.fForward);
         btnfr = findViewById(R.id.fRewind);
-//        barVisualizer = findViewById(R.id.visualizer);
         mediaPlayer = new MediaPlayer();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -103,15 +96,10 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
             name = extras.getString("name");
             time = extras.getInt("time");
             txtsongName.setText(name);
-//            image=extras.getInt("image");
-//            linearLayout.setBackgroundResource(image);
 
             prepareMediaPlayer();
 
             Log.d("MUSIC", uri + "");
-//            Log.d("DURATION", time_selected);
-//            Log.d("NAME", name);
-
         } else {
             Log.d("ERROR", "Error in getting null value");
         }

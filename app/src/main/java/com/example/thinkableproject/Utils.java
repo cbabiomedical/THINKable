@@ -20,8 +20,7 @@ public class Utils {
         // displays a dialog requesting user permission to enable Bluetooth.
         if (bluetoothAdapter == null || !bluetoothAdapter.isEnabled()) {
             return false;
-        }
-        else {
+        } else {
             return true;
         }
     }
@@ -46,7 +45,7 @@ public class Utils {
     public static String hexToString(byte[] data) {
         final StringBuilder sb = new StringBuilder(data.length);
 
-        for(byte byteChar : data) {
+        for (byte byteChar : data) {
             sb.append(String.format("%02X ", byteChar));
         }
 

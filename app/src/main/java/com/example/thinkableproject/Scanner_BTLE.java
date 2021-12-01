@@ -6,7 +6,6 @@ import android.bluetooth.BluetoothManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Handler;
-
 import androidx.annotation.RequiresApi;
 
 /**

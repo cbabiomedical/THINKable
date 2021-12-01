@@ -16,11 +16,8 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-
-
 import com.airbnb.lottie.LottieAnimationView;
 import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
@@ -59,6 +56,7 @@ public class Concentration_Daily extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_concentration__daily);
 //        setContentView(R.layout.activity_concentration_popup);
+        //Identifiers
         barChartdaily = (BarChart) findViewById(R.id.barChartDaily);
         monthly = findViewById(R.id.monthly);
         games = findViewById(R.id.game);

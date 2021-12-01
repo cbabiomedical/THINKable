@@ -2,7 +2,6 @@ package com.example.thinkableproject;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
@@ -18,10 +17,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
-
 import com.example.thinkableproject.Database.DatabaseClass;
 import com.example.thinkableproject.Database.EntityClass;
-
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

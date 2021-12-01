@@ -8,8 +8,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 
 import com.example.thinkableproject.adapters.DownloadMusicAdapter;
-import com.example.thinkableproject.adapters.MusicAdapter;
-import com.example.thinkableproject.repositories.DownloadMusic;
 import com.example.thinkableproject.sample.DownloadMusicModelClass;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -18,7 +16,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 
 public class MyDownloads extends AppCompatActivity {
@@ -33,10 +30,8 @@ public class MyDownloads extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_my_downloads);
         recyclerView = findViewById(R.id.recycler_view);
-
         downloadMusic = new ArrayList<>();
         mUser = FirebaseAuth.getInstance().getCurrentUser();
-
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Downloads").child(mUser.getUid());
         reference.addValueEventListener(new ValueEventListener() {
             @Override

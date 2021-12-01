@@ -3,17 +3,13 @@ package com.example.thinkableproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentTransaction;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
-
 import com.example.thinkableproject.databinding.ActivityMainBinding;
-
 import me.ibrahimsn.lib.OnItemSelectedListener;
-
 
 public class MainActivity extends AppCompatActivity {
 

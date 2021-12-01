@@ -29,6 +29,12 @@
 
 
             />
+        <Button
+            android:id="@+id/vibrate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Vibrate"
+            android:layout_centerVertical="true"/>
 
         <ImageView
             android:layout_width="wrap_content"

@@ -25,6 +25,7 @@ public class FavMusicDB extends SQLiteOpenHelper {
         super(context, DATABASE_NAMEMUS, null, DB_VERSIONMUS);
     }
 
+    //Create Table
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_TABLEMUS);

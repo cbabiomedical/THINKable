@@ -21,10 +21,12 @@ public class FavDB extends SQLiteOpenHelper {
             + KEY_ID + " TEXT," + ITEM_TITLE + " TEXT,"
             + ITEM_IMAGE + " TEXT," + FAVORITE_STATUS + " TEXT)";
 
+    //Constructor
     public FavDB(Context context) {
         super(context, DATABASE_NAME, null, DB_VERSION);
     }
 
+    //Creating Table method
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_TABLE);

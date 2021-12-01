@@ -18,11 +18,13 @@ public class FavMeditationDB extends SQLiteOpenHelper {
     public static String FAVORITE_STATUSMED = "fStatus";
     // dont forget write this spaces
     private static String CREATE_TABLEMED = "CREATE TABLE " + TABLE_NAMEMED + "("
-            + KEY_IDMED + " TEXT," + ITEM_TITLEMED+ " TEXT,"
-            + ITEM_IMAGEMED + " TEXT," + FAVORITE_STATUSMED+" TEXT)";
+            + KEY_IDMED + " TEXT," + ITEM_TITLEMED + " TEXT,"
+            + ITEM_IMAGEMED + " TEXT," + FAVORITE_STATUSMED + " TEXT)";
 
-    public FavMeditationDB(Context context) { super(context,DATABASE_NAMEMED,null,DB_VERSIONMED);}
-
+    public FavMeditationDB(Context context) {
+        super(context, DATABASE_NAMEMED, null, DB_VERSIONMED);
+    }
+    //create table
     @Override
     public void onCreate(SQLiteDatabase sqLiteDatabase) {
         sqLiteDatabase.execSQL(CREATE_TABLEMED);
@@ -42,9 +44,10 @@ public class FavMeditationDB extends SQLiteOpenHelper {
             cv.put(KEY_IDMED, x);
             cv.put(FAVORITE_STATUSMED, "0");
 
-            db.insert(TABLE_NAMEMED,null, cv);
+            db.insert(TABLE_NAMEMED, null, cv);
         }
     }
+
     // insert data into database
     public void insertIntoTheDatabaseMed(String item_title, String item_image, String id, String fav_status) {
         SQLiteDatabase db;
@@ -54,20 +57,21 @@ public class FavMeditationDB extends SQLiteOpenHelper {
         cv.put(ITEM_IMAGEMED, item_image);
         cv.put(KEY_IDMED, id);
         cv.put(FAVORITE_STATUSMED, fav_status);
-        db.insert(TABLE_NAMEMED,null, cv);
-        Log.d("FavDB Status", item_title + ", favstatus - "+fav_status+" - . " + cv);
+        db.insert(TABLE_NAMEMED, null, cv);
+        Log.d("FavDB Status", item_title + ", favstatus - " + fav_status + " - . " + cv);
     }
 
     //    // read all data
     public Cursor read_all_data_med(String id) {
         SQLiteDatabase db = this.getReadableDatabase();
-        String sql = "SELECT * FROM " + TABLE_NAMEMED + " WHERE " + KEY_IDMED+"="+id+"";
-        return db.rawQuery(sql,null,null);
+        String sql = "SELECT * FROM " + TABLE_NAMEMED + " WHERE " + KEY_IDMED + "=" + id + "";
+        return db.rawQuery(sql, null, null);
     }
+
     //    // remove line from database
     public void remove_fav_med(String id) {
         SQLiteDatabase db = this.getWritableDatabase();
-        String sql = "UPDATE " + TABLE_NAMEMED + " SET  "+ FAVORITE_STATUSMED+" ='0' WHERE "+KEY_IDMED+"="+id+"";
+        String sql = "UPDATE " + TABLE_NAMEMED + " SET  " + FAVORITE_STATUSMED + " ='0' WHERE " + KEY_IDMED + "=" + id + "";
         db.execSQL(sql);
         Log.d("remove", id.toString());
 
@@ -77,8 +81,8 @@ public class FavMeditationDB extends SQLiteOpenHelper {
 
     public Cursor select_all_favorite_list_med() {
         SQLiteDatabase db = this.getReadableDatabase();
-        String sql = "SELECT * FROM "+TABLE_NAMEMED+" WHERE "+FAVORITE_STATUSMED+" ='1'";
-        return db.rawQuery(sql,null,null);
+        String sql = "SELECT * FROM " + TABLE_NAMEMED + " WHERE " + FAVORITE_STATUSMED + " ='1'";
+        return db.rawQuery(sql, null, null);
     }
 
 }

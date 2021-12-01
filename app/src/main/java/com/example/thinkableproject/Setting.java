@@ -2,7 +2,6 @@ package com.example.thinkableproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -10,14 +9,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-
 import com.example.SettingsPreference;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.StorageReference;
-
-import java.util.Set;
 
 public class Setting extends AppCompatActivity {
 
@@ -103,7 +99,7 @@ public class Setting extends AppCompatActivity {
         notifications2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), Notification.class));
+                startActivity(new Intent(getApplicationContext(), Notification1.class));
 
             }
         });

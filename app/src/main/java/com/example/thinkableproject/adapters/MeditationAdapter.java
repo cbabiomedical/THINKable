@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -41,8 +40,9 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
     private FavMeditationDB favDB;
     FirebaseUser mUser;
     ArrayList<DownloadMeditationClass> downoadSong = new ArrayList<>();
-    HashMap<String,Object> meditation=new HashMap<>();
+    HashMap<String, Object> meditation = new HashMap<>();
 
+    //Constructor
     public MeditationAdapter(ArrayList<MeditationModelClass> coffeeItems, Context context, OnNoteListner onNoteListner) {
         this.downloadMeditation = coffeeItems;
         this.context = context;
@@ -59,7 +59,7 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
         if (firstStart) {
             createTableOnFirstStart();
         }
-
+        //Setting View
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item_meditation,
                 parent, false);
         return new ViewHolder(view, onNoteListner);
@@ -68,26 +68,28 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        //setting values into variables in recyclerview
         final MeditationModelClass coffeeItem = downloadMeditation.get(position);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         readCursorDataMed(coffeeItem, holder);
         Picasso.get().load(coffeeItem.getMeditateImage()).into(holder.imageView);
         holder.titleTextView.setText(coffeeItem.getMeditateName());
+        //onClick listener for Downloads button in Meditation Exercise
         holder.download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               DownloadMeditationClass musicModelClass = new DownloadMeditationClass(downloadMeditation.get(position).getMeditateName(), downloadMeditation.get(position).getMeditateImage());
+                DownloadMeditationClass musicModelClass = new DownloadMeditationClass(downloadMeditation.get(position).getMeditateName(), downloadMeditation.get(position).getMeditateImage());
+                //Calling Download function method
                 downloadFile(context, downloadMeditation.get(position).getMeditateName(), ".mp3", DIRECTORY_DOWNLOADS, downloadMeditation.get(position).getUrl());
                 mUser = FirebaseAuth.getInstance().getCurrentUser();
                 downoadSong.add(musicModelClass);
-                meditation.put(downloadMeditation.get(position).getMeditateName(),musicModelClass);
+                meditation.put(downloadMeditation.get(position).getMeditateName(), musicModelClass);
                 Log.d("Downloaded Music", String.valueOf(musicModelClass));
                 Log.d("Download List", String.valueOf(meditation));
 
 
-
                 holder.download.setEnabled(false);
-
+                //Storing download music in firebase
                 DatabaseReference database = FirebaseDatabase.getInstance().getReference("DownloadsMeditation").child(mUser.getUid());
                 database.setValue(meditation);
 
@@ -98,11 +100,12 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
 
     @Override
     public int getItemCount() {
+        //returning size of arraylist
         return downloadMeditation.size();
     }
 
+    //ViewHolder Class
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
         ImageView imageView;
         TextView titleTextView, likeCountTextView;
         Button favBtn;
@@ -111,7 +114,6 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
 
         public ViewHolder(@NonNull View itemView, OnNoteListner onNoteListner) {
             super(itemView);
-
             imageView = itemView.findViewById(R.id.gridImage);
             titleTextView = itemView.findViewById(R.id.item_name);
             favBtn = itemView.findViewById(R.id.favouritesIcon2);
@@ -119,7 +121,7 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
             this.onNoteListner = onNoteListner;
             itemView.setOnClickListener(this);
 
-
+            //On Click Listener for Favourites
             //add to fav btn
             favBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -128,10 +130,12 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
                     MeditationModelClass gameModelClass = downloadMeditation.get(position);
                     if (gameModelClass.getFav().equals("0")) {
                         gameModelClass.setFav("1");
+                        //Inserting item into favourites database
                         favDB.insertIntoTheDatabaseMed(gameModelClass.getMeditateName(), gameModelClass.getMeditateImage(), gameModelClass.getMediateId(), gameModelClass.getFav());
                         favBtn.setBackgroundResource(R.drawable.ic_favorite_filled);
                     } else {
                         gameModelClass.setFav("0");
+                        // removing items from favourites database
                         favDB.remove_fav_med(gameModelClass.getMediateId());
                         favBtn.setBackgroundResource(R.drawable.ic_favorite);
                     }
@@ -140,6 +144,7 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
             });
         }
 
+        //OnClick Listener for items in arraylist
         @Override
         public void onClick(View v) {
             onNoteListner.onNoteClickMeditation(getAdapterPosition());
@@ -155,6 +160,7 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
         editor.apply();
     }
 
+    // Reading all data from database
     private void readCursorDataMed(MeditationModelClass coffeeItem, ViewHolder viewHolder) {
         Cursor cursor = favDB.read_all_data_med(coffeeItem.getMediateId());
         SQLiteDatabase db = favDB.getReadableDatabase();
@@ -178,18 +184,19 @@ public class MeditationAdapter extends RecyclerView.Adapter<MeditationAdapter.Vi
 
     }
 
+    //Download File method
     public void downloadFile(Context context, String fileName, String fileExtension, String destinationDirectory, String url) {
 
         DownloadManager downloadmanager = (DownloadManager) context.
                 getSystemService(Context.DOWNLOAD_SERVICE);
         Uri uri = Uri.parse(url);
         DownloadManager.Request request = new DownloadManager.Request(uri);
-
         request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_VISIBLE_NOTIFY_COMPLETED);
         request.setDestinationInExternalFilesDir(context, destinationDirectory, fileName + fileExtension);
-
         downloadmanager.enqueue(request);
     }
+
+    //OnNoteListener Interface
 
     public interface OnNoteListner {
         void onNoteClickMeditation(int position);

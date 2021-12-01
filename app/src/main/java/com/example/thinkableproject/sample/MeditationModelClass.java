@@ -4,12 +4,14 @@ public class MeditationModelClass {
     private String meditateName;
     private String meditateImage;
     private String mediateId;
-    private String url;
+    private String url;  //private variables for encapsulation
     private String fav;
 
 
     public MeditationModelClass() {
     }
+
+    //Constructor
 
     public MeditationModelClass(String meditateName, String meditateImage, String mediateId, String url, String fav) {
         this.meditateImage = meditateImage;
@@ -26,6 +28,7 @@ public class MeditationModelClass {
         this.url = url;
     }
 
+    //public getters and setters to access variables outside the class
     public String getMeditateImage() {
         return meditateImage;
     }
@@ -66,6 +69,7 @@ public class MeditationModelClass {
         this.fav = fav;
     }
 
+    //toString
     @Override
     public String toString() {
         return "MeditationModelClass{" +

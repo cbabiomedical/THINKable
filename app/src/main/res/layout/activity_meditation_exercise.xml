@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -8,7 +8,7 @@
     android:orientation="vertical"
     android:weightSum="10"
     android:background="@drawable/newbg"
-    tools:context=".GameActivity">
+    tools:context=".MeditationExercise">
     <Spinner
     android:layout_marginTop="20dp"
     android:id="@+id/spinner2"
@@ -19,12 +19,26 @@
     android:layout_marginBottom="30dp"
     android:spinnerMode="dropdown" />
     <ScrollView
+        android:layout_below="@+id/spinner2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="150dp"
         android:id="@+id/gridView" />
     </ScrollView>
-</LinearLayout>
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="100dp"
+        app:itemBackground="@color/Ldark"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        app:itemIconTint="@drawable/selector"
+        app:itemTextColor="@drawable/selector"
+        app:menu="@menu/menu_navigation" />
+
+</RelativeLayout>

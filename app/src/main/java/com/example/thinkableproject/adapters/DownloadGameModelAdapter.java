@@ -11,7 +11,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.example.thinkableproject.R;
 import com.example.thinkableproject.sample.DownloadGameModelClass;
 import com.google.firebase.auth.FirebaseAuth;
@@ -21,6 +20,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -30,7 +30,7 @@ public class DownloadGameModelAdapter extends RecyclerView.Adapter<DownloadGameM
     private ArrayList<DownloadGameModelClass> downloadGames;
     FirebaseUser mUser;
 
-
+    //constructor
     public DownloadGameModelAdapter(Context context, ArrayList<DownloadGameModelClass> downloadMusic) {
         this.context = context;
         this.downloadGames = downloadMusic;
@@ -45,9 +45,11 @@ public class DownloadGameModelAdapter extends RecyclerView.Adapter<DownloadGameM
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        mUser= FirebaseAuth.getInstance().getCurrentUser();
-        holder.imageView.setImageResource(downloadGames.get(position).getImageView());
+        //getting current user
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        Picasso.get().load(downloadGames.get(position).getGameImage()).into(holder.imageView);
         holder.songTitle.setText(downloadGames.get(position).getGameName());
+        //delete function of MyDownloads Games
         holder.deleteBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,8 +61,9 @@ public class DownloadGameModelAdapter extends RecyclerView.Adapter<DownloadGameM
                             DownloadGameModelClass post = dataSnapshot.getValue(DownloadGameModelClass.class);
                             Log.d("DisplayPost", String.valueOf(post));
                             assert post != null;
-                            if (post.getGameName().equals(downloadGames.get(position).getGameName())){
+                            if (post.getGameName().equals(downloadGames.get(position).getGameName())) {
                                 Log.d("ClickedValue", String.valueOf(post));
+                                //removing selected data from firebase
                                 reference.child(post.getGameName()).removeValue();
                             }
 //
@@ -92,7 +95,7 @@ public class DownloadGameModelAdapter extends RecyclerView.Adapter<DownloadGameM
             super(itemView);
             imageView = itemView.findViewById(R.id.downloadImageGame);
             songTitle = itemView.findViewById(R.id.downloadTitleGame);
-            deleteBtn=itemView.findViewById(R.id.deleteDownloadGame);
+            deleteBtn = itemView.findViewById(R.id.deleteDownloadGame);
 
         }
     }

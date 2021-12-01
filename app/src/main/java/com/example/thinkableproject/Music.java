@@ -2,42 +2,39 @@ package com.example.thinkableproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.thinkableproject.adapters.MeditationAdapter;
+import com.android.volley.AuthFailureError;
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.thinkableproject.adapters.MusicAdapter;
-import com.example.thinkableproject.sample.MeditationModelClass;
 import com.example.thinkableproject.sample.MusicModelClass;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
+import com.google.firebase.messaging.FirebaseMessaging;;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -45,23 +42,52 @@ import java.util.Map;
 
 public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListner {
     RecyclerView recyclerView;
-    MusicAdapter.ViewHolder musicAdapter;
-    LinearLayout linearLayoutManager;
     ArrayList<MusicModelClass> musicList;
     MusicAdapter adapter;
     String selected_time;
     int time;
-    StorageReference reference;
+    private RequestQueue mRequestQue;
+    private String URL = "https://fcm.googleapis.com/fcm/send";
 
-    String songName;
-    String id;
-
-    String url;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music);
+        mRequestQue = Volley.newRequestQueue(this);
+        sendNotification();
+
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        //Set Home Selected
+        bottomNavigationView.setSelectedItemId(R.id.exercise);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext(), Relaxation_Daily.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.exercise:
+                        startActivity(new Intent(getApplicationContext(), Exercise.class));
+                        return true;
+                    case R.id.reports:
+                        startActivity(new Intent(getApplicationContext(), ConcentrationReportDaily.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.userprofiles:
+                        startActivity(new Intent(getApplicationContext(), ResultActivity.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.settings:
+                        startActivity(new Intent(getApplicationContext(), Setting.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                }
+                return false;
+            }
+        });
 
 //        Log.d("Time of Music",String.valueOf(MusicAdapter.getTimeOfmusic()));
         recyclerView = findViewById(R.id.recycler_view);
@@ -108,6 +134,18 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
 //        songs.put("songList", musicList);
 //        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Music");
 //        reference.setValue(songs);
+        FirebaseMessaging.getInstance().subscribeToTopic("Music")
+                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        String msg = getString(R.string.msg_subscribed);
+                        if (!task.isSuccessful()) {
+                            msg = getString(R.string.msg_subscribe_failed);
+                        }
+                        Log.d("TAG", msg);
+                        Toast.makeText(Music.this, msg, Toast.LENGTH_SHORT).show();
+                    }
+                });
 
 
         initData();
@@ -137,6 +175,7 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
                     musicList.add(post);
 
                 }
+                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 Log.d("List", String.valueOf(musicList));
 
 
@@ -148,7 +187,7 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
 
             }
         });
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
         adapter = new MusicAdapter(musicList, getApplicationContext(), this::onNoteClick);
         recyclerView.setAdapter(adapter);
 
@@ -160,10 +199,56 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
     public void onNoteClick(int position) {
 
         musicList.get(position);
-        String songName = musicList.get(position).getSongTitle1();
-        String url = musicList.get(position).getName();
+        String songName = musicList.get(position).getName();
+        Log.d("Name", songName);
+        String url = musicList.get(position).getSongTitle1();
+        Log.d("SongURL", url);
         String image = musicList.get(position).getImageUrl();
         Log.d("Url", url);
         startActivity(new Intent(getApplicationContext(), MusicPlayer.class).putExtra("url", url).putExtra("name", songName).putExtra("image", image).putExtra("time", time));
     }
+
+    private void sendNotification() {
+        JSONObject mainobj = new JSONObject();
+        try {
+            mainobj.put("to", "/topics/" + "news");
+            JSONObject notificatioinObj = new JSONObject();
+            notificatioinObj.put("title", "Music");
+            notificatioinObj.put("body", "New music track was added!!");
+            mainobj.put("notification", notificatioinObj);
+
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, URL,
+                    mainobj,
+                    new Response.Listener<JSONObject>() {
+                        @Override
+                        public void onResponse(JSONObject response) {
+
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                }
+
+
+            }
+
+            ) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> header = new HashMap<>();
+                    header.put("content-type", "application/json");
+                    header.put("authorization",
+                            "key=AAAAYTGeHmQ:APA91bGcM2zXzcA0hv5ssW8kE4BTBmlsK5uhHz6UQm2Ur8vuqUoZDErFKUvX7m_-S9m7cmIe5picpG79jk4z1UfB4YuZ3shx1fpEAmh0YzA4L1x85pOlgfNP4bPorTE70ORGqbXdemLq");
+                    return header;
+                }
+            };
+            mRequestQue.add(request);
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+
 }

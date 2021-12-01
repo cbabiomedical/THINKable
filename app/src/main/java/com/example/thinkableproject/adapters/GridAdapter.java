@@ -17,27 +17,18 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.request.RequestOptions;
 import com.example.thinkableproject.R;
 import com.example.thinkableproject.repositories.FavDB;
-import com.example.thinkableproject.sample.FavouriteModelClass;
 import com.example.thinkableproject.sample.GameModelClass;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.MutableData;
 import com.google.firebase.database.Transaction;
-import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 
 public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
@@ -46,6 +37,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
     private OnNoteListner onNoteListner;
     private FavDB favDB;
 
+    //Constructor
     public GridAdapter(ArrayList<GameModelClass> coffeeItems, Context context, OnNoteListner onNoteListner) {
         this.coffeeItems = coffeeItems;
         this.context = context;
@@ -62,15 +54,15 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
         if (firstStart) {
             createTableOnFirstStart();
         }
-
+        // Setting View
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item,
                 parent, false);
         return new ViewHolder(view, onNoteListner);
     }
 
-
     @Override
     public void onBindViewHolder(@NonNull GridAdapter.ViewHolder holder, int position) {
+        //Setting values to variables in recyclerview
         final GameModelClass coffeeItem = coffeeItems.get(position);
 
         readCursorData(coffeeItem, holder);
@@ -109,10 +101,12 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
                     GameModelClass gameModelClass = coffeeItems.get(position);
                     if (gameModelClass.getFav().equals("0")) {
                         gameModelClass.setFav("1");
+                        //inserting item into favourites database
                         favDB.insertIntoTheDatabase(gameModelClass.getGameName(), gameModelClass.getGameImage(), gameModelClass.getGameId(), gameModelClass.getFav());
                         favBtn.setBackgroundResource(R.drawable.ic_favorite_filled);
                     } else {
                         gameModelClass.setFav("0");
+                        //removing items from favourites database
                         favDB.remove_fav(gameModelClass.getGameId());
                         favBtn.setBackgroundResource(R.drawable.ic_favorite);
                     }
@@ -121,7 +115,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
             });
         }
 
-
+        //OnClick for Items in RecyclerView
         @Override
         public void onClick(View v) {
             onNoteListner.onNoteClickGame(getAdapterPosition());
@@ -137,6 +131,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
         editor.apply();
     }
 
+    //Reading all data from db
     private void readCursorData(GameModelClass coffeeItem, ViewHolder viewHolder) {
         Cursor cursor = favDB.read_all_data(coffeeItem.getGameId());
         SQLiteDatabase db = favDB.getReadableDatabase();
@@ -146,8 +141,10 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
                 coffeeItem.setFav(item_fav_status);
 
                 //check fav status
+                //if fav status=1 added to favourites
                 if (item_fav_status != null && item_fav_status.equals("1")) {
                     viewHolder.favBtn.setBackgroundResource(R.drawable.ic_favorite_filled);
+                    //if fav status=0 removed from fav
                 } else if (item_fav_status != null && item_fav_status.equals("0")) {
                     viewHolder.favBtn.setBackgroundResource(R.drawable.ic_favorite);
                 }
@@ -168,7 +165,7 @@ public class GridAdapter extends RecyclerView.Adapter<GridAdapter.ViewHolder> {
         if (coffeeItem.getFav().equals("0")) {
 
             coffeeItem.setFav("1");
-            favDB.insertIntoTheDatabase(coffeeItem.getGameName(), coffeeItem.getGameImage()                                                                                         ,
+            favDB.insertIntoTheDatabase(coffeeItem.getGameName(), coffeeItem.getGameImage(),
                     coffeeItem.getGameId(), coffeeItem.getGameName());
             favBtn.setBackgroundResource(R.drawable.ic_favorite_filled);
             favBtn.setSelected(true);

@@ -16,8 +16,6 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import com.airbnb.lottie.LottieAnimationView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
@@ -35,7 +33,6 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -53,11 +50,11 @@ public class Concentration_Monthly extends AppCompatActivity {
     Dialog dialogcm;
     BarChart barChart;
     private Context context;
-    ImageView games,music;
+    ImageView games, music;
     AppCompatButton daily, weekly, yearly;
-    ImageButton relaxationBtn,memoryBtn;
+    ImageButton relaxationBtn, memoryBtn;
     FirebaseUser mUser;
-    File localFile,fileName;
+    File localFile, fileName;
     LottieAnimationView anim;
     TextView realTime;
     String text;
@@ -76,10 +73,10 @@ public class Concentration_Monthly extends AppCompatActivity {
         relaxationBtn = findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
         dialogcm = new Dialog(this);
-        memoryBtn=findViewById(R.id.memory);
+        memoryBtn = findViewById(R.id.memory);
         games = findViewById(R.id.game);
         music = findViewById(R.id.music);
-        anim=findViewById(R.id.animation);
+        anim = findViewById(R.id.animation);
 
         music.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +88,7 @@ public class Concentration_Monthly extends AppCompatActivity {
         games.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(), GameActivity.class);
+                Intent intent = new Intent(getApplicationContext(), GameActivity.class);
                 startActivity(intent);
             }
         });
@@ -183,7 +180,7 @@ public class Concentration_Monthly extends AppCompatActivity {
             @Override
             public void run() {
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/monthly.txt");
-                    //downloading uploaded file and storing the data in an temp txt file
+                //downloading uploaded file and storing the data in an temp txt file
                 try {
                     localFile = File.createTempFile("tempFile", ".txt");
                     text = localFile.getAbsolutePath();
@@ -192,7 +189,7 @@ public class Concentration_Monthly extends AppCompatActivity {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
 //                            Toast.makeText(Concentration_Monthly.this, "Success", Toast.LENGTH_SHORT).show();
-                                //reading data form tem txt file and storing in an arraylist
+                            //reading data form tem txt file and storing in an arraylist
                             try {
                                 InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
 
@@ -316,7 +313,7 @@ public class Concentration_Monthly extends AppCompatActivity {
         memoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),MemoryMonthly.class));
+                startActivity(new Intent(getApplicationContext(), MemoryMonthly.class));
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
@@ -339,6 +336,7 @@ public class Concentration_Monthly extends AppCompatActivity {
 
 
     }
+
     //popup window method to display suggestions to improve concentration
     public void gotoPopup2(View view) {
 

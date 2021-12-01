@@ -13,13 +13,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thinkableproject.R;
-import com.example.thinkableproject.repositories.FavMeditationDB;
 import com.example.thinkableproject.repositories.FavMusicDB;
-import com.example.thinkableproject.sample.FavouriteModelMeditationClass;
 import com.example.thinkableproject.sample.FavouriteMusicClass;
 import com.squareup.picasso.Picasso;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class FavouriteMusicAdapter extends RecyclerView.Adapter<FavouriteMusicAdapter.ViewHolder> {
@@ -27,6 +24,7 @@ public class FavouriteMusicAdapter extends RecyclerView.Adapter<FavouriteMusicAd
     private List<FavouriteMusicClass> favItemList;
     private FavMusicDB favDB;
 
+    //Constructor
     public FavouriteMusicAdapter(Context context, List<FavouriteMusicClass> favItemList) {
         this.context = context;
         this.favItemList = favItemList;
@@ -35,6 +33,7 @@ public class FavouriteMusicAdapter extends RecyclerView.Adapter<FavouriteMusicAd
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        //Setting view
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.fav_music,
                 parent, false);
         favDB = new FavMusicDB(context);
@@ -44,18 +43,20 @@ public class FavouriteMusicAdapter extends RecyclerView.Adapter<FavouriteMusicAd
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        //storing data values into variables in recyclerview
         holder.favTextView.setText(favItemList.get(position).getItem_title());
-        Log.d("FavouriteTitle",favItemList.get(position).getItem_image());
-//        holder.favImageView.setImageResource(favItemList.get(position).getItem_image());
+        Log.d("FavouriteTitle", favItemList.get(position).getItem_image());
         Picasso.get().load(favItemList.get(position).getItem_image()).into(holder.favImageView);
 
     }
 
     @Override
     public int getItemCount() {
+        // returning size of arraylist
         return favItemList.size();
     }
 
+    //ViewHolder Class
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView favTextView;
         Button favBtn;
@@ -63,16 +64,17 @@ public class FavouriteMusicAdapter extends RecyclerView.Adapter<FavouriteMusicAd
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
             favTextView = itemView.findViewById(R.id.favTextView);
             favBtn = itemView.findViewById(R.id.favBtn2);
             favImageView = itemView.findViewById(R.id.favImageView);
+            // onClick Listener to favourites button
 
             favBtn.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     int position = getAdapterPosition();
                     final FavouriteMusicClass favItem = favItemList.get(position);
+                    //Removing item from favourites
                     favDB.remove_fav_mus(favItem.getKey_id());
                     removeItem(position);
 
@@ -81,6 +83,7 @@ public class FavouriteMusicAdapter extends RecyclerView.Adapter<FavouriteMusicAd
         }
     }
 
+    //remove Item method
     private void removeItem(int position) {
         favItemList.remove(position);
         notifyItemRemoved(position);

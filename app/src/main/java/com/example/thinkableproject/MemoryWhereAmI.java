@@ -3,7 +3,6 @@ package com.example.thinkableproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -12,7 +11,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
-
 import com.github.mikephil.charting.charts.ScatterChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
@@ -32,7 +30,6 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;

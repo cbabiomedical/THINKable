@@ -19,6 +19,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     Context context;
     List<EntityClass> entityClasses;
 
+    //Constructor
     public EventAdapter(Context context, List<EntityClass> entityClasses) {
         this.context = context;
         this.entityClasses = entityClasses;
@@ -32,15 +33,18 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        //setting values to variables in recyclerview
         holder.eventText.setText(entityClasses.get(position).getEventname());
         holder.timeAndDateText.setText(entityClasses.get(position).getEventdate() + " " + entityClasses.get(position).getEventtime());
     }
 
     @Override
     public int getItemCount() {
+        //returning size of array list
         return entityClasses.size();
     }
 
+    //ViewHolder Class
     class ViewHolder extends RecyclerView.ViewHolder {
         private TextView eventText, timeAndDateText;
         private LinearLayout toplayout;

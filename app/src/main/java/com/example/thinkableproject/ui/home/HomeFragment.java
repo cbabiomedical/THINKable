@@ -12,14 +12,12 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.example.thinkableproject.R;
 import com.example.thinkableproject.adapters.FavouriteAdapter;
 import com.example.thinkableproject.repositories.FavDB;
 import com.example.thinkableproject.sample.FavouriteModelClass;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class HomeFragment extends Fragment {
     private RecyclerView recyclerView;
@@ -42,6 +40,7 @@ public class HomeFragment extends Fragment {
 
         return root;
     }
+
     private void loadData() {
         if (favItemList != null) {
             favItemList.clear();
@@ -67,7 +66,6 @@ public class HomeFragment extends Fragment {
         recyclerView.setAdapter(favAdapter);
 
     }
-
 
 
 }

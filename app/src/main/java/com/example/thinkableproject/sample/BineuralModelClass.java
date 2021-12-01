@@ -2,15 +2,18 @@ package com.example.thinkableproject.sample;
 
 public class BineuralModelClass {
 
-    private int bineuralImage;
+    private int bineuralImage;  // private variables for encapsulation
     private String bineuralName;
     private int isFav;
 
+    //Constructor
     public BineuralModelClass(int bineuralImage, String bineuralName, int isFav) {
         this.bineuralImage = bineuralImage;
         this.bineuralName = bineuralName;
         this.isFav = isFav;
     }
+
+    //public getters and setters to access variables outside class
 
     public int getBineuralImage() {
         return bineuralImage;

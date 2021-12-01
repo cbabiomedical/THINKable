@@ -7,7 +7,6 @@ import androidx.fragment.app.FragmentActivity;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.usage.NetworkStats;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -18,7 +17,6 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.widget.Toast;
-
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationRequest;
@@ -29,7 +27,6 @@ import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.example.thinkableproject.databinding.ActivityMapsBinding;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;

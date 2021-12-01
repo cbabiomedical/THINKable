@@ -2,20 +2,16 @@ package com.example.thinkableproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.core.app.NotificationBuilderWithBuilderAccessor;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
-
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.util.Log;
-import android.view.View;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.Switch;
 import android.widget.Toast;
 
 public class Notification1 extends AppCompatActivity {

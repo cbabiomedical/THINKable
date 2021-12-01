@@ -7,25 +7,20 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.thinkableproject.R;
 import com.example.thinkableproject.sample.ItemTouchHelperAdapter;
-import com.example.thinkableproject.sample.ModelClass;
 import com.example.thinkableproject.sample.SuggestionsModel;
-
 import java.util.List;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.ViewHolder> implements ItemTouchHelperAdapter {
     private List<SuggestionsModel> userList;
     private static ItemTouchHelper mTouchHelper;
     int positionChanged;
-
+        //Constructor
     public SuggestionsAdapter(List<SuggestionsModel> userList) {
         this.userList = userList;
     }
@@ -45,7 +40,6 @@ public class SuggestionsAdapter extends RecyclerView.Adapter<SuggestionsAdapter.
         String name = userList.get(position).getName();
         holder.setData(resource, name);
     }
-
 
     @Override
     //number of items in the list

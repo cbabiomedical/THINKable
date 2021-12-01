@@ -2,7 +2,7 @@ package com.example.thinkableproject.sample;
 
 public class GameModelClass {
     private String gameImage;
-    private String gameName;
+    private String gameName;  //private variables for encapsulation
     private String gameId;
     private String fav;
 
@@ -10,7 +10,7 @@ public class GameModelClass {
     public GameModelClass() {
     }
 
-
+    // Constructor
     public GameModelClass(String gameImage, String gameName, String gameId, String fav) {
         this.gameImage = gameImage;
         this.gameName = gameName;
@@ -19,10 +19,11 @@ public class GameModelClass {
     }
 
     public GameModelClass(String gameImage, String gameName) {
-        this.gameImage=gameImage;
-        this.gameName=gameName;
+        this.gameImage = gameImage;
+        this.gameName = gameName;
     }
 
+    // public getters and setter method to access variables outside the class
     public String getGameImage() {
         return gameImage;
     }
@@ -55,6 +56,7 @@ public class GameModelClass {
         this.fav = fav;
     }
 
+    //toString
     @Override
     public String toString() {
         return "GameModelClass{" +

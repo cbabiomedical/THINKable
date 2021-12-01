@@ -72,8 +72,8 @@ public class Activity_BTLE_Services extends AppCompatActivity implements Expanda
         public void onServiceDisconnected(ComponentName arg0) {
             mBTLE_Service = null;
             mBTLE_Service_Bound = false;
-            Toast.makeText(Activity_BTLE_Services.this,"No Services Found",Toast.LENGTH_SHORT).show();
-            Log.d("STATUS","Unable to find Services");
+            Toast.makeText(Activity_BTLE_Services.this, "No Services Found", Toast.LENGTH_SHORT).show();
+            Log.d("STATUS", "Unable to find Services");
 
 //            mBluetoothGatt = null;
 //            mGattUpdateReceiver.setBluetoothGatt(null);
@@ -138,7 +138,7 @@ public class Activity_BTLE_Services extends AppCompatActivity implements Expanda
 
     @Override
     public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
-        Log.d("Clicked","This Character was clicked");
+        Log.d("Clicked", "This Character was clicked");
         BluetoothGattCharacteristic characteristic = characteristics_HashMapList.get(
                 services_ArrayList.get(groupPosition).getUuid().toString())
                 .get(childPosition);
@@ -183,7 +183,7 @@ public class Activity_BTLE_Services extends AppCompatActivity implements Expanda
                 List<BluetoothGattCharacteristic> characteristicsList = service.getCharacteristics();
                 ArrayList<BluetoothGattCharacteristic> newCharacteristicsList = new ArrayList<>();
 
-                for (BluetoothGattCharacteristic characteristic: characteristicsList) {
+                for (BluetoothGattCharacteristic characteristic : characteristicsList) {
                     characteristics_HashMap.put(characteristic.getUuid().toString(), characteristic);
                     newCharacteristicsList.add(characteristic);
                 }

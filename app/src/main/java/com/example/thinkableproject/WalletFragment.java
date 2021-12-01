@@ -29,6 +29,7 @@ public class WalletFragment extends Fragment {
     FragmentWalletBinding binding;
     FirebaseFirestore database;
     User user;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,7 +54,7 @@ public class WalletFragment extends Fragment {
         binding.sendRequest.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(user.getCoins() > 50000) {
+                if (user.getCoins() > 50000) {
                     String uid = FirebaseAuth.getInstance().getUid();
                     String payPal = binding.emailBox.getText().toString();
                     WithdrawRequest request = new WithdrawRequest(uid, payPal, user.getUserName());
@@ -71,8 +72,6 @@ public class WalletFragment extends Fragment {
                 }
             }
         });
-
-
 
 
         return binding.getRoot();

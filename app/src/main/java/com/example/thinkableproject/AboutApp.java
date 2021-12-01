@@ -4,10 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;
-
 import android.view.Gravity;
 import android.view.View;
-import android.widget.Toast;
 
 import java.util.Calendar;
 
@@ -40,8 +38,8 @@ public class AboutApp extends AppCompatActivity {
 //        aboutPage.setBackgroundDrawable(getResources().getDrawable(R.drawable.about));
 //        aboutPage.setBackgroundColor(getResources().getColor(R.color.heading_color));
     }
-    private Element createCopyright()
-    {
+
+    private Element createCopyright() {
         Element copyright = new Element();
         @SuppressLint("DefaultLocale") final String copyrightString = String.format("Copyright %d by CBA", Calendar.getInstance().get(Calendar.YEAR));
         copyright.setTitle(copyrightString);

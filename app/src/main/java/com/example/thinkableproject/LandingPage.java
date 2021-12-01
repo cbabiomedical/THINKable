@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
-
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -17,7 +16,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -64,12 +62,6 @@ public class LandingPage extends AppCompatActivity {
         });
 
         storageReference = FirebaseStorage.getInstance().getReference().child(mUser.getUid());
-//        uploadFile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                uploadFileD();
-//            }
-//        });
         concentrationLanding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -131,8 +123,6 @@ public class LandingPage extends AppCompatActivity {
                 startActivity(new Intent(LandingPage.this, SignInActivity.class));
             }
         });
-
-
     }
 
     private void uploadFileD() {

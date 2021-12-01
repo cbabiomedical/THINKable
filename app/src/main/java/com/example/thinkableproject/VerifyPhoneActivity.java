@@ -2,7 +2,6 @@ package com.example.thinkableproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -26,8 +25,6 @@ public class VerifyPhoneActivity extends AppCompatActivity {
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
     private EditText editText;
-
-
     PhoneAuthProvider.ForceResendingToken token;
 
 

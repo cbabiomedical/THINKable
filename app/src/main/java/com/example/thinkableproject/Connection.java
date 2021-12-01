@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.ScrollView;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -31,7 +30,7 @@ public class Connection extends AppCompatActivity implements View.OnClickListene
     private ListAdapter_BTLE_Devices adapter;
     private ListView listView;
 
-    private Button btn_Scan, calibration;
+    private Button btn_Scan;
 
 
     private BroadcastReceiver_BTState mBTStateUpdateReceiver;

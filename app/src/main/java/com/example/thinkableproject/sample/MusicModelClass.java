@@ -3,13 +3,14 @@ package com.example.thinkableproject.sample;
 public class MusicModelClass {
     private String imageUrl;
     private String songTitle1;
-    private String id;
-   private String name;
+    private String id; //private variables for encapsulation
+    private String name;
     private String isFav;
 
     public MusicModelClass() {
     }
 
+    //Constructor
     public MusicModelClass(String imageUrl, String songTitle1, String id, String name, String isFav) {
         this.imageUrl = imageUrl;
         this.songTitle1 = songTitle1;
@@ -26,11 +27,11 @@ public class MusicModelClass {
     }
 
     public MusicModelClass(String imageUrl, String songTitle1) {
-        this.imageUrl=imageUrl;
-        this.songTitle1=songTitle1;
+        this.imageUrl = imageUrl;
+        this.songTitle1 = songTitle1;
     }
 
-
+    //public getters and setters to access variables outside class
     public String getImageUrl() {
         return imageUrl;
     }
@@ -70,7 +71,7 @@ public class MusicModelClass {
     public void setIsFav(String isFav) {
         this.isFav = isFav;
     }
-
+    //toString
     @Override
     public String toString() {
         return "MusicModelClass{" +

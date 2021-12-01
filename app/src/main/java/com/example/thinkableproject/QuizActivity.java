@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.widget.TextView;
-
 import com.example.thinkableproject.databinding.ActivityQuizBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.DocumentSnapshot;

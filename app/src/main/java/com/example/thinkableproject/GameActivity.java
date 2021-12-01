@@ -3,19 +3,16 @@ package com.example.thinkableproject;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.LinearLayout;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.thinkableproject.adapters.GridAdapter;
-import com.example.thinkableproject.repositories.DownloadMusic;
 import com.example.thinkableproject.sample.GameModelClass;
-import com.example.thinkableproject.sample.MusicModelClass;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,14 +20,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 
 public class GameActivity extends AppCompatActivity implements GridAdapter.OnNoteListner {
     RecyclerView recyclerView;
-    LinearLayout linearLayoutManager;
     ArrayList<GameModelClass> gameList;
     GridAdapter adapter;
     FirebaseUser mUser;
@@ -42,8 +36,38 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_concentration_excercise);
         recyclerView = findViewById(R.id.gridView);
-        //  favouriteBtn = findViewById(R.id.favouritesIcon);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
+
+        //Set Home Selected
+        bottomNavigationView.setSelectedItemId(R.id.exercise);
+        bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.home:
+                        startActivity(new Intent(getApplicationContext(), Relaxation_Daily.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.exercise:
+                        startActivity(new Intent(getApplicationContext(), Exercise.class));
+                        return true;
+                    case R.id.reports:
+                        startActivity(new Intent(getApplicationContext(), ConcentrationReportDaily.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.userprofiles:
+                        startActivity(new Intent(getApplicationContext(), ResultActivity.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                    case R.id.settings:
+                        startActivity(new Intent(getApplicationContext(), Setting.class));
+                        overridePendingTransition(0, 0);
+                        return true;
+                }
+                return false;
+            }
+        });
 
         initData();
 
@@ -52,15 +76,18 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
 
     private void initData() {
         gameList = new ArrayList<>();
-        DatabaseReference reference=FirebaseDatabase.getInstance().getReference("Games_Admin");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Games_Admin");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot dataSnapshot:snapshot.getChildren()){
-                    GameModelClass post=dataSnapshot.getValue(GameModelClass.class);
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    GameModelClass post = dataSnapshot.getValue(GameModelClass.class);
                     gameList.add(post);
-                    Log.d("Post", String.valueOf(post));
+                    Log.d("GamePost", String.valueOf(post));
                 }
+                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+
+
             }
 
             @Override
@@ -68,10 +95,9 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
 
             }
         });
-        Log.d("List", String.valueOf(gameList));
-        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
         adapter = new GridAdapter(gameList, getApplicationContext(), this::onNoteClickGame);
         recyclerView.setAdapter(adapter);
+        Log.d("List", String.valueOf(gameList));
 
 
     }

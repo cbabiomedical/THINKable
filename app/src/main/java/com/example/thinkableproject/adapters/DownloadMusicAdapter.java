@@ -20,6 +20,7 @@ public class DownloadMusicAdapter extends RecyclerView.Adapter<DownloadMusicAdap
     private Context context;
     private ArrayList<DownloadMusicModelClass> downloadMusic;
 
+    // Constructor
     public DownloadMusicAdapter(Context context, ArrayList<DownloadMusicModelClass> downloadMusic) {
         this.context = context;
         this.downloadMusic = downloadMusic;
@@ -34,24 +35,25 @@ public class DownloadMusicAdapter extends RecyclerView.Adapter<DownloadMusicAdap
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
-
-
-       Picasso.get().load(downloadMusic.get(position).getItem_image()).into(holder.imageView);
+        //Setting values to variables in recyclerview
+        Picasso.get().load(downloadMusic.get(position).getItem_image()).into(holder.imageView);
         holder.songTitle.setText(downloadMusic.get(position).getItem_title());
 
     }
 
     @Override
     public int getItemCount() {
+        //returning size of arraylist
         return downloadMusic.size();
     }
+
+    //ViewHolder Class
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageView;
         TextView songTitle;
 
-
+        //Constructor
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.downloadImage);

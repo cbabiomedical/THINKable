@@ -1,19 +1,21 @@
 package com.example.thinkableproject.sample;
 
 public class FavouriteMusicClass {
-    private String item_title;
+    private String item_title;  //private variables for encapsulation
     private String key_id;
     private String item_image;
 
     public FavouriteMusicClass() {
     }
 
+    //Constructor
     public FavouriteMusicClass(String item_title, String key_id, String item_image) {
         this.item_title = item_title;
         this.key_id = key_id;
         this.item_image = item_image;
     }
 
+    //public getters and setters to access variables outside class
     public String getItem_title() {
         return item_title;
     }
@@ -36,6 +38,17 @@ public class FavouriteMusicClass {
 
     public void setItem_image(String item_image) {
         this.item_image = item_image;
+    }
+
+    //toString
+
+    @Override
+    public String toString() {
+        return "FavouriteMusicClass{" +
+                "item_title='" + item_title + '\'' +
+                ", key_id='" + key_id + '\'' +
+                ", item_image='" + item_image + '\'' +
+                '}';
     }
 }
 

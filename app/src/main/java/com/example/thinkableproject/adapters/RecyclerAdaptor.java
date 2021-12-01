@@ -19,10 +19,8 @@ import com.example.thinkableproject.R;
 import com.example.thinkableproject.sample.ItemTouchHelperAdapter;
 import com.example.thinkableproject.sample.UserPreferences;
 
-
 import java.util.ArrayList;
 import java.util.List;
-
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -35,7 +33,6 @@ public class RecyclerAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     public RecyclerAdaptor() {
 
-
     }
 
     public int getPositionChanged() {
@@ -43,24 +40,21 @@ public class RecyclerAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolde
         return positionChanged;
     }
 
-    //    public int getPositionChangedElement(){
-//
-//        return positionChanged;
-//    }
     public void setGetPositionChangedElement(int position) {
         positionChanged = position;
         Log.d("SET", String.valueOf(positionChanged));
     }
 
+    //Constructor
     public RecyclerAdaptor(Context context, List<UserPreferences> userPreferences) {
         mNicePlaces = userPreferences;
         mContext = context;
     }
 
-
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
+        //Setting ViewHolder
         View view = LayoutInflater.from(viewGroup.getContext()).inflate(
                 R.layout.layout_listitem, viewGroup, false);
         ViewHolder vh = new ViewHolder(view);
@@ -86,10 +80,8 @@ public class RecyclerAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder viewHolder, int i) {
-        // Set the name of the 'NicePlace'
+        //Setting values to variables in firebase
         ((ViewHolder) viewHolder).mName.setText(mNicePlaces.get(i).getPreferenceName());
-//        ((ViewHolder)viewHolder).mNum.setText(String.valueOf(mNicePlaces.get(i).getPreferenceNum()));
-
         // Set the image
         RequestOptions defaultOptions = new RequestOptions()
                 .error(R.drawable.ic_launcher_background);
@@ -101,9 +93,11 @@ public class RecyclerAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public int getItemCount() {
+    //returning size of arraylist
         return mNicePlaces.size();
     }
 
+    //Dragging function to items in recyclerview
     @Override
     public void onItemMove(int fromPosition, int toPositions) {
         UserPreferences fromNote = mNicePlaces.get(fromPosition);
@@ -126,7 +120,7 @@ public class RecyclerAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public void setmTouchHelper(ItemTouchHelper itemTouchHelper) {
         this.mTouchHelper = itemTouchHelper;
     }
-
+    //ViewHolder Class
     class ViewHolder extends RecyclerView.ViewHolder implements View.OnTouchListener, GestureDetector.OnGestureListener {
 
         private CircleImageView mImage;
@@ -139,7 +133,6 @@ public class RecyclerAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolde
             mImage = itemView.findViewById(R.id.image);
             mName = itemView.findViewById(R.id.image_name);
             mNum = itemView.findViewById(R.id.num);
-
             mGestureDetector = new GestureDetector(itemView.getContext(), this);
             itemView.setOnTouchListener(this);
 

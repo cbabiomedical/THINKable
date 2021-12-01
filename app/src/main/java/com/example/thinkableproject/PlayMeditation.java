@@ -2,15 +2,11 @@ package com.example.thinkableproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.NotificationManager;
 import android.app.ProgressDialog;
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
@@ -23,11 +19,9 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.chibde.visualizer.BarVisualizer;
 import com.chibde.visualizer.SquareBarVisualizer;
 import com.example.thinkableproject.sample.MusicModelClass;

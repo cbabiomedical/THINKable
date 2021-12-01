@@ -3,12 +3,13 @@ package com.example.thinkableproject.sample;
 public class DownloadMusicModelClass {
     private String item_title;
     private String key_id;
-    private String item_image;
+    private String item_image;  //private variables for encapsulation
     private String url;
 
     public DownloadMusicModelClass() {
     }
 
+    //Constructor
     public DownloadMusicModelClass(String item_title, String key_id, String item_image, String url) {
         this.item_title = item_title;
         this.key_id = key_id;
@@ -20,7 +21,7 @@ public class DownloadMusicModelClass {
         this.item_title = item_title;
         this.item_image = item_image;
     }
-
+    //public getters and setters to access variables outside class
     public String getItem_title() {
         return item_title;
     }
@@ -53,6 +54,7 @@ public class DownloadMusicModelClass {
         this.url = url;
     }
 
+    //toString method
     @Override
     public String toString() {
         return "DownloadMusicModelClass{" +

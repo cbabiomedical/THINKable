@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
-
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,7 +13,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -33,7 +31,6 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -63,7 +60,7 @@ public class Memory_Weekly extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memory__weekly);
-        barChart1 = (BarChart) findViewById(R.id.barChartWeekly);
+        barChart1 = findViewById(R.id.barChartWeekly);
         monthly = findViewById(R.id.monthly);
         yearly = findViewById(R.id.yearly);
         daily = findViewById(R.id.daily);

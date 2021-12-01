@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
 import com.example.thinkableproject.SpinWheel.LuckyWheelView;
 import com.example.thinkableproject.SpinWheel.model.LuckyItem;
 import com.example.thinkableproject.databinding.ActivitySpinnerBinding;

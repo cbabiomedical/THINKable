@@ -49,7 +49,7 @@ public class HomeFragment extends Fragment {
     }
 
     private void loadData() {
-
+        //Getting data from firebase
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("UsersGame").child(mUser.getUid());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -61,6 +61,7 @@ public class HomeFragment extends Fragment {
                 }
                 recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
                 downloadGameAdapter = new DownloadGameModelAdapter(getActivity(), downloadGames);
+                //setting adapter to recyclerview
                 recyclerView.setAdapter(downloadGameAdapter);
 
             }

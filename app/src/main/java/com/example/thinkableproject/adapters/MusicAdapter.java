@@ -39,7 +39,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
     private OnNoteListner onNoteListner;
     private FavMusicDB favDB;
     public static ViewHolder viewHolder;
-    HashMap<String, Object> music=new HashMap<>();
+    HashMap<String, Object> music = new HashMap<>();
 
     public static ViewHolder getViewHolder() {
         Log.d("Time", String.valueOf(viewHolder.timeOfMusic));
@@ -58,6 +58,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
     public MusicAdapter() {
     }
 
+    // Constructor
     public MusicAdapter(ArrayList<MusicModelClass> musicList, Context context, OnNoteListner onNoteListner) {
         this.musicList = musicList;
         this.context = context;
@@ -74,7 +75,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
         if (firstStart) {
             createTableOnFirstStart();
         }
-
+        //Setting View
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item_music,
                 parent, false);
         View view1 = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
@@ -85,31 +86,30 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        //Setting values to variables in arraylist
         final MusicModelClass coffeeItem = musicList.get(position);
-
+        //Reading all data
         readCursorDataMed(coffeeItem, holder);
         Picasso.get().load(musicList.get(position).getImageUrl()).into(holder.imageView);
-
         holder.title.setText(musicList.get(position).getName());
+        //OnClick Listener for download buttonn in music
         holder.download.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 //Checking if file is already downloaded
-
                 DownloadMusicModelClass musicModelClass = new DownloadMusicModelClass(musicList.get(position).getName(), musicList.get(position).getImageUrl());
-                Log.d("ImageUrl",musicList.get(position).getImageUrl());
+                //Calling download function
+                Log.d("ImageUrl", musicList.get(position).getImageUrl());
                 downloadFile(context, musicList.get(position).getName(), ".mp3", DIRECTORY_DOWNLOADS, musicList.get(position).getSongTitle1());
                 mUser = FirebaseAuth.getInstance().getCurrentUser();
                 downoadSong.add(musicModelClass);
-                music.put(downoadSong.get(position).getItem_title(),musicModelClass);
+                music.put(downoadSong.get(position).getItem_title(), musicModelClass);
                 Log.d("Downloaded Music", String.valueOf(musicModelClass));
                 Log.d("Download List", String.valueOf(downoadSong));
 
-
-
                 holder.download.setEnabled(false);
-//
+                //Saving downloaded music data to firebase
                 DatabaseReference database = FirebaseDatabase.getInstance().getReference("Downloads").child(mUser.getUid());
                 database.setValue(music);
 
@@ -119,29 +119,21 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
+        //returning size of arraylist
         return musicList.size();
     }
 
-
+    //ViewHolder Class
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         ImageView imageView;
         TextView title;
         AppCompatButton favBtn;
-        ImageView timing;
         OnNoteListner onNoteListner;
         TextView time;
         AppCompatButton download;
         int timeOfMusic = 60000;
 
-
-        public int getTimeOfMusic() {
-            return timeOfMusic;
-        }
-
-        public void setTimeOfMusic(int timeOfMusic) {
-            this.timeOfMusic = timeOfMusic;
-        }
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);

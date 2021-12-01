@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.content.Context;
-import android.os.Build;
 import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,10 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,7 +19,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -150,7 +145,7 @@ public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
         if (data != null) {
             tv_value.setText("Value: " + Utils.hexToString(data));
             dataValues.add(Utils.hexToString(data));
-            mUser= FirebaseAuth.getInstance().getCurrentUser();
+            mUser = FirebaseAuth.getInstance().getCurrentUser();
 
             try {
                 fileName = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/values.txt");
@@ -169,7 +164,7 @@ public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
-            StorageReference storageReference1 = FirebaseStorage.getInstance().getReference( mUser.getUid());
+            StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
             try {
                 StorageReference mountainsRef = storageReference1.child("values.txt");
                 InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));

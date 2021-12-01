@@ -7,12 +7,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.thinkableproject.R;
 import com.example.thinkableproject.sample.ItemTouchHelperAdapter;
 import com.example.thinkableproject.sample.ModelClass;
+
 import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -64,7 +67,7 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> implements
         positionChanged = toPositions + 1;
         //Calling setter and getter method for positionChnaged
         setGetPositionChangedElement(toPositions + 1);
-        getPositionChanged();
+//        getPositionChanged();
         Log.d("POS", String.valueOf(toPositions + 1));
         //Notifying user that item reflected is newly inserted
         notifyItemMoved(fromPosition, toPositions);
@@ -100,7 +103,6 @@ public class Adapter extends RecyclerView.Adapter<Adapter.ViewHolder> implements
             //Initializing gesture detector
             mGestureDetector = new GestureDetector(itemView.getContext(), this);
             itemView.setOnTouchListener(this);
-
         }
 
         public void setData(int resource, String name) {
