@@ -11,13 +11,14 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <ImageView
             android:id="@+id/topic"
+            android:src="@drawable/thin"
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:textSize="27sp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:text="THINKABLE"
             android:fontFamily="cursive"
             android:textStyle="bold"
@@ -47,8 +48,11 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="50dp"
             android:layout_marginTop="20dp"
+            android:backgroundTint="@color/white"
+            app:cornerRadius="20dp"
+
             android:text="@string/done"
-            android:textColor="@color/white" />
+            android:textColor="@color/black" />
 
         <Button
             android:id="@+id/next"
@@ -58,8 +62,10 @@
             android:layout_gravity="center"
             android:layout_marginHorizontal="50dp"
             android:layout_marginTop="20dp"
+            android:backgroundTint="@color/white"
             android:text="NEXT"
-            android:textColor="@color/white"
+            app:cornerRadius="20dp"
+            android:textColor="@color/black"
             android:onClick="gotoPrefer"/>
 
 

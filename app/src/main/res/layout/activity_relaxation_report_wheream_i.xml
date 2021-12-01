@@ -7,16 +7,24 @@
     tools:context=".RelaxationReportWhereamI"
     >
 
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/wallpapernew" />
+
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@drawable/newbg">
+        >
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
+
 
             <RelativeLayout
                 android:id="@+id/toggleBtn"
@@ -41,7 +49,7 @@
                         android:layout_height="70dp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="@+id/relaxation"
-                        android:background="@drawable/newtg"
+                        android:background="@drawable/concentrationun"
 
 
 
@@ -67,7 +75,7 @@
                         android:id="@+id/relaxation"
                         android:layout_width="100dp"
                         android:layout_height="70dp"
-                        android:background="@drawable/clicked"
+                        android:background="@drawable/relaxationclickedd"
                         android:layout_alignEnd="@+id/concentration"
                         android:layout_alignRight="@+id/memo"
 
@@ -98,7 +106,7 @@
                         android:layout_width="100dp"
                         android:layout_height="70dp"
                         android:layout_marginRight="35dp"
-                        android:background="@drawable/newtg"
+                        android:background="@drawable/memoryun"
 
                         android:layout_marginTop="40dp"
 
@@ -130,9 +138,9 @@
                     android:layout_marginLeft="65dp"
                     android:layout_marginTop="40dp"
 
-                    android:background="@drawable/pgbtn"
+                    android:background="@drawable/progresss"
                     android:text="Progress"
-                    android:textColor="#3F51B5"
+                    android:textColor="@color/white"
                     />
 
 
@@ -149,7 +157,7 @@
                     android:text="WHERE AM I"
                     android:textColor="@color/white"
                     android:layout_marginRight="-144dp"
-                    android:background="@drawable/progressbtn"
+                    android:background="@drawable/whereamii"
                     android:elevation="5dp"
 
                     />

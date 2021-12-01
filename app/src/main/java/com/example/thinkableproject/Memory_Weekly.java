@@ -13,6 +13,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+
+import com.airbnb.lottie.LottieAnimationView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -48,7 +50,8 @@ public class Memory_Weekly extends AppCompatActivity {
 
     Dialog dialogcw;
     BarChart barChart1;
-    AppCompatButton monthly, yearly, daily, realTime;
+    AppCompatButton monthly, yearly, daily;
+    LottieAnimationView realTime;
     ImageButton relaxationBtn, concentrationBtn;
     FirebaseUser mUser;
     File localFile, fileName;
@@ -64,7 +67,7 @@ public class Memory_Weekly extends AppCompatActivity {
         monthly = findViewById(R.id.monthly);
         yearly = findViewById(R.id.yearly);
         daily = findViewById(R.id.daily);
-        realTime = findViewById(R.id.realTime);
+        realTime = findViewById(R.id.animation);
         relaxationBtn = findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
         dialogcw = new Dialog(this);
@@ -284,6 +287,7 @@ public class Memory_Weekly extends AppCompatActivity {
                             barChart1.getXAxis().setDrawGridLines(false);
                             barChart1.getAxisLeft().setDrawGridLines(false);
                             barChart1.setNoDataText("Data Loading Please Wait");
+                            barChart1.animateXY(3000,3000);
                             barChart1.invalidate();
 
 

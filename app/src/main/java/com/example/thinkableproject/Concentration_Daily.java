@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -57,6 +58,9 @@ public class Concentration_Daily extends AppCompatActivity {
         setContentView(R.layout.activity_concentration__daily);
 //        setContentView(R.layout.activity_concentration_popup);
         //Identifiers
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         barChartdaily = (BarChart) findViewById(R.id.barChartDaily);
         monthly = findViewById(R.id.monthly);
         games = findViewById(R.id.game);
@@ -256,6 +260,7 @@ public class Concentration_Daily extends AppCompatActivity {
                             barChartdaily.getAxisLeft().setDrawGridLines(false);
                             barChartdaily.setNoDataTextColor(R.color.white);
                             barChartdaily.setNoDataText("Chart Loading Please Wait...");
+                            barChartdaily.animateXY(3000,3000);
                             barChartdaily.invalidate();
 
 

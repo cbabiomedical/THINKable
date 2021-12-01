@@ -6,11 +6,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/wallpapertwo"
 
     tools:context=".AboutApp">
     <RelativeLayout
         android:layout_width="fill_parent"
-        android:background="@drawable/user_details"
+
         android:layout_height="wrap_content">
 
 

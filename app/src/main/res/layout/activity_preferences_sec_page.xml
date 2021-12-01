@@ -11,23 +11,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <TextView
+    <ImageView
         android:id="@+id/topic"
         android:layout_marginTop="20dp"
-        android:gravity="center"
-        android:textSize="27sp"
+        android:src="@drawable/thin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="THINKABLE"
-        android:fontFamily="cursive"
-        android:textStyle="bold"
-        android:textColor="@color/white"/>
+        android:layout_height="50dp"
+       />
     <TextView
         android:id="@+id/choosePref"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="20sp"
+        android:textSize="16sp"
         android:layout_below="@+id/topic"
         android:text="Choose your Preference"
         android:textStyle="bold"
@@ -49,8 +45,10 @@
             android:layout_marginHorizontal="50dp"
             android:layout_marginTop="20dp"
             android:text="@string/done"
+            android:backgroundTint="@color/white"
+            app:cornerRadius="20dp"
             android:layout_marginBottom="40dp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:onClick="GOTOSIGNIN"/>
 
 

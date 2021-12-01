@@ -17,6 +17,9 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
+
+import com.airbnb.lottie.LottieAnimationView;
 import com.example.thinkableproject.Database.DatabaseClass;
 import com.example.thinkableproject.Database.EntityClass;
 import java.text.DateFormat;
@@ -28,10 +31,11 @@ import java.util.Date;
 
 public class CreateEvent extends AppCompatActivity implements View.OnClickListener {
     Button btn_time, btn_date, btn_done;
-    ImageView btn_record;
+
     EditText editext_message;
     String timeTonotify;
     DatabaseClass databaseClass;
+    LottieAnimationView btn_record;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

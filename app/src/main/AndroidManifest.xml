@@ -212,6 +212,7 @@
             android:name=".Concentration_Daily"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="THINKable" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".FavouriteActivity" />
         <activity
             android:name=".Calendar_Reminder"

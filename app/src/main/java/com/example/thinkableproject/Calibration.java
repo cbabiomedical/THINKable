@@ -16,6 +16,8 @@ import android.view.View;
 import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.airbnb.lottie.LottieAnimationView;
 import com.github.mikephil.charting.animation.Easing;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
@@ -31,6 +33,7 @@ public class Calibration extends AppCompatActivity {
     private PieChart pieChart;
     BroadcastReceiver_BTLE_GATT broadcastReceiver_btle_gatt;
     ImageView connectDevice;
+    LottieAnimationView imageView7;
     private TextView textViewcali;
     private BroadcastReceiver_BTLE_GATT mGattUpdateReceiver;
     private final static String TAG = Activity_BTLE_Services.class.getSimpleName();

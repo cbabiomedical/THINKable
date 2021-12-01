@@ -29,7 +29,7 @@ public class Setting extends AppCompatActivity {
         setContentView(R.layout.activity_setting);
 
         //Initialize and Assign Buttons
-        buttonpro = findViewById(R.id.buttonpro);
+
         accountsettings1 = findViewById(R.id.accountsettings1);
         changepassword1 = findViewById(R.id.changepassword1);
         location2 = findViewById(R.id.location2);
@@ -49,12 +49,7 @@ public class Setting extends AppCompatActivity {
             }
         });
 
-        buttonpro.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
 
         accountsettings1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,7 +86,7 @@ public class Setting extends AppCompatActivity {
         preferences1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentr1 = new Intent(getApplicationContext(), SettingsPreference.class);
+                Intent intentr1 = new Intent(getApplicationContext(), PreferencesSecPage.class);
                 startActivity(intentr1);
             }
         });

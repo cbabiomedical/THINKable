@@ -15,6 +15,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.airbnb.lottie.LottieAnimationView;
+import com.example.thinkableproject.databinding.ActivityMainBinding;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -54,7 +60,8 @@ public class Relaxation_Weekly extends AppCompatActivity {
 
     BarChart barChart, barChart1, barChart2;
     private Context context;
-    AppCompatButton daily, yearly, monthly, realTime;
+    AppCompatButton daily, yearly, monthly;
+    LottieAnimationView realTime;
     ImageButton concentration, memoryBtn;
     ImageView music, meditation, video;
     FirebaseUser mUser;
@@ -77,7 +84,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
         //Initialize bar chart
         barChart1 = (BarChart) findViewById(R.id.barChartWeekly);
         //Initialize buttons
-        realTime = findViewById(R.id.realTime);
+        realTime = findViewById(R.id.animation);
         daily = findViewById(R.id.daily);
         yearly = findViewById(R.id.yearly);
         monthly = findViewById(R.id.monthly);
@@ -259,6 +266,8 @@ public class Relaxation_Weekly extends AppCompatActivity {
                             barChart1.getXAxis().setDrawGridLines(false);
                             barChart1.getAxisLeft().setDrawGridLines(false);
                             barChart1.setNoDataText("Data Loading Please Wait...");
+                            barChart1.animateXY(3000,3000);
+
 
                             barChart1.invalidate();
 
@@ -416,6 +425,9 @@ public class Relaxation_Weekly extends AppCompatActivity {
         });
 
         dialogrw.show();
+    }
+
+    public void gotoPopup6(View view) {
     }
 
 //    public void yearly(View v) {

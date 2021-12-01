@@ -10,13 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <TextView
+        <ImageView
             android:id="@+id/topic"
+            android:src="@drawable/thin"
             android:layout_marginTop="20dp"
-            android:gravity="center"
-            android:textSize="27sp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+
+
+            android:layout_width="300dp"
+            android:layout_height="50dp"
             android:text="THINKABLE"
             android:fontFamily="cursive"
             android:textStyle="bold"
@@ -41,6 +43,7 @@
 
         <Button
             android:id="@+id/done"
+            android:backgroundTint="@color/white"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/recycler_view"
@@ -49,8 +52,10 @@
             android:layout_marginTop="20dp"
             android:text="Update Preferences"
             android:layout_marginBottom="40dp"
-            android:textColor="@color/white"
-            android:onClick="GOTOSIGNIN"/>
+            android:textColor="@color/black"
+            android:onClick="GOTOSIGNIN"
+            app:cornerRadius="20dp"
+            />
 
 
     </RelativeLayout>

@@ -117,43 +117,44 @@
             </RelativeLayout>
             <RelativeLayout
                 android:layout_centerHorizontal="true"
+
                 android:id="@+id/toggleBtn2"
                 android:layout_below="@+id/toggleBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+
                 >
-
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/progresscon"
-                    android:layout_width="160dp"
-                    android:layout_height="60dp"
-                    android:layout_marginLeft="65dp"
-                    android:layout_marginTop="40dp"
-
-                    android:background="@drawable/pgbtn"
-                    android:text="Progress"
-                    android:textColor="#3F51B5"
-                    />
-
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/whereAmI"
                     android:layout_width="160dp"
                     android:layout_height="60dp"
-                    android:layout_alignEnd="@+id/progresscon"
-                    android:layout_alignRight="@+id/progresscon"
-
-                    android:layout_marginEnd="-136dp"
-                    android:layout_marginLeft="130dp"
                     android:layout_marginTop="40dp"
-                    android:text="WHERE AM I"
-                    android:textColor="@color/white"
-                    android:layout_marginRight="-144dp"
-                    android:background="@drawable/progressbtn"
-                    android:elevation="5dp"
 
+                    android:layout_alignEnd="@+id/progresscon"
+                    android:layout_marginLeft="120dp"
+
+                    android:text="Where Am I"
+                    android:textColor="@color/white"
+                    android:layout_marginEnd="-136dp"
+                    android:layout_marginRight="-144dp"
+                    android:background="@drawable/whereamii"
+
+                    android:elevation="5dp"
+                    android:layout_alignRight="@+id/progresscon"
                     />
 
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/progresscon"
+                    android:layout_width="160dp"
+                    android:layout_height="60dp"
+                    android:text="Progress"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="55dp"
+                    android:layout_marginTop="40dp"
+                    android:background="@drawable/progresss"
+
+                    android:elevation="5dp" />
             </RelativeLayout>
 
             <RelativeLayout

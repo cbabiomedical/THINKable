@@ -13,6 +13,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
+
+import com.airbnb.lottie.LottieAnimationView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -49,7 +52,9 @@ import java.util.List;
 public class Relaxation_Yearly extends AppCompatActivity {
     Dialog dialogry;
     BarChart barChart2;
-    AppCompatButton daily, weekly, monthly, realTime;
+    AppCompatButton daily, weekly, monthly ;
+    LottieAnimationView realTime;
+
     ImageButton concentration, memoryBtn;
     FirebaseUser mUser;
     String text;
@@ -75,7 +80,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
         //Initialize List entries
         List<BarEntry> entries = new ArrayList<>();
         //Initialize buttons
-        realTime = findViewById(R.id.realTime);
+        realTime = findViewById(R.id.animation);
         daily = findViewById(R.id.daily);
         weekly = findViewById(R.id.weekly);
         monthly = findViewById(R.id.monthly);
@@ -408,6 +413,9 @@ public class Relaxation_Yearly extends AppCompatActivity {
         });
 
         dialogry.show();
+    }
+
+    public void gotoPopup6(View view) {
     }
 
 //    public void monthly(View v) {

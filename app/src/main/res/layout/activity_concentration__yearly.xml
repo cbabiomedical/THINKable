@@ -18,12 +18,22 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
+
+            <ImageView
+                android:id="@+id/topic"
+                android:layout_marginTop="20dp"
+                android:src="@drawable/thin"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                />
+
             <RelativeLayout
                 android:id="@+id/toggleBtn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
+                android:layout_below="@+id/topic"
 
                 >
                 <LinearLayout
@@ -117,7 +127,7 @@
             </RelativeLayout>
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barChartYearly"
-                android:layout_width="match_parent"
+                android:layout_width="280dp"
                 android:layout_height="250dp"
                 android:layout_below="@+id/toggleBtn"
                 android:layout_centerHorizontal="true"

@@ -137,4 +137,7 @@ public class PreferencesSecPage extends AppCompatActivity {
         startActivity(intentGotoSI);
 
     }
+
+    public void gotoPrefer(View view) {
+    }
 }

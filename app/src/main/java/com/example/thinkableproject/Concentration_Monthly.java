@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -65,6 +66,9 @@ public class Concentration_Monthly extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_concentration__monthly);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         daily = findViewById(R.id.daily);
         weekly = findViewById(R.id.weekly);
         yearly = findViewById(R.id.yearly);
@@ -256,6 +260,7 @@ public class Concentration_Monthly extends AppCompatActivity {
                             barChart.getXAxis().setDrawGridLines(false);
                             barChart.getAxisLeft().setDrawGridLines(false);
                             barChart.setNoDataText("Data Loading Please Wait....");
+                            barChart.animateXY(3000,3000);
                             barChart.invalidate();
 
 

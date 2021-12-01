@@ -7,6 +7,14 @@
     android:background="@drawable/landing_background"
     tools:context=".SpinnerActivity">
 
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/coinstwo" />
+
+
+
     <ImageView
         android:id="@+id/imageView8"
         android:layout_width="380dp"

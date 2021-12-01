@@ -25,23 +25,36 @@
         app:layout_constraintTop_toBottomOf="@+id/textViewcali">
 
 
-    </com.github.mikephil.charting.charts.PieChart><![CDATA[
+    </com.github.mikephil.charting.charts.PieChart>
 
-    >
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="280dp"
+        android:layout_height="280dp"
 
 
 
-    ]]>
-
-    <ImageView
-        android:id="@+id/imageView7"
-        android:layout_width="280sp"
-        android:layout_height="280sp"
         app:layout_constraintBottom_toBottomOf="@+id/piechart"
         app:layout_constraintEnd_toEndOf="@+id/piechart"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="@+id/piechart"
-        android:src="@drawable/musepic" />
+
+
+        app:lottie_autoPlay="true"
+        app:lottie_rawRes="@raw/brain"
+
+        app:lottie_loop="true"
+        android:id="@+id/imageView7"
+        />
+
+<!--    <ImageView-->
+<!--        android:id="@+id/imageView7"-->
+<!--        android:layout_width="280sp"-->
+<!--        android:layout_height="280sp"-->
+<!--        app:layout_constraintBottom_toBottomOf="@+id/piechart"-->
+<!--        app:layout_constraintEnd_toEndOf="@+id/piechart"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@+id/piechart"-->
+<!--        android:src="@drawable/musepic" />-->
 
     <TextView
         android:id="@+id/textViewcali"

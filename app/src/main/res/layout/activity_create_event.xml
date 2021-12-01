@@ -6,24 +6,40 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".CreateEvent"
-    android:background="@drawable/landing_background">
+    android:background="@drawable/exercisebg">
+
 
 
     <RelativeLayout
 
         android:layout_height="wrap_content"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_marginTop="70dp"
         >
 
-        <ImageView
-            android:id="@+id/btn_record"
-            android:layout_width="130dp"
-            android:layout_height="130dp"
-            android:layout_below="@+id/tv_record"
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:layout_marginTop="20dp"
+
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp"
-            android:src="@drawable/ic_mic_black_48dp" />
+
+
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/micc"
+
+            app:lottie_loop="true"
+            android:id="@+id/btn_record"
+            android:layout_below="@+id/tv_record"/>
+
+<!--        <ImageView-->
+<!--            android:id="@+id/btn_record"-->
+<!--            android:layout_width="130dp"-->
+<!--            android:layout_height="130dp"-->
+<!--            android:layout_below="@+id/tv_record"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:src="@drawable/ic_mic_black_48dp" />-->
 
         <TextView
             android:id="@+id/tv_record"
@@ -44,6 +60,7 @@
         android:padding="10dp"
         android:layout_marginTop="10dp"
         android:hint="Enter Message"
+        android:textColorHint="@color/white"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"/>
     <Button

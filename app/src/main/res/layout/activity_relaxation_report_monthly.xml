@@ -9,6 +9,13 @@
     android:background="@drawable/newbg"
     android:orientation="horizontal"
     tools:context=".RelaxationReportMonthly">
+
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/wallpapernew" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -42,7 +49,7 @@
                         android:layout_height="70dp"
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="@+id/relaxation"
-                        android:background="@drawable/newtg"
+                        android:background="@drawable/concentrationun"
 
 
 
@@ -68,7 +75,7 @@
                         android:id="@+id/relaxation"
                         android:layout_width="100dp"
                         android:layout_height="70dp"
-                        android:background="@drawable/clicked"
+                        android:background="@drawable/relaxationclickedd"
                         android:layout_alignEnd="@+id/concentration"
                         android:layout_alignRight="@+id/memo"
 
@@ -99,7 +106,7 @@
                         android:layout_width="100dp"
                         android:layout_height="70dp"
                         android:layout_marginRight="35dp"
-                        android:background="@drawable/newtg"
+                        android:background="@drawable/memoryun"
 
                         android:layout_marginTop="40dp"
 
@@ -131,29 +138,34 @@
                     android:id="@+id/whereAmI"
                     android:layout_width="160dp"
                     android:layout_height="60dp"
+                    android:layout_marginTop="40dp"
 
                     android:layout_alignEnd="@+id/progress"
-                    android:layout_marginLeft="130dp"
-                    android:layout_marginTop="40dp"
+                    android:layout_marginLeft="120dp"
+
                     android:text="Where Am I"
-                    android:textColor="@color/blue"
+                    android:textColor="@color/black"
                     android:layout_marginEnd="-136dp"
                     android:layout_marginRight="-144dp"
-                    android:background="@drawable/relaxattionbtn"
+                    android:background="@drawable/whereamii"
+
                     android:elevation="5dp"
-                    android:layout_alignRight="@+id/progress" />
+                    android:layout_alignRight="@+id/progress"
+                    />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/progress"
-                    android:layout_width="wrap_content"
+                    android:layout_width="160dp"
                     android:layout_height="60dp"
                     android:text="Progress"
                     android:textColor="@color/white"
-                    android:layout_marginLeft="65dp"
+                    android:layout_marginLeft="55dp"
                     android:layout_marginTop="40dp"
-                    android:background="@drawable/progressbtn"
+                    android:background="@drawable/progresss"
+
                     android:elevation="5dp" />
             </RelativeLayout>
+
 
             <LinearLayout
                 android:id="@+id/btnLayout"
