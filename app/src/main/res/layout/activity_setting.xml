@@ -67,20 +67,6 @@
                     android:layout_marginTop="25dp"
                     android:layout_marginBottom="20dp"
                     android:src="@drawable/opgradetpro" />
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="0dp"
-
-                        android:layout_centerHorizontal="true"
-
-
-                        app:lottie_autoPlay="true"
-                        app:lottie_rawRes="@raw/thinkcurveone"
-
-                        app:lottie_loop="true"
-                        android:id="@+id/animation"
-                        android:layout_below="@+id/freeplan"/>
 
 
 
@@ -199,48 +185,13 @@
                         android:textStyle="bold" />
                 </RelativeLayout>
 
-                <RelativeLayout
-                    android:id="@+id/theme"
-                    android:layout_width="290dp"
-                    android:layout_height="50dp"
-                    android:layout_below="@+id/location"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp">
 
-                    <ImageButton
-                        android:id="@+id/theme2"
-                        android:layout_width="290dp"
-                        android:layout_height="50dp"
-                        android:background="@drawable/setingbtn"/>
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/theme1"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="6dp"
-                        android:src="@drawable/theme" />
-
-                    <TextView
-                        android:id="@+id/usertheme"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_toEndOf="@+id/theme1"
-                        android:layout_toRightOf="@+id/theme1"
-                        android:gravity="center"
-                        android:text="My Theme"
-                        android:textColor="@color/dark"
-                        android:textSize="17sp"
-                        android:textStyle="bold" />
-                </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/preferences"
                     android:layout_width="290dp"
                     android:layout_height="50dp"
-                    android:layout_below="@+id/theme"
+                    android:layout_below="@+id/location"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp">
 

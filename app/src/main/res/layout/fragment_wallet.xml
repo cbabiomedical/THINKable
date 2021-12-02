@@ -4,7 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".WalletFragment" >
+    tools:context=".WalletFragment"
+    android:background="@drawable/newbg"
+    >
 
     <View
         android:id="@+id/view7"
@@ -37,6 +39,7 @@
         android:fontFamily="@font/roboto_light"
         android:text="Current Coins"
         android:textColor="@color/color_white"
+        android:textStyle="bold"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/view6"
         app:layout_constraintStart_toStartOf="@+id/view6"
@@ -61,6 +64,7 @@
         android:layout_marginTop="16dp"
         android:fontFamily="@font/roboto_light"
         android:text="50.000 coins required to withdraw"
+        android:textStyle="bold"
         android:textColor="@color/color_white"
         android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="@+id/currentCoins"
@@ -88,10 +92,12 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:background="@drawable/button_3"
-        android:fontFamily="@font/roboto_bold"
+        android:backgroundTint="@color/white"
+
         android:text="Send Request"
-        android:textColor="@color/color_white"
+        android:textAllCaps="false"
+        app:cornerRadius="13dp"
+        android:textColor="@color/black"
         app:layout_constraintEnd_toEndOf="@+id/emailBox"
         app:layout_constraintStart_toStartOf="@+id/emailBox"
         app:layout_constraintTop_toBottomOf="@+id/emailBox" />

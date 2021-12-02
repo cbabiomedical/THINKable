@@ -93,7 +93,9 @@
         android:id="@+id/btn_done"
         android:textColor="@color/black"
         android:text="Done"
-        android:backgroundTint="@color/Ldark"
+        android:textAllCaps="false"
+
+        android:backgroundTint="@color/blue"
         android:layout_height="wrap_content"
         app:cornerRadius="13dp"/>
 </LinearLayout>

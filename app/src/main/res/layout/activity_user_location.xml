@@ -5,40 +5,60 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/googlemap"
+    android:background="@drawable/bgsix"
     tools:context=".UserLocation">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_alignParentTop="true"
+        android:gravity="center"
+        android:layout_marginTop="100dp"
+
+        android:layout_centerHorizontal="true"
+
+
+        app:lottie_autoPlay="true"
+        app:lottie_rawRes="@raw/locationone"
+
+        app:lottie_loop="true"
+        android:id="@+id/animation"
+        android:layout_below="@+id/btnLayout"/>
 
     <Button
         android:id="@+id/button4"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:backgroundTint="@color/design_default_color_primary_dark"
-        android:textColor="#ffffff"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/black"
         android:layout_above="@+id/button2"
-        android:text="CURRENT LOCATION"
+        android:text="Current Location"
         android:onClick="btnCurrentLocation"
-        android:textSize="22sp"
-        android:layout_margin="30dp" />
+        android:textAllCaps="false"
+
+        android:layout_margin="30dp"
+        app:cornerRadius="13dp"/>
 
     <Button
         android:id="@+id/button2"
         android:layout_width="345dp"
         android:layout_marginLeft="32dp"
         android:layout_height="65dp"
-        android:backgroundTint="@color/design_default_color_primary_dark"
+        android:backgroundTint="@color/white"
         android:text="Retrieve Location"
-        android:textColor="#ffffff"
+        android:textColor="@color/black"
         android:onClick="btnRetrieveLocation"
         android:layout_alignParentBottom="true"
-        android:textSize="22sp"
-        android:layout_marginBottom="80dp"/>
+        android:textAllCaps="false"
+        android:layout_marginBottom="80dp"
+        app:cornerRadius="13dp"/>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:itemBackground="@color/dark"
+        app:itemBackground="@color/Ldark"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menu_navigation" />

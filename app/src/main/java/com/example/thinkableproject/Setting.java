@@ -33,7 +33,7 @@ public class Setting extends AppCompatActivity {
         accountsettings1 = findViewById(R.id.accountsettings1);
         changepassword1 = findViewById(R.id.changepassword1);
         location2 = findViewById(R.id.location2);
-        theme2 = findViewById(R.id.theme2);
+
         preferences1 = findViewById(R.id.preferences1);
         notifications2 = findViewById(R.id.notifications2);
         help3 = findViewById(R.id.help3);
@@ -76,12 +76,7 @@ public class Setting extends AppCompatActivity {
             }
         });
 
-        theme2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
 
         preferences1.setOnClickListener(new View.OnClickListener() {
             @Override
