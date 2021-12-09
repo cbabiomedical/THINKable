@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    android:layout_marginHorizontal="30dp"
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:id="@+id/alpha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Name:"
+        />
+    <TextView
+        android:id="@+id/beta"
+        android:layout_below="@+id/alpha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Age:"
+        />
+    <TextView
+        android:id="@+id/gamma"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="School"
+        android:layout_below="@+id/beta"/>
+
+    <TextView
+        android:id="@+id/theta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Gamma"
+        android:layout_below="@+id/gamma"/>
+
+    <TextView
+        android:id="@+id/delta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/theta"
+        android:text="Delta"/>
+
+</RelativeLayout>
