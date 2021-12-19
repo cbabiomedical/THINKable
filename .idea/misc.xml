@@ -59,6 +59,7 @@
         <entry key="..\:/Users/PCV/StudioProjects/THINKable/app/src/main/res/menu/bottom_nav_menu.xml" value="0.25" />
         <entry key="..\:/Users/PCV/StudioProjects/THINKable/app/src/main/res/menu/menu_navigation.xml" value="0.25" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/drawable-mdpi/option_wrong.xml" value="0.20052083333333334" />
+        <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/drawable-v24/ic_face.xml" value="0.1" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/drawable/background.xml" value="0.20052083333333334" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/drawable/background_orang.xml" value="0.20052083333333334" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/font/arizonia.xml" value="0.21458333333333332" />
@@ -74,6 +75,8 @@
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/activity_concentration_popup.xml" value="0.14947916666666666" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/activity_concentration_report_weekly.xml" value="0.14947916666666666" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/activity_concentration_report_wheream_i.xml" value="0.14947916666666666" />
+        <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/activity_concentration_report_yearly.xml" value="0.184375" />
+        <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/activity_create.xml" value="0.1" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/activity_create_event.xml" value="0.184375" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/activity_home.xml" value="0.184375" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/activity_home_leaderboards.xml" value="0.184375" />
@@ -82,6 +85,7 @@
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/activity_main.xml" value="0.12952898550724637" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/activity_main1.xml" value="0.184375" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/activity_main2.xml" value="0.1" />
+        <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/activity_main3.xml" value="0.1" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/activity_maps.xml" value="0.184375" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/activity_meditation.xml" value="0.184375" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/activity_meditation_exercise.xml" value="0.184375" />
@@ -125,9 +129,12 @@
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/btle_characteristics_list_item.xml" value="0.184375" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/btle_device_list_item.xml" value="0.184375" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/btle_service_list_item.xml" value="0.184375" />
+        <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/card_image.xml" value="0.1" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/current_view.xml" value="0.184375" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/default_view.xml" value="0.184375" />
+        <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/dialog_board_size.xml" value="0.1" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/dialog_btle_characteristic.xml" value="0.184375" />
+        <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/dialog_download_board.xml" value="0.1" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/example_item.xml" value="0.184375" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/fav_item.xml" value="0.184375" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/fav_item_meditation.xml" value="0.184375" />
@@ -156,6 +163,7 @@
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/layout_listitem.xml" value="0.184375" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/listings_row.xml" value="0.184375" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/lucky_wheel_layout.xml" value="0.184375" />
+        <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/memory_card.xml" value="0.1" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/notification_layout.xml" value="0.184375" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/present_view.xml" value="0.184375" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/row_leaderboards.xml" value="0.184375" />
@@ -165,6 +173,7 @@
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/menu/bottom_nav_menu_download.xml" value="0.184375" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/menu/home_menu.xml" value="0.184375" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/menu/menu.xml" value="0.184375" />
+        <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/menu/menu_main.xml" value="0.1" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/menu/menu_navigation.xml" value="0.184375" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/menu/pop_up_menu.xml" value="0.184375" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/menu/pop_up_menu_time.xml" value="0.184375" />
