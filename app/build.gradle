@@ -1,6 +1,8 @@
 plugins {
     id 'com.android.application'
     id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
+    id  'kotlin-android'
 }
 
 android {
@@ -10,6 +12,7 @@ android {
     defaultConfig {
         applicationId "com.example.thinkableproject"
         minSdkVersion 24
+        buildToolsVersion "30.0.2"
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"

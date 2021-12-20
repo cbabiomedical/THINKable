@@ -9,7 +9,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import com.example.SettingsPreference;
+
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -44,6 +44,8 @@ public class Setting extends AppCompatActivity {
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+//                Intent intent = new Intent(view.getContext(), MainActivityK.class);
+//                view.getContext().startActivity(intent);;
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(Setting.this, SignInActivity.class));
             }

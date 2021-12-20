@@ -6,7 +6,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/newbg"
     android:orientation="horizontal"
     tools:context=".Concentration_Daily">
     <ScrollView
@@ -15,6 +14,7 @@
         android:gravity="center"
         >
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
         </androidx.recyclerview.widget.RecyclerView>

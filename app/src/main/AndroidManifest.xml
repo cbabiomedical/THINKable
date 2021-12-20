@@ -48,6 +48,7 @@
         <activity
             android:name=".CreateEvent"
             android:exported="false" />
+        <activity android:name=".MainActivity"/>
         <activity
             android:name=".CalenderAndNotification"
             android:exported="false" />
@@ -79,7 +80,7 @@
             android:exported="false" />
         <activity android:name=".IsochronicTones" />
         <activity
-            android:name=".MainActivity"
+            android:name=".MainActivityK"
             android:exported="false"
             android:label="Main Activity" />
         <!--

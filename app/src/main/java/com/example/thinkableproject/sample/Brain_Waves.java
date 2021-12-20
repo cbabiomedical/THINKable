@@ -1,27 +1,22 @@
-package com.example;
+package com.example.thinkableproject.sample;
 
-import com.google.gson.annotations.SerializedName;
+public class Brain_Waves {
 
-import java.io.Serializable;
-
-public class EEG_Values implements Serializable {
     private int alpha;
     private int beta;
     private int gamma;
     private int theta;
     private int delta;
 
-    public EEG_Values() {
-    }
-
-
-
-    public EEG_Values(int alpha, int beta, int gamma, int theta, int delta) {
+    public Brain_Waves(int alpha, int beta, int gamma, int theta, int delta) {
         this.alpha = alpha;
         this.beta = beta;
         this.gamma = gamma;
         this.theta = theta;
         this.delta = delta;
+    }
+
+    public Brain_Waves() {
     }
 
     public int getAlpha() {
@@ -64,16 +59,14 @@ public class EEG_Values implements Serializable {
         this.delta = delta;
     }
 
-
-
     @Override
     public String toString() {
-        return "EEG_Values{" +
+        return "Brain_Waves{" +
                 "alpha=" + alpha +
                 ", beta=" + beta +
                 ", gamma=" + gamma +
                 ", theta=" + theta +
-                ", delta=" + delta + '\'' +
+                ", delta=" + delta +
                 '}';
     }
 }

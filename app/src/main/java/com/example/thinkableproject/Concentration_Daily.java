@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -41,8 +42,8 @@ public class Concentration_Daily extends AppCompatActivity {
     BarChart barChartdaily;
     ImageView games;
     AppCompatButton monthly, yearly, weekly;
-    ImageButton relaxationBtn,  memory;
-    ImageView  music;
+    ImageButton relaxationBtn, memory;
+    ImageView music;
     FirebaseUser mUser;
     String text;
     TextView realtime;
@@ -251,7 +252,7 @@ public class Concentration_Daily extends AppCompatActivity {
 
                             barChartdaily.getAxisRight().setEnabled(false);
                             Description desc = new Description();
-                            desc.setText("Chart Loading" );
+                            desc.setText("Chart Loading");
                             desc.setEnabled(false);
                             desc.setTextAlign(Paint.Align.CENTER);
                             barChartdaily.setDescription(desc);
@@ -260,7 +261,7 @@ public class Concentration_Daily extends AppCompatActivity {
                             barChartdaily.getAxisLeft().setDrawGridLines(false);
                             barChartdaily.setNoDataTextColor(R.color.white);
                             barChartdaily.setNoDataText("Chart Loading Please Wait...");
-                            barChartdaily.animateXY(3000,3000);
+                            barChartdaily.animateXY(3000, 3000);
                             barChartdaily.invalidate();
 
 

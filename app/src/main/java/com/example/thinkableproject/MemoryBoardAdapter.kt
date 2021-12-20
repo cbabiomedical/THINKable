@@ -14,7 +14,6 @@ import com.example.thinkableproject.models.BoardSize
 import com.example.thinkableproject.models.MemoryCard
 import com.squareup.picasso.Picasso
 import kotlin.math.min
-
 class MemoryBoardAdapter(
     private val context: Context,
     private val boardSize: BoardSize,

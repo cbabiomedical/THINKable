@@ -3,13 +3,13 @@ package com.example.thinkableproject.sample;
 public class Post {
 
     private String name;
-    private int age;
+    private String age;
     private String school;
 
     public Post() {
     }
 
-    public Post(String name, int age, String school) {
+    public Post(String name, String age, String school) {
         this.name = name;
         this.age = age;
         this.school = school;
@@ -23,11 +23,11 @@ public class Post {
         this.name = name;
     }
 
-    public int getAge() {
+    public String getAge() {
         return age;
     }
 
-    public void setAge(int age) {
+    public void setAge(String age) {
         this.age = age;
     }
 
@@ -37,5 +37,14 @@ public class Post {
 
     public void setSchool(String school) {
         this.school = school;
+    }
+
+    @Override
+    public String toString() {
+        return "Post{" +
+                "name='" + name + '\'' +
+                ", age=" + age +
+                ", school='" + school + '\'' +
+                '}';
     }
 }

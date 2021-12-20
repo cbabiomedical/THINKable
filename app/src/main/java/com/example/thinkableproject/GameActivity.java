@@ -108,6 +108,21 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
 
 
         gameList.get(position);
+        if (gameList.get(position).getGameName().equals("Card Memory Game")){
+            startActivity(new Intent(getApplicationContext(),MainActivityK.class));
+        }
+        else{
+            Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.vending");
+            if (launchIntent != null) {
+                Log.d("Tagopenapp", "---------------------B--------------------------");
+                startActivity(launchIntent);
+            } else {
+                Toast.makeText(GameActivity.this, "There is no package", Toast.LENGTH_LONG).show();
+            }
+
+
+
+        }
         Toast.makeText(getApplicationContext(), "You clicked " + gameList.get(position).getGameName(), Toast.LENGTH_SHORT).show();
 
 
@@ -115,7 +130,7 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
 
         downloadGames.add(gameModelClass);
         Log.d("DownloadGames", String.valueOf(downloadGames));
-        games.put(downloadGames.get(position).getGameName(), gameModelClass);
+//        games.put(downloadGames.get(position).getGameName(), gameModelClass);
 
         Log.d("CHECK UPLOAD", "-------------------------CHECKING FIREBASE UPLOAD-----------------");
         DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("UsersGame").child(mUser.getUid());
@@ -136,14 +151,6 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
         Log.d("CHECK UPLOAD", "------------------------CHECK AFTER UPLOAD------------");
 
         Log.d("Downloads", String.valueOf(downloadGames));
-
-        Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.vending");
-        if (launchIntent != null) {
-            Log.d("Tagopenapp", "---------------------B--------------------------");
-            startActivity(launchIntent);
-        } else {
-            Toast.makeText(GameActivity.this, "There is no package", Toast.LENGTH_LONG).show();
-        }
 
 
     }

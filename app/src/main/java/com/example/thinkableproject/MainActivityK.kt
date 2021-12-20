@@ -34,7 +34,7 @@ import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.squareup.picasso.Picasso
 
-class MainActivity : AppCompatActivity() {
+class MainActivityK : AppCompatActivity() {
 
     companion object {
         private const val TAG = "MainActivity"
