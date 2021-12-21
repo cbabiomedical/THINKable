@@ -40,13 +40,13 @@ import java.util.*;
 public class Concentration_Daily extends AppCompatActivity {
     Dialog dialogcd;
     BarChart barChartdaily;
-    ImageView games;
+    ImageView games,relaxationBtn, memory;
     AppCompatButton monthly, yearly, weekly;
-    ImageButton relaxationBtn, memory;
+
     ImageView music;
     FirebaseUser mUser;
     String text;
-    TextView realtime;
+
     LottieAnimationView anim;
     File localFile, fileName;
     ArrayList<String> list = new ArrayList<>();
@@ -68,7 +68,7 @@ public class Concentration_Daily extends AppCompatActivity {
         yearly = findViewById(R.id.yearly);
         weekly = findViewById(R.id.weekly);
         music = findViewById(R.id.music);
-        realtime = findViewById(R.id.realTime);
+
         relaxationBtn = findViewById(R.id.relaxation);
         anim = findViewById(R.id.animation);
         List<BarEntry> entries = new ArrayList<>();
@@ -326,13 +326,7 @@ public class Concentration_Daily extends AppCompatActivity {
             }
         });
         // On click listener of real time indication button
-        realtime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Calibration.class);
-                startActivity(intent);
-            }
-        });
+       
         anim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
