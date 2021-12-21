@@ -55,11 +55,10 @@ public class Relaxation_Monthly extends AppCompatActivity {
 
     BarChart barChart;
     AppCompatButton daily, yearly, weekly;
-    TextView realTime;
     LottieAnimationView anim;
-    ImageButton concentration, relaxation, memoryBtn;
+    ImageView concentration, memoryBtn;
     FirebaseUser mUser;
-    ImageView meditation, music, video;
+    ImageView meditation, music;
     File localFile;
     String text;
     File fileName;
@@ -77,14 +76,12 @@ public class Relaxation_Monthly extends AppCompatActivity {
         //Initialize List entries
         List<BarEntry> entries = new ArrayList<>();
         //Initialize buttons
-        realTime = findViewById(R.id.realTime);
         daily = findViewById(R.id.daily);
         yearly = findViewById(R.id.yearly);
         weekly = findViewById(R.id.weekly);
         memoryBtn = findViewById(R.id.memory);
         music = findViewById(R.id.music);
         meditation = findViewById(R.id.meditations);
-        video = findViewById(R.id.video);
         anim=findViewById(R.id.animation);
 
         //Initialize and Assign Variable
@@ -104,6 +101,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Concentration_Monthly.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
 
@@ -124,13 +122,6 @@ public class Relaxation_Monthly extends AppCompatActivity {
             }
         });
         //go to video-exercise page
-        video.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Video.class);
-                startActivity(intent);
-            }
-        });
 
         //Array list to write data to file
         ArrayList<Float> obj = new ArrayList<>(
@@ -311,14 +302,6 @@ public class Relaxation_Monthly extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
-        //go to calibration page
-        realTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Calibration.class);
-                startActivity(intent);
-            }
-        });
 
         anim.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -426,7 +409,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
             }
         });
 
-        imageViewcancle = (ImageView) dialogrm.findViewById(R.id.imageViewcancle);
+        imageViewcancle = (ImageView) dialogrm.findViewById(R.id.cancelcon);
         imageViewcancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -70,7 +70,7 @@ public interface JsonPlaceHolder {
 
 
     @FormUrlEncoded
-    @POST("/post")
+    @POST("/")
     Call<Void> createPostVal(
             @Field("name") String name,
             @Field("age") String age,
@@ -79,6 +79,6 @@ public interface JsonPlaceHolder {
 
 
 
-    @GET("/post")
+    @GET("/")
     Call<List<Post>> getPost();
 }

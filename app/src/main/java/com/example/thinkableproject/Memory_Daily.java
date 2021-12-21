@@ -52,8 +52,8 @@ public class Memory_Daily extends AppCompatActivity {
     BarChart barChartdaily;
     AppCompatButton monthly, yearly, weekly;
     LottieAnimationView realTime;
-    ImageButton relaxationBtn, concentrationBtn;
-    ImageView games, music;
+    ImageView relaxationBtn, concentrationBtn;
+    ImageView games, meditation;
     FirebaseUser mUser;
     String text;
     File localFile, fileName;
@@ -70,7 +70,7 @@ public class Memory_Daily extends AppCompatActivity {
         games = findViewById(R.id.game);
         yearly = findViewById(R.id.yearly);
         weekly = findViewById(R.id.weekly);
-        music = findViewById(R.id.music);
+        meditation = findViewById(R.id.meditations);
         realTime = findViewById(R.id.animation);
         relaxationBtn = findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
@@ -78,10 +78,10 @@ public class Memory_Daily extends AppCompatActivity {
         concentrationBtn = findViewById(R.id.concentration);
 
 
-        music.setOnClickListener(new View.OnClickListener() {
+        meditation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), BineuralAcivity.class));
+                startActivity(new Intent(getApplicationContext(), MeditationExercise.class));
             }
         });
 

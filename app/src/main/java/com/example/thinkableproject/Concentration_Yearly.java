@@ -52,9 +52,8 @@ public class Concentration_Yearly extends AppCompatActivity {
     Dialog dialogcy;
     BarChart barChart2;
     AppCompatButton daily, weekly, monthly;
-    TextView realTime;
     LottieAnimationView anim;
-    ImageButton relaxationBtn,memoryBtn;
+    ImageView relaxationBtn, memory;
     ImageView music, games;
     FirebaseUser mUser;
     File localFile, fileName;
@@ -73,9 +72,8 @@ public class Concentration_Yearly extends AppCompatActivity {
         daily = findViewById(R.id.daily);
         weekly = findViewById(R.id.weekly);
         monthly = findViewById(R.id.monthly);
-        realTime = findViewById(R.id.realTime);
         relaxationBtn = findViewById(R.id.relaxation);
-        memoryBtn=findViewById(R.id.memory);
+        memory=findViewById(R.id.memory);
         List<BarEntry> entries = new ArrayList<>();
         //Initialize bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -169,7 +167,7 @@ public class Concentration_Yearly extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
-        memoryBtn.setOnClickListener(new View.OnClickListener() {
+        memory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(),Memory_Yearly.class));
@@ -177,13 +175,7 @@ public class Concentration_Yearly extends AppCompatActivity {
             }
         });
         //onClick listener for real time indication button
-        realTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Calibration.class);
-                startActivity(intent);
-            }
-        });
+
 
         anim.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -108,6 +108,7 @@ public class UserProfile1 extends AppCompatActivity {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {
                 Toast.makeText(UserProfile1.this, "Post Successful", Toast.LENGTH_SHORT).show();
+                Log.d("EEG Post", String.valueOf(response.code()));
             }
 
             @Override
@@ -123,7 +124,7 @@ public class UserProfile1 extends AppCompatActivity {
         call1.enqueue(new Callback<List<Post>>() {
             @Override
             public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                Log.d("Response", String.valueOf(response.body()));
+                Log.d("Response Post", String.valueOf(response.body()));
                 if (response.isSuccessful()) {
 //                    Toast.makeText(UserProfile1.this,"Get Successful",Toast.LENGTH_SHORT).show();
                     Log.d("GET", "Successful");

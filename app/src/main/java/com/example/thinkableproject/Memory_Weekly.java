@@ -52,7 +52,8 @@ public class Memory_Weekly extends AppCompatActivity {
     BarChart barChart1;
     AppCompatButton monthly, yearly, daily;
     LottieAnimationView realTime;
-    ImageButton relaxationBtn, concentrationBtn;
+    ImageView relaxationBtn, concentrationBtn;
+    ImageView games,music;
     FirebaseUser mUser;
     File localFile, fileName;
     ArrayList<String> list = new ArrayList<>();
@@ -69,6 +70,8 @@ public class Memory_Weekly extends AppCompatActivity {
         daily = findViewById(R.id.daily);
         realTime = findViewById(R.id.animation);
         relaxationBtn = findViewById(R.id.relaxation);
+        games=findViewById(R.id.game);
+        music=findViewById(R.id.meditations);
         List<BarEntry> entries = new ArrayList<>();
         dialogcw = new Dialog(this);
         concentrationBtn = findViewById(R.id.concentration);
@@ -156,6 +159,19 @@ public class Memory_Weekly extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Calibration.class);
                 startActivity(intent);
+            }
+        });
+
+        games.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),GameActivity.class));
+            }
+        });
+        music.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),Music.class));
             }
         });
         //Initializing arraylist and storing data

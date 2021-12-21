@@ -52,7 +52,7 @@ public class Memory_Yearly extends AppCompatActivity {
     BarChart barChart2;
     AppCompatButton daily, weekly, monthly;
     LottieAnimationView realTime;
-    ImageButton relaxationBtn, concentrationBtn;
+    ImageView relaxationBtn, concentrationBtn,game,music;
     FirebaseUser mUser;
     File localFile, fileName;
     String text;
@@ -71,6 +71,8 @@ public class Memory_Yearly extends AppCompatActivity {
         realTime = findViewById(R.id.animation);
         relaxationBtn = findViewById(R.id.relaxation);
         concentrationBtn = findViewById(R.id.concentration);
+        game=findViewById(R.id.game);
+        music=findViewById(R.id.meditations);
         List<BarEntry> entries = new ArrayList<>();
         //Initialize bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -106,6 +108,18 @@ public class Memory_Yearly extends AppCompatActivity {
                         return true;
                 }
                 return false;
+            }
+        });
+        music.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),Music.class));
+            }
+        });
+        game.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),GameActivity.class));
             }
         });
 

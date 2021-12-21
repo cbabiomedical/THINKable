@@ -6,122 +6,186 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-
     android:orientation="horizontal"
+    android:background="#010334"
     tools:context=".Relaxation_Yearly">
 
-    <pl.droidsonroids.gif.GifImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
-        android:src="@drawable/wallpapernew" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        >
+        android:gravity="center" >
+
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/landingone">
+
+                <pl.droidsonroids.gif.GifImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/landingwall"
+                    android:layout_alignTop="@+id/toggleBtn"
+                    android:id="@+id/landingfwall"/>
+            </LinearLayout>
+
+
             <ImageView
-                android:id="@+id/topic"
-                android:layout_marginTop="20dp"
+                android:id="@+id/landingtwo"
+                android:layout_marginTop="-70dp"
+                android:layout_below="@+id/landingone"
+
                 android:src="@drawable/thin"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 />
 
 
-            <RelativeLayout
-                android:id="@+id/toggleBtn"
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:layout_below="@id/topic"
+                android:id="@+id/landingthree"
+                android:orientation="horizontal"
+                android:layout_below="@id/landingtwo"
+                android:layout_marginTop="-40dp">
 
-                >
                 <LinearLayout
+                    android:id="@+id/tg1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
+
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:orientation="vertical"
-                    android:id="@+id/tg1"
-                    >
-                    <ImageButton
+                    android:orientation="vertical">
+
+                    <ImageView
                         android:id="@+id/concentration"
-                        android:layout_width="100dp"
-                        android:layout_height="70dp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="@+id/relaxation"
-                        android:background="@drawable/concentrationun"
-
-
-
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_marginLeft="35dp"
                         android:layout_marginTop="40dp"
 
+
+
                         android:elevation="5dp"
-                        android:src="@drawable/conctgb"
-                        />
+                        android:src="@drawable/conctb"
+
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="@+id/relaxation" />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/tg2"
                     android:layout_width="match_parent"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="vertical"
-                    android:id="@+id/tg2">
+                    android:orientation="vertical">
 
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/relaxation"
-                        android:layout_width="100dp"
-                        android:layout_height="70dp"
-                        android:background="@drawable/relaxationclickedd"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_alignEnd="@+id/concentration"
                         android:layout_alignRight="@+id/memo"
-
                         android:layout_marginTop="40dp"
-                        app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintLeft_toLeftOf="@+id/concentration"
-
 
 
                         android:elevation="5dp"
-                        android:src="@drawable/relaxtga"
-                        />
+                        android:src="@drawable/relland"
 
+
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintLeft_toLeftOf="@+id/concentration" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tg3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/memory"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginRight="35dp"
+
+                        android:elevation="5dp"
+                        android:src="@drawable/memorytgablr" />
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/threelines"
+                android:orientation="horizontal"
+                android:layout_below="@id/landingthree"
+                android:layout_marginTop="5dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/threelines1"
+                    android:orientation="vertical"
+
+                    android:layout_marginTop="30dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/threelines"
+                        android:backgroundTint="@color/white"
+                        android:layout_marginStart="25dp"
+                        android:id="@+id/iv"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="end"
-                    android:gravity="end"
+                    android:id="@+id/threelines3"
                     android:orientation="vertical"
-                    android:id="@+id/tg3">
+                    android:layout_alignEnd="@+id/threelines1"
 
-                    <ImageButton
-                        android:id="@+id/memory"
-                        android:layout_width="100dp"
-                        android:layout_height="70dp"
-                        android:layout_marginRight="35dp"
-                        android:background="@drawable/memoryun"
+                    android:layout_marginTop="20dp">
 
-                        android:layout_marginTop="40dp"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="@font/segoepr"
+                        android:text="Relaxation"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
 
 
-                        android:elevation="5dp"
-                        android:src="@drawable/memorytga" />
+
+                        />
 
 
                 </LinearLayout>
@@ -131,18 +195,127 @@
 
 
 
+
+
+
+
+
+
+
+
+            </LinearLayout>
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_below="@+id/threelines"
+                android:layout_marginLeft="20dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="20dp"
+                android:id="@+id/cards">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/musiccardwo"
+                    android:id="@+id/music"
+
+                    android:layout_alignParentLeft="true"
+                    />
+
+                <TextView
+                    android:id="@+id/musictxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="14dp"
+                    android:fontFamily="@font/segoepr"
+                    android:text="Music"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/musictxt"
+                    android:layout_alignStart="@+id/music"
+                    android:layout_alignEnd="@+id/music"
+                    android:layout_alignParentStart="true"
+
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/segoe_ui"
+                    android:text="Music to stay Relaxed"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/medibg"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/meditations"
+                    />
+
+                <TextView
+                    android:id="@+id/mediTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="30dp"
+
+                    android:layout_marginTop="14dp"
+                    android:fontFamily="@font/segoepr"
+                    android:text="Meditation"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/mediTxt"
+                    android:layout_alignStart="@+id/mediTxt"
+                    android:layout_alignParentEnd="true"
+
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/segoe_ui"
+                    android:text="Meditation to stay Relaxed"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+
             </RelativeLayout>
+
+
+
+
+
+
+
 
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barChartYearly"
                 android:layout_width="280dp"
                 android:layout_height="250dp"
-                android:layout_below="@+id/toggleBtn"
-                android:layout_marginStart="4dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="35dp"
+                android:layout_below="@+id/cards"
                 android:layout_centerHorizontal="true"
-                android:background="@color/transparent" />
+                android:layout_marginStart="4dp"
+                android:layout_marginTop="20dp"
+                android:background="@color/transparent"
+                app:cornerRadius="13dp"
+                android:layout_marginLeft="4dp" />
 
             <LinearLayout
                 android:id="@+id/btnLayout"
@@ -153,74 +326,100 @@
                 android:background="@android:color/transparent"
                 android:gravity="center"
                 android:layout_marginTop="20dp">
-                <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/monthly"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Monthly"
-                    android:textColor="@color/black"
 
-                    android:background="@drawable/hibtn"
-                    android:textAllCaps="false">
-                </androidx.appcompat.widget.AppCompatButton>
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/daily"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="20dp"
                     android:text="@string/daily"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
 
-                    android:background="@drawable/hibtn"
+                    android:background="@drawable/hione"
+                    android:textAllCaps="false">
+                </androidx.appcompat.widget.AppCompatButton>
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/weekly"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:text="@string/weekly"
+                    android:textColor="@color/white"
+
+
+                    android:background="@drawable/hione"
                     android:textAllCaps="false">
                 </androidx.appcompat.widget.AppCompatButton>
 
 
                 <androidx.appcompat.widget.AppCompatButton
-                    android:id="@+id/weekly"
+                    android:id="@+id/monthly"
                     android:layout_marginLeft="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Weekly"
-                    android:textColor="@color/black"
+                    android:text="@string/monthly"
+                    android:textColor="@color/white"
 
-                    android:background="@drawable/hibtn"
+                    android:background="@drawable/hione"
                     android:textAllCaps="false">
                 </androidx.appcompat.widget.AppCompatButton>
             </LinearLayout>
+
+
             <com.airbnb.lottie.LottieAnimationView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/animation"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+
+
+                android:layout_alignStart="@+id/animationcircle"
+
+                android:layout_alignTop="@+id/animationcircle"
+                android:layout_alignEnd="@+id/animationcircle"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="25dp"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/connectiondevicethree" />
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
                 android:layout_marginTop="20dp"
+                android:src="@drawable/bluetoothcircle"
 
                 android:layout_centerHorizontal="true"
 
 
-                app:lottie_autoPlay="true"
-                app:lottie_rawRes="@raw/connectiondevicethree"
 
-                app:lottie_loop="true"
-                android:id="@+id/animation"
+                android:id="@+id/animationcircle"
                 android:layout_below="@+id/btnLayout"/>
 
-            <TextView
-                android:id="@+id/realTime"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:textColor="@color/white"
-                android:fontFamily="@font/lemon"
-                android:layout_marginTop="2dp"
-                android:layout_marginEnd="20dp"
 
 
-                android:text="Click Here to Connect device!"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                android:layout_below="@+id/animation"/>
 
-            <Button
-                android:id="@+id/improveRelaxation"
+
+
+
+            <!--            <com.airbnb.lottie.LottieAnimationView-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_below="@+id/realTime"-->
+
+            <!--                android:id="@+id/animation_view"-->
+            <!--                android:text="hiii"-->
+            <!--                app:lottie_rawRes="@raw/connectdevice"-->
+            <!--                app:lottie_autoPlay="true"-->
+            <!--                app:lottie_loop="true"/>-->
+
+
+
+
+
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/improveConcentration"
 
                 android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
@@ -228,52 +427,22 @@
                 android:paddingHorizontal="10dp"
                 android:text="Want to Improve Relaxation?"
                 android:layout_centerHorizontal="true"
-                android:layout_below="@+id/realTime"
-                android:textColor="@color/black"
-                android:backgroundTint="@color/white"
+                android:layout_below="@+id/animationcircle"
+                android:textColor="@color/white"
+                android:background="@drawable/wanttocon"
+                android:layout_marginBottom="80dp"
                 app:cornerRadius="13dp"
-
-                android:textAllCaps="false"
-                android:onClick="gotoPopup6">
-            </Button>
-            <LinearLayout
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="70dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center"
-                android:layout_below="@+id/improveRelaxation">
-
-                <ImageView
-                    android:id="@+id/music"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:src="@drawable/musicf" />
-
-                <ImageView
-                    android:id="@+id/meditations"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-
-                    android:src="@drawable/medif" />
-
-                <ImageView
-                    android:id="@+id/video"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-
-                    android:src="@drawable/videof" />
+                android:onClick="gotoPopup8"
+                android:textAllCaps="false">
+            </androidx.appcompat.widget.AppCompatButton>
 
 
 
-            </LinearLayout>
+
+
+
         </RelativeLayout>
     </ScrollView>
-
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
@@ -282,6 +451,8 @@
         app:itemBackground="@color/Ldark"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
-        app:menu="@menu/menu_navigation" />
-</RelativeLayout>
+        app:menu="@menu/menu_navigation"
+        />
 
+
+</RelativeLayout>
