@@ -55,10 +55,10 @@ public class Relaxation_Yearly extends AppCompatActivity {
     AppCompatButton daily, weekly, monthly ;
     LottieAnimationView realTime;
 
-    ImageButton concentration, memoryBtn;
+    ImageView concentration, memoryBtn;
     FirebaseUser mUser;
     String text;
-    ImageView music, meditation, video;
+    ImageView music, meditation;
     File fileName;
     File localFile;
     ArrayList<String> list = new ArrayList<>();
@@ -105,7 +105,6 @@ public class Relaxation_Yearly extends AppCompatActivity {
         //Initialize buttons
         music = findViewById(R.id.music);
         meditation = findViewById(R.id.meditations);
-        video = findViewById(R.id.video);
         //go to music-exercise page
         music.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,13 +122,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
             }
         });
         //go to video-exercise page
-        video.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Video.class);
-                startActivity(intent);
-            }
-        });
+
 
         //go to relaxation monthly page
         monthly.setOnClickListener(new View.OnClickListener() {
@@ -404,7 +397,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
             }
         });
 
-        imageViewcancle = (ImageView) dialogry.findViewById(R.id.imageViewcancle);
+        imageViewcancle = (ImageView) dialogry.findViewById(R.id.cancelcon);
         imageViewcancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

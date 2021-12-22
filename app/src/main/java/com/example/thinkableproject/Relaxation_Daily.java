@@ -6,6 +6,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 import android.app.Dialog;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -53,14 +54,14 @@ public class Relaxation_Daily extends AppCompatActivity {
     Dialog dialogrd;
     BarChart barChartdaily;
     AppCompatButton monthly, yearly, weekly;
-    TextView realtime;
+
     LottieAnimationView anim;
-    ImageView meditation, music, video;
+    ImageView meditation, music;
     FirebaseUser mUser;
     String text;
     File localFile;
     File fileName;
-    ImageButton concentration, memoryBtn;
+    ImageView concentration, memoryBtn;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
 
@@ -78,8 +79,6 @@ public class Relaxation_Daily extends AppCompatActivity {
         //Initialize buttons
         music = findViewById(R.id.music);
         meditation = findViewById(R.id.meditations);
-        video = findViewById(R.id.video);
-        realtime = findViewById(R.id.realTime);
         anim=findViewById(R.id.animation);
         concentration = findViewById(R.id.concentration);
         memoryBtn = findViewById(R.id.memory);
@@ -92,13 +91,7 @@ public class Relaxation_Daily extends AppCompatActivity {
 
 
         //go to calibration page
-        realtime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Calibration.class);
-                startActivity(intent);
-            }
-        });
+
 
         anim.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -125,13 +118,7 @@ public class Relaxation_Daily extends AppCompatActivity {
             }
         });
         //go to video-exercise page
-        video.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Video.class);
-                startActivity(intent);
-            }
-        });
+
         //go to concentration daily landing page
         concentration.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -423,7 +410,7 @@ public class Relaxation_Daily extends AppCompatActivity {
             }
         });
 
-        imageViewcancle = (ImageView) dialogrd.findViewById(R.id.imageViewcancle);
+        imageViewcancle = (ImageView) dialogrd.findViewById(R.id.cancelcon);
         imageViewcancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

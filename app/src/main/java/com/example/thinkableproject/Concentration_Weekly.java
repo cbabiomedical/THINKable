@@ -53,10 +53,10 @@ public class Concentration_Weekly extends AppCompatActivity {
     BarChart barChart1;
     AppCompatButton monthly, yearly, daily;
     TextView realTime;
-    ImageButton relaxationBtn, memoryBtn;
+    ImageView games,relaxationBtn, memory;
     LottieAnimationView anim;
     FirebaseUser mUser;
-    ImageView music, games;
+    ImageView music;
     File localFile, fileName;
     ArrayList<String> list = new ArrayList<>();
     String text;
@@ -66,16 +66,17 @@ public class Concentration_Weekly extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_concentration__weekly);
+
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
         barChart1 = (BarChart) findViewById(R.id.barChartWeekly);
         monthly = findViewById(R.id.monthly);
         yearly = findViewById(R.id.yearly);
         daily = findViewById(R.id.daily);
-        realTime = findViewById(R.id.realTime);
         relaxationBtn = findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
         dialogcw = new Dialog(this);
-        memoryBtn = findViewById(R.id.memory);
+        memory = findViewById(R.id.memory);
         music = findViewById(R.id.music);
         games = findViewById(R.id.game);
         anim=findViewById(R.id.animation);
@@ -167,7 +168,7 @@ public class Concentration_Weekly extends AppCompatActivity {
             }
         });
         // On click listener of realTime indication button
-        realTime.setOnClickListener(new View.OnClickListener() {
+        anim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Calibration.class);
@@ -182,7 +183,7 @@ public class Concentration_Weekly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        memoryBtn.setOnClickListener(new View.OnClickListener() {
+        memory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Memory_Weekly.class));
@@ -388,7 +389,41 @@ public class Concentration_Weekly extends AppCompatActivity {
     }
 
     public void gotoPopup1(View view) {
+        ImageView cancelcon, games, music1;
+
+
+        dialogcw.setContentView(R.layout.activity_concentration_popup);
+
+        games = (ImageView) dialogcw.findViewById(R.id.games);
+        music1 = (ImageView) dialogcw.findViewById(R.id.music1);
+
+        games.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), GameActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        music1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Music.class);
+                startActivity(intent);
+            }
+        });
+
+        cancelcon = (ImageView) dialogcw.findViewById(R.id.cancelcon);
+        cancelcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogcw.dismiss();
+            }
+        });
+        dialogcw.show();
+
     }
+
 
 
     public class MyBarDataset extends BarDataSet {

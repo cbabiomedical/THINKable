@@ -62,8 +62,8 @@ public class Relaxation_Weekly extends AppCompatActivity {
     private Context context;
     AppCompatButton daily, yearly, monthly;
     LottieAnimationView realTime;
-    ImageButton concentration, memoryBtn;
-    ImageView music, meditation, video;
+    ImageView concentration, memoryBtn;
+    ImageView music, meditation;
     FirebaseUser mUser;
     String text;
     File localFile;
@@ -111,7 +111,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
 
         music = findViewById(R.id.music);
         meditation = findViewById(R.id.meditations);
-        video = findViewById(R.id.video);
+
         //go to misic-excercise page
         music.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -129,13 +129,6 @@ public class Relaxation_Weekly extends AppCompatActivity {
             }
         });
         //go to video-exercise page
-        video.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Video.class);
-                startActivity(intent);
-            }
-        });
 
         //Array list to write data to file
         ArrayList<Float> obj = new ArrayList<>(
@@ -416,7 +409,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
             }
         });
 
-        imageViewcancle = (ImageView) dialogrw.findViewById(R.id.imageViewcancle);
+        imageViewcancle = (ImageView) dialogrw.findViewById(R.id.cancelcon);
         imageViewcancle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

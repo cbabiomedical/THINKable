@@ -374,17 +374,17 @@
 
             <com.airbnb.lottie.LottieAnimationView
                 android:id="@+id/animation"
-                android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
 
 
                 android:layout_alignStart="@+id/animationcircle"
 
                 android:layout_alignTop="@+id/animationcircle"
                 android:layout_alignEnd="@+id/animationcircle"
-                android:layout_marginStart="50dp"
-                android:layout_marginTop="50dp"
-                android:layout_marginEnd="50dp"
+                android:layout_marginStart="25dp"
+                android:layout_marginTop="25dp"
+                android:layout_marginEnd="25dp"
                 app:lottie_autoPlay="true"
                 app:lottie_loop="true"
                 app:lottie_rawRes="@raw/connectiondevicethree" />
@@ -436,6 +436,7 @@
                 android:layout_below="@+id/animationcircle"
                 android:textColor="@color/white"
                 android:background="@drawable/wanttocon"
+                android:layout_marginBottom="80dp"
                 app:cornerRadius="13dp"
 
 

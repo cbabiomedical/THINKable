@@ -53,11 +53,10 @@ public class Concentration_Monthly extends AppCompatActivity {
     private Context context;
     ImageView games, music;
     AppCompatButton daily, weekly, yearly;
-    ImageButton relaxationBtn, memoryBtn;
+    ImageView relaxationBtn, memory;
     FirebaseUser mUser;
     File localFile, fileName;
     LottieAnimationView anim;
-    TextView realTime;
     String text;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
@@ -73,11 +72,10 @@ public class Concentration_Monthly extends AppCompatActivity {
         weekly = findViewById(R.id.weekly);
         yearly = findViewById(R.id.yearly);
         barChart = (BarChart) findViewById(R.id.barChartMonthly);
-        realTime = findViewById(R.id.realTime);
         relaxationBtn = findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
         dialogcm = new Dialog(this);
-        memoryBtn = findViewById(R.id.memory);
+        memory = findViewById(R.id.memory);
         games = findViewById(R.id.game);
         music = findViewById(R.id.music);
         anim = findViewById(R.id.animation);
@@ -315,7 +313,7 @@ public class Concentration_Monthly extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
-        memoryBtn.setOnClickListener(new View.OnClickListener() {
+        memory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), MemoryMonthly.class));
@@ -323,13 +321,7 @@ public class Concentration_Monthly extends AppCompatActivity {
             }
         });
         // On click listener of real time indication button
-        realTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Calibration.class);
-                startActivity(intent);
-            }
-        });
+
 
         anim.setOnClickListener(new View.OnClickListener() {
             @Override
