@@ -25,7 +25,9 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/landingone">
 
-                <pl.droidsonroids.gif.GifImageView
+
+
+                     <pl.droidsonroids.gif.GifImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
@@ -33,7 +35,13 @@
                     android:src="@drawable/landingwall"
                     android:layout_alignTop="@+id/toggleBtn"
                     android:id="@+id/landingfwall"/>
+
+
+
+
             </LinearLayout>
+
+
 
 
             <ImageView

@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/newbg"
+    android:background="#010334"
     android:orientation="horizontal"
     tools:context=".Concentration_Daily">
     <ScrollView
@@ -17,146 +17,262 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <RelativeLayout
-                android:id="@+id/toggleBtn"
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:id="@+id/landingone">
 
-                >
+
+
+                <pl.droidsonroids.gif.GifImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/musicgif"
+                    android:layout_alignTop="@+id/toggleBtn"
+                    android:id="@+id/landingfwall"/>
+
+
+
+
+            </LinearLayout>
+
+
+
+
+            <ImageView
+                android:id="@+id/landingtwo"
+                android:layout_marginTop="-70dp"
+                android:layout_below="@+id/landingone"
+
+                android:src="@drawable/thin"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                />
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/landingthree"
+                android:orientation="horizontal"
+                android:layout_below="@id/landingtwo"
+                android:layout_marginTop="-40dp">
+
                 <LinearLayout
+                    android:id="@+id/tg1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
+
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:orientation="vertical"
-                    android:id="@+id/tg1"
-                    >
-                    <ImageButton
+                    android:orientation="vertical">
+
+                    <ImageView
                         android:id="@+id/concentration"
-                        android:layout_width="100dp"
-                        android:layout_height="70dp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="@+id/relaxation"
-                        android:background="@drawable/concentrationun"
-
-
-
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_marginLeft="35dp"
                         android:layout_marginTop="40dp"
 
+
+
                         android:elevation="5dp"
-                        android:src="@drawable/conctgb"
-                        />
+                        android:src="@drawable/conctgbblur"
+
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="@+id/relaxation" />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/tg2"
                     android:layout_width="match_parent"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="vertical"
-                    android:id="@+id/tg2">
+                    android:orientation="vertical">
 
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/relaxation"
-                        android:layout_width="100dp"
-                        android:layout_height="70dp"
-                        android:background="@drawable/relaxationclickedd"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_alignEnd="@+id/concentration"
                         android:layout_alignRight="@+id/memo"
-
                         android:layout_marginTop="40dp"
-                        app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintLeft_toLeftOf="@+id/concentration"
-
 
 
                         android:elevation="5dp"
-                        android:src="@drawable/relaxtga"
-                        />
+                        android:src="@drawable/relaxland"
 
+
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintLeft_toLeftOf="@+id/concentration" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tg3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/memory"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginRight="35dp"
+
+                        android:elevation="5dp"
+                        android:src="@drawable/memorytgablr" />
+
+
+                </LinearLayout>
+
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/threelines"
+                android:orientation="horizontal"
+                android:layout_below="@id/landingthree"
+                android:layout_marginTop="5dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/threelines1"
+                    android:orientation="vertical"
+
+                    android:layout_marginTop="30dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/musictrangle"
+                        android:backgroundTint="@color/white"
+                        android:layout_marginStart="25dp"
+                        android:id="@+id/iv"/>
 
                 </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:layout_gravity="end"
-                    android:gravity="end"
+                    android:id="@+id/threelines3"
                     android:orientation="vertical"
-                    android:id="@+id/tg3">
+                    android:layout_alignEnd="@+id/threelines1"
 
-                    <ImageButton
-                        android:id="@+id/memory"
-                        android:layout_width="100dp"
-                        android:layout_height="70dp"
-                        android:layout_marginRight="35dp"
-                        android:background="@drawable/memoryun"
+                    android:layout_marginTop="20dp">
 
-                        android:layout_marginTop="40dp"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="@font/segoepr"
+                        android:text="Music"
+                        android:id="@+id/musicTitle"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
 
 
-                        android:elevation="5dp"
-                        android:src="@drawable/memorytga" />
+
+                        />
 
 
                 </LinearLayout>
 
 
+            </LinearLayout>
 
-
-
-
-            </RelativeLayout>
-            <TextView
-                android:layout_below="@id/toggleBtn"
-                android:id="@+id/musicTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="Music"
-                android:textStyle="bold"
-                android:layout_marginTop="20dp"
-                android:layout_centerHorizontal="true"
-                android:textColor="@color/white"
-                android:textSize="28sp"
-
-                />
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/musicRecyclerView"
-                android:layout_below="@+id/musicTitle"
+                android:layout_below="@+id/threelines"
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
 
-            <TextView
-                android:id="@+id/meditationTitle"
-                android:layout_width="wrap_content"
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textAlignment="center"
-                android:text="Meditation"
+                android:id="@+id/threelinesa"
+                android:orientation="horizontal"
                 android:layout_below="@id/musicRecyclerView"
-                android:layout_marginTop="20dp"
-                android:textStyle="bold"
-                android:layout_centerHorizontal="true"
-                android:textColor="@color/white"
-                android:textSize="28sp"
-                />
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/meditationRecyclerView"
-                android:layout_below="@+id/meditationTitle"
-                android:layout_marginTop="20dp"
-                android:layout_marginBottom="120dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                android:layout_marginTop="5dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/threelines1a"
+                    android:orientation="vertical"
+
+                    android:layout_marginTop="30dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/musictrangle"
+                        android:backgroundTint="@color/white"
+                        android:layout_marginStart="25dp"
+                        android:id="@+id/iva"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/threelines3a"
+                    android:orientation="vertical"
+                    android:layout_alignEnd="@+id/threelines1a"
+
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="@font/segoepr"
+                        android:text="Meditation"
+                        android:id="@+id/meditationTitle"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
 
 
+
+                        />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/meditationRecyclerView"
+                        android:layout_below="@+id/meditationTitle"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="120dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
 
 
 

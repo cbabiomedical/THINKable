@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import com.example.thinkableproject.adapters.MeditationAdapter;
 import com.example.thinkableproject.adapters.MusicAdapter;
@@ -24,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 
 public class RelaxationExercise extends AppCompatActivity implements MusicAdapter.OnNoteListner, MeditationAdapter.OnNoteListner {
-    ImageButton concentrationBtn;
+    ImageView concentrationBtn;
     RecyclerView musicRecyclerView, meditationRecyclerView;
     MusicAdapter musicAdapter;
     MeditationAdapter meditationAdapter;

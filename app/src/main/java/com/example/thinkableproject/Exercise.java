@@ -9,7 +9,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
+
+import android.widget.ImageView;
+
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.thinkableproject.adapters.GridAdapter;
@@ -28,7 +30,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteListner, GridAdapter.OnNoteListner {
-    ImageButton relaxation;
+    ImageView relaxation;
     TextView music, games;
     RecyclerView musicRecyclerView, gameRecyclerView;
     MusicAdapter musicAdapter;

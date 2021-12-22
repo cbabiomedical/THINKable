@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/newbg"
+    android:background="#010334"
     tools:context=".ConcentrationReportDaily">
     <ScrollView
         android:layout_width="match_parent"
@@ -13,110 +13,141 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
-            <RelativeLayout
-                android:id="@+id/toggleBtn"
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="300dp"
+                android:id="@+id/landingone">
+
+
+
+                <pl.droidsonroids.gif.GifImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/reportdrthree"
+                    android:layout_alignTop="@+id/toggleBtn"
+                    android:id="@+id/landingfwall"/>
+
+
+
+
+            </LinearLayout>
+
+
+
+
+            <ImageView
+                android:id="@+id/landingtwo"
+                android:layout_marginTop="-90dp"
+                android:layout_below="@+id/landingone"
+
+                android:src="@drawable/thin"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                />
+
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
+                android:id="@+id/landingthree"
+                android:orientation="horizontal"
+                android:layout_below="@id/landingtwo"
+                android:layout_marginTop="-50dp">
 
-                >
                 <LinearLayout
+                    android:id="@+id/tg1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="start"
+
                     android:layout_weight="1"
                     android:gravity="start"
-                    android:orientation="vertical"
-                    android:id="@+id/tg1"
-                    >
-                    <ImageButton
+                    android:orientation="vertical">
+
+                    <ImageView
                         android:id="@+id/concentration"
-                        android:layout_width="100dp"
-                        android:layout_height="70dp"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toRightOf="@+id/relaxation"
-                        android:background="@drawable/concentrationclickedd"
-
-
-
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_marginLeft="35dp"
                         android:layout_marginTop="40dp"
 
+
+
                         android:elevation="5dp"
-                        android:src="@drawable/conctgb"
-                        />
+                        android:src="@drawable/conland"
+
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="@+id/relaxation" />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/tg2"
                     android:layout_width="match_parent"
-                    android:layout_weight="1"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
+                    android:layout_weight="1"
                     android:gravity="center"
-                    android:orientation="vertical"
-                    android:id="@+id/tg2">
+                    android:orientation="vertical">
 
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/relaxation"
-                        android:layout_width="100dp"
-                        android:layout_height="70dp"
-                        android:background="@drawable/relaxationun"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_alignEnd="@+id/concentration"
                         android:layout_alignRight="@+id/memo"
-
                         android:layout_marginTop="40dp"
-                        app:layout_constraintHorizontal_bias="0"
-                        app:layout_constraintLeft_toLeftOf="@+id/concentration"
-
 
 
                         android:elevation="5dp"
-                        android:src="@drawable/relaxtga"
-                        />
+                        android:src="@drawable/relaxtgablr"
+
+
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintLeft_toLeftOf="@+id/concentration" />
 
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/tg3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:layout_gravity="end"
+                    android:layout_weight="1"
                     android:gravity="end"
-                    android:orientation="vertical"
-                    android:id="@+id/tg3">
+                    android:orientation="vertical">
 
-                    <ImageButton
+                    <ImageView
                         android:id="@+id/memory"
-                        android:layout_width="100dp"
-                        android:layout_height="70dp"
-                        android:layout_marginRight="35dp"
-                        android:background="@drawable/memoryun"
-
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_marginTop="40dp"
-
+                        android:layout_marginRight="35dp"
 
                         android:elevation="5dp"
-                        android:src="@drawable/memorytga" />
+                        android:src="@drawable/memorytgablr" />
 
 
                 </LinearLayout>
 
 
 
+            </LinearLayout>
 
 
-
-            </RelativeLayout>
             <RelativeLayout
                 android:layout_centerHorizontal="true"
 
                 android:id="@+id/toggleBtn2"
-                android:layout_below="@+id/toggleBtn"
+                android:layout_below="@+id/landingthree"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="-20dp"
+                android:layout_centerInParent="true"
 
                 >
 
@@ -124,17 +155,21 @@
                     android:id="@+id/whereAmI"
                     android:layout_width="160dp"
                     android:layout_height="60dp"
+                    android:layout_marginTop="40dp"
 
                     android:layout_alignEnd="@+id/progress"
                     android:layout_marginLeft="120dp"
-                    android:layout_marginTop="40dp"
+
                     android:text="Where Am I"
                     android:textColor="@color/white"
                     android:layout_marginEnd="-136dp"
                     android:layout_marginRight="-144dp"
-                    android:background="@drawable/progresss"
+                    android:background="@drawable/hione"
+                    android:textAllCaps="false"
+
                     android:elevation="5dp"
-                    android:layout_alignRight="@+id/progress" />
+                    android:layout_alignRight="@+id/progress"
+                    />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/progress"
@@ -142,11 +177,18 @@
                     android:layout_height="60dp"
                     android:text="Progress"
                     android:textColor="@color/white"
-                    android:layout_marginLeft="65dp"
+                    android:layout_marginLeft="55dp"
                     android:layout_marginTop="40dp"
                     android:background="@drawable/whereamii"
+                    android:textAllCaps="false"
+
+
                     android:elevation="5dp" />
             </RelativeLayout>
+
+
+
+
             <LinearLayout
                 android:id="@+id/btnLayout"
                 android:layout_width="match_parent"
@@ -155,15 +197,15 @@
                 android:orientation="horizontal"
                 android:background="@android:color/transparent"
                 android:gravity="center"
-                android:layout_marginTop="20dp">
+                android:layout_marginTop="30dp">
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/weekly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/weekly"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
 
-                    android:background="@drawable/hibtn"
+                    android:background="@drawable/hione"
                     android:textAllCaps="false">
                 </androidx.appcompat.widget.AppCompatButton>
                 <androidx.appcompat.widget.AppCompatButton
@@ -172,9 +214,9 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:text="@string/monthly"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
 
-                    android:background="@drawable/hibtn"
+                    android:background="@drawable/hione"
                     android:textAllCaps="false">
                 </androidx.appcompat.widget.AppCompatButton>
 
@@ -185,57 +227,167 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/yearly"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
 
-                    android:background="@drawable/hibtn"
+                    android:background="@drawable/hione"
                     android:textAllCaps="false">
                 </androidx.appcompat.widget.AppCompatButton>
             </LinearLayout>
-            <ImageView
-                android:id="@+id/colorDesc"
-                android:layout_marginTop="20dp"
-                android:layout_marginHorizontal="20dp"
-                android:layout_below="@+id/btnLayout"
+
+
+
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/colorchart"/>
+                android:id="@+id/threelines"
+                android:orientation="horizontal"
+                android:layout_below="@id/btnLayout"
+                android:layout_marginTop="5dp">
 
-            <ImageView
-                android:id="@+id/btn_timeCon"
-                android:layout_marginTop="20dp"
-                android:layout_centerHorizontal="true"
-                android:paddingHorizontal="20dp"
-                android:layout_width="300dp"
-                android:layout_height="35dp"
-                android:layout_below="@+id/colorDesc"
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/threelines1"
+                    android:orientation="vertical"
 
-                android:src="@drawable/timetoconcentrate"/>
+                    android:layout_marginTop="30dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/threelines"
+                        android:backgroundTint="@color/white"
+                        android:layout_marginStart="25dp"
+                        android:id="@+id/iv"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/threelines3"
+                    android:orientation="vertical"
+                    android:layout_alignEnd="@+id/threelines1"
+
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="@font/segoepr"
+                        android:text="Time to Concentrate"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+
+
+
+
+                        />
+
+
+                </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </LinearLayout>
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barChartDaily"
                 android:layout_width="325dp"
                 android:layout_height="214dp"
-                android:layout_below="@+id/btn_timeCon"
+                android:layout_below="@+id/threelines"
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="20dp"
                 android:background="@color/transparent"
                 app:cornerRadius="13dp" />
 
-            <ImageView
-                android:id="@+id/btn_timeStayedCon"
-                android:layout_marginTop="20dp"
-                android:layout_centerHorizontal="true"
-                android:paddingHorizontal="20dp"
-                android:layout_width="300dp"
-                android:layout_height="35dp"
-                android:layout_below="@+id/barChartDaily"
 
-                android:src="@drawable/timestayedconcent"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/threelinesa"
+                android:orientation="horizontal"
+                android:layout_below="@id/barChartDaily"
+                android:layout_marginTop="5dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/threelines1a"
+                    android:orientation="vertical"
+
+                    android:layout_marginTop="30dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/threelines"
+                        android:backgroundTint="@color/white"
+                        android:layout_marginStart="25dp"
+                        android:id="@+id/iva"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/threelines3a"
+                    android:orientation="vertical"
+                    android:layout_alignEnd="@+id/threelines1"
+
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="@font/segoepr"
+                        android:text="Time stayed Concentrate"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+
+
+
+
+                        />
+
+
+                </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            </LinearLayout>
+
+
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barChartDaily2"
                 android:layout_width="325dp"
                 android:layout_height="214dp"
-                android:layout_below="@+id/btn_timeStayedCon"
+                android:layout_below="@+id/threelinesa"
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="20dp"

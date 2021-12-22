@@ -8,10 +8,14 @@
     android:orientation="vertical"
     android:weightSum="10"
     android:background="@drawable/newbg"
-    tools:context=".GameActivity">
+    tools:context=".GameActivity"
+    >
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/gridView" />
+        android:id="@+id/gridView"
+        android:layout_gravity="center"
+
+        />
 </LinearLayout>

@@ -3,8 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="90dp"
-    android:background="@drawable/bgre"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/btnpreff"    xmlns:app="http://schemas.android.com/apk/res-auto"
 
     style="@style/CardView.Light"
     android:layout_marginTop="8dp"

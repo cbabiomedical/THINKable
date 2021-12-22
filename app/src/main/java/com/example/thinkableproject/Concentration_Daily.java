@@ -40,12 +40,14 @@ import java.util.*;
 public class Concentration_Daily extends AppCompatActivity {
     Dialog dialogcd;
     BarChart barChartdaily;
+
     ImageView games,relaxationBtn, memory;
     AppCompatButton monthly, yearly, weekly;
 
     ImageView music;
     FirebaseUser mUser;
     String text;
+
 
     LottieAnimationView anim;
     File localFile, fileName;
@@ -263,6 +265,8 @@ public class Concentration_Daily extends AppCompatActivity {
                             barChartdaily.setNoDataText("Chart Loading Please Wait...");
                             barChartdaily.animateXY(3000, 3000);
                             barChartdaily.invalidate();
+                            barChartdaily.getXAxis().setTextColor(getResources().getColor(R.color.white));
+
 
 
                         }
@@ -326,7 +330,7 @@ public class Concentration_Daily extends AppCompatActivity {
             }
         });
         // On click listener of real time indication button
-       
+
         anim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

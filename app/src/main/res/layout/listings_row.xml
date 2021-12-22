@@ -5,8 +5,7 @@
     android:layout_marginTop="10dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorAccent"
-    android:id="@+id/toplayout"
+    android:background="@drawable/btnpreff"    android:id="@+id/toplayout"
     >
 
     <TextView

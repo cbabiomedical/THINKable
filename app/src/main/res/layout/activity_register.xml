@@ -10,20 +10,22 @@
     >
 <RelativeLayout
     android:layout_width="match_parent"
-    android:background="@drawable/signin"
+    android:background="@drawable/sinnew"
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/registerImage"
-        android:layout_width="367dp"
-        android:layout_height="179dp"
-        android:layout_centerHorizontal="true"
-        android:src="@drawable/register" />
+    android:id="@+id/topic"
+    android:layout_marginTop="20dp"
+    android:src="@drawable/thin"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    />
+
 
     <EditText
         android:id="@+id/username"
         android:layout_marginHorizontal="30dp"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="165dp"
         android:layout_width="match_parent"
         android:drawableLeft="@drawable/ic_person"
         android:layout_height="wrap_content"
@@ -219,9 +221,12 @@
         android:layout_centerHorizontal="true"
         android:backgroundTint="@color/white"
         android:paddingHorizontal="50dp"
-        android:textColor="@color/black"
+
+        android:textColor="@color/white"
         app:cornerRadius="20dp"
-        android:text="SignUp"
+        android:text="Sign Up"
+        android:textAllCaps="false"
+        android:background="#80363636"
         android:onClick="goOTP"
         />
     <TextView

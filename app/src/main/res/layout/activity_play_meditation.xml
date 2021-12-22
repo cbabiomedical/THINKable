@@ -5,7 +5,7 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/medb"
+    android:background="#010334"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     android:weightSum="10"
@@ -27,16 +27,28 @@
             android:padding="10dp"
             android:singleLine="true"
             android:text="SongName"
-            android:textSize="28sp"
-            android:textStyle="bold|italic"
+            android:textSize="18sp"
+            android:textStyle="bold"
             android:textColor="@color/white"
-            android:textAlignment="center"/>
-        <ImageView
-            android:layout_width="250dp"
-            android:layout_height="250dp"
-            android:id="@+id/imageView"
-            android:layout_marginBottom="8dp"
-            android:src="@drawable/ic_baseline_library"/>
+            android:textAlignment="center"
+            android:fontFamily="@font/lemon"/>
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_width="match_parent"
+            android:layout_height="300dp"
+            android:layout_marginTop="10dp"
+
+            android:layout_centerHorizontal="true"
+
+
+            app:lottie_autoPlay="true"
+            app:lottie_rawRes="@raw/flowers"
+
+            app:lottie_loop="true"
+            android:id="@+id/animation"
+            android:layout_below="@+id/txtsongName"/>
+
+
 
         <RelativeLayout
             android:layout_width="match_parent"

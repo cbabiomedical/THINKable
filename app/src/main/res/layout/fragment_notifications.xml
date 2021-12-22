@@ -6,6 +6,16 @@
     android:layout_height="match_parent"
     tools:context=".ui.notifications.NotificationsFragment">
 
+
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:scaleType="centerCrop"
+        android:src="@drawable/wallpapertwo" />
+
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

@@ -64,7 +64,6 @@ public class PlayMeditation extends AppCompatActivity {
         txtStop = findViewById(R.id.txtStop);
         txtsongName = findViewById(R.id.txtsongName);
         mediaPlayer = new MediaPlayer();
-        imageView = findViewById(R.id.imageView);
         btnff = findViewById(R.id.fForward);
         btnfr = findViewById(R.id.fRewind);
 //        barVisualizer = findViewById(R.id.visualizer);
@@ -129,7 +128,6 @@ public class PlayMeditation extends AppCompatActivity {
             animation.setFillAfter(true);
             animation.setRepeatMode(Animation.REVERSE);
             animation.setRepeatCount(1);
-            imageView.startAnimation(animation);
 
             updateSeekBar = new Thread() {
                 @Override

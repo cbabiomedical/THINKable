@@ -6,23 +6,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center_horizontal"
-    android:background="@drawable/signin"
+    android:background="@drawable/sinnew"
     tools:context=".SignInActivity">
 
     <ImageView
-        android:id="@+id/signinImage"
-        android:layout_width="match_parent"
-        android:layout_height="183dp"
-        android:src="@drawable/mobilelogin" />
+    android:id="@+id/topic"
+    android:layout_marginTop="20dp"
+    android:src="@drawable/thin"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    />
+
+
 
     <EditText
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="165dp"
         android:drawableLeft="@drawable/ic_email"
         android:id="@+id/username"
         android:layout_marginHorizontal="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/signinImage"
+
         android:hint="@string/email"
         android:textColor="@color/white"
         android:textColorHint="@color/white"
@@ -50,9 +54,11 @@
         android:layout_centerHorizontal="true"
         android:backgroundTint="@color/white"
         android:paddingHorizontal="50dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:cornerRadius="20dp"
-        android:text="@string/sign_in" />
+        android:text="@string/sign_in"
+        android:textAllCaps="false"
+        android:background="#80363636"/>
 
     <Button
         android:id="@+id/signUp"
@@ -63,9 +69,11 @@
         android:layout_centerHorizontal="true"
         android:backgroundTint="@color/white"
         android:paddingHorizontal="50dp"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:cornerRadius="20dp"
-        android:text="@string/sign_up" />
+        android:text="@string/sign_up"
+        android:textAllCaps="false"
+        android:background="#80363636"/>
 
     <TextView
         android:id="@+id/forgetPassword"

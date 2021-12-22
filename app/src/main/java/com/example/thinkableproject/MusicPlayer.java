@@ -66,7 +66,7 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
         txtStop = findViewById(R.id.txtStop);
         txtsongName = findViewById(R.id.txtsongName);
         mediaPlayer = new MediaPlayer();
-        imageView = findViewById(R.id.imageView);
+
         btnff = findViewById(R.id.fForward);
         btnfr = findViewById(R.id.fRewind);
         mediaPlayer = new MediaPlayer();
@@ -123,7 +123,7 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
             animation.setFillAfter(true);
             animation.setRepeatMode(Animation.REVERSE);
             animation.setRepeatCount(1);
-            imageView.startAnimation(animation);
+
 
             updateSeekBar = new Thread() {
                 @Override

@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:layout_width="300dp"
+    android:layout_width="200dp"
     android:layout_height="150dp"
     style="@style/CardView.Light"
     app:cardCornerRadius="20dp"
@@ -12,14 +12,15 @@
     android:layout_marginStart="10dp"
     android:layout_marginEnd="10dp"
     android:layout_marginBottom="10dp"
-    android:layout_marginTop="10dp">
+    android:layout_marginTop="10dp"
+    android:backgroundTint="@color/transparent">
 
     <ImageView
         android:id="@+id/gridImageExercise"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
         android:scaleType="centerCrop"
-        android:src="@drawable/music1"/>
+        />
 
 
     <TextView
@@ -28,12 +29,13 @@
         android:layout_height="wrap_content"
         android:text="Chilled Acoustic"
         android:gravity="bottom"
-        android:textColor="#fff"
-        android:textSize="14sp"
+        android:textColor="@color/black"
+        android:textSize="12sp"
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_gravity="bottom"
         android:layout_marginStart="18dp"
-        android:layout_marginBottom="1dp"/>
+        android:layout_marginBottom="1dp"
+       />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/favouritesIconExercise"

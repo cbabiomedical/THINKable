@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -54,6 +55,9 @@ public class concentration_music extends AppCompatActivity {
         String[] items = new String[]{"1 min", "1.5 min", "2 min", "2.5 min", "3 min"};
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown_time.setAdapter(adapter1);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 
         dropdown_time.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
