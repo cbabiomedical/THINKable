@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -83,6 +84,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
         music = findViewById(R.id.music);
         meditation = findViewById(R.id.meditations);
         anim=findViewById(R.id.animation);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -242,6 +244,8 @@ public class Relaxation_Monthly extends AppCompatActivity {
                             barChart.getXAxis
                                     ().setValueFormatter(new IndexAxisValueFormatter(months));
                             barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChart.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             barChart.getXAxis().setTextSize(textSize);
                             barChart.getAxisLeft().setTextSize(textSize);
                             barChart.setExtraBottomOffset(10f);

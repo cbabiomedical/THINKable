@@ -42,9 +42,9 @@
     <androidx.appcompat.widget.AppCompatButton
 
         android:id="@+id/favouritesIcon3"
-        android:layout_width="30dp"
+        android:layout_width="20dp"
         android:gravity="bottom"
-        android:layout_height="30dp"
+        android:layout_height="20dp"
         android:layout_gravity="right|bottom"
         android:layout_marginEnd="10dp"
         android:background="@drawable/ic_favorite"/>
@@ -53,8 +53,8 @@
         android:id="@+id/download"
         android:layout_gravity="bottom|right"
         android:layout_marginRight="50dp"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
         android:background="@drawable/ic_file_download_white"/>
 
 

@@ -307,6 +307,8 @@ public class Concentration_Weekly extends AppCompatActivity {
                             barChart1.setFitBars(true);
                             barChart1.getXAxis().setValueFormatter(new IndexAxisValueFormatter(weeks));
                             barChart1.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChart1.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChart1.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             barChart1.getXAxis().setTextSize(textSize);
                             barChart1.getAxisLeft().setTextSize(textSize);
                             barChart1.setExtraBottomOffset(10f);

@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -48,7 +50,7 @@ public class MemoryReportYearly extends AppCompatActivity {
     AppCompatButton daily, weekly, monthly, whereAmI;
     File fileName, localFile, fileName1, localFile1;
     String text;
-    ImageButton relaxationBtn, concentrationBtn;
+    ImageView relaxationBtn, concentrationBtn;
     FirebaseUser mUser;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
@@ -334,7 +336,7 @@ public class MemoryReportYearly extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                            String[] days = new String[]{"Mon", "Thu", "Wed", "Thur", "Fri", "Sat", "Sun"};
+                            String[] days = new String[]{"2018", "2019", "2020", "2021"};
                             List<Float> creditsMain1 = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f));
                             float[] strengthDay = new float[]{90f, 30f, 70f, 50f};
 

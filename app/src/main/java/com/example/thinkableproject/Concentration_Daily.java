@@ -248,6 +248,8 @@ public class Concentration_Daily extends AppCompatActivity {
                             barChartdaily.setFitBars(true);
                             barChartdaily.getXAxis().setValueFormatter(new IndexAxisValueFormatter(days));
                             barChartdaily.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChartdaily.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChartdaily.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             barChartdaily.getXAxis().setTextSize(textSize);
                             barChartdaily.getAxisLeft().setTextSize(textSize);
                             barChartdaily.setExtraBottomOffset(10f);

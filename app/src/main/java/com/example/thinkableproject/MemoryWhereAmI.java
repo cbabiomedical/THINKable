@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 import com.github.mikephil.charting.charts.ScatterChart;
 import com.github.mikephil.charting.components.Legend;
@@ -50,7 +51,7 @@ public class MemoryWhereAmI extends AppCompatActivity {
     FirebaseUser mUser;
     File localFile, localFilea, localFilem, localFilea2, localFilen, localFilea3, localFileo, localFile4a;
     String text, texta, textm, texta2, textn, texta3, texto, text4a;
-    ImageButton relaxationBtn, concentrationBtn;
+    ImageView relaxationBtn, concentrationBtn;
 
     //for chart 1
     ArrayList<String> list = new ArrayList<>();
@@ -88,7 +89,7 @@ public class MemoryWhereAmI extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_memory_where_am_i);
-        progressConcentration = findViewById(R.id.progresscon);
+        progressConcentration = findViewById(R.id.progress);
 
         relaxationBtn = findViewById(R.id.relaxation);
         concentrationBtn = findViewById(R.id.concentration);

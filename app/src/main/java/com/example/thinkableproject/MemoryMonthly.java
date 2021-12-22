@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -12,6 +13,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -33,6 +35,7 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -53,7 +56,7 @@ public class MemoryMonthly extends AppCompatActivity {
     private Context context;
     AppCompatButton daily, weekly, yearly;
     LottieAnimationView realTime;
-    ImageView relaxationBtn, concentrationBtn,music,game;
+    ImageView relaxationBtn, concentrationBtn, music, game;
     FirebaseUser mUser;
     File localFile, fileName;
     String text;
@@ -70,11 +73,12 @@ public class MemoryMonthly extends AppCompatActivity {
         barChart = (BarChart) findViewById(R.id.barChartMonthly);
         realTime = findViewById(R.id.animation);
         relaxationBtn = findViewById(R.id.relaxation);
-        game=findViewById(R.id.game);
-        music=findViewById(R.id.meditations);
+        game = findViewById(R.id.game);
+        music = findViewById(R.id.meditations);
         List<BarEntry> entries = new ArrayList<>();
         dialogcm = new Dialog(this);
         concentrationBtn = findViewById(R.id.concentration);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //Initializing bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -114,13 +118,13 @@ public class MemoryMonthly extends AppCompatActivity {
         game.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),GameActivity.class));
+                startActivity(new Intent(getApplicationContext(), GameActivity.class));
             }
         });
         music.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Music.class));
+                startActivity(new Intent(getApplicationContext(), Music.class));
             }
         });
         //Creating arraylist and storing input data
@@ -247,11 +251,13 @@ public class MemoryMonthly extends AppCompatActivity {
                             Description desc = new Description();
                             desc.setText("");
                             barChart.setDescription(desc);
+                            barChart.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             barChart.getLegend().setEnabled(false);
                             barChart.getXAxis().setDrawGridLines(false);
                             barChart.getAxisLeft().setDrawGridLines(false);
                             barChart.setNoDataText("Data Loading Please Wait");
-                            barChart.animateXY(3000,3000);
+                            barChart.animateXY(3000, 3000);
 
                             barChart.invalidate();
 

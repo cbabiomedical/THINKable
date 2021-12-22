@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -82,6 +83,8 @@ public class Relaxation_Daily extends AppCompatActivity {
         anim=findViewById(R.id.animation);
         concentration = findViewById(R.id.concentration);
         memoryBtn = findViewById(R.id.memory);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         //Set Home Selected
@@ -253,6 +256,8 @@ public class Relaxation_Daily extends AppCompatActivity {
                             barChartdaily.setFitBars(true);
                             barChartdaily.getXAxis().setValueFormatter(new IndexAxisValueFormatter(days));
                             barChartdaily.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChartdaily.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChartdaily.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             barChartdaily.getXAxis().setTextSize(textSize);
                             barChartdaily.getAxisLeft().setTextSize(textSize);
                             barChartdaily.setExtraBottomOffset(10f);

@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -68,6 +69,8 @@ public class Relaxation_Yearly extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relaxation_yearly);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -306,6 +309,8 @@ public class Relaxation_Yearly extends AppCompatActivity {
                             barChart2.setFitBars(true);
                             barChart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(weeks));
                             barChart2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChart2.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChart2.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             barChart2.getXAxis().setTextSize(textSize);
                             barChart2.getAxisLeft().setTextSize(textSize);
                             barChart2.setExtraBottomOffset(10f);

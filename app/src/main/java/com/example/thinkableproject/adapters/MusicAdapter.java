@@ -78,7 +78,7 @@ public class MusicAdapter extends RecyclerView.Adapter<MusicAdapter.ViewHolder> 
         //Setting View
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item_music,
                 parent, false);
-        View view1 = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_item, parent, false);
+
 
 
         return new ViewHolder(view, onNoteListner);

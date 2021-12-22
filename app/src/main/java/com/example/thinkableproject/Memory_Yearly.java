@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -77,6 +78,7 @@ public class Memory_Yearly extends AppCompatActivity {
         //Initialize bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         dialogcy = new Dialog(this);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         //Set Home Selected
         bottomNavigationView.setSelectedItemId(R.id.home);
@@ -298,6 +300,8 @@ public class Memory_Yearly extends AppCompatActivity {
                             Description desc = new Description();
                             desc.setText("");
                             barChart2.setDescription(desc);
+                            barChart2.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChart2.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             barChart2.getLegend().setEnabled(false);
                             barChart2.getXAxis().setDrawGridLines(false);
                             barChart2.getAxisLeft().setDrawGridLines(false);

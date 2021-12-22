@@ -57,7 +57,7 @@ public class RelaxationReportWeekly extends AppCompatActivity {
     File localFile2;
     File fileName;
     File fileName2;
-    ImageButton concentration, memory;
+    ImageView concentration, memory;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<String> list2 = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
@@ -74,8 +74,8 @@ public class RelaxationReportWeekly extends AppCompatActivity {
 //        timetorel = findViewById(R.id.btn_timeCon);
 //        timestayedrel = findViewById(R.id.barChartDailytimeto);
         //Initialize bar chart
-        barChartWeeklytimeto = findViewById(R.id.barChartDailytimeto);
-        barChartWeeklytimestayed = findViewById(R.id.barChartDailytimestayed);
+        barChartWeeklytimeto = findViewById(R.id.barChartWeekly);
+        barChartWeeklytimestayed = findViewById(R.id.barChartWeekly2);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference("chartTable");
         //Initialize List entries

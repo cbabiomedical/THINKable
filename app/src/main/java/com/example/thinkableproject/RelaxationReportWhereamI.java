@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+
 import com.github.mikephil.charting.charts.ScatterChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
@@ -82,13 +84,13 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
 
     private ScatterChart chart4aa, chart5, chart6, chart7;
 
-    ImageButton concentration, memory;
+    ImageView concentration, memory;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_relaxation_report_wheream_i);
-        relaxationProgress = findViewById(R.id.progressrel);
+        relaxationProgress = findViewById(R.id.progress);
         memory = findViewById(R.id.memory);
         concentration = findViewById(R.id.concentration);
 
@@ -306,7 +308,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             }
 
 
-                            chart4aa = findViewById(R.id.chartw);
+                            chart4aa = findViewById(R.id.chart1);
                             Description descChartDescription = new Description();
                             descChartDescription.setEnabled(true);
                             chart4aa.setDescription(descChartDescription);
@@ -580,7 +582,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             }
 
 
-                            chart5 = findViewById(R.id.chartx);
+                            chart5 = findViewById(R.id.chart3);
                             chart5.getDescription().setEnabled(false);
                             chart5.setDrawGridBackground(false);
                             chart5.setTouchEnabled(true);
@@ -850,7 +852,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             }
 
 
-                            chart6 = findViewById(R.id.charty);
+                            chart6 = findViewById(R.id.chart2);
                             Description descChartDescription = new Description();
                             descChartDescription.setEnabled(true);
                             chart6.setDescription(descChartDescription);
@@ -1121,7 +1123,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             }
 
 
-                            chart7 = findViewById(R.id.chartz);
+                            chart7 = findViewById(R.id.chart4);
                             Description descChartDescription = new Description();
                             descChartDescription.setEnabled(true);
                             chart7.setDescription(descChartDescription);

@@ -12,6 +12,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -53,7 +55,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
     String text, text2;
     AppCompatButton daily, weekly, yearly, whereAmI, progress, timetorel, timestayedrel;
     FirebaseUser mUser;
-    ImageButton concentration, memory;
+    ImageView concentration, memory;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
     ArrayList<String> list2 = new ArrayList<>();
@@ -70,8 +72,8 @@ public class RelaxationReportMonthly extends AppCompatActivity {
 //        timetorel = findViewById(R.id.btn_timeCon);
 //        timestayedrel = findViewById(R.id.btn_timeStayedCon);
         //Initialize bar chart
-        barChartMonthlytimeto = findViewById(R.id.barChartDailytimeto);
-        barChartMonthlytimestayed = findViewById(R.id.barChartDailytimestayed);
+        barChartMonthlytimeto = findViewById(R.id.barChartMonthly);
+        barChartMonthlytimestayed = findViewById(R.id.barChartMonthly2);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference("chartTable");
         //Initialize List entries
@@ -83,6 +85,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
         yearly = findViewById(R.id.yearly);
         weekly = findViewById(R.id.weekly);
         memory = findViewById(R.id.memory);
+
         //go to relaxation daily page
         daily.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -289,7 +292,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
             }
         }, delay);
 
-        setContentView(R.layout.activity_relaxation_report_monthly);
+
         //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         //Set Home Selected

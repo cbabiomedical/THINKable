@@ -13,6 +13,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -91,6 +92,8 @@ public class Relaxation_Weekly extends AppCompatActivity {
 
         //Initialize pop up window
         dialogrw = new Dialog(this);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -247,6 +250,8 @@ public class Relaxation_Weekly extends AppCompatActivity {
                             barChart1.setFitBars(true);
                             barChart1.getXAxis().setValueFormatter(new IndexAxisValueFormatter(weeks));
                             barChart1.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChart1.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChart1.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             barChart1.getXAxis().setTextSize(textSize);
                             barChart1.getAxisLeft().setTextSize(textSize);
                             barChart1.setExtraBottomOffset(10f);

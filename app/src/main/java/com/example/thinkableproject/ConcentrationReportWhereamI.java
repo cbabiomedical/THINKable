@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.Toast;
 import com.github.mikephil.charting.charts.ScatterChart;
 import com.github.mikephil.charting.components.Legend;
@@ -48,7 +49,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
     AppCompatButton progressConcentration;
     File fileName, fileNamea, fileNamem, fileNamea2, fileNamen, fileNamea3, fileNameo, fileNamea4;
     FirebaseUser mUser;
-    ImageButton relaxationBtn, memory;
+    ImageView relaxationBtn, memory;
     File localFile, localFilea, localFilem, localFilea2, localFilen, localFilea3, localFileo, localFile4a;
     String text, texta, textm, texta2, textn, texta3, texto, text4a;
 
@@ -88,7 +89,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_concentration_report_wheream_i);
-        progressConcentration = findViewById(R.id.progresscon);
+        progressConcentration = findViewById(R.id.progress);
         relaxationBtn = findViewById(R.id.relaxation);
         memory = findViewById(R.id.memory);
 

@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.example.SettingsPreference;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -83,7 +84,7 @@ public class Setting extends AppCompatActivity {
         preferences1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intentr1 = new Intent(getApplicationContext(), PreferencesSecPage.class);
+                Intent intentr1 = new Intent(getApplicationContext(), SettingsPreference.class);
                 startActivity(intentr1);
             }
         });

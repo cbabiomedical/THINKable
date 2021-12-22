@@ -246,6 +246,8 @@ public class Concentration_Monthly extends AppCompatActivity {
                             barChart.getXAxis
                                     ().setValueFormatter(new IndexAxisValueFormatter(months));
                             barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChart.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             barChart.getXAxis().setTextSize(textSize);
                             barChart.getAxisLeft().setTextSize(textSize);
                             barChart.setExtraBottomOffset(10f);

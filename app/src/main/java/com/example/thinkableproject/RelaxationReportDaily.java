@@ -11,6 +11,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -55,7 +57,7 @@ public class RelaxationReportDaily extends AppCompatActivity {
     File localFile2;
     File fileName;
     File fileName2;
-    ImageButton concentration, memoryBtn;
+    ImageView concentration, memoryBtn;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<String> list2 = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
@@ -73,8 +75,8 @@ public class RelaxationReportDaily extends AppCompatActivity {
 //        timestayedrel = findViewById(R.id.btn_timeStayedCon);
         memoryBtn = findViewById(R.id.memory);
         //initials bar charts
-        barChartDailytimeto = findViewById(R.id.barChartDailytimeto);
-        barChartDailytimestayed = findViewById(R.id.barChartDailytimestayed);
+        barChartDailytimeto = findViewById(R.id.barChartDaily);
+        barChartDailytimestayed = findViewById(R.id.barChartDaily2);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference("chartTable");
         //Initialize List entries

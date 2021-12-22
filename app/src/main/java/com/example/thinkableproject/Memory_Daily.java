@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -76,6 +77,8 @@ public class Memory_Daily extends AppCompatActivity {
         List<BarEntry> entries = new ArrayList<>();
         dialogcd = new Dialog(this);
         concentrationBtn = findViewById(R.id.concentration);
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
         meditation.setOnClickListener(new View.OnClickListener() {
@@ -239,6 +242,8 @@ public class Memory_Daily extends AppCompatActivity {
                             barChartdaily.setFitBars(true);
                             barChartdaily.getXAxis().setValueFormatter(new IndexAxisValueFormatter(days));
                             barChartdaily.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChartdaily.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChartdaily.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             barChartdaily.getXAxis().setTextSize(textSize);
                             barChartdaily.getAxisLeft().setTextSize(textSize);
                             barChartdaily.setExtraBottomOffset(10f);
