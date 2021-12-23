@@ -53,6 +53,11 @@
     <string name="CLIENT_CHARACTERISTIC_CONFIG">00002902-0000-1000-8000-00805f9b34fb"</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="startBtn">Start</string>
+    <string name="pushStart">Push START</string>
+    <string name="match">Correct</string>
+    <string name="showHighscore">Highscore</string>
+    <string name="newHighscore">New Highscore</string>
     <string name="title_activity_download">MainActivity</string>
     <string name="title_activity_downloading">MainActivity</string>
     <string name="title_activity_main3">MainActivity</string>

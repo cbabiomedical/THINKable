@@ -261,6 +261,8 @@ public class RelaxationReportWeekly extends AppCompatActivity {
                             barChartWeeklytimeto.setFitBars(true);
                             barChartWeeklytimeto.getXAxis().setValueFormatter(new IndexAxisValueFormatter(weeks));
                             barChartWeeklytimeto.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChartWeeklytimeto.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChartWeeklytimeto.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             barChartWeeklytimeto.getXAxis().setTextSize(textSize);
                             barChartWeeklytimeto.getAxisLeft().setTextSize(textSize);
                             barChartWeeklytimeto.setExtraBottomOffset(10f);
@@ -411,6 +413,8 @@ public class RelaxationReportWeekly extends AppCompatActivity {
                             barChartWeeklytimestayed.setFitBars(true);
                             barChartWeeklytimestayed.getXAxis().setValueFormatter(new IndexAxisValueFormatter(weeks));
                             barChartWeeklytimestayed.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChartWeeklytimestayed.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChartWeeklytimestayed.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             barChartWeeklytimestayed.getXAxis().setTextSize(textSize);
                             barChartWeeklytimestayed.getAxisLeft().setTextSize(textSize);
                             barChartWeeklytimestayed.setExtraBottomOffset(10f);

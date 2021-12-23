@@ -227,6 +227,8 @@ public class ConcentrationReportWeekly extends AppCompatActivity {
                             barChart1.setFitBars(true);
                             barChart1.getXAxis().setValueFormatter(new IndexAxisValueFormatter(weeks));
                             barChart1.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChart1.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChart1.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             barChart1.getXAxis().setTextSize(textSize);
                             barChart1.getAxisLeft().setTextSize(textSize);
                             barChart1.setExtraBottomOffset(10f);
@@ -343,7 +345,7 @@ public class ConcentrationReportWeekly extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                            String[] days = new String[]{"Mon", "Thu", "Wed", "Thur", "Fri", "Sat", "Sun"};
+                            String[] days = new String[]{"One", "Two", "Three", "Four"};
                             List<Float> creditsMain1 = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f));
                             float[] strengthDay = new float[]{90f, 30f, 70f, 50f};
 
@@ -367,6 +369,8 @@ public class ConcentrationReportWeekly extends AppCompatActivity {
                             barChart2.setFitBars(true);
                             barChart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(days));
                             barChart2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChart2.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChart2.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             barChart2.getXAxis().setTextSize(textSize);
                             barChart2.getAxisLeft().setTextSize(textSize);
                             barChart2.setExtraBottomOffset(10f);

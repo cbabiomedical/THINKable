@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,6 +15,7 @@ import android.widget.ImageView;
 
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.thinkableproject.adapters.GridAdapter;
 import com.example.thinkableproject.adapters.MusicAdapter;
 import com.example.thinkableproject.sample.GameModelClass;
@@ -26,6 +28,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -172,32 +175,38 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
 
     @Override
     public void onNoteClickGame(int position) {
-        Toast.makeText(getApplicationContext(), "You clicked " + gameList.get(position).getGameName(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), "You clicked " + gameList.get(position).getGameName(), Toast.LENGTH_SHORT).show();
         gameList.get(position);
-        Toast.makeText(getApplicationContext(), "You clicked " + gameList.get(position).getGameName(), Toast.LENGTH_SHORT).show();
+        if (gameList.get(position).getGameName().equals("Card Memory Game")) {
+            startActivity(new Intent(getApplicationContext(), MainActivityK.class));
+        } else if (gameList.get(position).getGameName().equals("Color Pattern Game")) {
+            startActivity(new Intent(getApplicationContext(), ColorPatternGame.class));
+        } else {
+            Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.vending");
+            if (launchIntent != null) {
+                Log.d("Tagopenapp", "---------------------B--------------------------");
+                startActivity(launchIntent);
+            } else {
+                Toast.makeText(Exercise.this, "There is no package", Toast.LENGTH_LONG).show();
+            }
+
+        }
+//        Toast.makeText(getApplicationContext(), "You clicked " + gameList.get(position).getGameName(), Toast.LENGTH_SHORT).show();
 
 
         GameModelClass gameModelClass = new GameModelClass(gameList.get(position).getGameImage(), gameList.get(position).getGameName());
 
         downloadGames.add(gameModelClass);
         Log.d("DownloadGames", String.valueOf(downloadGames));
-        gamesHashMap.put(downloadGames.get(position).getGameName(), gameModelClass);
+//        gamesHashMap.put(downloadGames.get(position).getGameName(), gameModelClass);
 
         Log.d("CHECK UPLOAD", "-------------------------CHECKING FIREBASE UPLOAD-----------------");
-        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("UsersGame").child(mUser.getUid());
-        reference1.setValue(gamesHashMap);
+//        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("UsersGame").child(mUser.getUid());
+//        reference1.setValue(gamesHashMap);
 
         Log.d("CHECK UPLOAD", "------------------------CHECK AFTER UPLOAD------------");
 
         Log.d("Downloads", String.valueOf(downloadGames));
-
-        Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.vending");
-        if (launchIntent != null) {
-            Log.d("Tagopenapp", "---------------------B--------------------------");
-            startActivity(launchIntent);
-        } else {
-            Toast.makeText(Exercise.this, "There is no package", Toast.LENGTH_LONG).show();
-        }
 
 
     }

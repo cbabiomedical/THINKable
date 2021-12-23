@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.thinkableproject.adapters.GridAdapter;
 import com.example.thinkableproject.sample.GameModelClass;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -20,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -108,10 +110,11 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
 
 
         gameList.get(position);
-        if (gameList.get(position).getGameName().equals("Card Memory Game")){
-            startActivity(new Intent(getApplicationContext(),MainActivityK.class));
-        }
-        else{
+        if (gameList.get(position).getGameName().equals("Card Memory Game")) {
+            startActivity(new Intent(getApplicationContext(), MainActivityK.class));
+        } else if (gameList.get(position).getGameName().equals("Color Pattern Game")) {
+            startActivity(new Intent(getApplicationContext(), ColorPatternGame.class));
+        } else {
             Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.vending");
             if (launchIntent != null) {
                 Log.d("Tagopenapp", "---------------------B--------------------------");
@@ -121,9 +124,8 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
             }
 
 
-
         }
-        Toast.makeText(getApplicationContext(), "You clicked " + gameList.get(position).getGameName(), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(getApplicationContext(), "You clicked " + gameList.get(position).getGameName(), Toast.LENGTH_SHORT).show();
 
 
         GameModelClass gameModelClass = new GameModelClass(gameList.get(position).getGameImage(), gameList.get(position).getGameName());

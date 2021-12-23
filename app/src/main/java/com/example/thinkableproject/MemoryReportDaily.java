@@ -223,6 +223,8 @@ public class MemoryReportDaily extends AppCompatActivity {
                             barChartdaily.setFitBars(true);
                             barChartdaily.getXAxis().setValueFormatter(new IndexAxisValueFormatter(days));
                             barChartdaily.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChartdaily.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChartdaily.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             barChartdaily.getXAxis().setTextSize(textSize);
                             barChartdaily.getAxisLeft().setTextSize(textSize);
                             barChartdaily.setExtraBottomOffset(10f);
@@ -368,6 +370,8 @@ public class MemoryReportDaily extends AppCompatActivity {
                             barChartdaily2.setFitBars(true);
                             barChartdaily2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(days));
                             barChartdaily2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChartdaily2.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChartdaily2.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             barChartdaily2.getXAxis().setTextSize(textSize);
                             barChartdaily2.getAxisLeft().setTextSize(textSize);
                             barChartdaily2.setExtraBottomOffset(10f);

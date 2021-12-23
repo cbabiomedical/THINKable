@@ -17,7 +17,7 @@ style="@style/CardView.Light"
 <ImageView
     android:id="@+id/gridImage"
     android:layout_width="200dp"
-    android:layout_height="100dp"
+    android:layout_height="125dp"
     android:scaleType="centerCrop"
     android:src="@drawable/love_kind"/>
 

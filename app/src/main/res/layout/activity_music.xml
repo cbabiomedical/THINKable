@@ -28,13 +28,13 @@
 
         <ScrollView
             android:layout_width="match_parent"
+            android:layout_marginBottom="60dp"
             android:layout_height="wrap_content">
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_below="@+id/spinner2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="80dp"
                 android:id="@+id/recycler_view"
                 android:layout_gravity="center_horizontal"/>
         </ScrollView>

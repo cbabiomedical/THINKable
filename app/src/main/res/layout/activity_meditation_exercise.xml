@@ -21,12 +21,14 @@
     <ScrollView
         android:layout_below="@+id/spinner2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_marginBottom="60dp"
+        android:layout_height="wrap_content"
+
+        >
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="150dp"
         android:id="@+id/gridView" />
     </ScrollView>
     <com.google.android.material.bottomnavigation.BottomNavigationView

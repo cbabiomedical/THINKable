@@ -268,6 +268,7 @@ public class RelaxationReportDaily extends AppCompatActivity {
                             barChartDailytimeto.setFitBars(true);
                             barChartDailytimeto.getXAxis().setValueFormatter(new IndexAxisValueFormatter(days));
                             barChartDailytimeto.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+
                             barChartDailytimeto.getXAxis().setTextSize(textSize);
                             barChartDailytimeto.getAxisLeft().setTextSize(textSize);
                             barChartDailytimeto.setExtraBottomOffset(10f);

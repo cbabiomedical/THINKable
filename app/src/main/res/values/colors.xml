@@ -38,4 +38,12 @@
     <color name="green_dark">#115259</color>
     <color name="green_darkest">#092B2F</color>
     <color name="green_blue">#428D97</color>
+    <color name="startBtn">#4a5556</color>
+    <color name="txtColor">#ffffff</color>
+    <color name="background1">#000000</color>
+    <color name="redBtnColor">#f00</color>
+    <color name="blueBtnColor">#00f</color>
+    <color name="greenBtnColor">#0f0</color>
+    <color name="yellowBtnColor">#ff0</color>
+    <color name="btnEffectColor">#ffffff</color>
 </resources>

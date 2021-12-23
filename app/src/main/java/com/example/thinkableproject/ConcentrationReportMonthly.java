@@ -227,6 +227,8 @@ public class ConcentrationReportMonthly extends AppCompatActivity {
                             barChart.setFitBars(true);
                             barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(months));
                             barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChart.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             barChart.getXAxis().setTextSize(textSize);
                             barChart.getAxisLeft().setTextSize(textSize);
                             barChart.setExtraBottomOffset(10f);
@@ -369,6 +371,9 @@ public class ConcentrationReportMonthly extends AppCompatActivity {
                             barChart2.setFitBars(true);
                             barChart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(months1));
                             barChart2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChart2.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChart2.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+
                             barChart2.getXAxis().setTextSize(textSize);
                             barChart2.getAxisLeft().setTextSize(textSize);
                             barChart2.setExtraBottomOffset(10f);

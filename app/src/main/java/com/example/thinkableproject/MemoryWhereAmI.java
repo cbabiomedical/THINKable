@@ -314,6 +314,8 @@ public class MemoryWhereAmI extends AppCompatActivity {
                             chart.setDragEnabled(true);
                             chart.setScaleEnabled(true);
                             chart.setMaxVisibleValueCount(200);
+                            chart.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            chart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             chart.setPinchZoom(true);
                             chart.setNoDataText("Data Loading Please Wait...");
                             Legend l = chart.getLegend();
@@ -584,6 +586,8 @@ public class MemoryWhereAmI extends AppCompatActivity {
                             chart1.setTouchEnabled(true);
                             chart1.setMaxHighlightDistance(50f);
                             chart1.setDragEnabled(true);
+                            chart1.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            chart1.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             chart1.setScaleEnabled(true);
                             chart1.setMaxVisibleValueCount(200);
                             chart1.setPinchZoom(true);
@@ -857,6 +861,8 @@ public class MemoryWhereAmI extends AppCompatActivity {
                             chart2.setDragEnabled(true);
                             chart2.setScaleEnabled(true);
                             chart2.setMaxVisibleValueCount(200);
+                            chart2.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            chart2.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             chart2.setPinchZoom(true);
                             Legend l3 = chart2.getLegend();
 
@@ -1127,6 +1133,8 @@ public class MemoryWhereAmI extends AppCompatActivity {
                             chart3.setDragEnabled(true);
                             chart3.setScaleEnabled(true);
                             chart3.setMaxVisibleValueCount(200);
+                            chart3.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            chart3.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             chart3.setPinchZoom(true);
                             Legend l4 = chart3.getLegend();
 

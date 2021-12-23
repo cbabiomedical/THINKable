@@ -55,7 +55,7 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music);
         mRequestQue = Volley.newRequestQueue(this);
-        sendNotification();
+//        sendNotification();
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 

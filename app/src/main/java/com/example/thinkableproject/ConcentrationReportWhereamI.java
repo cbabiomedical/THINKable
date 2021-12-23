@@ -315,6 +315,8 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                             chart.setScaleEnabled(true);
                             chart.setMaxVisibleValueCount(200);
                             chart.setPinchZoom(true);
+                            chart.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            chart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             Legend l = chart.getLegend();
 
                             YAxis yl = chart.getAxisLeft();
@@ -595,6 +597,8 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                             YAxis yl1 = chart1.getAxisLeft();
                             yl1.setAxisMinimum(0f);
                             chart1.getAxisRight().setEnabled(false);
+                            chart1.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            chart1.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             XAxis xl1 = chart1.getXAxis();
                             xl1.setDrawGridLines(false);
                             String[] daysS1 = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
@@ -855,6 +859,8 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                             chart2.getDescription().setEnabled(false);
                             chart2.setDrawGridBackground(false);
                             chart2.setTouchEnabled(true);
+                            chart2.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            chart2.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             chart2.setMaxHighlightDistance(50f);
                             chart2.setDragEnabled(true);
                             chart2.setScaleEnabled(true);
@@ -1128,6 +1134,8 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                             chart3.setMaxHighlightDistance(50f);
                             chart3.setDragEnabled(true);
                             chart3.setScaleEnabled(true);
+                            chart3.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            chart3.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             chart3.setMaxVisibleValueCount(200);
                             chart3.setPinchZoom(true);
                             Legend l4 = chart3.getLegend();

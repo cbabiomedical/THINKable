@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
+import android.content.Intent;
 import android.graphics.PorterDuff;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
@@ -145,6 +146,10 @@ public class PlayMeditation extends AppCompatActivity {
                             seekBar.setProgress(currentPosition);
                         } catch (InterruptedException | IllegalStateException e) {
                             e.printStackTrace();
+                        }
+                        if (currentPosition > time) {
+                            mediaPlayer.stop();
+                            startActivity(new Intent(getApplicationContext(), Meditation.class));
                         }
                     }
 

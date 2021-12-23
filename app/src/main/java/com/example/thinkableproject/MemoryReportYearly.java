@@ -219,6 +219,8 @@ public class MemoryReportYearly extends AppCompatActivity {
                             barChart2.setFitBars(true);
                             barChart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(weeks));
                             barChart2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChart2.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChart2.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             barChart2.getXAxis().setTextSize(textSize);
                             barChart2.getAxisLeft().setTextSize(textSize);
                             barChart2.setExtraBottomOffset(10f);
@@ -360,6 +362,8 @@ public class MemoryReportYearly extends AppCompatActivity {
                             barChart1.setFitBars(true);
                             barChart1.getXAxis().setValueFormatter(new IndexAxisValueFormatter(days));
                             barChart1.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChart1.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChart1.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             barChart1.getXAxis().setTextSize(textSize);
                             barChart1.getAxisLeft().setTextSize(textSize);
                             barChart1.setExtraBottomOffset(10f);

@@ -261,6 +261,8 @@ public class RelaxationReportMonthly extends AppCompatActivity {
                             barChartMonthlytimeto.getXAxis
                                     ().setValueFormatter(new IndexAxisValueFormatter(months));
                             barChartMonthlytimeto.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChartMonthlytimeto.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChartMonthlytimeto.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             barChartMonthlytimeto.getXAxis().setTextSize(textSize);
                             barChartMonthlytimeto.getAxisLeft().setTextSize(textSize);
                             barChartMonthlytimeto.setExtraBottomOffset(10f);
@@ -445,6 +447,8 @@ public class RelaxationReportMonthly extends AppCompatActivity {
                             barChartMonthlytimestayed.getXAxis
                                     ().setValueFormatter(new IndexAxisValueFormatter(months));
                             barChartMonthlytimestayed.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChartMonthlytimestayed.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChartMonthlytimestayed.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             barChartMonthlytimestayed.getXAxis().setTextSize(textSize);
                             barChartMonthlytimestayed.getAxisLeft().setTextSize(textSize);
                             barChartMonthlytimestayed.setExtraBottomOffset(10f);

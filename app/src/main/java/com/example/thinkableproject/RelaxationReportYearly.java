@@ -261,6 +261,8 @@ public class RelaxationReportYearly extends AppCompatActivity {
                             barChartYearlytimeto.setFitBars(true);
                             barChartYearlytimeto.getXAxis().setValueFormatter(new IndexAxisValueFormatter(weeks));
                             barChartYearlytimeto.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChartYearlytimeto.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChartYearlytimeto.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             barChartYearlytimeto.getXAxis().setTextSize(textSize);
                             barChartYearlytimeto.getAxisLeft().setTextSize(textSize);
                             barChartYearlytimeto.setExtraBottomOffset(10f);
@@ -410,6 +412,8 @@ public class RelaxationReportYearly extends AppCompatActivity {
                             barChartYearlytimestayed.setFitBars(true);
                             barChartYearlytimestayed.getXAxis().setValueFormatter(new IndexAxisValueFormatter(weeks));
                             barChartYearlytimestayed.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChartYearlytimestayed.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChartYearlytimestayed.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             barChartYearlytimestayed.getXAxis().setTextSize(textSize);
                             barChartYearlytimestayed.getAxisLeft().setTextSize(textSize);
                             barChartYearlytimestayed.setExtraBottomOffset(10f);

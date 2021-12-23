@@ -21,16 +21,16 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY"/>
+    <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -42,13 +42,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThinkableProject"
         android:usesCleartextTraffic="true">
+        <activity android:name=".ColorPatternGame"></activity>
+        <activity android:name="com.example.ColorPatternGame" />
         <activity
             android:name=".NotificationMessage"
             android:exported="false" />
         <activity
             android:name=".CreateEvent"
             android:exported="false" />
-        <activity android:name=".MainActivity"/>
+        <activity android:name=".MainActivity" />
         <activity
             android:name=".CalenderAndNotification"
             android:exported="false" />
@@ -61,11 +63,13 @@
         <activity
             android:name=".PlayMeditation"
             android:parentActivityName=".MeditationExercise" />
-        <activity android:name=".Activity_BTLE_Services"/>
+        <activity android:name=".Activity_BTLE_Services" />
+
         <service
             android:name=".Service_BTLE_GATT"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
         <activity android:name=".MyDownloads" />
         <activity android:name=".Connection" />
         <activity
@@ -194,8 +198,7 @@
             android:exported="true" />
         <activity
             android:name=".Music"
-            android:exported="true" >
-        </activity>
+            android:exported="true" />
         <activity android:name=".Relaxation_popup" />
         <activity android:name=".Concentration_popup" />
         <activity android:name=".Calibration" />
@@ -211,9 +214,8 @@
             android:label="THINKable" />
         <activity
             android:name=".Concentration_Daily"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:label="THINKable" />
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            android:label="THINKable"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".FavouriteActivity" />
         <activity
             android:name=".Calendar_Reminder"
@@ -269,7 +271,7 @@
         <activity
             android:name=".ChangePassword"
             android:parentActivityName=".Setting" />
-        <activity android:name="com.example.SettingsPreference"/>
+        <activity android:name="com.example.SettingsPreference" />
         <activity
             android:name=".ForgetPasswordActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -297,11 +299,11 @@
         <meta-data
             android:name="preloaded_fonts"
             android:resource="@array/preloaded_fonts" />
+
         <service
             android:name=".Service_BTLE_GATT"
             android:enabled="true"
-            android:exported="true"></service>
-
+            android:exported="true" />
     </application>
 
 </manifest>

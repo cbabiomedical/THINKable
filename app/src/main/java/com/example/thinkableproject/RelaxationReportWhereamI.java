@@ -317,6 +317,8 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             chart4aa.setMaxHighlightDistance(50f);
                             chart4aa.setDragEnabled(true);
                             chart4aa.setScaleEnabled(true);
+                            chart4aa.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            chart4aa.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             chart4aa.setMaxVisibleValueCount(200);
                             chart4aa.setPinchZoom(true);
                             chart4aa.setNoDataText("Data Loading Please Wait...");
@@ -589,6 +591,8 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             chart5.setMaxHighlightDistance(50f);
                             chart5.setDragEnabled(true);
                             chart5.setScaleEnabled(true);
+                            chart5.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            chart5.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             chart5.setMaxVisibleValueCount(200);
                             chart5.setPinchZoom(true);
                             chart5.setNoDataText("Data Loading Please Wait...");
@@ -861,6 +865,8 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             chart6.setMaxHighlightDistance(50f);
                             chart6.setDragEnabled(true);
                             chart6.setScaleEnabled(true);
+                            chart6.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            chart6.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             chart6.setMaxVisibleValueCount(200);
                             chart6.setPinchZoom(true);
                             Legend l3r = chart6.getLegend();
@@ -1132,6 +1138,8 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             chart7.setMaxHighlightDistance(50f);
                             chart7.setDragEnabled(true);
                             chart7.setScaleEnabled(true);
+                            chart7.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            chart7.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             chart7.setMaxVisibleValueCount(200);
                             chart7.setPinchZoom(true);
                             Legend l4r = chart7.getLegend();
