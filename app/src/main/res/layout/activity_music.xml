@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/newbg"
+    android:background="#010334"
     android:orientation="horizontal"
     tools:context=".Concentration_Daily">
     <Spinner
@@ -15,32 +15,53 @@
         android:layout_width="match_parent"
         android:layout_marginHorizontal="20dp"
         android:layout_height="wrap_content"
-        android:background="@color/transparent"
+        android:background="@color/blue"
         android:layout_marginBottom="30dp"
-        android:spinnerMode="dropdown" />
+        android:spinnerMode="dropdown"
+        android:layout_centerHorizontal="true"
+        android:theme="@android:style/Holo.Light.ButtonBar.AlertDialog"
+        />
 
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
-    android:layout_height="match_parent"
-        android:layout_marginTop="30dp"
-    android:layout_below="@+id/spinner2">
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spinner2"
+        android:layout_alignParentStart="true"
 
 
-        <ScrollView
+        android:layout_alignParentEnd="true"
+
+        >
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_marginBottom="60dp"
-            android:layout_height="wrap_content">
+
+            android:layout_height="wrap_content"
+
+            android:orientation="vertical"
+
+
+            >
+
+
 
             <androidx.recyclerview.widget.RecyclerView
-                android:layout_below="@+id/spinner2"
+                android:id="@+id/recycler_view"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/recycler_view"
-                android:layout_gravity="center_horizontal"/>
-        </ScrollView>
 
 
-    </RelativeLayout>
+
+                android:layout_marginBottom="150dp"
+
+
+                />
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

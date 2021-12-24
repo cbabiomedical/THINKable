@@ -19,6 +19,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -42,7 +44,7 @@ public class RegisterActivity extends AppCompatActivity {
     private DatePickerDialog datePickerDialog;
     TextView signIn;
     private EditText dateButton;
-    Button signUp;
+    AppCompatButton signUp;
     ImageView occupation;
     private RadioButton male;
     private RadioButton female;

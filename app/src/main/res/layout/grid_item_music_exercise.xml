@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:layout_width="200dp"
+    android:layout_width="250dp"
     android:layout_height="150dp"
     style="@style/CardView.Light"
     app:cardCornerRadius="20dp"
@@ -17,7 +17,7 @@
 
     <ImageView
         android:id="@+id/gridImageExercise"
-        android:layout_width="200dp"
+        android:layout_width="250dp"
         android:layout_height="100dp"
         android:scaleType="centerCrop"
         />

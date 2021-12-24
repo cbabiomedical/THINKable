@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/newbg"
+    android:background="@drawable/sinnewone"
 
     android:orientation="horizontal"
     tools:context=".Concentration_Daily">
@@ -85,7 +85,7 @@
                         android:id="@+id/accountsettings1"
                         android:layout_width="290dp"
                         android:layout_height="50dp"
-                        android:background="@drawable/setingbtn"/>
+                        android:background="@drawable/btnpref"/>
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/accicon"
@@ -105,9 +105,10 @@
                         android:layout_toRightOf="@+id/accicon"
                         android:gravity="center"
                         android:text="Account Settings"
-                        android:textColor="@color/dark"
+                        android:textColor="@color/color_white"
+                        android:fontFamily="@font/segoepr"
                         android:textSize="17sp"
-                        android:textStyle="bold" />
+                        />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -123,7 +124,7 @@
                         android:id="@+id/changepassword1"
                         android:layout_width="290dp"
                         android:layout_height="50dp"
-                        android:background="@drawable/setingbtn"/>
+                        android:background="@drawable/btnpref"/>
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/image"
@@ -143,9 +144,9 @@
                         android:layout_toRightOf="@+id/image"
                         android:gravity="center"
                         android:text="Change Password"
-                        android:textColor="@color/dark"
+                        android:textColor="@color/color_white"
                         android:textSize="17sp"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/segoepr"/>
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -159,7 +160,7 @@
                         android:id="@+id/location2"
                         android:layout_width="290dp"
                         android:layout_height="50dp"
-                        android:background="@drawable/setingbtn"
+                        android:background="@drawable/btnpref"
                         android:layout_marginTop="10dp"/>
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -180,9 +181,9 @@
                         android:layout_toRightOf="@+id/location1"
                         android:gravity="center"
                         android:text="My Current Location"
-                        android:textColor="@color/dark"
+                        android:textColor="@color/color_white"
                         android:textSize="17sp"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/segoepr" />
                 </RelativeLayout>
 
 
@@ -199,7 +200,7 @@
                         android:id="@+id/preferences1"
                         android:layout_width="290dp"
                         android:layout_height="50dp"
-                        android:background="@drawable/setingbtn"/>
+                        android:background="@drawable/btnpref"/>
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/prefrences1"
@@ -219,13 +220,15 @@
                         android:layout_toRightOf="@+id/prefrences1"
                         android:gravity="center"
                         android:text="Preferences"
-                        android:textColor="@color/dark"
+                        android:textColor="@color/color_white"
                         android:textSize="17sp"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/segoepr" />
                 </RelativeLayout>
 
+
+
                 <RelativeLayout
-                    android:id="@+id/notifications"
+                    android:id="@+id/help"
                     android:layout_width="290dp"
                     android:layout_height="50dp"
                     android:layout_below="@+id/preferences"
@@ -233,47 +236,10 @@
                     android:layout_marginTop="10dp">
 
                     <ImageButton
-                        android:id="@+id/notifications2"
-                        android:layout_width="290dp"
-                        android:layout_height="50dp"
-                        android:background="@drawable/setingbtn"/>
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:id="@+id/notifications1"
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="6dp"
-                        android:src="@drawable/notii" />
-
-                    <TextView
-                        android:id="@+id/usernotifications"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginTop="10dp"
-                        android:layout_toEndOf="@+id/notifications1"
-                        android:layout_toRightOf="@+id/notifications1"
-                        android:gravity="center"
-                        android:text="Notifications"
-                        android:textColor="@color/dark"
-                        android:textSize="17sp"
-                        android:textStyle="bold" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/help"
-                    android:layout_width="290dp"
-                    android:layout_height="50dp"
-                    android:layout_below="@+id/notifications"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp">
-
-                    <ImageButton
                         android:id="@+id/help3"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:background="@drawable/setingbtn"/>
+                        android:background="@drawable/btnpref"/>
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/help1"
@@ -293,9 +259,9 @@
                         android:layout_toRightOf="@+id/help1"
                         android:gravity="center"
                         android:text="Help"
-                        android:textColor="@color/dark"
+                        android:textColor="@color/color_white"
                         android:textSize="17sp"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/segoepr" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -311,7 +277,7 @@
                         android:id="@+id/logout"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:background="@drawable/setingbtn"/>
+                        android:background="@drawable/btnpref"/>
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/logout1"
@@ -331,9 +297,9 @@
                         android:layout_toRightOf="@+id/logout1"
                         android:gravity="center"
                         android:text="Logout"
-                        android:textColor="@color/dark"
+                        android:textColor="@color/color_white"
                         android:textSize="17sp"
-                        android:textStyle="bold" />
+                        android:fontFamily="@font/segoepr" />
                 </RelativeLayout>
             </RelativeLayout>
         </RelativeLayout>

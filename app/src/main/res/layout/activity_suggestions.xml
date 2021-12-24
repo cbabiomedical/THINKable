@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/preferences"
+    android:background="@drawable/prefbg"
     tools:context=".PreferencesSecPage">
     <RelativeLayout
         android:layout_width="match_parent"
@@ -40,32 +40,33 @@
             android:layout_height="wrap_content"
             android:id="@+id/recycler_view"/>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/done"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/recycler_view"
             android:layout_gravity="center"
-            android:layout_marginHorizontal="50dp"
-            android:layout_marginTop="20dp"
-            android:backgroundTint="@color/white"
+android:layout_centerHorizontal="true"            android:layout_marginTop="20dp"
+            android:background="@drawable/prefbtn"
             app:cornerRadius="20dp"
 
             android:text="@string/done"
-            android:textColor="@color/black" />
+            android:textColor="@color/color_white"
+            android:textAllCaps="false"/>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/next"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/done"
             android:layout_gravity="center"
-            android:layout_marginHorizontal="50dp"
+           android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
-            android:backgroundTint="@color/white"
-            android:text="NEXT"
+            android:background="@drawable/prefbtn"
+            android:text="Next"
             app:cornerRadius="20dp"
-            android:textColor="@color/black"
+            android:textAllCaps="false"
+            android:textColor="@color/color_white"
             android:onClick="gotoPrefer"/>
 
 

@@ -70,9 +70,10 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
 
         recyclerView = findViewById(R.id.gridView);
         Spinner dropdown_time = (Spinner) findViewById(R.id.spinner2);
-        String[] items = new String[]{"1 min", "1.5 min", "2 min", "2.5 min", "3 min"};
+        String[] items = new String[]{"Audio track duration is: 1 min", "Audio track duration is: 1.5 min", "Audio track duration is: 2 min", "Audio track duration is: 2.5 min", "Audio track duration is: 3 min"};
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown_time.setAdapter(adapter1);
+
         dropdown_time.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {

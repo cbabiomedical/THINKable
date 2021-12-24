@@ -45,35 +45,35 @@
         android:textColor="@color/white"
         android:backgroundTint="@color/white" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/signIn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/password"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="@color/white"
+
         android:paddingHorizontal="50dp"
         android:textColor="@color/white"
         app:cornerRadius="20dp"
         android:text="@string/sign_in"
         android:textAllCaps="false"
-        android:background="#80363636"/>
+        android:background="@drawable/hione"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/signUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/signIn"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="@color/white"
+
         android:paddingHorizontal="50dp"
         android:textColor="@color/white"
         app:cornerRadius="20dp"
         android:text="@string/sign_up"
         android:textAllCaps="false"
-        android:background="#80363636"/>
+        android:background="@drawable/hione"/>
 
     <TextView
         android:id="@+id/forgetPassword"

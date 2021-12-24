@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".CreateEvent"
-    android:background="@drawable/exercisebg">
+    android:background="#010334">
 
 
 
@@ -46,6 +46,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:fontFamily="@font/segoepr"
             android:text="Record Me To..."
             android:textColor="@color/white"
             android:textSize="20dp"
@@ -69,8 +70,8 @@
         android:id="@+id/btn_time"
         android:text="Select Time"
         android:textAllCaps="false"
-        android:backgroundTint="@color/white"
-        android:textColor="@color/black"
+        android:background="@drawable/btnpref"
+        android:textColor="@color/color_white"
         android:layout_marginTop="20dp"
         android:layout_marginHorizontal="25dp"
         app:cornerRadius="13dp"/>
@@ -80,8 +81,8 @@
         android:layout_height="60dp"
         android:textAllCaps="false"
 
-        android:backgroundTint="@color/white"
-        android:textColor="@color/black"
+        android:background="@drawable/btnpref"
+        android:textColor="@color/color_white"
 
         android:id="@+id/btn_date"
         android:layout_marginTop="10dp"
@@ -92,12 +93,13 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="30dp"
         android:id="@+id/btn_done"
-        android:textColor="@color/black"
+
         android:text="Done"
         android:textAllCaps="false"
         android:layout_height="60dp"
 
-        android:backgroundTint="@color/Lblue"
+        android:background="@drawable/hione"
+        android:textColor="@color/color_white"
 
         app:cornerRadius="13dp"/>
 </LinearLayout>

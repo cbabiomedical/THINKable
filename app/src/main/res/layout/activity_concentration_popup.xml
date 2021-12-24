@@ -15,7 +15,6 @@
         android:layout_centerHorizontal="true"
         android:background="@xml/shape"
         android:layout_centerVertical="true"
-        app:cornerRadius="13dp"
         android:orientation="vertical">
         <ImageView
             android:id="@+id/games"

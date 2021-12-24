@@ -212,21 +212,21 @@
         android:textColorHint="@color/white"
         android:backgroundTint="@color/white" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/signUp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:layout_below="@+id/reEnter"
         android:layout_centerHorizontal="true"
-        android:backgroundTint="@color/white"
+        android:background="@drawable/hione"
         android:paddingHorizontal="50dp"
 
         android:textColor="@color/white"
         app:cornerRadius="20dp"
         android:text="Sign Up"
         android:textAllCaps="false"
-        android:background="#80363636"
+
         android:onClick="goOTP"
         />
     <TextView

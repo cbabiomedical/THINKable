@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/bgsix"
+    android:background="#010334"
     tools:context=".UserLocation">
 
     <com.airbnb.lottie.LottieAnimationView
@@ -25,12 +25,12 @@
         android:id="@+id/animation"
         android:layout_below="@+id/btnLayout"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button4"
         android:layout_width="match_parent"
         android:layout_height="65dp"
-        android:backgroundTint="@color/white"
-        android:textColor="@color/black"
+        android:background="@drawable/btnpref"
+        android:textColor="@color/color_white"
         android:layout_above="@+id/button2"
         android:text="Current Location"
         android:onClick="btnCurrentLocation"
@@ -39,14 +39,15 @@
         android:layout_margin="30dp"
         app:cornerRadius="13dp"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/button2"
         android:layout_width="345dp"
         android:layout_marginLeft="32dp"
         android:layout_height="65dp"
-        android:backgroundTint="@color/white"
+        android:background="@drawable/btnpref"
+        android:textColor="@color/color_white"
         android:text="Retrieve Location"
-        android:textColor="@color/black"
+
         android:onClick="btnRetrieveLocation"
         android:layout_alignParentBottom="true"
         android:textAllCaps="false"

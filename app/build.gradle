@@ -121,4 +121,7 @@ dependencies {
     implementation 'com.google.firebase:firebase-config-ktx'
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.jinatonic.confetti:confetti:1.1.2'
+
+
+    implementation 'com.google.firebase:firebase-config-ktx'
 }

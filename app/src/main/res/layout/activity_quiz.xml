@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".QuizActivity"
-    android:background="@drawable/bgsix">
+    android:background="#010334">
 
     <View
         android:id="@+id/view4"
@@ -114,8 +114,9 @@
         android:onClick="onClick"
         android:padding="15dp"
         android:text="TextView"
-        android:textColor="@color/black"
-        android:textStyle="bold"
+        android:textColor="@color/color_white"
+        android:fontFamily="@font/segoepr"
+
         app:layout_constraintEnd_toEndOf="@+id/view5"
         app:layout_constraintStart_toStartOf="@+id/view5"
         app:layout_constraintTop_toBottomOf="@+id/imageView4" />
@@ -125,12 +126,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:textColor="@color/black"
-        android:textStyle="bold"
+
         android:background="@drawable/option_unselected"
         android:onClick="onClick"
         android:padding="15dp"
         android:text="TextView"
+        android:textColor="@color/color_white"
+        android:fontFamily="@font/segoepr"
         app:layout_constraintEnd_toEndOf="@+id/option_1"
         app:layout_constraintStart_toStartOf="@+id/option_1"
         app:layout_constraintTop_toBottomOf="@+id/option_1" />
@@ -142,8 +144,8 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/option_unselected"
         android:onClick="onClick"
-        android:textColor="@color/black"
-        android:textStyle="bold"
+        android:textColor="@color/color_white"
+        android:fontFamily="@font/segoepr"
         android:padding="15dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="@+id/option_2"
@@ -157,15 +159,15 @@
         android:layout_marginTop="10dp"
         android:background="@drawable/option_unselected"
         android:onClick="onClick"
-        android:textColor="@color/black"
-        android:textStyle="bold"
+        android:textColor="@color/color_white"
+        android:fontFamily="@font/segoepr"
         android:padding="15dp"
         android:text="TextView"
         app:layout_constraintEnd_toEndOf="@+id/option_3"
         app:layout_constraintStart_toStartOf="@+id/option_3"
         app:layout_constraintTop_toBottomOf="@+id/option_3" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/nextBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -174,17 +176,18 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:backgroundTint="@color/white"
+        android:background="@drawable/prefbtn"
+        android:textAllCaps="false"
         android:onClick="onClick"
         app:cornerRadius="13dp"
         android:text="Next"
-        android:textColor="@color/black"
+        android:textColor="@color/color_white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/quizBtn"
         app:layout_constraintTop_toBottomOf="@+id/option_4" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/quizBtn"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -193,10 +196,11 @@
         android:layout_marginTop="24dp"
         android:layout_marginEnd="8dp"
         android:layout_marginRight="8dp"
-        android:backgroundTint="@color/white"
+        android:background="@drawable/prefbtn"
+        android:textAllCaps="false"
         app:cornerRadius="13dp"
         android:text="Quit"
-        android:textColor="@color/black"
+        android:textColor="@color/color_white"
         app:layout_constraintEnd_toStartOf="@+id/nextBtn"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="packed"

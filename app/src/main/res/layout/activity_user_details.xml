@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".UserDetails"
-    android:background="@drawable/bgsix">
+    android:background="#010334">
 
 
 
@@ -205,13 +205,14 @@
         android:layout_marginTop="25dp"
         android:layout_width="250dp"
         android:layout_height="50dp"
-        android:textColor="@color/black"
+        android:textColor="@color/color_white"
+        android:textAllCaps="false"
         android:layout_below="@+id/dobLayout"
         android:text="UPDATE"
         android:textSize="15sp"
         app:cornerRadius="13dp"
 
-        android:backgroundTint="@color/white"
+        android:background="@drawable/prefbtn"
         android:layout_marginBottom="20dp"
         android:layout_centerHorizontal="true"/>
 </RelativeLayout>

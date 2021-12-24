@@ -36,7 +36,7 @@ public class Setting extends AppCompatActivity {
         location2 = findViewById(R.id.location2);
 
         preferences1 = findViewById(R.id.preferences1);
-        notifications2 = findViewById(R.id.notifications2);
+
         help3 = findViewById(R.id.help3);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -89,15 +89,7 @@ public class Setting extends AppCompatActivity {
             }
         });
 
-        notifications2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), Notification1.class));
-
-            }
-        });
-
-        help3.setOnClickListener(new View.OnClickListener() {
+               help3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(),UserProfile1.class));

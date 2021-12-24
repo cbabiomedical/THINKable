@@ -10,7 +10,7 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
     tools:context=".Connection"
-    android:background="@drawable/exercisebg"
+    android:background="@drawable/sinnewone"
     >
 
 
@@ -52,10 +52,11 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:fontFamily="sans-serif-condensed-medium"
-        android:textColor="@color/black"
-        android:backgroundTint="@color/white"
+        android:textColor="@color/color_white"
+        android:background="@drawable/btnpref"
         app:cornerRadius="13dp"
-        android:text="Start Scan" />
+        android:text="Start Scan"
+        android:textAllCaps="false"/>
 
 
 

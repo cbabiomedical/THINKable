@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".VerifyPhoneActivity"
-    android:background="@drawable/si_up">
+    android:background="@drawable/sinnew">
 
     <ImageView
         android:id="@+id/imageView2"
@@ -27,6 +27,7 @@
         android:textAppearance="@style/Base.TextAppearance.AppCompat.Large"
 
         tools:ignore="MissingConstraints"
+        android:fontFamily="@font/segoepr"
         tools:layout_editor_absoluteX="59dp"
         tools:layout_editor_absoluteY="216dp"
         android:textColor="#FFFFFF"/>
@@ -45,23 +46,21 @@
         android:backgroundTint="@android:color/white"
         android:textColor="#FFFFFF"/>
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/buttonSignIn"
-        android:layout_width="238dp"
-        android:layout_height="49dp"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="108dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+       android:layout_centerHorizontal="true"
+        android:layout_alignTop="@+id/editTextCode"
+        android:layout_marginTop="70dp"
+        android:textAllCaps="false"
 
 
         android:text="Next"
 
         android:textColor="@color/black"
-        app:backgroundTint="@color/white"
-        app:cornerRadius="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.0"
+        app:background="@drawable/prefbtn"
+
         android:onClick="gotoLandingPage"/>
 
     <ProgressBar

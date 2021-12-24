@@ -2,6 +2,7 @@ package com.example.thinkableproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,7 +26,7 @@ import java.util.List;
 
 public class PreferencesSecPage extends AppCompatActivity {
 
-    private Button done;
+    private AppCompatButton done;
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     List<ModelClass> userList;
