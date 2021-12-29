@@ -311,6 +311,7 @@ public class RegisterActivity extends AppCompatActivity {
         String suggestions = "";
         String favourites = "";
         String location = "";
+        int theme=1;
         // Assigning male to gender variable if male radio button is checked
         if (male.isChecked()) {
             gender = "Male";
@@ -379,7 +380,7 @@ public class RegisterActivity extends AppCompatActivity {
                             preference,
                             suggestions,
                             favourites,
-                            location
+                            location,theme
                     );
                     // getting an instance of firebase database using getInstance()
                     // accessign the location in database to write data

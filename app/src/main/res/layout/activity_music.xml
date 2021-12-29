@@ -6,9 +6,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="#010334"
     android:orientation="horizontal"
     tools:context=".Concentration_Daily">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/c2"
+        android:background="#0D559C"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/c1"
+        android:visibility="gone"
+        android:background="#010334"/>
     <Spinner
         android:layout_marginTop="20dp"
         android:id="@+id/spinner2"

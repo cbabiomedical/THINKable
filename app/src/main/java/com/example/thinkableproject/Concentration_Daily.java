@@ -52,7 +52,6 @@ public class Concentration_Daily extends AppCompatActivity {
     BarChart barChartdaily;
     View c1,c2;
     GifImageView c1gif,c2gif;
-    TextView day, night;
     ImageView games, relaxationBtn, memory, landingtwo, landingtwoday, musicNight, gameNight;
     AppCompatButton monthly, yearly, weekly;
 

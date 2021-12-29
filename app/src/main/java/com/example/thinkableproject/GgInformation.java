@@ -183,6 +183,7 @@ public class GgInformation extends AppCompatActivity {
         String preference = "";
         String suggestions = "";
         String location = "";
+        int theme=1;
         // Assigning male to gender variable if male radio button is checked
         if (male.isChecked()) {
             gender = "Male";
@@ -228,7 +229,7 @@ public class GgInformation extends AppCompatActivity {
                 preference,
                 suggestions,
                 favourites,
-                location
+                location,theme
 
         );
         // getting an instance of firebase database using getInstance()
