@@ -7,8 +7,10 @@
     android:layout_height="match_parent"
     android:background="@drawable/prefbg">
     <RelativeLayout
+        android:id="@+id/layoutMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
 
         <ImageView
             android:id="@+id/topic"

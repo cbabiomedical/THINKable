@@ -46,4 +46,6 @@
     <color name="greenBtnColor">#0f0</color>
     <color name="yellowBtnColor">#ff0</color>
     <color name="btnEffectColor">#ffffff</color>
+    <color name="darkblue">#010334</color>
+    <color name="lightblue">#0D559C</color>
 </resources>

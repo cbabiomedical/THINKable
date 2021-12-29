@@ -149,7 +149,7 @@ public class PlayMeditation extends AppCompatActivity {
                         }
                         if (currentPosition > time) {
                             mediaPlayer.stop();
-                            startActivity(new Intent(getApplicationContext(), Meditation.class));
+                            startActivity(new Intent(getApplicationContext(), MeditationExercise.class));
                         }
                     }
 

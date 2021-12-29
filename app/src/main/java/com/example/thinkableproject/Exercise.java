@@ -32,12 +32,17 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import pl.droidsonroids.gif.GifImageView;
+
 public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteListner, GridAdapter.OnNoteListner {
     ImageView relaxation;
     TextView music, games;
     RecyclerView musicRecyclerView, gameRecyclerView;
     MusicAdapter musicAdapter;
     GridAdapter gameAdapter;
+    int color;
+    View c1, c2;
+    GifImageView c1gif, c2gif;
     ArrayList<MusicModelClass> musicList;
     ArrayList<GameModelClass> gameList;
     HashMap<String, Object> gamesHashMap = new HashMap<>();
@@ -53,6 +58,43 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
         relaxation = findViewById(R.id.relaxation);
         music = findViewById(R.id.musicTitle);
         games = findViewById(R.id.gameTitle);
+        c1gif = findViewById(R.id.landingfwall);
+        c2gif = findViewById(R.id.landingfwall1);
+        c1 = findViewById(R.id.c1);
+        c2 = findViewById(R.id.c2);
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor", String.valueOf(snapshot.getValue()));
+                color = (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if (color == 2) {
+                    c1.setVisibility(View.INVISIBLE);
+                    c2.setVisibility(View.VISIBLE);
+                    c2gif.setVisibility(View.VISIBLE);
+                    c1gif.setVisibility(View.GONE);
+
+
+                } else {
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+                    c1gif.setVisibility(View.VISIBLE);
+                    c2gif.setVisibility(View.INVISIBLE);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         music.setOnClickListener(new View.OnClickListener() {
             @Override

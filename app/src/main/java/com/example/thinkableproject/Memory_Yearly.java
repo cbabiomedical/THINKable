@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -30,10 +31,16 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -47,18 +54,23 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import pl.droidsonroids.gif.GifImageView;
+
 public class Memory_Yearly extends AppCompatActivity {
 
     Dialog dialogcy;
     BarChart barChart2;
     AppCompatButton daily, weekly, monthly;
     LottieAnimationView realTime;
-    ImageView relaxationBtn, concentrationBtn,game,music;
+    ImageView relaxationBtn, concentrationBtn, game, music;
     FirebaseUser mUser;
     File localFile, fileName;
+    View c1, c2;
+    GifImageView c1gif, c2gif;
     String text;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
+    int color;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,9 +84,13 @@ public class Memory_Yearly extends AppCompatActivity {
         realTime = findViewById(R.id.animation);
         relaxationBtn = findViewById(R.id.relaxation);
         concentrationBtn = findViewById(R.id.concentration);
-        game=findViewById(R.id.game);
-        music=findViewById(R.id.meditations);
+        game = findViewById(R.id.game);
+        music = findViewById(R.id.meditations);
         List<BarEntry> entries = new ArrayList<>();
+        c1gif = findViewById(R.id.landingfwall);
+        c2gif = findViewById(R.id.landingfwall1);
+        c1 = findViewById(R.id.c1);
+        c2 = findViewById(R.id.c2);
         //Initialize bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         dialogcy = new Dialog(this);
@@ -112,16 +128,50 @@ public class Memory_Yearly extends AppCompatActivity {
                 return false;
             }
         });
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor", String.valueOf(snapshot.getValue()));
+                color = (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if (color == 2) {
+                    c1.setVisibility(View.INVISIBLE);
+                    c2.setVisibility(View.VISIBLE);
+                    c2gif.setVisibility(View.VISIBLE);
+                    c1gif.setVisibility(View.GONE);
+
+
+                } else {
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+                    c1gif.setVisibility(View.VISIBLE);
+                    c2gif.setVisibility(View.INVISIBLE);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         music.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Music.class));
+                startActivity(new Intent(getApplicationContext(), Music.class));
             }
         });
         game.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),GameActivity.class));
+                startActivity(new Intent(getApplicationContext(), GameActivity.class));
             }
         });
 
@@ -306,7 +356,7 @@ public class Memory_Yearly extends AppCompatActivity {
                             barChart2.getXAxis().setDrawGridLines(false);
                             barChart2.getAxisLeft().setDrawGridLines(false);
                             barChart2.setNoDataText("Data Loading Please Wait....");
-                            barChart2.animateXY(3000,3000);
+                            barChart2.animateXY(3000, 3000);
 
 
                             barChart2.invalidate();

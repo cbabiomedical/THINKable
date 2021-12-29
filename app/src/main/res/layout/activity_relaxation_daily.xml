@@ -9,6 +9,19 @@
     android:orientation="horizontal"
     android:background="#010334"
     tools:context=".Relaxation_Daily">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/c2"
+        android:background="#0D559C"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/c1"
+        android:visibility="gone"
+        android:background="#010334"/>
 
 
     <ScrollView
@@ -33,6 +46,15 @@
                     android:src="@drawable/landingwall"
                     android:layout_alignTop="@+id/toggleBtn"
                     android:id="@+id/landingfwall"/>
+                <pl.droidsonroids.gif.GifImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/langif"
+                    android:visibility="gone"
+                    android:layout_alignTop="@+id/toggleBtn"
+                    android:id="@+id/landingfwall1"/>
             </LinearLayout>
 
 

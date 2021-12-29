@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.github.mikephil.charting.charts.BarChart;
@@ -32,16 +33,27 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.*;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.*;
+import com.mahfa.dnswitch.DayNightSwitch;
+import com.mahfa.dnswitch.DayNightSwitchListener;
 
 import java.io.*;
 import java.util.*;
 
+import pl.droidsonroids.gif.GifImageView;
+
 public class Concentration_Daily extends AppCompatActivity {
     Dialog dialogcd;
     BarChart barChartdaily;
-
-    ImageView games,relaxationBtn, memory;
+    View c1,c2;
+    GifImageView c1gif,c2gif;
+    TextView day, night;
+    ImageView games, relaxationBtn, memory, landingtwo, landingtwoday, musicNight, gameNight;
     AppCompatButton monthly, yearly, weekly;
 
     ImageView music;
@@ -53,14 +65,14 @@ public class Concentration_Daily extends AppCompatActivity {
     File localFile, fileName;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
+    int color;
+
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_concentration__daily);
-//        setContentView(R.layout.activity_concentration_popup);
-        //Identifiers
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -69,13 +81,54 @@ public class Concentration_Daily extends AppCompatActivity {
         games = findViewById(R.id.game);
         yearly = findViewById(R.id.yearly);
         weekly = findViewById(R.id.weekly);
+        c1gif = findViewById(R.id.landingfwall);
+        c2gif = findViewById(R.id.landingfwall1);
         music = findViewById(R.id.music);
-
+        landingtwo = findViewById(R.id.landingtwo);
+        landingtwoday = findViewById(R.id.landingtwoday);
+        musicNight = findViewById(R.id.music1);
+        gameNight = findViewById(R.id.game1);
         relaxationBtn = findViewById(R.id.relaxation);
         anim = findViewById(R.id.animation);
         List<BarEntry> entries = new ArrayList<>();
         dialogcd = new Dialog(this);
         memory = findViewById(R.id.memory);
+        c1=findViewById(R.id.c1);
+        c2=findViewById(R.id.c2);
+
+        mUser=FirebaseAuth.getInstance().getCurrentUser();
+
+        DatabaseReference colorreference= FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor", String.valueOf(snapshot.getValue()));
+                color= (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                 if(color==2){
+                    c1.setVisibility(View.INVISIBLE);
+                    c2.setVisibility(View.VISIBLE);
+                    c2gif.setVisibility(View.VISIBLE);
+                    c1gif.setVisibility(View.GONE);
+
+
+                }else{
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+                    c1gif.setVisibility(View.VISIBLE);
+                    c2gif.setVisibility(View.INVISIBLE);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
 
         memory.setOnClickListener(new View.OnClickListener() {
@@ -268,7 +321,6 @@ public class Concentration_Daily extends AppCompatActivity {
                             barChartdaily.animateXY(3000, 3000);
                             barChartdaily.invalidate();
                             barChartdaily.getXAxis().setTextColor(getResources().getColor(R.color.white));
-
 
 
                         }

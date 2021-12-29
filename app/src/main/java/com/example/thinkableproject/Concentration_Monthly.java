@@ -17,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.Description;
@@ -30,10 +31,16 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -47,6 +54,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import pl.droidsonroids.gif.GifImageView;
+
 public class Concentration_Monthly extends AppCompatActivity {
     Dialog dialogcm;
     BarChart barChart;
@@ -57,7 +66,10 @@ public class Concentration_Monthly extends AppCompatActivity {
     FirebaseUser mUser;
     File localFile, fileName;
     LottieAnimationView anim;
+    GifImageView c1gif, c2gif;
     String text;
+    int color;
+    View c1, c2;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
 
@@ -79,6 +91,43 @@ public class Concentration_Monthly extends AppCompatActivity {
         games = findViewById(R.id.game);
         music = findViewById(R.id.music);
         anim = findViewById(R.id.animation);
+        c1 = findViewById(R.id.c1);
+        c2 = findViewById(R.id.c2);
+        c1gif = findViewById(R.id.landingfwall);
+        c2gif = findViewById(R.id.landingfwall1);
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor", String.valueOf(snapshot.getValue()));
+                color = (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if (color == 2) {
+                    c1.setVisibility(View.INVISIBLE);
+                    c2.setVisibility(View.VISIBLE);
+                    c2gif.setVisibility(View.VISIBLE);
+                    c1gif.setVisibility(View.GONE);
+
+
+                } else {
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+                    c1gif.setVisibility(View.VISIBLE);
+                    c2gif.setVisibility(View.INVISIBLE);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         music.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -260,7 +309,7 @@ public class Concentration_Monthly extends AppCompatActivity {
                             barChart.getXAxis().setDrawGridLines(false);
                             barChart.getAxisLeft().setDrawGridLines(false);
                             barChart.setNoDataText("Data Loading Please Wait....");
-                            barChart.animateXY(3000,3000);
+                            barChart.animateXY(3000, 3000);
                             barChart.invalidate();
 
 

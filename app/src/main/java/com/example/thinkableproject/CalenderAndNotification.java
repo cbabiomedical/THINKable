@@ -1,14 +1,23 @@
 package com.example.thinkableproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import com.example.thinkableproject.Database.DatabaseClass;
 import com.example.thinkableproject.Database.EntityClass;
 import com.example.thinkableproject.adapters.EventAdapter;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
 
@@ -17,6 +26,9 @@ public class CalenderAndNotification extends AppCompatActivity implements View.O
     EventAdapter eventAdapter;
     RecyclerView recyclerview;
     DatabaseClass databaseClass;
+    FirebaseUser mUser;
+    View c1,c2;
+    int color;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,7 +37,39 @@ public class CalenderAndNotification extends AppCompatActivity implements View.O
         createEvent = findViewById(R.id.btn_createEvent);
         recyclerview = findViewById(R.id.recyclerview);
         createEvent.setOnClickListener(this);
+        c1=findViewById(R.id.c1);
+        c2=findViewById(R.id.c2);
         databaseClass = DatabaseClass.getDatabase(getApplicationContext());
+
+        mUser= FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor", String.valueOf(snapshot.getValue()));
+                color = (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if (color == 2) {
+                    c1.setVisibility(View.INVISIBLE);
+                    c2.setVisibility(View.VISIBLE);
+
+
+                } else {
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
     }
 
     @Override

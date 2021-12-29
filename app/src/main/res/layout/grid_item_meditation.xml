@@ -8,7 +8,7 @@ android:orientation="vertical"
 style="@style/CardView.Light"
     app:cardCornerRadius="20dp"
     android:elevation="3dp"
-    android:layout_marginStart="10dp"
+
     android:layout_marginEnd="10dp"
     android:layout_marginBottom="10dp"
     android:layout_marginTop="10dp"

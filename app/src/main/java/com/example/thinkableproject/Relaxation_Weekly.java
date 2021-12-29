@@ -36,8 +36,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -55,6 +58,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import pl.droidsonroids.gif.GifImageView;
+
 public class Relaxation_Weekly extends AppCompatActivity {
 
     Dialog dialogrw;
@@ -66,11 +71,14 @@ public class Relaxation_Weekly extends AppCompatActivity {
     ImageView concentration, memoryBtn;
     ImageView music, meditation;
     FirebaseUser mUser;
+    View c1, c2;
+    GifImageView c1gif, c2gif;
     String text;
     File localFile;
     File fileName;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
+    int color;
 
 
     @Override
@@ -89,6 +97,10 @@ public class Relaxation_Weekly extends AppCompatActivity {
         daily = findViewById(R.id.daily);
         yearly = findViewById(R.id.yearly);
         monthly = findViewById(R.id.monthly);
+        c1gif = findViewById(R.id.landingfwall);
+        c2gif = findViewById(R.id.landingfwall1);
+        c1 = findViewById(R.id.c1);
+        c2 = findViewById(R.id.c2);
 
         //Initialize pop up window
         dialogrw = new Dialog(this);
@@ -103,6 +115,40 @@ public class Relaxation_Weekly extends AppCompatActivity {
         //go to concentration weekly landing page
         concentration = findViewById(R.id.concentration);
         memoryBtn = findViewById(R.id.memory);
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor", String.valueOf(snapshot.getValue()));
+                color = (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if (color == 2) {
+                    c1.setVisibility(View.INVISIBLE);
+                    c2.setVisibility(View.VISIBLE);
+                    c2gif.setVisibility(View.VISIBLE);
+                    c1gif.setVisibility(View.GONE);
+
+
+                } else {
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+                    c1gif.setVisibility(View.VISIBLE);
+                    c2gif.setVisibility(View.INVISIBLE);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         concentration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

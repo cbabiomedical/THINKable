@@ -11,6 +11,23 @@
     tools:context=".Concentration_Daily">
 
 
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/c2"
+        android:background="#0D559C"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/c1"
+        android:visibility="gone"
+        android:background="#010334"/>
+
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -23,7 +40,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/landingone">
+                android:id="@+id/landingone"
+                android:orientation="horizontal">
 
 
 
@@ -31,10 +49,21 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
+                         android:visibility="visible"
                     android:scaleType="centerCrop"
                     android:src="@drawable/landingwall"
                     android:layout_alignTop="@+id/toggleBtn"
                     android:id="@+id/landingfwall"/>
+
+                <pl.droidsonroids.gif.GifImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/langif"
+                    android:visibility="gone"
+                    android:layout_alignTop="@+id/toggleBtn"
+                    android:id="@+id/landingfwall1"/>
 
 
 
@@ -48,8 +77,16 @@
                 android:id="@+id/landingtwo"
                 android:layout_marginTop="-70dp"
                 android:layout_below="@+id/landingone"
-
                 android:src="@drawable/thin"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                />
+            <ImageView
+                android:id="@+id/landingtwoday"
+                android:layout_marginTop="-70dp"
+                android:layout_below="@+id/landingone"
+                android:visibility="gone"
+                android:src="@drawable/thinday"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
                 />
@@ -170,6 +207,7 @@
                         android:layout_marginStart="25dp"
                         android:id="@+id/iv"/>
 
+
                 </LinearLayout>
 
                 <LinearLayout
@@ -182,6 +220,7 @@
                     android:layout_marginTop="20dp">
 
                     <TextView
+                        android:id="@+id/night"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
@@ -191,7 +230,18 @@
                         android:textSize="20sp"
                         android:textStyle="bold"
 
-
+                        />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="@font/segoepr"
+                        android:text="Concentration"
+                        android:id="@+id/day"
+                        android:visibility="gone"
+                        android:textColor="@color/black"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
 
                         />
 
@@ -227,6 +277,15 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/musiccardwo"
                     android:id="@+id/music"
+
+                    android:layout_alignParentLeft="true"
+                    />
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    android:src="@drawable/musiccardwod"
+                    android:id="@+id/music1"
 
                     android:layout_alignParentLeft="true"
                     />
@@ -269,7 +328,16 @@
                     android:layout_height="wrap_content"
                     android:src="@drawable/gamescardwo"
                     android:layout_alignParentRight="true"
-                    android:id="@id/game"
+                    android:id="@+id/game"
+                    />
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/musiccardwo"
+                    android:visibility="gone"
+                    android:layout_alignParentRight="true"
+                    android:id="@+id/game1"
                     />
 
                 <TextView

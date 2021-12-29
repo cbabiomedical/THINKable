@@ -6,10 +6,21 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="@drawable/sinnewone"
-
     android:orientation="horizontal"
     tools:context=".Concentration_Daily">
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/c2"
+        android:background="@drawable/lightbg"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/c1"
+        android:visibility="gone"
+        android:background="@drawable/sinnewone"/>
 
     <ScrollView
         android:layout_width="match_parent"
@@ -263,12 +274,50 @@
                         android:textSize="17sp"
                         android:fontFamily="@font/segoepr" />
                 </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/theme"
+                        android:layout_width="290dp"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/help"
+                        android:layout_marginBottom="0dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp">
+
+                        <ImageButton
+                            android:id="@+id/themebtn"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:onClick="gotoPopup9"
+                            android:background="@drawable/btnpref"/>
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/themeim"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="6dp"
+                            android:src="@drawable/logoutt" />
+
+                        <TextView
+                            android:id="@+id/themetxt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_toEndOf="@+id/themeim"
+                            android:layout_toRightOf="@+id/themeim"
+                            android:gravity="center"
+                            android:text="Theme"
+                            android:textColor="@color/color_white"
+                            android:textSize="17sp"
+                            android:fontFamily="@font/segoepr" />
+                    </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/logouto"
                     android:layout_width="290dp"
                     android:layout_height="50dp"
-                    android:layout_below="@+id/help"
+                    android:layout_below="@+id/theme"
                     android:layout_marginBottom="90dp"
                     android:layout_centerHorizontal="true"
                     android:layout_marginTop="10dp">

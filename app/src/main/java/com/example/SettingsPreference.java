@@ -2,6 +2,7 @@ package com.example;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import com.example.thinkableproject.R;
 import com.example.thinkableproject.Setting;
@@ -34,8 +36,10 @@ public class SettingsPreference extends AppCompatActivity {
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     List<ModelClass> userList;
+    RelativeLayout layoutMain;
     FirebaseUser mUser;
     Adapter adapter;
+    int color;
 
 
     HashMap<String, Object> preference = new HashMap<>();  // Creating hashmap to store user preference values
@@ -46,6 +50,34 @@ public class SettingsPreference extends AppCompatActivity {
         setContentView(R.layout.activity_settings_preference);
         recyclerView = findViewById(R.id.recycler_view);
         done = findViewById(R.id.done);
+        layoutMain=findViewById(R.id.layoutMain);
+
+        mUser=FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor", String.valueOf(snapshot.getValue()));
+                color = (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if (color == 2) {
+                    layoutMain.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.preflight));
+
+
+                } else {
+                    layoutMain.setBackground(ContextCompat.getDrawable(getApplicationContext(),R.drawable.prefbg));
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 //
         //onClick function of doen button
         done.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +111,7 @@ public class SettingsPreference extends AppCompatActivity {
                     ModelClass post=dataSnapshot.getValue(ModelClass.class);
                     userList.add(post);
                 }
+                initRecyclerView();
             }
 
             @Override
