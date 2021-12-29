@@ -18,19 +18,19 @@
     />
 
 
-
     <EditText
-        android:layout_marginTop="165dp"
-        android:drawableLeft="@drawable/ic_email"
         android:id="@+id/username"
-        android:layout_marginHorizontal="30dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/topic"
+        android:layout_marginHorizontal="30dp"
+        android:layout_marginTop="150dp"
 
+        android:backgroundTint="@color/white"
+        android:drawableLeft="@drawable/ic_email"
         android:hint="@string/email"
         android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:backgroundTint="@color/white" />
+        android:textColorHint="@color/white" />
 
     <EditText
         android:id="@+id/password"

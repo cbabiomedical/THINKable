@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".WalletFragment"
-    android:background="@drawable/newbg"
+    android:background="#010334"
     >
 
     <View
@@ -87,17 +87,17 @@
         app:layout_constraintStart_toStartOf="@+id/view6"
         app:layout_constraintTop_toBottomOf="@+id/view6" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/sendRequest"
-        android:layout_width="0dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:backgroundTint="@color/white"
+        android:background="@drawable/hione"
 
         android:text="Send Request"
         android:textAllCaps="false"
         app:cornerRadius="13dp"
-        android:textColor="@color/black"
+        android:textColor="@color/color_white"
         app:layout_constraintEnd_toEndOf="@+id/emailBox"
         app:layout_constraintStart_toStartOf="@+id/emailBox"
         app:layout_constraintTop_toBottomOf="@+id/emailBox" />

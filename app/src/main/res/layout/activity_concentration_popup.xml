@@ -16,42 +16,99 @@
         android:background="@xml/shape"
         android:layout_centerVertical="true"
         android:orientation="vertical">
-        <ImageView
-            android:id="@+id/games"
+        <RelativeLayout
+            android:id="@+id/gamespop"
+            android:layout_width="290dp"
+            android:layout_height="50dp"
+
+
             android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/gamess"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="60dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginBottom="10dp">
-        </ImageView>
-        <ImageView
-            android:id="@+id/music1"
+            android:layout_marginTop="10dp">
+
+            <ImageButton
+                android:id="@+id/gamespop1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/btnpref"/>
+
+
+            <TextView
+                android:id="@+id/gamespop2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+
+                android:gravity="center"
+                android:text="Games"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:fontFamily="@font/segoepr" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/musicpop"
+            android:layout_width="290dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/gamespop"
+
+
+
             android:layout_centerHorizontal="true"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/games"
-            android:src="@drawable/musicc"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginBottom="10dp">
-        </ImageView>
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/cancell"
+            android:layout_marginTop="10dp">
+
+            <ImageButton
+                android:id="@+id/musicpop1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/btnpref"/>
+
+
+            <TextView
+                android:id="@+id/musicpop2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+
+                android:gravity="center"
+                android:text="Music"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:fontFamily="@font/segoepr" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/canclepop"
+            android:layout_width="290dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/musicpop"
+
+
             android:layout_centerHorizontal="true"
-            android:layout_marginLeft="40dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginRight="40dp"
-            android:layout_marginBottom="60dp"
-            android:layout_below="@+id/music1"
-            android:id="@+id/cancelcon"
-            >
-        </ImageView>
+            android:layout_marginTop="10dp">
+
+            <ImageButton
+                android:id="@+id/canclepop1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/btnpref"/>
+
+
+            <TextView
+                android:id="@+id/logout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+
+                android:gravity="center"
+                android:text="Cancel"
+                android:textColor="@color/redBtnColor"
+                android:textSize="16sp"
+                android:fontFamily="@font/segoepr" />
+        </RelativeLayout>
 
 
     </RelativeLayout>

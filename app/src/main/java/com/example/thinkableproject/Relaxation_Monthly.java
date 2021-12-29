@@ -263,7 +263,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             Log.d("floatListTest", String.valueOf(floatList));
-                            String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
+                            String[] months = new String[]{"J", "F", "Mar", "Ap", "May", "Jun", "Jul", "Au", "S", "O", "N", "D"};
                             List<Float> credits = new ArrayList<>(Arrays.asList(90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f));
                             float[] strength = new float[]{90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f};
 
@@ -409,11 +409,11 @@ public class Relaxation_Monthly extends AppCompatActivity {
 
     //improve relaxation pop up window
     public void gotoPopup6(View view) {
-        ImageView imageViewcancle, imageViewmed, imageViewsong, imageViewvdo, imageViewbw, imageViewit;
+        ImageButton imageViewcancle, imageViewmed, imageViewsong, imageViewvdo, imageViewbw, imageViewit;
 
         dialogrm.setContentView(R.layout.activity_relaxation_popup);
 
-        imageViewmed = (ImageView) dialogrm.findViewById(R.id.imageViewmed);
+        imageViewmed = (ImageButton) dialogrm.findViewById(R.id.medipop1);
         imageViewmed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -422,7 +422,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
             }
         });
 
-        imageViewsong = (ImageView) dialogrm.findViewById(R.id.imageViewsong);
+        imageViewsong = (ImageButton) dialogrm.findViewById(R.id.songspop1);
         imageViewsong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -431,7 +431,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
             }
         });
 
-        imageViewvdo = (ImageView) dialogrm.findViewById(R.id.imageViewvdo);
+        imageViewvdo = (ImageButton) dialogrm.findViewById(R.id.vdospop1);
         imageViewvdo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -440,7 +440,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
             }
         });
 
-        imageViewbw = (ImageView) dialogrm.findViewById(R.id.imageViewbw);
+        imageViewbw = (ImageButton) dialogrm.findViewById(R.id.bipop1);
         imageViewbw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -449,7 +449,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
             }
         });
 
-        imageViewit = (ImageView) dialogrm.findViewById(R.id.imageViewit);
+        imageViewit = (ImageButton) dialogrm.findViewById(R.id.canpop1);
         imageViewit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -458,13 +458,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
             }
         });
 
-        imageViewcancle = (ImageView) dialogrm.findViewById(R.id.cancelcon);
-        imageViewcancle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogrm.dismiss();
-            }
-        });
+
 
         dialogrm.show();
     }

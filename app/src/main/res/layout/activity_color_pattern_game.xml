@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/txtColor"
+    android:background="#010334"
     tools:context=".MainActivity">
 
     <!-- Guidelines for positioning -->
@@ -31,7 +31,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30sp"
-        android:textColor="@color/background"
+        android:textColor="@color/color_white"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -42,7 +42,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="30sp"
-        android:textColor="@color/background"
+        android:textColor="@color/color_white"
         app:layout_constraintTop_toBottomOf="@+id/greenBtn"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -53,7 +53,7 @@
         android:id="@+id/scoreInfo3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/background1"
+        android:textColor="@color/color_white"
         android:textSize="25sp"
         android:text="Your Score is: "
 
@@ -67,7 +67,7 @@
         android:id="@+id/scoreInfo2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/background1"
+        android:textColor="@color/color_white"
         android:textSize="25sp"
 
         app:layout_constraintTop_toBottomOf="@+id/gameInfo"
@@ -80,7 +80,7 @@
         android:id="@+id/scoreInfo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/background1"
+        android:textColor="@color/color_white"
         android:textSize="25sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -90,7 +90,7 @@
     <!-- Buttons of Simon Game -->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/startBtn"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/button_rounded"
         android:text="@string/startBtn"
@@ -102,7 +102,10 @@
         android:layout_marginLeft="50dp"
         android:layout_marginStart="10dp"
 
+
         />
+
+
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/redBtn"

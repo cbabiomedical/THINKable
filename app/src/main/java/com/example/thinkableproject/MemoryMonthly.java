@@ -265,7 +265,7 @@ public class MemoryMonthly extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             Log.d("floatListTest", String.valueOf(floatList));
-                            String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
+                            String[] months = new String[]{"J", "F", "Mar", "Ap", "May", "Jun", "Jul", "Au", "S", "O", "N", "D"};
                             List<Float> credits = new ArrayList<>(Arrays.asList(90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f));
 
 
@@ -381,10 +381,10 @@ public class MemoryMonthly extends AppCompatActivity {
 
     //popup window method to display suggestions to improve concentration
     public void gotoPopup2(View view) {
-        ImageView cancelcon;
+        ImageButton canpop1;
         dialogcm.setContentView(R.layout.activity_concentration_popup);
-        cancelcon = (ImageView) dialogcm.findViewById(R.id.cancelcon);
-        cancelcon.setOnClickListener(new View.OnClickListener() {
+        canpop1 = (ImageButton) dialogcm.findViewById(R.id.canpop1);
+        canpop1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialogcm.dismiss();

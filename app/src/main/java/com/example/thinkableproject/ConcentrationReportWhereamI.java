@@ -308,7 +308,8 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
 
                             chart = findViewById(R.id.chart1);
                             chart.getDescription().setEnabled(false);
-                            chart.setDrawGridBackground(false);
+                            chart.setDrawGridBackground(true);
+                            chart.setBackgroundColor(getResources().getColor(R.color.background));
                             chart.setTouchEnabled(true);
                             chart.setMaxHighlightDistance(50f);
                             chart.setDragEnabled(true);
@@ -324,7 +325,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                             chart.getAxisRight().setEnabled(false);
                             XAxis xl = chart.getXAxis();
                             xl.setDrawGridLines(false);
-                            String[] daysS = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+                            String[] daysS = new String[]{"M", "Tu", "W", "Th", "F", "Sa", "Su"};
                             XAxis xAxis = chart.getXAxis();
                             xAxis.setValueFormatter(new IndexAxisValueFormatter(daysS));
                             xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
@@ -340,7 +341,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
 
                             ScatterDataSet set1 = new ScatterDataSet(scatterEntries, "You");
                             set1.setScatterShape(ScatterChart.ScatterShape.SQUARE);
-                            set1.setColor(ColorTemplate.COLORFUL_COLORS[0]);
+                            set1.setColor(R.color.white);
 
 
                             set1.setScatterShapeSize(8f);
@@ -405,7 +406,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                             seta.setScatterShapeHoleColor(ColorTemplate.COLORFUL_COLORS[3]);
                             seta.setScatterShapeHoleRadius(3f);
 
-                            seta.setColor(ColorTemplate.COLORFUL_COLORS[1]);
+                            seta.setColor(R.color.white);
 
                             seta.setScatterShapeSize(8f);
 
@@ -582,7 +583,8 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
 
                             chart1 = findViewById(R.id.chart3);
                             chart1.getDescription().setEnabled(false);
-                            chart1.setDrawGridBackground(false);
+                            chart1.setDrawGridBackground(true);
+                            chart1.setBackgroundColor(getResources().getColor(R.color.background));
                             chart1.setTouchEnabled(true);
                             chart1.setMaxHighlightDistance(50f);
                             chart1.setDragEnabled(true);
@@ -601,7 +603,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                             chart1.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                             XAxis xl1 = chart1.getXAxis();
                             xl1.setDrawGridLines(false);
-                            String[] daysS1 = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+                            String[] daysS1 = new String[]{"M", "T", "W", "Th", "F", "S", "S"};
                             XAxis xAxis1 = chart1.getXAxis();
                             xAxis1.setValueFormatter(new IndexAxisValueFormatter(daysS1));
                             xAxis1.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
@@ -857,7 +859,9 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
 
                             chart2 = findViewById(R.id.chart2);
                             chart2.getDescription().setEnabled(false);
-                            chart2.setDrawGridBackground(false);
+                            chart2.setDrawGridBackground(true);
+                            chart2.setBackgroundColor(getResources().getColor(R.color.background));
+
                             chart2.setTouchEnabled(true);
                             chart2.getXAxis().setTextColor(getResources().getColor(R.color.white));
                             chart2.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
@@ -873,7 +877,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                             chart2.getAxisRight().setEnabled(false);
                             XAxis xl3 = chart2.getXAxis();
                             xl3.setDrawGridLines(false);
-                            String[] daysS3 = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+                            String[] daysS3 = new String[]{"M", "Tu", "W", "Th", "F", "Sa", "Su"};
                             XAxis xAxis3 = chart2.getXAxis();
                             xAxis3.setValueFormatter(new IndexAxisValueFormatter(daysS3));
                             xAxis3.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
@@ -889,9 +893,10 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                             ScatterDataSet setn = new ScatterDataSet(scatterEntriesn, "You");
                             setn.setScatterShape(ScatterChart.ScatterShape.SQUARE);
                             setn.setColor(ColorTemplate.COLORFUL_COLORS[0]);
+                            setn.setScatterShapeHoleRadius(4f);
 
 
-                            setn.setScatterShapeSize(8f);
+                            setn.setScatterShapeSize(10f);
 
                             dataSetn.add(setn); // add the data sets
 
@@ -953,9 +958,12 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                             seta3.setScatterShapeHoleColor(ColorTemplate.COLORFUL_COLORS[3]);
                             seta3.setScatterShapeHoleRadius(3f);
 
+
+
+
                             seta3.setColor(ColorTemplate.COLORFUL_COLORS[1]);
 
-                            seta3.setScatterShapeSize(8f);
+                            seta3.setScatterShapeSize(10f);
 
                             dataSetn.add(seta3);
 
@@ -1129,7 +1137,9 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
 
                             chart3 = findViewById(R.id.chart4);
                             chart3.getDescription().setEnabled(false);
-                            chart3.setDrawGridBackground(false);
+                            chart3.setDrawGridBackground(true);
+                            chart3.setBackgroundColor(getResources().getColor(R.color.background));
+
                             chart3.setTouchEnabled(true);
                             chart3.setMaxHighlightDistance(50f);
                             chart3.setDragEnabled(true);
@@ -1145,7 +1155,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                             chart3.getAxisRight().setEnabled(false);
                             XAxis xl4 = chart3.getXAxis();
                             xl4.setDrawGridLines(false);
-                            String[] daysS4 = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+                            String[] daysS4 = new String[]{"M", "Tu", "W", "Th", "F", "Sa", "Su"};
                             XAxis xAxis4 = chart3.getXAxis();
                             xAxis4.setValueFormatter(new IndexAxisValueFormatter(daysS4));
                             xAxis4.setPosition(XAxis.XAxisPosition.BOTH_SIDED);

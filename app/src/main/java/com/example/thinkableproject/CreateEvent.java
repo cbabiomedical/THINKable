@@ -2,6 +2,8 @@ package com.example.thinkableproject;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
@@ -30,7 +32,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 public class CreateEvent extends AppCompatActivity implements View.OnClickListener {
-    Button btn_time, btn_date, btn_done;
+    AppCompatButton btn_time, btn_date, btn_done;
 
     EditText editext_message;
     String timeTonotify;

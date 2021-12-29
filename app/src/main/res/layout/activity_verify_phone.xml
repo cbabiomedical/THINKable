@@ -59,7 +59,7 @@
         android:text="Next"
 
         android:textColor="@color/black"
-        app:background="@drawable/prefbtn"
+        app:background="@drawable/hione"
 
         android:onClick="gotoLandingPage"/>
 

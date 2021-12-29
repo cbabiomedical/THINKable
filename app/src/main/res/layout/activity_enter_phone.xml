@@ -60,27 +60,22 @@
 
     </LinearLayout>
 
-    <Button
-        android:id="@+id/buttonContinue"
-        android:layout_width="238dp"
-        android:layout_height="49dp"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="108dp"
 
-
-
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="wrap_content"
         android:text="Continue"
-
-        android:textColor="@color/color_white"
-        app:backgroundTint="@color/transparent"
-        app:cornerRadius="20dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-        app:layout_constraintVertical_bias="0.0"
-        android:onClick="continuetocode"
+        android:layout_height="wrap_content"
         android:textAllCaps="false"
-       />
+
+        android:background="@drawable/hione"
+        android:textColor="@color/color_white"
+        android:layout_centerInParent="true"
+        android:onClick="continuetocode"
+
+        android:id="@+id/buttonContinue"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        />
 
 
 

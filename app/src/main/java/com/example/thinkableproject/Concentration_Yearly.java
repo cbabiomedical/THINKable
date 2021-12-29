@@ -379,13 +379,13 @@ public class Concentration_Yearly extends AppCompatActivity {
     }
 //popup window method to provide suggesstions to improve concentration
     public void gotoPopup4(View view) {
-        ImageView cancelcon, games, music1;
+        ImageButton cancelcon, games, music1;
 
 
         dialogcy.setContentView(R.layout.activity_concentration_popup);
 
-        games = (ImageView) dialogcy.findViewById(R.id.games);
-        music1 = (ImageView) dialogcy.findViewById(R.id.music1);
+        games = (ImageButton) dialogcy.findViewById(R.id.gamespop1);
+        music1 = (ImageButton) dialogcy.findViewById(R.id.musicpop1);
 
         games.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -403,7 +403,7 @@ public class Concentration_Yearly extends AppCompatActivity {
             }
         });
 
-        cancelcon = (ImageView) dialogcy.findViewById(R.id.cancelcon);
+        cancelcon = (ImageButton) dialogcy.findViewById(R.id.canclepop1);
         cancelcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -277,7 +277,7 @@ public class Concentration_Daily extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             Log.d("floatListTest", String.valueOf(floatList));
-                            String[] days = new String[]{"Mon", "Tue", "Wed", "Thur", "Fri", "Sat", "Sun"};
+                            String[] days = new String[]{"M", "Tu", "W", "Th", "F", "Sa", "Su"};
                             ArrayList<Float> creditsMain = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f, 10f, 15f, 85f));
 
                             for (int j = 0; j < floatList.size(); ++j) {
@@ -400,13 +400,13 @@ public class Concentration_Daily extends AppCompatActivity {
 //        Intent intentgp1 = new Intent(Concentration_Daily.this, Concentration_popup.class);
 //
 //        startActivity(intentgp1);
-        ImageView cancelcon, games, music1;
+        ImageButton cancelcon, games, music1;
 
 
         dialogcd.setContentView(R.layout.activity_concentration_popup);
 
-        games = (ImageView) dialogcd.findViewById(R.id.games);
-        music1 = (ImageView) dialogcd.findViewById(R.id.music1);
+        games = (ImageButton) dialogcd.findViewById(R.id.gamespop1);
+        music1 = (ImageButton) dialogcd.findViewById(R.id.musicpop1);
 
         games.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -424,7 +424,7 @@ public class Concentration_Daily extends AppCompatActivity {
             }
         });
 
-        cancelcon = (ImageView) dialogcd.findViewById(R.id.cancelcon);
+        cancelcon = (ImageButton) dialogcd.findViewById(R.id.canclepop1);
         cancelcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

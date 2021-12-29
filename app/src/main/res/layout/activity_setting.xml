@@ -77,7 +77,7 @@
                     android:layout_marginLeft="100dp"
                     android:layout_marginTop="25dp"
                     android:layout_marginBottom="20dp"
-                    android:src="@drawable/opgradetpro" />
+                    android:src="@drawable/upgradetoo" />
 
 
 
@@ -89,7 +89,7 @@
                     android:layout_below="@+id/upgradetopro"
                     android:layout_centerHorizontal="true"
 
-                    android:layout_marginTop="25dp"
+                    android:layout_marginTop="30dp"
                     >
 
                     <ImageButton
@@ -118,7 +118,7 @@
                         android:text="Account Settings"
                         android:textColor="@color/color_white"
                         android:fontFamily="@font/segoepr"
-                        android:textSize="17sp"
+                        android:textSize="14sp"
                         />
                 </RelativeLayout>
 
@@ -156,7 +156,7 @@
                         android:gravity="center"
                         android:text="Change Password"
                         android:textColor="@color/color_white"
-                        android:textSize="17sp"
+                        android:textSize="14sp"
                         android:fontFamily="@font/segoepr"/>
                 </RelativeLayout>
 
@@ -193,7 +193,7 @@
                         android:gravity="center"
                         android:text="My Current Location"
                         android:textColor="@color/color_white"
-                        android:textSize="17sp"
+                        android:textSize="14sp"
                         android:fontFamily="@font/segoepr" />
                 </RelativeLayout>
 
@@ -232,7 +232,7 @@
                         android:gravity="center"
                         android:text="Preferences"
                         android:textColor="@color/color_white"
-                        android:textSize="17sp"
+                        android:textSize="14sp"
                         android:fontFamily="@font/segoepr" />
                 </RelativeLayout>
 
@@ -271,7 +271,7 @@
                         android:gravity="center"
                         android:text="Help"
                         android:textColor="@color/color_white"
-                        android:textSize="17sp"
+                        android:textSize="14sp"
                         android:fontFamily="@font/segoepr" />
                 </RelativeLayout>
                     <RelativeLayout
@@ -347,7 +347,7 @@
                         android:gravity="center"
                         android:text="Logout"
                         android:textColor="@color/color_white"
-                        android:textSize="17sp"
+                        android:textSize="14sp"
                         android:fontFamily="@font/segoepr" />
                 </RelativeLayout>
             </RelativeLayout>
@@ -359,7 +359,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        app:itemBackground="@color/Ldark"
+        app:itemBackground="@color/navdark"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menu_navigation" />

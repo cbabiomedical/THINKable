@@ -400,11 +400,11 @@ public class Relaxation_Yearly extends AppCompatActivity {
 
     //improve relaxation pop up window
     public void gotoPopup8(View view) {
-        ImageView imageViewcancle, imageViewmed, imageViewsong, imageViewvdo, imageViewbw, imageViewit;
+        ImageButton imageViewcancle, imageViewmed, imageViewsong, imageViewvdo, imageViewbw, imageViewit;
 
         dialogry.setContentView(R.layout.activity_relaxation_popup);
 
-        imageViewmed = (ImageView) dialogry.findViewById(R.id.imageViewmed);
+        imageViewmed = (ImageButton) dialogry.findViewById(R.id.medipop1);
         imageViewmed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -413,7 +413,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
             }
         });
 
-        imageViewsong = (ImageView) dialogry.findViewById(R.id.imageViewsong);
+        imageViewsong = (ImageButton) dialogry.findViewById(R.id.songspop1);
         imageViewsong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -422,7 +422,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
             }
         });
 
-        imageViewvdo = (ImageView) dialogry.findViewById(R.id.imageViewvdo);
+        imageViewvdo = (ImageButton) dialogry.findViewById(R.id.vdospop1);
         imageViewvdo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -431,7 +431,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
             }
         });
 
-        imageViewbw = (ImageView) dialogry.findViewById(R.id.imageViewbw);
+        imageViewbw = (ImageButton) dialogry.findViewById(R.id.bipop1);
         imageViewbw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -440,7 +440,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
             }
         });
 
-        imageViewit = (ImageView) dialogry.findViewById(R.id.imageViewit);
+        imageViewit = (ImageButton) dialogry.findViewById(R.id.canpop1);
         imageViewit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -449,13 +449,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
             }
         });
 
-        imageViewcancle = (ImageView) dialogry.findViewById(R.id.cancelcon);
-        imageViewcancle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogry.dismiss();
-            }
-        });
+
 
         dialogry.show();
     }

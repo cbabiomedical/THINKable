@@ -382,16 +382,17 @@ public class Memory_Weekly extends AppCompatActivity {
 
     //popup window method to provide suggestions for improve concentration
     public void gotoPopup3(View view) {
-        ImageView cancelcon;
+        ImageButton canpop1;
         dialogcw.setContentView(R.layout.activity_concentration_popup);
-        cancelcon = (ImageView) dialogcw.findViewById(R.id.cancelcon);
-        cancelcon.setOnClickListener(new View.OnClickListener() {
+        canpop1 = (ImageButton) dialogcw.findViewById(R.id.canpop1);
+        canpop1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialogcw.dismiss();
             }
         });
         dialogcw.show();
+
     }
 
     public void caliweekly(View view) {

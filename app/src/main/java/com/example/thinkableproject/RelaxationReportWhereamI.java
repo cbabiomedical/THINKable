@@ -312,7 +312,9 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             Description descChartDescription = new Description();
                             descChartDescription.setEnabled(true);
                             chart4aa.setDescription(descChartDescription);
-                            chart4aa.setDrawGridBackground(false);
+                            chart4aa.setDrawGridBackground(true);
+                            chart4aa.setBackgroundColor(getResources().getColor(R.color.background));
+
                             chart4aa.setTouchEnabled(true);
                             chart4aa.setMaxHighlightDistance(50f);
                             chart4aa.setDragEnabled(true);
@@ -329,7 +331,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             chart4aa.getAxisRight().setEnabled(false);
                             XAxis xlr = chart4aa.getXAxis();
                             xlr.setDrawGridLines(false);
-                            String[] daysS = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+                            String[] daysS = new String[]{"M", "Tu", "W", "Th", "F", "Sa", "Su"};
                             XAxis xAxisr = chart4aa.getXAxis();
                             xAxisr.setValueFormatter(new IndexAxisValueFormatter(daysS));
                             xAxisr.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
@@ -586,7 +588,9 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
 
                             chart5 = findViewById(R.id.chart3);
                             chart5.getDescription().setEnabled(false);
-                            chart5.setDrawGridBackground(false);
+                            chart5.setDrawGridBackground(true);
+                            chart5.setBackgroundColor(getResources().getColor(R.color.background));
+
                             chart5.setTouchEnabled(true);
                             chart5.setMaxHighlightDistance(50f);
                             chart5.setDragEnabled(true);
@@ -603,7 +607,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             chart5.getAxisRight().setEnabled(false);
                             XAxis xl1r = chart5.getXAxis();
                             xl1r.setDrawGridLines(false);
-                            String[] daysS1r = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+                            String[] daysS1r = new String[]{"M", "Tu", "W", "Th", "F", "Sa", "Su"};
                             XAxis xAxis1r = chart5.getXAxis();
                             xAxis1r.setValueFormatter(new IndexAxisValueFormatter(daysS1r));
                             xAxis1r.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
@@ -860,7 +864,9 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             Description descChartDescription = new Description();
                             descChartDescription.setEnabled(true);
                             chart6.setDescription(descChartDescription);
-                            chart6.setDrawGridBackground(false);
+                            chart6.setDrawGridBackground(true);
+                            chart6.setBackgroundColor(getResources().getColor(R.color.background));
+
                             chart6.setTouchEnabled(true);
                             chart6.setMaxHighlightDistance(50f);
                             chart6.setDragEnabled(true);
@@ -1133,7 +1139,9 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             Description descChartDescription = new Description();
                             descChartDescription.setEnabled(true);
                             chart7.setDescription(descChartDescription);
-                            chart7.setDrawGridBackground(false);
+                            chart7.setDrawGridBackground(true);
+                            chart7.setBackgroundColor(getResources().getColor(R.color.background));
+
                             chart7.setTouchEnabled(true);
                             chart7.setMaxHighlightDistance(50f);
                             chart7.setDragEnabled(true);

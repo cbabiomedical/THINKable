@@ -266,7 +266,7 @@ public class Memory_Daily extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             Log.d("floatListTest", String.valueOf(floatList));
-                            String[] days = new String[]{"Mon", "Thu", "Wed", "Thur", "Fri", "Sat", "Sun"};
+                            String[] days = new String[]{"M", "Tu", "W", "Th", "F", "Sa", "Su"};
                             ArrayList<Float> creditsMain = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f, 10f, 15f, 85f));
 
                             for (int j = 0; j < floatList.size(); ++j) {
@@ -392,16 +392,17 @@ public class Memory_Daily extends AppCompatActivity {
 //        Intent intentgp1 = new Intent(Concentration_Daily.this, Concentration_popup.class);
 //
 //        startActivity(intentgp1);
-        ImageView cancelcon;
+        ImageButton canpop1;
         dialogcd.setContentView(R.layout.activity_concentration_popup);
-        cancelcon = (ImageView) dialogcd.findViewById(R.id.cancelcon);
-        cancelcon.setOnClickListener(new View.OnClickListener() {
+        canpop1 = (ImageButton) dialogcd.findViewById(R.id.canpop1);
+        canpop1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialogcd.dismiss();
             }
         });
         dialogcd.show();
+
 
     }
 

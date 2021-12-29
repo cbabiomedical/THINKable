@@ -8,7 +8,7 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>bui
     <color name="heading_color">#23408E</color>
-    <color name="dark">#03254C</color>
+    <color name="dark">#FF9190</color>
     <color name="Ldark">#010334</color>
     <color name="blue">#AEC6CF</color>
     <color name="Lblue">#34aec5</color>
@@ -16,6 +16,8 @@
     <color name="background">#80FFFFFF</color>
     <color name="transparent">#00000000</color>
     <color name="bluebar">#3451c5</color>
+    <color name="navdark">#1E3375</color>
+    <color name="navlight">#3C4C8E</color>
 
     <color name="colorPrimary">#673AB7</color>
     <color name="colorPrimaryDark">#673AB7</color>

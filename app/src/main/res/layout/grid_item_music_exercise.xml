@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:text="Chilled Acoustic"
         android:gravity="bottom"
-        android:textColor="@color/black"
+        android:textColor="@color/color_white"
         android:textSize="12sp"
         style="@style/TextAppearance.AppCompat.Title"
         android:layout_gravity="bottom"

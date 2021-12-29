@@ -269,7 +269,7 @@ public class Concentration_Monthly extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             Log.d("floatListTest", String.valueOf(floatList));
-                            String[] months = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
+                            String[] months = new String[]{"J", "F", "Mar", "Ap", "May", "Jun", "Jul", "Au", "S", "O", "N", "D"};
                             List<Float> credits = new ArrayList<>(Arrays.asList(90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f));
 
 
@@ -389,13 +389,13 @@ public class Concentration_Monthly extends AppCompatActivity {
     public void gotoPopup2(View view) {
 
 
-        ImageView cancelcon, games, music1;
+        ImageButton cancelcon, games, music1;
 
 
         dialogcm.setContentView(R.layout.activity_concentration_popup);
 
-        games = (ImageView) dialogcm.findViewById(R.id.games);
-        music1 = (ImageView) dialogcm.findViewById(R.id.music1);
+        games = (ImageButton) dialogcm.findViewById(R.id.gamespop1);
+        music1 = (ImageButton) dialogcm.findViewById(R.id.musicpop1);
 
         games.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -413,7 +413,7 @@ public class Concentration_Monthly extends AppCompatActivity {
             }
         });
 
-        cancelcon = (ImageView) dialogcm.findViewById(R.id.cancelcon);
+        cancelcon = (ImageButton) dialogcm.findViewById(R.id.canclepop1);
         cancelcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

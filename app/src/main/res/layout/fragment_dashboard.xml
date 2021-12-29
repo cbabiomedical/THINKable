@@ -5,14 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.dashboard.DashboardFragment"
-    android:background="@drawable/bgsix">
+    android:background="@drawable/sinnewtwo">
 
-    <pl.droidsonroids.gif.GifImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:scaleType="centerCrop"
-        android:src="@drawable/wallpapertwo" />
+
 
     <ScrollView
         android:layout_width="match_parent"

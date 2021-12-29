@@ -2,6 +2,8 @@ package com.example.thinkableproject;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,7 +19,7 @@ import com.google.firebase.auth.FirebaseAuth;
 
 public class ForgetPasswordActivity extends AppCompatActivity {
     private EditText emailEditText;
-    private Button resetPasswordButton;
+    private AppCompatButton resetPasswordButton;
     private ProgressBar progressBar;
 
     FirebaseAuth auth;
@@ -28,7 +30,7 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forget_password);
 
         emailEditText = (EditText) findViewById(R.id.email);
-        resetPasswordButton = (Button) findViewById(R.id.resetPassword);
+        resetPasswordButton = (AppCompatButton) findViewById(R.id.resetPassword);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
         //get instance of firebase user authentication

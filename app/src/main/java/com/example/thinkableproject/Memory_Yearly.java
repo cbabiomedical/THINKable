@@ -379,16 +379,17 @@ public class Memory_Yearly extends AppCompatActivity {
 
     //popup window method to provide suggesstions to improve concentration
     public void gotoPopup4(View view) {
-        ImageView cancelcon;
+        ImageButton canpop1;
         dialogcy.setContentView(R.layout.activity_concentration_popup);
-        cancelcon = (ImageView) dialogcy.findViewById(R.id.cancelcon);
-        cancelcon.setOnClickListener(new View.OnClickListener() {
+        canpop1 = (ImageButton) dialogcy.findViewById(R.id.canpop1);
+        canpop1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 dialogcy.dismiss();
             }
         });
         dialogcy.show();
+
     }
 
     public void caliyearly(View view) {

@@ -399,13 +399,13 @@ public class Concentration_Weekly extends AppCompatActivity {
 
     //popup window method to provide suggestions for improve concentration
     public void gotoPopup3(View view) {
-        ImageView cancelcon, games, music1;
+        ImageButton cancelcon, games, music1;
 
 
         dialogcw.setContentView(R.layout.activity_concentration_popup);
 
-        games = (ImageView) dialogcw.findViewById(R.id.games);
-        music1 = (ImageView) dialogcw.findViewById(R.id.music1);
+        games = (ImageButton) dialogcw.findViewById(R.id.gamespop1);
+        music1 = (ImageButton) dialogcw.findViewById(R.id.musicpop1);
 
         games.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -423,7 +423,7 @@ public class Concentration_Weekly extends AppCompatActivity {
             }
         });
 
-        cancelcon = (ImageView) dialogcw.findViewById(R.id.cancelcon);
+        cancelcon = (ImageButton) dialogcw.findViewById(R.id.canclepop1);
         cancelcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -443,13 +443,13 @@ public class Concentration_Weekly extends AppCompatActivity {
     }
 
     public void gotoPopup1(View view) {
-        ImageView cancelcon, games, music1;
+        ImageButton  games, music1 , cancelcon;
 
 
         dialogcw.setContentView(R.layout.activity_concentration_popup);
 
-        games = (ImageView) dialogcw.findViewById(R.id.games);
-        music1 = (ImageView) dialogcw.findViewById(R.id.music1);
+        games = (ImageButton) dialogcw.findViewById(R.id.gamespop1);
+        music1 = (ImageButton) dialogcw.findViewById(R.id.musicpop1);
 
         games.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -467,7 +467,7 @@ public class Concentration_Weekly extends AppCompatActivity {
             }
         });
 
-        cancelcon = (ImageView) dialogcw.findViewById(R.id.cancelcon);
+        cancelcon = (ImageButton) dialogcw.findViewById(R.id.canclepop1);
         cancelcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

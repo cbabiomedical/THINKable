@@ -410,11 +410,11 @@ public class Relaxation_Daily extends AppCompatActivity {
 
     //improve relaxation pop up window
     public void gotoPopup5(View view) {
-        ImageView imageViewcancle, imageViewmed, imageViewsong, imageViewvdo, imageViewbw, imageViewit;
+        ImageButton imageViewcancle, imageViewmed, imageViewsong, imageViewvdo, imageViewbw, imageViewit;
 
         dialogrd.setContentView(R.layout.activity_relaxation_popup);
 
-        imageViewmed = (ImageView) dialogrd.findViewById(R.id.imageViewmed);
+        imageViewmed = (ImageButton) dialogrd.findViewById(R.id.medipop1);
         imageViewmed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -423,7 +423,7 @@ public class Relaxation_Daily extends AppCompatActivity {
             }
         });
 
-        imageViewsong = (ImageView) dialogrd.findViewById(R.id.imageViewsong);
+        imageViewsong = (ImageButton) dialogrd.findViewById(R.id.songspop1);
         imageViewsong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -432,7 +432,7 @@ public class Relaxation_Daily extends AppCompatActivity {
             }
         });
 
-        imageViewvdo = (ImageView) dialogrd.findViewById(R.id.imageViewvdo);
+        imageViewvdo = (ImageButton) dialogrd.findViewById(R.id.vdospop1);
         imageViewvdo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -441,7 +441,7 @@ public class Relaxation_Daily extends AppCompatActivity {
             }
         });
 
-        imageViewbw = (ImageView) dialogrd.findViewById(R.id.imageViewbw);
+        imageViewbw = (ImageButton) dialogrd.findViewById(R.id.bipop1);
         imageViewbw.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -450,7 +450,7 @@ public class Relaxation_Daily extends AppCompatActivity {
             }
         });
 
-        imageViewit = (ImageView) dialogrd.findViewById(R.id.imageViewit);
+        imageViewit = (ImageButton) dialogrd.findViewById(R.id.canpop1);
         imageViewit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -459,13 +459,7 @@ public class Relaxation_Daily extends AppCompatActivity {
             }
         });
 
-        imageViewcancle = (ImageView) dialogrd.findViewById(R.id.cancelcon);
-        imageViewcancle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogrd.dismiss();
-            }
-        });
+
 
         dialogrd.show();
     }
