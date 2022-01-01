@@ -296,7 +296,7 @@
                             android:layout_height="40dp"
                             android:layout_marginLeft="10dp"
                             android:layout_marginTop="6dp"
-                            android:src="@drawable/logoutt" />
+                            android:src="@drawable/theme1" />
 
                         <TextView
                             android:id="@+id/themetxt"

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -30,6 +31,8 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
     ArrayList<GameModelClass> gameList;
     GridAdapter adapter;
     FirebaseUser mUser;
+    View c1,c2;
+    int color;
     HashMap<String, Object> games = new HashMap<>();
     ArrayList<GameModelClass> downloadGames = new ArrayList<>();
 
@@ -38,7 +41,37 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_concentration_excercise);
         recyclerView = findViewById(R.id.gridView);
+        c1=findViewById(R.id.c1);
+        c2=findViewById(R.id.c2);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        DatabaseReference colorreference= FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor", String.valueOf(snapshot.getValue()));
+                color= (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if(color==2){
+                    c1.setVisibility(View.INVISIBLE);
+                    c2.setVisibility(View.VISIBLE);
+
+
+
+                }else{
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         //Set Home Selected

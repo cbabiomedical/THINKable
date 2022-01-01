@@ -15,6 +15,8 @@ import android.widget.Spinner;
 import com.example.thinkableproject.adapters.MeditationAdapter;
 import com.example.thinkableproject.sample.MeditationModelClass;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,6 +29,9 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
     ArrayList<MeditationModelClass> meditationList;
     MeditationAdapter adapter;
     int time;
+    FirebaseUser mUser;
+    View c1,c2;
+    int color;
     String selected_time;
 
     private static String JSON_URL = "https://jsonplaceholder.typicode.com/posts";
@@ -35,6 +40,37 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meditation_exercise);
+
+        c1=findViewById(R.id.c1);
+        c2=findViewById(R.id.c2);
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        DatabaseReference colorreference= FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor", String.valueOf(snapshot.getValue()));
+                color= (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if(color==2){
+                    c1.setVisibility(View.INVISIBLE);
+                    c2.setVisibility(View.VISIBLE);
+
+
+
+                }else{
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
