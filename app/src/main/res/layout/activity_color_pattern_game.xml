@@ -8,6 +8,21 @@
     android:background="#010334"
     tools:context=".MainActivity">
 
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/c2"
+        android:background="#0D559C"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/c1"
+        android:visibility="gone"
+        android:background="#010334"/>
+
     <!-- Guidelines for positioning -->
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/gdlCenterVertical"

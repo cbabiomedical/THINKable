@@ -8,6 +8,20 @@
     android:background="#010334"
     tools:context=".MemoryWhereAmI">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/c2"
+        android:background="#0D559C"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/c1"
+        android:visibility="gone"
+        android:background="#010334"/>
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -30,13 +44,23 @@
                     android:layout_alignTop="@+id/toggleBtn"
                     android:id="@+id/landingfwall"/>
 
+                <pl.droidsonroids.gif.GifImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/bluewhaleroundtwo"
+                    android:visibility="gone"
+                    android:layout_alignTop="@+id/toggleBtn"
+                    android:id="@+id/landingfwall1"/>
+
 
 
 
             </LinearLayout>
             <ImageView
                 android:id="@+id/landingtwo"
-                android:layout_marginTop="-90dp"
+                android:layout_marginTop="-80dp"
                 android:layout_below="@+id/landingone"
 
                 android:src="@drawable/thin"

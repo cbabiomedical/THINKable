@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         android:visibility="gone"
         android:id="@+id/c2"
-        android:background="#0D559C"/>
+        android:background="#0D559E"/>
 
     <View
         android:layout_width="match_parent"
@@ -57,10 +57,10 @@
 
                 <pl.droidsonroids.gif.GifImageView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="300dp"
                     android:gravity="center"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/langif"
+                    android:src="@drawable/exercisenewgif"
                     android:visibility="gone"
                     android:layout_alignTop="@+id/toggleBtn"
                     android:id="@+id/landingfwall1"/>

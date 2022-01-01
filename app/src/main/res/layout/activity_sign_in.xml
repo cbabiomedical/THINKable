@@ -25,6 +25,8 @@
         android:layout_below="@+id/topic"
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="150dp"
+        android:textSize="14sp"
+
 
         android:backgroundTint="@color/white"
         android:drawableLeft="@drawable/ic_email"
@@ -38,6 +40,8 @@
         android:layout_marginHorizontal="30dp"
         android:layout_marginTop="20dp"
         android:layout_width="match_parent"
+        android:textSize="14sp"
+
         android:layout_height="wrap_content"
         android:layout_below="@+id/username"
         android:hint="@string/password"
@@ -92,6 +96,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:indeterminateTint="#010334"
+
         android:visibility="gone"
         tools:ignore="MissingConstraints"
         app:layout_constraintTop_toTopOf="parent"

@@ -48,10 +48,10 @@
                     android:id="@+id/landingfwall"/>
                 <pl.droidsonroids.gif.GifImageView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="300dp"
                     android:gravity="center"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/langif"
+                    android:src="@drawable/exercisenewgif"
                     android:visibility="gone"
                     android:layout_alignTop="@+id/toggleBtn"
                     android:id="@+id/landingfwall1"/>

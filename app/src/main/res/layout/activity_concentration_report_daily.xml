@@ -31,7 +31,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="300dp"
-                android:id="@+id/landingone">
+                android:id="@+id/landingone"
+                android:orientation="horizontal">
 
 
 
@@ -49,9 +50,11 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/reportgif"
-                    android:layout_alignTop="@+id/toggleBtn"
-                    android:id="@+id/landingfwall1"/>
+                    android:id="@+id/landingfwall1"
+
+
+                    android:src="@drawable/bluewhaleroundtwo"
+                    android:visibility="gone"/>
 
 
 
@@ -63,7 +66,7 @@
 
             <ImageView
                 android:id="@+id/landingtwo"
-                android:layout_marginTop="-90dp"
+                android:layout_marginTop="-80dp"
                 android:layout_below="@+id/landingone"
 
                 android:src="@drawable/thin"

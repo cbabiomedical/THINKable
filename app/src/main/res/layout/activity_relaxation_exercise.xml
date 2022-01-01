@@ -51,10 +51,10 @@
 
                 <pl.droidsonroids.gif.GifImageView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="300dp"
                     android:gravity="center"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/water"
+                    android:src="@drawable/oceantwo"
                     android:layout_alignTop="@+id/toggleBtn"
                     android:id="@+id/landingfwall1"/>
 

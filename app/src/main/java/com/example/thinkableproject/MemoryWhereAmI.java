@@ -27,6 +27,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
@@ -44,6 +49,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import pl.droidsonroids.gif.GifImageView;
+
 public class MemoryWhereAmI extends AppCompatActivity {
 
     AppCompatButton progressConcentration;
@@ -52,6 +59,9 @@ public class MemoryWhereAmI extends AppCompatActivity {
     File localFile, localFilea, localFilem, localFilea2, localFilen, localFilea3, localFileo, localFile4a;
     String text, texta, textm, texta2, textn, texta3, texto, text4a;
     ImageView relaxationBtn, concentrationBtn;
+    GifImageView c1gif, c2gif;
+    int color;
+    View c1, c2;
 
     //for chart 1
     ArrayList<String> list = new ArrayList<>();
@@ -93,6 +103,43 @@ public class MemoryWhereAmI extends AppCompatActivity {
 
         relaxationBtn = findViewById(R.id.relaxation);
         concentrationBtn = findViewById(R.id.concentration);
+        c1 = findViewById(R.id.c1);
+        c2 = findViewById(R.id.c2);
+        c1gif = findViewById(R.id.landingfwall);
+        c2gif = findViewById(R.id.landingfwall1);
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor", String.valueOf(snapshot.getValue()));
+                color = (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if (color == 2) {
+                    c1.setVisibility(View.INVISIBLE);
+                    c2.setVisibility(View.VISIBLE);
+                    c2gif.setVisibility(View.VISIBLE);
+                    c1gif.setVisibility(View.GONE);
+
+
+                } else {
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+                    c1gif.setVisibility(View.VISIBLE);
+                    c2gif.setVisibility(View.INVISIBLE);
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         relaxationBtn.setOnClickListener(new View.OnClickListener() {
             @Override

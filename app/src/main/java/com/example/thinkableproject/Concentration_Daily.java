@@ -39,8 +39,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.*;
-import com.mahfa.dnswitch.DayNightSwitch;
-import com.mahfa.dnswitch.DayNightSwitchListener;
+
 
 import java.io.*;
 import java.util.*;

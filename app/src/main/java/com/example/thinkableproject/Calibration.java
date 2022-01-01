@@ -1,5 +1,6 @@
 package com.example.thinkableproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.bluetooth.BluetoothGattCharacteristic;
@@ -24,6 +25,14 @@ import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.PieData;
 import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,6 +63,10 @@ public class Calibration extends AppCompatActivity {
 
     private String name;
     private String address;
+
+    int color;
+    FirebaseUser mUser;
+    View c1,c2;
 
     private ServiceConnection mBTLE_ServiceConnection = new ServiceConnection() {
 
@@ -99,6 +112,37 @@ public class Calibration extends AppCompatActivity {
         pieChart = findViewById(R.id.piechart);
         textViewcali = findViewById(R.id.textViewcali);
         connectDevice = findViewById(R.id.imageView7);
+
+        c1=findViewById(R.id.c1);
+        c2=findViewById(R.id.c2);
+
+        mUser   = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor", String.valueOf(snapshot.getValue()));
+                color = (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if (color == 2) {
+                    c2.setVisibility(View.VISIBLE);
+                    c1.setVisibility(View.INVISIBLE);
+
+                } else {
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         connectDevice.setOnClickListener(new View.OnClickListener() {
             @Override

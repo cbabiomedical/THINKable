@@ -59,10 +59,12 @@ public class ConcentrationReportDaily extends AppCompatActivity {
     File fileName, fileName1, localFile, localFile1;
     FirebaseUser mUser;
     ImageView relaxationBtn,memory;
-    String text;
-    View c1,c2;
+    GifImageView c1gif, c2gif;
     int color;
-    GifImageView c1gif,c2gif;
+    View c1, c2;
+
+    String text;
+
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
     ArrayList<String> list1 = new ArrayList<>();
@@ -86,28 +88,32 @@ public class ConcentrationReportDaily extends AppCompatActivity {
         relaxationBtn = findViewById(R.id.relaxation);
         whereAmI = findViewById(R.id.whereAmI);
         memory=findViewById(R.id.memory);
-        c1=findViewById(R.id.c1);
-        c2=findViewById(R.id.c2);
+
+        c1 = findViewById(R.id.c1);
+        c2 = findViewById(R.id.c2);
         c1gif = findViewById(R.id.landingfwall);
         c2gif = findViewById(R.id.landingfwall1);
 
-        mUser=FirebaseAuth.getInstance().getCurrentUser();
-        DatabaseReference colorreference= FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
         colorreference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.d("FirebaseColor", String.valueOf(snapshot.getValue()));
-                color= (int) snapshot.getValue(Integer.class);
+
+                color = (int) snapshot.getValue(Integer.class);
                 Log.d("Color", String.valueOf(color));
 
-                if(color==2){
+                if (color == 2) {
                     c1.setVisibility(View.INVISIBLE);
                     c2.setVisibility(View.VISIBLE);
                     c2gif.setVisibility(View.VISIBLE);
                     c1gif.setVisibility(View.GONE);
 
 
-                }else{
+
+                } else {
                     c1.setVisibility(View.VISIBLE);
                     c2.setVisibility(View.INVISIBLE);
                     c1gif.setVisibility(View.VISIBLE);
