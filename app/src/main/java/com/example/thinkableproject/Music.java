@@ -126,7 +126,7 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
 //        Log.d("Time of Music",String.valueOf(MusicAdapter.getTimeOfmusic()));
         recyclerView = findViewById(R.id.recycler_view);
         Spinner dropdown_time = (Spinner) findViewById(R.id.spinner2);
-        String[] items = new String[]{"1 min", "1.5 min", "2 min", "2.5 min", "3 min"};
+        String[] items = new String[]{"Audio track duration is: 1 min", "Audio track duration is: 1.5 min", "Audio track duration is: 2 min", "Audio track duration is: 2.5 min", "Audio track duration is: 3 min"};
         ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
         dropdown_time.setAdapter(adapter1);
 

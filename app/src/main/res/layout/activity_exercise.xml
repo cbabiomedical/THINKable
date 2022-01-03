@@ -50,7 +50,7 @@
                     android:layout_height="300dp"
                     android:gravity="center"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/oceantwo"
+                    android:src="@drawable/oceanfournew"
                     android:layout_alignTop="@+id/toggleBtn"
                     android:id="@+id/landingfwall1"/>
 
