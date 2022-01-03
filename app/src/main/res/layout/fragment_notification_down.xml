@@ -7,6 +7,13 @@
     android:background="@color/light_grey"
     tools:context=".MainActivityK">
 
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:scaleType="centerCrop"
+        android:src="@drawable/wallpapertwo" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">

@@ -13,7 +13,7 @@
         android:layout_height="match_parent"
         android:visibility="gone"
         android:id="@+id/c2"
-        android:background="@drawable/lightbg"/>
+        android:background="@drawable/settlight"/>
 
     <View
         android:layout_width="match_parent"

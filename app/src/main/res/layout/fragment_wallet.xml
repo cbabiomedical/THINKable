@@ -5,8 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".WalletFragment"
-    android:background="#010334"
+
     >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:id="@+id/c2"
+        android:background="#0D559E"/>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/c1"
+        android:visibility="gone"
+        android:background="#010334"/>
 
     <View
         android:id="@+id/view7"
@@ -83,6 +97,7 @@
         android:hint="Paypal Email Address"
         android:inputType="textPersonName"
         android:padding="15dp"
+        android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="@+id/view6"
         app:layout_constraintStart_toStartOf="@+id/view6"
         app:layout_constraintTop_toBottomOf="@+id/view6" />

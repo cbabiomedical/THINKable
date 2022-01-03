@@ -2,8 +2,10 @@ package com.example.thinkableproject;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,6 +14,12 @@ import android.widget.Toast;
 import com.example.thinkableproject.databinding.FragmentWalletBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
@@ -27,9 +35,12 @@ public class WalletFragment extends Fragment {
     }
 
     FragmentWalletBinding binding;
+
     FirebaseFirestore database;
     User user;
-
+    int color;
+    View c1,c2;
+    FirebaseUser mUser;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,6 +48,37 @@ public class WalletFragment extends Fragment {
 
         binding = FragmentWalletBinding.inflate(inflater, container, false);
         database = FirebaseFirestore.getInstance();
+        mUser=FirebaseAuth.getInstance().getCurrentUser();
+        c1=binding.getRoot().findViewById(R.id.c1);
+        c2=binding.getRoot().findViewById(R.id.c2);
+
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor", String.valueOf(snapshot.getValue()));
+                color = (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if (color == 2) {
+                    c2.setVisibility(View.VISIBLE);
+                    c1.setVisibility(View.GONE);
+
+                } else {
+                   c1.setVisibility(View.VISIBLE);
+                   c2.setVisibility(View.GONE);
+
+
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
 
         database.collection("users")
                 .document(FirebaseAuth.getInstance().getUid())

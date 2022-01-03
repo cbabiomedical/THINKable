@@ -48,12 +48,12 @@ public class MainActivity extends AppCompatActivity {
                 Log.d("Color", String.valueOf(color));
 
                 if (color == 2) {
-//                    c2.setVisibility(View.VISIBLE);
-//                    c1.setVisibility(View.INVISIBLE);
+                    c2.setVisibility(View.VISIBLE);
+                    c1.setVisibility(View.INVISIBLE);
 
                 } else {
-//                   c1.setVisibility(View.VISIBLE);
-//                   c2.setVisibility(View.INVISIBLE);
+                   c1.setVisibility(View.VISIBLE);
+                   c2.setVisibility(View.INVISIBLE);
 
 
                 }
