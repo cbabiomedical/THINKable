@@ -202,7 +202,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
         meditation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Meditation.class);
+                Intent intent = new Intent(getApplicationContext(), MeditationExercise.class);
                 startActivity(intent);
             }
         });

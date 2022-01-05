@@ -11,7 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
+
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -19,6 +21,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileInputStream;
@@ -142,18 +145,22 @@ public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
         TextView tv_value = (TextView) convertView.findViewById(R.id.tv_value);
 
         byte[] data = bluetoothGattCharacteristic.getValue();
+        String dataString = bluetoothGattCharacteristic.getValue().toString();
+        Log.d("Data String",dataString);
         if (data != null) {
             tv_value.setText("Value: " + Utils.hexToString(data));
             dataValues.add(Utils.hexToString(data));
             mUser = FirebaseAuth.getInstance().getCurrentUser();
 
             try {
-                fileName = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/values.txt");
+                fileName = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/values.csv");
                 System.out.println("Path" + Environment.getExternalStorageDirectory().getAbsolutePath());
                 String line = "";
                 FileWriter fwa;
                 fwa = new FileWriter(fileName);
                 BufferedWriter outputa = new BufferedWriter(fwa);
+//                String[] splitarray = dataString.split(" ");
+//                Log.d("Split Array", String.valueOf(splitarray));
                 int size = dataValues.size();
                 for (int i = 0; i < size; i++) {
                     outputa.write(dataValues.get(i).toString() + "\n");
@@ -166,7 +173,7 @@ public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
             }
             StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
             try {
-                StorageReference mountainsRef = storageReference1.child("values.txt");
+                StorageReference mountainsRef = storageReference1.child("values.csv");
                 InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
                 UploadTask uploadTask = mountainsRef.putStream(stream);
                 uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {

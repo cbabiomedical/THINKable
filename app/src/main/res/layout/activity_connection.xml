@@ -1,63 +1,70 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    android:orientation="vertical"
-    tools:context=".Connection"
     android:background="@drawable/sinnewone"
-    >
+    android:orientation="vertical"
+    tools:context=".Connection">
 
-
-
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="8"
-        android:fillViewport="true"
-        android:id="@+id/scrollView">
+        android:layout_height="match_parent">
+
+        <View
+            android:id="@+id/c2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/mainlight"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/c1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/sinnewone"
+            android:visibility="gone" />
 
 
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
+            android:layout_weight="8"
+            android:fillViewport="true">
 
 
+        </ScrollView>
 
-    </ScrollView>
-
-    <com.airbnb.lottie.LottieAnimationView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginLeft="100dp"
-        android:layout_marginRight="100dp"
-
-
+        <com.airbnb.lottie.LottieAnimationView
+            android:layout_below="@+id/scrollView"
+            android:id="@+id/animation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="100dp"
+            android:layout_marginTop="10dp"
 
 
+            android:layout_marginRight="100dp"
+            app:lottie_autoPlay="true"
 
-        app:lottie_autoPlay="true"
-        app:lottie_rawRes="@raw/openblutooth"
+            app:lottie_loop="true"
+            app:lottie_rawRes="@raw/openblutooth" />
 
-        app:lottie_loop="true"
-        android:id="@+id/animation"
-       />
+        <Button
+            android:id="@+id/btn_scan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="1"
+            android:background="@drawable/btnpref"
+            android:fontFamily="sans-serif-condensed-medium"
+            android:text="Start Scan"
+            android:textAllCaps="false"
+            android:textColor="@color/color_white"
+            app:cornerRadius="13dp" />
 
-    <Button
-        android:id="@+id/btn_scan"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:fontFamily="sans-serif-condensed-medium"
-        android:textColor="@color/color_white"
-        android:background="@drawable/btnpref"
-        app:cornerRadius="13dp"
-        android:text="Start Scan"
-        android:textAllCaps="false"/>
-
-
+    </RelativeLayout>
 
 </LinearLayout>
