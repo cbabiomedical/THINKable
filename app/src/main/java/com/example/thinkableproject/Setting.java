@@ -30,6 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.StorageReference;
 
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class Setting extends AppCompatActivity {
@@ -39,7 +40,7 @@ public class Setting extends AppCompatActivity {
     private Uri filePath;
     private StorageReference storageReference;
     FirebaseUser mUser;
-    View c1, c2;
+    View c1, c2,c3;
     private int color;
 
 
@@ -68,12 +69,16 @@ public class Setting extends AppCompatActivity {
         theme2 = findViewById(R.id.themebtn);
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
+        c3=findViewById(R.id.c3);
         dialogcd = new Dialog(this);
 
         preferences1 = findViewById(R.id.preferences1);
 
         help3 = findViewById(R.id.help3);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        Calendar c = Calendar.getInstance();
+        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
 
         logout = findViewById(R.id.logout);
         DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
@@ -84,16 +89,37 @@ public class Setting extends AppCompatActivity {
                 color = (int) snapshot.getValue(Integer.class);
                 Log.d("Color", String.valueOf(color));
 
-                if (color == 2) {
-                    c1.setVisibility(View.INVISIBLE);
+                if (color == 2) {  //light theme
+                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
                     c2.setVisibility(View.VISIBLE);
+                   
 
 
-                } else {
+                }  else if (color ==1 ) { //light theme
+
                     c1.setVisibility(View.VISIBLE);
                     c2.setVisibility(View.INVISIBLE);
+                   
 
 
+                }else {
+                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+                       
+                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+                      
+
+                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
+                        c1.setVisibility(View.VISIBLE);
+                        c2.setVisibility(View.INVISIBLE);
+
+
+
+                    }
                 }
 
             }
@@ -196,12 +222,13 @@ public class Setting extends AppCompatActivity {
 
     public void gotoPopup9(View view) {
 
-        AppCompatButton c1, c2;
+        AppCompatButton c1, c2,c3;
         dialogcd.setContentView(R.layout.theme_popup);
         HashMap hashMap = new HashMap();
 
         c1 = (AppCompatButton) dialogcd.findViewById(R.id.c1);
         c2 = dialogcd.findViewById(R.id.c2);
+        c3 = dialogcd.findViewById(R.id.c3);
 
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid());
 
@@ -215,7 +242,7 @@ public class Setting extends AppCompatActivity {
                 reference.updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener() {
                     @Override
                     public void onComplete(@NonNull Task task) {
-                        Toast.makeText(Setting.this, "success", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Setting.this, "You changed Theme to Dark Theme", Toast.LENGTH_SHORT).show();
                     }
                 });
                 dialogcd.cancel();
@@ -230,7 +257,24 @@ public class Setting extends AppCompatActivity {
                 reference.updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener() {
                     @Override
                     public void onComplete(@NonNull Task task) {
-                        Toast.makeText(Setting.this, "success", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Setting.this, "You changed Theme to Light Theme", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                dialogcd.cancel();
+
+            }
+        });
+
+        c3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                color = 3;
+                Log.d("Color", String.valueOf(color));
+                hashMap.put("theme", color);
+                reference.updateChildren(hashMap).addOnCompleteListener(new OnCompleteListener() {
+                    @Override
+                    public void onComplete(@NonNull Task task) {
+                        Toast.makeText(Setting.this, "You changed Theme to Auto Theme Mode", Toast.LENGTH_SHORT).show();
                     }
                 });
                 dialogcd.cancel();

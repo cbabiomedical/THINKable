@@ -29,10 +29,25 @@
         android:layout_below="@+id/c1"
         android:textColor="@color/white"
         android:layout_marginTop="20dp"
-        android:layout_marginBottom="60dp"
+
         android:textAllCaps="false"
 
         />
+    <androidx.appcompat.widget.AppCompatButton
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/c3"
+        android:background="@color/Lblue"
+        android:text="Auto Theme Mode"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
+
+
+        android:layout_below="@+id/c2"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="60dp"
+        />
+
 
 
 

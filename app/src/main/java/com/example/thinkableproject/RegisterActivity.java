@@ -311,7 +311,7 @@ public class RegisterActivity extends AppCompatActivity {
         String suggestions = "";
         String favourites = "";
         String location = "";
-        int theme=1;
+        int theme=3;
         // Assigning male to gender variable if male radio button is checked
         if (male.isChecked()) {
             gender = "Male";

@@ -23,6 +23,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Calendar;
+
 public class WalletFragment extends Fragment {
 
     public WalletFragment() {
@@ -49,6 +51,9 @@ public class WalletFragment extends Fragment {
         binding = FragmentWalletBinding.inflate(inflater, container, false);
         database = FirebaseFirestore.getInstance();
         mUser=FirebaseAuth.getInstance().getCurrentUser();
+        Calendar c = Calendar.getInstance();
+        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
         c1=binding.getRoot().findViewById(R.id.c1);
         c2=binding.getRoot().findViewById(R.id.c2);
 
@@ -60,15 +65,37 @@ public class WalletFragment extends Fragment {
                 color = (int) snapshot.getValue(Integer.class);
                 Log.d("Color", String.valueOf(color));
 
-                if (color == 2) {
+                if (color == 2) {  //light theme
+                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
                     c2.setVisibility(View.VISIBLE);
-                    c1.setVisibility(View.GONE);
-
-                } else {
-                   c1.setVisibility(View.VISIBLE);
-                   c2.setVisibility(View.GONE);
 
 
+
+                }  else if (color ==1 ) { //light theme
+
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+
+
+                }else {
+                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
+                        c1.setVisibility(View.VISIBLE);
+                        c2.setVisibility(View.INVISIBLE);
+
+
+
+                    }
                 }
 
             }

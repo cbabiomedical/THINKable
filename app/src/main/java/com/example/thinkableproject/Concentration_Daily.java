@@ -42,6 +42,7 @@ import com.google.firebase.storage.*;
 
 
 import java.io.*;
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 import pl.droidsonroids.gif.GifImageView;
@@ -64,6 +65,12 @@ public class Concentration_Daily extends AppCompatActivity {
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
     int color;
+
+    Calendar calendar;
+    SimpleDateFormat simpleDateFormat;
+    String Date;
+    TextView GetDateAndTime;
+
 
 
 
@@ -94,7 +101,46 @@ public class Concentration_Daily extends AppCompatActivity {
         c1=findViewById(R.id.c1);
         c2=findViewById(R.id.c2);
 
+
+
+        calendar=Calendar.getInstance();
+        simpleDateFormat=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        Date=simpleDateFormat.format(calendar.getTime());
+
         mUser=FirebaseAuth.getInstance().getCurrentUser();
+        Calendar c = Calendar.getInstance();
+        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
+//        if(timeOfDay >= 0 && timeOfDay < 12){
+//            Toast.makeText(this, "Good Morning", Toast.LENGTH_SHORT).show();
+//            c1.setVisibility(View.INVISIBLE);
+//            c2.setVisibility(View.VISIBLE);
+//            c2gif.setVisibility(View.VISIBLE);
+//            c1gif.setVisibility(View.GONE);
+//        }else if(timeOfDay >= 12 && timeOfDay < 16){
+//            Toast.makeText(this, "Good Afternoon", Toast.LENGTH_SHORT).show();
+//            c1.setVisibility(View.VISIBLE);
+//            c2.setVisibility(View.INVISIBLE);
+//            c1gif.setVisibility(View.VISIBLE);
+//            c2gif.setVisibility(View.INVISIBLE);
+//
+//        }else if(timeOfDay >= 16 && timeOfDay < 24){
+//            Toast.makeText(this, "Good Evening", Toast.LENGTH_SHORT).show();
+//            c1.setVisibility(View.INVISIBLE);
+//            c2.setVisibility(View.VISIBLE);
+//            c2gif.setVisibility(View.VISIBLE);
+//            c1gif.setVisibility(View.GONE);
+//        }else if(timeOfDay >= 21 && timeOfDay < 24){
+//            Toast.makeText(this, "Good Night", Toast.LENGTH_SHORT).show();
+//            c1.setVisibility(View.VISIBLE);
+//            c2.setVisibility(View.INVISIBLE);
+//            c1gif.setVisibility(View.VISIBLE);
+//            c2gif.setVisibility(View.INVISIBLE);
+//
+//        }
+
+
+
 
         DatabaseReference colorreference= FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
         colorreference.addValueEventListener(new ValueEventListener() {
@@ -104,19 +150,43 @@ public class Concentration_Daily extends AppCompatActivity {
                 color= (int) snapshot.getValue(Integer.class);
                 Log.d("Color", String.valueOf(color));
 
-                 if(color==2){
-                    c1.setVisibility(View.INVISIBLE);
+                if (color == 2) {  //light theme
+                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
                     c2.setVisibility(View.VISIBLE);
                     c2gif.setVisibility(View.VISIBLE);
                     c1gif.setVisibility(View.GONE);
 
 
-                }else{
+                }  else if (color ==1 ) { //light theme
+
                     c1.setVisibility(View.VISIBLE);
                     c2.setVisibility(View.INVISIBLE);
                     c1gif.setVisibility(View.VISIBLE);
                     c2gif.setVisibility(View.INVISIBLE);
 
+
+                }else {
+                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+                        c2gif.setVisibility(View.VISIBLE);
+                        c1gif.setVisibility(View.GONE);
+
+                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+                        c2gif.setVisibility(View.VISIBLE);
+                        c1gif.setVisibility(View.GONE);
+
+                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
+                        c1.setVisibility(View.VISIBLE);
+                        c2.setVisibility(View.INVISIBLE);
+                        c1gif.setVisibility(View.VISIBLE);
+                        c2gif.setVisibility(View.INVISIBLE);
+
+
+                    }
                 }
 
             }

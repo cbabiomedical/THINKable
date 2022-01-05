@@ -47,6 +47,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.List;
 
 import pl.droidsonroids.gif.GifImageView;
@@ -87,6 +88,9 @@ public class MemoryReportYearly extends AppCompatActivity {
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
+        Calendar c = Calendar.getInstance();
+        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
         DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
         colorreference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -95,20 +99,45 @@ public class MemoryReportYearly extends AppCompatActivity {
                 color = (int) snapshot.getValue(Integer.class);
                 Log.d("Color", String.valueOf(color));
 
-                if (color == 2) {
-                    c1.setVisibility(View.INVISIBLE);
+                if (color == 2) {  //light theme
+                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
                     c2.setVisibility(View.VISIBLE);
                     c2gif.setVisibility(View.VISIBLE);
                     c1gif.setVisibility(View.GONE);
 
 
-                } else {
+                }  else if (color ==1 ) { //light theme
+
                     c1.setVisibility(View.VISIBLE);
                     c2.setVisibility(View.INVISIBLE);
                     c1gif.setVisibility(View.VISIBLE);
                     c2gif.setVisibility(View.INVISIBLE);
 
+
+                }else {
+                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+                        c2gif.setVisibility(View.VISIBLE);
+                        c1gif.setVisibility(View.GONE);
+
+                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+                        c2gif.setVisibility(View.VISIBLE);
+                        c1gif.setVisibility(View.GONE);
+
+                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
+                        c1.setVisibility(View.VISIBLE);
+                        c2.setVisibility(View.INVISIBLE);
+                        c1gif.setVisibility(View.VISIBLE);
+                        c2gif.setVisibility(View.INVISIBLE);
+
+
+                    }
                 }
+
 
             }
 
