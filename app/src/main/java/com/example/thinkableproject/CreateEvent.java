@@ -67,37 +67,37 @@ public class CreateEvent extends AppCompatActivity implements View.OnClickListen
         btn_date.setOnClickListener(this);
         btn_done.setOnClickListener(this);
         databaseClass = DatabaseClass.getDatabase(getApplicationContext());
-        c1 = findViewById(R.id.c1);
-        c2 = findViewById(R.id.c2);
-
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
-        colorreference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("FirebaseColor", String.valueOf(snapshot.getValue()));
-                color = (int) snapshot.getValue(Integer.class);
-                Log.d("Color", String.valueOf(color));
-
-                if (color == 2) {
-                    c1.setVisibility(View.INVISIBLE);
-                    c2.setVisibility(View.VISIBLE);
-
-
-                } else {
-                    c1.setVisibility(View.VISIBLE);
-                    c2.setVisibility(View.INVISIBLE);
-
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        c1 = findViewById(R.id.c1);
+//        c2 = findViewById(R.id.c2);
+//
+//        mUser = FirebaseAuth.getInstance().getCurrentUser();
+//
+//        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+//        colorreference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                Log.d("FirebaseColor", String.valueOf(snapshot.getValue()));
+//                color = (int) snapshot.getValue(Integer.class);
+//                Log.d("Color", String.valueOf(color));
+//
+//                if (color == 2) {
+//                    c1.setVisibility(View.INVISIBLE);
+//                    c2.setVisibility(View.VISIBLE);
+//
+//
+//                } else {
+//                    c1.setVisibility(View.VISIBLE);
+//                    c2.setVisibility(View.INVISIBLE);
+//
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 
     }
 

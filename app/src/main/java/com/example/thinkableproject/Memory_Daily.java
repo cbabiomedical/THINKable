@@ -266,7 +266,7 @@ public class Memory_Daily extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             Log.d("floatListTest", String.valueOf(floatList));
-                            String[] days = new String[]{"M", "Tu", "W", "Th", "F", "Sa", "Su"};
+                            String[] days = new String[]{"Mn", "Tu", "We", "Th", "Fr", "Sa", "Su"};
                             ArrayList<Float> creditsMain = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f, 10f, 15f, 85f));
 
                             for (int j = 0; j < floatList.size(); ++j) {
@@ -305,7 +305,7 @@ public class Memory_Daily extends AppCompatActivity {
                             barChartdaily.getXAxis().setDrawGridLines(false);
                             barChartdaily.getAxisLeft().setDrawGridLines(false);
                             barChartdaily.setNoDataText("Data Loading Please Wait...");
-                            barChartdaily.animateXY(3000, 3000);
+                            barChartdaily.animateXY(1500, 1500);
                             barChartdaily.invalidate();
 
 

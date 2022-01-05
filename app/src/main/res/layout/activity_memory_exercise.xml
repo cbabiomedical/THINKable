@@ -104,7 +104,7 @@
 
 
                         android:elevation="5dp"
-                        android:src="@drawable/conland"
+                        android:src="@drawable/conctb"
 
                         app:layout_constraintLeft_toLeftOf="parent"
                         app:layout_constraintRight_toRightOf="@+id/relaxation" />
@@ -154,10 +154,9 @@
                         android:layout_height="match_parent"
                         android:layout_marginTop="40dp"
                         android:layout_marginRight="35dp"
-                        android:onClick="mem"
 
                         android:elevation="5dp"
-                        android:src="@drawable/memorytgablr" />
+                        android:src="@drawable/membtn" />
 
 
                 </LinearLayout>

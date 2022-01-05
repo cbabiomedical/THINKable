@@ -303,7 +303,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
                             barChart.getXAxis().setDrawGridLines(false);
                             barChart.getAxisLeft().setDrawGridLines(false);
                             barChart.setNoDataText("Data Loading Please Wait...");
-                            barChart.animateXY(3000, 3000);
+                            barChart.animateXY(1500, 1500);
 
 
                             barChart.invalidate();

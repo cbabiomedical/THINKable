@@ -374,7 +374,7 @@ public class MemoryWhereAmI extends AppCompatActivity {
                             chart.getAxisRight().setEnabled(false);
                             XAxis xl = chart.getXAxis();
                             xl.setDrawGridLines(false);
-                            String[] daysS = new String[]{"M", "Tu", "W", "Th", "F", "Sa", "Su"};
+                            String[] daysS = new String[]{"Mn", "Tu", "We", "Th", "Fr", "Sa", "Su"};
                             XAxis xAxis = chart.getXAxis();
                             xAxis.setValueFormatter(new IndexAxisValueFormatter(daysS));
                             xAxis.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
@@ -650,7 +650,7 @@ public class MemoryWhereAmI extends AppCompatActivity {
                             chart1.getAxisRight().setEnabled(false);
                             XAxis xl1 = chart1.getXAxis();
                             xl1.setDrawGridLines(false);
-                            String[] daysS1 = new String[]{"M", "Tu", "W", "Th", "F", "Sa", "Su"};
+                            String[] daysS1 = new String[]{"Mn", "Tu", "We", "Th", "Fr", "Sa", "Su"};
                             XAxis xAxis1 = chart1.getXAxis();
                             xAxis1.setValueFormatter(new IndexAxisValueFormatter(daysS1));
                             xAxis1.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
@@ -924,7 +924,7 @@ public class MemoryWhereAmI extends AppCompatActivity {
                             chart2.getAxisRight().setEnabled(false);
                             XAxis xl3 = chart2.getXAxis();
                             xl3.setDrawGridLines(false);
-                            String[] daysS3 = new String[]{"M", "Tu", "W", "Th", "F", "Sa", "Su"};
+                            String[] daysS3 = new String[]{"Mn", "Tu", "We", "Th", "Fr", "Sa", "Su"};
                             XAxis xAxis3 = chart2.getXAxis();
                             xAxis3.setValueFormatter(new IndexAxisValueFormatter(daysS3));
                             xAxis3.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
@@ -1198,7 +1198,7 @@ public class MemoryWhereAmI extends AppCompatActivity {
                             chart3.getAxisRight().setEnabled(false);
                             XAxis xl4 = chart3.getXAxis();
                             xl4.setDrawGridLines(false);
-                            String[] daysS4 = new String[]{"M", "Tu", "W", "Th", "F", "Sa", "Su"};
+                            String[] daysS4 = new String[]{"Mn", "Tu", "We", "Th", "Fr", "Sa", "Su"};
                             XAxis xAxis4 = chart3.getXAxis();
                             xAxis4.setValueFormatter(new IndexAxisValueFormatter(daysS4));
                             xAxis4.setPosition(XAxis.XAxisPosition.BOTH_SIDED);

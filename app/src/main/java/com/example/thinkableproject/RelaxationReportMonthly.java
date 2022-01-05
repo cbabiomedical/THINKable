@@ -280,7 +280,7 @@ public class RelaxationReportMonthly extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             Log.d("floatListTest", String.valueOf(floatList));
-                            String[] months = new String[]{"J", "F", "Mar", "Ap", "May", "Jun", "Jul", "Au", "S", "O", "N", "D"};
+                            String[] months = new String[]{"Ja", "Fe", "Mar", "Ap", "May", "Jun", "Jul", "Au", "Se", "Oc", "No", "De"};
                             List<Float> credits = new ArrayList<>(Arrays.asList(90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f));
                             float[] strength = new float[]{90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f};
 

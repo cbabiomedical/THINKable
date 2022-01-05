@@ -378,7 +378,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             chart4aa.getAxisRight().setEnabled(false);
                             XAxis xlr = chart4aa.getXAxis();
                             xlr.setDrawGridLines(false);
-                            String[] daysS = new String[]{"M", "Tu", "W", "Th", "F", "Sa", "Su"};
+                            String[] daysS = new String[]{"Mn", "Tu", "We", "Th", "Fr", "Sa", "Su"};
                             XAxis xAxisr = chart4aa.getXAxis();
                             xAxisr.setValueFormatter(new IndexAxisValueFormatter(daysS));
                             xAxisr.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
@@ -654,7 +654,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             chart5.getAxisRight().setEnabled(false);
                             XAxis xl1r = chart5.getXAxis();
                             xl1r.setDrawGridLines(false);
-                            String[] daysS1r = new String[]{"M", "Tu", "W", "Th", "F", "Sa", "Su"};
+                            String[] daysS1r = new String[]{"Mn", "Tu", "We", "Th", "Fr", "Sa", "Su"};
                             XAxis xAxis1r = chart5.getXAxis();
                             xAxis1r.setValueFormatter(new IndexAxisValueFormatter(daysS1r));
                             xAxis1r.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
@@ -929,7 +929,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             chart6.getAxisRight().setEnabled(false);
                             XAxis xl3r = chart6.getXAxis();
                             xl3r.setDrawGridLines(false);
-                            String[] daysS3r = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+                            String[] daysS3r = new String[]{"Mn", "Tu", "We", "Th", "Fr", "Sa", "Su"};
                             XAxis xAxis3r = chart6.getXAxis();
                             xAxis3r.setValueFormatter(new IndexAxisValueFormatter(daysS3r));
                             xAxis3r.setPosition(XAxis.XAxisPosition.BOTH_SIDED);
@@ -1204,7 +1204,7 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                             chart7.getAxisRight().setEnabled(false);
                             XAxis xl4r = chart7.getXAxis();
                             xl4r.setDrawGridLines(false);
-                            String[] daysS4r = new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"};
+                            String[] daysS4r = new String[]{"Mn", "Tu", "We", "Th", "Fr", "Sa", "Su"};
                             XAxis xAxis4r = chart7.getXAxis();
                             xAxis4r.setValueFormatter(new IndexAxisValueFormatter(daysS4r));
                             xAxis4r.setPosition(XAxis.XAxisPosition.BOTH_SIDED);

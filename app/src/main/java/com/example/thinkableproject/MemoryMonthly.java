@@ -265,7 +265,7 @@ public class MemoryMonthly extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             Log.d("floatListTest", String.valueOf(floatList));
-                            String[] months = new String[]{"J", "F", "Mar", "Ap", "May", "Jun", "Jul", "Au", "S", "O", "N", "D"};
+                            String[] months = new String[]{"Ja", "Fe", "Mar", "Ap", "May", "Jun", "Jul", "Au", "Se", "Oc", "No", "De"};
                             List<Float> credits = new ArrayList<>(Arrays.asList(90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f));
 
 
@@ -305,7 +305,7 @@ public class MemoryMonthly extends AppCompatActivity {
                             barChart.getXAxis().setDrawGridLines(false);
                             barChart.getAxisLeft().setDrawGridLines(false);
                             barChart.setNoDataText("Data Loading Please Wait");
-                            barChart.animateXY(3000, 3000);
+                            barChart.animateXY(1500, 1500);
 
                             barChart.invalidate();
 

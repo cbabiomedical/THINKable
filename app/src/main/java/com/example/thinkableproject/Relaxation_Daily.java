@@ -306,7 +306,7 @@ public class Relaxation_Daily extends AppCompatActivity {
                             barChartdaily.getAxisLeft().setTextSize(textSize);
                             barChartdaily.setExtraBottomOffset(10f);
                             barChartdaily.setNoDataText("Data Loading Please Wait...");
-                            barChartdaily.animateXY(3000,3000);
+                            barChartdaily.animateXY(1500,1500);
 
 
                             barChartdaily.getAxisRight().setEnabled(false);

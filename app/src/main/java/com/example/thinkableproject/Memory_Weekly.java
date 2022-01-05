@@ -357,7 +357,7 @@ public class Memory_Weekly extends AppCompatActivity {
                             barChart1.getXAxis().setDrawGridLines(false);
                             barChart1.getAxisLeft().setDrawGridLines(false);
                             barChart1.setNoDataText("Data Loading Please Wait");
-                            barChart1.animateXY(3000,3000);
+                            barChart1.animateXY(1500,1500);
                             barChart1.invalidate();
 
 

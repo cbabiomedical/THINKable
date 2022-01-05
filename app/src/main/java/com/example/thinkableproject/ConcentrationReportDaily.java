@@ -260,7 +260,7 @@ public class ConcentrationReportDaily extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                            String[] days = new String[]{"M", "Tu", "W", "Th", "F", "Sa", "Su"};
+                            String[] days = new String[]{"Mn", "Tu", "We", "Th", "Fr", "Sa", "Su"};
                             List<Float> creditsMain = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f, 10f, 15f, 85f));
                             float[] strengthDay = new float[]{90f, 30f, 70f, 50f, 10f, 15f, 85f};
 
@@ -408,7 +408,7 @@ public class ConcentrationReportDaily extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                            String[] days = new String[]{"Mon", "Thu", "Wed", "Thur", "Fri", "Sat", "Sun"};
+                            String[] days = new String[]{"Mn", "Tu", "We", "Th", "Fr", "Sa", "Su"};
                             List<Float> creditsMain1 = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f, 10f, 15f, 85f));
                             float[] strengthDay = new float[]{90f, 30f, 70f, 50f, 10f, 15f, 85f};
 

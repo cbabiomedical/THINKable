@@ -276,9 +276,9 @@ public class Calibration extends AppCompatActivity {
         }
         if (sum > 600) {
 
-            textViewcali.setText("Your Device is Connected");
+            textViewcali.setText("Click Here !!");
         } else {
-            textViewcali.setText("Your Device is not Connected");
+            textViewcali.setText("Click Here !!");
         }
     }
 

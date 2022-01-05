@@ -239,7 +239,7 @@ public class MemoryReportMonthly extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                            String[] months = new String[]{"J", "F", "Mar", "Ap", "May", "Jun", "Jul", "Au", "S", "O", "N", "D"};
+                            String[] months = new String[]{"Ja", "Fe", "Mar", "Ap", "May", "Jun", "Jul", "Au", "Se", "Oc", "No", "De"};
                             List<Float> credits = new ArrayList<>(Arrays.asList(90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f));
                             float[] strength = new float[]{90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f};
 
@@ -384,7 +384,7 @@ public class MemoryReportMonthly extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
-                            String[] months1 = new String[]{"Jan", "Feb", "Mar", "Apr", "May", "June", "July", "Aug", "Sep", "Oct", "Nov", "Dec"};
+                            String[] months1 = new String[]{"Ja", "Fe", "Mar", "Ap", "May", "Jun", "Jul", "Au", "Se", "Oc", "No", "De"};
                             List<Float> credits1 = new ArrayList<>(Arrays.asList(90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f));
                             float[] strength = new float[]{90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f};
 

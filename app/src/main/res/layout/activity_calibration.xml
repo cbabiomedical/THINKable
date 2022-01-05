@@ -23,22 +23,17 @@
         android:background="@drawable/sinnewone"/>
 
 
-
-
     <com.github.mikephil.charting.charts.PieChart
         android:id="@+id/piechart"
         android:layout_width="402dp"
         android:layout_height="338dp"
         android:layout_marginStart="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
         android:layout_marginBottom="8dp"
         app:layout_constraintBottom_toTopOf="@+id/imageViewcali"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewcali">
+        app:layout_constraintTop_toTopOf="parent">
 
 
     </com.github.mikephil.charting.charts.PieChart>
@@ -76,13 +71,16 @@
         android:id="@+id/textViewcali"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/piechart"
-        app:layout_constraintEnd_toEndOf="parent"
+        android:text="Click Here"
+        android:textStyle="bold"
+
+        app:layout_constraintBottom_toBottomOf="@+id/piechart"
+        app:layout_constraintEnd_toEndOf="@+id/piechart"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="@+id/piechart"
+        />
 
     <ImageView
         android:id="@+id/imageViewcali"

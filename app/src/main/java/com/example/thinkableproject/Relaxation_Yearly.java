@@ -370,6 +370,8 @@ public class Relaxation_Yearly extends AppCompatActivity {
                             barChart2.getXAxis().setDrawGridLines(false);
                             barChart2.getAxisLeft().setDrawGridLines(false);
                             barChart2.setNoDataText("Data Loading Please Wait...");
+                            barChart2.animateXY(1500,1500);
+
 
                             barChart2.invalidate();
 

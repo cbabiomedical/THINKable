@@ -96,7 +96,7 @@
                         android:id="@+id/accountsettings1"
                         android:layout_width="290dp"
                         android:layout_height="50dp"
-                        android:background="@drawable/btnpref"/>
+                        android:background="@drawable/btnpreff"/>
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/accicon"
@@ -135,7 +135,7 @@
                         android:id="@+id/changepassword1"
                         android:layout_width="290dp"
                         android:layout_height="50dp"
-                        android:background="@drawable/btnpref"/>
+                        android:background="@drawable/btnpreff"/>
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/image"
@@ -171,7 +171,7 @@
                         android:id="@+id/location2"
                         android:layout_width="290dp"
                         android:layout_height="50dp"
-                        android:background="@drawable/btnpref"
+                        android:background="@drawable/btnpreff"
                         android:layout_marginTop="10dp"/>
 
                     <de.hdodenhof.circleimageview.CircleImageView
@@ -211,7 +211,7 @@
                         android:id="@+id/preferences1"
                         android:layout_width="290dp"
                         android:layout_height="50dp"
-                        android:background="@drawable/btnpref"/>
+                        android:background="@drawable/btnpreff"/>
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/prefrences1"
@@ -250,7 +250,7 @@
                         android:id="@+id/help3"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:background="@drawable/btnpref"/>
+                        android:background="@drawable/btnpreff"/>
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/help1"
@@ -288,7 +288,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="50dp"
                             android:onClick="gotoPopup9"
-                            android:background="@drawable/btnpref"/>
+                            android:background="@drawable/btnpreff"/>
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/themeim"
@@ -309,7 +309,7 @@
                             android:gravity="center"
                             android:text="Theme"
                             android:textColor="@color/color_white"
-                            android:textSize="17sp"
+                            android:textSize="14sp"
                             android:fontFamily="@font/segoepr" />
                     </RelativeLayout>
 
@@ -326,7 +326,7 @@
                         android:id="@+id/logout"
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:background="@drawable/btnpref"/>
+                        android:background="@drawable/btnpreff"/>
 
                     <de.hdodenhof.circleimageview.CircleImageView
                         android:id="@+id/logout1"

@@ -42,6 +42,9 @@
         <Spinner
             android:id="@+id/spinnerCountries"
             android:layout_width="120dp"
+            android:spinnerMode="dropdown"
+            android:theme="@android:style/Holo.Light.ButtonBar.AlertDialog"
+
 
             android:layout_height="wrap_content" />
 

@@ -213,6 +213,11 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
         Log.d("Url", url);
         startActivity(new Intent(getApplicationContext(), MusicPlayer.class).putExtra("url", url).putExtra("name", songName).putExtra("image", image));
     }
+    public void mem(View view) {
+        Intent intentcd = new Intent(Exercise.this, MemoryExercise.class);
+
+        startActivity(intentcd);
+    }
 
 
     @Override

@@ -38,6 +38,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/textView"
         android:layout_centerHorizontal="true"
+        android:gravity="center_horizontal"
         android:layout_marginTop="50dp"
         android:digits="0123456789"
         android:hint="Enter code"
@@ -46,23 +47,19 @@
         android:backgroundTint="@android:color/white"
         android:textColor="#FFFFFF"/>
 
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/buttonSignIn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       android:layout_centerHorizontal="true"
-        android:layout_alignTop="@+id/editTextCode"
-        android:layout_marginTop="70dp"
-        android:textAllCaps="false"
+   <androidx.appcompat.widget.AppCompatButton
+       android:layout_width="wrap_content"
+       android:layout_height="wrap_content"
+       android:text="Next"
+       android:layout_centerInParent="true"
+       android:id="@+id/buttonSignIn"
+       android:textColor="@color/white"
+       android:textAllCaps="false"
+       android:background="@drawable/hione"
+       android:onClick="gotoLandingPage"
 
 
-        android:text="Next"
-
-        android:textColor="@color/black"
-        app:background="@drawable/hione"
-
-        android:onClick="gotoLandingPage"/>
-
+       />
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
