@@ -410,15 +410,57 @@ public class MemoryMonthly extends AppCompatActivity {
 
     //popup window method to display suggestions to improve concentration
     public void gotoPopup2(View view) {
-        ImageButton canpop1;
-        dialogcm.setContentView(R.layout.activity_concentration_popup);
-        canpop1 = (ImageButton) dialogcm.findViewById(R.id.canpop1);
-        canpop1.setOnClickListener(new View.OnClickListener() {
+        ImageButton imageViewcancle, imageViewmed, imageViewsong, imageViewvdo, imageViewbw, imageViewit;
+
+        dialogcm.setContentView(R.layout.activity_relaxation_popup);
+
+        imageViewmed = (ImageButton) dialogcm.findViewById(R.id.medipop1);
+        imageViewmed.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                dialogcm.dismiss();
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MeditationExercise.class);
+                startActivity(intent);
             }
         });
+
+        imageViewsong = (ImageButton) dialogcm.findViewById(R.id.songspop1);
+        imageViewsong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Music.class);
+                startActivity(intent);
+            }
+        });
+
+        imageViewvdo = (ImageButton) dialogcm.findViewById(R.id.vdospop1);
+        imageViewvdo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Video.class);
+                startActivity(intent);
+            }
+        });
+
+        imageViewbw = (ImageButton) dialogcm.findViewById(R.id.bipop1);
+        imageViewbw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), BineuralAcivity.class);
+                startActivity(intent);
+            }
+        });
+
+        imageViewit = (ImageButton) dialogcm.findViewById(R.id.canpop1);
+        imageViewit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Relaxation_Yearly.class);
+                startActivity(intent);
+            }
+        });
+
+
+
         dialogcm.show();
 
     }

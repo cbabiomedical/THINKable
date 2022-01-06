@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@xml/shape"
+    tools:context=".Memory_popup"
+    android:layout_gravity="center">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:background="@xml/shape"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/medipop"
+            android:layout_width="290dp"
+            android:layout_height="50dp"
+
+
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp">
+
+            <ImageButton
+                android:id="@+id/medipop1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/btnpref"/>
+
+
+            <TextView
+                android:id="@+id/medipop2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+
+                android:gravity="center"
+                android:text="Meditation"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:fontFamily="@font/segoepr" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/songspop"
+            android:layout_width="290dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/medipop"
+
+
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp">
+
+            <ImageButton
+                android:id="@+id/songspop1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/btnpref"/>
+
+
+            <TextView
+                android:id="@+id/songspop2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+
+                android:gravity="center"
+                android:text="Games"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:fontFamily="@font/segoepr" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/vdospop"
+            android:layout_width="290dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/songspop"
+
+
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp">
+
+            <ImageButton
+                android:id="@+id/vdospop1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/btnpref"/>
+
+
+            <TextView
+                android:id="@+id/vdospop2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+
+                android:gravity="center"
+                android:text="Videos"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:fontFamily="@font/segoepr" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/bipop"
+            android:layout_width="290dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/vdospop"
+
+
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp">
+
+            <ImageButton
+                android:id="@+id/bipop1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/btnpref"/>
+
+
+            <TextView
+                android:id="@+id/bipop2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+
+                android:gravity="center"
+                android:text="Binatural Waves"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:fontFamily="@font/segoepr" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/canpop"
+            android:layout_width="290dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/bipop"
+
+
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp">
+
+            <ImageButton
+                android:id="@+id/canpop1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/btnpref"/>
+
+
+            <TextView
+                android:id="@+id/canpop2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+
+                android:gravity="center"
+                android:text="Cancel"
+                android:textColor="@color/redBtnColor"
+                android:textSize="16sp"
+                android:fontFamily="@font/segoepr" />
+        </RelativeLayout>
+
+
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

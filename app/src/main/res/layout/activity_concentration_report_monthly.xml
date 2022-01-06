@@ -327,6 +327,9 @@
 
 
             </LinearLayout>
+
+
+
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barChartMonthly"
                 android:layout_width="325dp"
@@ -405,6 +408,7 @@
 
 
             </LinearLayout>
+
 
 
             <com.github.mikephil.charting.charts.BarChart

@@ -329,6 +329,9 @@
 
 
             </LinearLayout>
+
+
+
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barChartWeekly"
                 android:layout_width="325dp"
@@ -407,6 +410,13 @@
 
 
             </LinearLayout>
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:src="@drawable/colourpallete"
+                android:layout_below="@+id/threelinesa"
+                android:layout_marginTop="5dp"/>
 
 
             <com.github.mikephil.charting.charts.BarChart

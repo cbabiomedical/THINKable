@@ -329,7 +329,11 @@
 
 
 
+
+
             </LinearLayout>
+
+
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barChartDaily"
                 android:layout_width="325dp"
@@ -337,7 +341,7 @@
                 android:layout_below="@+id/threelines"
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="4dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="40dp"
                 android:background="@color/transparent"
                 app:cornerRadius="13dp" />
 
@@ -410,6 +414,8 @@
             </LinearLayout>
 
 
+
+
             <com.github.mikephil.charting.charts.BarChart
                 android:id="@+id/barChartDaily2"
                 android:layout_width="325dp"
@@ -417,7 +423,7 @@
                 android:layout_below="@+id/threelinesa"
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="4dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="40dp"
                 android:layout_marginBottom="70dp"
                 android:background="@color/transparent"
                 app:cornerRadius="13dp" />

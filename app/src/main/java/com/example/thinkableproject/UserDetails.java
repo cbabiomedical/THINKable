@@ -29,8 +29,10 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
@@ -62,6 +64,10 @@ public class UserDetails extends AppCompatActivity {
     private StorageTask uploadTask;
     boolean isMale;
     boolean isFemale;
+
+    int color;
+    View c1, c2;
+
     ArrayAdapter<String> arrayAdapter_season;
 
     @Override
@@ -81,6 +87,61 @@ public class UserDetails extends AppCompatActivity {
         camera=findViewById(R.id.iv_camera);
         isFemale = female.isChecked();
         occupationSelected = findViewById(R.id.occupation);
+
+        c1 = findViewById(R.id.c1);
+        c2 = findViewById(R.id.c2);
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        Calendar c = Calendar.getInstance();
+        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor", String.valueOf(snapshot.getValue()));
+                color = (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if (color == 2) {  //light theme
+                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
+                    c2.setVisibility(View.VISIBLE);
+
+
+
+                }  else if (color ==1 ) { //light theme
+
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+
+
+                }else {
+                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//light theme
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
+                        c1.setVisibility(View.VISIBLE);
+                        c2.setVisibility(View.INVISIBLE);
+
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         initDatePicker();
         //Setting date text

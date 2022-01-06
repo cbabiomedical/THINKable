@@ -435,6 +435,63 @@ public class Memory_Daily extends AppCompatActivity {
 
     }
 
+    public void gotoPopup1m(View view) {
+
+        ImageButton imageViewcancle, imageViewmed, imageViewsong, imageViewvdo, imageViewbw, imageViewit;
+
+        dialogcd.setContentView(R.layout.activity_relaxation_popup);
+
+        imageViewmed = (ImageButton) dialogcd.findViewById(R.id.medipop1);
+        imageViewmed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), MeditationExercise.class);
+                startActivity(intent);
+            }
+        });
+
+        imageViewsong = (ImageButton) dialogcd.findViewById(R.id.songspop1);
+        imageViewsong.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Music.class);
+                startActivity(intent);
+            }
+        });
+
+        imageViewvdo = (ImageButton) dialogcd.findViewById(R.id.vdospop1);
+        imageViewvdo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Video.class);
+                startActivity(intent);
+            }
+        });
+
+        imageViewbw = (ImageButton) dialogcd.findViewById(R.id.bipop1);
+        imageViewbw.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), BineuralAcivity.class);
+                startActivity(intent);
+            }
+        });
+
+        imageViewit = (ImageButton) dialogcd.findViewById(R.id.canpop1);
+        imageViewit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getApplicationContext(), Memory_Daily.class);
+                startActivity(intent);
+            }
+        });
+
+
+
+        dialogcd.show();
+
+    }
+
 
     public class MyBarDataset extends BarDataSet {
 

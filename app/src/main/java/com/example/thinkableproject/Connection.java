@@ -26,6 +26,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 public class Connection extends AppCompatActivity implements View.OnClickListener, AdapterView.OnItemClickListener {
@@ -58,6 +59,9 @@ public class Connection extends AppCompatActivity implements View.OnClickListene
         c2=findViewById(R.id.c2);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
+        Calendar c = Calendar.getInstance();
+        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
         DatabaseReference colorreference= FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
         colorreference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -66,18 +70,39 @@ public class Connection extends AppCompatActivity implements View.OnClickListene
                 color= (int) snapshot.getValue(Integer.class);
                 Log.d("Color", String.valueOf(color));
 
-                if(color==2){
-                    c1.setVisibility(View.INVISIBLE);
+                if (color == 2) {  //light theme
+                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
                     c2.setVisibility(View.VISIBLE);
 
 
 
-                }else{
+                }  else if (color ==1 ) { //light theme
+
                     c1.setVisibility(View.VISIBLE);
                     c2.setVisibility(View.INVISIBLE);
 
 
+
+                }else {
+                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
+                        c1.setVisibility(View.VISIBLE);
+                        c2.setVisibility(View.INVISIBLE);
+
+
+
+                    }
                 }
+
 
             }
 

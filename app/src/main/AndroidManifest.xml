@@ -42,7 +42,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThinkableProject"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MemoryExercise"></activity>
+        <activity android:name=".Memory_popup"></activity>
+        <activity android:name=".MemoryExercise" />
         <activity android:name=".ColorPatternGame" />
         <activity android:name="com.example.ColorPatternGame" />
         <activity

@@ -484,7 +484,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
         imageViewit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), IsochronicTones.class);
+                Intent intent = new Intent(getApplicationContext(), Relaxation_Weekly.class);
                 startActivity(intent);
             }
         });

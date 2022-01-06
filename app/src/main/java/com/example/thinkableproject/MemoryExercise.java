@@ -101,7 +101,7 @@ public class MemoryExercise extends AppCompatActivity implements MusicAdapter.On
                         c2gif.setVisibility(View.VISIBLE);
                         c1gif.setVisibility(View.GONE);
 
-                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
+                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//light theme
                         c1.setVisibility(View.INVISIBLE);
                         c2.setVisibility(View.VISIBLE);
                         c2gif.setVisibility(View.VISIBLE);

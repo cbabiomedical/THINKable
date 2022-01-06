@@ -75,6 +75,7 @@
         android:padding="10dp"
         android:layout_marginTop="10dp"
         android:hint="Enter Message"
+        android:textColor="@color/white"
         android:textColorHint="@color/white"
         android:layout_height="wrap_content"
         android:backgroundTint="@color/white"/>

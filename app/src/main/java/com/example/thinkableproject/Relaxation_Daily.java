@@ -54,6 +54,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
 
+import io.grpc.internal.ReflectionLongAdderCounter;
 import pl.droidsonroids.gif.GifImageView;
 
 public class Relaxation_Daily extends AppCompatActivity {
@@ -481,7 +482,7 @@ public class Relaxation_Daily extends AppCompatActivity {
         imageViewit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), IsochronicTones.class);
+                Intent intent = new Intent(getApplicationContext(), Relaxation_Daily.class);
                 startActivity(intent);
             }
         });

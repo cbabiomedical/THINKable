@@ -244,6 +244,7 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
     }
     public void mem(View view) {
         Intent intentcd = new Intent(Exercise.this, MemoryExercise.class);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
 
         startActivity(intentcd);
     }
