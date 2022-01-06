@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Concentration_popup"
+    android:background="@xml/shape"
+    android:layout_gravity="center">
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:background="@xml/shape"
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:id="@+id/gamespop"
+            android:layout_width="290dp"
+            android:layout_height="50dp"
+
+
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp">
+
+            <ImageButton
+                android:id="@+id/gamespop1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/btnpref"/>
+
+
+            <TextView
+                android:id="@+id/gamespop2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+
+                android:gravity="center"
+                android:text="Games"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:fontFamily="@font/segoepr" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/musicpop"
+            android:layout_width="290dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/gamespop"
+
+
+
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp">
+
+            <ImageButton
+                android:id="@+id/musicpop1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/btnpref"/>
+
+
+            <TextView
+                android:id="@+id/musicpop2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+
+                android:gravity="center"
+                android:text="Music"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:fontFamily="@font/segoepr" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/musicpopx"
+            android:layout_width="290dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/musicpop"
+
+
+
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp">
+
+            <ImageButton
+                android:id="@+id/musicpop3"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/btnpref"/>
+
+
+            <TextView
+                android:id="@+id/musicpop4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+
+                android:gravity="center"
+                android:text="Meditatoin"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:fontFamily="@font/segoepr" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/canclepop"
+            android:layout_width="290dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/musicpopx"
+
+
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="10dp">
+
+            <ImageButton
+                android:id="@+id/canclepop1"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@drawable/btnpref"/>
+
+
+            <TextView
+                android:id="@+id/logout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="10dp"
+                android:layout_centerHorizontal="true"
+
+                android:gravity="center"
+                android:text="Cancel"
+                android:textColor="@color/redBtnColor"
+                android:textSize="16sp"
+                android:fontFamily="@font/segoepr" />
+        </RelativeLayout>
+
+
+    </RelativeLayout>
+</RelativeLayout>

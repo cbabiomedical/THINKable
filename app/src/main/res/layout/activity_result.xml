@@ -174,7 +174,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="32dp"
         android:layout_marginRight="32dp"
-        android:text="Restart"
+        android:text="Start Quiz"
         android:background="@drawable/prefbtn"
         app:cornerRadius="13dp"
         app:layout_constraintBottom_toBottomOf="parent"

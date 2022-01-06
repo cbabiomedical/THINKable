@@ -244,6 +244,7 @@ public class RelaxationExercise extends AppCompatActivity implements MusicAdapte
         Intent intentcd = new Intent(RelaxationExercise.this, MemoryExercise.class);
 
         startActivity(intentcd);
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     @Override

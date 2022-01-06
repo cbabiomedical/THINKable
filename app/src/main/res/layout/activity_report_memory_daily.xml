@@ -51,7 +51,7 @@
                     android:id="@+id/landingfwall1"
 
 
-                    android:src="@drawable/oceantwo"
+                    android:src="@drawable/bluewhaleroundtwo"
                     android:visibility="gone"/>
 
 

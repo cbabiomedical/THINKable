@@ -18,6 +18,7 @@ import android.widget.Toast;
 
 import com.example.thinkableproject.adapters.GridAdapter;
 import com.example.thinkableproject.adapters.MusicAdapter;
+import com.example.thinkableproject.data.Result;
 import com.example.thinkableproject.sample.GameModelClass;
 import com.example.thinkableproject.sample.MusicModelClass;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -166,7 +167,7 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.userprofiles:
-                        startActivity(new Intent(getApplicationContext(), UserProfile1.class));
+                        startActivity(new Intent(getApplicationContext(), ResultActivity.class));
                         overridePendingTransition(0, 0);
                         return true;
                     case R.id.settings:
