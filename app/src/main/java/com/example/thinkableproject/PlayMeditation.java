@@ -8,7 +8,9 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -20,6 +22,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -44,7 +47,7 @@ public class PlayMeditation extends AppCompatActivity {
     String uri;
     String name;
     String music_title;
-    int time;
+//    int time;
 
     public static final String EXTRA_NAME = "songName";
     static MediaPlayer mediaPlayer;
@@ -95,7 +98,7 @@ public class PlayMeditation extends AppCompatActivity {
 //            time_selected = extras.getString("time");
             name = extras.getString("name");
 //            time = Integer.parseInt(time_selected);
-            time = extras.getInt("time");
+//            time = extras.getInt("time");
             txtsongName.setText(name);
 //            image=extras.getInt("image");
 //            linearLayout.setBackgroundResource(image);
@@ -110,9 +113,11 @@ public class PlayMeditation extends AppCompatActivity {
             Log.d("ERROR", "Error in getting null value");
         }
 
-
-        ProgressDialog progressDialog = ProgressDialog.show(this,
+   ProgressDialog progressDialog=ProgressDialog.show(this,
                 "Loading Music", "Please Wait");
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+
 
         // MEDIA STARTS FUNCTION
 
@@ -134,7 +139,7 @@ public class PlayMeditation extends AppCompatActivity {
                 @Override
                 public void run() {
 
-                    int totalDuration = time;
+                    int totalDuration = mediaPlayer.getDuration();
                     int currentPosition = 0;
                     while (currentPosition < totalDuration) {
                         try {
@@ -147,7 +152,7 @@ public class PlayMeditation extends AppCompatActivity {
                         } catch (InterruptedException | IllegalStateException e) {
                             e.printStackTrace();
                         }
-                        if (currentPosition > time) {
+                        if (currentPosition > mediaPlayer.getDuration()) {
                             mediaPlayer.stop();
                             startActivity(new Intent(getApplicationContext(), MeditationExercise.class));
                         }
@@ -156,7 +161,7 @@ public class PlayMeditation extends AppCompatActivity {
                 }
             };
 
-            seekBar.setMax(time);
+            seekBar.setMax(mediaPlayer.getDuration());
             updateSeekBar.start();
             seekBar.getProgressDrawable().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.MULTIPLY);
             seekBar.getThumb().setColorFilter(getResources().getColor(R.color.white), PorterDuff.Mode.SRC_IN);
@@ -177,7 +182,7 @@ public class PlayMeditation extends AppCompatActivity {
                 }
             });
 
-            String endTime = millisecondsToTimer(time);
+            String endTime = millisecondsToTimer(mediaPlayer.getDuration());
             txtStop.setText(endTime);
 //            int noOfRuns = time / mediaPlayer.getDuration();
 

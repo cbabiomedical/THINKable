@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -40,6 +41,7 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -64,8 +66,8 @@ public class Concentration_Yearly extends AppCompatActivity {
     ImageView relaxationBtn, memory;
     ImageView music, games;
     FirebaseUser mUser;
-    GifImageView c1gif,c2gif;
-    View c1,c2;
+    GifImageView c1gif, c2gif;
+    View c1, c2;
     File localFile, fileName;
     String text;
     ArrayList<String> list = new ArrayList<>();
@@ -84,30 +86,30 @@ public class Concentration_Yearly extends AppCompatActivity {
         weekly = findViewById(R.id.weekly);
         monthly = findViewById(R.id.monthly);
         relaxationBtn = findViewById(R.id.relaxation);
-        memory=findViewById(R.id.memory);
+        memory = findViewById(R.id.memory);
         List<BarEntry> entries = new ArrayList<>();
         //Initialize bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         dialogcy = new Dialog(this);
         music = findViewById(R.id.music);
         games = findViewById(R.id.game);
-        anim=findViewById(R.id.animation);
-        c1=findViewById(R.id.c1);
-        c2=findViewById(R.id.c2);
+        anim = findViewById(R.id.animation);
+        c1 = findViewById(R.id.c1);
+        c2 = findViewById(R.id.c2);
         c1gif = findViewById(R.id.landingfwall);
         c2gif = findViewById(R.id.landingfwall1);
 
-        mUser=FirebaseAuth.getInstance().getCurrentUser();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
 
-        DatabaseReference colorreference= FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
         colorreference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.d("FirebaseColor", String.valueOf(snapshot.getValue()));
-                color= (int) snapshot.getValue(Integer.class);
+                color = (int) snapshot.getValue(Integer.class);
                 Log.d("Color", String.valueOf(color));
                 if (color == 2) {  //light theme
                     c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
@@ -116,7 +118,7 @@ public class Concentration_Yearly extends AppCompatActivity {
                     c1gif.setVisibility(View.GONE);
 
 
-                }  else if (color ==1 ) { //light theme
+                } else if (color == 1) { //light theme
 
                     c1.setVisibility(View.VISIBLE);
                     c2.setVisibility(View.INVISIBLE);
@@ -124,7 +126,7 @@ public class Concentration_Yearly extends AppCompatActivity {
                     c2gif.setVisibility(View.INVISIBLE);
 
 
-                }else {
+                } else {
                     if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
 
                         c1.setVisibility(View.INVISIBLE);
@@ -166,7 +168,7 @@ public class Concentration_Yearly extends AppCompatActivity {
         games.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent=new Intent(getApplicationContext(), GameActivity.class);
+                Intent intent = new Intent(getApplicationContext(), GameActivity.class);
                 startActivity(intent);
             }
         });
@@ -244,7 +246,7 @@ public class Concentration_Yearly extends AppCompatActivity {
         memory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Memory_Yearly.class));
+                startActivity(new Intent(getApplicationContext(), Memory_Yearly.class));
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
@@ -388,7 +390,7 @@ public class Concentration_Yearly extends AppCompatActivity {
                             barChart2.getXAxis().setDrawGridLines(false);
                             barChart2.getAxisLeft().setDrawGridLines(false);
                             barChart2.setNoDataText("Data Loading Please Wait....");
-                            barChart2.animateXY(1500,1500);
+                            barChart2.animateXY(1500, 1500);
                             barChart2.invalidate();
                         }
                     }).addOnFailureListener(new OnFailureListener() {
@@ -406,15 +408,69 @@ public class Concentration_Yearly extends AppCompatActivity {
         }, delay);
 
     }
-//popup window method to provide suggesstions to improve concentration
+
+    //popup window method to provide suggesstions to improve concentration
     public void gotoPopup4(View view) {
         ImageButton cancelcon, games, music1;
+
+        View c1, c2;
+        FirebaseUser mUser;
 
 
         dialogcy.setContentView(R.layout.activity_concentration_popup);
 
         games = (ImageButton) dialogcy.findViewById(R.id.gamespop1);
         music1 = (ImageButton) dialogcy.findViewById(R.id.musicpop1);
+        c1=(View) dialogcy.findViewById(R.id.c1);
+        c2=(View) dialogcy.findViewById(R.id.c2);
+        mUser=FirebaseAuth.getInstance().getCurrentUser();
+
+        Calendar c = Calendar.getInstance();
+        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor PopUp", String.valueOf(snapshot.getValue()));
+                color = (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if (color == 2) {  //light theme
+                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
+                    c2.setVisibility(View.VISIBLE);
+                } else if (color == 1) { //light theme
+
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+
+
+                } else {
+                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
+                        c1.setVisibility(View.VISIBLE);
+                        c2.setVisibility(View.INVISIBLE);
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         games.setOnClickListener(new View.OnClickListener() {
             @Override

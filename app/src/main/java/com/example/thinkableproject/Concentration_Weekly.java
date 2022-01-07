@@ -16,6 +16,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -40,6 +41,7 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -62,12 +64,12 @@ public class Concentration_Weekly extends AppCompatActivity {
     AppCompatButton monthly, yearly, daily;
     View dayMode, nightMode;
     TextView realTime;
-    ImageView games,relaxationBtn, memory;
+    ImageView games, relaxationBtn, memory;
     LottieAnimationView anim;
     FirebaseUser mUser;
     ImageView music;
-    GifImageView c1gif,c2gif;
-    View c1,c2;
+    GifImageView c1gif, c2gif;
+    View c1, c2;
     File localFile, fileName;
     ArrayList<String> list = new ArrayList<>();
     String text;
@@ -94,23 +96,23 @@ public class Concentration_Weekly extends AppCompatActivity {
         memory = findViewById(R.id.memory);
         music = findViewById(R.id.music);
         games = findViewById(R.id.game);
-        anim=findViewById(R.id.animation);
-        c1=findViewById(R.id.c1);
-        c2=findViewById(R.id.c2);
-        c1gif=findViewById(R.id.landingfwall);
-        c2gif=findViewById(R.id.landingfwall1);
+        anim = findViewById(R.id.animation);
+        c1 = findViewById(R.id.c1);
+        c2 = findViewById(R.id.c2);
+        c1gif = findViewById(R.id.landingfwall);
+        c2gif = findViewById(R.id.landingfwall1);
 
-        mUser=FirebaseAuth.getInstance().getCurrentUser();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
 
-        DatabaseReference colorreference= FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
         colorreference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.d("FirebaseColor", String.valueOf(snapshot.getValue()));
-                color= (int) snapshot.getValue(Integer.class);
+                color = (int) snapshot.getValue(Integer.class);
                 Log.d("Color", String.valueOf(color));
 
                 if (color == 2) {  //light theme
@@ -120,7 +122,7 @@ public class Concentration_Weekly extends AppCompatActivity {
                     c1gif.setVisibility(View.GONE);
 
 
-                }  else if (color ==1 ) { //light theme
+                } else if (color == 1) { //light theme
 
                     c1.setVisibility(View.VISIBLE);
                     c2.setVisibility(View.INVISIBLE);
@@ -128,7 +130,7 @@ public class Concentration_Weekly extends AppCompatActivity {
                     c2gif.setVisibility(View.INVISIBLE);
 
 
-                }else {
+                } else {
                     if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
 
                         c1.setVisibility(View.INVISIBLE);
@@ -160,7 +162,6 @@ public class Concentration_Weekly extends AppCompatActivity {
 
             }
         });
-
 
 
         music.setOnClickListener(new View.OnClickListener() {
@@ -403,7 +404,7 @@ public class Concentration_Weekly extends AppCompatActivity {
                             barChart1.getXAxis().setDrawGridLines(false);
                             barChart1.getAxisLeft().setDrawGridLines(false);
                             barChart1.setNoDataText("Data Loading Please Wait....");
-                            barChart1.animateXY(1500,1500);
+                            barChart1.animateXY(1500, 1500);
 
                             barChart1.invalidate();
 
@@ -428,14 +429,69 @@ public class Concentration_Weekly extends AppCompatActivity {
     }
 
     //popup window method to provide suggestions for improve concentration
-    public void gotoPopup3(View view) {
+    public void gotoPopup3m(View view) {
         ImageButton cancelcon, games, music1;
+        View c1, c2;
+
+        FirebaseUser mUser;
 
 
         dialogcw.setContentView(R.layout.activity_concentration_popup);
+        c1 = (View) dialogcw.findViewById(R.id.c1);
+        c2 = (View) dialogcw.findViewById(R.id.c2);
+
+        mUser=FirebaseAuth.getInstance().getCurrentUser();
+
+        Calendar c = Calendar.getInstance();
+        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor PopUp", String.valueOf(snapshot.getValue()));
+                color = (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if (color == 2) {  //light theme
+                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
+                    c2.setVisibility(View.VISIBLE);
+                } else if (color == 1) { //light theme
+
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+
+
+                } else {
+                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
+                        c1.setVisibility(View.VISIBLE);
+                        c2.setVisibility(View.INVISIBLE);
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         games = (ImageButton) dialogcw.findViewById(R.id.gamespop1);
         music1 = (ImageButton) dialogcw.findViewById(R.id.musicpop1);
+
 
         games.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -473,7 +529,7 @@ public class Concentration_Weekly extends AppCompatActivity {
     }
 
     public void gotoPopup1(View view) {
-        ImageButton  games, music1 , cancelcon;
+        ImageButton games, music1, cancelcon;
 
 
         dialogcw.setContentView(R.layout.activity_concentration_popup);
@@ -507,7 +563,6 @@ public class Concentration_Weekly extends AppCompatActivity {
         dialogcw.show();
 
     }
-
 
 
     public class MyBarDataset extends BarDataSet {

@@ -48,7 +48,8 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
     ArrayList<MusicModelClass> musicList;
     MusicAdapter adapter;
     String selected_time;
-    int time;
+    LinearLayoutManager layoutManager;
+//    int time;
     FirebaseUser mUser;
     View c1,c2;
     int color;
@@ -152,37 +153,37 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
 
 //        Log.d("Time of Music",String.valueOf(MusicAdapter.getTimeOfmusic()));
         recyclerView = findViewById(R.id.recycler_view);
-        Spinner dropdown_time = (Spinner) findViewById(R.id.spinner2);
-        String[] items = new String[]{"Audio track duration is: 1 min", "Audio track duration is: 1.5 min", "Audio track duration is: 2 min", "Audio track duration is: 2.5 min", "Audio track duration is: 3 min"};
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        dropdown_time.setAdapter(adapter1);
+//        Spinner dropdown_time = (Spinner) findViewById(R.id.spinner2);
+//        String[] items = new String[]{"Audio track duration is: 1 min", "Audio track duration is: 1.5 min", "Audio track duration is: 2 min", "Audio track duration is: 2.5 min", "Audio track duration is: 3 min"};
+//        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+//        dropdown_time.setAdapter(adapter1);
 
 //        LocalBroadcastManager.getInstance(this).registerReceiver(broadcastReceiver,
 //                new IntentFilter("time"));
-        dropdown_time.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selected_time = parent.getItemAtPosition(position).toString();
-                if (position == 0) {
-                    time = 60000;
-                    Log.d("TIME", String.valueOf(time));
-                } else if (position == 1) {
-                    time = 90000;
-                    Log.d("TIME", String.valueOf(time));
-                } else if (position == 2) {
-                    time = 120000;
-                } else if (position == 3) {
-                    time = 150000;
-                } else {
-                    time = 180000;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        dropdown_time.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                selected_time = parent.getItemAtPosition(position).toString();
+//                if (position == 0) {
+//                    time = 60000;
+//                    Log.d("TIME", String.valueOf(time));
+//                } else if (position == 1) {
+//                    time = 90000;
+//                    Log.d("TIME", String.valueOf(time));
+//                } else if (position == 2) {
+//                    time = 120000;
+//                } else if (position == 3) {
+//                    time = 150000;
+//                } else {
+//                    time = 180000;
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
 //        MusicAdapter musicAdapter=new MusicAdapter();
 //        final int timeOfMus= MusicAdapter.getViewHolder().getTimeOfMusic();
 //        Log.d("Time", String.valueOf(timeOfMus));
@@ -248,7 +249,7 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
 
             }
         });
-
+        layoutManager=new LinearLayoutManager(this);
         adapter = new MusicAdapter(musicList, getApplicationContext(), this::onNoteClick);
         recyclerView.setAdapter(adapter);
 
@@ -266,7 +267,7 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
         Log.d("SongURL", url);
         String image = musicList.get(position).getImageUrl();
         Log.d("Url", url);
-        startActivity(new Intent(getApplicationContext(), MusicPlayer.class).putExtra("url", url).putExtra("name", songName).putExtra("image", image).putExtra("time", time));
+        startActivity(new Intent(getApplicationContext(), MusicPlayer.class).putExtra("url", url).putExtra("name", songName).putExtra("image", image));
     }
 
     private void sendNotification() {

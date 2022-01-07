@@ -32,7 +32,8 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
     ArrayList<GameModelClass> gameList;
     GridAdapter adapter;
     FirebaseUser mUser;
-    View c1,c2;
+    LinearLayoutManager layoutManager;
+    View c1, c2;
     int color;
     HashMap<String, Object> games = new HashMap<>();
     ArrayList<GameModelClass> downloadGames = new ArrayList<>();
@@ -42,20 +43,20 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_concentration_excercise);
         recyclerView = findViewById(R.id.gridView);
-        c1=findViewById(R.id.c1);
-        c2=findViewById(R.id.c2);
+        c1 = findViewById(R.id.c1);
+        c2 = findViewById(R.id.c2);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
 
 
-        DatabaseReference colorreference= FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
         colorreference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.d("FirebaseColor", String.valueOf(snapshot.getValue()));
-                color= (int) snapshot.getValue(Integer.class);
+                color = (int) snapshot.getValue(Integer.class);
                 Log.d("Color", String.valueOf(color));
 
                 if (color == 2) {  //light theme
@@ -63,15 +64,13 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
                     c2.setVisibility(View.VISIBLE);
 
 
-
-                }  else if (color ==1 ) { //light theme
+                } else if (color == 1) { //light theme
 
                     c1.setVisibility(View.VISIBLE);
                     c2.setVisibility(View.INVISIBLE);
 
 
-
-                }else {
+                } else {
                     if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
 
                         c1.setVisibility(View.INVISIBLE);
@@ -86,7 +85,6 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
                     } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
                         c1.setVisibility(View.VISIBLE);
                         c2.setVisibility(View.INVISIBLE);
-
 
 
                     }
@@ -158,6 +156,7 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
 
             }
         });
+        layoutManager=new LinearLayoutManager(this);
         adapter = new GridAdapter(gameList, getApplicationContext(), this::onNoteClickGame);
         recyclerView.setAdapter(adapter);
         Log.d("List", String.valueOf(gameList));

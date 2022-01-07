@@ -215,19 +215,6 @@
 
                 </LinearLayout>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
             </LinearLayout>
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -458,7 +445,7 @@
 
 
                 android:textAllCaps="false"
-                android:onClick="gotoPopup1">
+                android:onClick="gotoPopup3m">
             </androidx.appcompat.widget.AppCompatButton>
 
 

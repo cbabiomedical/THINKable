@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -50,8 +51,8 @@ import pl.droidsonroids.gif.GifImageView;
 public class Concentration_Daily extends AppCompatActivity {
     Dialog dialogcd;
     BarChart barChartdaily;
-    View c1,c2;
-    GifImageView c1gif,c2gif;
+    View c1, c2;
+    GifImageView c1gif, c2gif;
     ImageView games, relaxationBtn, memory, landingtwo, landingtwoday, musicNight, gameNight;
     AppCompatButton monthly, yearly, weekly;
 
@@ -70,8 +71,6 @@ public class Concentration_Daily extends AppCompatActivity {
     SimpleDateFormat simpleDateFormat;
     String Date;
     TextView GetDateAndTime;
-
-
 
 
     @Override
@@ -98,16 +97,15 @@ public class Concentration_Daily extends AppCompatActivity {
         List<BarEntry> entries = new ArrayList<>();
         dialogcd = new Dialog(this);
         memory = findViewById(R.id.memory);
-        c1=findViewById(R.id.c1);
-        c2=findViewById(R.id.c2);
+        c1 = findViewById(R.id.c1);
+        c2 = findViewById(R.id.c2);
 
 
+        calendar = Calendar.getInstance();
+        simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
+        Date = simpleDateFormat.format(calendar.getTime());
 
-        calendar=Calendar.getInstance();
-        simpleDateFormat=new SimpleDateFormat("dd-MM-yyyy HH:mm:ss");
-        Date=simpleDateFormat.format(calendar.getTime());
-
-        mUser=FirebaseAuth.getInstance().getCurrentUser();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
 
@@ -140,14 +138,12 @@ public class Concentration_Daily extends AppCompatActivity {
 //        }
 
 
-
-
-        DatabaseReference colorreference= FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
         colorreference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.d("FirebaseColor", String.valueOf(snapshot.getValue()));
-                color= (int) snapshot.getValue(Integer.class);
+                color = (int) snapshot.getValue(Integer.class);
                 Log.d("Color", String.valueOf(color));
 
                 if (color == 2) {  //light theme
@@ -157,7 +153,7 @@ public class Concentration_Daily extends AppCompatActivity {
                     c1gif.setVisibility(View.GONE);
 
 
-                }  else if (color ==1 ) { //light theme
+                } else if (color == 1) { //light theme
 
                     c1.setVisibility(View.VISIBLE);
                     c2.setVisibility(View.INVISIBLE);
@@ -165,7 +161,7 @@ public class Concentration_Daily extends AppCompatActivity {
                     c2gif.setVisibility(View.INVISIBLE);
 
 
-                }else {
+                } else {
                     if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
 
                         c1.setVisibility(View.INVISIBLE);
@@ -196,7 +192,6 @@ public class Concentration_Daily extends AppCompatActivity {
 
             }
         });
-
 
 
         memory.setOnClickListener(new View.OnClickListener() {
@@ -469,12 +464,67 @@ public class Concentration_Daily extends AppCompatActivity {
 //
 //        startActivity(intentgp1);
         ImageButton cancelcon, games, music1;
+        View c1,c2;
+        FirebaseUser mUser;
 
 
         dialogcd.setContentView(R.layout.activity_concentration_popup);
 
         games = (ImageButton) dialogcd.findViewById(R.id.gamespop1);
         music1 = (ImageButton) dialogcd.findViewById(R.id.musicpop1);
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        c1 = (View) dialogcd.findViewById(R.id.c1);
+        c2 = (View) dialogcd.findViewById(R.id.c2);
+
+        Calendar c = Calendar.getInstance();
+        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor PopUp", String.valueOf(snapshot.getValue()));
+                color = (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if (color == 2) {  //light theme
+                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
+                    c2.setVisibility(View.VISIBLE);
+                } else if (color == 1) { //light theme
+
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+
+
+                } else {
+                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
+                        c1.setVisibility(View.VISIBLE);
+                        c2.setVisibility(View.INVISIBLE);
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+
 
         games.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -509,7 +559,6 @@ public class Concentration_Daily extends AppCompatActivity {
 
         startActivity(intentcd);
     }
-
 
 
     public class MyBarDataset extends BarDataSet {

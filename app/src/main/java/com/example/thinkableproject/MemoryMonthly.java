@@ -115,7 +115,7 @@ public class MemoryMonthly extends AppCompatActivity {
                     c1gif.setVisibility(View.GONE);
 
 
-                }  else if (color ==1 ) { //light theme
+                } else if (color == 1) { //light theme
 
                     c1.setVisibility(View.VISIBLE);
                     c2.setVisibility(View.INVISIBLE);
@@ -123,7 +123,7 @@ public class MemoryMonthly extends AppCompatActivity {
                     c2gif.setVisibility(View.INVISIBLE);
 
 
-                }else {
+                } else {
                     if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
 
                         c1.setVisibility(View.INVISIBLE);
@@ -409,12 +409,66 @@ public class MemoryMonthly extends AppCompatActivity {
     }
 
     //popup window method to display suggestions to improve concentration
-    public void gotoPopup2(View view) {
-        ImageButton imageViewcancle, imageViewmed, imageViewsong, imageViewvdo, imageViewbw, imageViewit;
+    public void gotoPopup2m(View view) {
+        ImageButton imageViewcancle, imageViewmed, imageViewsong, imageViewgames;
+        View c1, c2;
+        FirebaseUser mUser;
 
-        dialogcm.setContentView(R.layout.activity_relaxation_popup);
+        dialogcm.setContentView(R.layout.memory_popup);
 
-        imageViewmed = (ImageButton) dialogcm.findViewById(R.id.medipop1);
+        c1 = (View) dialogcm.findViewById(R.id.c1);
+        c2 = (View) dialogcm.findViewById(R.id.c2);
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        Calendar c = Calendar.getInstance();
+        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor PopUp", String.valueOf(snapshot.getValue()));
+                color = (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if (color == 2) {  //light theme
+                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
+                    c2.setVisibility(View.VISIBLE);
+                } else if (color == 1) { //light theme
+
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+
+
+                } else {
+                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
+                        c1.setVisibility(View.VISIBLE);
+                        c2.setVisibility(View.INVISIBLE);
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        imageViewmed = (ImageButton) dialogcm.findViewById(R.id.meditationpop1);
         imageViewmed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -423,7 +477,7 @@ public class MemoryMonthly extends AppCompatActivity {
             }
         });
 
-        imageViewsong = (ImageButton) dialogcm.findViewById(R.id.songspop1);
+        imageViewsong = (ImageButton) dialogcm.findViewById(R.id.musicpop1);
         imageViewsong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -431,35 +485,21 @@ public class MemoryMonthly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
-        imageViewvdo = (ImageButton) dialogcm.findViewById(R.id.vdospop1);
-        imageViewvdo.setOnClickListener(new View.OnClickListener() {
+        imageViewgames = (ImageButton) dialogcm.findViewById(R.id.gamespop1);
+        imageViewgames.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Video.class);
-                startActivity(intent);
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), GameActivity.class));
             }
         });
 
-        imageViewbw = (ImageButton) dialogcm.findViewById(R.id.bipop1);
-        imageViewbw.setOnClickListener(new View.OnClickListener() {
+        imageViewcancle = (ImageButton) dialogcm.findViewById(R.id.canclepop1);
+        imageViewcancle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), BineuralAcivity.class);
-                startActivity(intent);
+            public void onClick(View v) {
+                dialogcm.dismiss();
             }
         });
-
-        imageViewit = (ImageButton) dialogcm.findViewById(R.id.canpop1);
-        imageViewit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Relaxation_Yearly.class);
-                startActivity(intent);
-            }
-        });
-
-
 
         dialogcm.show();
 

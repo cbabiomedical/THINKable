@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,6 +40,7 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -62,7 +64,7 @@ public class Memory_Weekly extends AppCompatActivity {
     AppCompatButton monthly, yearly, daily;
     LottieAnimationView realTime;
     ImageView relaxationBtn, concentrationBtn;
-    ImageView games,music;
+    ImageView games, music;
     FirebaseUser mUser;
     View c1, c2;
     GifImageView c1gif, c2gif;
@@ -82,8 +84,8 @@ public class Memory_Weekly extends AppCompatActivity {
         daily = findViewById(R.id.daily);
         realTime = findViewById(R.id.animation);
         relaxationBtn = findViewById(R.id.relaxation);
-        games=findViewById(R.id.game);
-        music=findViewById(R.id.meditations);
+        games = findViewById(R.id.game);
+        music = findViewById(R.id.meditations);
         List<BarEntry> entries = new ArrayList<>();
         dialogcw = new Dialog(this);
         concentrationBtn = findViewById(R.id.concentration);
@@ -148,7 +150,7 @@ public class Memory_Weekly extends AppCompatActivity {
                     c1gif.setVisibility(View.GONE);
 
 
-                }  else if (color ==1 ) { //light theme
+                } else if (color == 1) { //light theme
 
                     c1.setVisibility(View.VISIBLE);
                     c2.setVisibility(View.INVISIBLE);
@@ -156,7 +158,7 @@ public class Memory_Weekly extends AppCompatActivity {
                     c2gif.setVisibility(View.INVISIBLE);
 
 
-                }else {
+                } else {
                     if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
 
                         c1.setVisibility(View.INVISIBLE);
@@ -244,13 +246,13 @@ public class Memory_Weekly extends AppCompatActivity {
         games.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),GameActivity.class));
+                startActivity(new Intent(getApplicationContext(), GameActivity.class));
             }
         });
         music.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Music.class));
+                startActivity(new Intent(getApplicationContext(), Music.class));
             }
         });
         //Initializing arraylist and storing data
@@ -384,7 +386,7 @@ public class Memory_Weekly extends AppCompatActivity {
                             barChart1.getXAxis().setDrawGridLines(false);
                             barChart1.getAxisLeft().setDrawGridLines(false);
                             barChart1.setNoDataText("Data Loading Please Wait");
-                            barChart1.animateXY(1500,1500);
+                            barChart1.animateXY(1500, 1500);
                             barChart1.invalidate();
 
 
@@ -408,12 +410,66 @@ public class Memory_Weekly extends AppCompatActivity {
     }
 
     //popup window method to provide suggestions for improve concentration
-    public void gotoPopup3(View view) {
-        ImageButton imageViewcancle, imageViewmed, imageViewsong, imageViewvdo, imageViewbw, imageViewit;
+    public void gotoPopup3m(View view) {
+        ImageButton imageViewcancle, imageViewmed, imageViewsong, imageViewgames;
+        View c1, c2;
+        FirebaseUser mUser;
 
-        dialogcw.setContentView(R.layout.activity_relaxation_popup);
+        dialogcw.setContentView(R.layout.memory_popup);
 
-        imageViewmed = (ImageButton) dialogcw.findViewById(R.id.medipop1);
+        c1 = (View) dialogcw.findViewById(R.id.c1);
+        c2 = (View) dialogcw.findViewById(R.id.c2);
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        Calendar c = Calendar.getInstance();
+        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor PopUp", String.valueOf(snapshot.getValue()));
+                color = (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if (color == 2) {  //light theme
+                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
+                    c2.setVisibility(View.VISIBLE);
+                } else if (color == 1) { //light theme
+
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+
+
+                } else {
+                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
+                        c1.setVisibility(View.VISIBLE);
+                        c2.setVisibility(View.INVISIBLE);
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        imageViewmed = (ImageButton) dialogcw.findViewById(R.id.meditationpop1);
         imageViewmed.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -422,7 +478,7 @@ public class Memory_Weekly extends AppCompatActivity {
             }
         });
 
-        imageViewsong = (ImageButton) dialogcw.findViewById(R.id.songspop1);
+        imageViewsong = (ImageButton) dialogcw.findViewById(R.id.musicpop1);
         imageViewsong.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -431,33 +487,20 @@ public class Memory_Weekly extends AppCompatActivity {
             }
         });
 
-        imageViewvdo = (ImageButton) dialogcw.findViewById(R.id.vdospop1);
-        imageViewvdo.setOnClickListener(new View.OnClickListener() {
+        imageViewgames = (ImageButton) dialogcw.findViewById(R.id.gamespop1);
+        imageViewgames.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Video.class);
-                startActivity(intent);
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), GameActivity.class));
             }
         });
-
-        imageViewbw = (ImageButton) dialogcw.findViewById(R.id.bipop1);
-        imageViewbw.setOnClickListener(new View.OnClickListener() {
+        imageViewcancle = (ImageButton) dialogcw.findViewById(R.id.canclepop1);
+        imageViewcancle.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), BineuralAcivity.class);
-                startActivity(intent);
+            public void onClick(View v) {
+                dialogcw.dismiss();
             }
         });
-
-        imageViewit = (ImageButton) dialogcw.findViewById(R.id.canpop1);
-        imageViewit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Memory_Daily.class);
-                startActivity(intent);
-            }
-        });
-
 
 
         dialogcw.show();

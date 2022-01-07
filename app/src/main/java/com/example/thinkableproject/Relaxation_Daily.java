@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.media.Image;
@@ -16,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 import com.airbnb.lottie.LottieAnimationView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -40,6 +42,7 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -89,7 +92,7 @@ public class Relaxation_Daily extends AppCompatActivity {
         //Initialize buttons
         music = findViewById(R.id.music);
         meditation = findViewById(R.id.meditations);
-        anim=findViewById(R.id.animation);
+        anim = findViewById(R.id.animation);
         concentration = findViewById(R.id.concentration);
         memoryBtn = findViewById(R.id.memory);
         c1gif = findViewById(R.id.landingfwall);
@@ -118,7 +121,7 @@ public class Relaxation_Daily extends AppCompatActivity {
                     c1gif.setVisibility(View.GONE);
 
 
-                }  else if (color ==1 ) { //light theme
+                } else if (color == 1) { //light theme
 
                     c1.setVisibility(View.VISIBLE);
                     c2.setVisibility(View.INVISIBLE);
@@ -126,7 +129,7 @@ public class Relaxation_Daily extends AppCompatActivity {
                     c2gif.setVisibility(View.INVISIBLE);
 
 
-                }else {
+                } else {
                     if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
 
                         c1.setVisibility(View.INVISIBLE);
@@ -334,7 +337,7 @@ public class Relaxation_Daily extends AppCompatActivity {
                             barChartdaily.getAxisLeft().setTextSize(textSize);
                             barChartdaily.setExtraBottomOffset(10f);
                             barChartdaily.setNoDataText("Data Loading Please Wait...");
-                            barChartdaily.animateXY(1500,1500);
+                            barChartdaily.animateXY(1500, 1500);
 
 
                             barChartdaily.getAxisRight().setEnabled(false);
@@ -439,8 +442,63 @@ public class Relaxation_Daily extends AppCompatActivity {
     //improve relaxation pop up window
     public void gotoPopup5(View view) {
         ImageButton imageViewcancle, imageViewmed, imageViewsong, imageViewvdo, imageViewbw, imageViewit;
+        View c1,c2;
+        FirebaseUser mUser;
+
 
         dialogrd.setContentView(R.layout.activity_relaxation_popup);
+
+        c1=(View)dialogrd.findViewById(R.id.c1);
+        c2=(View)dialogrd.findViewById(R.id.c2);
+
+        mUser=FirebaseAuth.getInstance().getCurrentUser();
+
+        Calendar c = Calendar.getInstance();
+        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor PopUp", String.valueOf(snapshot.getValue()));
+                color = (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if (color == 2) {  //light theme
+                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
+                    c2.setVisibility(View.VISIBLE);
+                } else if (color == 1) { //light theme
+
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+
+
+                } else {
+                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
+                        c1.setVisibility(View.VISIBLE);
+                        c2.setVisibility(View.INVISIBLE);
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         imageViewmed = (ImageButton) dialogrd.findViewById(R.id.medipop1);
         imageViewmed.setOnClickListener(new View.OnClickListener() {
@@ -487,6 +545,13 @@ public class Relaxation_Daily extends AppCompatActivity {
             }
         });
 
+        imageViewcancle = (ImageButton) dialogrd.findViewById(R.id.canpop1);
+        imageViewcancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogrd.dismiss();
+            }
+        });
 
 
         dialogrd.show();

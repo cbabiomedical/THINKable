@@ -1,57 +1,58 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/CardView.Light"
     android:layout_width="250dp"
     android:layout_height="150dp"
-style="@style/CardView.Light"
-    app:cardCornerRadius="20dp"
-    android:elevation="3dp"
-
+    android:layout_marginTop="10dp"
+    android:layout_marginStart="20dp"
     android:layout_marginEnd="10dp"
     android:layout_marginBottom="10dp"
-    android:layout_marginTop="10dp"
-    android:backgroundTint="@color/transparent">
 
-<ImageView
-    android:id="@+id/gridImage"
+    android:backgroundTint="@color/transparent"
+    android:elevation="3dp"
+    android:orientation="vertical"
+    app:cardCornerRadius="20dp">
 
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:scaleType="centerCrop"
-    android:src="@drawable/love_kind"/>
+    <ImageView
+        android:id="@+id/gridImage"
+
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/love_kind" />
 
 
-<TextView
-    android:id="@+id/item_name"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:text="Love Kind"
-    android:textColor="@color/white"
-    android:textSize="12sp"
-    style="@style/TextAppearance.AppCompat.Title"
-    android:layout_gravity="bottom"
-    android:layout_marginStart="18dp"
-    android:layout_marginBottom="1dp"
-   />
+    <TextView
+        android:id="@+id/item_name"
+        style="@style/TextAppearance.AppCompat.Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginStart="18dp"
+        android:layout_marginBottom="1dp"
+        android:text="Love Kind"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
+
     <androidx.appcompat.widget.AppCompatButton
 
         android:id="@+id/favouritesIcon2"
         android:layout_width="20dp"
-        android:gravity="bottom"
         android:layout_height="20dp"
         android:layout_gravity="right|bottom"
         android:layout_marginEnd="10dp"
-        android:background="@drawable/ic_favorite"/>
+        android:background="@drawable/ic_favorite"
+        android:gravity="bottom" />
+
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/download"
-        android:layout_gravity="bottom|right"
-        android:layout_marginRight="50dp"
         android:layout_width="20dp"
         android:layout_height="20dp"
-        android:background="@drawable/ic_file_download_white"/>
-
+        android:layout_gravity="bottom|right"
+        android:layout_marginRight="35dp"
+        android:background="@drawable/ic_file_download_white" />
 
 
 </androidx.cardview.widget.CardView>

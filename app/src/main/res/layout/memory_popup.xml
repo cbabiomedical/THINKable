@@ -5,7 +5,6 @@
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".Concentration_popup"
-    android:background="@xml/shape"
     android:layout_gravity="center">
 
 
@@ -13,17 +12,29 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:background="@xml/shape"
         android:layout_centerVertical="true"
         android:orientation="vertical">
+
+        <View
+            android:id="@+id/c2"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:background="#0D559E"
+            android:visibility="visible" />
+
+        <View
+            android:id="@+id/c1"
+            android:layout_width="wrap_content"
+            android:layout_height="300dp"
+            android:background="#010334"
+            android:visibility="gone" />
         <RelativeLayout
+            android:layout_marginStart="20dp"
             android:id="@+id/gamespop"
             android:layout_width="290dp"
             android:layout_height="50dp"
-
-
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp">
+            android:layout_marginTop="30dp">
 
             <ImageButton
                 android:id="@+id/gamespop1"
@@ -80,7 +91,7 @@
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/musicpopx"
+            android:id="@+id/meditationpop"
             android:layout_width="290dp"
             android:layout_height="50dp"
             android:layout_below="@+id/musicpop"
@@ -91,33 +102,31 @@
             android:layout_marginTop="10dp">
 
             <ImageButton
-                android:id="@+id/musicpop3"
+                android:id="@+id/meditationpop1"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:background="@drawable/btnpref"/>
 
 
             <TextView
-                android:id="@+id/musicpop4"
+                android:id="@+id/meditationpop2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="30dp"
                 android:layout_marginTop="10dp"
                 android:layout_centerHorizontal="true"
-
                 android:gravity="center"
                 android:text="Meditatoin"
                 android:textColor="@color/white"
                 android:textSize="16sp"
                 android:fontFamily="@font/segoepr" />
         </RelativeLayout>
+
         <RelativeLayout
             android:id="@+id/canclepop"
             android:layout_width="290dp"
             android:layout_height="50dp"
-            android:layout_below="@+id/musicpopx"
-
-
+            android:layout_below="@+id/meditationpop"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="10dp">
 

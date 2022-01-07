@@ -45,6 +45,7 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -137,7 +138,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
                     c1gif.setVisibility(View.GONE);
 
 
-                }  else if (color ==1 ) { //light theme
+                } else if (color == 1) { //light theme
 
                     c1.setVisibility(View.VISIBLE);
                     c2.setVisibility(View.INVISIBLE);
@@ -145,7 +146,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
                     c2gif.setVisibility(View.INVISIBLE);
 
 
-                }else {
+                } else {
                     if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
 
                         c1.setVisibility(View.INVISIBLE);
@@ -339,7 +340,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
                             barChart1.getXAxis().setDrawGridLines(false);
                             barChart1.getAxisLeft().setDrawGridLines(false);
                             barChart1.setNoDataText("Data Loading Please Wait...");
-                            barChart1.animateXY(1500,1500);
+                            barChart1.animateXY(1500, 1500);
 
 
                             barChart1.invalidate();
@@ -441,8 +442,60 @@ public class Relaxation_Weekly extends AppCompatActivity {
     //improve relaxation pop up window
     public void gotoPopup7(View view) {
         ImageButton imageViewcancle, imageViewmed, imageViewsong, imageViewvdo, imageViewbw, imageViewit;
+        View c1,c2;
+        FirebaseUser mUser;
 
         dialogrw.setContentView(R.layout.activity_relaxation_popup);
+
+        mUser=FirebaseAuth.getInstance().getCurrentUser();
+        c1=(View)dialogrw.findViewById(R.id.c1);
+        c2=(View)dialogrw.findViewById(R.id.c2);
+        Calendar c = Calendar.getInstance();
+        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor PopUp", String.valueOf(snapshot.getValue()));
+                color = (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if (color == 2) {  //light theme
+                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
+                    c2.setVisibility(View.VISIBLE);
+                } else if (color == 1) { //light theme
+
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+
+
+                } else {
+                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
+                        c1.setVisibility(View.VISIBLE);
+                        c2.setVisibility(View.INVISIBLE);
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         imageViewmed = (ImageButton) dialogrw.findViewById(R.id.medipop1);
         imageViewmed.setOnClickListener(new View.OnClickListener() {
@@ -489,6 +542,13 @@ public class Relaxation_Weekly extends AppCompatActivity {
             }
         });
 
+        imageViewcancle = (ImageButton) dialogrw.findViewById(R.id.canpop1);
+        imageViewcancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogrw.dismiss();
+            }
+        });
 
 
         dialogrw.show();

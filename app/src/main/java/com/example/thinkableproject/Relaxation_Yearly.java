@@ -128,7 +128,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
                     c1gif.setVisibility(View.GONE);
 
 
-                }  else if (color ==1 ) { //light theme
+                } else if (color == 1) { //light theme
 
                     c1.setVisibility(View.VISIBLE);
                     c2.setVisibility(View.INVISIBLE);
@@ -136,7 +136,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
                     c2gif.setVisibility(View.INVISIBLE);
 
 
-                }else {
+                } else {
                     if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
 
                         c1.setVisibility(View.INVISIBLE);
@@ -398,7 +398,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
                             barChart2.getXAxis().setDrawGridLines(false);
                             barChart2.getAxisLeft().setDrawGridLines(false);
                             barChart2.setNoDataText("Data Loading Please Wait...");
-                            barChart2.animateXY(1500,1500);
+                            barChart2.animateXY(1500, 1500);
 
 
                             barChart2.invalidate();
@@ -431,8 +431,62 @@ public class Relaxation_Yearly extends AppCompatActivity {
     //improve relaxation pop up window
     public void gotoPopup8(View view) {
         ImageButton imageViewcancle, imageViewmed, imageViewsong, imageViewvdo, imageViewbw, imageViewit;
+        View c1,c2;
+        FirebaseUser mUser;
 
         dialogry.setContentView(R.layout.activity_relaxation_popup);
+
+        c1=(View) dialogry.findViewById(R.id.c1);
+        c2=(View)dialogry.findViewById(R.id.c2);
+
+        mUser=FirebaseAuth.getInstance().getCurrentUser();
+
+        Calendar c = Calendar.getInstance();
+        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor PopUp", String.valueOf(snapshot.getValue()));
+                color = (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if (color == 2) {  //light theme
+                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
+                    c2.setVisibility(View.VISIBLE);
+                } else if (color == 1) { //light theme
+
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+
+
+                } else {
+                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
+                        c1.setVisibility(View.VISIBLE);
+                        c2.setVisibility(View.INVISIBLE);
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         imageViewmed = (ImageButton) dialogry.findViewById(R.id.medipop1);
         imageViewmed.setOnClickListener(new View.OnClickListener() {
@@ -479,6 +533,13 @@ public class Relaxation_Yearly extends AppCompatActivity {
             }
         });
 
+        imageViewcancle = (ImageButton) dialogry.findViewById(R.id.canpop1);
+        imageViewcancle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogry.dismiss();
+            }
+        });
 
 
         dialogry.show();

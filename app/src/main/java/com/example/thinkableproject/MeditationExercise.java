@@ -29,7 +29,8 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
     RecyclerView recyclerView;
     ArrayList<MeditationModelClass> meditationList;
     MeditationAdapter adapter;
-    int time;
+    LinearLayoutManager layoutManager;
+//    int time;
     FirebaseUser mUser;
     View c1,c2;
     int color;
@@ -133,35 +134,35 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
         });
 
         recyclerView = findViewById(R.id.gridView);
-        Spinner dropdown_time = (Spinner) findViewById(R.id.spinner2);
-        String[] items = new String[]{"Audio track duration is: 1 min", "Audio track duration is: 1.5 min", "Audio track duration is: 2 min", "Audio track duration is: 2.5 min", "Audio track duration is: 3 min"};
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
-        dropdown_time.setAdapter(adapter1);
-
-        dropdown_time.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                selected_time = parent.getItemAtPosition(position).toString();
-                if (position == 0) {
-                    time = 60000;
-                    Log.d("TIME", String.valueOf(time));
-                } else if (position == 1) {
-                    time = 90000;
-                    Log.d("TIME", String.valueOf(time));
-                } else if (position == 2) {
-                    time = 120000;
-                } else if (position == 3) {
-                    time = 150000;
-                } else {
-                    time = 180000;
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
+//        Spinner dropdown_time = (Spinner) findViewById(R.id.spinner2);
+       // String[] items = new String[]{"Audio track duration is: 1 min", "Audio track duration is: 1.5 min", "Audio track duration is: 2 min", "Audio track duration is: 2.5 min", "Audio track duration is: 3 min"};
+//        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+//        dropdown_time.setAdapter(adapter1);
+//
+//        dropdown_time.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                selected_time = parent.getItemAtPosition(position).toString();
+//                if (position == 0) {
+//                    time = 60000;
+//                    Log.d("TIME", String.valueOf(time));
+//                } else if (position == 1) {
+//                    time = 90000;
+//                    Log.d("TIME", String.valueOf(time));
+//                } else if (position == 2) {
+//                    time = 120000;
+//                } else if (position == 3) {
+//                    time = 150000;
+//                } else {
+//                    time = 180000;
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
         //  favouriteBtn = findViewById(R.id.favouritesIcon);
         meditationList = new ArrayList<>();
 
@@ -195,7 +196,7 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
             }
         });
 
-
+        layoutManager=new LinearLayoutManager(this);
         adapter = new MeditationAdapter(meditationList, getApplicationContext(), this::onNoteClickMeditation);
         recyclerView.setAdapter(adapter);
 
@@ -241,6 +242,6 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
         String url = meditationList.get(position).getUrl();
         String image = meditationList.get(position).getMeditateImage();
         Log.d("Url", url);
-        startActivity(new Intent(getApplicationContext(), PlayMeditation.class).putExtra("url", url).putExtra("name", songName).putExtra("image", image).putExtra("time", time));
+        startActivity(new Intent(getApplicationContext(), PlayMeditation.class).putExtra("url", url).putExtra("name", songName).putExtra("image", image));
     }
 }

@@ -22,18 +22,18 @@
         android:id="@+id/c1"
         android:visibility="gone"
         android:background="#010334"/>
-    <Spinner
-        android:layout_marginTop="20dp"
-        android:id="@+id/spinner2"
-        android:layout_width="match_parent"
-        android:layout_marginHorizontal="20dp"
-        android:layout_height="wrap_content"
-        android:background="@color/blue"
-        android:layout_marginBottom="30dp"
-        android:spinnerMode="dropdown"
-        android:layout_centerHorizontal="true"
-        android:theme="@android:style/Holo.Light.ButtonBar.AlertDialog"
-        />
+<!--    <Spinner-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:id="@+id/spinner2"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_marginHorizontal="20dp"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:background="@color/blue"-->
+<!--        android:layout_marginBottom="30dp"-->
+<!--        android:spinnerMode="dropdown"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:theme="@android:style/Holo.Light.ButtonBar.AlertDialog"-->
+<!--        />-->
 
     <ScrollView
         android:layout_width="match_parent"
@@ -48,9 +48,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-
             android:layout_height="wrap_content"
-
+            android:layout_gravity="center"
             android:orientation="vertical"
 
 
