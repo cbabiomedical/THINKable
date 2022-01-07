@@ -1,5 +1,6 @@
 package com.example.thinkableproject;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
@@ -8,7 +9,9 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.ColorDrawable;
 import android.media.AudioAttributes;
 import android.media.MediaPlayer;
 import android.os.Build;
@@ -20,6 +23,7 @@ import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -54,7 +58,8 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
     Thread updateSeekBar;
     ArrayList<MusicModelClass> songs = new ArrayList<>();
 
-    @SuppressLint("ClickableViewAccessibility")
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @SuppressLint({"ClickableViewAccessibility", "WrongConstant"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -104,9 +109,11 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
             Log.d("ERROR", "Error in getting null value");
         }
 
-
-        ProgressDialog progressDialog = ProgressDialog.show(this,
+        ProgressDialog progressDialog=new ProgressDialog(this,R.style.Theme_AppCompat_DayNight_Dialog);
+        ProgressDialog.show(this,
                 "Loading Music", "Please Wait");
+        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        progressDialog.getWindow().setColorMode(R.color.about_background_color);
 
         // MEDIA STARTS FUNCTION
 

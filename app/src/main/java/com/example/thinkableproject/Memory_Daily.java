@@ -64,7 +64,7 @@ public class Memory_Daily extends AppCompatActivity {
     AppCompatButton monthly, yearly, weekly;
     LottieAnimationView realTime;
     ImageView relaxationBtn, concentrationBtn;
-    ImageView games, meditation;
+    ImageView games, meditation,music;
     View c1, c2;
     GifImageView c1gif, c2gif;
     FirebaseUser mUser;
@@ -84,6 +84,7 @@ public class Memory_Daily extends AppCompatActivity {
         games = findViewById(R.id.game);
         yearly = findViewById(R.id.yearly);
         weekly = findViewById(R.id.weekly);
+        music=findViewById(R.id.music);
         meditation = findViewById(R.id.meditations);
         realTime = findViewById(R.id.animation);
         relaxationBtn = findViewById(R.id.relaxation);
@@ -396,6 +397,13 @@ public class Memory_Daily extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), Relaxation_Daily.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
+
+        music.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),Music.class));
             }
         });
         // On click listener of real time indication button

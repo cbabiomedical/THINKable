@@ -18,8 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.thinkableproject.adapters.GridAdapter;
+import com.example.thinkableproject.adapters.MeditationAdapter;
 import com.example.thinkableproject.adapters.MusicAdapter;
 import com.example.thinkableproject.sample.GameModelClass;
+import com.example.thinkableproject.sample.MeditationModelClass;
 import com.example.thinkableproject.sample.MusicModelClass;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,17 +38,19 @@ import java.util.HashMap;
 
 import pl.droidsonroids.gif.GifImageView;
 
-public class MemoryExercise extends AppCompatActivity implements MusicAdapter.OnNoteListner, GridAdapter.OnNoteListner {
+public class MemoryExercise extends AppCompatActivity implements MusicAdapter.OnNoteListner, GridAdapter.OnNoteListner, MeditationAdapter.OnNoteListner {
     ImageView relaxation;
     TextView music, games;
-    RecyclerView musicRecyclerView, gameRecyclerView;
+    RecyclerView musicRecyclerView, gameRecyclerView, meditationRecyclerview;
     MusicAdapter musicAdapter;
     GridAdapter gameAdapter;
+    MeditationAdapter meditationAdapter;
     int color;
     View c1, c2;
     GifImageView c1gif, c2gif;
     ArrayList<MusicModelClass> musicList;
     ArrayList<GameModelClass> gameList;
+    ArrayList<MeditationModelClass> meditationList;
     HashMap<String, Object> gamesHashMap = new HashMap<>();
     ArrayList<GameModelClass> downloadGames = new ArrayList<>();
     FirebaseUser mUser;
@@ -57,6 +61,7 @@ public class MemoryExercise extends AppCompatActivity implements MusicAdapter.On
         setContentView(R.layout.activity_memory_exercise);
         musicRecyclerView = findViewById(R.id.musicRecyclerView);
         gameRecyclerView = findViewById(R.id.gamesRecyclerView);
+        meditationRecyclerview = findViewById(R.id.meditationRecyclerView);
         relaxation = findViewById(R.id.relaxation);
         music = findViewById(R.id.musicTitle);
         games = findViewById(R.id.gameTitle);
@@ -85,7 +90,7 @@ public class MemoryExercise extends AppCompatActivity implements MusicAdapter.On
                     c1gif.setVisibility(View.GONE);
 
 
-                }  else if (color ==1 ) { //light theme
+                } else if (color == 1) { //light theme
 
                     c1.setVisibility(View.VISIBLE);
                     c2.setVisibility(View.INVISIBLE);
@@ -93,7 +98,7 @@ public class MemoryExercise extends AppCompatActivity implements MusicAdapter.On
                     c2gif.setVisibility(View.INVISIBLE);
 
 
-                }else {
+                } else {
                     if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
 
                         c1.setVisibility(View.INVISIBLE);
@@ -124,6 +129,7 @@ public class MemoryExercise extends AppCompatActivity implements MusicAdapter.On
 
             }
         });
+
 
         music.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,6 +186,8 @@ public class MemoryExercise extends AppCompatActivity implements MusicAdapter.On
         musicList = new ArrayList<>();
 //        meditationModelClassArrayList=new ArrayList<>();
         gameList = new ArrayList<>();
+
+        meditationList = new ArrayList<>();
         initData();
 
     }
@@ -230,8 +238,29 @@ public class MemoryExercise extends AppCompatActivity implements MusicAdapter.On
         gameAdapter = new GridAdapter(gameList, getApplicationContext(), this::onNoteClickGame);
         gameRecyclerView.setAdapter(gameAdapter);
 
+        DatabaseReference meditationReference = FirebaseDatabase.getInstance().getReference("Meditation_Admin");
+        meditationReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    MeditationModelClass medipost = dataSnapshot.getValue(MeditationModelClass.class);
+                    Log.d("MeditationPostMem", String.valueOf(medipost));
+
+                    meditationList.add(medipost);
+                }
+                meditationRecyclerview.setLayoutManager(new LinearLayoutManager(MemoryExercise.this, LinearLayoutManager.HORIZONTAL, false));
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        meditationAdapter = new MeditationAdapter(meditationList, getApplicationContext(), this::onNoteClickMeditation);
+        meditationRecyclerview.setAdapter(meditationAdapter);
 
     }
+
 
     @Override
     public void onNoteClick(int position) {
@@ -282,4 +311,14 @@ public class MemoryExercise extends AppCompatActivity implements MusicAdapter.On
 
     }
 
+    @Override
+    public void onNoteClickMeditation(int position) {
+        meditationList.get(position);
+        String meditationName = meditationList.get(position).getMeditateName();
+        String url = meditationList.get(position).getUrl();
+        String image = musicList.get(position).getImageUrl();
+        Log.d("Url", url);
+        startActivity(new Intent(getApplicationContext(), PlayMeditation.class).putExtra("url", url).putExtra("name", meditationName).putExtra("image", image));
+
+    }
 }

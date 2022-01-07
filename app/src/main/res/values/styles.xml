@@ -27,4 +27,10 @@
         <item name="android:topBright">#ffff00</item>
         <item name="android:topDark">#ffff00</item>
     </style>
+
+    <style name="Theme.MyDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:textColor">#FFFFFF</item>
+    </style>
 </resources>

@@ -64,7 +64,7 @@ public class Memory_Weekly extends AppCompatActivity {
     AppCompatButton monthly, yearly, daily;
     LottieAnimationView realTime;
     ImageView relaxationBtn, concentrationBtn;
-    ImageView games, music;
+    ImageView games, meditation, music;
     FirebaseUser mUser;
     View c1, c2;
     GifImageView c1gif, c2gif;
@@ -85,7 +85,7 @@ public class Memory_Weekly extends AppCompatActivity {
         realTime = findViewById(R.id.animation);
         relaxationBtn = findViewById(R.id.relaxation);
         games = findViewById(R.id.game);
-        music = findViewById(R.id.meditations);
+        meditation = findViewById(R.id.meditations);
         List<BarEntry> entries = new ArrayList<>();
         dialogcw = new Dialog(this);
         concentrationBtn = findViewById(R.id.concentration);
@@ -93,6 +93,7 @@ public class Memory_Weekly extends AppCompatActivity {
         c2gif = findViewById(R.id.landingfwall1);
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
+        music = findViewById(R.id.music);
         //Initializing bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -250,6 +251,12 @@ public class Memory_Weekly extends AppCompatActivity {
             }
         });
         music.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Music.class));
+            }
+        });
+        meditation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Music.class));
