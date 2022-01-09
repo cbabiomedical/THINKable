@@ -228,11 +228,15 @@
 
 
             </LinearLayout>
+            <HorizontalScrollView
+                android:layout_below="@+id/threelines"
+                android:id="@+id/horizontalScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:layout_below="@+id/threelines"
                 android:layout_marginLeft="20dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginTop="20dp"
@@ -280,58 +284,11 @@
                     android:textColor="@color/white"
                     android:textSize="13sp" />
 
-                <RelativeLayout
-                    android:id="@+id/musicLayout"
-                    android:layout_below="@+id/game"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="10dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/musiccardwo"
-                        android:id="@+id/music"
-
-                        android:layout_marginTop="10dp"
-                        android:layout_centerHorizontal="true"
-                        />
-                    <TextView
-                        android:id="@+id/musictxt"
-                        android:layout_width="wrap_content"
-                        android:text="Music"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/segoepr"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginStart="30dp"
-                        android:textColor="@color/white"
-                        android:layout_marginTop="20dp"
-
-                        android:layout_height="wrap_content"/>
-
-                    <TextView
-                        android:id="@+id/musictxt2"
-                        android:layout_width="wrap_content"
-                        android:text="Music for Memory"
-                        android:textSize="13sp"
-                        android:layout_below="@+id/musictxt"
-                        android:textStyle="bold"
-                        android:fontFamily="@font/segoepr"
-                        android:layout_alignParentStart="true"
-                        android:layout_marginStart="10dp"
-                        android:textColor="@color/white"
-                        android:layout_marginTop="10dp"
-
-                        android:layout_height="wrap_content"/>
-                </RelativeLayout>
-
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/medibg"
-                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/game"
                     android:id="@+id/meditations"
                     />
 
@@ -339,7 +296,8 @@
                     android:id="@+id/mediTxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
+                 android:layout_toRightOf="@+id/gametxt"
+                    android:layout_marginStart="100dp"
                     android:layout_alignParentTop="true"
                     android:layout_marginEnd="30dp"
 
@@ -358,7 +316,7 @@
                     android:layout_alignStart="@+id/mediTxt"
                     android:layout_alignParentEnd="true"
 
-                    android:layout_marginStart="16dp"
+                    android:layout_marginStart="2dp"
                     android:layout_marginTop="0dp"
                     android:layout_marginEnd="15dp"
                     android:layout_marginBottom="15dp"
@@ -367,7 +325,51 @@
                     android:textColor="@color/white"
                     android:textSize="13sp" />
 
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/musiccardwo"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginStart="20dp"
+                   android:layout_toRightOf="@+id/meditations"
+                    android:id="@+id/music"
+                    />
+
+                <TextView
+                    android:id="@+id/musicTxt"
+                    android:layout_toRightOf="@+id/mediTxt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginEnd="30dp"
+                    android:layout_marginTop="14dp"
+                    android:layout_marginStart="28dp"
+                    android:fontFamily="@font/segoepr"
+                    android:text="Music"
+                    android:textColor="@color/white"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                  android:layout_toRightOf="@+id/mediTxt"
+                    android:layout_below="@+id/musictxt"
+
+                    android:layout_marginStart="26dp"
+                    android:layout_marginTop="50dp"
+                    android:layout_marginEnd="15dp"
+                    android:layout_marginBottom="15dp"
+                    android:fontFamily="@font/segoe_ui"
+                    android:text="Music for Memory"
+                    android:textColor="@color/white"
+                    android:textSize="13sp" />
+
+
+
             </RelativeLayout>
+            </HorizontalScrollView>
 
 
 
@@ -380,7 +382,7 @@
                 android:id="@+id/barChartWeekly"
                 android:layout_width="280dp"
                 android:layout_height="250dp"
-                android:layout_below="@+id/cards"
+                android:layout_below="@+id/horizontalScrollView"
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="20dp"

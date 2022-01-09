@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+
+    <RelativeLayout
+        android:id="@+id/musicLayout"
+        android:layout_below="@+id/game"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/musiccardwo"
+            android:id="@+id/music"
+            android:layout_marginTop="10dp"
+            />
+        <TextView
+            android:id="@+id/musictxt"
+            android:layout_width="wrap_content"
+            android:text="Music"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:fontFamily="@font/segoepr"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="30dp"
+            android:textColor="@color/white"
+            android:layout_marginTop="20dp"
+
+            android:layout_height="wrap_content"/>
+
+        <TextView
+            android:id="@+id/musictxt2"
+            android:layout_width="wrap_content"
+            android:text="Music for Memory"
+            android:textSize="13sp"
+            android:layout_below="@+id/musictxt"
+            android:textStyle="bold"
+            android:fontFamily="@font/segoepr"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="10dp"
+            android:textColor="@color/white"
+            android:layout_marginTop="10dp"
+
+            android:layout_height="wrap_content"/>
+    </RelativeLayout>
+
+</RelativeLayout>

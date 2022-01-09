@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -15,8 +17,12 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.thinkableproject.adapters.Adapter;
+import com.example.thinkableproject.adapters.MemoryAdapter;
+import com.example.thinkableproject.models.MemoryInterventionClass;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
@@ -57,17 +63,21 @@ import java.util.List;
 
 import pl.droidsonroids.gif.GifImageView;
 
-public class Memory_Daily extends AppCompatActivity {
+public class Memory_Daily extends AppCompatActivity implements MemoryAdapter.OnNoteListner {
 
     Dialog dialogcd;
     BarChart barChartdaily;
     AppCompatButton monthly, yearly, weekly;
     LottieAnimationView realTime;
     ImageView relaxationBtn, concentrationBtn;
-    ImageView games, meditation,music;
+    ImageView games, meditation, music;
     View c1, c2;
     GifImageView c1gif, c2gif;
     FirebaseUser mUser;
+    RecyclerView recyclerView;
+    LinearLayoutManager linearLayoutManager;
+    List<MemoryInterventionClass> memoryInterventionClassList;
+    MemoryAdapter memoryAdapter;
     String text;
     File localFile, fileName;
     ArrayList<String> list = new ArrayList<>();
@@ -84,7 +94,7 @@ public class Memory_Daily extends AppCompatActivity {
         games = findViewById(R.id.game);
         yearly = findViewById(R.id.yearly);
         weekly = findViewById(R.id.weekly);
-        music=findViewById(R.id.music);
+        music = findViewById(R.id.music);
         meditation = findViewById(R.id.meditations);
         realTime = findViewById(R.id.animation);
         relaxationBtn = findViewById(R.id.relaxation);
@@ -157,6 +167,9 @@ public class Memory_Daily extends AppCompatActivity {
 
             }
         });
+
+//        initData();
+//        initRecyclerView();
 
 
         meditation.setOnClickListener(new View.OnClickListener() {
@@ -403,7 +416,7 @@ public class Memory_Daily extends AppCompatActivity {
         music.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),Music.class));
+                startActivity(new Intent(getApplicationContext(), Music.class));
             }
         });
         // On click listener of real time indication button
@@ -423,6 +436,25 @@ public class Memory_Daily extends AppCompatActivity {
         });
 
     }
+
+
+//    private void initData() {
+//        memoryInterventionClassList = new ArrayList<>();
+//
+//        memoryInterventionClassList.add(new MemoryInterventionClass(R.drawable.gamescardwo, "Games", "Games for Memory"));
+//        memoryInterventionClassList.add(new MemoryInterventionClass(R.drawable.medibg, "Meditation", "Meditation for Memory"));
+//        memoryInterventionClassList.add(new MemoryInterventionClass(R.drawable.musiccardwo, "Music", "Music for Memory"));
+//    }
+////
+//    private void initRecyclerView() {
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+//        //Setting layout of recylcerview
+//        //Initializing adapter
+//        memoryAdapter = new MemoryAdapter(this, (ArrayList<MemoryInterventionClass>) memoryInterventionClassList, this::onNoteClickMeditation);
+//
+//        recyclerView.setAdapter(memoryAdapter);
+//        memoryAdapter.notifyDataSetChanged();
+//    }
 
     // Popup window method for suggestions to improve concentration
     public void gotoPopup1(View view) {
@@ -614,6 +646,21 @@ public class Memory_Daily extends AppCompatActivity {
 
 
         dialogcd.show();
+
+    }
+
+    @Override
+    public void onNoteClickMeditation(int position) {
+        memoryInterventionClassList.get(position);
+//        Toast.makeText(this, "You clicked"+memoryInterventionClassList.get(position).getTitle(), Toast.LENGTH_SHORT).show();
+        if (memoryInterventionClassList.get(position).getTitle().equals("Games")) {
+            startActivity(new Intent(getApplicationContext(), GameActivity.class));
+        } else if (memoryInterventionClassList.get(position).getTitle().equals("Music")) {
+            startActivity(new Intent(getApplicationContext(), Music.class));
+        } else {
+            startActivity(new Intent(getApplicationContext(), MeditationExercise.class));
+        }
+
 
     }
 
