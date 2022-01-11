@@ -1,10 +1,14 @@
 package com.example.thinkableproject;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -32,11 +36,15 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
     ArrayList<GameModelClass> gameList;
     GridAdapter adapter;
     FirebaseUser mUser;
+    Dialog dialoggame;
     LinearLayoutManager layoutManager;
     View c1, c2;
+    ImageView information;
     int color;
     HashMap<String, Object> games = new HashMap<>();
     ArrayList<GameModelClass> downloadGames = new ArrayList<>();
+
+    public static final String PREF="";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +53,9 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
         recyclerView = findViewById(R.id.gridView);
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
+        dialoggame = new Dialog(this);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
+        information=findViewById(R.id.gameInfo);
 
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
@@ -95,6 +105,20 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        SharedPreferences prefsGame = getSharedPreferences("prefsGame", MODE_PRIVATE);
+        boolean firstStartGame = prefsGame.getBoolean("firstStartGame", true);
+
+        if (firstStartGame) {
+            displayPopup();
+        }
+
+        information.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayPopup();
             }
         });
 
@@ -156,7 +180,7 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
 
             }
         });
-        layoutManager=new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(this);
         adapter = new GridAdapter(gameList, getApplicationContext(), this::onNoteClickGame);
         recyclerView.setAdapter(adapter);
         Log.d("List", String.valueOf(gameList));
@@ -217,4 +241,92 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    private void displayPopup() {
+        Button ok;
+        View c1, c2;
+//        ImageView gameAudioInstructions;
+        dialoggame.setContentView(R.layout.game_activity_popup);
+
+        ok = (Button) dialoggame.findViewById(R.id.clickGame);
+        c1 = (View) dialoggame.findViewById(R.id.c1);
+        c2 = (View) dialoggame.findViewById(R.id.c2);
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        Calendar c = Calendar.getInstance();
+        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor PopUp", String.valueOf(snapshot.getValue()));
+                color = (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if (color == 2) {  //light theme
+                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
+                    c2.setVisibility(View.VISIBLE);
+                } else if (color == 1) { //light theme
+
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+
+
+                } else {
+                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
+                        c1.setVisibility(View.VISIBLE);
+                        c2.setVisibility(View.INVISIBLE);
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+//        gameAudioInstructions=(ImageView)dialoggame.findViewById(R.id.playGameInstructions);
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialoggame.dismiss();
+            }
+        });
+
+//        gameAudioInstructions.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(GameActivity.this,"You clicked play audio game Instruction file",Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
+        dialoggame.show();
+
+        SharedPreferences prefsGame=getSharedPreferences("prefsGame",MODE_PRIVATE);
+        SharedPreferences.Editor editor=prefsGame.edit();
+        editor.putBoolean("firstStartGame",false);
+        editor.apply();
+
+
+    }
 }

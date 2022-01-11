@@ -379,7 +379,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="20dp"
                         android:fontFamily="@font/segoepr"
-                        android:text="Time stayed Relaxed"
+                        android:text="Relaxation Stamina"
                         android:textColor="@color/white"
                         android:textSize="20sp"
 

@@ -6,12 +6,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import android.widget.Button;
 import android.widget.ImageView;
 
 import android.widget.TextView;
@@ -39,14 +42,16 @@ import java.util.HashMap;
 import pl.droidsonroids.gif.GifImageView;
 
 public class MemoryExercise extends AppCompatActivity implements MusicAdapter.OnNoteListner, GridAdapter.OnNoteListner, MeditationAdapter.OnNoteListner {
-    ImageView relaxation;
-    TextView music, games;
+    ImageView relaxation, concentration;
+    TextView music, games, meditation;
     RecyclerView musicRecyclerView, gameRecyclerView, meditationRecyclerview;
     MusicAdapter musicAdapter;
     GridAdapter gameAdapter;
     MeditationAdapter meditationAdapter;
     int color;
+    Dialog dialogMem;
     View c1, c2;
+    ImageView memoryInfo;
     GifImageView c1gif, c2gif;
     ArrayList<MusicModelClass> musicList;
     ArrayList<GameModelClass> gameList;
@@ -63,12 +68,16 @@ public class MemoryExercise extends AppCompatActivity implements MusicAdapter.On
         gameRecyclerView = findViewById(R.id.gamesRecyclerView);
         meditationRecyclerview = findViewById(R.id.meditationRecyclerView);
         relaxation = findViewById(R.id.relaxation);
+        concentration = findViewById(R.id.concentration);
         music = findViewById(R.id.musicTitle);
         games = findViewById(R.id.gameTitle);
         c1gif = findViewById(R.id.landingfwall);
         c2gif = findViewById(R.id.landingfwall1);
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
+        dialogMem = new Dialog(this);
+        meditation = findViewById(R.id.meditationTitle);
+        memoryInfo = findViewById(R.id.memoryInfo);
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         Calendar c = Calendar.getInstance();
@@ -130,6 +139,21 @@ public class MemoryExercise extends AppCompatActivity implements MusicAdapter.On
             }
         });
 
+        SharedPreferences prefsMemEx = getSharedPreferences("prefsMemEx", MODE_PRIVATE);
+        boolean firstStartMemEx = prefsMemEx.getBoolean("firstStartMemEx", true);
+
+        if (firstStartMemEx) {
+            displayMemInstructions();
+        }
+
+
+        memoryInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayMemInstructions();
+            }
+        });
+
 
         music.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -148,6 +172,19 @@ public class MemoryExercise extends AppCompatActivity implements MusicAdapter.On
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), RelaxationExercise.class));
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
+
+        concentration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), Exercise.class));
+            }
+        });
+        meditation.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(), MeditationExercise.class));
             }
         });
         mUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -319,6 +356,84 @@ public class MemoryExercise extends AppCompatActivity implements MusicAdapter.On
         String image = musicList.get(position).getImageUrl();
         Log.d("Url", url);
         startActivity(new Intent(getApplicationContext(), PlayMeditation.class).putExtra("url", url).putExtra("name", meditationName).putExtra("image", image));
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+//        displayMemInstructions();
+    }
+
+    private void displayMemInstructions() {
+        Button ok;
+        View c1, c2;
+
+        dialogMem.setContentView(R.layout.memorytraining_popup);
+        ok = (Button) dialogMem.findViewById(R.id.clickMem);
+        c1 = (View) dialogMem.findViewById(R.id.c1);
+        c2 = (View) dialogMem.findViewById(R.id.c2);
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        Calendar c = Calendar.getInstance();
+        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor PopUp", String.valueOf(snapshot.getValue()));
+                color = (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if (color == 2) {  //light theme
+                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
+                    c2.setVisibility(View.VISIBLE);
+                } else if (color == 1) { //light theme
+
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+
+
+                } else {
+                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
+                        c1.setVisibility(View.VISIBLE);
+                        c2.setVisibility(View.INVISIBLE);
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogMem.dismiss();
+            }
+        });
+        dialogMem.show();
+
+        SharedPreferences prefsMemEx = getSharedPreferences("prefsMemEx", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefsMemEx.edit();
+        editor.putBoolean("firstStartMemEx", false);
+        editor.apply();
 
     }
 }

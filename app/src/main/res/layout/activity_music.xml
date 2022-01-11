@@ -22,6 +22,15 @@
         android:id="@+id/c1"
         android:visibility="gone"
         android:background="#010334"/>
+
+    <ImageView
+        android:id="@+id/musicInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_baseline_info_24"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="20dp"/>
 <!--    <Spinner-->
 <!--        android:layout_marginTop="20dp"-->
 <!--        android:id="@+id/spinner2"-->
@@ -34,6 +43,14 @@
 <!--        android:layout_centerHorizontal="true"-->
 <!--        android:theme="@android:style/Holo.Light.ButtonBar.AlertDialog"-->
 <!--        />-->
+
+    <LinearLayout
+        android:id="@+id/scrollID"
+        android:layout_marginTop="5dp"
+        android:layout_below="@+id/musicInfo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
 
     <ScrollView
         android:layout_width="match_parent"
@@ -51,6 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:gravity="center"
             android:orientation="vertical"
 
 
@@ -61,6 +79,9 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_marginTop="20dp"
+                android:textAlignment="center"
+                android:layout_gravity="center"
+                android:layout_marginHorizontal="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
 
@@ -76,6 +97,8 @@
 
 
     </ScrollView>
+
+    </LinearLayout>
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"

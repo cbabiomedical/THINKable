@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    android:layout_gravity="center"
+    android:alpha="0.7">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.7"
+        android:background="@color/transparent">
+
+        <View
+            android:id="@+id/c2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.7"
+            android:background="#0D559C"
+            android:visibility="gone" />
+
+        <View
+            android:id="@+id/c1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:alpha="0.7"
+            android:background="#010334"
+            android:visibility="gone" />
+
+        <ImageView
+            android:id="@+id/colorGameLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/membtn" />
+
+        <TextView
+            android:id="@+id/colorGameInstruction"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/colorGameLogo"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20dp"
+            android:fontFamily="serif"
+            android:text="Follow the Patterns of Blink in the wheel, Once a pattern is completed repeat the same pattern by clicking the buttons of color. If the entered pattern is correct the level of difficulty increases. If you enter the wring pattern you lose. Good Luck!!"
+            android:textColor="@color/white"
+            android:textSize="15sp" />
+
+        <Button
+            android:id="@+id/ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:background="@color/transparent"
+            android:text="OK"
+            android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

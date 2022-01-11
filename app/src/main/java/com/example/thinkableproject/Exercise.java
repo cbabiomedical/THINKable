@@ -5,12 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 
+import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import android.widget.TextView;
@@ -43,7 +47,9 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
     MusicAdapter musicAdapter;
     GridAdapter gameAdapter;
     int color;
+    Dialog dialogCon;
     View c1, c2;
+    ImageView concentrationInfo;
     GifImageView c1gif, c2gif;
     ArrayList<MusicModelClass> musicList;
     ArrayList<GameModelClass> gameList;
@@ -62,9 +68,11 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
         games = findViewById(R.id.gameTitle);
         c1gif = findViewById(R.id.landingfwall);
         c2gif = findViewById(R.id.landingfwall1);
+        concentrationInfo=findViewById(R.id.concentrationInfo);
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
-
+        dialogCon = new Dialog(this);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Calendar c = Calendar.getInstance();
@@ -86,7 +94,7 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
                     c1gif.setVisibility(View.GONE);
 
 
-                }  else if (color ==1 ) { //light theme
+                } else if (color == 1) { //light theme
 
                     c1.setVisibility(View.VISIBLE);
                     c2.setVisibility(View.INVISIBLE);
@@ -94,7 +102,7 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
                     c2gif.setVisibility(View.INVISIBLE);
 
 
-                }else {
+                } else {
                     if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
 
                         c1.setVisibility(View.INVISIBLE);
@@ -125,6 +133,12 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
 
             }
         });
+        SharedPreferences prefsConEx = getSharedPreferences("prefsConEx", MODE_PRIVATE);
+        boolean firstStartConEx = prefsConEx.getBoolean("firstStartConEx", true);
+
+        if (firstStartConEx) {
+            displayConTrainingInstructions();
+        }
 
         music.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -176,6 +190,13 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
                         return true;
                 }
                 return false;
+            }
+        });
+
+        concentrationInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayConTrainingInstructions();
             }
         });
         musicList = new ArrayList<>();
@@ -243,6 +264,7 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
         Log.d("Url", url);
         startActivity(new Intent(getApplicationContext(), MusicPlayer.class).putExtra("url", url).putExtra("name", songName).putExtra("image", image));
     }
+
     public void mem(View view) {
         Intent intentcd = new Intent(Exercise.this, MemoryExercise.class);
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
@@ -289,4 +311,86 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+//        displayConTrainingInstructions();
+
+    }
+
+    private void displayConTrainingInstructions() {
+        Button ok;
+        View c1,c2;
+
+        dialogCon.setContentView(R.layout.concentration_training_popup);
+
+        ok = (Button) dialogCon.findViewById(R.id.clickCon);
+        c1=(View)dialogCon.findViewById(R.id.c1);
+        c2=(View)dialogCon.findViewById(R.id.c2);
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        Calendar c = Calendar.getInstance();
+        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor PopUp", String.valueOf(snapshot.getValue()));
+                color = (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if (color == 2) {  //light theme
+                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
+                    c2.setVisibility(View.VISIBLE);
+                } else if (color == 1) { //light theme
+
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+
+
+                } else {
+                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
+                        c1.setVisibility(View.VISIBLE);
+                        c2.setVisibility(View.INVISIBLE);
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogCon.dismiss();
+            }
+        });
+
+        dialogCon.show();
+
+        SharedPreferences prefsConEx=getSharedPreferences("prefsConEx",MODE_PRIVATE);
+        SharedPreferences.Editor editor=prefsConEx.edit();
+        editor.putBoolean("firstStartConEx",false);
+        editor.apply();
+
+
+    }
 }

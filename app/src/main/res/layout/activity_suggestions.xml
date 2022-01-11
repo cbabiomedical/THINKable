@@ -54,20 +54,6 @@ android:layout_centerHorizontal="true"            android:layout_marginTop="20dp
             android:textColor="@color/color_white"
             android:textAllCaps="false"/>
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/next"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/done"
-            android:layout_gravity="center"
-           android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp"
-            android:background="@drawable/prefbtn"
-            android:text="Next"
-            app:cornerRadius="20dp"
-            android:textAllCaps="false"
-            android:textColor="@color/color_white"
-            android:onClick="gotoPrefer"/>
 
 
     </RelativeLayout>

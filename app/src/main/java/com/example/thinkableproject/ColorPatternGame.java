@@ -1,15 +1,22 @@
 package com.example.thinkableproject;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.animation.Animator;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -19,8 +26,12 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.MediaController;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
 
 import com.example.thinkableproject.sample.SoundPlayer;
 import com.google.firebase.auth.FirebaseAuth;
@@ -46,10 +57,14 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
     private int random;
     private int round;
     private int counter;
+    Dialog dialogColorPattern;
     private int actScore;
     private int highScore;
-    View c1,c2;
+    ImageView colorPatternGameInfo;
+    ConstraintLayout mainConstraint;
+    View c1, c2;
     FirebaseUser mUser;
+    VideoView gameVideo;
     int color;
 
     SoundPlayer sound;
@@ -59,32 +74,43 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
         this.setIsGameStarted(false);
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_color_pattern_game);
+        mainConstraint = findViewById(R.id.mainConstraint);
 
 
         sound = new SoundPlayer(this);
         gameInfo = findViewById(R.id.gameInfo);
         scoreInfo = findViewById(R.id.scoreInfo);
         scoreInfo2 = findViewById(R.id.scoreInfo2);
+        dialogColorPattern = new Dialog(this);
+        gameVideo=findViewById(R.id.simpleVideo);
 
-        c1=findViewById(R.id.c1);
-        c2=findViewById(R.id.c2);
+        c1 = findViewById(R.id.c1);
+        c2 = findViewById(R.id.c2);
 
-        mUser= FirebaseAuth.getInstance().getCurrentUser();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+        colorPatternGameInfo = findViewById(R.id.colorPatternGameinfo);
 
 
-        DatabaseReference colorreference= FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorPatternGameInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayColorPatternPop();
+            }
+        });
+
+
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
         colorreference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.d("FirebaseColor", String.valueOf(snapshot.getValue()));
-                color= (int) snapshot.getValue(Integer.class);
+                color = (int) snapshot.getValue(Integer.class);
                 Log.d("Color", String.valueOf(color));
 
                 if (color == 2) {  //light theme
@@ -92,14 +118,13 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
                     c2.setVisibility(View.VISIBLE);
 
 
-                }  else if (color ==1 ) { //light theme
+                } else if (color == 1) { //light theme
 
                     c1.setVisibility(View.VISIBLE);
                     c2.setVisibility(View.INVISIBLE);
 
 
-
-                }else {
+                } else {
                     if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
 
                         c1.setVisibility(View.INVISIBLE);
@@ -116,7 +141,6 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
                         c2.setVisibility(View.INVISIBLE);
 
 
-
                     }
                 }
 
@@ -128,6 +152,32 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
             }
         });
 
+        SharedPreferences prefsColIn = getSharedPreferences("prefsColIn", MODE_PRIVATE);
+        boolean firstStartColIn = prefsColIn.getBoolean("firstStartColIn", true);
+
+        if (firstStartColIn) {
+            displayColorPatternPop();
+        }
+//        ActionBar actionBar= getSupportActionBar();
+//        getSupportActionBar().addTab(actionBar.newTab().setCustomView(R.menu.menu_info));
+//        MediaController mediaController = new MediaController(this);
+//        VideoView simpleVideoView = (VideoView) findViewById(R.id.videoExample);
+//        simpleVideoView.setVisibility(View.GONE);
+//        simpleVideoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.cardgame));
+//        simpleVideoView.start();
+//        Log.d("Video Duration", String.valueOf(simpleVideoView.getDuration()));
+//        Log.d("Current Position", String.valueOf(simpleVideoView.getCurrentPosition()));
+//        simpleVideoView.setMediaController(mediaController);
+//        if (simpleVideoView.isPlaying()){
+//            simpleVideoView.setVisibility(View.GONE);
+//            mainConstraint.setVisibility(View.VISIBLE);
+//
+//        }
+//
+//        else{
+//            mainConstraint.setVisibility(View.GONE);
+//
+//        }
 
 
         rand = new Random();
@@ -152,6 +202,93 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
 
             }
         }, 5000);
+    }
+
+    private void displayColorPatternPop() {
+        Button ok;
+        View c1,c2;
+
+        dialogColorPattern.setContentView(R.layout.colorpattern_instructions);
+
+        ok = (Button) dialogColorPattern.findViewById(R.id.ok);
+        c1=(View)dialogColorPattern.findViewById(R.id.c1);
+        c2=(View)dialogColorPattern.findViewById(R.id.c2);
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        Calendar c = Calendar.getInstance();
+        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor PopUp", String.valueOf(snapshot.getValue()));
+                color = (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if (color == 2) {  //light theme
+                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
+                    c2.setVisibility(View.VISIBLE);
+                } else if (color == 1) { //light theme
+
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+
+
+                } else {
+                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
+                        c1.setVisibility(View.VISIBLE);
+                        c2.setVisibility(View.INVISIBLE);
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogColorPattern.dismiss();
+                mainConstraint.setVisibility(View.VISIBLE);
+                gameVideo.setVisibility(View.VISIBLE);
+                mainConstraint.setVisibility(View.GONE);
+                gameVideo.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.colorpattern));
+                gameVideo.start();
+
+                gameVideo.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+                    @Override
+                    public void onCompletion(MediaPlayer mp) {
+                       gameVideo.setVisibility(View.GONE);
+                       mainConstraint.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+        });
+        dialogColorPattern.show();
+
+        SharedPreferences prefsColIn=getSharedPreferences("prefsColIn",MODE_PRIVATE);
+        SharedPreferences.Editor editor=prefsColIn.edit();
+        editor.putBoolean("firstStartColIn",false);
+        editor.apply();
+
+
     }
 
     @Override
@@ -313,6 +450,13 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
         }
     }
 
+//    private void timepopUpMenu() {
+//        PopupMenu popupMenu=new PopupMenu(this);
+//        popupMenu.inflate(R.menu.menu_info);
+////        popupMenu.setOnMenuItemClickListener(this);
+//        popupMenu.show();
+//    }
+
     public void printHighscore() {
         gameInfo.setText(String.format("%s %s", getString(R.string.showHighscore), String.valueOf(this.getHighScore())));
         AlertDialog alertDialog = new AlertDialog.Builder(this)
@@ -411,6 +555,15 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
         btn2.startAnimation(animation);
         btn3.startAnimation(animation);
         btn4.startAnimation(animation);
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        ConstraintLayout constraintLayout;
+        constraintLayout = findViewById(R.id.mainConstraint);
 
 
     }

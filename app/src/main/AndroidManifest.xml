@@ -42,25 +42,39 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThinkableProject"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Memory_popup"></activity>
-        <activity android:name=".MemoryExercise" />
-        <activity android:name=".ColorPatternGame" />
+        <activity android:name=".PlayVideo"></activity>
+        <activity android:name=".Memory_popup" />
+        <activity android:name=".MemoryExercise"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            />
+        <activity android:name=".ColorPatternGame"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            />
         <activity android:name="com.example.ColorPatternGame" />
         <activity
             android:name=".NotificationMessage"
             android:exported="false" />
         <activity
             android:name=".CreateEvent"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false" />
-        <activity android:name=".MainActivity" />
+        <activity
+            android:name=".MainActivity"
+            android:parentActivityName=".Concentration_Daily" />
         <activity
             android:name=".CalenderAndNotification"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".Downloads"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="My Downloads" />
         <activity
+            android:name=".MainActivity"
+            android:parentActivityName=".Concentration_Daily" />
+        <activity
             android:name=".RelaxationExercise"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="Training Exercise" />
         <activity
             android:name=".PlayMeditation"
@@ -80,6 +94,7 @@
         <activity
             android:name=".ResultActivity"
             android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="UserProfile" />
         <activity
             android:name=".QuizActivity"
@@ -123,30 +138,46 @@
         <activity
             android:name=".Profile"
             android:label="Profile"
-            android:parentActivityName=".Setting" />
+            android:parentActivityName=".Setting"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            />
         <activity
             android:name=".UserDetails"
-            android:label="Edit Profile" />
+            android:label="Edit Profile"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            />
         <activity android:name=".RelaxationReportWhereamI" />
-        <activity android:name=".ConcentrationReportWhereamI" />
+        <activity android:name=".ConcentrationReportWhereamI"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            />
         <activity
             android:name=".ConcentrationReportYearly"
-            android:label="Concentration Yearly Report" />
+            android:label="Concentration Yearly Report"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            />
         <activity
             android:name=".ConcentrationReportMonthly"
-            android:label="ConcentrationMonthly Report" />
+            android:label="ConcentrationMonthly Report"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            />
         <activity
             android:name=".ConcentrationReportWeekly"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="Concentration Weekly Report" />
         <activity
             android:name=".ConcentrationReportDaily"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="Concentration Daily Report" /> <!-- android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" -->
         <activity
             android:name=".MainActivity2"
             android:label="My Favourites"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:parentActivityName=".Profile" />
-        <activity android:name=".GameActivity" />
-        <activity android:name=".MeditationExercise" />
+        <activity android:name=".GameActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".MeditationExercise"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            />
         <activity
             android:name=".Memory_Daily"
             android:label="THINKable" />
@@ -161,35 +192,45 @@
             android:label="THINKable" />
         <activity
             android:name=".MemoryReportDaily"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="Memory Daily Report" />
         <activity
             android:name=".MemoryReportWeekly"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="Memory Weekly Report" />
         <activity
             android:name=".MemoryReportMonthly"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="Memory Monthly Report" />
         <activity
             android:name=".MemoryReportYearly"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="Memory Yearly Report" />
         <activity android:name=".MemoryWhereAmI" />
         <activity
             android:name=".RelaxationReportYearly"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="true"
             android:label="Relaxation Yearly Report" />
         <activity
             android:name=".UserLocation"
             android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:parentActivityName=".Setting" />
         <activity
             android:name=".RelaxationReportDaily"
             android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="Relaxation Daily Report" />
         <activity
             android:name=".RelaxationReportWeekly"
             android:exported="true"
-            android:label="Relaxation Weekly Report" />
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:label="Relaxation Weekly Report"
+            />
         <activity
             android:name=".RelaxationReportMonthly"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="true"
             android:label="Relaxation Monthly Report" />
         <activity
@@ -200,6 +241,7 @@
             android:exported="true" />
         <activity
             android:name=".Music"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="true" />
         <activity android:name=".Relaxation_popup" />
         <activity android:name=".Concentration_popup" />
@@ -222,10 +264,12 @@
         <activity
             android:name=".Calendar_Reminder"
             android:label="Calendar and Reminder"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:parentActivityName=".Profile" />
         <activity
             android:name=".AboutApp"
             android:label="About App"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:parentActivityName=".Profile" />
         <activity
             android:name=".UserProfile1"
@@ -251,6 +295,7 @@
         <activity
             android:name=".Exercise"
             android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="Training Exercises" />
         <activity
             android:name=".Relaxation_Weekly"
@@ -272,8 +317,11 @@
             android:label="@string/title_activity_landing_page" />
         <activity
             android:name=".ChangePassword"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:parentActivityName=".Setting" />
-        <activity android:name="com.example.SettingsPreference" />
+        <activity android:name="com.example.SettingsPreference"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            />
         <activity
             android:name=".ForgetPasswordActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />

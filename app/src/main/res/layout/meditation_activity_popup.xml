@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="350dp"
+    android:background="#010334"
+    android:alpha="0.7"
+    android:layout_gravity="center"
+    android:gravity="center">
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:layout_height="350dp"
+        android:alpha="0.7"
+        android:background="@color/transparent">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:id="@+id/c2"
+            android:alpha="0.7"
+            android:background="#0D559C"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/c1"
+            android:alpha="0.7"
+            android:visibility="gone"
+            android:background="#010334"/>
+
+    <ImageView
+        android:id="@+id/meditationPopuplogo"
+        android:layout_marginTop="10dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/meditation" />
+
+    <TextView
+        android:id="@+id/meditationsText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/meditationPopuplogo"
+        android:layout_marginTop="20dp"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:layout_marginHorizontal="10dp"
+        android:textSize="15sp"
+        android:fontFamily="serif"
+        android:text="Click selected Meditation to Play.It is adviced to close your eyes and follow the instructions given in the audio files. You also can download meditation audio files by clicking the download button and add favourite meditation audio files to your favourites by clicking the heart icon. Your Donwloads and Favourites will be displayed in Account Settings " />
+
+    <Button
+        android:id="@+id/clickMeditation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/meditationsText"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:background="@color/transparent"
+        android:text="OK"
+        android:textColor="@color/white" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

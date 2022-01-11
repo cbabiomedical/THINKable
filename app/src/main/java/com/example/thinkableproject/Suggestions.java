@@ -27,7 +27,6 @@ public class Suggestions extends AppCompatActivity {
 
     //    private static final String TAG = "MainActivity";
     private Button done;
-    private Button next;
     RecyclerView recyclerView;
     LinearLayoutManager linearLayoutManager;
     List<SuggestionsModel> userList;
@@ -45,7 +44,7 @@ public class Suggestions extends AppCompatActivity {
         setContentView(R.layout.activity_suggestions);
         recyclerView = findViewById(R.id.recycler_view);
         done = findViewById(R.id.done);
-        next = findViewById(R.id.next);
+
 
 
         //store data in database
@@ -54,15 +53,6 @@ public class Suggestions extends AppCompatActivity {
             public void onClick(View v) {
                 putDataInDatabase();
 
-            }
-        });
-
-        //go to preference page
-        next.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(Suggestions.this, PreferencesSecPage.class);
-                startActivity(intent);
             }
         });
 

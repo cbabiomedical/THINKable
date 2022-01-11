@@ -69,13 +69,23 @@
                 android:layout_marginTop="-70dp"
                 android:src="@drawable/thin" />
 
+            <ImageView
+                android:id="@+id/memoryInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_info_24"
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_below="@+id/landingone"/>
 
             <LinearLayout
                 android:id="@+id/landingthree"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@id/landingtwo"
-                android:layout_marginTop="-40dp"
+                android:layout_below="@id/memoryInfo"
+                android:layout_marginTop="-0dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
@@ -343,8 +353,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/threelinesa2"
-                android:layout_marginBottom="80dp"
-                android:layout_marginTop="20dp" />
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="80dp" />
 
 
         </RelativeLayout>

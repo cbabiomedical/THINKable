@@ -112,8 +112,8 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
         ProgressDialog progressDialog=new ProgressDialog(this,R.style.Theme_AppCompat_DayNight_Dialog);
         ProgressDialog.show(this,
                 "Loading Music", "Please Wait");
+
         progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        progressDialog.getWindow().setColorMode(R.color.about_background_color);
 
         // MEDIA STARTS FUNCTION
 

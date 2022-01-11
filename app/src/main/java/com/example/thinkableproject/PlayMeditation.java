@@ -26,6 +26,7 @@ import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.chibde.visualizer.BarVisualizer;
 import com.chibde.visualizer.SquareBarVisualizer;
 import com.example.thinkableproject.sample.MusicModelClass;
@@ -113,10 +114,11 @@ public class PlayMeditation extends AppCompatActivity {
             Log.d("ERROR", "Error in getting null value");
         }
 
-   ProgressDialog progressDialog=ProgressDialog.show(this,
+        ProgressDialog progressDialog = new ProgressDialog(this, R.style.Theme_MyDialog);
+
+        progressDialog.show(this,
                 "Loading Music", "Please Wait");
         progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-
 
 
         // MEDIA STARTS FUNCTION

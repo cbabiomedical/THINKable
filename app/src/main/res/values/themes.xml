@@ -1,6 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Theme.ThinkableProject" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Theme.ThinkableProject" parent="Theme.MaterialComponents.Light.DarkActionBar">
         <!-- Primary brand color. -->
         <item name="colorPrimary">@color/Ldark</item>
         <item name="colorPrimaryVariant">@color/Ldark</item>
@@ -16,7 +16,7 @@
 
     <style name="MyTheme" parent="@android:style/Theme.Dialog">
         <item name="android:alertDialogStyle">@style/CustomAlertDialogStyle</item>
-        <item name="android:textColorPrimary">#000000</item>
+        <item name="android:textColorPrimary">#FFFFFF</item>
     </style>
 
 </resources>

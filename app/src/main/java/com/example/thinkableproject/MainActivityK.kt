@@ -2,19 +2,20 @@ package com.example.thinkableproject
 
 import android.animation.ArgbEvaluator
 import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.EditText
-import android.widget.RadioGroup
-import android.widget.TextView
+import android.widget.*
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
@@ -29,10 +30,14 @@ import com.github.jinatonic.confetti.CommonConfetti
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.*
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.squareup.picasso.Picasso
+import java.util.*
 
 class MainActivityK : AppCompatActivity() {
 
@@ -41,10 +46,15 @@ class MainActivityK : AppCompatActivity() {
         private const val CREATE_REQUEST_CODE = 248
     }
 
-    private lateinit var clRoot: CoordinatorLayout
+    private lateinit var clRoot: ConstraintLayout
     private lateinit var rvBoard: RecyclerView
     private lateinit var tvNumMoves: TextView
     private lateinit var tvNumPairs: TextView
+    private lateinit var information:ImageView
+    private lateinit var dialog:Dialog
+     var color:Int = 0
+    lateinit var mainConstraint:ConstraintLayout
+    lateinit var gameVideo: VideoView
 
     private val db = Firebase.firestore
     private val firebaseAnalytics = Firebase.analytics
@@ -62,6 +72,10 @@ class MainActivityK : AppCompatActivity() {
         rvBoard = findViewById(R.id.rvBoard)
         tvNumMoves = findViewById(R.id.tvNumMoves)
         tvNumPairs = findViewById(R.id.tvNumPairs)
+        information=findViewById(R.id.gameInfo);
+        dialog= Dialog(this);
+        gameVideo=findViewById(R.id.simpleVideo);
+        mainConstraint=findViewById(R.id.mainConstraint)
 
 //    remoteConfig.setDefaultsAsync(mapOf("about_link" to "https://www.youtube.com/rpandey1234", "scaled_height" to 250L, "compress_quality" to 60L))
 //    remoteConfig.fetchAndActivate()
@@ -73,6 +87,83 @@ class MainActivityK : AppCompatActivity() {
 //        }
 //      }
         setupBoard()
+        val prefsCardIn = getSharedPreferences("prefsCardIn", MODE_PRIVATE)
+        val firstStartCardIn = prefsCardIn.getBoolean("firstStartCardIn", true)
+
+        if (firstStartCardIn) {
+            displayPopUp()
+        }
+        information.setOnClickListener{
+        displayPopUp();
+        }
+    }
+
+    private fun displayPopUp() {
+        var ok:Button
+        var c1:View
+        var c2:View
+
+        dialog.setContentView(R.layout.cardgame_popup)
+
+        ok=dialog.findViewById(R.id.ok);
+        c1=dialog.findViewById(R.id.c1);
+        c2=dialog.findViewById(R.id.c2);
+        var mUser:FirebaseUser
+
+        mUser= FirebaseAuth.getInstance().currentUser!!
+
+        val c = Calendar.getInstance()
+        val timeOfDay = c[Calendar.HOUR_OF_DAY]
+
+        val colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.uid).child("theme")
+        colorreference.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                Log.d("FirebaseColor PopUp Kotlin", snapshot.value.toString())
+                color = (snapshot.getValue() as Long).toInt()
+                Log.d("Color", color.toString())
+                if (color == 2) {  //light theme
+                    c1.visibility = View.INVISIBLE //c1 ---> dark blue , c2 ---> light blue
+                    c2.visibility = View.VISIBLE
+                } else if (color == 1) { //light theme
+                    c1.visibility = View.VISIBLE
+                    c2.visibility = View.INVISIBLE
+                } else {
+                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+                        c1.visibility = View.INVISIBLE
+                        c2.visibility = View.VISIBLE
+                    } else if (timeOfDay >= 12 && timeOfDay < 16) { //dark theme
+                        c1.visibility = View.INVISIBLE
+                        c2.visibility = View.VISIBLE
+                    } else if (timeOfDay >= 16 && timeOfDay < 24) { //dark theme
+                        c1.visibility = View.VISIBLE
+                        c2.visibility = View.INVISIBLE
+                    }
+                }
+            }
+
+            override fun onCancelled(error: DatabaseError) {}
+        })
+
+        ok.setOnClickListener{
+            dialog.dismiss()
+            gameVideo.visibility = View.VISIBLE
+            mainConstraint.visibility = View.GONE
+            gameVideo.setVideoURI(Uri.parse("android.resource://" + packageName + "/" + R.raw.cardgame))
+            gameVideo.start()
+
+            gameVideo.setOnCompletionListener {
+                gameVideo.visibility = View.GONE
+                mainConstraint.visibility = View.VISIBLE
+            }
+        }
+
+        dialog.show()
+        val prefsCardIn = getSharedPreferences("prefsCardIn", MODE_PRIVATE)
+        val editor = prefsCardIn.edit()
+        editor.putBoolean("firstStartCardIn", false)
+        editor.apply()
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -236,7 +327,7 @@ class MainActivityK : AppCompatActivity() {
             }
         }
         tvNumPairs.setTextColor(ContextCompat.getColor(this, R.color.color_progress_none))
-        adapter = MemoryBoardAdapter(this, boardSize, memoryGame.cards, object: MemoryBoardAdapter.CardClickListener {
+        adapter = MemoryBoardAdapter(this, boardSize, memoryGame.cards, object : MemoryBoardAdapter.CardClickListener {
             override fun onCardClicked(position: Int) {
                 updateGameWithFlip(position)
             }
@@ -261,9 +352,9 @@ class MainActivityK : AppCompatActivity() {
         if (memoryGame.flipCard(position)) {
             Log.i(TAG, "Found a match! Num pairs found: ${memoryGame.numPairsFound}")
             val color = ArgbEvaluator().evaluate(
-                memoryGame.numPairsFound.toFloat() / boardSize.getNumPairs(),
-                ContextCompat.getColor(this, R.color.color_progress_none),
-                ContextCompat.getColor(this, R.color.color_progress_full)
+                    memoryGame.numPairsFound.toFloat() / boardSize.getNumPairs(),
+                    ContextCompat.getColor(this, R.color.color_progress_none),
+                    ContextCompat.getColor(this, R.color.color_progress_full)
             ) as Int
             tvNumPairs.setTextColor(color)
             tvNumPairs.text = "Pairs: ${memoryGame.numPairsFound} / ${boardSize.getNumPairs()}"

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="300dp"
+    android:layout_height="350dp"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_centerInParent="true"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:alpha="0.7"
+    android:layout_gravity="center"
+    android:gravity="center">
+
+    <RelativeLayout
+        android:layout_width="300dp"
+        android:background="@color/transparent"
+        android:alpha="0.7"
+        android:layout_height="350dp">
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:id="@+id/c2"
+            android:alpha="0.7"
+            android:background="#0D559C"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/c1"
+            android:alpha="0.7"
+            android:visibility="gone"
+            android:background="#010334"/>
+
+    <ImageView
+        android:id="@+id/gameActivityLogo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/gamef" />
+
+    <TextView
+        android:id="@+id/gameText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/gameActivityLogo"
+        android:textAlignment="center"
+        android:layout_marginHorizontal="10dp"
+        android:textColor="@color/white"
+        android:fontFamily="serif"
+        android:textSize="15sp"
+        android:text="Given games can be played by clicking the game card. If you wish to download game from playstore click download button. Your downloads will be visible in Account Settings You also can add games which you like into favourites by clicking the heart icon"
+        />
+
+    <Button
+        android:id="@+id/clickGame"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/gameText"
+        android:background="@color/transparent"
+        android:text="OK"
+        android:textColor="@color/white"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -5,13 +5,19 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -47,11 +53,13 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
     RecyclerView recyclerView;
     ArrayList<MusicModelClass> musicList;
     MusicAdapter adapter;
+    Dialog dialogmusic;
     String selected_time;
     LinearLayoutManager layoutManager;
-//    int time;
+    //    int time;
     FirebaseUser mUser;
-    View c1,c2;
+    ImageView information;
+    View c1, c2;
     int color;
     private RequestQueue mRequestQue;
     private String URL = "https://fcm.googleapis.com/fcm/send";
@@ -62,20 +70,22 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_music);
         mRequestQue = Volley.newRequestQueue(this);
-        c1=findViewById(R.id.c1);
-        c2=findViewById(R.id.c2);
+        c1 = findViewById(R.id.c1);
+        c2 = findViewById(R.id.c2);
+        dialogmusic = new Dialog(this);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
+        information = findViewById(R.id.musicInfo);
 
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
 
 //        sendNotification();
-        DatabaseReference colorreference= FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
         colorreference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Log.d("FirebaseColor", String.valueOf(snapshot.getValue()));
-                color= (int) snapshot.getValue(Integer.class);
+                color = (int) snapshot.getValue(Integer.class);
                 Log.d("Color", String.valueOf(color));
 
                 if (color == 2) {  //light theme
@@ -83,14 +93,13 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
                     c2.setVisibility(View.VISIBLE);
 
 
-                }  else if (color ==1 ) { //light theme
+                } else if (color == 1) { //light theme
 
                     c1.setVisibility(View.VISIBLE);
                     c2.setVisibility(View.INVISIBLE);
 
 
-
-                }else {
+                } else {
                     if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
 
                         c1.setVisibility(View.INVISIBLE);
@@ -107,7 +116,6 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
                         c2.setVisibility(View.INVISIBLE);
 
 
-
                     }
                 }
 
@@ -118,6 +126,18 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
 
             }
         });
+        information.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openInstructionsPopUp();
+            }
+        });
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        boolean firstStart = prefs.getBoolean("firstStart", true);
+
+        if (firstStart) {
+           openInstructionsPopUp();
+        }
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -215,6 +235,20 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
 
     }
 
+    private void showStartDialog() {
+        new AlertDialog.Builder(this).setTitle("One Time Dialog").setMessage("This should appear only once").setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        }).create().show();
+
+        SharedPreferences prefs=getSharedPreferences("prefs",MODE_PRIVATE);
+        SharedPreferences.Editor editor=prefs.edit();
+        editor.putBoolean("firstStart",false);
+        editor.apply();
+    }
+
 //    public BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
 //        @Override
 //        public void onReceive(Context context, Intent intent) {
@@ -249,7 +283,7 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
 
             }
         });
-        layoutManager=new LinearLayoutManager(this);
+        layoutManager = new LinearLayoutManager(this);
         adapter = new MusicAdapter(musicList, getApplicationContext(), this::onNoteClick);
         recyclerView.setAdapter(adapter);
 
@@ -312,5 +346,91 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
         }
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+//        openInstructionsPopUp();
+    }
 
+    private void openInstructionsPopUp() {
+        Button ok;
+        View c1, c2;
+//        ImageView musicAudioInstructions;
+        dialogmusic.setContentView(R.layout.music_activity_popup);
+        ok = (Button) dialogmusic.findViewById(R.id.click);
+        c1=(View)dialogmusic.findViewById(R.id.c1);
+        c2=(View)dialogmusic.findViewById(R.id.c2);
+
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        Calendar c = Calendar.getInstance();
+        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+
+        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+        colorreference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Log.d("FirebaseColor PopUp", String.valueOf(snapshot.getValue()));
+                color = (int) snapshot.getValue(Integer.class);
+                Log.d("Color", String.valueOf(color));
+
+                if (color == 2) {  //light theme
+                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
+                    c2.setVisibility(View.VISIBLE);
+                } else if (color == 1) { //light theme
+
+                    c1.setVisibility(View.VISIBLE);
+                    c2.setVisibility(View.INVISIBLE);
+
+
+                } else {
+                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
+                        c1.setVisibility(View.INVISIBLE);
+                        c2.setVisibility(View.VISIBLE);
+
+
+                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
+                        c1.setVisibility(View.VISIBLE);
+                        c2.setVisibility(View.INVISIBLE);
+
+                    }
+                }
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+//        musicAudioInstructions=(ImageView) dialogmusic.findViewById(R.id.playAudio);
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogmusic.dismiss();
+            }
+        });
+
+//        musicAudioInstructions.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(Music.this,"Play Audio Button was clicked",Toast.LENGTH_SHORT).show();
+//            }
+//        });
+
+        dialogmusic.show();
+        SharedPreferences prefs=getSharedPreferences("prefs",MODE_PRIVATE);
+        SharedPreferences.Editor editor=prefs.edit();
+        editor.putBoolean("firstStart",false);
+        editor.apply();
+
+
+    }
 }
