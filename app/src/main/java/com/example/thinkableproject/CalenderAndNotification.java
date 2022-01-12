@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import com.example.thinkableproject.Database.DatabaseClass;
 import com.example.thinkableproject.Database.EntityClass;
@@ -45,6 +46,7 @@ public class CalenderAndNotification extends AppCompatActivity implements View.O
         mUser= FirebaseAuth.getInstance().getCurrentUser();
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
 
         DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");

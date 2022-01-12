@@ -6,6 +6,7 @@ import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
+import android.view.WindowManager;
 
 import java.util.Calendar;
 
@@ -18,6 +19,7 @@ public class AboutApp extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about_app);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         View aboutPage = new AboutPage(this)
                 .isRTL(false).setImage(R.drawable.splashlogo1)
                 .setDescription(" Welcome to THINKable!" +

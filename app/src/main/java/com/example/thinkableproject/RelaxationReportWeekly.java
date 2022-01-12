@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import com.github.mikephil.charting.charts.BarChart;
@@ -102,6 +103,8 @@ public class RelaxationReportWeekly extends AppCompatActivity {
         c2gif = findViewById(R.id.landingfwall1);
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);

@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
@@ -51,6 +52,7 @@ import pl.droidsonroids.gif.GifImageView;
 public class Concentration_Daily extends AppCompatActivity {
     Dialog dialogcd;
     BarChart barChartdaily;
+    LineChart lineChart;
     View c1, c2;
     GifImageView c1gif, c2gif;
     ImageView games, relaxationBtn, memory, landingtwo, landingtwoday, musicNight, gameNight;
@@ -99,6 +101,7 @@ public class Concentration_Daily extends AppCompatActivity {
         memory = findViewById(R.id.memory);
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
+        lineChart = findViewById(R.id.lineChartDaily);
 
 
         calendar = Calendar.getInstance();
@@ -108,35 +111,6 @@ public class Concentration_Daily extends AppCompatActivity {
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
-
-//        if(timeOfDay >= 0 && timeOfDay < 12){
-//            Toast.makeText(this, "Good Morning", Toast.LENGTH_SHORT).show();
-//            c1.setVisibility(View.INVISIBLE);
-//            c2.setVisibility(View.VISIBLE);
-//            c2gif.setVisibility(View.VISIBLE);
-//            c1gif.setVisibility(View.GONE);
-//        }else if(timeOfDay >= 12 && timeOfDay < 16){
-//            Toast.makeText(this, "Good Afternoon", Toast.LENGTH_SHORT).show();
-//            c1.setVisibility(View.VISIBLE);
-//            c2.setVisibility(View.INVISIBLE);
-//            c1gif.setVisibility(View.VISIBLE);
-//            c2gif.setVisibility(View.INVISIBLE);
-//
-//        }else if(timeOfDay >= 16 && timeOfDay < 24){
-//            Toast.makeText(this, "Good Evening", Toast.LENGTH_SHORT).show();
-//            c1.setVisibility(View.INVISIBLE);
-//            c2.setVisibility(View.VISIBLE);
-//            c2gif.setVisibility(View.VISIBLE);
-//            c1gif.setVisibility(View.GONE);
-//        }else if(timeOfDay >= 21 && timeOfDay < 24){
-//            Toast.makeText(this, "Good Night", Toast.LENGTH_SHORT).show();
-//            c1.setVisibility(View.VISIBLE);
-//            c2.setVisibility(View.INVISIBLE);
-//            c1gif.setVisibility(View.VISIBLE);
-//            c2gif.setVisibility(View.INVISIBLE);
-//
-//        }
-
 
         DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
         colorreference.addValueEventListener(new ValueEventListener() {
@@ -246,9 +220,12 @@ public class Concentration_Daily extends AppCompatActivity {
             }
         });
 
+        ArrayList<Float> lineObj = new ArrayList<>(Arrays.asList(30f, 40f, 60f, 50f, 80f, 40f, 20f));
+
         //Initializing arraylist and storing data in arraylist
         ArrayList<Float> obj = new ArrayList<>(
                 Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f));
+        ArrayList<String> timeObj = new ArrayList<>(Arrays.asList("10 min", "20 min", "30 min", "40 min", "50 min", "60 min", "70 min"));
 
         //  Creating txt file and writing data in array list to file
         try {
@@ -346,6 +323,8 @@ public class Concentration_Daily extends AppCompatActivity {
                             for (int j = 0; j < floatList.size(); ++j) {
                                 entries.add(new BarEntry(j, floatList.get(j)));
                             }
+
+//                            LineChart dataset=new LineChart(getApplicationContext(),lineObj)
 
 
                             float textSize = 16f;
@@ -464,7 +443,7 @@ public class Concentration_Daily extends AppCompatActivity {
 //
 //        startActivity(intentgp1);
         ImageButton cancelcon, games, music1;
-        View c1,c2;
+        View c1, c2;
         FirebaseUser mUser;
 
 
@@ -523,7 +502,6 @@ public class Concentration_Daily extends AppCompatActivity {
 
             }
         });
-
 
 
         games.setOnClickListener(new View.OnClickListener() {

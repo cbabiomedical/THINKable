@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -218,6 +219,7 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
 
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
         colorreference.addValueEventListener(new ValueEventListener() {
@@ -269,7 +271,7 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
                 mainConstraint.setVisibility(View.VISIBLE);
                 gameVideo.setVisibility(View.VISIBLE);
                 mainConstraint.setVisibility(View.GONE);
-                gameVideo.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.colorpattern));
+                gameVideo.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.colorgamefinal));
                 gameVideo.start();
 
                 gameVideo.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

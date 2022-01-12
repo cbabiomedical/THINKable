@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -37,6 +38,7 @@ public class ChangePassword extends AppCompatActivity {
         confirm_Password = (EditText) findViewById(R.id.confirm_Password);
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         user = FirebaseAuth.getInstance().getCurrentUser();
 
