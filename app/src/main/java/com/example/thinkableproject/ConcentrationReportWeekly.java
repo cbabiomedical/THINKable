@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -15,14 +16,19 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -69,6 +75,10 @@ public class ConcentrationReportWeekly extends AppCompatActivity {
     ArrayList<Float> floatList = new ArrayList<>();
     ArrayList<String> list1 = new ArrayList<>();
     ArrayList<Float> floatList1 = new ArrayList<>();
+    LineChart lineChart;
+    LineData lineData;
+    LineDataSet lineDataSet;
+    ArrayList lineEntries;
 
 
     @Override
@@ -87,6 +97,7 @@ public class ConcentrationReportWeekly extends AppCompatActivity {
         c2 = findViewById(R.id.c2);
         c1gif = findViewById(R.id.landingfwall);
         c2gif = findViewById(R.id.landingfwall1);
+        lineChart=findViewById(R.id.lineChartWeekly);
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         Calendar c = Calendar.getInstance();
@@ -158,6 +169,16 @@ public class ConcentrationReportWeekly extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
+
+        getEntries();
+        lineDataSet = new LineDataSet(lineEntries, "concentration");
+        lineData = new LineData(lineDataSet);
+        lineChart.setData(lineData);
+
+        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        lineDataSet.setValueTextColor(Color.WHITE);
+        lineDataSet.setValueTextSize(10f);
+
 
         //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -526,6 +547,16 @@ public class ConcentrationReportWeekly extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
+    }
+
+    private void getEntries() {
+        lineEntries=new ArrayList();
+        lineEntries.add(new Entry(2f, 14));
+        lineEntries.add(new Entry(4f, 4));
+        lineEntries.add(new Entry(6f, 55));
+        lineEntries.add(new Entry(8f, 52));
+        lineEntries.add(new Entry(10f, 64));
+        lineEntries.add(new Entry(12f, 30));
     }
 
 

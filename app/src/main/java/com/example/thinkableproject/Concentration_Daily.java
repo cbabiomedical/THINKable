@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Paint;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,13 +15,13 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
+import com.example.thinkableproject.sample.DataEntry;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
@@ -29,8 +30,12 @@ import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -52,28 +57,35 @@ import pl.droidsonroids.gif.GifImageView;
 public class Concentration_Daily extends AppCompatActivity {
     Dialog dialogcd;
     BarChart barChartdaily;
-    LineChart lineChart;
     View c1, c2;
     GifImageView c1gif, c2gif;
     ImageView games, relaxationBtn, memory, landingtwo, landingtwoday, musicNight, gameNight;
     AppCompatButton monthly, yearly, weekly;
-
     ImageView music;
     FirebaseUser mUser;
+    AppCompatButton progressTime, improvementChart;
     String text;
-
-
     LottieAnimationView anim;
     File localFile, fileName;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
     int color;
-
     Calendar calendar;
     SimpleDateFormat simpleDateFormat;
     String Date;
+    byte testByte;
     TextView GetDateAndTime;
+    HorizontalScrollView scrollView;
+    LineChart lineChart;
+    LineData lineData;
+    LineDataSet lineDataSet;
+    ArrayList lineEntries;
+    private Runnable runnable;
+    private Handler handler2;
+    ArrayList<Float> objX = new ArrayList(
+            Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f));
 
+    ArrayList<Integer> objY = new ArrayList(Arrays.asList(25, 65, 77, 83, 23, 94, 21));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +114,9 @@ public class Concentration_Daily extends AppCompatActivity {
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
         lineChart = findViewById(R.id.lineChartDaily);
+        scrollView = findViewById(R.id.scroll);
+        improvementChart = findViewById(R.id.improvement);
+        progressTime = findViewById(R.id.progressTime);
 
 
         calendar = Calendar.getInstance();
@@ -166,7 +181,25 @@ public class Concentration_Daily extends AppCompatActivity {
 
             }
         });
+        improvementChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
 
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
+
+
+            }
+        });
+        progressTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_LEFT);
+
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_LEFT);
+
+            }
+        });
 
         memory.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -269,7 +302,7 @@ public class Concentration_Daily extends AppCompatActivity {
             e.printStackTrace();
         }
         //Providing handler to delay the process of displaying
-        final Handler handler = new Handler();
+        Handler handler = new Handler();
         final int delay = 5000;
 
         handler.postDelayed(new Runnable() {
@@ -327,7 +360,7 @@ public class Concentration_Daily extends AppCompatActivity {
 //                            LineChart dataset=new LineChart(getApplicationContext(),lineObj)
 
 
-                            float textSize = 16f;
+                            float textSize = 10f;
                             //Initializing object of MyBarDataset class and passing th arraylist to y axis of chart
                             MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsMain);
                             dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
@@ -382,6 +415,18 @@ public class Concentration_Daily extends AppCompatActivity {
             //Downloading file and displaying chart
         }, delay);
 
+
+
+        getEntries();
+        lineDataSet = new LineDataSet(lineEntries, "concentration");
+        lineData = new LineData(lineDataSet);
+        lineChart.setData(lineData);
+
+        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        lineDataSet.setValueTextColor(Color.WHITE);
+        lineDataSet.setValueTextSize(10f);
+
+
         // On click listener of monthly button
         monthly.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -435,6 +480,31 @@ public class Concentration_Daily extends AppCompatActivity {
             }
         });
 
+
+    }
+
+    private void getEntries() {
+        float xVal;
+        Integer yVal = 0;
+        lineEntries = new ArrayList<>();
+
+//        for (int p = 0; p < objX.size(); p++) {
+//            xVal = objX.get(p);
+//            for (int r = 0; r < objY.size(); r++) {
+//                yVal = objY.get(r);
+//                lineEntries.add(new Entry(xVal, yVal));
+//            }
+//
+//            Log.d("Data Entry", String.valueOf(lineEntries));
+//        }
+
+//
+        lineEntries.add(new Entry(2f, 14));
+        lineEntries.add(new Entry(4f, 4));
+        lineEntries.add(new Entry(6f, 55));
+        lineEntries.add(new Entry(8f, 52));
+        lineEntries.add(new Entry(10f, 64));
+        lineEntries.add(new Entry(12f, 30));
     }
 
     // Popup window method for suggestions to improve concentration
@@ -455,6 +525,7 @@ public class Concentration_Daily extends AppCompatActivity {
 
         c1 = (View) dialogcd.findViewById(R.id.c1);
         c2 = (View) dialogcd.findViewById(R.id.c2);
+
 
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
@@ -579,6 +650,13 @@ public class Concentration_Daily extends AppCompatActivity {
         public String getFormattedValue(float value, AxisBase axis) {
             return mValues[(int) value];
         }
+
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
 
 
     }

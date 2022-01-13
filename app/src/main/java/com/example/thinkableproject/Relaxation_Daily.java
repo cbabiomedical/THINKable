@@ -7,6 +7,7 @@ import androidx.core.content.ContextCompat;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.media.Image;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,20 +15,26 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -71,12 +78,19 @@ public class Relaxation_Daily extends AppCompatActivity {
     ImageView meditation, music;
     FirebaseUser mUser;
     String text;
+    HorizontalScrollView scrollView;
     File localFile;
     File fileName;
     ImageView concentration, memoryBtn;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
     int color;
+    LineChart lineChart;
+    LineData lineData;
+    LineDataSet lineDataSet;
+    ArrayList lineEntries;
+    AppCompatButton progressTime,improvement;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -99,6 +113,10 @@ public class Relaxation_Daily extends AppCompatActivity {
         c2gif = findViewById(R.id.landingfwall1);
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
+        lineChart = findViewById(R.id.lineChartDaily);
+        scrollView=findViewById(R.id.scroll);
+        progressTime=findViewById(R.id.progressTime);
+        improvement=findViewById(R.id.improvement);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -160,6 +178,31 @@ public class Relaxation_Daily extends AppCompatActivity {
 
             }
         });
+        improvement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
+
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
+            }
+        });
+        progressTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_LEFT);
+
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_LEFT);
+            }
+        });
+
+        getEntries();
+        lineDataSet = new LineDataSet(lineEntries, "concentration");
+        lineData = new LineData(lineDataSet);
+        lineChart.setData(lineData);
+
+        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        lineDataSet.setValueTextColor(Color.WHITE);
+        lineDataSet.setValueTextSize(10f);
         //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         //Set Home Selected
@@ -316,7 +359,7 @@ public class Relaxation_Daily extends AppCompatActivity {
                             }
 
 
-                            float textSize = 16f;
+                            float textSize = 10f;
                             Relaxation_Daily.MyBarDataset dataSet = new Relaxation_Daily.MyBarDataset(entries, "data", creditsMain);
                             dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
                                     ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
@@ -432,6 +475,22 @@ public class Relaxation_Daily extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    private void getEntries() {
+        lineEntries = new ArrayList<>();
+        lineEntries.add(new Entry(2f, 14));
+        lineEntries.add(new Entry(4f, 4));
+        lineEntries.add(new Entry(6f, 55));
+        lineEntries.add(new Entry(8f, 52));
+        lineEntries.add(new Entry(10f, 64));
+        lineEntries.add(new Entry(12f, 30));
+    }
+
 
     public void calidaily1(View view) {
         Intent intentrd = new Intent(Relaxation_Daily.this, Calibration.class);
@@ -442,16 +501,16 @@ public class Relaxation_Daily extends AppCompatActivity {
     //improve relaxation pop up window
     public void gotoPopup5(View view) {
         ImageButton imageViewcancle, imageViewmed, imageViewsong, imageViewvdo, imageViewbw, imageViewit;
-        View c1,c2;
+        View c1, c2;
         FirebaseUser mUser;
 
 
         dialogrd.setContentView(R.layout.activity_relaxation_popup);
 
-        c1=(View)dialogrd.findViewById(R.id.c1);
-        c2=(View)dialogrd.findViewById(R.id.c2);
+        c1 = (View) dialogrd.findViewById(R.id.c1);
+        c2 = (View) dialogrd.findViewById(R.id.c2);
 
-        mUser=FirebaseAuth.getInstance().getCurrentUser();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);

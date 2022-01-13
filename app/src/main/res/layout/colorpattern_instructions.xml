@@ -43,6 +43,7 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:fontFamily="serif"
+            android:layout_marginHorizontal="20dp"
             android:text="Follow the Patterns of Blink in the wheel, Once a pattern is completed repeat the same pattern by clicking the buttons of color. If the entered pattern is correct the level of difficulty increases. If you enter the wring pattern you lose. Good Luck!!"
             android:textColor="@color/white"
             android:textSize="15sp" />

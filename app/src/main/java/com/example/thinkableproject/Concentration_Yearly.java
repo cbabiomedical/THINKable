@@ -7,26 +7,33 @@ import androidx.core.content.ContextCompat;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -67,12 +74,18 @@ public class Concentration_Yearly extends AppCompatActivity {
     ImageView music, games;
     FirebaseUser mUser;
     GifImageView c1gif, c2gif;
+    HorizontalScrollView scrollView;
     View c1, c2;
     File localFile, fileName;
     String text;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
     int color;
+    LineChart lineChart;
+    LineData lineData;
+    LineDataSet lineDataSet;
+    ArrayList lineEntries;
+    AppCompatButton progressTime, improvement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,6 +111,10 @@ public class Concentration_Yearly extends AppCompatActivity {
         c2 = findViewById(R.id.c2);
         c1gif = findViewById(R.id.landingfwall);
         c2gif = findViewById(R.id.landingfwall1);
+        lineChart = findViewById(R.id.lineChartYearly);
+        scrollView = findViewById(R.id.scroll);
+        progressTime = findViewById(R.id.progressTime);
+        improvement = findViewById(R.id.improvement);
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -157,6 +174,32 @@ public class Concentration_Yearly extends AppCompatActivity {
 
             }
         });
+
+        progressTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_LEFT);
+
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_LEFT);
+            }
+        });
+        improvement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
+
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
+            }
+        });
+
+        getEntries();
+        lineDataSet = new LineDataSet(lineEntries, "concentration");
+        lineData = new LineData(lineDataSet);
+        lineChart.setData(lineData);
+
+        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        lineDataSet.setValueTextColor(Color.WHITE);
+        lineDataSet.setValueTextSize(10f);
 
         music.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -360,7 +403,7 @@ public class Concentration_Yearly extends AppCompatActivity {
                             }
 
 
-                            float textSize = 16f;
+                            float textSize = 10f;
                             //Initializing object of MyBarDataset class
                             MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsWeek);
                             dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
@@ -407,6 +450,22 @@ public class Concentration_Yearly extends AppCompatActivity {
             }
         }, delay);
 
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    private void getEntries() {
+        lineEntries = new ArrayList<>();
+        lineEntries.add(new Entry(2f, 14));
+        lineEntries.add(new Entry(4f, 4));
+        lineEntries.add(new Entry(6f, 55));
+        lineEntries.add(new Entry(8f, 52));
+        lineEntries.add(new Entry(10f, 64));
+        lineEntries.add(new Entry(12f, 30));
     }
 
     //popup window method to provide suggesstions to improve concentration
@@ -421,9 +480,9 @@ public class Concentration_Yearly extends AppCompatActivity {
 
         games = (ImageButton) dialogcy.findViewById(R.id.gamespop1);
         music1 = (ImageButton) dialogcy.findViewById(R.id.musicpop1);
-        c1=(View) dialogcy.findViewById(R.id.c1);
-        c2=(View) dialogcy.findViewById(R.id.c2);
-        mUser=FirebaseAuth.getInstance().getCurrentUser();
+        c1 = (View) dialogcy.findViewById(R.id.c1);
+        c2 = (View) dialogcy.findViewById(R.id.c2);
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);

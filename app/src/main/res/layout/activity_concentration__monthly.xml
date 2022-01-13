@@ -1,81 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:orientation="horizontal"
     android:background="#010334"
+    android:orientation="horizontal"
     tools:context=".Concentration_Monthly">
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone"
-        android:id="@+id/c2"
-        android:background="#0D559C"/>
 
     <View
+        android:id="@+id/c2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#0D559C"
+        android:visibility="gone" />
+
+    <View
         android:id="@+id/c1"
-        android:visibility="gone"
-        android:background="#010334"/>
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#010334"
+        android:visibility="gone" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center" >
+        android:gravity="center">
 
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
             <LinearLayout
+                android:id="@+id/landingone"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/landingone">
+                android:layout_height="wrap_content">
 
                 <pl.droidsonroids.gif.GifImageView
+                    android:id="@+id/landingfwall"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_alignTop="@+id/toggleBtn"
                     android:gravity="center"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/landingwall"
-                    android:layout_alignTop="@+id/toggleBtn"
-                    android:id="@+id/landingfwall"/>
+                    android:src="@drawable/landingwall" />
 
                 <pl.droidsonroids.gif.GifImageView
+                    android:id="@+id/landingfwall1"
                     android:layout_width="match_parent"
                     android:layout_height="300dp"
+                    android:layout_alignTop="@+id/toggleBtn"
                     android:gravity="center"
                     android:scaleType="centerCrop"
                     android:src="@drawable/exercisenewgif"
-                    android:visibility="gone"
-                    android:layout_alignTop="@+id/toggleBtn"
-                    android:id="@+id/landingfwall1"/>
+                    android:visibility="gone" />
             </LinearLayout>
 
 
             <ImageView
                 android:id="@+id/landingtwo"
-                android:layout_marginTop="-70dp"
-                android:layout_below="@+id/landingone"
-
-                android:src="@drawable/thin"
                 android:layout_width="match_parent"
                 android:layout_height="70dp"
-                />
 
+                android:layout_below="@+id/landingone"
+                android:layout_marginTop="-70dp"
+                android:src="@drawable/thin" />
 
 
             <LinearLayout
+                android:id="@+id/landingthree"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/landingthree"
-                android:orientation="horizontal"
                 android:layout_below="@id/landingtwo"
-                android:layout_marginTop="-40dp">
+                android:layout_marginTop="-40dp"
+                android:orientation="horizontal">
 
                 <LinearLayout
                     android:id="@+id/tg1"
@@ -93,7 +92,6 @@
                         android:layout_height="match_parent"
                         android:layout_marginLeft="35dp"
                         android:layout_marginTop="40dp"
-
 
 
                         android:elevation="5dp"
@@ -155,44 +153,43 @@
                 </LinearLayout>
 
 
-
             </LinearLayout>
 
 
             <LinearLayout
+                android:id="@+id/threelines"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/threelines"
-                android:orientation="horizontal"
                 android:layout_below="@id/landingthree"
-                android:layout_marginTop="5dp">
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
 
                 <LinearLayout
+                    android:id="@+id/threelines1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:id="@+id/threelines1"
-                    android:orientation="vertical"
+                    android:layout_marginTop="30dp"
 
-                    android:layout_marginTop="30dp">
+                    android:orientation="vertical">
 
                     <ImageView
+                        android:id="@+id/iv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/threelines"
-                        android:backgroundTint="@color/white"
                         android:layout_marginStart="25dp"
-                        android:id="@+id/iv"/>
+                        android:backgroundTint="@color/white"
+                        android:src="@drawable/threelines" />
 
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/threelines3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/threelines3"
-                    android:orientation="vertical"
                     android:layout_alignEnd="@+id/threelines1"
+                    android:layout_marginTop="20dp"
 
-                    android:layout_marginTop="20dp">
+                    android:orientation="vertical">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -205,44 +202,31 @@
                         android:textStyle="bold"
 
 
-
                         />
 
 
                 </LinearLayout>
 
 
-
-
-
-
-
-
-
-
-
-
-
-
             </LinearLayout>
+
             <RelativeLayout
+                android:id="@+id/cards"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:layout_below="@+id/threelines"
                 android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
                 android:layout_marginTop="20dp"
-                android:id="@+id/cards">
+                android:layout_marginRight="20dp"
+                android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/music"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/musiccardwo"
-                    android:id="@+id/music"
-
                     android:layout_alignParentLeft="true"
-                    />
+
+                    android:src="@drawable/musiccardwo" />
 
                 <TextView
                     android:id="@+id/musictxt"
@@ -278,22 +262,21 @@
                     android:textSize="13sp" />
 
                 <ImageView
+                    android:id="@id/game"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/gamescardwo"
                     android:layout_alignParentRight="true"
-                    android:id="@id/game"
-                    />
+                    android:src="@drawable/gamescardwo" />
 
                 <TextView
                     android:id="@+id/gametxt"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentEnd="true"
                     android:layout_alignParentTop="true"
-                    android:layout_marginEnd="70dp"
-
+                    android:layout_alignParentEnd="true"
                     android:layout_marginTop="14dp"
+
+                    android:layout_marginEnd="70dp"
                     android:fontFamily="@font/segoepr"
                     android:text="Games"
                     android:textColor="@color/white"
@@ -319,69 +302,118 @@
 
             </RelativeLayout>
 
-
-
-
-
-
-
-
-            <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/barChartMonthly"
-                android:layout_width="280dp"
-                android:layout_height="250dp"
+            <RelativeLayout
+                android:id="@+id/toggle"
                 android:layout_below="@+id/cards"
-                android:layout_centerHorizontal="true"
-                android:layout_marginStart="4dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/transparent"
-                app:cornerRadius="13dp"
-                android:layout_marginLeft="4dp" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/progressTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:paddingHorizontal="15dp"
+                    android:background="@drawable/hione"
+                    android:text="Progress Chart"
+                    android:textColor="@color/white" />
+
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/improvement"
+                    android:layout_toRightOf="@+id/progressTime"
+                    android:background="@drawable/hione"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginLeft="15dp"
+                    android:paddingHorizontal="10dp"
+
+                    android:text="Improvement Chart"
+                    android:textColor="@color/white"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+            </RelativeLayout>
+
+
+
+            <HorizontalScrollView
+                android:id="@+id/scroll"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/toggle">
+
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/barChartMonthly"
+                        android:layout_width="280dp"
+                        android:layout_height="250dp"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/transparent"
+                        app:cornerRadius="13dp" />
+
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/lineChartMonthly"
+                        android:layout_width="280dp"
+                        android:layout_height="250dp"
+                        android:layout_marginEnd="40dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_toEndOf="@+id/barChartMonthly"
+                        android:background="@color/transparent"
+                        app:cornerRadius="13dp" />
+
+                </RelativeLayout>
+            </HorizontalScrollView>
 
             <LinearLayout
                 android:id="@+id/btnLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/barChartMonthly"
-                android:orientation="horizontal"
+                android:layout_below="@+id/scroll"
+                android:layout_marginTop="20dp"
                 android:background="@android:color/transparent"
                 android:gravity="center"
-                android:layout_marginTop="20dp">
+                android:orientation="horizontal">
+
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/daily"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/daily"
-                    android:textColor="@color/white"
-
                     android:background="@drawable/hione"
-                    android:textAllCaps="false">
-                </androidx.appcompat.widget.AppCompatButton>
+                    android:text="@string/daily"
+
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"></androidx.appcompat.widget.AppCompatButton>
+
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/weekly"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:text="@string/weekly"
-                    android:textColor="@color/white"
-
-
                     android:background="@drawable/hione"
-                    android:textAllCaps="false">
-                </androidx.appcompat.widget.AppCompatButton>
+                    android:text="@string/weekly"
+
+
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"></androidx.appcompat.widget.AppCompatButton>
 
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/yearly"
-                    android:layout_marginLeft="20dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/yearly"
-                    android:textColor="@color/white"
-
+                    android:layout_marginLeft="20dp"
                     android:background="@drawable/hione"
-                    android:textAllCaps="false">
-                </androidx.appcompat.widget.AppCompatButton>
+                    android:text="@string/yearly"
+
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"></androidx.appcompat.widget.AppCompatButton>
             </LinearLayout>
 
 
@@ -403,22 +435,16 @@
                 app:lottie_rawRes="@raw/connectiondevicethree" />
 
             <ImageView
+                android:id="@+id/animationcircle"
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:layout_marginTop="20dp"
-                android:src="@drawable/bluetoothcircle"
+                android:layout_below="@+id/btnLayout"
 
                 android:layout_centerHorizontal="true"
 
 
-
-                android:id="@+id/animationcircle"
-                android:layout_below="@+id/btnLayout"/>
-
-
-
-
-
+                android:layout_marginTop="20dp"
+                android:src="@drawable/bluetoothcircle" />
 
 
             <!--            <com.airbnb.lottie.LottieAnimationView-->
@@ -433,37 +459,29 @@
             <!--                app:lottie_loop="true"/>-->
 
 
-
-
-
-
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/improveConcentration"
 
-                android:layout_marginTop="10dp"
                 android:layout_width="wrap_content"
                 android:layout_height="61dp"
+                android:layout_below="@+id/animationcircle"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="80dp"
+                android:background="@drawable/wanttocon"
+                android:onClick="gotoPopup2"
                 android:paddingHorizontal="10dp"
                 android:text="Want to Improve Concentration?"
-                android:layout_centerHorizontal="true"
-                android:layout_below="@+id/animationcircle"
-                android:textColor="@color/white"
-                android:background="@drawable/wanttocon"
-                android:layout_marginBottom="80dp"
-                app:cornerRadius="13dp"
-
-
                 android:textAllCaps="false"
-                android:onClick="gotoPopup2">
-            </androidx.appcompat.widget.AppCompatButton>
 
 
-
-
+                android:textColor="@color/white"
+                app:cornerRadius="13dp"></androidx.appcompat.widget.AppCompatButton>
 
 
         </RelativeLayout>
     </ScrollView>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
@@ -472,8 +490,7 @@
         app:itemBackground="@color/navdark"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
-        app:menu="@menu/menu_navigation"
-        />
+        app:menu="@menu/menu_navigation" />
 
 
 </RelativeLayout>

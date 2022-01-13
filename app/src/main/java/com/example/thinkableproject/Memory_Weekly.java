@@ -7,25 +7,32 @@ import androidx.core.content.ContextCompat;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -68,11 +75,17 @@ public class Memory_Weekly extends AppCompatActivity {
     FirebaseUser mUser;
     View c1, c2;
     GifImageView c1gif, c2gif;
+    HorizontalScrollView scrollView;
     int color;
     File localFile, fileName;
     ArrayList<String> list = new ArrayList<>();
     String text;
     ArrayList<Float> floatList = new ArrayList<>();
+    LineChart lineChart;
+    LineData lineData;
+    LineDataSet lineDataSet;
+    ArrayList lineEntries;
+    AppCompatButton progressTime, improvement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,6 +107,11 @@ public class Memory_Weekly extends AppCompatActivity {
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
         music = findViewById(R.id.music);
+        lineChart=findViewById(R.id.lineChartWeekly);
+        scrollView=findViewById(R.id.scroll);
+        improvement=findViewById(R.id.improvement);
+        progressTime=findViewById(R.id.progressTime);
+
         //Initializing bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -190,6 +208,35 @@ public class Memory_Weekly extends AppCompatActivity {
 
             }
         });
+
+        improvement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
+
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
+
+            }
+        });
+
+        progressTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_LEFT);
+
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_LEFT);
+
+            }
+        });
+
+        getEntries();
+        lineDataSet = new LineDataSet(lineEntries, "relaxation");
+        lineData = new LineData(lineDataSet);
+        lineChart.setData(lineData);
+
+        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        lineDataSet.setValueTextColor(Color.WHITE);
+        lineDataSet.setValueTextSize(10f);
 
 
         // On click listener of monthly button
@@ -414,6 +461,23 @@ public class Memory_Weekly extends AppCompatActivity {
         }, delay);
 
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+    }
+
+    private void getEntries() {
+        lineEntries = new ArrayList<>();
+        lineEntries.add(new Entry(2f, 14));
+        lineEntries.add(new Entry(4f, 4));
+        lineEntries.add(new Entry(6f, 55));
+        lineEntries.add(new Entry(8f, 52));
+        lineEntries.add(new Entry(10f, 64));
+        lineEntries.add(new Entry(12f, 30));
     }
 
     //popup window method to provide suggestions for improve concentration

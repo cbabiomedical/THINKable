@@ -9,12 +9,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -24,14 +26,19 @@ import com.example.thinkableproject.adapters.Adapter;
 import com.example.thinkableproject.adapters.MemoryAdapter;
 import com.example.thinkableproject.models.MemoryInterventionClass;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -72,6 +79,7 @@ public class Memory_Daily extends AppCompatActivity implements MemoryAdapter.OnN
     ImageView relaxationBtn, concentrationBtn;
     ImageView games, meditation, music;
     View c1, c2;
+    HorizontalScrollView scrollView;
     GifImageView c1gif, c2gif;
     FirebaseUser mUser;
     RecyclerView recyclerView;
@@ -83,6 +91,11 @@ public class Memory_Daily extends AppCompatActivity implements MemoryAdapter.OnN
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
     int color;
+    LineChart lineChart;
+    LineData lineData;
+    LineDataSet lineDataSet;
+    ArrayList lineEntries;
+    AppCompatButton progressTime,improvement;
 
 
     @Override
@@ -105,6 +118,10 @@ public class Memory_Daily extends AppCompatActivity implements MemoryAdapter.OnN
         c2gif = findViewById(R.id.landingfwall1);
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
+        lineChart = findViewById(R.id.lineChartDaily);
+        scrollView=findViewById(R.id.scroll);
+        progressTime=findViewById(R.id.progressTime);
+        improvement=findViewById(R.id.improvement);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -167,6 +184,35 @@ public class Memory_Daily extends AppCompatActivity implements MemoryAdapter.OnN
 
             }
         });
+
+        improvement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
+
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
+
+            }
+        });
+
+        progressTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_LEFT);
+
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_LEFT);
+
+            }
+        });
+
+        getEntries();
+        lineDataSet = new LineDataSet(lineEntries, "relaxation");
+        lineData = new LineData(lineDataSet);
+        lineChart.setData(lineData);
+
+        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        lineDataSet.setValueTextColor(Color.WHITE);
+        lineDataSet.setValueTextSize(10f);
 
 //        initData();
 //        initRecyclerView();
@@ -317,7 +363,7 @@ public class Memory_Daily extends AppCompatActivity implements MemoryAdapter.OnN
                             }
 
 
-                            float textSize = 16f;
+                            float textSize = 10f;
                             //Initializing object of MyBarDataset class and passing th arraylist to y axis of chart
                             MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsMain);
                             dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
@@ -435,6 +481,22 @@ public class Memory_Daily extends AppCompatActivity implements MemoryAdapter.OnN
             }
         });
 
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    private void getEntries() {
+        lineEntries = new ArrayList<>();
+        lineEntries.add(new Entry(2f, 14));
+        lineEntries.add(new Entry(4f, 4));
+        lineEntries.add(new Entry(6f, 55));
+        lineEntries.add(new Entry(8f, 52));
+        lineEntries.add(new Entry(10f, 64));
+        lineEntries.add(new Entry(12f, 30));
     }
 
 

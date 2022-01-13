@@ -424,9 +424,82 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="4dp"
                 android:layout_marginTop="40dp"
-                android:layout_marginBottom="70dp"
+                android:layout_marginBottom="20dp"
                 android:background="@color/transparent"
                 app:cornerRadius="13dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/threelines3l"
+                android:orientation="horizontal"
+                android:layout_below="@id/barChartDaily2"
+                android:layout_marginTop="5dp">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/threelines3la"
+                    android:orientation="vertical"
+
+                    android:layout_marginTop="30dp">
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/threelines"
+                        android:backgroundTint="@color/white"
+                        android:layout_marginStart="25dp"
+                        android:id="@+id/iv3"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/threelines3ld"
+                    android:orientation="vertical"
+                    android:layout_alignEnd="@+id/threelines1"
+
+                    android:layout_marginTop="20dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="@font/segoepr"
+                        android:text="Concentration Index"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+
+
+
+
+                        />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/lineChartDaily"
+                android:layout_width="280dp"
+                android:layout_height="250dp"
+                android:layout_marginBottom="70dp"
+                android:layout_below="@+id/threelines3l"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="40dp"
+                android:background="@color/transparent"
+                app:cornerRadius="13dp" />
+
+
+
+
         </RelativeLayout>
 
     </ScrollView>

@@ -7,26 +7,33 @@ import androidx.core.content.ContextCompat;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -63,7 +70,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
     BarChart barChart2;
     AppCompatButton daily, weekly, monthly;
     LottieAnimationView realTime;
-
+    HorizontalScrollView scrollView;
     ImageView concentration, memoryBtn;
     FirebaseUser mUser;
     String text;
@@ -75,6 +82,11 @@ public class Relaxation_Yearly extends AppCompatActivity {
     GifImageView c1gif, c2gif;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
+    LineChart lineChart;
+    LineData lineData;
+    LineDataSet lineDataSet;
+    ArrayList lineEntries;
+    AppCompatButton progressTime, improvement;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -103,6 +115,10 @@ public class Relaxation_Yearly extends AppCompatActivity {
         c2gif = findViewById(R.id.landingfwall1);
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
+        lineChart = findViewById(R.id.lineChartYearly);
+        scrollView = findViewById(R.id.scroll);
+        improvement = findViewById(R.id.improvement);
+        progressTime = findViewById(R.id.progressTime);
         //Initialize pop up window
         dialogry = new Dialog(this);
 
@@ -168,6 +184,33 @@ public class Relaxation_Yearly extends AppCompatActivity {
 
             }
         });
+
+        improvement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
+
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
+            }
+        });
+
+        progressTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_LEFT);
+
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_LEFT);
+            }
+        });
+
+        getEntries();
+        lineDataSet = new LineDataSet(lineEntries, "relaxation");
+        lineData = new LineData(lineDataSet);
+        lineChart.setData(lineData);
+
+        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        lineDataSet.setValueTextColor(Color.WHITE);
+        lineDataSet.setValueTextSize(10f);
 
         //go to concentration yearly landing page
         concentration = findViewById(R.id.concentration);
@@ -369,7 +412,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
                             }
 
 
-                            float textSize = 16f;
+                            float textSize = 10f;
                             Relaxation_Yearly.MyBarDataset dataSet = new Relaxation_Yearly.MyBarDataset(entries, "data", creditsWeek);
                             dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
                                     ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
@@ -422,6 +465,22 @@ public class Relaxation_Yearly extends AppCompatActivity {
 
     }
 
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    private void getEntries() {
+        lineEntries = new ArrayList<>();
+        lineEntries.add(new Entry(2f, 14));
+        lineEntries.add(new Entry(4f, 4));
+        lineEntries.add(new Entry(6f, 55));
+        lineEntries.add(new Entry(8f, 52));
+        lineEntries.add(new Entry(10f, 64));
+        lineEntries.add(new Entry(12f, 30));
+    }
+
     public void caliyearly1(View view) {
         Intent intentry = new Intent(Relaxation_Yearly.this, Calibration.class);
 
@@ -431,15 +490,15 @@ public class Relaxation_Yearly extends AppCompatActivity {
     //improve relaxation pop up window
     public void gotoPopup8(View view) {
         ImageButton imageViewcancle, imageViewmed, imageViewsong, imageViewvdo, imageViewbw, imageViewit;
-        View c1,c2;
+        View c1, c2;
         FirebaseUser mUser;
 
         dialogry.setContentView(R.layout.activity_relaxation_popup);
 
-        c1=(View) dialogry.findViewById(R.id.c1);
-        c2=(View)dialogry.findViewById(R.id.c2);
+        c1 = (View) dialogry.findViewById(R.id.c1);
+        c2 = (View) dialogry.findViewById(R.id.c2);
 
-        mUser=FirebaseAuth.getInstance().getCurrentUser();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);

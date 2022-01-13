@@ -7,26 +7,33 @@ import androidx.core.content.ContextCompat;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -69,12 +76,22 @@ public class Concentration_Weekly extends AppCompatActivity {
     FirebaseUser mUser;
     ImageView music;
     GifImageView c1gif, c2gif;
+    HorizontalScrollView scrollView;
     View c1, c2;
     File localFile, fileName;
     ArrayList<String> list = new ArrayList<>();
     String text;
     ArrayList<Float> floatList = new ArrayList<>();
     int color;
+    LineChart lineChart;
+    LineData lineData;
+    LineDataSet lineDataSet;
+    ArrayList lineEntries;
+    AppCompatButton progressTime, improvementChart;
+
+
+    List<Float> xVal = new ArrayList<>(Arrays.asList(20f, 30f, 45f, 84f, 34f, 65f, 76f));
+    ArrayList<Float> yVal = new ArrayList(Arrays.asList(45, 36, 75, 36, 73, 45, 83));
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +118,10 @@ public class Concentration_Weekly extends AppCompatActivity {
         c2 = findViewById(R.id.c2);
         c1gif = findViewById(R.id.landingfwall);
         c2gif = findViewById(R.id.landingfwall1);
+        lineChart = findViewById(R.id.lineChartWeekly);
+        scrollView = findViewById(R.id.scroll);
+        progressTime = findViewById(R.id.progressTime);
+        improvementChart = findViewById(R.id.improvement);
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -157,9 +178,27 @@ public class Concentration_Weekly extends AppCompatActivity {
 
             }
 
+
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        improvementChart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
+
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
+            }
+        });
+        progressTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_LEFT);
+
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_LEFT);
             }
         });
 
@@ -178,6 +217,14 @@ public class Concentration_Weekly extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        getEntries();
+        lineDataSet = new LineDataSet(lineEntries, "concentration");
+        lineData = new LineData(lineDataSet);
+        lineChart.setData(lineData);
+
+        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        lineDataSet.setValueTextColor(Color.WHITE);
+        lineDataSet.setValueTextSize(10f);
 
         //Initializing bottom navigation bar
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -374,7 +421,7 @@ public class Concentration_Weekly extends AppCompatActivity {
                                 entries.add(new BarEntry(j, floatList.get(j)));
                             }
 
-                            float textSize = 16f;
+                            float textSize = 10f;
                             //Initializing object of MyBarDataset class
                             MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsWeek);
                             dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
@@ -428,6 +475,18 @@ public class Concentration_Weekly extends AppCompatActivity {
 
     }
 
+    private void getEntries() {
+
+//        for (int i=0; i<xVal;i++)
+        lineEntries = new ArrayList<>();
+        lineEntries.add(new Entry(2f, 14));
+        lineEntries.add(new Entry(4f, 4));
+        lineEntries.add(new Entry(6f, 55));
+        lineEntries.add(new Entry(8f, 52));
+        lineEntries.add(new Entry(10f, 64));
+        lineEntries.add(new Entry(12f, 30));
+    }
+
     //popup window method to provide suggestions for improve concentration
     public void gotoPopup3m(View view) {
         ImageButton cancelcon, games, music1;
@@ -440,7 +499,7 @@ public class Concentration_Weekly extends AppCompatActivity {
         c1 = (View) dialogcw.findViewById(R.id.c1);
         c2 = (View) dialogcw.findViewById(R.id.c2);
 
-        mUser=FirebaseAuth.getInstance().getCurrentUser();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
@@ -526,6 +585,14 @@ public class Concentration_Weekly extends AppCompatActivity {
     }
 
     public void calidaily(View view) {
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+
+
     }
 
     public void gotoPopup1(View view) {

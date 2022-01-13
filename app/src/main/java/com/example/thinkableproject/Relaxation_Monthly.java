@@ -7,24 +7,31 @@ import androidx.core.content.ContextCompat;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -69,11 +76,18 @@ public class Relaxation_Monthly extends AppCompatActivity {
     View c1, c2;
     GifImageView c1gif, c2gif;
     File localFile;
+    HorizontalScrollView scrollView;
     String text;
     int color;
     File fileName;
     ArrayList<String> list = new ArrayList();
     ArrayList<Float> floatList = new ArrayList<>();
+    LineChart lineChart;
+    LineData lineData;
+    LineDataSet lineDataSet;
+    ArrayList lineEntries;
+    AppCompatButton progressTime,improvement;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -97,6 +111,10 @@ public class Relaxation_Monthly extends AppCompatActivity {
         c2gif = findViewById(R.id.landingfwall1);
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
+        lineChart = findViewById(R.id.lineChartMonthly);
+        scrollView=findViewById(R.id.scroll);
+        progressTime=findViewById(R.id.progressTime);
+        improvement=findViewById(R.id.improvement);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -158,6 +176,32 @@ public class Relaxation_Monthly extends AppCompatActivity {
 
             }
         });
+
+        improvement.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
+
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
+            }
+        });
+        progressTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_LEFT);
+
+                scrollView.fullScroll(HorizontalScrollView.FOCUS_LEFT);
+            }
+        });
+
+        getEntries();
+        lineDataSet = new LineDataSet(lineEntries, "relaxation");
+        lineData = new LineData(lineDataSet);
+        lineChart.setData(lineData);
+
+        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        lineDataSet.setValueTextColor(Color.WHITE);
+        lineDataSet.setValueTextSize(10f);
 
         //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -301,7 +345,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
                             }
 
 
-                            float textSize = 16f;
+                            float textSize = 10f;
                             Relaxation_Monthly.MyBarDataset dataSet = new Relaxation_Monthly.MyBarDataset(entries, "data", credits);
                             dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
                                     ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
@@ -351,6 +395,8 @@ public class Relaxation_Monthly extends AppCompatActivity {
                 }
             }
         }, delay);
+
+
 
         //go to relaxation daily page
         daily.setOnClickListener(new View.OnClickListener() {
@@ -426,6 +472,22 @@ public class Relaxation_Monthly extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+    }
+
+    private void getEntries() {
+        lineEntries = new ArrayList<>();
+        lineEntries.add(new Entry(2f, 14));
+        lineEntries.add(new Entry(4f, 4));
+        lineEntries.add(new Entry(6f, 55));
+        lineEntries.add(new Entry(8f, 52));
+        lineEntries.add(new Entry(10f, 64));
+        lineEntries.add(new Entry(12f, 30));
     }
 
 

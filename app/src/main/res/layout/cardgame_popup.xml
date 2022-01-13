@@ -42,6 +42,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:textColor="@color/white"
+        android:layout_marginHorizontal="20dp"
         android:textSize="15sp"
         android:fontFamily="serif"
         android:text="Instructions: Find all pairs of card For every opening of two cards one move will be added. If the two cards flipped are not matching the flipped card closes to the next turn. Remember the positions of card and match them "
