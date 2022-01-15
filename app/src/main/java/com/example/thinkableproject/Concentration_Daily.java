@@ -1,6 +1,7 @@
 package com.example.thinkableproject;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
@@ -9,6 +10,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -426,6 +428,12 @@ public class Concentration_Daily extends AppCompatActivity {
         lineDataSet.setValueTextColor(Color.WHITE);
         lineDataSet.setValueTextSize(10f);
 
+        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+        lineChart.setBorderColor(Color.TRANSPARENT);
+        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+        lineChart.getAxisLeft().setDrawGridLines(false);
+        lineChart.getXAxis().setDrawGridLines(false);
+        lineChart.getAxisRight().setDrawGridLines(false);
 
         // On click listener of monthly button
         monthly.setOnClickListener(new View.OnClickListener() {
@@ -438,6 +446,7 @@ public class Concentration_Daily extends AppCompatActivity {
         });
         // On click listener of weekly button
         weekly.setOnClickListener(new View.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.ECLAIR)
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Concentration_Weekly.class);

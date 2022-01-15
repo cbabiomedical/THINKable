@@ -331,6 +331,19 @@
                 app:cornerRadius="13dp"
                 android:layout_marginLeft="4dp" />
 
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/lineChartDaily"
+                android:layout_width="280dp"
+                android:layout_height="250dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="20dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="40dp"
+                android:layout_toEndOf="@+id/barChartDaily"
+                android:background="@color/transparent"
+                app:cornerRadius="13dp" />
+
             <LinearLayout
                 android:id="@+id/btnLayout"
                 android:layout_width="match_parent"
