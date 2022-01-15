@@ -42,7 +42,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThinkableProject"
         android:usesCleartextTraffic="true">
-        <activity android:name=".LineChartExample"></activity>
+        <activity
+            android:name=".ContactUs"
+            android:exported="true" />
+        <activity android:name=".LineChartExample" />
         <activity android:name=".PlayVideo" />
         <activity android:name=".Memory_popup" />
         <activity
@@ -51,7 +54,6 @@
         <activity
             android:name=".ColorPatternGame"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name="com.example.ColorPatternGame" />
         <activity
             android:name=".NotificationMessage"
             android:exported="false" />
@@ -70,9 +72,9 @@
             android:name=".Downloads"
             android:label="My Downloads"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".MainActivity"
-            android:parentActivityName=".Concentration_Daily" />
+<!--        <activity-->
+<!--            android:name=".MainActivity"-->
+<!--            android:parentActivityName=".Concentration_Daily" />-->
         <activity
             android:name=".RelaxationExercise"
             android:label="Training Exercise"
@@ -178,20 +180,20 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Memory_Daily"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:label="THINKable" />
+            android:label="THINKable"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Memory_Weekly"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:label="THINKable" />
+            android:label="THINKable"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".MemoryMonthly"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:label="THINKable" />
+            android:label="THINKable"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Memory_Yearly"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:label="THINKable" />
+            android:label="THINKable"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".MemoryReportDaily"
             android:label="Memory Daily Report"
@@ -250,16 +252,16 @@
         <activity
             android:name=".Concentration_Yearly"
             android:label="THINKable"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:logo="@drawable/braingym_logo" />
+            android:logo="@drawable/braingym_logo"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Concentration_Monthly"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:label="THINKable" />
+            android:label="THINKable"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Concentration_Weekly"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:label="THINKable" />
+            android:label="THINKable"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Concentration_Daily"
             android:label="THINKable"
@@ -281,18 +283,18 @@
         <activity
             android:name=".Relaxation_Yearly"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:label="THINkable" />
+            android:label="THINkable"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Relaxation_Monthly"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:label="THINKable" />
+            android:label="THINKable"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Setting"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:label="Settings" /> <!-- <activity -->
+            android:label="Settings"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" /> <!-- <activity -->
         <!-- android:name=".ui.login.UserProfile" -->
         <!-- android:exported="true" -->
         <!-- android:label="@string/title_activity_user_profile" /> -->
@@ -307,13 +309,13 @@
         <activity
             android:name=".Relaxation_Weekly"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:label="THINKable" />
+            android:label="THINKable"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Relaxation_Daily"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:label="THINkable" />
+            android:label="THINkable"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".Suggestions" />
         <activity android:name=".VerifyPhoneActivity" />
         <activity android:name=".EnterPhoneActivity" />

@@ -37,7 +37,7 @@ import java.util.HashMap;
 
 public class Setting extends AppCompatActivity {
     Dialog dialogcd;
-    ImageButton buttonpro, accountsettings1, changepassword1, location2, theme2, preferences1, notifications2, help3, logout;
+    ImageButton buttonpro, accountsettings1, changepassword1, location2, theme2, preferences1, notifications2, help3, logout, contactus;
     ImageView upgradetopro;
     private Uri filePath;
     private StorageReference storageReference;
@@ -72,6 +72,7 @@ public class Setting extends AppCompatActivity {
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
         c3=findViewById(R.id.c3);
+        contactus = findViewById(R.id.contactus1);
         dialogcd = new Dialog(this);
 
         preferences1 = findViewById(R.id.preferences1);
@@ -184,6 +185,13 @@ public class Setting extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), LineChartExample.class));
 
+            }
+        });
+
+        contactus.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), ContactUs.class));
             }
         });
 
