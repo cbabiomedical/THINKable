@@ -374,7 +374,7 @@
                     android:layout_toRightOf="@+id/progressTime"
                     android:background="@drawable/hione"
                     android:layout_marginTop="20dp"
-                    android:layout_marginLeft="-10dp"
+                    android:layout_marginLeft="15dp"
                     android:paddingHorizontal="10dp"
 
                     android:text="Improvement Chart"

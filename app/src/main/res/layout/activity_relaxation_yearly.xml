@@ -351,7 +351,7 @@
                     android:id="@+id/barChartYearly"
                     android:layout_width="280dp"
                     android:layout_height="250dp"
-                    android:layout_marginStart="4dp"
+                    android:layout_marginStart="40dp"
                     android:layout_marginLeft="4dp"
                     android:layout_marginTop="20dp"
                     android:background="@color/transparent"

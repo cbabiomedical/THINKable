@@ -6,6 +6,7 @@ import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -14,16 +15,22 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
 import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.ValueFormatter;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -75,6 +82,19 @@ public class RelaxationReportYearly extends AppCompatActivity {
     ArrayList<Float> floatList = new ArrayList<>();
     ArrayList<Float> floatList2 = new ArrayList<>();
 
+    ArrayList<Float> xVal = new ArrayList<>(Arrays.asList(2f, 4f, 6f, 8f, 10f, 12f, 14f));
+    ArrayList<Float> yVal = new ArrayList(Arrays.asList(45f, 36f, 75f, 36f, 73f, 45f, 83f));
+    ArrayList<String> xnewVal = new ArrayList<>();
+    ArrayList<String> ynewVal = new ArrayList<>();
+    ArrayList<Float> floatxVal = new ArrayList<>();
+    ArrayList<Float> floatyVal = new ArrayList<>();
+
+    LineChart lineChart;
+    LineData lineData;
+    LineDataSet lineDataSet;
+    ArrayList lineEntries;
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -103,6 +123,7 @@ public class RelaxationReportYearly extends AppCompatActivity {
         c2 = findViewById(R.id.c2);
         c1gif = findViewById(R.id.landingfwall);
         c2gif = findViewById(R.id.landingfwall1);
+        lineChart = findViewById(R.id.lineChartYearly);
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -172,6 +193,7 @@ public class RelaxationReportYearly extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intentr1 = new Intent(getApplicationContext(), RelaxationReportDaily.class);
                 startActivity(intentr1);
+                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
         //go to relaxation monthly page
@@ -183,6 +205,21 @@ public class RelaxationReportYearly extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
+
+        getEntries();
+        lineDataSet = new LineDataSet(lineEntries, "concentration");
+        lineData = new LineData(lineDataSet);
+        lineChart.setData(lineData);
+
+        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        lineDataSet.setValueTextColor(Color.WHITE);
+        lineDataSet.setValueTextSize(10f);
+        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+        lineChart.setBorderColor(Color.TRANSPARENT);
+        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+        lineChart.getAxisLeft().setDrawGridLines(false);
+        lineChart.getXAxis().setDrawGridLines(false);
+        lineChart.getAxisRight().setDrawGridLines(false);
 
         //go to relaxation weekly page
         weekly.setOnClickListener(new View.OnClickListener() {
@@ -524,6 +561,84 @@ public class RelaxationReportYearly extends AppCompatActivity {
             }
         }, delay2);
 
+        try {
+            fileName = new File(getCacheDir() + "/relRepYearlyX.txt");  //Writing data to file
+            FileWriter fw;
+            fw = new FileWriter(fileName);
+            BufferedWriter output = new BufferedWriter(fw);
+            int size = xVal.size();
+            for (int i = 0; i < size; i++) {
+                output.write(xVal.get(i).toString() + "\n");
+                Toast.makeText(this, "Success Writing X Data", Toast.LENGTH_SHORT).show();
+            }
+            output.close();
+        } catch (IOException exception) {
+            Toast.makeText(this, "Failed Writing X Data", Toast.LENGTH_SHORT).show();
+            exception.printStackTrace();
+        }
+
+//
+        mUser = FirebaseAuth.getInstance().getCurrentUser(); // get current user
+        mUser.getUid();
+//
+//        // Uploading saved data containing file to firebase storage
+        StorageReference storageXAxis = FirebaseStorage.getInstance().getReference(mUser.getUid());
+        try {
+            StorageReference mountainsRef = storageXAxis.child("relRepYearlyX.txt");
+            InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
+            UploadTask uploadTask = mountainsRef.putStream(stream);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(RelaxationReportYearly.this, "File Uploaded X data", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(RelaxationReportYearly.this, "File Uploading Failed X", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+//
+        try {
+            fileName = new File(getCacheDir() + "/relRepYearlyY.txt");  //Writing data to file
+            FileWriter fw;
+            fw = new FileWriter(fileName);
+            BufferedWriter output = new BufferedWriter(fw);
+            int size = yVal.size();
+            for (int i = 0; i < size; i++) {
+                output.write(yVal.get(i).toString() + "\n");
+                Toast.makeText(this, "Success Writing Y data", Toast.LENGTH_SHORT).show();
+            }
+            output.close();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
+        StorageReference storageYAxis = FirebaseStorage.getInstance().getReference(mUser.getUid());
+        try {
+            StorageReference mountainsRef = storageYAxis.child("relRepYearlyY.txt");
+            InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
+            UploadTask uploadTask = mountainsRef.putStream(stream);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                    Toast.makeText(RelaxationReportYearly.this, "File Uploaded Y Axis", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Toast.makeText(RelaxationReportYearly.this, "File Uploading Failed Y Data", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+
         //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         //Set Home Selected
@@ -556,6 +671,165 @@ public class RelaxationReportYearly extends AppCompatActivity {
                 return false;
             }
         });
+    }
+
+    private void getEntries() {
+        Handler handler = new Handler();
+        final int delay = 5000;
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+
+                lineEntries = new ArrayList();
+//        Handler handler1=new Handler();
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/relRepYearlyX.txt");
+                //Downloading file from firebase and storing data into a tempFile in cache memory
+                try {
+                    localFile = File.createTempFile("tempFileX", ".txt");
+                    text = localFile.getAbsolutePath();
+                    Log.d("Bitmap", text);
+                    storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(RelaxationReportYearly.this, "Download X data", Toast.LENGTH_SHORT).show();
+
+                            // reading data from the tempFile and storing in array list
+
+                            try {
+                                InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
+
+                                Log.d("FileName", localFile.getAbsolutePath());
+
+                                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                                String line = "";
+
+                                Log.d("First", line);
+                                if ((line = bufferedReader.readLine()) != null) {
+                                    xnewVal.add(line);
+                                }
+                                while ((line = bufferedReader.readLine()) != null) {
+
+                                    xnewVal.add(line);
+                                    Log.d("Line", line);
+                                }
+
+                                Log.d("X New Val", String.valueOf(xnewVal));
+                                //Converting string arraylist to float array list
+                                for (int i = 0; i < xnewVal.size(); i++) {
+                                    floatxVal.add(Float.parseFloat(xnewVal.get(i)));
+                                    Log.d("FloatXVal", String.valueOf(floatxVal));
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+
+                            StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/relRepYearlyY.txt");
+//        //Downloading file from firebase and storing data into a tempFile in cache memory
+                            try {
+                                localFile = File.createTempFile("tempFileY", ".txt");
+                                text = localFile.getAbsolutePath();
+                                Log.d("Bitmap", text);
+                                storageReference1.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                                    @Override
+                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+//                            Toast.makeText(Concentration_Daily.this, "Success", Toast.LENGTH_SHORT).show();
+
+                                        // reading data from the tempFile and storing in array list
+
+                                        try {
+                                            InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
+
+                                            Log.d("FileName", localFile.getAbsolutePath());
+
+                                            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                                            String line = "";
+
+                                            Log.d("First", line);
+                                            if ((line = bufferedReader.readLine()) != null) {
+                                                ynewVal.add(line);
+                                            }
+                                            while ((line = bufferedReader.readLine()) != null) {
+
+                                                ynewVal.add(line);
+                                                Log.d("Line", line);
+                                            }
+
+                                            Log.d("YVal", String.valueOf(ynewVal));
+                                            //Converting string arraylist to float array list
+                                            for (int i = 0; i < ynewVal.size(); i++) {
+                                                floatyVal.add(Float.parseFloat(ynewVal.get(i)));
+                                                Log.d("OutX", String.valueOf(floatxVal));
+                                                Log.d("FloatYArray", String.valueOf(floatyVal));
+                                                Log.d("OutY", String.valueOf(floatyVal));
+
+
+                                            }
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                        Log.d("floatYVal", String.valueOf(floatyVal));
+
+                                        for (int x = 0; x < floatxVal.size(); x++) {
+
+                                            lineEntries.add(new Entry(floatxVal.get(x), floatyVal.get(x)));
+
+                                        }
+                                        Log.d("Line Entry", String.valueOf(lineEntries));
+                                        lineDataSet = new LineDataSet(lineEntries, "concentration");
+                                        lineData = new LineData(lineDataSet);
+                                        lineChart.setData(lineData);
+
+                                        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+                                        lineDataSet.setValueTextColor(Color.WHITE);
+                                        lineDataSet.setValueTextSize(10f);
+
+                                        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+                                        lineChart.setBorderColor(Color.TRANSPARENT);
+                                        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+                                        lineChart.getAxisLeft().setDrawGridLines(false);
+                                        lineChart.getXAxis().setDrawGridLines(false);
+                                        lineChart.getAxisRight().setDrawGridLines(false);
+
+
+//
+////                            LineChart dataset=new LineChart(getApplicationContext(),lineObj)
+//
+//
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(Concentration_Daily.this, "Failed", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+
+                            } catch (IOException exception) {
+                                exception.printStackTrace();
+                            }
+//                    Log.d("floatX Data", String.valueOf(floatList));
+//
+//
+////                            LineChart dataset=new LineChart(getApplicationContext(),lineObj)
+//
+//
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(RelaxationReportYearly.this, "Failed X", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
+
+            }
+        }, 10000);
     }
 
     //set up x and y axis data
