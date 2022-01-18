@@ -51,7 +51,7 @@
         android:textColor="@color/white"
         android:fontFamily="serif"
         android:textSize="15sp"
-        android:text="Given games can be played by clicking the game card. If you wish to download game from playstore click download button. Your downloads will be visible in Account Settings You also can add games which you like into favourites by clicking the heart icon"
+        android:text="By clicking the Card you will be directed to selected game. Enjoy the Game while improving your Memory and Concentration  "
         />
 
     <Button

@@ -672,7 +672,7 @@ public class Memory_Daily extends AppCompatActivity implements MemoryAdapter.OnN
 
                                         }
                                         Log.d("Line Entry", String.valueOf(lineEntries));
-                                        lineDataSet = new LineDataSet(lineEntries, "Memory Improvement");
+                                        lineDataSet = new LineDataSet(lineEntries, "Memory Index");
                                         lineData = new LineData(lineDataSet);
                                         lineChart.setData(lineData);
 

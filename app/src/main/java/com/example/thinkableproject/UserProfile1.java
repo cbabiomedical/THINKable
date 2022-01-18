@@ -13,6 +13,7 @@ import com.example.thinkableproject.adapters.PostAdapter;
 import com.example.thinkableproject.sample.Brain_Waves;
 import com.example.thinkableproject.sample.Concentration;
 import com.example.thinkableproject.sample.JsonPlaceHolder;
+import com.example.thinkableproject.sample.Memory;
 import com.example.thinkableproject.sample.Post;
 import com.example.thinkableproject.sample.Relaxation;
 import com.google.gson.Gson;
@@ -40,6 +41,7 @@ public class UserProfile1 extends AppCompatActivity {
     List<Relaxation> relaxationList;
     List<EEG_Values> eeg_valuesList;
     List<Brain_Waves> brain_wavesList;
+    List<Memory> memoryList;
 
 
     @Override
@@ -54,8 +56,9 @@ public class UserProfile1 extends AppCompatActivity {
         relaxationList = new ArrayList<>();
         eeg_valuesList = new ArrayList<>();
         brain_wavesList = new ArrayList<>();
+        memoryList = new ArrayList<>();
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.105:8000/")
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.137:5000/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         jsonPlaceHolder = retrofit.create(JsonPlaceHolder.class);
@@ -101,6 +104,45 @@ public class UserProfile1 extends AppCompatActivity {
             }
         });
 
+        // get Memory Value
+
+        Call<List<Memory>> memory = jsonPlaceHolder.getMemoryValues();
+        memory.enqueue(new Callback<List<Memory>>() {
+            @Override
+            public void onResponse(Call<List<Memory>> call, Response<List<Memory>> response) {
+                if (response.isSuccessful()) {
+//                    Toast.makeText(UserProfile1.this,"Get Successful",Toast.LENGTH_SHORT).show();
+                    Log.d("GET", "Successful");
+                    memoryList = (response.body());
+                    Log.d("EEG Response", String.valueOf(response.body()));
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<List<Memory>> call, Throwable t) {
+
+            }
+        });
+
+        //Post Memory Data
+
+        Call<Void> call6 = jsonPlaceHolder.PostMemoryData(56, 35, 54, 14, 64);
+        call6.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                Toast.makeText(UserProfile1.this, "Post Successful", Toast.LENGTH_SHORT).show();
+                Log.d("Memory Data", String.valueOf(response.code()));
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                Toast.makeText(UserProfile1.this, "Failed Post", Toast.LENGTH_SHORT).show();
+                Log.d("ErrorVal", String.valueOf(t));
+
+            }
+        });
+
         // Post EEG data
 
         Call<Void> call4 = jsonPlaceHolder.PostData(56, 35, 54, 14, 64);
@@ -120,27 +162,27 @@ public class UserProfile1 extends AppCompatActivity {
         });
 
         //post method
-        Call<List<Post>> call1 = jsonPlaceHolder.getPost();
-        call1.enqueue(new Callback<List<Post>>() {
-            @Override
-            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
-                Log.d("Response Post", String.valueOf(response.body()));
-                if (response.isSuccessful()) {
-//                    Toast.makeText(UserProfile1.this,"Get Successful",Toast.LENGTH_SHORT).show();
-                    Log.d("GET", "Successful");
-                    postList = (response.body());
-                    Log.d("Response Post", String.valueOf(response.body()));
-
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<List<Post>> call, Throwable t) {
-                Log.d("GET", "Failed");
-
-            }
-        });
+//        Call<List<Post>> call1 = jsonPlaceHolder.getPost();
+//        call1.enqueue(new Callback<List<Post>>() {
+//            @Override
+//            public void onResponse(Call<List<Post>> call, Response<List<Post>> response) {
+//                Log.d("Response Post", String.valueOf(response.body()));
+//                if (response.isSuccessful()) {
+////                    Toast.makeText(UserProfile1.this,"Get Successful",Toast.LENGTH_SHORT).show();
+//                    Log.d("GET", "Successful");
+//                    postList = (response.body());
+//                    Log.d("Response Post", String.valueOf(response.body()));
+//
+//
+//                }
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Post>> call, Throwable t) {
+//                Log.d("GET", "Failed");
+//
+//            }
+//        });
 
         // Post Concentration Data
 
@@ -247,21 +289,21 @@ public class UserProfile1 extends AppCompatActivity {
         Post post = new Post("Sanduni", "24", "Unknown");
         Gson gson = new Gson();
 
-        Call<Void> call = jsonPlaceHolder.createPostVal("Sanduni", "24", "Devi Balika Vidhyalaya");
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
-                Log.d("Response Code", String.valueOf(response.code()));
-                Toast.makeText(UserProfile1.this, "Post Successful", Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                Toast.makeText(UserProfile1.this, "Failed Post", Toast.LENGTH_SHORT).show();
-                Log.d("ErrorVal", String.valueOf(t));
-
-            }
-        });
+//        Call<Void> call = jsonPlaceHolder.createPostVal("Sanduni", "24", "Devi Balika Vidhyalaya");
+//        call.enqueue(new Callback<Void>() {
+//            @Override
+//            public void onResponse(Call<Void> call, Response<Void> response) {
+//                Log.d("Response Code", String.valueOf(response.code()));
+//                Toast.makeText(UserProfile1.this, "Post Successful", Toast.LENGTH_SHORT).show();
+//            }
+//
+//            @Override
+//            public void onFailure(Call<Void> call, Throwable t) {
+//                Toast.makeText(UserProfile1.this, "Failed Post", Toast.LENGTH_SHORT).show();
+//                Log.d("ErrorVal", String.valueOf(t));
+//
+//            }
+//        });
 
 //
     }

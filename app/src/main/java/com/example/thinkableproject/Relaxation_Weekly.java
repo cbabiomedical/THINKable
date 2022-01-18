@@ -664,7 +664,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
 
                                         }
                                         Log.d("Line Entry", String.valueOf(lineEntries));
-                                        lineDataSet = new LineDataSet(lineEntries, "Relaxation Improvement");
+                                        lineDataSet = new LineDataSet(lineEntries, "Relaxation Index");
                                         lineData = new LineData(lineDataSet);
                                         lineChart.setData(lineData);
 

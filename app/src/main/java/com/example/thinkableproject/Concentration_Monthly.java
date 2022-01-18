@@ -640,7 +640,7 @@ public class Concentration_Monthly extends AppCompatActivity {
 
                                         }
                                         Log.d("Line Entry", String.valueOf(lineEntries));
-                                        lineDataSet = new LineDataSet(lineEntries, "Concentration Improvement");
+                                        lineDataSet = new LineDataSet(lineEntries, "Concentration Index");
                                         lineData = new LineData(lineDataSet);
                                         lineChart.setData(lineData);
 
@@ -658,6 +658,7 @@ public class Concentration_Monthly extends AppCompatActivity {
                                         lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                                         lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
                                         lineChart.getDescription().setTextColor(R.color.white);
+
 
 
 //

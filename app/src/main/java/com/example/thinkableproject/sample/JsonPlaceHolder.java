@@ -28,6 +28,19 @@ public interface JsonPlaceHolder {
     @GET("brain_waves")
     Call<List<Brain_Waves>> getBrainWavesValues();
 
+    @GET("memory")
+    Call<List<Memory>> getMemoryValues();
+
+    @FormUrlEncoded
+    @POST("memory")
+    Call<Void> PostMemoryData(
+            @Field("alpha") int alpha,
+            @Field("beta") int beta,
+            @Field("gamma") int gamma,
+            @Field("theta") int theta,
+            @Field("delta") int delta
+    );
+
     @FormUrlEncoded
     @POST("brain_waves")
     Call<Void> PostBrainWavesData(
@@ -70,7 +83,7 @@ public interface JsonPlaceHolder {
 
 
     @FormUrlEncoded
-    @POST("/")
+    @POST("")
     Call<Void> createPostVal(
             @Field("name") String name,
             @Field("age") String age,
@@ -79,6 +92,6 @@ public interface JsonPlaceHolder {
 
 
 
-    @GET("/")
-    Call<List<Post>> getPost();
+//    @GET("")
+//    Call<List<Post>> getPost();
 }

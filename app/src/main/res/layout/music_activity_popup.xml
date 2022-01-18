@@ -52,6 +52,7 @@
         android:layout_marginHorizontal="10dp"
         android:layout_marginTop="20dp"
         android:fontFamily="serif"
+        android:justificationMode="inter_word"
         android:text="Click the Selected Music to Play Music File. It is adviced to close your eyes and focus on the audio while listening. You are able to download music files if you wish to download by clicking download button and add music files to favourites by clicking the heart icon"
         android:textAlignment="center"
         android:textColor="@color/white"

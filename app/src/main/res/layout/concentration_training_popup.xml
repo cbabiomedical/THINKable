@@ -7,27 +7,15 @@
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
     android:layout_gravity="center"
+    android:outlineAmbientShadowColor="@color/transparent"
+    android:backgroundTintMode="@color/transparent"
+    android:alpha="1"
     android:background="@drawable/shapepop"
+    app:circularflow_radiusInDP="40dp"
     android:gravity="center">
 
-    <RelativeLayout
-        android:layout_width="300dp"
-        android:layout_height="350dp"
-        android:background="@color/transparent">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            android:id="@+id/c2"
-            android:background="#0D559C"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/c1"
-            android:visibility="gone"
-            android:background="#010334"/>
 
 
         <ImageView
@@ -46,6 +34,7 @@
             android:layout_marginHorizontal="10dp"
             android:layout_marginTop="20dp"
             android:fontFamily="serif"
+            android:justificationMode="inter_word"
             android:text="Listen to Music or Play games to improve your Concentration. By clicking the music and game title you will be able t direct to games and music activity.It is also possible for you to download games and music by clicking download button and add particular games and music to favourites by clicking heart icon "
             android:textAlignment="center"
             android:textColor="@color/white"
@@ -61,6 +50,5 @@
             android:background="@color/transparent"
             android:text="OK"
             android:textColor="@color/white" />
-    </RelativeLayout>
 
 </RelativeLayout>

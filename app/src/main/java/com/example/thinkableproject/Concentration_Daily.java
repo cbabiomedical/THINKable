@@ -659,7 +659,7 @@ public class Concentration_Daily extends AppCompatActivity {
 
                                         }
                                         Log.d("Line Entry", String.valueOf(lineEntries));
-                                        lineDataSet = new LineDataSet(lineEntries, "Concentration Improvement");
+                                        lineDataSet = new LineDataSet(lineEntries, "Concentration Index");
                                         lineData = new LineData(lineDataSet);
                                         lineChart.setData(lineData);
 

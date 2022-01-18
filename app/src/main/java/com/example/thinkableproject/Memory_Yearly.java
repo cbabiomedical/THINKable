@@ -649,7 +649,7 @@ public class Memory_Yearly extends AppCompatActivity {
 
                                         }
                                         Log.d("Line Entry", String.valueOf(lineEntries));
-                                        lineDataSet = new LineDataSet(lineEntries, "Memory Improvement");
+                                        lineDataSet = new LineDataSet(lineEntries, "Memory Index");
                                         lineData = new LineData(lineDataSet);
                                         lineChart.setData(lineData);
 

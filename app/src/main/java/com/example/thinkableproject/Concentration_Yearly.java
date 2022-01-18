@@ -451,7 +451,7 @@ public class Concentration_Yearly extends AppCompatActivity {
             }
         }, delay);
 
-         try {
+        try {
             fileName = new File(getCacheDir() + "/yearlyX.txt");  //Writing data to file
             FileWriter fw;
             fw = new FileWriter(fileName);
@@ -528,7 +528,6 @@ public class Concentration_Yearly extends AppCompatActivity {
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
-
 
 
     }
@@ -642,7 +641,7 @@ public class Concentration_Yearly extends AppCompatActivity {
 
                                         }
                                         Log.d("Line Entry", String.valueOf(lineEntries));
-                                        lineDataSet = new LineDataSet(lineEntries, "Concentration Improvement");
+                                        lineDataSet = new LineDataSet(lineEntries, "Concentration Index");
                                         lineData = new LineData(lineDataSet);
                                         lineChart.setData(lineData);
 
@@ -656,7 +655,7 @@ public class Concentration_Yearly extends AppCompatActivity {
                                         lineChart.getAxisLeft().setDrawGridLines(false);
                                         lineChart.getXAxis().setDrawGridLines(false);
                                         lineChart.getAxisRight().setDrawGridLines(false);
-                                        lineChart .getAxisRight().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
                                         lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                                         lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
                                         lineChart.getDescription().setTextColor(R.color.white);
@@ -705,7 +704,7 @@ public class Concentration_Yearly extends AppCompatActivity {
     //popup window method to provide suggesstions to improve concentration
     public void gotoPopup4(View view) {
 
-        startActivity(new Intent(getApplicationContext(),Connection.class));
+        startActivity(new Intent(getApplicationContext(), Connection.class));
 //        ImageButton cancelcon, games, music1;
 //
 //        View c1, c2;

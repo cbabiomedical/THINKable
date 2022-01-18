@@ -184,7 +184,7 @@ public class Setting extends AppCompatActivity {
         help3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), Help.class));
+                startActivity(new Intent(getApplicationContext(), Video.class));
 
             }
         });
