@@ -5,6 +5,7 @@ import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
@@ -101,45 +102,46 @@ class MainActivityK : AppCompatActivity() {
         var c2:View
 
         dialog.setContentView(R.layout.cardgame_popup)
+        dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
         ok=dialog.findViewById(R.id.ok);
-        c1=dialog.findViewById(R.id.c1);
-        c2=dialog.findViewById(R.id.c2);
+//        c1=dialog.findViewById(R.id.c1);
+//        c2=dialog.findViewById(R.id.c2);
         var mUser:FirebaseUser
 
         mUser= FirebaseAuth.getInstance().currentUser!!
 
-        val c = Calendar.getInstance()
-        val timeOfDay = c[Calendar.HOUR_OF_DAY]
-
-        val colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.uid).child("theme")
-        colorreference.addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(snapshot: DataSnapshot) {
-                Log.d("FirebaseColor PopUp Kotlin", snapshot.value.toString())
-                color = (snapshot.getValue() as Long).toInt()
-                Log.d("Color", color.toString())
-                if (color == 2) {  //light theme
-                    c1.visibility = View.INVISIBLE //c1 ---> dark blue , c2 ---> light blue
-                    c2.visibility = View.VISIBLE
-                } else if (color == 1) { //light theme
-                    c1.visibility = View.VISIBLE
-                    c2.visibility = View.INVISIBLE
-                } else {
-                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
-                        c1.visibility = View.INVISIBLE
-                        c2.visibility = View.VISIBLE
-                    } else if (timeOfDay >= 12 && timeOfDay < 16) { //dark theme
-                        c1.visibility = View.INVISIBLE
-                        c2.visibility = View.VISIBLE
-                    } else if (timeOfDay >= 16 && timeOfDay < 24) { //dark theme
-                        c1.visibility = View.VISIBLE
-                        c2.visibility = View.INVISIBLE
-                    }
-                }
-            }
-
-            override fun onCancelled(error: DatabaseError) {}
-        })
+//        val c = Calendar.getInstance()
+//        val timeOfDay = c[Calendar.HOUR_OF_DAY]
+//
+//        val colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.uid).child("theme")
+//        colorreference.addValueEventListener(object : ValueEventListener {
+//            override fun onDataChange(snapshot: DataSnapshot) {
+//                Log.d("FirebaseColor PopUp Kotlin", snapshot.value.toString())
+//                color = (snapshot.getValue() as Long).toInt()
+//                Log.d("Color", color.toString())
+//                if (color == 2) {  //light theme
+//                    c1.visibility = View.INVISIBLE //c1 ---> dark blue , c2 ---> light blue
+//                    c2.visibility = View.VISIBLE
+//                } else if (color == 1) { //light theme
+//                    c1.visibility = View.VISIBLE
+//                    c2.visibility = View.INVISIBLE
+//                } else {
+//                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+//                        c1.visibility = View.INVISIBLE
+//                        c2.visibility = View.VISIBLE
+//                    } else if (timeOfDay >= 12 && timeOfDay < 16) { //dark theme
+//                        c1.visibility = View.INVISIBLE
+//                        c2.visibility = View.VISIBLE
+//                    } else if (timeOfDay >= 16 && timeOfDay < 24) { //dark theme
+//                        c1.visibility = View.VISIBLE
+//                        c2.visibility = View.INVISIBLE
+//                    }
+//                }
+//            }
+//
+//            override fun onCancelled(error: DatabaseError) {}
+//        })
 
         ok.setOnClickListener{
             dialog.dismiss()

@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.Toast;
 
+import com.example.Help;
 import com.example.SettingsPreference;
 import com.github.mikephil.charting.charts.LineChart;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -183,7 +184,7 @@ public class Setting extends AppCompatActivity {
         help3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), LineChartExample.class));
+                startActivity(new Intent(getApplicationContext(), Help.class));
 
             }
         });

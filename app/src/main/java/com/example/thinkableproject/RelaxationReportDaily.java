@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -44,6 +45,7 @@ import com.google.firebase.storage.FileDownloadTask;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -120,7 +122,7 @@ public class RelaxationReportDaily extends AppCompatActivity {
         c2 = findViewById(R.id.c2);
         c1gif = findViewById(R.id.landingfwall);
         c2gif = findViewById(R.id.landingfwall1);
-        lineChart=findViewById(R.id.lineChartDaily);
+        lineChart = findViewById(R.id.lineChartDaily);
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -144,7 +146,7 @@ public class RelaxationReportDaily extends AppCompatActivity {
                     c1gif.setVisibility(View.GONE);
 
 
-                }  else if (color ==1 ) { //light theme
+                } else if (color == 1) { //light theme
 
                     c1.setVisibility(View.VISIBLE);
                     c2.setVisibility(View.INVISIBLE);
@@ -152,7 +154,7 @@ public class RelaxationReportDaily extends AppCompatActivity {
                     c2gif.setVisibility(View.INVISIBLE);
 
 
-                }else {
+                } else {
                     if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
 
                         c1.setVisibility(View.INVISIBLE);
@@ -585,7 +587,7 @@ public class RelaxationReportDaily extends AppCompatActivity {
 
         }, delay1);
 
-          try {
+        try {
             fileName = new File(getCacheDir() + "/relRepDailyX.txt");  //Writing data to file
             FileWriter fw;
             fw = new FileWriter(fileName);
@@ -593,11 +595,11 @@ public class RelaxationReportDaily extends AppCompatActivity {
             int size = xVal.size();
             for (int i = 0; i < size; i++) {
                 output.write(xVal.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing X Data", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing X Data", Toast.LENGTH_SHORT).show();
             }
             output.close();
         } catch (IOException exception) {
-            Toast.makeText(this, "Failed Writing X Data", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Failed Writing X Data", Toast.LENGTH_SHORT).show();
             exception.printStackTrace();
         }
 
@@ -614,12 +616,12 @@ public class RelaxationReportDaily extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(RelaxationReportDaily.this, "File Uploaded X data", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RelaxationReportDaily.this, "File Uploaded X data", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(RelaxationReportDaily.this, "File Uploading Failed X", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RelaxationReportDaily.this, "File Uploading Failed X", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -635,7 +637,7 @@ public class RelaxationReportDaily extends AppCompatActivity {
             int size = yVal.size();
             for (int i = 0; i < size; i++) {
                 output.write(yVal.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing Y data", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing Y data", Toast.LENGTH_SHORT).show();
             }
             output.close();
         } catch (IOException exception) {
@@ -650,12 +652,12 @@ public class RelaxationReportDaily extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(RelaxationReportDaily.this, "File Uploaded Y Axis", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RelaxationReportDaily.this, "File Uploaded Y Axis", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(RelaxationReportDaily.this, "File Uploading Failed Y Data", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RelaxationReportDaily.this, "File Uploading Failed Y Data", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -684,7 +686,7 @@ public class RelaxationReportDaily extends AppCompatActivity {
                     storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(RelaxationReportDaily.this, "Download X data", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RelaxationReportDaily.this, "Success", Toast.LENGTH_SHORT).show();
 
                             // reading data from the tempFile and storing in array list
 
@@ -768,7 +770,7 @@ public class RelaxationReportDaily extends AppCompatActivity {
 
                                         }
                                         Log.d("Line Entry", String.valueOf(lineEntries));
-                                        lineDataSet = new LineDataSet(lineEntries, "concentration");
+                                        lineDataSet = new LineDataSet(lineEntries, "Relaxation Index");
                                         lineData = new LineData(lineDataSet);
                                         lineChart.setData(lineData);
 
@@ -782,6 +784,10 @@ public class RelaxationReportDaily extends AppCompatActivity {
                                         lineChart.getAxisLeft().setDrawGridLines(false);
                                         lineChart.getXAxis().setDrawGridLines(false);
                                         lineChart.getAxisRight().setDrawGridLines(false);
+                                        lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getDescription().setTextColor(R.color.white);
 
 
 //

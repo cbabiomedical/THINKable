@@ -1,56 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="300dp"
     android:layout_height="350dp"
     android:layout_centerInParent="true"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
-    android:alpha="0.7"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:outlineAmbientShadowColor="@color/transparent"
+    android:backgroundTintMode="@color/transparent"
+    android:alpha="1"
+    android:background="@drawable/shapepop"
+    app:circularflow_radiusInDP="40dp">
 
-    <RelativeLayout
-        android:layout_width="300dp"
-        android:layout_height="350dp"
-        android:alpha="0.7"
-        android:background="@color/transparent">
+    <!--    <RelativeLayout-->
+    <!--        android:layout_width="300dp"-->
+    <!--        android:layout_height="350dp"-->
+    <!--        android:alpha="0.7"-->
+    <!--        android:background="@color/transparent">-->
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            android:id="@+id/c2"
-            android:alpha="0.7"
-            android:background="#0D559C"/>
+<!--    <View-->
+<!--        android:id="@+id/c2"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:alpha="0.7"-->
+<!--        android:background="@color/transparent"-->
+<!--        android:visibility="visible" />-->
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/c1"
-            android:alpha="0.7"
-            android:visibility="gone"
-            android:background="#010334"/>
+<!--    <View-->
+<!--        android:id="@+id/c1"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent"-->
+<!--        android:alpha="0.7"-->
+<!--        android:background="@color/white"-->
+<!--        android:visibility="visible" />-->
 
 
-        <ImageView
-        android:layout_marginTop="10dp"
+    <ImageView
         android:id="@+id/musicpopuplogo"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
         android:src="@drawable/music" />
 
     <TextView
         android:id="@+id/musicText"
-        android:layout_marginTop="20dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:layout_marginHorizontal="10dp"
-        android:textSize="15sp"
-        android:fontFamily="serif"
         android:layout_below="@+id/musicpopuplogo"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="serif"
         android:text="Click the Selected Music to Play Music File. It is adviced to close your eyes and focus on the audio while listening. You are able to download music files if you wish to download by clicking download button and add music files to favourites by clicking the heart icon"
-        android:textAlignment="center" />
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
 
     <Button
         android:id="@+id/click"
@@ -62,6 +67,5 @@
         android:text="OK"
         android:textColor="@color/white" />
 
-    </RelativeLayout>
 
 </RelativeLayout>

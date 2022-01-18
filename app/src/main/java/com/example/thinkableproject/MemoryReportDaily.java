@@ -515,11 +515,11 @@ public class MemoryReportDaily extends AppCompatActivity {
             int size = xVal.size();
             for (int i = 0; i < size; i++) {
                 output.write(xVal.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing X Data", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing X Data", Toast.LENGTH_SHORT).show();
             }
             output.close();
         } catch (IOException exception) {
-            Toast.makeText(this, "Failed Writing X Data", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Failed Writing X Data", Toast.LENGTH_SHORT).show();
             exception.printStackTrace();
         }
 
@@ -536,12 +536,12 @@ public class MemoryReportDaily extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(MemoryReportDaily.this, "File Uploaded X data", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(MemoryReportDaily.this, "File Uploaded X data", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(MemoryReportDaily.this, "File Uploading Failed X", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(MemoryReportDaily.this, "File Uploading Failed X", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -557,7 +557,7 @@ public class MemoryReportDaily extends AppCompatActivity {
             int size = yVal.size();
             for (int i = 0; i < size; i++) {
                 output.write(yVal.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing Y data", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing Y data", Toast.LENGTH_SHORT).show();
             }
             output.close();
         } catch (IOException exception) {
@@ -572,12 +572,12 @@ public class MemoryReportDaily extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(MemoryReportDaily.this, "File Uploaded Y Axis", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(MemoryReportDaily.this, "File Uploaded Y Axis", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(MemoryReportDaily.this, "File Uploading Failed Y Data", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(MemoryReportDaily.this, "File Uploading Failed Y Data", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -659,7 +659,7 @@ public class MemoryReportDaily extends AppCompatActivity {
                     storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(MemoryReportDaily.this, "Download X data", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(MemoryReportDaily.this, "Success", Toast.LENGTH_SHORT).show();
 
                             // reading data from the tempFile and storing in array list
 
@@ -743,7 +743,7 @@ public class MemoryReportDaily extends AppCompatActivity {
 
                                         }
                                         Log.d("Line Entry", String.valueOf(lineEntries));
-                                        lineDataSet = new LineDataSet(lineEntries, "concentration");
+                                        lineDataSet = new LineDataSet(lineEntries, "Memory Index");
                                         lineData = new LineData(lineDataSet);
                                         lineChart.setData(lineData);
 
@@ -757,6 +757,10 @@ public class MemoryReportDaily extends AppCompatActivity {
                                         lineChart.getAxisLeft().setDrawGridLines(false);
                                         lineChart.getXAxis().setDrawGridLines(false);
                                         lineChart.getAxisRight().setDrawGridLines(false);
+                                        lineChart .getAxisRight().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getDescription().setTextColor(R.color.white);
 
 
 //

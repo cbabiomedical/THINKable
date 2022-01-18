@@ -42,6 +42,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThinkableProject"
         android:usesCleartextTraffic="true">
+        <activity android:name="com.example.Help"></activity>
         <activity
             android:name=".ContactUs"
             android:exported="true" />
@@ -71,10 +72,9 @@
         <activity
             android:name=".Downloads"
             android:label="My Downloads"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-<!--        <activity-->
-<!--            android:name=".MainActivity"-->
-<!--            android:parentActivityName=".Concentration_Daily" />-->
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" /> <!-- <activity -->
+        <!-- android:name=".MainActivity" -->
+        <!-- android:parentActivityName=".Concentration_Daily" /> -->
         <activity
             android:name=".RelaxationExercise"
             android:label="Training Exercise"

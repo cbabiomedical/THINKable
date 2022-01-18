@@ -311,52 +311,15 @@
                             android:textSize="14sp" />
                     </RelativeLayout>
 
+
                     <RelativeLayout
-                        android:id="@+id/logouto"
+                        android:id="@+id/contactus"
                         android:layout_width="290dp"
                         android:layout_height="50dp"
                         android:layout_below="@+id/theme"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="0dp">
-
-                        <ImageButton
-                            android:id="@+id/logout"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="@drawable/btnpreff" />
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/logout1"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="6dp"
-                            android:src="@drawable/logoutt" />
-
-                        <TextView
-                            android:id="@+id/logout2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_toEndOf="@+id/logout1"
-                            android:layout_toRightOf="@+id/logout1"
-                            android:fontFamily="@font/segoepr"
-                            android:gravity="center"
-                            android:text="Logout"
-                            android:textColor="@color/color_white"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/contactus"
-                        android:layout_width="290dp"
-                        android:layout_height="50dp"
-                        android:layout_below="@+id/logouto"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="90dp">
 
                         <ImageButton
                             android:id="@+id/contactus1"
@@ -383,6 +346,43 @@
                             android:fontFamily="@font/segoepr"
                             android:gravity="center"
                             android:text="Contact Us"
+                            android:textColor="@color/color_white"
+                            android:textSize="14sp" />
+                    </RelativeLayout>
+                    <RelativeLayout
+                        android:id="@+id/logouto"
+                        android:layout_width="290dp"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/contactus"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="90dp">
+
+                        <ImageButton
+                            android:id="@+id/logout"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@drawable/btnpreff" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/logout1"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="6dp"
+                            android:src="@drawable/logoutt" />
+
+                        <TextView
+                            android:id="@+id/logout2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="30dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_toEndOf="@+id/logout1"
+                            android:layout_toRightOf="@+id/logout1"
+                            android:fontFamily="@font/segoepr"
+                            android:gravity="center"
+                            android:text="Logout"
                             android:textColor="@color/color_white"
                             android:textSize="14sp" />
                     </RelativeLayout>

@@ -207,19 +207,19 @@ public class RelaxationReportYearly extends AppCompatActivity {
         });
 
         getEntries();
-        lineDataSet = new LineDataSet(lineEntries, "concentration");
-        lineData = new LineData(lineDataSet);
-        lineChart.setData(lineData);
-
-        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-        lineDataSet.setValueTextColor(Color.WHITE);
-        lineDataSet.setValueTextSize(10f);
-        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
-        lineChart.setBorderColor(Color.TRANSPARENT);
-        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
-        lineChart.getAxisLeft().setDrawGridLines(false);
-        lineChart.getXAxis().setDrawGridLines(false);
-        lineChart.getAxisRight().setDrawGridLines(false);
+//        lineDataSet = new LineDataSet(lineEntries, "concentration");
+//        lineData = new LineData(lineDataSet);
+//        lineChart.setData(lineData);
+//
+//        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+//        lineDataSet.setValueTextColor(Color.WHITE);
+//        lineDataSet.setValueTextSize(10f);
+//        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+//        lineChart.setBorderColor(Color.TRANSPARENT);
+//        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+//        lineChart.getAxisLeft().setDrawGridLines(false);
+//        lineChart.getXAxis().setDrawGridLines(false);
+//        lineChart.getAxisRight().setDrawGridLines(false);
 
         //go to relaxation weekly page
         weekly.setOnClickListener(new View.OnClickListener() {
@@ -569,11 +569,11 @@ public class RelaxationReportYearly extends AppCompatActivity {
             int size = xVal.size();
             for (int i = 0; i < size; i++) {
                 output.write(xVal.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing X Data", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing X Data", Toast.LENGTH_SHORT).show();
             }
             output.close();
         } catch (IOException exception) {
-            Toast.makeText(this, "Failed Writing X Data", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Failed Writing X Data", Toast.LENGTH_SHORT).show();
             exception.printStackTrace();
         }
 
@@ -590,12 +590,12 @@ public class RelaxationReportYearly extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(RelaxationReportYearly.this, "File Uploaded X data", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RelaxationReportYearly.this, "File Uploaded X data", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(RelaxationReportYearly.this, "File Uploading Failed X", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RelaxationReportYearly.this, "File Uploading Failed X", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -611,7 +611,7 @@ public class RelaxationReportYearly extends AppCompatActivity {
             int size = yVal.size();
             for (int i = 0; i < size; i++) {
                 output.write(yVal.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing Y data", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing Y data", Toast.LENGTH_SHORT).show();
             }
             output.close();
         } catch (IOException exception) {
@@ -626,12 +626,12 @@ public class RelaxationReportYearly extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(RelaxationReportYearly.this, "File Uploaded Y Axis", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RelaxationReportYearly.this, "File Uploaded Y Axis", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(RelaxationReportYearly.this, "File Uploading Failed Y Data", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(RelaxationReportYearly.this, "File Uploading Failed Y Data", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -693,7 +693,7 @@ public class RelaxationReportYearly extends AppCompatActivity {
                     storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(RelaxationReportYearly.this, "Download X data", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(RelaxationReportYearly.this, "Success", Toast.LENGTH_SHORT).show();
 
                             // reading data from the tempFile and storing in array list
 
@@ -777,7 +777,7 @@ public class RelaxationReportYearly extends AppCompatActivity {
 
                                         }
                                         Log.d("Line Entry", String.valueOf(lineEntries));
-                                        lineDataSet = new LineDataSet(lineEntries, "concentration");
+                                        lineDataSet = new LineDataSet(lineEntries, "Relaxation Index");
                                         lineData = new LineData(lineDataSet);
                                         lineChart.setData(lineData);
 
@@ -791,6 +791,10 @@ public class RelaxationReportYearly extends AppCompatActivity {
                                         lineChart.getAxisLeft().setDrawGridLines(false);
                                         lineChart.getXAxis().setDrawGridLines(false);
                                         lineChart.getAxisRight().setDrawGridLines(false);
+                                        lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getDescription().setTextColor(R.color.white);
 
 
 //

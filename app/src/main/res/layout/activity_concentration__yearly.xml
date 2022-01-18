@@ -474,7 +474,7 @@
                 android:background="@drawable/wanttocon"
                 android:onClick="gotoPopup4"
                 android:paddingHorizontal="10dp"
-                android:text="Want to Improve Concentration?"
+                android:text="Check Your Improvement"
                 android:textAllCaps="false"
 
 

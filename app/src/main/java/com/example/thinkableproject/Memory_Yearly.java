@@ -465,11 +465,11 @@ public class Memory_Yearly extends AppCompatActivity {
             int size = xVal.size();
             for (int i = 0; i < size; i++) {
                 output.write(xVal.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing X Data", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing X Data", Toast.LENGTH_SHORT).show();
             }
             output.close();
         } catch (IOException exception) {
-            Toast.makeText(this, "Failed Writing X Data", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Failed Writing X Data", Toast.LENGTH_SHORT).show();
             exception.printStackTrace();
         }
 
@@ -486,12 +486,12 @@ public class Memory_Yearly extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(Memory_Yearly.this, "File Uploaded X data", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Memory_Yearly.this, "File Uploaded X data", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Memory_Yearly.this, "File Uploading Failed X", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Memory_Yearly.this, "File Uploading Failed X", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -507,7 +507,7 @@ public class Memory_Yearly extends AppCompatActivity {
             int size = yVal.size();
             for (int i = 0; i < size; i++) {
                 output.write(yVal.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing Y data", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing Y data", Toast.LENGTH_SHORT).show();
             }
             output.close();
         } catch (IOException exception) {
@@ -522,12 +522,12 @@ public class Memory_Yearly extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(Memory_Yearly.this, "File Uploaded Y Axis", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Memory_Yearly.this, "File Uploaded Y Axis", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Memory_Yearly.this, "File Uploading Failed Y Data", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Memory_Yearly.this, "File Uploading Failed Y Data", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -565,7 +565,7 @@ public class Memory_Yearly extends AppCompatActivity {
                     storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(Memory_Yearly.this, "Download X data", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Memory_Yearly.this, "Success", Toast.LENGTH_SHORT).show();
 
                             // reading data from the tempFile and storing in array list
 
@@ -649,7 +649,7 @@ public class Memory_Yearly extends AppCompatActivity {
 
                                         }
                                         Log.d("Line Entry", String.valueOf(lineEntries));
-                                        lineDataSet = new LineDataSet(lineEntries, "concentration");
+                                        lineDataSet = new LineDataSet(lineEntries, "Memory Improvement");
                                         lineData = new LineData(lineDataSet);
                                         lineChart.setData(lineData);
 
@@ -663,6 +663,10 @@ public class Memory_Yearly extends AppCompatActivity {
                                         lineChart.getAxisLeft().setDrawGridLines(false);
                                         lineChart.getXAxis().setDrawGridLines(false);
                                         lineChart.getAxisRight().setDrawGridLines(false);
+                                        lineChart .getAxisRight().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getDescription().setTextColor(R.color.white);
 
 
 //
@@ -708,97 +712,99 @@ public class Memory_Yearly extends AppCompatActivity {
 
     //popup window method to provide suggesstions to improve concentration
     public void gotoPopup4m(View view) {
-        ImageButton imageViewcancle, imageViewmed, imageViewsong, imageViewgames;
-        View c1, c2;
-        FirebaseUser mUser;
 
-        dialogcy.setContentView(R.layout.memory_popup);
-
-        c1 = (View) dialogcy.findViewById(R.id.c1);
-        c2 = (View) dialogcy.findViewById(R.id.c2);
-
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
-        Calendar c = Calendar.getInstance();
-        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
-
-        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
-        colorreference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("FirebaseColor PopUp", String.valueOf(snapshot.getValue()));
-                color = (int) snapshot.getValue(Integer.class);
-                Log.d("Color", String.valueOf(color));
-
-                if (color == 2) {  //light theme
-                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
-                    c2.setVisibility(View.VISIBLE);
-                } else if (color == 1) { //light theme
-
-                    c1.setVisibility(View.VISIBLE);
-                    c2.setVisibility(View.INVISIBLE);
-
-
-                } else {
-                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
-
-                        c1.setVisibility(View.INVISIBLE);
-                        c2.setVisibility(View.VISIBLE);
-
-
-                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
-                        c1.setVisibility(View.INVISIBLE);
-                        c2.setVisibility(View.VISIBLE);
-
-
-                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
-                        c1.setVisibility(View.VISIBLE);
-                        c2.setVisibility(View.INVISIBLE);
-
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        imageViewmed = (ImageButton) dialogcy.findViewById(R.id.meditationpop1);
-        imageViewmed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MeditationExercise.class);
-                startActivity(intent);
-            }
-        });
-
-        imageViewsong = (ImageButton) dialogcy.findViewById(R.id.musicpop1);
-        imageViewsong.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Music.class);
-                startActivity(intent);
-            }
-        });
-        imageViewgames = (ImageButton) dialogcy.findViewById(R.id.gamespop1);
-        imageViewgames.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), GameActivity.class));
-            }
-        });
-
-        imageViewcancle = (ImageButton) dialogcy.findViewById(R.id.canclepop1);
-        imageViewcancle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogcy.dismiss();
-            }
-        });
-
-        dialogcy.show();
+        startActivity(new Intent(getApplicationContext(), Connection.class));
+//        ImageButton imageViewcancle, imageViewmed, imageViewsong, imageViewgames;
+//        View c1, c2;
+//        FirebaseUser mUser;
+//
+//        dialogcy.setContentView(R.layout.memory_popup);
+//
+//        c1 = (View) dialogcy.findViewById(R.id.c1);
+//        c2 = (View) dialogcy.findViewById(R.id.c2);
+//
+//        mUser = FirebaseAuth.getInstance().getCurrentUser();
+//        Calendar c = Calendar.getInstance();
+//        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+//
+//        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+//        colorreference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                Log.d("FirebaseColor PopUp", String.valueOf(snapshot.getValue()));
+//                color = (int) snapshot.getValue(Integer.class);
+//                Log.d("Color", String.valueOf(color));
+//
+//                if (color == 2) {  //light theme
+//                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
+//                    c2.setVisibility(View.VISIBLE);
+//                } else if (color == 1) { //light theme
+//
+//                    c1.setVisibility(View.VISIBLE);
+//                    c2.setVisibility(View.INVISIBLE);
+//
+//
+//                } else {
+//                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+//
+//                        c1.setVisibility(View.INVISIBLE);
+//                        c2.setVisibility(View.VISIBLE);
+//
+//
+//                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
+//                        c1.setVisibility(View.INVISIBLE);
+//                        c2.setVisibility(View.VISIBLE);
+//
+//
+//                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
+//                        c1.setVisibility(View.VISIBLE);
+//                        c2.setVisibility(View.INVISIBLE);
+//
+//                    }
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//
+//        imageViewmed = (ImageButton) dialogcy.findViewById(R.id.meditationpop1);
+//        imageViewmed.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), MeditationExercise.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        imageViewsong = (ImageButton) dialogcy.findViewById(R.id.musicpop1);
+//        imageViewsong.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), Music.class);
+//                startActivity(intent);
+//            }
+//        });
+//        imageViewgames = (ImageButton) dialogcy.findViewById(R.id.gamespop1);
+//        imageViewgames.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getApplicationContext(), GameActivity.class));
+//            }
+//        });
+//
+//        imageViewcancle = (ImageButton) dialogcy.findViewById(R.id.canclepop1);
+//        imageViewcancle.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialogcy.dismiss();
+//            }
+//        });
+//
+//        dialogcy.show();
     }
 
     public void caliyearly(View view) {

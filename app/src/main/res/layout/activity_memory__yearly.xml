@@ -521,7 +521,7 @@
                 android:background="@drawable/wanttocon"
                 android:onClick="gotoPopup4m"
                 android:paddingHorizontal="10dp"
-                android:text="Want to Improve Memory?"
+                android:text="Check Your Improvement"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 app:cornerRadius="13dp"></androidx.appcompat.widget.AppCompatButton>

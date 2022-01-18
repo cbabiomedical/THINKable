@@ -33,32 +33,19 @@
         android:layout_marginTop="20dp"
         android:layout_marginBottom="15dp"
         android:src="@drawable/ic_baseline_info_24"/>
-    <!--    <Spinner-->
-    <!--    android:layout_marginTop="20dp"-->
-    <!--    android:id="@+id/spinner2"-->
-    <!--    android:layout_width="match_parent"-->
-    <!--    android:layout_marginHorizontal="20dp"-->
-    <!--    android:layout_height="wrap_content"-->
-    <!--    android:background="@color/blue"-->
-    <!--    android:layout_marginBottom="30dp"-->
-
-    <!--    android:spinnerMode="dropdown"-->
-    <!--        android:layout_centerHorizontal="true"-->
-    <!--        android:theme="@android:style/Holo.Light.ButtonBar.AlertDialog"-->
-    <!--       />-->
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/meditationInfo"
+        android:layout_below="@+id/musicInfo"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginTop="5dp"
+
 
         >
 
         <LinearLayout
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -71,11 +58,11 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycler_view"
                 android:layout_gravity="center"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:layout_marginHorizontal="30dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="150dp"
+                android:layout_marginBottom="120dp"
 
 
                 />

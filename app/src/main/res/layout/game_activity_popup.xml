@@ -6,31 +6,31 @@
     android:layout_centerInParent="true"
     android:layout_centerHorizontal="true"
     android:layout_centerVertical="true"
-    android:alpha="0.7"
+    app:circularflow_radiusInDP="40dp"
+    android:outlineAmbientShadowColor="@color/transparent"
+    android:backgroundTintMode="@color/transparent"
+    android:alpha="1"
+    android:background="@drawable/shapepop"
     android:layout_gravity="center"
     android:gravity="center">
 
-    <RelativeLayout
-        android:layout_width="300dp"
-        android:background="@color/transparent"
-        android:alpha="0.7"
-        android:layout_height="350dp">
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            android:id="@+id/c2"
-            android:alpha="0.7"
-            android:background="#0D559C"/>
 
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:id="@+id/c1"
-            android:alpha="0.7"
-            android:visibility="gone"
-            android:background="#010334"/>
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:visibility="gone"-->
+<!--            android:id="@+id/c2"-->
+<!--            android:alpha="0.7"-->
+<!--            android:background="#0D559C"/>-->
+
+<!--        <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:id="@+id/c1"-->
+<!--            android:alpha="0.7"-->
+<!--            android:visibility="gone"-->
+<!--            android:background="#010334"/>-->
 
     <ImageView
         android:id="@+id/gameActivityLogo"
@@ -64,6 +64,6 @@
         android:textColor="@color/white"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"/>
-    </RelativeLayout>
+
 
 </RelativeLayout>

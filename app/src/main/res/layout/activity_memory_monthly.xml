@@ -33,329 +33,329 @@
             android:layout_width="fill_parent"
             android:layout_height="fill_parent">
 
-        <LinearLayout
-            android:id="@+id/landingone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <pl.droidsonroids.gif.GifImageView
-                android:id="@+id/landingfwall"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignTop="@+id/toggleBtn"
-                android:gravity="center"
-                android:scaleType="centerCrop"
-                android:src="@drawable/landingwall" />
-
-            <pl.droidsonroids.gif.GifImageView
-                android:id="@+id/landingfwall1"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_alignTop="@+id/toggleBtn"
-                android:gravity="center"
-                android:scaleType="centerCrop"
-                android:src="@drawable/exercisenewgif"
-                android:visibility="gone" />
-        </LinearLayout>
-
-
-        <ImageView
-            android:id="@+id/landingtwo"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-
-            android:layout_below="@+id/landingone"
-            android:layout_marginTop="-70dp"
-            android:src="@drawable/thin" />
-
-
-        <LinearLayout
-            android:id="@+id/landingthree"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/landingtwo"
-            android:layout_marginTop="-40dp"
-            android:orientation="horizontal">
-
             <LinearLayout
-                android:id="@+id/tg1"
+                android:id="@+id/landingone"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="start"
+                android:layout_height="wrap_content">
 
-                android:layout_weight="1"
-                android:gravity="start"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/concentration"
+                <pl.droidsonroids.gif.GifImageView
+                    android:id="@+id/landingfwall"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="35dp"
-                    android:layout_marginTop="40dp"
+                    android:layout_alignTop="@+id/toggleBtn"
+                    android:gravity="center"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/landingwall" />
 
-
-                    android:elevation="5dp"
-                    android:src="@drawable/conctb"
-
-                    app:layout_constraintLeft_toLeftOf="parent"
-                    app:layout_constraintRight_toRightOf="@+id/relaxation" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/tg2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/relaxation"
+                <pl.droidsonroids.gif.GifImageView
+                    android:id="@+id/landingfwall1"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_alignEnd="@+id/concentration"
-                    android:layout_alignRight="@+id/memo"
-                    android:layout_marginTop="40dp"
-
-
-                    android:elevation="5dp"
-                    android:src="@drawable/relaxtgablr"
-
-
-                    app:layout_constraintHorizontal_bias="0"
-                    app:layout_constraintLeft_toLeftOf="@+id/concentration" />
-
-
+                    android:layout_height="300dp"
+                    android:layout_alignTop="@+id/toggleBtn"
+                    android:gravity="center"
+                    android:scaleType="centerCrop"
+                    android:src="@drawable/exercisenewgif"
+                    android:visibility="gone" />
             </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/landingtwo"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+
+                android:layout_below="@+id/landingone"
+                android:layout_marginTop="-70dp"
+                android:src="@drawable/thin" />
+
 
             <LinearLayout
-                android:id="@+id/tg3"
+                android:id="@+id/landingthree"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:layout_weight="1"
-                android:gravity="end"
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/memory"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginTop="40dp"
-                    android:layout_marginRight="35dp"
-
-                    android:elevation="5dp"
-                    android:src="@drawable/membtn" />
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/threelines"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/landingthree"
-            android:layout_marginTop="5dp"
-            android:orientation="horizontal">
-
-            <LinearLayout
-                android:id="@+id/threelines1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-
-                android:orientation="vertical">
-
-                <ImageView
-                    android:id="@+id/iv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
-                    android:backgroundTint="@color/white"
-                    android:src="@drawable/threelines" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/threelines3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignEnd="@+id/threelines1"
-                android:layout_marginTop="20dp"
-
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:fontFamily="@font/segoepr"
-                    android:text="Memory"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-
-
-                    />
-
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <HorizontalScrollView
-            android:id="@+id/horizontalScrollView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/threelines">
-
-            <RelativeLayout
-                android:id="@+id/cards"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
+                android:layout_below="@id/landingtwo"
+                android:layout_marginTop="-40dp"
                 android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/game"
+                <LinearLayout
+                    android:id="@+id/tg1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="start"
+
+                    android:layout_weight="1"
+                    android:gravity="start"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/concentration"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="35dp"
+                        android:layout_marginTop="40dp"
+
+
+                        android:elevation="5dp"
+                        android:src="@drawable/conctb"
+
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintRight_toRightOf="@+id/relaxation" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tg2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/relaxation"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignEnd="@+id/concentration"
+                        android:layout_alignRight="@+id/memo"
+                        android:layout_marginTop="40dp"
+
+
+                        android:elevation="5dp"
+                        android:src="@drawable/relaxtgablr"
+
+
+                        app:layout_constraintHorizontal_bias="0"
+                        app:layout_constraintLeft_toLeftOf="@+id/concentration" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tg3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_weight="1"
+                    android:gravity="end"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/memory"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="40dp"
+                        android:layout_marginRight="35dp"
+
+                        android:elevation="5dp"
+                        android:src="@drawable/membtn" />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/threelines"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/landingthree"
+                android:layout_marginTop="5dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:id="@+id/threelines1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="30dp"
 
-                    android:src="@drawable/gamescardwo" />
+                    android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/gametxt"
-                    android:layout_width="wrap_content"
+                    <ImageView
+                        android:id="@+id/iv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="25dp"
+                        android:backgroundTint="@color/white"
+                        android:src="@drawable/threelines" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/threelines3"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="14dp"
-                    android:fontFamily="@font/segoepr"
-                    android:text="Game"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:layout_alignEnd="@+id/threelines1"
+                    android:layout_marginTop="20dp"
+
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:fontFamily="@font/segoepr"
+                        android:text="Memory"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold"
 
 
-                <TextView
-                    android:layout_width="wrap_content"
+                        />
+
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <HorizontalScrollView
+                android:id="@+id/horizontalScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/threelines">
+
+                <RelativeLayout
+                    android:id="@+id/cards"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/gametxt"
-                    android:layout_alignStart="@+id/music"
-                    android:layout_alignEnd="@+id/game"
-                    android:layout_alignParentStart="true"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginRight="20dp"
+                    android:orientation="horizontal">
 
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:fontFamily="@font/segoe_ui"
-                    android:text="Game for Memory"
-                    android:textColor="@color/white"
-                    android:textSize="13sp" />
+                    <ImageView
+                        android:id="@+id/game"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
 
-                <ImageView
-                    android:id="@+id/meditations"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/game"
-                    android:src="@drawable/medibg" />
+                        android:src="@drawable/gamescardwo" />
 
-                <TextView
-                    android:id="@+id/mediTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="100dp"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginEnd="30dp"
-
-                    android:layout_toRightOf="@+id/gametxt"
-                    android:fontFamily="@font/segoepr"
-                    android:text="Meditation"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/gametxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="14dp"
+                        android:fontFamily="@font/segoepr"
+                        android:text="Game"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/mediTxt"
-                    android:layout_alignStart="@+id/mediTxt"
-                    android:layout_alignParentEnd="true"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/gametxt"
+                        android:layout_alignStart="@+id/music"
+                        android:layout_alignEnd="@+id/game"
+                        android:layout_alignParentStart="true"
 
-                    android:layout_marginStart="2dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:fontFamily="@font/segoe_ui"
-                    android:text="Meditation for Memory"
-                    android:textColor="@color/white"
-                    android:textSize="13sp" />
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="@font/segoe_ui"
+                        android:text="Game for Memory"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
 
-                <ImageView
-                    android:id="@+id/music"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginEnd="20dp"
-                    android:layout_toRightOf="@+id/meditations"
-                    android:src="@drawable/musiccardwo" />
+                    <ImageView
+                        android:id="@+id/meditations"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/game"
+                        android:src="@drawable/medibg" />
 
-                <TextView
-                    android:id="@+id/musicTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="28dp"
-                    android:layout_marginTop="14dp"
-                    android:layout_marginEnd="30dp"
-                    android:layout_toRightOf="@+id/mediTxt"
-                    android:fontFamily="@font/segoepr"
-                    android:text="Music"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/mediTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="100dp"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginEnd="30dp"
 
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/musictxt"
-                    android:layout_marginStart="26dp"
-
-                    android:layout_marginTop="50dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:layout_toRightOf="@+id/mediTxt"
-                    android:fontFamily="@font/segoe_ui"
-                    android:text="Music for Memory"
-                    android:textColor="@color/white"
-                    android:textSize="13sp" />
+                        android:layout_toRightOf="@+id/gametxt"
+                        android:fontFamily="@font/segoepr"
+                        android:text="Meditation"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
 
-            </RelativeLayout>
-        </HorizontalScrollView>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/mediTxt"
+                        android:layout_alignStart="@+id/mediTxt"
+                        android:layout_alignParentEnd="true"
+
+                        android:layout_marginStart="2dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="@font/segoe_ui"
+                        android:text="Meditation for Memory"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+
+                    <ImageView
+                        android:id="@+id/music"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginEnd="20dp"
+                        android:layout_toRightOf="@+id/meditations"
+                        android:src="@drawable/musiccardwo" />
+
+                    <TextView
+                        android:id="@+id/musicTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="28dp"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginEnd="30dp"
+                        android:layout_toRightOf="@+id/mediTxt"
+                        android:fontFamily="@font/segoepr"
+                        android:text="Music"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/musictxt"
+                        android:layout_marginStart="26dp"
+
+                        android:layout_marginTop="50dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:layout_toRightOf="@+id/mediTxt"
+                        android:fontFamily="@font/segoe_ui"
+                        android:text="Music for Memory"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+
+
+                </RelativeLayout>
+            </HorizontalScrollView>
 
             <RelativeLayout
                 android:id="@+id/toggle"
-                android:layout_below="@+id/horizontalScrollView"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/horizontalScrollView">
 
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -364,58 +364,58 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
-                    android:paddingHorizontal="15dp"
                     android:background="@drawable/hione"
+                    android:paddingHorizontal="15dp"
                     android:text="Progress Chart"
                     android:textColor="@color/white" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/improvement"
-                    android:layout_toRightOf="@+id/progressTime"
-                    android:background="@drawable/hione"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="15dp"
-                    android:paddingHorizontal="10dp"
-
-                    android:text="Improvement Chart"
-                    android:textColor="@color/white"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/progressTime"
+
+                    android:background="@drawable/hione"
+                    android:paddingHorizontal="10dp"
+                    android:text="Improvement Chart"
+                    android:textColor="@color/white" />
 
             </RelativeLayout>
 
             <HorizontalScrollView
-                android:layout_below="@+id/toggle"
                 android:id="@+id/scroll"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/toggle">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
-            <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/barChartMonthly"
-                android:layout_width="280dp"
-                android:layout_height="250dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/transparent"
-                app:cornerRadius="13dp" />
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/barChartMonthly"
+                        android:layout_width="280dp"
+                        android:layout_height="250dp"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/transparent"
+                        app:cornerRadius="13dp" />
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/lineChartMonthly"
-                android:layout_width="280dp"
-                android:layout_height="250dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="40dp"
-                android:layout_toEndOf="@+id/barChartMonthly"
-                android:background="@color/transparent"
-                app:cornerRadius="13dp" />
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/lineChartMonthly"
+                        android:layout_width="280dp"
+                        android:layout_height="250dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="40dp"
+                        android:layout_toEndOf="@+id/barChartMonthly"
+                        android:background="@color/transparent"
+                        app:cornerRadius="13dp" />
 
-        </RelativeLayout>
+                </RelativeLayout>
             </HorizontalScrollView>
 
             <LinearLayout
@@ -518,7 +518,7 @@
                 android:background="@drawable/wanttocon"
                 android:onClick="gotoPopup2m"
                 android:paddingHorizontal="10dp"
-                android:text="Want to Improve Memory?"
+                android:text="Check Your Improvement"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 app:cornerRadius="13dp"></androidx.appcompat.widget.AppCompatButton>

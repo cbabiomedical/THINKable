@@ -478,7 +478,7 @@ public class Concentration_Weekly extends AppCompatActivity {
             int size = xVal.size();
             for (int i = 0; i < size; i++) {
                 output.write(xVal.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing X Data", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing X Data", Toast.LENGTH_SHORT).show();
             }
             output.close();
         } catch (IOException exception) {
@@ -499,12 +499,12 @@ public class Concentration_Weekly extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(Concentration_Weekly.this, "File Uploaded X data", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Concentration_Weekly.this, "File Uploaded X data", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Concentration_Weekly.this, "File Uploading Failed X", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Concentration_Weekly.this, "File Uploading Failed X", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -520,7 +520,7 @@ public class Concentration_Weekly extends AppCompatActivity {
             int size = yVal.size();
             for (int i = 0; i < size; i++) {
                 output.write(yVal.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing Y data", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing Y data", Toast.LENGTH_SHORT).show();
             }
             output.close();
         } catch (IOException exception) {
@@ -535,12 +535,12 @@ public class Concentration_Weekly extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(Concentration_Weekly.this, "File Uploaded Y Axis", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Concentration_Weekly.this, "File Uploaded Y Axis", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Concentration_Weekly.this, "File Uploading Failed Y Data", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Concentration_Weekly.this, "File Uploading Failed Y Data", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -571,7 +571,7 @@ public class Concentration_Weekly extends AppCompatActivity {
                     storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(Concentration_Weekly.this, "Download X data", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Concentration_Weekly.this, "Sucess", Toast.LENGTH_SHORT).show();
 
                             // reading data from the tempFile and storing in array list
 
@@ -655,7 +655,7 @@ public class Concentration_Weekly extends AppCompatActivity {
 
                                         }
                                         Log.d("Line Entry", String.valueOf(lineEntries));
-                                        lineDataSet = new LineDataSet(lineEntries, "concentration");
+                                        lineDataSet = new LineDataSet(lineEntries, "Concentration Improvement");
                                         lineData = new LineData(lineDataSet);
                                         lineChart.setData(lineData);
 
@@ -669,6 +669,11 @@ public class Concentration_Weekly extends AppCompatActivity {
                                         lineChart.getAxisLeft().setDrawGridLines(false);
                                         lineChart.getXAxis().setDrawGridLines(false);
                                         lineChart.getAxisRight().setDrawGridLines(false);
+                                        lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getDescription().setTextColor(R.color.white);
+//                                        lineChart.setViewPortOffsets(0,0,0,0);
 
 
 //
@@ -713,93 +718,94 @@ public class Concentration_Weekly extends AppCompatActivity {
 
     //popup window method to provide suggestions for improve concentration
     public void gotoPopup3m(View view) {
-        ImageButton cancelcon, games, music1;
-        View c1, c2;
-
-        FirebaseUser mUser;
-
-
-        dialogcw.setContentView(R.layout.activity_concentration_popup);
-        c1 = (View) dialogcw.findViewById(R.id.c1);
-        c2 = (View) dialogcw.findViewById(R.id.c2);
-
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        Calendar c = Calendar.getInstance();
-        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
-
-        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
-        colorreference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("FirebaseColor PopUp", String.valueOf(snapshot.getValue()));
-                color = (int) snapshot.getValue(Integer.class);
-                Log.d("Color", String.valueOf(color));
-
-                if (color == 2) {  //light theme
-                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
-                    c2.setVisibility(View.VISIBLE);
-                } else if (color == 1) { //light theme
-
-                    c1.setVisibility(View.VISIBLE);
-                    c2.setVisibility(View.INVISIBLE);
-
-
-                } else {
-                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
-
-                        c1.setVisibility(View.INVISIBLE);
-                        c2.setVisibility(View.VISIBLE);
-
-
-                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
-                        c1.setVisibility(View.INVISIBLE);
-                        c2.setVisibility(View.VISIBLE);
-
-
-                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
-                        c1.setVisibility(View.VISIBLE);
-                        c2.setVisibility(View.INVISIBLE);
-
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        games = (ImageButton) dialogcw.findViewById(R.id.gamespop1);
-        music1 = (ImageButton) dialogcw.findViewById(R.id.musicpop1);
-
-
-        games.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), GameActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        music1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Music.class);
-                startActivity(intent);
-            }
-        });
-
-        cancelcon = (ImageButton) dialogcw.findViewById(R.id.canclepop1);
-        cancelcon.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogcw.dismiss();
-            }
-        });
-        dialogcw.show();
+        startActivity(new Intent(getApplicationContext(), Connection.class));
+//        ImageButton cancelcon, games, music1;
+//        View c1, c2;
+//
+//        FirebaseUser mUser;
+//
+//
+//        dialogcw.setContentView(R.layout.activity_concentration_popup);
+//        c1 = (View) dialogcw.findViewById(R.id.c1);
+//        c2 = (View) dialogcw.findViewById(R.id.c2);
+//
+//        mUser = FirebaseAuth.getInstance().getCurrentUser();
+//
+//        Calendar c = Calendar.getInstance();
+//        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+//
+//        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+//        colorreference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                Log.d("FirebaseColor PopUp", String.valueOf(snapshot.getValue()));
+//                color = (int) snapshot.getValue(Integer.class);
+//                Log.d("Color", String.valueOf(color));
+//
+//                if (color == 2) {  //light theme
+//                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
+//                    c2.setVisibility(View.VISIBLE);
+//                } else if (color == 1) { //light theme
+//
+//                    c1.setVisibility(View.VISIBLE);
+//                    c2.setVisibility(View.INVISIBLE);
+//
+//
+//                } else {
+//                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+//
+//                        c1.setVisibility(View.INVISIBLE);
+//                        c2.setVisibility(View.VISIBLE);
+//
+//
+//                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
+//                        c1.setVisibility(View.INVISIBLE);
+//                        c2.setVisibility(View.VISIBLE);
+//
+//
+//                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
+//                        c1.setVisibility(View.VISIBLE);
+//                        c2.setVisibility(View.INVISIBLE);
+//
+//                    }
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//
+//        games = (ImageButton) dialogcw.findViewById(R.id.gamespop1);
+//        music1 = (ImageButton) dialogcw.findViewById(R.id.musicpop1);
+//
+//
+//        games.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), GameActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        music1.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), Music.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        cancelcon = (ImageButton) dialogcw.findViewById(R.id.canclepop1);
+//        cancelcon.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialogcw.dismiss();
+//            }
+//        });
+//        dialogcw.show();
     }
 
     public void caliweekly(View view) {

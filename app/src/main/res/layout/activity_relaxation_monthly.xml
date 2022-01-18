@@ -471,7 +471,7 @@
                 android:background="@drawable/wanttocon"
                 android:onClick="gotoPopup6"
                 android:paddingHorizontal="10dp"
-                android:text="Want to Improve Relaxation?"
+                android:text="Check Your Improvement"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 app:cornerRadius="13dp"></androidx.appcompat.widget.AppCompatButton>

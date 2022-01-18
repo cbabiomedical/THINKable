@@ -305,9 +305,9 @@
 
             <RelativeLayout
                 android:id="@+id/toggle"
-                android:layout_below="@+id/cards"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cards">
 
 
                 <androidx.appcompat.widget.AppCompatButton
@@ -316,61 +316,60 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
-                    android:paddingHorizontal="15dp"
                     android:background="@drawable/hione"
+                    android:paddingHorizontal="15dp"
                     android:text="Progress Chart"
                     android:textColor="@color/white" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/improvement"
-                    android:layout_toRightOf="@+id/progressTime"
-                    android:background="@drawable/hione"
-                    android:layout_marginTop="20dp"
-                    android:layout_marginLeft="15dp"
-                    android:paddingHorizontal="10dp"
-
-                    android:text="Improvement Chart"
-                    android:textColor="@color/white"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_toRightOf="@+id/progressTime"
+
+                    android:background="@drawable/hione"
+                    android:paddingHorizontal="10dp"
+                    android:text="Improvement Chart"
+                    android:textColor="@color/white" />
 
             </RelativeLayout>
 
-        <HorizontalScrollView
-            android:id="@+id/scroll"
-            android:layout_below="@+id/toggle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            <HorizontalScrollView
+                android:id="@+id/scroll"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/toggle">
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
 
 
+                    <com.github.mikephil.charting.charts.BarChart
+                        android:id="@+id/barChartWeekly"
+                        android:layout_width="280dp"
+                        android:layout_height="250dp"
+                        android:layout_marginStart="40dp"
+                        android:layout_marginLeft="4dp"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/transparent"
+                        app:cornerRadius="13dp" />
 
-        <com.github.mikephil.charting.charts.BarChart
-                android:id="@+id/barChartWeekly"
-                android:layout_width="280dp"
-                android:layout_height="250dp"
-                android:layout_marginStart="40dp"
-                android:layout_marginLeft="4dp"
-                android:layout_marginTop="20dp"
-                android:background="@color/transparent"
-                app:cornerRadius="13dp" />
+                    <com.github.mikephil.charting.charts.LineChart
+                        android:id="@+id/lineChartWeekly"
+                        android:layout_width="280dp"
+                        android:layout_height="250dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginEnd="40dp"
+                        android:layout_toEndOf="@+id/barChartWeekly"
+                        android:background="@color/transparent"
+                        app:cornerRadius="13dp" />
 
-            <com.github.mikephil.charting.charts.LineChart
-                android:id="@+id/lineChartWeekly"
-                android:layout_width="280dp"
-                android:layout_height="250dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginEnd="40dp"
-                android:layout_toEndOf="@+id/barChartWeekly"
-                android:background="@color/transparent"
-                app:cornerRadius="13dp" />
-
-        </RelativeLayout>
-        </HorizontalScrollView>
+                </RelativeLayout>
+            </HorizontalScrollView>
 
             <LinearLayout
                 android:id="@+id/btnLayout"
@@ -472,7 +471,7 @@
                 android:background="@drawable/wanttocon"
                 android:onClick="gotoPopup7"
                 android:paddingHorizontal="10dp"
-                android:text="Want to Improve Relaxation?"
+                android:text="Check Your Improvement"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 app:cornerRadius="13dp"></androidx.appcompat.widget.AppCompatButton>

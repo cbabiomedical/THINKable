@@ -90,7 +90,7 @@ public class Relaxation_Daily extends AppCompatActivity {
     LineData lineData;
     LineDataSet lineDataSet;
     ArrayList lineEntries;
-    AppCompatButton progressTime,improvement;
+    AppCompatButton progressTime, improvement;
 
     ArrayList<Float> xVal = new ArrayList<>(Arrays.asList(2f, 4f, 6f, 8f, 10f, 12f, 14f));
     ArrayList<Float> yVal = new ArrayList(Arrays.asList(45f, 36f, 75f, 36f, 73f, 45f, 83f));
@@ -121,9 +121,9 @@ public class Relaxation_Daily extends AppCompatActivity {
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
         lineChart = findViewById(R.id.lineChartDaily);
-        scrollView=findViewById(R.id.scroll);
-        progressTime=findViewById(R.id.progressTime);
-        improvement=findViewById(R.id.improvement);
+        scrollView = findViewById(R.id.scroll);
+        progressTime = findViewById(R.id.progressTime);
+        improvement = findViewById(R.id.improvement);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -412,7 +412,7 @@ public class Relaxation_Daily extends AppCompatActivity {
 
         }, delay);
 
-         try {
+        try {
             fileName = new File(getCacheDir() + "/relDailyX.txt");  //Writing data to file
             FileWriter fw;
             fw = new FileWriter(fileName);
@@ -420,11 +420,11 @@ public class Relaxation_Daily extends AppCompatActivity {
             int size = xVal.size();
             for (int i = 0; i < size; i++) {
                 output.write(xVal.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing X Data", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing X Data", Toast.LENGTH_SHORT).show();
             }
             output.close();
         } catch (IOException exception) {
-            Toast.makeText(this, "Failed Writing X Data", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Failed Writing X Data", Toast.LENGTH_SHORT).show();
             exception.printStackTrace();
         }
 
@@ -441,12 +441,12 @@ public class Relaxation_Daily extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(Relaxation_Daily.this, "File Uploaded X data", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Relaxation_Daily.this, "File Uploaded X data", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Relaxation_Daily.this, "File Uploading Failed X", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Relaxation_Daily.this, "File Uploading Failed X", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -462,7 +462,7 @@ public class Relaxation_Daily extends AppCompatActivity {
             int size = yVal.size();
             for (int i = 0; i < size; i++) {
                 output.write(yVal.get(i).toString() + "\n");
-                Toast.makeText(this, "Success Writing Y data", Toast.LENGTH_SHORT).show();
+//                Toast.makeText(this, "Success Writing Y data", Toast.LENGTH_SHORT).show();
             }
             output.close();
         } catch (IOException exception) {
@@ -477,12 +477,12 @@ public class Relaxation_Daily extends AppCompatActivity {
             uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                 @Override
                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                    Toast.makeText(Relaxation_Daily.this, "File Uploaded Y Axis", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Relaxation_Daily.this, "File Uploaded Y Axis", Toast.LENGTH_SHORT).show();
                 }
             }).addOnFailureListener(new OnFailureListener() {
                 @Override
                 public void onFailure(@NonNull Exception e) {
-                    Toast.makeText(Relaxation_Daily.this, "File Uploading Failed Y Data", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(Relaxation_Daily.this, "File Uploading Failed Y Data", Toast.LENGTH_SHORT).show();
                 }
             });
 
@@ -581,7 +581,7 @@ public class Relaxation_Daily extends AppCompatActivity {
                     storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                         @Override
                         public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(Relaxation_Daily.this, "Download X data", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Relaxation_Daily.this, "Success", Toast.LENGTH_SHORT).show();
 
                             // reading data from the tempFile and storing in array list
 
@@ -665,7 +665,7 @@ public class Relaxation_Daily extends AppCompatActivity {
 
                                         }
                                         Log.d("Line Entry", String.valueOf(lineEntries));
-                                        lineDataSet = new LineDataSet(lineEntries, "concentration");
+                                        lineDataSet = new LineDataSet(lineEntries, "Relaxation Improvement");
                                         lineData = new LineData(lineDataSet);
                                         lineChart.setData(lineData);
 
@@ -679,6 +679,10 @@ public class Relaxation_Daily extends AppCompatActivity {
                                         lineChart.getAxisLeft().setDrawGridLines(false);
                                         lineChart.getXAxis().setDrawGridLines(false);
                                         lineChart.getAxisRight().setDrawGridLines(false);
+                                        lineChart .getAxisRight().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getDescription().setTextColor(R.color.white);
 
 
 //
@@ -730,120 +734,122 @@ public class Relaxation_Daily extends AppCompatActivity {
 
     //improve relaxation pop up window
     public void gotoPopup5(View view) {
-        ImageButton imageViewcancle, imageViewmed, imageViewsong, imageViewvdo, imageViewbw, imageViewit;
-        View c1, c2;
-        FirebaseUser mUser;
 
-
-        dialogrd.setContentView(R.layout.activity_relaxation_popup);
-
-        c1 = (View) dialogrd.findViewById(R.id.c1);
-        c2 = (View) dialogrd.findViewById(R.id.c2);
-
-        mUser = FirebaseAuth.getInstance().getCurrentUser();
-
-        Calendar c = Calendar.getInstance();
-        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
-
-        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
-        colorreference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("FirebaseColor PopUp", String.valueOf(snapshot.getValue()));
-                color = (int) snapshot.getValue(Integer.class);
-                Log.d("Color", String.valueOf(color));
-
-                if (color == 2) {  //light theme
-                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
-                    c2.setVisibility(View.VISIBLE);
-                } else if (color == 1) { //light theme
-
-                    c1.setVisibility(View.VISIBLE);
-                    c2.setVisibility(View.INVISIBLE);
-
-
-                } else {
-                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
-
-                        c1.setVisibility(View.INVISIBLE);
-                        c2.setVisibility(View.VISIBLE);
-
-
-                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
-                        c1.setVisibility(View.INVISIBLE);
-                        c2.setVisibility(View.VISIBLE);
-
-
-                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
-                        c1.setVisibility(View.VISIBLE);
-                        c2.setVisibility(View.INVISIBLE);
-
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-
-        imageViewmed = (ImageButton) dialogrd.findViewById(R.id.medipop1);
-        imageViewmed.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), MeditationExercise.class);
-                startActivity(intent);
-            }
-        });
-
-        imageViewsong = (ImageButton) dialogrd.findViewById(R.id.songspop1);
-        imageViewsong.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Music.class);
-                startActivity(intent);
-            }
-        });
-
-        imageViewvdo = (ImageButton) dialogrd.findViewById(R.id.vdospop1);
-        imageViewvdo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Video.class);
-                startActivity(intent);
-            }
-        });
-
-        imageViewbw = (ImageButton) dialogrd.findViewById(R.id.bipop1);
-        imageViewbw.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), BineuralAcivity.class);
-                startActivity(intent);
-            }
-        });
-
-        imageViewit = (ImageButton) dialogrd.findViewById(R.id.canpop1);
-        imageViewit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Relaxation_Daily.class);
-                startActivity(intent);
-            }
-        });
-
-        imageViewcancle = (ImageButton) dialogrd.findViewById(R.id.canpop1);
-        imageViewcancle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                dialogrd.dismiss();
-            }
-        });
-
-
-        dialogrd.show();
+        startActivity(new Intent(getApplicationContext(), Connection.class));
+//        ImageButton imageViewcancle, imageViewmed, imageViewsong, imageViewvdo, imageViewbw, imageViewit;
+//        View c1, c2;
+//        FirebaseUser mUser;
+//
+//
+//        dialogrd.setContentView(R.layout.activity_relaxation_popup);
+//
+//        c1 = (View) dialogrd.findViewById(R.id.c1);
+//        c2 = (View) dialogrd.findViewById(R.id.c2);
+//
+//        mUser = FirebaseAuth.getInstance().getCurrentUser();
+//
+//        Calendar c = Calendar.getInstance();
+//        int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
+//
+//        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+//        colorreference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                Log.d("FirebaseColor PopUp", String.valueOf(snapshot.getValue()));
+//                color = (int) snapshot.getValue(Integer.class);
+//                Log.d("Color", String.valueOf(color));
+//
+//                if (color == 2) {  //light theme
+//                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
+//                    c2.setVisibility(View.VISIBLE);
+//                } else if (color == 1) { //light theme
+//
+//                    c1.setVisibility(View.VISIBLE);
+//                    c2.setVisibility(View.INVISIBLE);
+//
+//
+//                } else {
+//                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+//
+//                        c1.setVisibility(View.INVISIBLE);
+//                        c2.setVisibility(View.VISIBLE);
+//
+//
+//                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
+//                        c1.setVisibility(View.INVISIBLE);
+//                        c2.setVisibility(View.VISIBLE);
+//
+//
+//                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
+//                        c1.setVisibility(View.VISIBLE);
+//                        c2.setVisibility(View.INVISIBLE);
+//
+//                    }
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
+//
+//        imageViewmed = (ImageButton) dialogrd.findViewById(R.id.medipop1);
+//        imageViewmed.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), MeditationExercise.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        imageViewsong = (ImageButton) dialogrd.findViewById(R.id.songspop1);
+//        imageViewsong.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), Music.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        imageViewvdo = (ImageButton) dialogrd.findViewById(R.id.vdospop1);
+//        imageViewvdo.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), Video.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        imageViewbw = (ImageButton) dialogrd.findViewById(R.id.bipop1);
+//        imageViewbw.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), BineuralAcivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        imageViewit = (ImageButton) dialogrd.findViewById(R.id.canpop1);
+//        imageViewit.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(getApplicationContext(), Relaxation_Daily.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        imageViewcancle = (ImageButton) dialogrd.findViewById(R.id.canpop1);
+//        imageViewcancle.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                dialogrd.dismiss();
+//            }
+//        });
+//
+//
+//        dialogrd.show();
     }
 
     //set up x and y axis data

@@ -8,6 +8,18 @@
     android:layout_gravity="center_horizontal"
     android:background="@drawable/sinnew"
     tools:context=".SignInActivity">
+    
+    <RelativeLayout
+        android:id="@+id/mainLayout"
+        android:visibility="visible"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <VideoView
+            android:id="@+id/simpleVideo"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
     <ImageView
     android:id="@+id/topic"
@@ -104,5 +116,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
+
+    </RelativeLayout>
 
 </RelativeLayout>

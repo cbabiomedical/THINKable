@@ -3,6 +3,8 @@ package com.example.thinkableproject;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
@@ -254,59 +256,60 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
         View c1, c2;
 //        ImageView gameAudioInstructions;
         dialoggame.setContentView(R.layout.game_activity_popup);
+        dialoggame.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         ok = (Button) dialoggame.findViewById(R.id.clickGame);
-        c1 = (View) dialoggame.findViewById(R.id.c1);
-        c2 = (View) dialoggame.findViewById(R.id.c2);
+//        c1 = (View) dialoggame.findViewById(R.id.c1);
+//        c2 = (View) dialoggame.findViewById(R.id.c2);
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
 
-        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
-        colorreference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Log.d("FirebaseColor PopUp", String.valueOf(snapshot.getValue()));
-                color = (int) snapshot.getValue(Integer.class);
-                Log.d("Color", String.valueOf(color));
-
-                if (color == 2) {  //light theme
-                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
-                    c2.setVisibility(View.VISIBLE);
-                } else if (color == 1) { //light theme
-
-                    c1.setVisibility(View.VISIBLE);
-                    c2.setVisibility(View.INVISIBLE);
-
-
-                } else {
-                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
-
-                        c1.setVisibility(View.INVISIBLE);
-                        c2.setVisibility(View.VISIBLE);
-
-
-                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
-                        c1.setVisibility(View.INVISIBLE);
-                        c2.setVisibility(View.VISIBLE);
-
-
-                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
-                        c1.setVisibility(View.VISIBLE);
-                        c2.setVisibility(View.INVISIBLE);
-
-                    }
-                }
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+//        DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
+//        colorreference.addValueEventListener(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot snapshot) {
+//                Log.d("FirebaseColor PopUp", String.valueOf(snapshot.getValue()));
+//                color = (int) snapshot.getValue(Integer.class);
+//                Log.d("Color", String.valueOf(color));
+//
+//                if (color == 2) {  //light theme
+//                    c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
+//                    c2.setVisibility(View.VISIBLE);
+//                } else if (color == 1) { //light theme
+//
+//                    c1.setVisibility(View.VISIBLE);
+//                    c2.setVisibility(View.INVISIBLE);
+//
+//
+//                } else {
+//                    if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
+//
+//                        c1.setVisibility(View.INVISIBLE);
+//                        c2.setVisibility(View.VISIBLE);
+//
+//
+//                    } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
+//                        c1.setVisibility(View.INVISIBLE);
+//                        c2.setVisibility(View.VISIBLE);
+//
+//
+//                    } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
+//                        c1.setVisibility(View.VISIBLE);
+//                        c2.setVisibility(View.INVISIBLE);
+//
+//                    }
+//                }
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError error) {
+//
+//            }
+//        });
 //        gameAudioInstructions=(ImageView)dialoggame.findViewById(R.id.playGameInstructions);
 
         ok.setOnClickListener(new View.OnClickListener() {

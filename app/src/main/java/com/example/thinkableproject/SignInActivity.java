@@ -4,7 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
@@ -13,8 +17,11 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.VideoView;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
@@ -24,7 +31,10 @@ import com.google.firebase.auth.FirebaseUser;
 public class SignInActivity extends AppCompatActivity implements View.OnClickListener {
     TextView forgotPassword;
     EditText emailAddress, passwordTxt;
-    AppCompatButton signIn,signUp;
+    AppCompatButton signIn, signUp;
+    RelativeLayout mainLayout;
+    VideoView videoView;
+    Dialog dialog;
 
 
     private FirebaseAuth mAuth;
@@ -34,6 +44,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_in);
+        dialog = new Dialog(this);
+
+        mainLayout = findViewById(R.id.mainLayout);
+        videoView = findViewById(R.id.simpleVideo);
 //        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 //                WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -71,7 +85,10 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 //                Log.d("USERLOGIN", "----------------------H----------------------------");
 //                Log.d("USERLOGIN", "----------------------I----------------------------");
 //                Log.d("USERLOGIN", "----------------------J----------------------------");
+
                 userLogin();
+
+
                 break;
 
             case R.id.forgetPassword:
@@ -79,6 +96,35 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
                 startActivity(new Intent(this, ForgetPasswordActivity.class));
                 break;
         }
+    }
+
+    private void openInstructionsPopUp() {
+        startActivity(new Intent(getApplicationContext(),Video.class));
+//        VideoView videoView;
+//
+//
+//        dialog.setContentView(R.layout.activity_video);
+//        videoView = (VideoView) dialog.findViewById(R.id.simpleVideo);
+//
+//        videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.roadmap));
+//        videoView.start();
+//
+//        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//            @Override
+//            public void onCompletion(MediaPlayer mp) {
+//                mainLayout.setVisibility(View.VISIBLE);
+//                dialog.dismiss();
+//                startActivity(new Intent(getApplicationContext(), Concentration_Daily.class));
+//            }
+//        });
+
+        SharedPreferences prefsMap = getSharedPreferences("prefsMap", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefsMap.edit();
+        editor.putBoolean("firstStartMap", false);
+        editor.apply();
+
+//        dialog.show();
+
     }
 
     //get & display current user's profile
@@ -143,7 +189,16 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
 //                    Log.d("USERLOGIN", "----------------------G----------------------------");
                     //check whether user details are correct and authenticate with firebase userdata and redirect user to landing page
                     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-                    startActivity(new Intent(SignInActivity.this, Concentration_Daily.class));
+                    SharedPreferences prefsMap = getSharedPreferences("prefsMap", MODE_PRIVATE);
+                    boolean firstStartMap = prefsMap.getBoolean("firstStartMap", true);
+
+                    if (firstStartMap) {
+                        openInstructionsPopUp();
+                        Log.d("Fisrt SignIn", "Working");
+
+                    } else {
+                        startActivity(new Intent(SignInActivity.this, Concentration_Daily.class));
+                    }
 
                      /*if (user.isEmailVerified()) {
                         // redirect to user profile
