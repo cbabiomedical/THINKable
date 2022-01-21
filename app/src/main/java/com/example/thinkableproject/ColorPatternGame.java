@@ -37,6 +37,11 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.thinkableproject.sample.SoundPlayer;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -69,6 +74,11 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
     FirebaseUser mUser;
     VideoView gameVideo;
     int color;
+    Dialog dialogIntervention;
+    LineChart lineChart;
+    LineData lineData;
+    LineDataSet lineDataSet;
+    ArrayList lineEntries;
 
     SoundPlayer sound;
 
@@ -89,7 +99,10 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
         scoreInfo = findViewById(R.id.scoreInfo);
         scoreInfo2 = findViewById(R.id.scoreInfo2);
         dialogColorPattern = new Dialog(this);
-        gameVideo=findViewById(R.id.simpleVideo);
+        gameVideo = findViewById(R.id.simpleVideo);
+        dialogColorPattern = new Dialog(this);
+        dialogIntervention = new Dialog(this);
+        lineChart = findViewById(R.id.lineChartColorPattern);
 
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
@@ -209,7 +222,7 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
 
     private void displayColorPatternPop() {
         Button ok;
-        View c1,c2;
+        View c1, c2;
 
         dialogColorPattern.setContentView(R.layout.colorpattern_instructions);
         dialogColorPattern.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
@@ -281,17 +294,17 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
                 gameVideo.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
                     @Override
                     public void onCompletion(MediaPlayer mp) {
-                       gameVideo.setVisibility(View.GONE);
-                       mainConstraint.setVisibility(View.VISIBLE);
+                        gameVideo.setVisibility(View.GONE);
+                        mainConstraint.setVisibility(View.VISIBLE);
                     }
                 });
             }
         });
         dialogColorPattern.show();
 
-        SharedPreferences prefsColIn=getSharedPreferences("prefsColIn",MODE_PRIVATE);
-        SharedPreferences.Editor editor=prefsColIn.edit();
-        editor.putBoolean("firstStartColIn",false);
+        SharedPreferences prefsColIn = getSharedPreferences("prefsColIn", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefsColIn.edit();
+        editor.putBoolean("firstStartColIn", false);
         editor.apply();
 
 
@@ -325,6 +338,7 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
                 newHighscore();
                 printHighscore();
                 resetGame();
+                openPopUpLineChart();
             }
         } else {
             showToast();
@@ -477,18 +491,74 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //set what would happen when positive button is clicked
+
                         finish();
+                        dialogInterface.dismiss();
+
+
                     }
                 })
 //set negative button
                 .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+//                        openPopUpLineChart();
                         //set what should happen when negative button is clicked
                         Toast.makeText(getApplicationContext(), "Press START button to start", Toast.LENGTH_LONG).show();
                     }
                 })
                 .show();
+
+    }
+
+    private void openPopUpLineChart() {
+        Button ok;
+        LineChart lineChart;
+
+        dialogIntervention.setContentView(R.layout.color_pattern_intervention_chart);
+        dialogIntervention.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        lineChart = (LineChart) dialogIntervention.findViewById(R.id.lineChartColorPattern);
+
+        getEntries();
+        lineDataSet = new LineDataSet(lineEntries, "Memory Progress");
+        lineData = new LineData(lineDataSet);
+        lineChart.setData(lineData);
+
+        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        lineDataSet.setValueTextColor(Color.WHITE);
+        lineDataSet.setValueTextSize(10f);
+
+        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+        lineChart.setBorderColor(Color.TRANSPARENT);
+        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+        lineChart.getAxisLeft().setDrawGridLines(false);
+        lineChart.getXAxis().setDrawGridLines(false);
+        lineChart.getAxisRight().setDrawGridLines(false);
+        lineChart.getXAxis().setTextColor(R.color.white);
+        lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
+        lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+        lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
+        lineChart.getDescription().setTextColor(R.color.white);
+        ok = (Button) dialogIntervention.findViewById(R.id.ok);
+
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogIntervention.dismiss();
+            }
+        });
+
+        dialogIntervention.show();
+
+    }
+
+    private void getEntries() {
+        lineEntries = new ArrayList();
+        lineEntries.add(new Entry(2f, 34f));
+        lineEntries.add(new Entry(4f, 56f));
+        lineEntries.add(new Entry(6f, 65));
+        lineEntries.add(new Entry(8f, 23f));
 
     }
 

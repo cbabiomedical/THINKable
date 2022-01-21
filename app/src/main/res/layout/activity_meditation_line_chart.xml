@@ -6,12 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    android:background="#010334"
     android:layout_centerVertical="true"
-    tools:context=".LineChartExample">
+    android:background="#010334"
+    tools:context=".MeditationLineChart">
 
     <com.github.mikephil.charting.charts.LineChart
-        android:id = "@+id/lineChart"
+        android:id = "@+id/lineChartMeditation"
         android:layout_centerVertical="true"
         android:layout_width = "400dp"
         android:layout_height = "300dp" />
@@ -24,8 +24,8 @@
         android:layout_alignParentEnd="true"
         android:text="OK"
         android:layout_marginVertical="30dp"
-        android:background="@drawable/hione"
         android:layout_marginHorizontal="30dp"
+        android:background="@drawable/hione"
         android:textColor="@color/black"/>
 
 </RelativeLayout>

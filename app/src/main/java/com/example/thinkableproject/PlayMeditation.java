@@ -6,6 +6,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -21,6 +22,7 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
@@ -47,6 +49,7 @@ public class PlayMeditation extends AppCompatActivity {
     ImageView imageView;
     String uri;
     String name;
+    Dialog dialog_meditation;
     String music_title;
 //    int time;
 
@@ -71,6 +74,7 @@ public class PlayMeditation extends AppCompatActivity {
         mediaPlayer = new MediaPlayer();
         btnff = findViewById(R.id.fForward);
         btnfr = findViewById(R.id.fRewind);
+        dialog_meditation = new Dialog(this);
 //        barVisualizer = findViewById(R.id.visualizer);
         mediaPlayer = new MediaPlayer();
 
@@ -114,19 +118,19 @@ public class PlayMeditation extends AppCompatActivity {
             Log.d("ERROR", "Error in getting null value");
         }
 
-        ProgressDialog progressDialog = new ProgressDialog(this, R.style.Theme_MyDialog);
-
-        progressDialog.show(this,
-                "Loading Music", "Please Wait");
-        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        ProgressDialog progressDialog = new ProgressDialog(this, R.style.Theme_MyDialog);
+//
+//        progressDialog.show(this,
+//                "Loading Music", "Please Wait");
+//        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
 
         // MEDIA STARTS FUNCTION
 
         mediaPlayer.setOnPreparedListener(mp -> {
-            if (progressDialog != null && progressDialog.isShowing()) {
-                progressDialog.dismiss();
-            }
+//            if (progressDialog != null && progressDialog.isShowing()) {
+//                progressDialog.dismiss();
+//            }
             mediaPlayer.start();
             reqestPermission();
             TranslateAnimation animation = new TranslateAnimation(-25, 25, -25, 25);
@@ -156,7 +160,8 @@ public class PlayMeditation extends AppCompatActivity {
                         }
                         if (currentPosition > mediaPlayer.getDuration()) {
                             mediaPlayer.stop();
-                            startActivity(new Intent(getApplicationContext(), MeditationExercise.class));
+//                            openGraphPopup();
+                            startActivity(new Intent(getApplicationContext(), MeditationLineChart.class));
                         }
                     }
 
@@ -222,6 +227,21 @@ public class PlayMeditation extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void openGraphPopup() {
+        Button ok;
+        dialog_meditation.setContentView(R.layout.meditation_intervention_popup);
+        ok = (Button) dialog_meditation.findViewById(R.id.lineChartMeditationIntervention);
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog_meditation.dismiss();
+            }
+        });
+
+        dialog_meditation.show();
     }
 
     private void prepareMediaPlayer() {

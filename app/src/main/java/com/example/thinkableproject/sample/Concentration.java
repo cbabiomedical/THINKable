@@ -1,60 +1,73 @@
 package com.example.thinkableproject.sample;
 
+import java.util.ArrayList;
+
 public class Concentration {
-    private int alpha;
-    private int beta;
-    private int gamma;
-    private int theta;
-    private int delta;
+    private float alpha;
+    private float beta;
+    private float gamma;
+    private float theta;
+    private float delta;
+    private ArrayList<weatherinfo> weather;
 
     public Concentration() {
     }
 
-    public Concentration(int alpha, int beta, int gamma, int theta, int delta) {
+    public Concentration(float delta, float theta, float alpha, float beta, float gamma) {
+        this.delta = delta;
+        this.theta = theta;
         this.alpha = alpha;
         this.beta = beta;
         this.gamma = gamma;
-        this.theta = theta;
-        this.delta = delta;
+
+
     }
 
-    public int getAlpha() {
+    public ArrayList<weatherinfo> getWeather() {
+        return weather;
+    }
+
+    public void setWeather(ArrayList<weatherinfo> weather) {
+        this.weather = weather;
+    }
+
+    public float getAlpha() {
         return alpha;
     }
 
-    public void setAlpha(int alpha) {
+    public void setAlpha(float alpha) {
         this.alpha = alpha;
     }
 
-    public int getBeta() {
+    public float getBeta() {
         return beta;
     }
 
-    public void setBeta(int beta) {
+    public void setBeta(float beta) {
         this.beta = beta;
     }
 
-    public int getGamma() {
+    public float getGamma() {
         return gamma;
     }
 
-    public void setGamma(int gamma) {
+    public void setGamma(float gamma) {
         this.gamma = gamma;
     }
 
-    public int getTheta() {
+    public float getTheta() {
         return theta;
     }
 
-    public void setTheta(int theta) {
+    public void setTheta(float theta) {
         this.theta = theta;
     }
 
-    public int getDelta() {
+    public float getDelta() {
         return delta;
     }
 
-    public void setDelta(int delta) {
+    public void setDelta(float delta) {
         this.delta = delta;
     }
 
@@ -67,5 +80,49 @@ public class Concentration {
                 ", theta=" + theta +
                 ", delta=" + delta +
                 '}';
+    }
+
+    public static class weatherinfo{
+        float delta,theta,alpha,beta,gamma;
+
+        public float getDelta() {
+            return delta;
+        }
+
+        public void setDelta(float delta) {
+            this.delta = delta;
+        }
+
+        public float getTheta() {
+            return theta;
+        }
+
+        public void setTheta(float theta) {
+            this.theta = theta;
+        }
+
+        public float getAlpha() {
+            return alpha;
+        }
+
+        public void setAlpha(float alpha) {
+            this.alpha = alpha;
+        }
+
+        public float getBeta() {
+            return beta;
+        }
+
+        public void setBeta(float beta) {
+            this.beta = beta;
+        }
+
+        public float getGamma() {
+            return gamma;
+        }
+
+        public void setGamma(float gamma) {
+            this.gamma = gamma;
+        }
     }
 }

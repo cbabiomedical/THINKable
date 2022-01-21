@@ -24,6 +24,11 @@ import com.example.thinkableproject.models.UserImageList
 import com.example.thinkableproject.utils.EXTRA_BOARD_SIZE
 import com.example.thinkableproject.utils.EXTRA_GAME_NAME
 import com.github.jinatonic.confetti.CommonConfetti
+import com.github.mikephil.charting.charts.LineChart
+import com.github.mikephil.charting.data.Entry
+import com.github.mikephil.charting.data.LineData
+import com.github.mikephil.charting.data.LineDataSet
+import com.github.mikephil.charting.utils.ColorTemplate
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
@@ -47,12 +52,19 @@ class MainActivityK : AppCompatActivity() {
     private lateinit var rvBoard: RecyclerView
     private lateinit var tvNumMoves: TextView
     private lateinit var tvNumPairs: TextView
-    private lateinit var information:ImageView
-    private lateinit var dialog:Dialog
-     var color:Int = 0
-    lateinit var mainConstraint:ConstraintLayout
-    lateinit var gameVideo: VideoView
+    private lateinit var information: ImageView
+    private lateinit var dialog: Dialog
+    private lateinit var dialogIntervention: Dialog
+    private lateinit var lineChart: LineChart
 
+    private lateinit var lineData: LineData
+    private lateinit var lineDataSet: LineDataSet
+    var lineEntries = ArrayList<Entry>()
+
+    //    private lateinit var lineChart: LineChart
+    var color: Int = 0
+    lateinit var mainConstraint: ConstraintLayout
+    lateinit var gameVideo: VideoView
     private val db = Firebase.firestore
     private val firebaseAnalytics = Firebase.analytics
     private val remoteConfig = Firebase.remoteConfig
@@ -69,10 +81,13 @@ class MainActivityK : AppCompatActivity() {
         rvBoard = findViewById(R.id.rvBoard)
         tvNumMoves = findViewById(R.id.tvNumMoves)
         tvNumPairs = findViewById(R.id.tvNumPairs)
-        information=findViewById(R.id.gameInfo);
-        dialog= Dialog(this);
-        gameVideo=findViewById(R.id.simpleVideo);
-        mainConstraint=findViewById(R.id.mainConstraint)
+        information = findViewById(R.id.gameInfo);
+        dialog = Dialog(this);
+        dialogIntervention = Dialog(this)
+        gameVideo = findViewById(R.id.simpleVideo);
+        mainConstraint = findViewById(R.id.mainConstraint)
+//        lineChart = findViewById(R.id.lineChartInterventionGame)
+//        lineChart = findViewById(R.id.lineChartInterventionGame)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
 
 //    remoteConfig.setDefaultsAsync(mapOf("about_link" to "https://www.youtube.com/rpandey1234", "scaled_height" to 250L, "compress_quality" to 60L))
@@ -91,25 +106,25 @@ class MainActivityK : AppCompatActivity() {
         if (firstStartCardIn) {
             displayPopUp()
         }
-        information.setOnClickListener{
-        displayPopUp();
+        information.setOnClickListener {
+            displayPopUp();
         }
     }
 
     private fun displayPopUp() {
-        var ok:Button
-        var c1:View
-        var c2:View
+        var ok: Button
+        var c1: View
+        var c2: View
 
         dialog.setContentView(R.layout.cardgame_popup)
         dialog.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        ok=dialog.findViewById(R.id.ok);
+        ok = dialog.findViewById(R.id.ok);
 //        c1=dialog.findViewById(R.id.c1);
 //        c2=dialog.findViewById(R.id.c2);
-        var mUser:FirebaseUser
+        var mUser: FirebaseUser
 
-        mUser= FirebaseAuth.getInstance().currentUser!!
+        mUser = FirebaseAuth.getInstance().currentUser!!
 
 //        val c = Calendar.getInstance()
 //        val timeOfDay = c[Calendar.HOUR_OF_DAY]
@@ -143,7 +158,7 @@ class MainActivityK : AppCompatActivity() {
 //            override fun onCancelled(error: DatabaseError) {}
 //        })
 
-        ok.setOnClickListener{
+        ok.setOnClickListener {
             dialog.dismiss()
             gameVideo.visibility = View.VISIBLE
             mainConstraint.visibility = View.GONE
@@ -236,7 +251,7 @@ class MainActivityK : AppCompatActivity() {
         }
         db.collection("games").document(customGameName).get().addOnSuccessListener { document ->
             val userImageList = document.toObject(UserImageList::class.java)
-            if (userImageList?.images == null)   {
+            if (userImageList?.images == null) {
                 Log.e(TAG, "Invalid custom game data from Firebase")
                 Snackbar.make(clRoot, "Sorry, we couldn't find any such game, '$customGameName'", Snackbar.LENGTH_LONG).show()
                 return@addOnSuccessListener
@@ -300,12 +315,12 @@ class MainActivityK : AppCompatActivity() {
 
     private fun showAlertDialog(title: String, view: View?, positiveClickListener: View.OnClickListener) {
         AlertDialog.Builder(this)
-            .setTitle(title)
-            .setView(view)
-            .setNegativeButton("Cancel", null)
-            .setPositiveButton("OK") { _, _ ->
-                positiveClickListener.onClick(null)
-            }.show()
+                .setTitle(title)
+                .setView(view)
+                .setNegativeButton("Cancel", null)
+                .setPositiveButton("OK") { _, _ ->
+                    positiveClickListener.onClick(null)
+                }.show()
     }
 
     private fun setupBoard() {
@@ -359,6 +374,7 @@ class MainActivityK : AppCompatActivity() {
             tvNumPairs.text = "Pairs: ${memoryGame.numPairsFound} / ${boardSize.getNumPairs()}"
             if (memoryGame.haveWonGame()) {
                 Snackbar.make(clRoot, "You won! Congratulations.", Snackbar.LENGTH_LONG).show()
+                openDialog()
                 CommonConfetti.rainingConfetti(clRoot, intArrayOf(Color.YELLOW, Color.GREEN, Color.MAGENTA)).oneShot()
                 firebaseAnalytics.logEvent("won_game") {
                     param("game_name", gameName ?: "[default]")
@@ -368,5 +384,55 @@ class MainActivityK : AppCompatActivity() {
         }
         tvNumMoves.text = "Moves: ${memoryGame.getNumMoves()}"
         adapter.notifyDataSetChanged()
+    }
+
+    private fun openDialog() {
+        var ok: Button
+        var lineChart: LineChart
+
+        var lineData: LineData
+        var lineDataSet: LineDataSet
+        val lineEntries = ArrayList<Entry>()
+
+
+        dialogIntervention.setContentView(R.layout.game_intervention_popup);
+        dialogIntervention.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
+        ok = dialogIntervention.findViewById(R.id.ok);
+
+        this@MainActivityK.lineEntries = ArrayList<Entry>()
+        lineEntries.add(Entry(2f, 34f))
+        lineEntries.add(Entry(4f, 56f))
+        lineEntries.add(Entry(6f, 65f))
+        lineEntries.add(Entry(8f, 23f))
+        Log.d("GRAPH ENTRY", lineEntries.toString())
+        lineChart = dialogIntervention.findViewById(R.id.lineChartInterventionGame)
+        lineDataSet = LineDataSet(lineEntries, "Memory Progress")
+        lineData = LineData(lineDataSet)
+        lineChart.data = lineData
+
+        lineDataSet.setColors(*ColorTemplate.JOYFUL_COLORS)
+        lineDataSet.setValueTextColor(Color.WHITE)
+        lineDataSet.setValueTextSize(10f)
+
+        lineChart.setGridBackgroundColor(Color.TRANSPARENT)
+        lineChart.setBorderColor(Color.TRANSPARENT)
+        lineChart.setGridBackgroundColor(Color.TRANSPARENT)
+        lineChart.axisLeft.setDrawGridLines(false)
+        lineChart.xAxis.setDrawGridLines(false)
+        lineChart.axisRight.setDrawGridLines(false)
+        lineChart.axisRight.textColor = resources.getColor(R.color.white)
+        lineChart.axisLeft.textColor = resources.getColor(R.color.white)
+        lineChart.legend.textColor = resources.getColor(R.color.white)
+        lineChart.description.textColor = R.color.white
+        ok.setOnClickListener(View.OnClickListener {
+            dialogIntervention.dismiss()
+        })
+
+        dialogIntervention.show()
+
+    }
+
+    private fun getEntries() {
+
     }
 }

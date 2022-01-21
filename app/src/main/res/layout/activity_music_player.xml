@@ -18,11 +18,13 @@
 
 
 
-    <LinearLayout
+    <RelativeLayout
+        android:id="@+id/mainLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="7"
         android:gravity="center"
+        android:layout_marginBottom="10dp"
         android:orientation="vertical">
 
 
@@ -51,10 +53,7 @@
             android:layout_width="match_parent"
             android:layout_height="300dp"
             android:layout_marginTop="10dp"
-
             android:layout_centerHorizontal="true"
-
-
             app:lottie_autoPlay="true"
             app:lottie_rawRes="@raw/flowers"
 
@@ -69,7 +68,9 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="65dp"
-            android:layout_below="@+id/gifmusic"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="15dp"
+            android:layout_below="@+id/animation"
             android:id="@+id/relativeone">
             <SeekBar
                 android:id="@+id/seekBar"
@@ -103,16 +104,14 @@
                 android:layout_height="wrap_content"/>
         </RelativeLayout>
 
-    </LinearLayout>
-    <LinearLayout
+    </RelativeLayout>
+
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="3"
         >
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+
             <androidx.appcompat.widget.AppCompatButton
                 android:layout_width="70dp"
                 android:layout_height="70dp"
@@ -145,7 +144,7 @@
                 app:avColor="@color/white"
                 android:layout_height="150dp" />
         </RelativeLayout>
-    </LinearLayout>
+
 
 
 

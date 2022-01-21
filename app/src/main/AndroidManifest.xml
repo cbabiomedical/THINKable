@@ -42,11 +42,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThinkableProject"
         android:usesCleartextTraffic="true">
-        <activity android:name="com.example.Help"></activity>
+        <activity
+            android:name=".MeditationLineChart"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+        <activity android:name="com.example.Help" />
         <activity
             android:name=".ContactUs"
             android:exported="true" />
-        <activity android:name=".LineChartExample" />
+        <activity
+            android:name=".LineChartExample"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".PlayVideo" />
         <activity android:name=".Memory_popup" />
         <activity
@@ -81,7 +86,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".PlayMeditation"
-            android:parentActivityName=".MeditationExercise" />
+            android:parentActivityName=".MeditationExercise"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".Activity_BTLE_Services" />
 
         <service
@@ -132,7 +138,8 @@
         <!-- android:value="@string/google_maps_key" /> -->
         <activity
             android:name=".MusicPlayer"
-            android:parentActivityName=".Music" />
+            android:parentActivityName=".Music"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".concentration_music"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />

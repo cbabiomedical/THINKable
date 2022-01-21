@@ -17,7 +17,8 @@ import com.github.mikephil.charting.utils.ColorTemplate;
 
 import java.util.ArrayList;
 
-public class LineChartExample extends AppCompatActivity {
+public class MeditationLineChart extends AppCompatActivity {
+
     AppCompatButton ok;
     LineChart lineChart;
     LineData lineData;
@@ -27,10 +28,10 @@ public class LineChartExample extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_line_chart_example);
+        setContentView(R.layout.activity_meditation_line_chart);
         ok = findViewById(R.id.ok);
+        lineChart = findViewById(R.id.lineChartMeditation);
 
-        lineChart = findViewById(R.id.lineChart);
         getEntries();
         lineDataSet = new LineDataSet(lineEntries, "Concentration and Memory Improvement");
         lineData = new LineData(lineDataSet);
@@ -55,7 +56,7 @@ public class LineChartExample extends AppCompatActivity {
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Music.class));
+                startActivity(new Intent(getApplicationContext(),MeditationExercise.class));
             }
         });
     }
@@ -68,5 +69,6 @@ public class LineChartExample extends AppCompatActivity {
         lineEntries.add(new Entry(8f, 66f));
         lineEntries.add(new Entry(7f, 12f));
         lineEntries.add(new Entry(3f, 9f));
+
     }
 }

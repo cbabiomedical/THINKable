@@ -1,14 +1,21 @@
 package com.example.thinkableproject.sample;
 
+import java.util.ArrayList;
+
 public class Brain_Waves {
 
-    private int alpha;
-    private int beta;
-    private int gamma;
-    private int theta;
-    private int delta;
+    private float alpha;
+    private float beta;
+    private float gamma;
+    private float theta;
+    private float delta;
+    ArrayList brain_waves;
 
-    public Brain_Waves(int alpha, int beta, int gamma, int theta, int delta) {
+    public ArrayList<Brain_Waves> getWeather() {
+        return brain_waves;
+    }
+
+    public Brain_Waves(float alpha, float beta, float gamma, float theta, float delta) {
         this.alpha = alpha;
         this.beta = beta;
         this.gamma = gamma;
@@ -19,43 +26,43 @@ public class Brain_Waves {
     public Brain_Waves() {
     }
 
-    public int getAlpha() {
+    public float getAlpha() {
         return alpha;
     }
 
-    public void setAlpha(int alpha) {
+    public void setAlpha(float alpha) {
         this.alpha = alpha;
     }
 
-    public int getBeta() {
+    public float getBeta() {
         return beta;
     }
 
-    public void setBeta(int beta) {
+    public void setBeta(float beta) {
         this.beta = beta;
     }
 
-    public int getGamma() {
+    public float getGamma() {
         return gamma;
     }
 
-    public void setGamma(int gamma) {
+    public void setGamma(float gamma) {
         this.gamma = gamma;
     }
 
-    public int getTheta() {
+    public float getTheta() {
         return theta;
     }
 
-    public void setTheta(int theta) {
+    public void setTheta(float theta) {
         this.theta = theta;
     }
 
-    public int getDelta() {
+    public float getDelta() {
         return delta;
     }
 
-    public void setDelta(int delta) {
+    public void setDelta(float delta) {
         this.delta = delta;
     }
 

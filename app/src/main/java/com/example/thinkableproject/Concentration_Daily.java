@@ -674,7 +674,7 @@ public class Concentration_Daily extends AppCompatActivity {
                                         lineChart.getXAxis().setDrawGridLines(false);
                                         lineChart.getAxisRight().setDrawGridLines(false);
                                         lineChart.getXAxis().setTextColor(R.color.white);
-                                        lineChart .getAxisRight().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
                                         lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                                         lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
                                         lineChart.getDescription().setTextColor(R.color.white);

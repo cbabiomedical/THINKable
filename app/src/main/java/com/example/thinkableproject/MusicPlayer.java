@@ -7,7 +7,7 @@ import androidx.core.content.ContextCompat;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
-import android.app.ProgressDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
@@ -22,15 +22,19 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.TranslateAnimation;
+import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.chibde.visualizer.BarVisualizer;
 import com.chibde.visualizer.SquareBarVisualizer;
 import com.example.thinkableproject.sample.MusicModelClass;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -50,7 +54,12 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
     ImageView imageView;
     String uri;
     String name;
-//    int time;
+    Dialog dialog;
+    LineChart lineChart;
+    LineData lineData;
+    LineDataSet lineDataSet;
+    ArrayList lineEntries;
+    //    int time;
     String music_title;
 
     public static final String EXTRA_NAME = "songName";
@@ -71,9 +80,10 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
         txtStop = findViewById(R.id.txtStop);
         txtsongName = findViewById(R.id.txtsongName);
         mediaPlayer = new MediaPlayer();
-
+        dialog = new Dialog(this);
         btnff = findViewById(R.id.fForward);
         btnfr = findViewById(R.id.fRewind);
+        lineChart = findViewById(R.id.lineChartIntervention);
         mediaPlayer = new MediaPlayer();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -109,18 +119,18 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
             Log.d("ERROR", "Error in getting null value");
         }
 
-        ProgressDialog progressDialog=new ProgressDialog(this,R.style.Theme_AppCompat_DayNight_Dialog);
-        ProgressDialog.show(this,
-                "Loading Music", "Please Wait");
+//        ProgressDialog progressDialog = new ProgressDialog(this, R.style.Theme_AppCompat_DayNight_Dialog);
+//        ProgressDialog.show(this,
+//                "Loading Music", "Please Wait");
 
-        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         // MEDIA STARTS FUNCTION
 
         mediaPlayer.setOnPreparedListener(mp -> {
-            if (progressDialog != null && progressDialog.isShowing()) {
-                progressDialog.dismiss();
-            }
+//            if (progressDialog != null && progressDialog.isShowing()) {
+//                progressDialog.dismiss();
+//            }
             mediaPlayer.start();
             reqestPermission();
             TranslateAnimation animation = new TranslateAnimation(-25, 25, -25, 25);
@@ -151,7 +161,9 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
                         }
                         if (currentPosition > mediaPlayer.getDuration()) {
                             mediaPlayer.stop();
-                            startActivity(new Intent(getApplicationContext(), Music.class));
+
+                            startActivity(new Intent(getApplicationContext(), LineChartExample.class));
+
                         }
                     }
 
@@ -217,7 +229,86 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
                 }
             }
         });
+//        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//            @Override
+//            public void onCompletion(MediaPlayer mp) {
+//
+//                dialog.setContentView(R.layout.intervention_graph_popup);
+//                lineChart = (LineChart) dialog.findViewById(R.id.lineChartIntervention);
+//                getEntries();
+//                lineDataSet = new LineDataSet(lineEntries, "Concentration Index");
+//                lineData = new LineData(lineDataSet);
+//                lineChart.setData(lineData);
+//
+//                lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+//                lineDataSet.setValueTextColor(Color.WHITE);
+//                lineDataSet.setValueTextSize(10f);
+//
+//                lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+//                lineChart.setBorderColor(Color.TRANSPARENT);
+//                lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+//                lineChart.getAxisLeft().setDrawGridLines(false);
+//                lineChart.getXAxis().setDrawGridLines(false);
+//                lineChart.getAxisRight().setDrawGridLines(false);
+//                lineChart.getXAxis().setTextColor(R.color.white);
+//                lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
+//                lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+//                lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
+//                lineChart.getDescription().setTextColor(R.color.white);
+//
+//
+//            }
+//        });
+//
+//    }
+    }
 
+    private void openPopUp() {
+        Button ok;
+        dialog.setContentView(R.layout.music_graph_popup);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        ok = (Button) dialog.findViewById(R.id.click);
+//        lineChart = (LineChart) dialog.findViewById(R.id.lineChartIntervention);
+        ok = (Button) dialog.findViewById(R.id.click);
+        getEntries();
+        lineDataSet = new LineDataSet(lineEntries, "Concentration Index");
+        lineData = new LineData(lineDataSet);
+        lineChart.setData(lineData);
+
+        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        lineDataSet.setValueTextColor(Color.WHITE);
+        lineDataSet.setValueTextSize(10f);
+
+        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+        lineChart.setBorderColor(Color.TRANSPARENT);
+        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+        lineChart.getAxisLeft().setDrawGridLines(false);
+        lineChart.getXAxis().setDrawGridLines(false);
+        lineChart.getAxisRight().setDrawGridLines(false);
+        lineChart.getXAxis().setTextColor(R.color.white);
+        lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
+        lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+        lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
+        lineChart.getDescription().setTextColor(R.color.white);
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+//
+
+    }
+
+    private void getEntries() {
+        lineEntries = new ArrayList();
+        lineEntries.add(new Entry(2f, 34f));
+        lineEntries.add(new Entry(4f, 56f));
+        lineEntries.add(new Entry(6f, 65));
+        lineEntries.add(new Entry(8f, 23f));
     }
 
     private void prepareMediaPlayer() {

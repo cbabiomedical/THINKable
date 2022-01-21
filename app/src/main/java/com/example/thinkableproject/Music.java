@@ -140,7 +140,7 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
         boolean firstStart = prefs.getBoolean("firstStart", true);
 
         if (firstStart) {
-           openInstructionsPopUp();
+            openInstructionsPopUp();
         }
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
@@ -247,9 +247,9 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
             }
         }).create().show();
 
-        SharedPreferences prefs=getSharedPreferences("prefs",MODE_PRIVATE);
-        SharedPreferences.Editor editor=prefs.edit();
-        editor.putBoolean("firstStart",false);
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("firstStart", false);
         editor.apply();
     }
 
@@ -431,9 +431,9 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
 //        });
 
         dialogmusic.show();
-        SharedPreferences prefs=getSharedPreferences("prefs",MODE_PRIVATE);
-        SharedPreferences.Editor editor=prefs.edit();
-        editor.putBoolean("firstStart",false);
+        SharedPreferences prefs = getSharedPreferences("prefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("firstStart", false);
         editor.apply();
 
 
