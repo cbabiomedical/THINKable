@@ -43,8 +43,17 @@
         android:theme="@style/Theme.ThinkableProject"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".spaceshooter.GameOver"
+            android:exported="false" />
+        <activity
+            android:name=".spaceshooter.StartUp"
+            android:exported="false" />
+        <activity
+            android:name=".spaceshooter.SpaceShooterMainActivity"
+            android:exported="false" />
+        <activity
             android:name=".MeditationLineChart"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"></activity>
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name="com.example.Help" />
         <activity
             android:name=".ContactUs"
