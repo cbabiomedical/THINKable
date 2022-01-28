@@ -11,7 +11,7 @@ public class SpaceShooterMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_space_shooter_main);
+        setContentView(new SpaceShooter(this));
     }
 
     @Override
