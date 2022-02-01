@@ -29,6 +29,7 @@ import com.example.thinkableproject.adapters.MusicAdapter;
 import com.example.thinkableproject.sample.GameModelClass;
 import com.example.thinkableproject.sample.MeditationModelClass;
 import com.example.thinkableproject.sample.MusicModelClass;
+import com.example.thinkableproject.spaceshooter.StartUp;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -323,7 +324,11 @@ public class MemoryExercise extends AppCompatActivity implements MusicAdapter.On
             startActivity(new Intent(getApplicationContext(), MainActivityK.class));
         } else if (gameList.get(position).getGameName().equals("Color Pattern Game")) {
             startActivity(new Intent(getApplicationContext(), ColorPatternGame.class));
-        } else {
+        }
+        else if (gameList.get(position).getGameName().equals("SpaceHooter")){
+            startActivity(new Intent(getApplicationContext(), StartUp.class));
+        }
+        else {
             Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.vending");
             if (launchIntent != null) {
                 Log.d("Tagopenapp", "---------------------B--------------------------");

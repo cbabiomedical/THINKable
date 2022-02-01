@@ -150,4 +150,13 @@
 <!--        app:layout_constraintHorizontal_bias="0.5"-->
 <!--        app:layout_constraintStart_toEndOf="@+id/spinwheel"-->
 <!--        app:layout_constraintTop_toBottomOf="@+id/view3" />-->
+
+    <LinearLayout
+        android:id="@+id/googleads"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layout_constraintTop_toBottomOf="@+id/categoryList"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

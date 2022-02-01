@@ -41,8 +41,9 @@ public class WalletFragment extends Fragment {
     FirebaseFirestore database;
     User user;
     int color;
-    View c1,c2;
+    View c1, c2;
     FirebaseUser mUser;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -50,12 +51,12 @@ public class WalletFragment extends Fragment {
 
         binding = FragmentWalletBinding.inflate(inflater, container, false);
         database = FirebaseFirestore.getInstance();
-        mUser=FirebaseAuth.getInstance().getCurrentUser();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
 
-        c1=binding.getRoot().findViewById(R.id.c1);
-        c2=binding.getRoot().findViewById(R.id.c2);
+        c1 = binding.getRoot().findViewById(R.id.c1);
+        c2 = binding.getRoot().findViewById(R.id.c2);
 
         DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
         colorreference.addValueEventListener(new ValueEventListener() {
@@ -70,14 +71,13 @@ public class WalletFragment extends Fragment {
                     c2.setVisibility(View.VISIBLE);
 
 
-
-                }  else if (color ==1 ) { //light theme
+                } else if (color == 1) { //light theme
 
                     c1.setVisibility(View.VISIBLE);
                     c2.setVisibility(View.INVISIBLE);
 
 
-                }else {
+                } else {
                     if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
 
                         c1.setVisibility(View.INVISIBLE);
@@ -92,7 +92,6 @@ public class WalletFragment extends Fragment {
                     } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
                         c1.setVisibility(View.VISIBLE);
                         c2.setVisibility(View.INVISIBLE);
-
 
 
                     }
@@ -114,6 +113,7 @@ public class WalletFragment extends Fragment {
             public void onSuccess(DocumentSnapshot documentSnapshot) {
                 user = documentSnapshot.toObject(User.class);
                 binding.currentCoins.setText(String.valueOf(user.getCoins()));
+                Log.d("Current Coins", String.valueOf(user.getCoins()));
 
                 binding.currentCoins.setText(user.getCoins() + "");
 

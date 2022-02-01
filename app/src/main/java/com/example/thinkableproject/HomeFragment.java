@@ -12,8 +12,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.example.thinkableproject.databinding.FragmentHomeBinding;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -31,7 +35,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 
 public class HomeFragment extends Fragment {
-
+    private AdView adView;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -58,6 +62,14 @@ public class HomeFragment extends Fragment {
         c1 = binding.getRoot().findViewById(R.id.c1);
         c2 = binding.getRoot().findViewById(R.id.c2);
 
+        adView = new AdView(getActivity());
+        adView.setAdUnitId("ca-app-pub-3940256099942544/8691691433");
+        adView.setAdSize(AdSize.SMART_BANNER);
+        LinearLayout layout = (LinearLayout) binding.getRoot().findViewById(R.id.googleads);
+        layout.addView(adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
 
         database = FirebaseFirestore.getInstance();
 
@@ -83,15 +95,13 @@ public class HomeFragment extends Fragment {
                     c2.setVisibility(View.VISIBLE);
 
 
-
-                }  else if (color ==1 ) { //light theme
+                } else if (color == 1) { //light theme
 
                     c1.setVisibility(View.VISIBLE);
                     c2.setVisibility(View.INVISIBLE);
 
 
-
-                }else {
+                } else {
                     if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
 
                         c1.setVisibility(View.INVISIBLE);
@@ -106,7 +116,6 @@ public class HomeFragment extends Fragment {
                     } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
                         c1.setVisibility(View.VISIBLE);
                         c2.setVisibility(View.INVISIBLE);
-
 
 
                     }

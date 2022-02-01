@@ -78,7 +78,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
     AppCompatButton daily, yearly, monthly;
     LottieAnimationView realTime;
     ImageView concentration, memoryBtn;
-    ImageView music, meditation;
+    ImageView music, meditation,video;
     FirebaseUser mUser;
     View c1, c2;
     GifImageView c1gif, c2gif;
@@ -126,6 +126,7 @@ public class Relaxation_Weekly extends AppCompatActivity {
         scrollView=findViewById(R.id.scroll);
         improvement=findViewById(R.id.improvement);
         progressTime=findViewById(R.id.progressTime);
+        video=findViewById(R.id.game);
 
         //Initialize pop up window
         dialogrw = new Dialog(this);
@@ -199,6 +200,13 @@ public class Relaxation_Weekly extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+
+        video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),VideoInterventionActivity.class));
             }
         });
 

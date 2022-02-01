@@ -16,6 +16,48 @@
         android:layout_width = "400dp"
         android:layout_height = "300dp" />
 
+<!--    <RelativeLayout-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="380dp"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_centerVertical="true">-->
+
+
+<!--    <ImageView-->
+<!--        android:id="@+id/coins"-->
+<!--        android:layout_width="100dp"-->
+<!--        android:layout_height="100dp"-->
+<!--        android:background="@drawable/ic_dollar"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_marginTop="20dp"-->
+<!--        android:layout_centerVertical="true"/>-->
+
+
+<!--    <TextView-->
+<!--        android:id="@+id/points"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="Coins Earned"-->
+<!--        android:layout_below="@+id/coins"-->
+<!--        android:textSize="20sp"-->
+<!--        android:layout_marginHorizontal="30dp"-->
+<!--        android:textColor="@color/white"-->
+<!--        android:fontFamily="serif"/>-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/total"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="Total Coins:"-->
+<!--            android:fontFamily="serif"-->
+<!--            android:textSize="20sp"-->
+<!--            android:layout_below="@+id/points"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:layout_marginHorizontal="30dp"-->
+<!--            android:textColor="@color/white"/>-->
+
+
+<!--    </RelativeLayout>-->
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/ok"
         android:layout_width="wrap_content"

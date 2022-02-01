@@ -4,6 +4,17 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
@@ -15,12 +26,15 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.Toast;
+
 
 import com.example.Help;
 import com.example.SettingsPreference;
 import com.github.mikephil.charting.charts.LineChart;
+
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -37,15 +51,18 @@ import java.util.Calendar;
 import java.util.HashMap;
 
 public class Setting extends AppCompatActivity {
+
+    private InterstitialAd mInterstitialAd;
+
     Dialog dialogcd;
     ImageButton buttonpro, accountsettings1, changepassword1, location2, theme2, preferences1, notifications2, help3, logout, contactus;
     ImageView upgradetopro;
     private Uri filePath;
     private StorageReference storageReference;
     FirebaseUser mUser;
-    View c1, c2,c3;
+    View c1, c2, c3;
     private int color;
-
+    private AdView adView;
 
     public int getColor() {
         Log.d("Return Color", String.valueOf(color));
@@ -72,7 +89,7 @@ public class Setting extends AppCompatActivity {
         theme2 = findViewById(R.id.themebtn);
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
-        c3=findViewById(R.id.c3);
+        c3 = findViewById(R.id.c3);
         contactus = findViewById(R.id.contactus1);
         dialogcd = new Dialog(this);
 
@@ -97,31 +114,28 @@ public class Setting extends AppCompatActivity {
                 if (color == 2) {  //light theme
                     c1.setVisibility(View.INVISIBLE);  //c1 ---> dark blue , c2 ---> light blue
                     c2.setVisibility(View.VISIBLE);
-                   
 
 
-                }  else if (color ==1 ) { //light theme
+                } else if (color == 1) { //light theme
 
                     c1.setVisibility(View.VISIBLE);
                     c2.setVisibility(View.INVISIBLE);
-                   
 
 
-                }else {
+                } else {
                     if (timeOfDay >= 0 && timeOfDay < 12) { //light theme
 
                         c1.setVisibility(View.INVISIBLE);
                         c2.setVisibility(View.VISIBLE);
-                       
+
                     } else if (timeOfDay >= 12 && timeOfDay < 16) {//dark theme
                         c1.setVisibility(View.INVISIBLE);
                         c2.setVisibility(View.VISIBLE);
-                      
+
 
                     } else if (timeOfDay >= 16 && timeOfDay < 24) {//dark theme
                         c1.setVisibility(View.VISIBLE);
                         c2.setVisibility(View.INVISIBLE);
-
 
 
                     }
@@ -134,6 +148,22 @@ public class Setting extends AppCompatActivity {
 
             }
         });
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+                createPersonalizedAd();
+            }
+        });
+
+
+//        adView = new AdView(getApplicationContext());
+//        adView.setAdUnitId("ca-app-pub-3940256099942544/1033173712");
+//        adView.setAdSize(AdSize.SMART_BANNER);
+//        LinearLayout layout = (LinearLayout)findViewById(R.id.googleads);
+//        layout.addView(adView);
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        adView.loadAd(adRequest);
 
 
         logout.setOnClickListener(new View.OnClickListener() {
@@ -184,7 +214,12 @@ public class Setting extends AppCompatActivity {
         help3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(getApplicationContext(), UserProfile1.class));
+                if (mInterstitialAd != null) {
+                    mInterstitialAd.show(Setting.this);
+                } else {
+                    Log.d("TAG", "The interstitial ad wasn't ready yet.");
+                    startActivity(new Intent(getApplicationContext(), Video.class));
+                }
 
             }
         });
@@ -231,10 +266,59 @@ public class Setting extends AppCompatActivity {
         });
     }
 
+    private void createPersonalizedAd() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        createInstestialAd(adRequest);
+    }
+
+    private void createInstestialAd(AdRequest adRequest) {
+        InterstitialAd.load(this, "ca-app-pub-3940256099942544/8691691433", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd;
+                        Log.i("TAG", "onAdLoaded");
+
+                        mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                            @Override
+                            public void onAdDismissedFullScreenContent() {
+                                // Called when fullscreen content is dismissed.
+                                Log.d("TAG", "The ad was dismissed.");
+                                startActivity(new Intent(getApplicationContext(), Video.class));
+                            }
+
+                            @Override
+                            public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                // Called when fullscreen content failed to show.
+                                Log.d("TAG", "The ad failed to show.");
+                            }
+
+                            @Override
+                            public void onAdShowedFullScreenContent() {
+                                // Called when fullscreen content is shown.
+                                // Make sure to set your reference to null so you don't
+                                // show it a second time.
+                                mInterstitialAd = null;
+                                Log.d("TAG", "The ad was shown.");
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.i("TAG", loadAdError.getMessage());
+                        mInterstitialAd = null;
+                    }
+                });
+    }
+
 
     public void gotoPopup9(View view) {
 
-        AppCompatButton c1, c2,c3;
+        AppCompatButton c1, c2, c3;
         dialogcd.setContentView(R.layout.theme_popup);
         HashMap hashMap = new HashMap();
 

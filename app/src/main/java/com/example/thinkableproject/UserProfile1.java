@@ -63,7 +63,7 @@ public class UserProfile1 extends AppCompatActivity {
         brain_wavesList = new ArrayList<>();
         memoryList = new ArrayList<>();
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.137:5000/")
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.102:5000/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         jsonPlaceHolder = retrofit.create(JsonPlaceHolder.class);
@@ -71,21 +71,6 @@ public class UserProfile1 extends AppCompatActivity {
 
         //Post Memory Data
 
-//        Call<Void> call6 = jsonPlaceHolder.PostMemoryData(56, 35, 54, 14, 64);
-//        call6.enqueue(new Callback<Void>() {
-//            @Override
-//            public void onResponse(Call<Void> call, Response<Void> response) {
-//                Toast.makeText(UserProfile1.this, "Post Successful", Toast.LENGTH_SHORT).show();
-//                Log.d("Memory Data", String.valueOf(response.code()));
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Void> call, Throwable t) {
-//                Toast.makeText(UserProfile1.this, "Failed Post", Toast.LENGTH_SHORT).show();
-//                Log.d("ErrorVal", String.valueOf(t));
-//
-//            }
-//        });
 
 
         ArrayList<Integer> list = new ArrayList(Arrays.asList(23, 56, 76, 64, 75, 34, 74, 34, 75));
@@ -244,23 +229,7 @@ public class UserProfile1 extends AppCompatActivity {
 //
 
 
-        // Post Relaxation Data
 
-//        Call<Void> call3 = jsonPlaceHolder.PostRelaxationData(23, 46, 64, 74, 26);
-//        call3.enqueue(new Callback<Void>() {
-//            @Override
-//            public void onResponse(Call<Void> call, Response<Void> response) {
-//                Toast.makeText(UserProfile1.this, "Post Successful", Toast.LENGTH_SHORT).show();
-//                Log.d("Response Code Rel", String.valueOf(response.code()));
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Void> call, Throwable t) {
-//                Toast.makeText(UserProfile1.this, "Failed Post", Toast.LENGTH_SHORT).show();
-//                Log.d("ErrorVal", String.valueOf(t));
-//
-//            }
-//        });
 
 
         createPost();
@@ -272,21 +241,7 @@ public class UserProfile1 extends AppCompatActivity {
         Post post = new Post("Sanduni", "24", "Unknown");
         Gson gson = new Gson();
 
-//        Call<Void> call = jsonPlaceHolder.createPostVal("Sanduni", "24", "Devi Balika Vidhyalaya");
-//        call.enqueue(new Callback<Void>() {
-//            @Override
-//            public void onResponse(Call<Void> call, Response<Void> response) {
-//                Log.d("Response Code", String.valueOf(response.code()));
-//                Toast.makeText(UserProfile1.this, "Post Successful", Toast.LENGTH_SHORT).show();
-//            }
-//
-//            @Override
-//            public void onFailure(Call<Void> call, Throwable t) {
-//                Toast.makeText(UserProfile1.this, "Failed Post", Toast.LENGTH_SHORT).show();
-//                Log.d("ErrorVal", String.valueOf(t));
-//
-//            }
-//        });
+
 
 //
     }

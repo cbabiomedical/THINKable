@@ -211,101 +211,152 @@
 
             </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/cards"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+            <HorizontalScrollView
                 android:layout_below="@+id/threelines"
-                android:layout_marginLeft="20dp"
-                android:layout_marginTop="20dp"
-                android:layout_marginRight="20dp"
-                android:orientation="horizontal">
-
-                <ImageView
-                    android:id="@+id/music"
-                    android:layout_width="wrap_content"
+                android:id="@+id/horizontalScrollView"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <RelativeLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginTop="20dp"
+                    android:id="@+id/cards">
 
-                    android:src="@drawable/musiccardwo" />
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/gamescardwo"
+                        android:id="@+id/game"
 
-                <TextView
-                    android:id="@+id/musictxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_marginStart="15dp"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginTop="14dp"
-                    android:fontFamily="@font/segoepr"
-                    android:text="Music"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                        android:layout_alignParentLeft="true"
+                        />
 
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/musictxt"
-                    android:layout_alignStart="@+id/music"
-                    android:layout_alignEnd="@+id/music"
-                    android:layout_alignParentStart="true"
-
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:fontFamily="@font/segoe_ui"
-                    android:text="Music to stay Relaxed"
-                    android:textColor="@color/white"
-                    android:textSize="13sp" />
-
-                <ImageView
-                    android:id="@+id/meditations"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:src="@drawable/medibg" />
-
-                <TextView
-                    android:id="@+id/mediTxt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_marginTop="14dp"
-
-                    android:layout_marginEnd="30dp"
-                    android:fontFamily="@font/segoepr"
-                    android:text="Meditation"
-                    android:textColor="@color/white"
-                    android:textSize="20sp"
-                    android:textStyle="bold" />
+                    <TextView
+                        android:id="@+id/gametxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="15dp"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="14dp"
+                        android:fontFamily="@font/segoepr"
+                        android:text="Video"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/mediTxt"
-                    android:layout_alignStart="@+id/mediTxt"
-                    android:layout_alignParentEnd="true"
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/gametxt"
+                        android:layout_alignStart="@+id/music"
+                        android:layout_alignEnd="@+id/game"
+                        android:layout_alignParentStart="true"
 
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="15dp"
-                    android:fontFamily="@font/segoe_ui"
-                    android:text="Meditation to stay Relaxed"
-                    android:textColor="@color/white"
-                    android:textSize="13sp" />
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="@font/segoe_ui"
+                        android:text="Video for Relaxation"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
 
-            </RelativeLayout>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/medibg"
+                        android:layout_toRightOf="@+id/game"
+                        android:id="@+id/meditations"
+                        />
+
+                    <TextView
+                        android:id="@+id/mediTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/gametxt"
+                        android:layout_marginStart="100dp"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginEnd="30dp"
+
+                        android:layout_marginTop="14dp"
+                        android:fontFamily="@font/segoepr"
+                        android:text="Meditation"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/mediTxt"
+                        android:layout_alignStart="@+id/mediTxt"
+                        android:layout_alignParentEnd="true"
+
+                        android:layout_marginStart="0dp"
+                        android:layout_marginTop="0dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="@font/segoe_ui"
+                        android:text="Meditation for Memory"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/musiccardwo"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginStart="20dp"
+                        android:layout_toRightOf="@+id/meditations"
+                        android:id="@+id/music"
+                        />
+
+                    <TextView
+                        android:id="@+id/musicTxt"
+                        android:layout_toRightOf="@+id/mediTxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginEnd="30dp"
+                        android:layout_marginTop="14dp"
+                        android:layout_marginStart="28dp"
+                        android:fontFamily="@font/segoepr"
+                        android:text="Music"
+                        android:textColor="@color/white"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
+
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_toRightOf="@+id/mediTxt"
+                        android:layout_below="@+id/musictxt"
+
+                        android:layout_marginStart="26dp"
+                        android:layout_marginTop="50dp"
+                        android:layout_marginEnd="15dp"
+                        android:layout_marginBottom="15dp"
+                        android:fontFamily="@font/segoe_ui"
+                        android:text="Music for Memory"
+                        android:textColor="@color/white"
+                        android:textSize="13sp" />
+
+
+
+                </RelativeLayout>
+            </HorizontalScrollView>
 
             <RelativeLayout
                 android:id="@+id/toggle"
-                android:layout_below="@+id/cards"
+                android:layout_below="@+id/horizontalScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 

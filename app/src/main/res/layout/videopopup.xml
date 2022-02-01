@@ -1,11 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="300dp"
+    android:layout_height="350dp"
+    android:layout_centerInParent="true"
+    android:layout_centerHorizontal="true"
+    android:layout_centerVertical="true"
+    android:layout_gravity="center"
+    android:outlineAmbientShadowColor="@color/transparent"
+    android:backgroundTintMode="@color/transparent"
+    android:alpha="1"
+    android:background="@drawable/shapepop"
+    app:circularflow_radiusInDP="40dp">
 
-<!--    <VideoView-->
-<!--        android:layout_width=""-->
-<!--        android:layout_height=""-->
+
+
+    <ImageView
+        android:id="@+id/videologo"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:src="@drawable/video" />
+
+    <TextView
+        android:id="@+id/musicText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/videologo"
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="20dp"
+        android:fontFamily="serif"
+        android:justificationMode="inter_word"
+        android:text="Click the Selected Video to Play Video File.You are able to download music files if you wish to download by clicking download button and add music files to favourites by clicking the heart icon"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="15sp" />
+
+    <Button
+        android:id="@+id/click"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:background="@color/transparent"
+        android:text="OK"
+        android:textColor="@color/white" />
+
 
 </RelativeLayout>

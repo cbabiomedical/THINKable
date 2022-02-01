@@ -14,6 +14,8 @@ import android.widget.VideoView;
 public class PlayVideo extends AppCompatActivity {
 
     Thread updateVideo;
+    String uri;
+    String name;
     boolean videoIsPlaying = false;
 
     @Override
@@ -21,8 +23,21 @@ public class PlayVideo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_video);
 
+        Bundle extras = getIntent().getExtras();
+        if (extras != null) {
+            uri = extras.getString("url");
+            name = extras.getString("name");
+//            time = extras.getInt("time");
+
+
+            Log.d("MUSIC", uri + "");
+        } else {
+            Log.d("ERROR", "Error in getting null value");
+        }
+
         MediaController mediaController = new MediaController(this);
         VideoView simpleVideoView = (VideoView) findViewById(R.id.videoExample);
+
         simpleVideoView.setVisibility(View.VISIBLE);
         simpleVideoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.cardgame));
         simpleVideoView.start();

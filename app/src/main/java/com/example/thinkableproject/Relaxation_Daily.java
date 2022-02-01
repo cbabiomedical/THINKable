@@ -76,7 +76,7 @@ public class Relaxation_Daily extends AppCompatActivity {
     View c1, c2;
     GifImageView c1gif, c2gif;
     LottieAnimationView anim;
-    ImageView meditation, music;
+    ImageView meditation, music,video;
     FirebaseUser mUser;
     String text;
     HorizontalScrollView scrollView;
@@ -124,6 +124,7 @@ public class Relaxation_Daily extends AppCompatActivity {
         scrollView = findViewById(R.id.scroll);
         progressTime = findViewById(R.id.progressTime);
         improvement = findViewById(R.id.improvement);
+        video=findViewById(R.id.game);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -182,6 +183,14 @@ public class Relaxation_Daily extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),VideoInterventionActivity.class));
 
             }
         });

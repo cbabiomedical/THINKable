@@ -20,20 +20,7 @@ import retrofit2.http.Path;
 
 
 public interface JsonPlaceHolder {
-//    @GET("brain_waves")
-//    Call<List<EEG_Values>> getValues();
-//
-//    @GET("concentration")
-//    Call<List<Concentration>> getConcentrationValues();
-//
-//    @GET("relaxation")
-//    Call<List<Relaxation>> getRelaxationValues();
-//
-//    @GET("brain_waves")
-//    Call<List<Brain_Waves>> getBrainWavesValues();
-//
-//    @GET("memory")
-//    Call<List<Memory>> getMemoryValues();
+
 
     @FormUrlEncoded
     @POST("memory")
@@ -52,25 +39,6 @@ public interface JsonPlaceHolder {
     Call<List> PostCalibrationData(@Body ArrayList brain_waves);
 
 
-//    @FormUrlEncoded
-//    @POST("relaxation")
-//    Call<Void> PostRelaxationData(
-//            @Field("alpha") int alpha,
-//            @Field("beta") int beta,
-//            @Field("gamma") int gamma,
-//            @Field("theta") int theta,
-//            @Field("delta") int delta
-//    );
-
-//    @FormUrlEncoded
-//    @POST("concentration")
-//    Call<Void> PostConcentrationData(
-//            @Field("delta") Object delta,
-//            @Field("gamma") Object theta,
-//            @Field("alpha") Object alpha,
-//            @Field("beta") Object beta,
-//            @Field("theta") Object gamma
-//    );
 
     @POST("concentration")
     Call<Object> PostConcentrationData(@Body Object concentration);
@@ -81,15 +49,6 @@ public interface JsonPlaceHolder {
     @POST("memory")
     Call<Object> PostMemoryData(@Body Object memory);
 
-//    @FormUrlEncoded
-//    @POST("eeg_values")
-//    Call<Void> PostData(
-//            @Field("alpha") int alpha,
-//            @Field("beta") int beta,
-//            @Field("gamma") int gamma,
-//            @Field("theta") int theta,
-//            @Field("delta") int delta
-//    );
 
 
     @FormUrlEncoded
@@ -101,6 +60,5 @@ public interface JsonPlaceHolder {
     );
 
 
-//    @GET("")
-//    Call<List<Post>> getPost();
+
 }
