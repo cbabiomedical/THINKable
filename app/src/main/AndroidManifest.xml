@@ -43,6 +43,15 @@
         android:theme="@style/Theme.ThinkableProject"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".duckhunt.GameOver"
+            android:exported="false" />
+        <activity
+            android:name=".duckhunt.DuckHuntMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ninjadarts.NinjaDartsMainActivity"
+            android:exported="false" />
+        <activity
             android:name=".spaceshooter.GameOver"
             android:exported="false" />
         <activity
