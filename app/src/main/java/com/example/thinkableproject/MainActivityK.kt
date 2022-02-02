@@ -21,6 +21,7 @@ import com.example.thinkableproject.creation.CreatActivity
 import com.example.thinkableproject.models.BoardSize
 import com.example.thinkableproject.models.MemoryGame
 import com.example.thinkableproject.models.UserImageList
+import com.example.thinkableproject.spaceshooter.StartUp
 import com.example.thinkableproject.utils.EXTRA_BOARD_SIZE
 import com.example.thinkableproject.utils.EXTRA_GAME_NAME
 import com.github.jinatonic.confetti.CommonConfetti
@@ -29,12 +30,16 @@ import com.github.mikephil.charting.data.Entry
 import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.github.mikephil.charting.utils.ColorTemplate
+import com.google.android.gms.ads.*
+import com.google.android.gms.ads.interstitial.InterstitialAd
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.analytics.ktx.analytics
 import com.google.firebase.analytics.ktx.logEvent
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
@@ -55,13 +60,15 @@ class MainActivityK : AppCompatActivity() {
     private lateinit var information: ImageView
     private lateinit var dialog: Dialog
     private lateinit var dialogIntervention: Dialog
-    private lateinit var lineChart: LineChart
+    private var mInterstitialAd: InterstitialAd?=null
+//    private lateinit var lineChart: LineChart
+    private var points: Int = 0;
 
     private lateinit var lineData: LineData
     private lateinit var lineDataSet: LineDataSet
     var lineEntries = ArrayList<Entry>()
 
-    //    private lateinit var lineChart: LineChart
+    private lateinit var lineChart: LineChart
     var color: Int = 0
     lateinit var mainConstraint: ConstraintLayout
     lateinit var gameVideo: VideoView
@@ -72,7 +79,9 @@ class MainActivityK : AppCompatActivity() {
     private var customGameImages: List<String>? = null
     private lateinit var memoryGame: MemoryGame
     private lateinit var adapter: MemoryBoardAdapter
+    private lateinit var database: FirebaseFirestore
     private var boardSize = BoardSize.EASY
+    lateinit var user: User
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,10 +94,13 @@ class MainActivityK : AppCompatActivity() {
         dialog = Dialog(this);
         dialogIntervention = Dialog(this)
         gameVideo = findViewById(R.id.simpleVideo);
+        database = FirebaseFirestore.getInstance()
         mainConstraint = findViewById(R.id.mainConstraint)
 //        lineChart = findViewById(R.id.lineChartInterventionGame)
 //        lineChart = findViewById(R.id.lineChartInterventionGame)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
+
+        MobileAds.initialize(this) { createPersonalizedAd() }
 
 //    remoteConfig.setDefaultsAsync(mapOf("about_link" to "https://www.youtube.com/rpandey1234", "scaled_height" to 250L, "compress_quality" to 60L))
 //    remoteConfig.fetchAndActivate()
@@ -109,6 +121,51 @@ class MainActivityK : AppCompatActivity() {
         information.setOnClickListener {
             displayPopUp();
         }
+    }
+
+    private fun createPersonalizedAd() {
+        val adRequest = AdRequest.Builder().build()
+        createInstestialAd(adRequest)
+    }
+
+    private fun createInstestialAd(adRequest: AdRequest) {
+        InterstitialAd.load(this, "ca-app-pub-3940256099942544/8691691433", adRequest,
+                object : InterstitialAdLoadCallback() {
+                    override fun onAdLoaded(interstitialAd: InterstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd
+                        Log.i("TAG", "onAdLoaded")
+                        mInterstitialAd!!.setFullScreenContentCallback(object : FullScreenContentCallback() {
+                            override fun onAdDismissedFullScreenContent() {
+                                // Called when fullscreen content is dismissed.
+                                Log.d("TAG", "The ad was dismissed.")
+                                dialogIntervention.dismiss()
+                                startActivity(Intent(applicationContext, GameActivity::class.java))
+                            }
+
+                            override fun onAdFailedToShowFullScreenContent(adError: AdError) {
+                                // Called when fullscreen content failed to show.
+                                Log.d("TAG", "The ad failed to show.")
+                            }
+
+                            override fun onAdShowedFullScreenContent() {
+                                // Called when fullscreen content is shown.
+                                // Make sure to set your reference to null so you don't
+                                // show it a second time.
+                                mInterstitialAd = null
+                                Log.d("TAG", "The ad was shown.")
+                            }
+                        })
+                    }
+
+                    override fun onAdFailedToLoad(loadAdError: LoadAdError) {
+                        // Handle the error
+                        Log.i("TAG", loadAdError.message)
+                        mInterstitialAd = null
+                    }
+                })
+
     }
 
     private fun displayPopUp() {
@@ -189,6 +246,7 @@ class MainActivityK : AppCompatActivity() {
         when (item.itemId) {
             R.id.mi_refresh -> {
                 if (memoryGame.getNumMoves() > 0 && !memoryGame.haveWonGame()) {
+
                     showAlertDialog("Quit your current game?", null, View.OnClickListener {
                         setupBoard()
                     })
@@ -349,6 +407,7 @@ class MainActivityK : AppCompatActivity() {
         rvBoard.adapter = adapter
         rvBoard.setHasFixedSize(true)
         rvBoard.layoutManager = GridLayoutManager(this, boardSize.getWidth())
+
     }
 
     private fun updateGameWithFlip(position: Int) {
@@ -374,21 +433,79 @@ class MainActivityK : AppCompatActivity() {
             tvNumPairs.text = "Pairs: ${memoryGame.numPairsFound} / ${boardSize.getNumPairs()}"
             if (memoryGame.haveWonGame()) {
                 Snackbar.make(clRoot, "You won! Congratulations.", Snackbar.LENGTH_LONG).show()
+                Log.d("Memory Move", memoryGame.getNumMoves().toString())
+                Log.d("BoardSize", boardSize.numCards.toString())
+                if (boardSize.numCards == 8) {
+                    if (memoryGame.getNumMoves() < 6) {
+                        points = 50;
+                    } else if (5 < memoryGame.getNumMoves() && memoryGame.getNumMoves() < 10) {
+                        points = 25;
+                    } else {
+                        points = 5;
+                    }
+
+                } else if (boardSize.getNumPairs() == 18) {
+                    if (memoryGame.getNumMoves() < 11) {
+                        points = 50;
+                    } else if (11 < memoryGame.getNumMoves() && memoryGame.getNumMoves() < 16) {
+                        points = 30;
+                    } else if (16 < memoryGame.getNumMoves() && memoryGame.getNumMoves() < 21) {
+                        points = 15;
+                    } else {
+                        points = 5;
+                    }
+                } else {
+                    if (memoryGame.getNumMoves() < 16) {
+                        points = 50;
+                    } else if (16 < memoryGame.getNumMoves() && memoryGame.getNumMoves() < 21) {
+                        points = 30;
+                    } else if (21 < memoryGame.getNumMoves() && memoryGame.getNumMoves() < 26) {
+                        points = 15;
+                    } else {
+                        points = 5;
+                    }
+                }
+                Log.d("Final Points", points.toString())
+                database.collection("users")
+                        .document(FirebaseAuth.getInstance().uid!!)
+                        .get().addOnSuccessListener { documentSnapshot ->
+                            user = documentSnapshot.toObject(User::class.java)!!
+                            //                binding.currentCoins.setText(String.valueOf(user.getCoins()));
+                            Log.d("Current Coins", user.coins.toString())
+                            Log.d("High Score Inside", points.toString())
+                            val updatedCoins = (user.coins + points) as Long
+                            Log.d("Updated High Score", updatedCoins.toString())
+                            //                binding.currentCoins.setText(user.getCoins() + "");
+                            database.collection("users").document(FirebaseAuth.getInstance().uid!!)
+                                    .update("coins", updatedCoins).addOnSuccessListener {
+//                                        Toast.makeText(this, "Successfully Updated Coins", Toast.LENGTH_SHORT).show()
+                                        }.addOnFailureListener { e ->
+                                        Log.d("Error", e.toString())
+//                                        Toast.makeText(this, "Failed to Update Coins", Toast.LENGTH_SHORT).show()
+                                    }
+                        }
+
+
                 openDialog()
                 CommonConfetti.rainingConfetti(clRoot, intArrayOf(Color.YELLOW, Color.GREEN, Color.MAGENTA)).oneShot()
                 firebaseAnalytics.logEvent("won_game") {
                     param("game_name", gameName ?: "[default]")
                     param("board_size", boardSize.name)
                 }
+
             }
         }
         tvNumMoves.text = "Moves: ${memoryGame.getNumMoves()}"
+        Log.d("Moves", memoryGame.getNumMoves().toString());
         adapter.notifyDataSetChanged()
     }
 
     private fun openDialog() {
         var ok: Button
+//        var pointsCal: TextView;
+//        var totalPoints: TextView
         var lineChart: LineChart
+
 
         var lineData: LineData
         var lineDataSet: LineDataSet
@@ -398,6 +515,8 @@ class MainActivityK : AppCompatActivity() {
         dialogIntervention.setContentView(R.layout.game_intervention_popup);
         dialogIntervention.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         ok = dialogIntervention.findViewById(R.id.ok);
+        lineChart=dialogIntervention.findViewById(R.id.lineChartInterventionGame)
+
 
         this@MainActivityK.lineEntries = ArrayList<Entry>()
         lineEntries.add(Entry(2f, 34f))
@@ -424,15 +543,21 @@ class MainActivityK : AppCompatActivity() {
         lineChart.axisLeft.textColor = resources.getColor(R.color.white)
         lineChart.legend.textColor = resources.getColor(R.color.white)
         lineChart.description.textColor = R.color.white
+
         ok.setOnClickListener(View.OnClickListener {
-            dialogIntervention.dismiss()
+
+            if (mInterstitialAd != null) {
+                mInterstitialAd!!.show(this@MainActivityK)
+            } else {
+                val intent = Intent(this@MainActivityK, GameActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
         })
 
         dialogIntervention.show()
 
     }
 
-    private fun getEntries() {
 
-    }
 }

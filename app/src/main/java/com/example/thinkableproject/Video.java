@@ -30,6 +30,12 @@ public class Video extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(),Concentration_Daily.class));
             }
         });
+//        videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//            @Override
+//            public void onCompletion(MediaPlayer mp) {
+//                startActivity(new Intent(getApplicationContext(),Relaxation_Daily.class));
+//            }
+//        });
         //Initialize and Assign Variable
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
         //Set Home Selected

@@ -73,7 +73,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
     LottieAnimationView anim;
     ImageView concentration, memoryBtn;
     FirebaseUser mUser;
-    ImageView meditation, music;
+    ImageView meditation, music,video;
     View c1, c2;
     GifImageView c1gif, c2gif;
     File localFile;
@@ -114,6 +114,7 @@ public class Relaxation_Monthly extends AppCompatActivity {
         music = findViewById(R.id.music);
         meditation = findViewById(R.id.meditations);
         anim = findViewById(R.id.animation);
+        video=findViewById(R.id.game);
         c1gif = findViewById(R.id.landingfwall);
         c2gif = findViewById(R.id.landingfwall1);
         c1 = findViewById(R.id.c1);
@@ -198,6 +199,13 @@ public class Relaxation_Monthly extends AppCompatActivity {
                 scrollView.fullScroll(HorizontalScrollView.FOCUS_LEFT);
 
                 scrollView.fullScroll(HorizontalScrollView.FOCUS_LEFT);
+            }
+        });
+
+        video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),PlayVideo.class));
             }
         });
 

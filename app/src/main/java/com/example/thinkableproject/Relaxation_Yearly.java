@@ -74,7 +74,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
     ImageView concentration, memoryBtn;
     FirebaseUser mUser;
     String text;
-    ImageView music, meditation;
+    ImageView music, meditation,video;
     File fileName;
     File localFile;
     View c1, c2;
@@ -127,6 +127,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
         progressTime = findViewById(R.id.progressTime);
         //Initialize pop up window
         dialogry = new Dialog(this);
+        video=findViewById(R.id.game);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference("chartTable");
@@ -197,6 +198,13 @@ public class Relaxation_Yearly extends AppCompatActivity {
                 scrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
 
                 scrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
+            }
+        });
+
+        video.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(getApplicationContext(),PlayVideo.class));
             }
         });
 

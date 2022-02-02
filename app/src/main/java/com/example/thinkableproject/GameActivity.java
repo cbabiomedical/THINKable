@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thinkableproject.adapters.GridAdapter;
 import com.example.thinkableproject.sample.GameModelClass;
+import com.example.thinkableproject.spaceshooter.StartUp;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -203,7 +204,10 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
             startActivity(new Intent(getApplicationContext(), MainActivityK.class));
         } else if (gameList.get(position).getGameName().equals("Color Pattern Game")) {
             startActivity(new Intent(getApplicationContext(), ColorPatternGame.class));
-        } else {
+        }else if(gameList.get(position).getGameName().equals("SpaceHooter")){
+            startActivity(new Intent(getApplicationContext(), StartUp.class));
+        }
+        else {
             Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.vending");
             if (launchIntent != null) {
                 Log.d("Tagopenapp", "---------------------B--------------------------");

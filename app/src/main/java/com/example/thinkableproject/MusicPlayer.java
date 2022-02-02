@@ -1,5 +1,6 @@
 package com.example.thinkableproject;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
@@ -9,6 +10,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
@@ -35,6 +37,11 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -55,8 +62,12 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
     String uri;
     String name;
     Dialog dialog;
+    User user;
+    FirebaseFirestore database;
     LineChart lineChart;
     LineData lineData;
+    int points;
+    Dialog dialogCancel;
     LineDataSet lineDataSet;
     ArrayList lineEntries;
     //    int time;
@@ -83,7 +94,9 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
         dialog = new Dialog(this);
         btnff = findViewById(R.id.fForward);
         btnfr = findViewById(R.id.fRewind);
-        lineChart = findViewById(R.id.lineChartIntervention);
+        dialogCancel = new Dialog(this);
+        database = FirebaseFirestore.getInstance();
+//        lineChart = findViewById(R.id.lineChartIntervention);
         mediaPlayer = new MediaPlayer();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -154,6 +167,35 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
                             currentPosition = mediaPlayer.getCurrentPosition();
                             Log.d("Current position", String.valueOf(mediaPlayer.getCurrentPosition()));
                             Log.d("upCurrent time", String.valueOf(currentPosition));
+                            if (mediaPlayer.getDuration() < 60000) {
+                                if (mediaPlayer.getCurrentPosition() <= 30000) {
+                                    points = 5;
+                                } else {
+                                    points = 10;
+                                }
+
+                            } else if (60000 < mediaPlayer.getDuration() && mediaPlayer.getDuration() < 120000) {
+                                if (mediaPlayer.getCurrentPosition() <= 60000) {
+                                    points = 5;
+                                } else {
+                                    points = 10;
+                                }
+                            } else if (120000 < mediaPlayer.getDuration() && mediaPlayer.getDuration() <= 180000) {
+                                if (mediaPlayer.getCurrentPosition() <= 150000) {
+                                    points = 5;
+                                } else {
+                                    points = 10;
+                                }
+
+                            } else if (180000 < mediaPlayer.getDuration() && mediaPlayer.getDuration() < 240000) {
+                                if (mediaPlayer.getCurrentPosition() <= 210000) {
+                                    points = 5;
+                                } else {
+                                    points = 10;
+                                }
+                            }
+                            Log.d("POINTS", String.valueOf(points));
+
 //
                             seekBar.setProgress(currentPosition);
                         } catch (InterruptedException | IllegalStateException e) {
@@ -161,6 +203,43 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
                         }
                         if (currentPosition > mediaPlayer.getDuration()) {
                             mediaPlayer.stop();
+
+                            Log.d("End Point", String.valueOf(points));
+
+                            SharedPreferences sharedPref = getSharedPreferences("myKey", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putInt("value", points);
+                            editor.apply();
+                            database.collection("users")
+                                    .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    user = documentSnapshot.toObject(User.class);
+//
+                                    Log.d("Current Coins", String.valueOf(user.getCoins()));
+                                    int updateCoins = (int) (user.getCoins() + points);
+                                    database.collection("users").document(FirebaseAuth.getInstance().getUid())
+                                            .update("coins", updateCoins).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+//                                            Toast.makeText(MusicPlayer.this, "Successfully Updated Coins", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d("Error", String.valueOf(e));
+//                                            Toast.makeText(MusicPlayer.this, "Failed to Update Coins", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+//                Log.d("Updated Coin", String.valueOf(updateCoins));
+
+
+//                binding.currentCoins.setText(user.getCoins() + "");
+
+                                }
+                            });
 
                             startActivity(new Intent(getApplicationContext(), LineChartExample.class));
 
@@ -265,31 +344,37 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
 
     private void openPopUp() {
         Button ok;
+        TextView coins;
+        TextView totalCoins;
+
         dialog.setContentView(R.layout.music_graph_popup);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         ok = (Button) dialog.findViewById(R.id.click);
 //        lineChart = (LineChart) dialog.findViewById(R.id.lineChartIntervention);
         ok = (Button) dialog.findViewById(R.id.click);
-        getEntries();
-        lineDataSet = new LineDataSet(lineEntries, "Concentration Index");
-        lineData = new LineData(lineDataSet);
-        lineChart.setData(lineData);
+        coins = (TextView) dialog.findViewById(R.id.points);
+        totalCoins = (TextView) dialog.findViewById(R.id.total);
+//        getEntries();
+//        lineDataSet = new LineDataSet(lineEntries, "Concentration Index");
+//        lineData = new LineData(lineDataSet);
+//        lineChart.setData(lineData);
+//
+//        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+//        lineDataSet.setValueTextColor(Color.WHITE);
+//        lineDataSet.setValueTextSize(10f);
+//
+//        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+//        lineChart.setBorderColor(Color.TRANSPARENT);
+//        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+//        lineChart.getAxisLeft().setDrawGridLines(false);
+//        lineChart.getXAxis().setDrawGridLines(false);
+//        lineChart.getAxisRight().setDrawGridLines(false);
+//        lineChart.getXAxis().setTextColor(R.color.white);
+//        lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
+//        lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+//        lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
+//        lineChart.getDescription().setTextColor(R.color.white);
 
-        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-        lineDataSet.setValueTextColor(Color.WHITE);
-        lineDataSet.setValueTextSize(10f);
-
-        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
-        lineChart.setBorderColor(Color.TRANSPARENT);
-        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
-        lineChart.getAxisLeft().setDrawGridLines(false);
-        lineChart.getXAxis().setDrawGridLines(false);
-        lineChart.getAxisRight().setDrawGridLines(false);
-        lineChart.getXAxis().setTextColor(R.color.white);
-        lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
-        lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
-        lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
-        lineChart.getDescription().setTextColor(R.color.white);
 
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -300,6 +385,30 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
 
         dialog.show();
 //
+
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+//        openCancelDialog();
+
+    }
+
+    private void openCancelDialog() {
+
+        AppCompatButton ok;
+        dialogCancel.setContentView(R.layout.oncancel_popup);
+        ok=(AppCompatButton)dialogCancel.findViewById(R.id.ok);
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogCancel.dismiss();
+            }
+        });
+
+        dialogCancel.show();
 
     }
 
@@ -373,7 +482,7 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
     @Override
     protected void onResume() {
         super.onResume();
-        mediaPlayer.start();
+//        mediaPlayer.start();
 //        imageViewPlayPause.setImageResource(R.drawable.ic_play_circle);
     }
 

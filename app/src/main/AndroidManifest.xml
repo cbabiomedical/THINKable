@@ -1,6 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.thinkableproject">
+
+    <!-- Include required permissions for Google Mobile Ads to run. -->
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -18,9 +23,9 @@
     <uses-permission android:name="android.permission.BLUETOOTH_ADMIN" />
     <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
     <uses-permission android:name="android.permission.BLUETOOTH_SCAN" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NOTIFICATION_POLICY" />
     <uses-permission android:name="com.google.android.providers.gsf.permission.READ_GSERVICES" />
     <uses-permission android:name="android.permission.BLUETOOTH" />
@@ -34,7 +39,7 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/splashlogo"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
         android:requestLegacyExternalStorage="true"
@@ -42,6 +47,32 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThinkableProject"
         android:usesCleartextTraffic="true">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-7941825006818251~2426148941" />
+        <activity
+            android:name=".AddsClass"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:label="@string/title_activity_adds_class"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+            <meta-data
+                android:name="com.google.android.gms.ads.AD_MANAGER_APP"
+                android:value="true" />
+        </activity>
+        <!-- Include the AdActivity configChanges and theme. -->
+        <activity
+            android:name="com.google.android.gms.ads.AdActivity"
+            android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
+            android:theme="@android:style/Theme.Translucent" />
+        <activity
+            android:name="com.example.AdsMobClass"
+            android:label="@string/title_activity_ads_mob_class" />
+        <activity
+            android:name="com.example.AdMobAddActuivity"
+            android:label="@string/title_activity_ad_mob_add_actuivity" />
+        <activity android:name=".VideoInterventionActivity" />
+        <activity android:name=".VideoActivity" />
+        <activity android:name="com.example.PlayVideo" />
         <activity
             android:name=".duckhunt.GameOver"
             android:exported="false" />
@@ -53,13 +84,16 @@
             android:exported="false" />
         <activity
             android:name=".spaceshooter.GameOver"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".spaceshooter.StartUp"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".spaceshooter.SpaceShooterMainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="landscape" />
         <activity
             android:name=".MeditationLineChart"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
@@ -106,7 +140,9 @@
             android:name=".PlayMeditation"
             android:parentActivityName=".MeditationExercise"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".Activity_BTLE_Services" />
+        <activity
+            android:name=".Activity_BTLE_Services"
+            android:parentActivityName=".Concentration_Daily" />
 
         <service
             android:name=".Service_BTLE_GATT"

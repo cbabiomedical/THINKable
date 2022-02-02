@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,386 +9,409 @@
     tools:context=".Concentration_Daily">
 
     <View
+        android:id="@+id/c2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:id="@+id/c2"
-        android:background="@drawable/settlight"/>
+        android:background="@drawable/settlight"
+        android:visibility="gone" />
 
     <View
+        android:id="@+id/c1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/c1"
-        android:visibility="gone"
-        android:background="@drawable/sinnewone"/>
+        android:background="@drawable/sinnewone"
+        android:visibility="gone" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center">
 
+        <RelativeLayout
+            android:id="@+id/toggleBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
             <RelativeLayout
-                android:id="@+id/toggleBtn"
+                android:id="@+id/relativeLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
+                <ImageView
+                    android:id="@+id/freeplan"
+                    android:layout_width="300dp"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="40dp"
+                    android:src="@drawable/youare" />
+
+                <ImageView
+                    android:id="@+id/getbetter"
+                    android:layout_width="300dp"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/freeplan"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="50dp"
+                    android:layout_marginTop="25dp"
+                    android:src="@drawable/wantto" />
+
+                <!--                <ImageButton-->
+                <!--                    android:id="@+id/buttonpro"-->
+                <!--                    android:layout_width="wrap_content"-->
+                <!--                    android:layout_height="wrap_content"-->
+                <!--                    android:layout_below="@+id/getbetter"-->
+                <!--                    android:layout_marginLeft="50dp"-->
+                <!--                    android:layout_marginTop="30dp"-->
+                <!--                    android:layout_marginBottom="20dp"-->
+                <!--                    android:layout_centerHorizontal="true"-->
+                <!--                    android:radius="4dp"-->
+                <!--                    android:src="@drawable/updatetopro" />-->
+
+                <ImageView
+                    android:id="@+id/upgradetopro"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:layout_below="@+id/getbetter"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginLeft="100dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="20dp"
+                    android:src="@drawable/upgradetoo" />
+
+
                 <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
 
-                    <ImageView
-                        android:id="@+id/freeplan"
-                        android:layout_width="300dp"
-                        android:layout_height="match_parent"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginLeft="50dp"
-                        android:layout_marginTop="40dp"
-                        android:src="@drawable/youare" />
+                    android:id="@+id/accountsettings"
+                    android:layout_width="290dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/upgradetopro"
+                    android:layout_centerHorizontal="true"
 
-                    <ImageView
-                        android:id="@+id/getbetter"
-                        android:layout_width="300dp"
-                        android:layout_height="match_parent"
-                        android:layout_below="@+id/freeplan"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginLeft="50dp"
-                        android:layout_marginTop="25dp"
-                        android:src="@drawable/wantto" />
+                    android:layout_marginTop="30dp">
 
-                    <!--                <ImageButton-->
-                    <!--                    android:id="@+id/buttonpro"-->
-                    <!--                    android:layout_width="wrap_content"-->
-                    <!--                    android:layout_height="wrap_content"-->
-                    <!--                    android:layout_below="@+id/getbetter"-->
-                    <!--                    android:layout_marginLeft="50dp"-->
-                    <!--                    android:layout_marginTop="30dp"-->
-                    <!--                    android:layout_marginBottom="20dp"-->
-                    <!--                    android:layout_centerHorizontal="true"-->
-                    <!--                    android:radius="4dp"-->
-                    <!--                    android:src="@drawable/updatetopro" />-->
-
-                    <ImageView
-                        android:id="@+id/upgradetopro"
-                        android:layout_width="200dp"
-                        android:layout_height="match_parent"
-                        android:layout_below="@+id/getbetter"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginLeft="100dp"
-                        android:layout_marginTop="25dp"
-                        android:layout_marginBottom="20dp"
-                        android:src="@drawable/upgradetoo" />
-
-
-                    <RelativeLayout
-
-                        android:id="@+id/accountsettings"
+                    <ImageButton
+                        android:id="@+id/accountsettings1"
                         android:layout_width="290dp"
                         android:layout_height="50dp"
-                        android:layout_below="@+id/upgradetopro"
-                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/btnpreff" />
 
-                        android:layout_marginTop="30dp">
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/accicon"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/settingss" />
 
-                        <ImageButton
-                            android:id="@+id/accountsettings1"
-                            android:layout_width="290dp"
-                            android:layout_height="50dp"
-                            android:background="@drawable/btnpreff" />
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/accicon"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="5dp"
-                            android:src="@drawable/settingss" />
-
-                        <TextView
-                            android:id="@+id/accsetting"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_toEndOf="@+id/accicon"
-                            android:layout_toRightOf="@+id/accicon"
-                            android:fontFamily="@font/segoepr"
-                            android:gravity="center"
-                            android:text="Account Settings"
-                            android:textColor="@color/color_white"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/changepassword"
-                        android:layout_width="290dp"
-                        android:layout_height="50dp"
-                        android:layout_below="@+id/accountsettings"
-                        android:layout_centerHorizontal="true"
-
-                        android:layout_marginTop="10dp">
-
-                        <ImageButton
-                            android:id="@+id/changepassword1"
-                            android:layout_width="290dp"
-                            android:layout_height="50dp"
-                            android:background="@drawable/btnpreff" />
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/image"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="5dp"
-                            android:src="@drawable/passwordd" />
-
-                        <TextView
-                            android:id="@+id/image_name"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_toEndOf="@+id/image"
-                            android:layout_toRightOf="@+id/image"
-                            android:fontFamily="@font/segoepr"
-                            android:gravity="center"
-                            android:text="Change Password"
-                            android:textColor="@color/color_white"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/location"
-                        android:layout_width="290dp"
-                        android:layout_height="50dp"
-                        android:layout_below="@+id/changepassword"
-                        android:layout_centerHorizontal="true">
-
-                        <ImageButton
-                            android:id="@+id/location2"
-                            android:layout_width="290dp"
-                            android:layout_height="50dp"
-                            android:layout_marginTop="10dp"
-                            android:background="@drawable/btnpreff" />
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/location1"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="6dp"
-                            android:src="@drawable/mapss" />
-
-                        <TextView
-                            android:id="@+id/userlocation"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_toEndOf="@+id/location1"
-                            android:layout_toRightOf="@+id/location1"
-                            android:fontFamily="@font/segoepr"
-                            android:gravity="center"
-                            android:text="My Current Location"
-                            android:textColor="@color/color_white"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
-
-
-                    <RelativeLayout
-                        android:id="@+id/preferences"
-                        android:layout_width="290dp"
-                        android:layout_height="50dp"
-                        android:layout_below="@+id/location"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp">
-
-                        <ImageButton
-                            android:id="@+id/preferences1"
-                            android:layout_width="290dp"
-                            android:layout_height="50dp"
-                            android:background="@drawable/btnpreff" />
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/prefrences1"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="6dp"
-                            android:src="@drawable/prefee" />
-
-                        <TextView
-                            android:id="@+id/userpreference"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_toEndOf="@+id/prefrences1"
-                            android:layout_toRightOf="@+id/prefrences1"
-                            android:fontFamily="@font/segoepr"
-                            android:gravity="center"
-                            android:text="Preferences"
-                            android:textColor="@color/color_white"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
-
-
-                    <RelativeLayout
-                        android:id="@+id/help"
-                        android:layout_width="290dp"
-                        android:layout_height="50dp"
-                        android:layout_below="@+id/preferences"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp">
-
-                        <ImageButton
-                            android:id="@+id/help3"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="@drawable/btnpreff" />
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/help1"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="6dp"
-                            android:src="@drawable/helpp" />
-
-                        <TextView
-                            android:id="@+id/help2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_toEndOf="@+id/help1"
-                            android:layout_toRightOf="@+id/help1"
-                            android:fontFamily="@font/segoepr"
-                            android:gravity="center"
-                            android:text="Help"
-                            android:textColor="@color/color_white"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
-
-                    <RelativeLayout
-                        android:id="@+id/theme"
-                        android:layout_width="290dp"
-                        android:layout_height="50dp"
-                        android:layout_below="@+id/help"
-                        android:layout_centerHorizontal="true"
+                    <TextView
+                        android:id="@+id/accsetting"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
                         android:layout_marginTop="10dp"
-                        android:layout_marginBottom="0dp">
-
-                        <ImageButton
-                            android:id="@+id/themebtn"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="@drawable/btnpreff"
-                            android:onClick="gotoPopup9" />
-                        <!--                            android:onClick="gotoPopup9"-->
-
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/themeim"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="6dp"
-                            android:src="@drawable/theme1" />
-
-                        <TextView
-                            android:id="@+id/themetxt"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_toEndOf="@+id/themeim"
-                            android:layout_toRightOf="@+id/themeim"
-                            android:fontFamily="@font/segoepr"
-                            android:gravity="center"
-                            android:text="Theme"
-                            android:textColor="@color/color_white"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
-
-
-                    <RelativeLayout
-                        android:id="@+id/contactus"
-                        android:layout_width="290dp"
-                        android:layout_height="50dp"
-                        android:layout_below="@+id/theme"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="0dp">
-
-                        <ImageButton
-                            android:id="@+id/contactus1"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="@drawable/btnpreff" />
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/contactus2"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="6dp"
-                            android:src="@drawable/contact" />
-
-                        <TextView
-                            android:id="@+id/contactus3"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_toEndOf="@+id/contactus2"
-                            android:layout_toRightOf="@+id/contactus2"
-                            android:fontFamily="@font/segoepr"
-                            android:gravity="center"
-                            android:text="Contact Us"
-                            android:textColor="@color/color_white"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
-                    <RelativeLayout
-                        android:id="@+id/logouto"
-                        android:layout_width="290dp"
-                        android:layout_height="50dp"
-                        android:layout_below="@+id/contactus"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="90dp">
-
-                        <ImageButton
-                            android:id="@+id/logout"
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:background="@drawable/btnpreff" />
-
-                        <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/logout1"
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
-                            android:layout_marginLeft="10dp"
-                            android:layout_marginTop="6dp"
-                            android:src="@drawable/logoutt" />
-
-                        <TextView
-                            android:id="@+id/logout2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginLeft="30dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_toEndOf="@+id/logout1"
-                            android:layout_toRightOf="@+id/logout1"
-                            android:fontFamily="@font/segoepr"
-                            android:gravity="center"
-                            android:text="Logout"
-                            android:textColor="@color/color_white"
-                            android:textSize="14sp" />
-                    </RelativeLayout>
+                        android:layout_toEndOf="@+id/accicon"
+                        android:layout_toRightOf="@+id/accicon"
+                        android:fontFamily="@font/segoepr"
+                        android:gravity="center"
+                        android:text="Account Settings"
+                        android:textColor="@color/color_white"
+                        android:textSize="14sp" />
                 </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/changepassword"
+                    android:layout_width="290dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/accountsettings"
+                    android:layout_centerHorizontal="true"
+
+                    android:layout_marginTop="10dp">
+
+                    <ImageButton
+                        android:id="@+id/changepassword1"
+                        android:layout_width="290dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/btnpreff" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/image"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:src="@drawable/passwordd" />
+
+                    <TextView
+                        android:id="@+id/image_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@+id/image"
+                        android:layout_toRightOf="@+id/image"
+                        android:fontFamily="@font/segoepr"
+                        android:gravity="center"
+                        android:text="Change Password"
+                        android:textColor="@color/color_white"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/location"
+                    android:layout_width="290dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/changepassword"
+                    android:layout_centerHorizontal="true">
+
+                    <ImageButton
+                        android:id="@+id/location2"
+                        android:layout_width="290dp"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/btnpreff" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/location1"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="6dp"
+                        android:src="@drawable/mapss" />
+
+                    <TextView
+                        android:id="@+id/userlocation"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@+id/location1"
+                        android:layout_toRightOf="@+id/location1"
+                        android:fontFamily="@font/segoepr"
+                        android:gravity="center"
+                        android:text="My Current Location"
+                        android:textColor="@color/color_white"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/preferences"
+                    android:layout_width="290dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/location"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp">
+
+                    <ImageButton
+                        android:id="@+id/preferences1"
+                        android:layout_width="290dp"
+                        android:layout_height="50dp"
+                        android:background="@drawable/btnpreff" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/prefrences1"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="6dp"
+                        android:src="@drawable/prefee" />
+
+                    <TextView
+                        android:id="@+id/userpreference"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@+id/prefrences1"
+                        android:layout_toRightOf="@+id/prefrences1"
+                        android:fontFamily="@font/segoepr"
+                        android:gravity="center"
+                        android:text="Preferences"
+                        android:textColor="@color/color_white"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/help"
+                    android:layout_width="290dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/preferences"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp">
+
+                    <ImageButton
+                        android:id="@+id/help3"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/btnpreff" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/help1"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="6dp"
+                        android:src="@drawable/helpp" />
+
+                    <TextView
+                        android:id="@+id/help2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@+id/help1"
+                        android:layout_toRightOf="@+id/help1"
+                        android:fontFamily="@font/segoepr"
+                        android:gravity="center"
+                        android:text="Help"
+                        android:textColor="@color/color_white"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/theme"
+                    android:layout_width="290dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/help"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="0dp">
+
+                    <ImageButton
+                        android:id="@+id/themebtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/btnpreff"
+                        android:onClick="gotoPopup9" />
+                    <!--                            android:onClick="gotoPopup9"-->
+
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/themeim"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="6dp"
+                        android:src="@drawable/theme1" />
+
+                    <TextView
+                        android:id="@+id/themetxt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@+id/themeim"
+                        android:layout_toRightOf="@+id/themeim"
+                        android:fontFamily="@font/segoepr"
+                        android:gravity="center"
+                        android:text="Theme"
+                        android:textColor="@color/color_white"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:id="@+id/contactus"
+                    android:layout_width="290dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/theme"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="0dp">
+
+                    <ImageButton
+                        android:id="@+id/contactus1"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/btnpreff" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/contactus2"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="6dp"
+                        android:src="@drawable/contact" />
+
+                    <TextView
+                        android:id="@+id/contactus3"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@+id/contactus2"
+                        android:layout_toRightOf="@+id/contactus2"
+                        android:fontFamily="@font/segoepr"
+                        android:gravity="center"
+                        android:text="Contact Us"
+                        android:textColor="@color/color_white"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/logouto"
+                    android:layout_width="290dp"
+                    android:layout_height="50dp"
+                    android:layout_below="@+id/contactus"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="90dp">
+
+                    <ImageButton
+                        android:id="@+id/logout"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@drawable/btnpreff" />
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/logout1"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="6dp"
+                        android:src="@drawable/logoutt" />
+
+                    <TextView
+                        android:id="@+id/logout2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="30dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_toEndOf="@+id/logout1"
+                        android:layout_toRightOf="@+id/logout1"
+                        android:fontFamily="@font/segoepr"
+                        android:gravity="center"
+                        android:text="Logout"
+                        android:textColor="@color/color_white"
+                        android:textSize="14sp" />
+                </RelativeLayout>
+            </RelativeLayout>
+            <!--                <LinearLayout-->
+            <!--                    android:id="@+id/googleads"-->
+            <!--                    android:layout_width="match_parent"-->
+            <!--                    android:layout_height="wrap_content"-->
+            <!--                    android:orientation="vertical"-->
+            <!--                    android:layout_marginBottom="80dp"-->
+            <!--                   android:layout_below="@+id/relativeLayout"/>-->
+
+
         </RelativeLayout>
 
     </ScrollView>
+
+    <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/bottom_navigation"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="30dp"
+        ads:adSize="BANNER"
+        ads:adUnitId="ca-app-pub-7941825006818251/4021273970">
+    </com.google.android.gms.ads.AdView>
+
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"

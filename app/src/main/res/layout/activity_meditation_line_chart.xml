@@ -1,31 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
     android:layout_centerVertical="true"
+    android:layout_gravity="center"
     android:background="#010334"
-    tools:context=".MeditationLineChart">
+    tools:context=".LineChartExample">
 
-    <com.github.mikephil.charting.charts.LineChart
-        android:id = "@+id/lineChartMeditation"
-        android:layout_centerVertical="true"
-        android:layout_width = "400dp"
-        android:layout_height = "300dp" />
+        <com.github.mikephil.charting.charts.LineChart
+            android:id = "@+id/lineChart"
+            android:layout_centerVertical="true"
+            android:layout_width = "400dp"
+            android:layout_height = "300dp" />
+
+<!--    <RelativeLayout-->
+<!--        android:layout_width="300dp"-->
+<!--        android:layout_height="380dp"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:layout_centerVertical="true">-->
+
+
+<!--        <ImageView-->
+<!--            android:id="@+id/coins"-->
+<!--            android:layout_width="100dp"-->
+<!--            android:layout_height="100dp"-->
+<!--            android:layout_centerHorizontal="true"-->
+<!--            android:layout_centerVertical="true"-->
+<!--            android:layout_marginTop="20dp"-->
+<!--            android:background="@drawable/ic_dollar" />-->
+
+
+<!--        <TextView-->
+<!--            android:id="@+id/points"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/coins"-->
+<!--            android:layout_marginHorizontal="30dp"-->
+<!--            android:fontFamily="serif"-->
+<!--            android:text="Coins Earned"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="20sp" />-->
+
+<!--        <TextView-->
+<!--            android:id="@+id/total"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/points"-->
+<!--            android:layout_marginHorizontal="30dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:fontFamily="serif"-->
+<!--            android:text="Total Coins:"-->
+<!--            android:textColor="@color/white"-->
+<!--            android:textSize="20sp" />-->
+
+<!--    </RelativeLayout>-->
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/ok"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
-        android:text="OK"
-        android:layout_marginVertical="30dp"
+        android:layout_alignParentBottom="true"
         android:layout_marginHorizontal="30dp"
+        android:layout_marginVertical="30dp"
         android:background="@drawable/hione"
-        android:textColor="@color/black"/>
+        android:text="OK"
+        android:textColor="@color/black" />
 
 </RelativeLayout>

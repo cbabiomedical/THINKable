@@ -12,7 +12,7 @@
         android:id="@+id/mainLayout"
         android:layout_width="match_parent"
         android:background="#010334"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent">
 
 
     <RelativeLayout
@@ -25,6 +25,7 @@
         app:cornerRadius="23dp"
         android:background="@drawable/border_background"
         android:layout_height="wrap_content">
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/picture"
             android:layout_marginStart="15dp"
@@ -160,7 +161,7 @@
             android:layout_below="@+id/about"
             android:background="@drawable/btnpref"
             android:layout_width="match_parent"
-
+            android:layout_marginBottom="80dp"
             android:text="Share "
             android:layout_height="60dp"
 

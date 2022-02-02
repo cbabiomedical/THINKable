@@ -37,11 +37,24 @@ import android.widget.Toast;
 import android.widget.VideoView;
 
 import com.example.thinkableproject.sample.SoundPlayer;
+import com.example.thinkableproject.spaceshooter.GameOver;
+import com.example.thinkableproject.spaceshooter.StartUp;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -49,6 +62,10 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -61,9 +78,13 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
     ArrayList<Animator> animList;
     Button[] btnArray;
     Button clickedBtn;
+    int updatedCoins;
     private boolean isGameStarted;
     private int random;
     private int round;
+    User user;
+    private InterstitialAd mInterstitialAd;
+    FirebaseFirestore database;
     private int counter;
     Dialog dialogColorPattern;
     private int actScore;
@@ -74,11 +95,13 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
     FirebaseUser mUser;
     VideoView gameVideo;
     int color;
+
     Dialog dialogIntervention;
     LineChart lineChart;
     LineData lineData;
     LineDataSet lineDataSet;
     ArrayList lineEntries;
+
 
     SoundPlayer sound;
 
@@ -92,6 +115,25 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_color_pattern_game);
         mainConstraint = findViewById(R.id.mainConstraint);
+        database = FirebaseFirestore.getInstance();
+        Log.d("UUid", FirebaseAuth.getInstance().getCurrentUser().getUid());
+
+//        database.collection("users")
+//                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+//                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                user = documentSnapshot.toObject(User.class);
+////                binding.currentCoins.setText(String.valueOf(user.getCoins()));
+//                Log.d("Current Coins", String.valueOf(user.getCoins()));
+////                int updateCoins= (int) (user.getCoins()+highScore);
+////                Log.d("Updated Coin", String.valueOf(updateCoins));
+//
+//
+////                binding.currentCoins.setText(user.getCoins() + "");
+//
+//            }
+//        });
 
 
         sound = new SoundPlayer(this);
@@ -102,7 +144,7 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
         gameVideo = findViewById(R.id.simpleVideo);
         dialogColorPattern = new Dialog(this);
         dialogIntervention = new Dialog(this);
-        lineChart = findViewById(R.id.lineChartColorPattern);
+        lineChart = findViewById(R.id.lineChartColorP);
 
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
@@ -168,6 +210,14 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
             }
         });
 
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+                createPersonalizedAd();
+            }
+        });
+
+
         SharedPreferences prefsColIn = getSharedPreferences("prefsColIn", MODE_PRIVATE);
         boolean firstStartColIn = prefsColIn.getBoolean("firstStartColIn", true);
 
@@ -184,7 +234,7 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
 //        Log.d("Video Duration", String.valueOf(simpleVideoView.getDuration()));
 //        Log.d("Current Position", String.valueOf(simpleVideoView.getCurrentPosition()));
 //        simpleVideoView.setMediaController(mediaController);
-//        if (simpleVideoView.isPlaying()){
+//        if (simpleVideoView.isPlaying()){2
 //            simpleVideoView.setVisibility(View.GONE);
 //            mainConstraint.setVisibility(View.VISIBLE);
 //
@@ -218,6 +268,57 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
 
             }
         }, 5000);
+    }
+
+    private void createPersonalizedAd() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        createInstestialAd(adRequest);
+
+
+    }
+
+    private void createInstestialAd(AdRequest adRequest) {
+        InterstitialAd.load(this, "ca-app-pub-3940256099942544/8691691433", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd;
+                        Log.i("TAG", "onAdLoaded");
+
+                        mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                            @Override
+                            public void onAdDismissedFullScreenContent() {
+                                // Called when fullscreen content is dismissed.
+                                Log.d("TAG", "The ad was dismissed.");
+                                startActivity(new Intent(getApplicationContext(), GameActivity.class));
+                            }
+
+                            @Override
+                            public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                // Called when fullscreen content failed to show.
+                                Log.d("TAG", "The ad failed to show.");
+                            }
+
+                            @Override
+                            public void onAdShowedFullScreenContent() {
+                                // Called when fullscreen content is shown.
+                                // Make sure to set your reference to null so you don't
+                                // show it a second time.
+                                mInterstitialAd = null;
+                                Log.d("TAG", "The ad was shown.");
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.i("TAG", loadAdError.getMessage());
+                        mInterstitialAd = null;
+                    }
+                });
     }
 
     private void displayColorPatternPop() {
@@ -479,6 +580,40 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
 
     public void printHighscore() {
         gameInfo.setText(String.format("%s %s", getString(R.string.showHighscore), String.valueOf(this.getHighScore())));
+        Log.d("Get High Score", String.valueOf(this.getHighScore()));
+        highScore = this.getHighScore();
+
+        database.collection("users")
+                .document(mUser.getUid())
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                user = documentSnapshot.toObject(User.class);
+//                binding.currentCoins.setText(String.valueOf(user.getCoins()));
+                Log.d("Current Coins", String.valueOf(user.getCoins()));
+                Log.d("High Score Inside", String.valueOf(highScore));
+                updatedCoins = (int) (user.getCoins() + highScore);
+                Log.d("Updated High Score", String.valueOf(updatedCoins));
+//                binding.currentCoins.setText(user.getCoins() + "");
+                database.collection("users").document(mUser.getUid())
+                        .update("coins", updatedCoins).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+//                        Toast.makeText(ColorPatternGame.this, "Successfully Updated Coins", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("Error", String.valueOf(e));
+//                        Toast.makeText(ColorPatternGame.this, "Failed to Update Coins", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+            }
+        });
+
+
         AlertDialog alertDialog = new AlertDialog.Builder(this)
 //set icon
 
@@ -491,33 +626,62 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //set what would happen when positive button is clicked
+                        if (mInterstitialAd != null) {
+                            mInterstitialAd.show(ColorPatternGame.this);
+                        } else {
+                            finish();
+                            dialogInterface.dismiss();
 
-                        finish();
-                        dialogInterface.dismiss();
-
-
+                        }
                     }
                 })
 //set negative button
-                .setNegativeButton("Yes", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+                .
+
+                        setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
 //                        openPopUpLineChart();
-                        //set what should happen when negative button is clicked
-                        Toast.makeText(getApplicationContext(), "Press START button to start", Toast.LENGTH_LONG).show();
-                    }
-                })
-                .show();
+                                //set what should happen when negative button is clicked
+                                Toast.makeText(getApplicationContext(), "Press START button to start", Toast.LENGTH_LONG).show();
+                            }
+                        })
+                .
+
+                        show();
 
     }
 
     private void openPopUpLineChart() {
         Button ok;
         LineChart lineChart;
+//        TextView points;
+//        TextView totalPoints;
 
         dialogIntervention.setContentView(R.layout.color_pattern_intervention_chart);
         dialogIntervention.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-        lineChart = (LineChart) dialogIntervention.findViewById(R.id.lineChartColorPattern);
+        lineChart = (LineChart) dialogIntervention.findViewById(R.id.lineChartColorP);
+//        points=(TextView)dialogIntervention.findViewById(R.id.points);
+//        totalPoints=(TextView)dialogIntervention.findViewById(R.id.total);
+
+//        Log.d("highscore", String.valueOf(highScore));
+//        database.collection("users")
+//                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+//                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+//            @Override
+//            public void onSuccess(DocumentSnapshot documentSnapshot) {
+//                user = documentSnapshot.toObject(User.class);
+////
+//                Log.d("Current Coins", String.valueOf(user.getCoins()));
+////
+//                totalPoints.setText("Total Coins: "+user.getCoins());
+////
+//
+//            }
+//        });
+
+
+//        points.setText("Coins Earned:"+highScore);
 
         getEntries();
         lineDataSet = new LineDataSet(lineEntries, "Memory Progress");

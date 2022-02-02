@@ -1,6 +1,8 @@
 package com.example.thinkableproject;
 
 import android.app.Activity;
+import android.bluetooth.BluetoothDevice;
+import android.bluetooth.BluetoothGattCallback;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
 import android.content.Context;
@@ -40,7 +42,10 @@ public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
     private ArrayList<BluetoothGattService> services_ArrayList;
     private HashMap<String, ArrayList<BluetoothGattCharacteristic>> characteristics_HashMap;
     ArrayList dataValues = new ArrayList();
-    FirebaseUser mUser;
+    BluetoothGattCallback gattCallback;
+    BluetoothDevice device;
+    Context context;
+
     File fileName;
 
     public ListAdapter_BTLE_Services(Activity activity, ArrayList<BluetoothGattService> listDataHeader,
@@ -50,8 +55,19 @@ public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
         this.services_ArrayList = listDataHeader;
         this.characteristics_HashMap = listChildData;
     }
+    public ListAdapter_BTLE_Services( Context context, ArrayList<BluetoothGattService> listDataHeader,
+                                      HashMap<String, ArrayList<BluetoothGattCharacteristic>> listChildData) {
+
+        this.context = context;
+        this.services_ArrayList = listDataHeader;
+        this.characteristics_HashMap = listChildData;
+    }
+
+//    BluetoothGatt  bluetoothGatt= device.connectGatt(context, false, gattCallback);
+
 
     @Override
+
     public int getGroupCount() {
         return services_ArrayList.size();
     }
@@ -61,6 +77,7 @@ public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
         return characteristics_HashMap.get(
                 services_ArrayList.get(groupPosition).getUuid().toString()).size();
     }
+
 
     @Override
     public Object getGroup(int groupPosition) {
@@ -89,12 +106,32 @@ public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
         return false;
     }
 
+//    public List<BluetoothGattService> getSupportedGattServices() {
+//        if (bluetoothGatt == null) return null;
+//        Log.d("Get Services", String.valueOf(bluetoothGatt.getServices()));
+//        return bluetoothGatt.getServices();
+//    }
+
     @Override
     public View getGroupView(int groupPosition, boolean isExpanded, View convertView, ViewGroup parent) {
 
         BluetoothGattService bluetoothGattService = (BluetoothGattService) getGroup(groupPosition);
 
         String serviceUUID = bluetoothGattService.getUuid().toString();
+        ArrayList<BluetoothGattService> bluetoothGattServices;
+        Log.d("Service UUID", serviceUUID);
+        Log.d("Map", String.valueOf(characteristics_HashMap));
+        Log.d("Service List", String.valueOf(services_ArrayList));
+        for (int i = 0; i < services_ArrayList.size(); i++) {
+            String uuid = String.valueOf((services_ArrayList.get(i).getUuid()));
+            if (uuid.equals("6c6f36f5-7601-465f-9421-ce3c46fba8ae")) {
+                Log.d("Check for Char", String.valueOf(services_ArrayList.get(i).getCharacteristics().get(0).getUuid()));
+                Log.d("Bluetooth Value", String.valueOf(services_ArrayList.get(i).getCharacteristics().get(0).getValue()));
+            }
+
+
+        }
+
         if (convertView == null) {
             LayoutInflater inflater =
                     (LayoutInflater) activity.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -111,8 +148,12 @@ public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
     public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
 
         BluetoothGattCharacteristic bluetoothGattCharacteristic = (BluetoothGattCharacteristic) getChild(groupPosition, childPosition);
+        Log.d("Group Position", String.valueOf(groupPosition));
+        Log.d("Child Position", String.valueOf(childPosition));
 
         String characteristicUUID = bluetoothGattCharacteristic.getUuid().toString();
+        Log.d("Characteristic UUID", characteristicUUID);
+        Log.d("CHAR", String.valueOf(bluetoothGattCharacteristic.getValue()));
         if (convertView == null) {
             LayoutInflater inflater =
                     (LayoutInflater) activity.getApplicationContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -145,22 +186,17 @@ public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
         TextView tv_value = (TextView) convertView.findViewById(R.id.tv_value);
 
         byte[] data = bluetoothGattCharacteristic.getValue();
-        String dataString = bluetoothGattCharacteristic.getValue().toString();
-        Log.d("Data String",dataString);
         if (data != null) {
             tv_value.setText("Value: " + Utils.hexToString(data));
             dataValues.add(Utils.hexToString(data));
-            mUser = FirebaseAuth.getInstance().getCurrentUser();
 
             try {
-                fileName = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/values.csv");
+                fileName = new File(Environment.getExternalStorageDirectory().getAbsolutePath() + "/values.txt");
                 System.out.println("Path" + Environment.getExternalStorageDirectory().getAbsolutePath());
                 String line = "";
                 FileWriter fwa;
                 fwa = new FileWriter(fileName);
                 BufferedWriter outputa = new BufferedWriter(fwa);
-//                String[] splitarray = dataString.split(" ");
-//                Log.d("Split Array", String.valueOf(splitarray));
                 int size = dataValues.size();
                 for (int i = 0; i < size; i++) {
                     outputa.write(dataValues.get(i).toString() + "\n");
@@ -171,26 +207,26 @@ public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
             } catch (IOException exception) {
                 exception.printStackTrace();
             }
-            StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
-            try {
-                StorageReference mountainsRef = storageReference1.child("values.csv");
-                InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
-                UploadTask uploadTask = mountainsRef.putStream(stream);
-                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                    @Override
-                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                    Toast.makeText(ConcentrationReportMonthly.this, "File Uploaded", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-//                    Toast.makeText(ConcentrationReportMonthly.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            }
+//            StorageReference storageReference1 = FirebaseStorage.getInstance().getReference("BLE Values");
+//            try {
+//                StorageReference mountainsRef = storageReference1.child("values.txt");
+//                InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
+//                UploadTask uploadTask = mountainsRef.putStream(stream);
+//                uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                    @Override
+//                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+////                    Toast.makeText(ConcentrationReportMonthly.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+//                    }
+//                }).addOnFailureListener(new OnFailureListener() {
+//                    @Override
+//                    public void onFailure(@NonNull Exception e) {
+////                    Toast.makeText(ConcentrationReportMonthly.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+//                    }
+//                });
+//
+//            } catch (FileNotFoundException e) {
+//                e.printStackTrace();
+//            }
 
 
         } else {

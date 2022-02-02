@@ -1,5 +1,7 @@
 package com.example.thinkableproject;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
@@ -9,6 +11,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.ColorDrawable;
@@ -32,6 +35,21 @@ import android.widget.Toast;
 import com.chibde.visualizer.BarVisualizer;
 import com.chibde.visualizer.SquareBarVisualizer;
 import com.example.thinkableproject.sample.MusicModelClass;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -45,26 +63,31 @@ public class PlayMeditation extends AppCompatActivity {
     AppCompatButton btnPLay, btnNext, btnPrev, btnff, btnfr;
     TextView txtsongName, txtStart, txtStop;
     SeekBar seekBar;
-    BarVisualizer barVisualizer;
     ImageView imageView;
     String uri;
     String name;
-    Dialog dialog_meditation;
+    Dialog dialog;
+    User user;
+    FirebaseFirestore database;
+    LineChart lineChart;
+    LineData lineData;
+    int points;
+    LineDataSet lineDataSet;
+    ArrayList lineEntries;
+    //    int time;
     String music_title;
-//    int time;
 
     public static final String EXTRA_NAME = "songName";
     static MediaPlayer mediaPlayer;
-    int position;
-    String sName;
     Thread updateSeekBar;
     ArrayList<MusicModelClass> songs = new ArrayList<>();
 
-    @SuppressLint("ClickableViewAccessibility")
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    @SuppressLint({"ClickableViewAccessibility", "WrongConstant"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_play_meditation);
+        setContentView(R.layout.activity_music_player);
 
         btnPLay = findViewById(R.id.playBtn);
         seekBar = findViewById(R.id.seekBar);
@@ -72,10 +95,11 @@ public class PlayMeditation extends AppCompatActivity {
         txtStop = findViewById(R.id.txtStop);
         txtsongName = findViewById(R.id.txtsongName);
         mediaPlayer = new MediaPlayer();
+        dialog = new Dialog(this);
         btnff = findViewById(R.id.fForward);
         btnfr = findViewById(R.id.fRewind);
-        dialog_meditation = new Dialog(this);
-//        barVisualizer = findViewById(R.id.visualizer);
+        database = FirebaseFirestore.getInstance();
+//        lineChart = findViewById(R.id.lineChartIntervention);
         mediaPlayer = new MediaPlayer();
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -97,33 +121,27 @@ public class PlayMeditation extends AppCompatActivity {
             }
         });
 
+
+
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             uri = extras.getString("url");
-//            time_selected = extras.getString("time");
             name = extras.getString("name");
-//            time = Integer.parseInt(time_selected);
 //            time = extras.getInt("time");
             txtsongName.setText(name);
-//            image=extras.getInt("image");
-//            linearLayout.setBackgroundResource(image);
 
             prepareMediaPlayer();
 
             Log.d("MUSIC", uri + "");
-//            Log.d("DURATION", time_selected);
-//            Log.d("NAME", name);
-
         } else {
             Log.d("ERROR", "Error in getting null value");
         }
 
-//        ProgressDialog progressDialog = new ProgressDialog(this, R.style.Theme_MyDialog);
-//
-//        progressDialog.show(this,
+//        ProgressDialog progressDialog = new ProgressDialog(this, R.style.Theme_AppCompat_DayNight_Dialog);
+//        ProgressDialog.show(this,
 //                "Loading Music", "Please Wait");
-//        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
+//        progressDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         // MEDIA STARTS FUNCTION
 
@@ -141,18 +159,48 @@ public class PlayMeditation extends AppCompatActivity {
             animation.setRepeatMode(Animation.REVERSE);
             animation.setRepeatCount(1);
 
+
             updateSeekBar = new Thread() {
                 @Override
                 public void run() {
 
                     int totalDuration = mediaPlayer.getDuration();
                     int currentPosition = 0;
-                    while (currentPosition < totalDuration) {
+                    while (currentPosition < mediaPlayer.getDuration()) {
                         try {
                             sleep(500);
                             currentPosition = mediaPlayer.getCurrentPosition();
                             Log.d("Current position", String.valueOf(mediaPlayer.getCurrentPosition()));
                             Log.d("upCurrent time", String.valueOf(currentPosition));
+                            if (mediaPlayer.getDuration() < 60000) {
+                                if (mediaPlayer.getCurrentPosition() <= 30000) {
+                                    points = 5;
+                                } else {
+                                    points = 10;
+                                }
+
+                            } else if (60000 < mediaPlayer.getDuration() && mediaPlayer.getDuration() < 120000) {
+                                if (mediaPlayer.getCurrentPosition() <= 60000) {
+                                    points = 5;
+                                } else {
+                                    points = 10;
+                                }
+                            } else if (120000 < mediaPlayer.getDuration() && mediaPlayer.getDuration() <= 180000) {
+                                if (mediaPlayer.getCurrentPosition() <= 150000) {
+                                    points = 5;
+                                } else {
+                                    points = 10;
+                                }
+
+                            } else if (180000 < mediaPlayer.getDuration() && mediaPlayer.getDuration() < 240000) {
+                                if (mediaPlayer.getCurrentPosition() <= 210000) {
+                                    points = 5;
+                                } else {
+                                    points = 10;
+                                }
+                            }
+                            Log.d("POINTS", String.valueOf(points));
+
 //
                             seekBar.setProgress(currentPosition);
                         } catch (InterruptedException | IllegalStateException e) {
@@ -160,10 +208,49 @@ public class PlayMeditation extends AppCompatActivity {
                         }
                         if (currentPosition > mediaPlayer.getDuration()) {
                             mediaPlayer.stop();
-//                            openGraphPopup();
+
+                            Log.d("End Point", String.valueOf(points));
+
+                            SharedPreferences sharedPref = getSharedPreferences("myKey", MODE_PRIVATE);
+                            SharedPreferences.Editor editor = sharedPref.edit();
+                            editor.putInt("value", points);
+                            editor.apply();
+                            database.collection("users")
+                                    .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
+                                    .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                                @Override
+                                public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                    user = documentSnapshot.toObject(User.class);
+//
+                                    Log.d("Current Coins", String.valueOf(user.getCoins()));
+                                    int updateCoins = (int) (user.getCoins() + points);
+                                    database.collection("users").document(FirebaseAuth.getInstance().getUid())
+                                            .update("coins", updateCoins).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                        @Override
+                                        public void onSuccess(Void aVoid) {
+//                                            Toast.makeText(PlayMeditation.this, "Successfully Updated Coins", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }).addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.d("Error", String.valueOf(e));
+//                                            Toast.makeText(PlayMeditation.this, "Failed to Update Coins", Toast.LENGTH_SHORT).show();
+                                        }
+                                    });
+
+//                Log.d("Updated Coin", String.valueOf(updateCoins));
+
+
+//                binding.currentCoins.setText(user.getCoins() + "");
+
+                                }
+                            });
+
                             startActivity(new Intent(getApplicationContext(), MeditationLineChart.class));
+
                         }
                     }
+
 
                 }
             };
@@ -226,22 +313,92 @@ public class PlayMeditation extends AppCompatActivity {
                 }
             }
         });
-
+//        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+//            @Override
+//            public void onCompletion(MediaPlayer mp) {
+//
+//                dialog.setContentView(R.layout.intervention_graph_popup);
+//                lineChart = (LineChart) dialog.findViewById(R.id.lineChartIntervention);
+//                getEntries();
+//                lineDataSet = new LineDataSet(lineEntries, "Concentration Index");
+//                lineData = new LineData(lineDataSet);
+//                lineChart.setData(lineData);
+//
+//                lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+//                lineDataSet.setValueTextColor(Color.WHITE);
+//                lineDataSet.setValueTextSize(10f);
+//
+//                lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+//                lineChart.setBorderColor(Color.TRANSPARENT);
+//                lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+//                lineChart.getAxisLeft().setDrawGridLines(false);
+//                lineChart.getXAxis().setDrawGridLines(false);
+//                lineChart.getAxisRight().setDrawGridLines(false);
+//                lineChart.getXAxis().setTextColor(R.color.white);
+//                lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
+//                lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+//                lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
+//                lineChart.getDescription().setTextColor(R.color.white);
+//
+//
+//            }
+//        });
+//
+//    }
     }
 
-    private void openGraphPopup() {
+    private void openPopUp() {
         Button ok;
-        dialog_meditation.setContentView(R.layout.meditation_intervention_popup);
-        ok = (Button) dialog_meditation.findViewById(R.id.lineChartMeditationIntervention);
+        TextView coins;
+        TextView totalCoins;
+
+        dialog.setContentView(R.layout.music_graph_popup);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        ok = (Button) dialog.findViewById(R.id.click);
+//        lineChart = (LineChart) dialog.findViewById(R.id.lineChartIntervention);
+        ok = (Button) dialog.findViewById(R.id.click);
+        coins = (TextView) dialog.findViewById(R.id.points);
+        totalCoins = (TextView) dialog.findViewById(R.id.total);
+//        getEntries();
+//        lineDataSet = new LineDataSet(lineEntries, "Concentration Index");
+//        lineData = new LineData(lineDataSet);
+//        lineChart.setData(lineData);
+//
+//        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+//        lineDataSet.setValueTextColor(Color.WHITE);
+//        lineDataSet.setValueTextSize(10f);
+//
+//        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+//        lineChart.setBorderColor(Color.TRANSPARENT);
+//        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+//        lineChart.getAxisLeft().setDrawGridLines(false);
+//        lineChart.getXAxis().setDrawGridLines(false);
+//        lineChart.getAxisRight().setDrawGridLines(false);
+//        lineChart.getXAxis().setTextColor(R.color.white);
+//        lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
+//        lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+//        lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
+//        lineChart.getDescription().setTextColor(R.color.white);
+
 
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog_meditation.dismiss();
+                dialog.dismiss();
             }
         });
 
-        dialog_meditation.show();
+        dialog.show();
+//
+
+    }
+
+    private void getEntries() {
+        lineEntries = new ArrayList();
+        lineEntries.add(new Entry(2f, 34f));
+        lineEntries.add(new Entry(4f, 56f));
+        lineEntries.add(new Entry(6f, 65));
+        lineEntries.add(new Entry(8f, 23f));
     }
 
     private void prepareMediaPlayer() {
