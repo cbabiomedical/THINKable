@@ -19,6 +19,12 @@
     <color name="navdark">#1E3375</color>
     <color name="navlight">#3C4C8E</color>
 
+    <color name="Black">#FF0B0B0B</color>
+    <color name="White">#fcf9f9</color>
+    <color name="Grey">#c2b2b2</color>
+    <color name="Red">#ed2623</color>
+    <color name="Black2">#000000</color>
+
     <color name="colorPrimary">#673AB7</color>
     <color name="colorPrimaryDark">#673AB7</color>
     <color name="colorAccent">#03DAC5</color>

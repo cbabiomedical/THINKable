@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.thinkableproject">
-
     <!-- Include required permissions for Google Mobile Ads to run. -->
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-
     <!--
          The ACCESS_COARSE/FINE_LOCATION permissions are not required to use
          Google Maps Android API v2, but you must specify either coarse or fine
@@ -47,9 +45,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThinkableProject"
         android:usesCleartextTraffic="true">
+        <activity
+            android:name=".pianotiles.Main5Activity"
+            android:exported="false" />
+        <activity
+            android:name=".pianotiles.Main4Activity"
+            android:exported="false" />
+        <activity
+            android:name=".pianotiles.Main3Activity"
+            android:exported="false" />
+        <activity
+            android:name=".pianotiles.Main2Activity"
+            android:exported="false" />
+
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="ca-app-pub-7941825006818251~2426148941" />
+
         <activity
             android:name=".AddsClass"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
@@ -58,8 +70,7 @@
             <meta-data
                 android:name="com.google.android.gms.ads.AD_MANAGER_APP"
                 android:value="true" />
-        </activity>
-        <!-- Include the AdActivity configChanges and theme. -->
+        </activity> <!-- Include the AdActivity configChanges and theme. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
@@ -78,6 +89,9 @@
             android:exported="false" />
         <activity
             android:name=".duckhunt.DuckHuntMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pianotiles.MainActivity"
             android:exported="false" />
         <activity
             android:name=".ninjadarts.NinjaDartsMainActivity"
@@ -402,6 +416,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".StartActivity"
+            android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
