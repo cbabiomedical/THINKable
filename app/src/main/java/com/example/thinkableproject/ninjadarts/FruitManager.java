@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.media.MediaPlayer;
+import android.util.Log;
 
 import com.example.thinkableproject.R;
 
@@ -67,7 +68,6 @@ public class FruitManager {
     }
 
     public int getScore(){
-
         return score;
 
     }
@@ -245,6 +245,7 @@ public class FruitManager {
         p.setTextSize(100);
         p.setColor(Color.BLACK);
         canvas.drawText("Score: " + score, 50, 50 + p.descent() - p.ascent(), p);
+//        Log.d("score ninja", String.valueOf(score));
 
 
 
@@ -252,7 +253,7 @@ public class FruitManager {
         pH.setTextSize(100);
         pH.setColor(Color.BLACK);
         canvas.drawText("High Score: " + highScore, Constants.SCREEN_WIDTH - 750, 50 + pH.descent() - pH.ascent(), pH);
-
+//        Log.d("Ninja HighScore", String.valueOf(score));
 
         //Number of misses
         if(misses == 1) {

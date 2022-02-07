@@ -12,6 +12,7 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.media.MediaPlayer;
 import android.os.Handler;
+import android.util.Log;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
@@ -93,6 +94,7 @@ public class GameView extends View {
             intent.putExtra("score", score);
             context.startActivity(intent);
             ((Activity) context).finish();
+            Log.d("Sending Score", String.valueOf(score));
         }
         canvas.drawBitmap(background, null, rect, null);
         for (int i=0; i<duck1.size(); i++){

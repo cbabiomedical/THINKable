@@ -39,7 +39,7 @@ public class PlayVideo extends AppCompatActivity {
         VideoView simpleVideoView = (VideoView) findViewById(R.id.videoExample);
 
         simpleVideoView.setVisibility(View.VISIBLE);
-        simpleVideoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.cardgame));
+        simpleVideoView.setVideoURI(Uri.parse(uri));
         simpleVideoView.start();
         simpleVideoView.setMediaController(mediaController);
         Log.d("Video Duration", String.valueOf(simpleVideoView.getDuration()));

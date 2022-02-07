@@ -45,7 +45,10 @@ import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
@@ -210,6 +213,56 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
             }
         });
 
+        AdView adView = new AdView(this);
+
+        adView.setAdSize(AdSize.BANNER);
+
+        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        adView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
+
+        adView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+            }
+
+            @Override
+            public void onAdFailedToLoad(LoadAdError adError) {
+                // Code to be executed when an ad request fails.
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when an ad opens an overlay that
+                // covers the screen.
+            }
+
+            @Override
+            public void onAdClicked() {
+                // Code to be executed when the user clicks on an ad.
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Code to be executed when the user is about to return
+                // to the app after tapping on an ad.
+            }
+        });
+
+        AdSize adSize = new AdSize(300, 50);
+
+
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
@@ -256,6 +309,7 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
         fillBtnArray();
         btnSetOnClickListener();
         btnSetOnTouchListener();
+
         startGame();
 
         Handler handler = new Handler();
@@ -465,6 +519,7 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
     public void btnSetOnClickListener() {
         for (int i = 0; i < btnArray.length; i++) {
             btnArray[i].setOnClickListener(this);
+
         }
     }
 
@@ -477,6 +532,7 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
                 public boolean onTouch(View view, MotionEvent motionEvent) {
                     switch (motionEvent.getAction()) {
                         case MotionEvent.ACTION_DOWN:
+                            Log.d("TAG", "Button Clicked");
                             //view.getBackground().setColorFilter(getResources().getColor(R.color.background),PorterDuff.Mode.SRC_ATOP);
                             view.getBackground().setAlpha(128);
                             //view.invalidate();
@@ -703,6 +759,8 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
         lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
         lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
         lineChart.getDescription().setTextColor(R.color.white);
+        lineChart.invalidate();
+        lineChart.refreshDrawableState();
         ok = (Button) dialogIntervention.findViewById(R.id.ok);
 
 

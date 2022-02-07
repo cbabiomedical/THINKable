@@ -1,5 +1,6 @@
 package com.example.thinkableproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.recyclerview.widget.GridLayoutManager;
@@ -24,6 +25,11 @@ import com.example.thinkableproject.adapters.VideoAdapter;
 import com.example.thinkableproject.sample.BineuralModelClass;
 import com.example.thinkableproject.sample.MusicModelClass;
 import com.example.thinkableproject.sample.VideoModelClass;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +47,8 @@ public class VideoInterventionActivity extends AppCompatActivity implements Vide
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video_intervention);
         recyclerView = findViewById(R.id.recyclerView);
-        information=findViewById(R.id.videoInfo);
-        videoDialog=new Dialog(this);
+        information = findViewById(R.id.videoInfo);
+        videoDialog = new Dialog(this);
 
         information.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,7 +59,7 @@ public class VideoInterventionActivity extends AppCompatActivity implements Vide
 
 
         SharedPreferences prefsVid = getSharedPreferences("prefsVid", MODE_PRIVATE);
-        boolean firstStartVid = prefsVid.getBoolean("firstStart", true);
+        boolean firstStartVid = prefsVid.getBoolean("firstStartVid", true);
 
         if (firstStartVid) {
             openVideoPopUp();
@@ -74,7 +80,7 @@ public class VideoInterventionActivity extends AppCompatActivity implements Vide
         videoDialog.setContentView(R.layout.videopopup);
         videoDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        ok=(Button)videoDialog.findViewById(R.id.click);
+        ok = (Button) videoDialog.findViewById(R.id.click);
 
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,24 +89,46 @@ public class VideoInterventionActivity extends AppCompatActivity implements Vide
             }
         });
 
+
+
+        videoDialog.show();
         SharedPreferences prefsVid = getSharedPreferences("prefsVid", MODE_PRIVATE);
         SharedPreferences.Editor editor = prefsVid.edit();
         editor.putBoolean("firstStartVid", false);
         editor.apply();
-
-
-
-        videoDialog.show();
     }
 
     private void initData() {
         videoModelClassList = new ArrayList<>();
         //Adding user preferences to arraylist
-        videoModelClassList.add(new VideoModelClass("1","Calm Meditation",R.drawable.download,R.raw.cardgame));
-        videoModelClassList.add(new VideoModelClass("2","Pathway Meditation",R.drawable.download2,R.raw.cardgame));
+//        videoModelClassList.add(new VideoModelClass("1","Calm Meditation",R.drawable.download,R.raw.cardgame));
+//        videoModelClassList.add(new VideoModelClass("2","Pathway Meditation",R.drawable.download2,R.raw.cardgame));
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Video_Admin");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot postDatasnapshot : snapshot.getChildren()) {
+                    VideoModelClass post = postDatasnapshot.getValue(VideoModelClass.class);
+                    Log.d("Post", String.valueOf(post));
+                    videoModelClassList.add(post);
+
+                }
+                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+                Log.d("Video List", String.valueOf(videoModelClassList));
+
+
+            }
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new VideoAdapter(videoModelClassList,getApplicationContext(),this::onNoteClick);
+        adapter = new VideoAdapter(videoModelClassList, getApplicationContext(), this::onNoteClick);
         recyclerView.setAdapter(adapter);
 
 
@@ -115,12 +143,12 @@ public class VideoInterventionActivity extends AppCompatActivity implements Vide
     public void onNoteClick(int position) {
 //        Toast.makeText(VideoInterventionActivity.this,"Clicked",Toast.LENGTH_SHORT).show();
         videoModelClassList.get(position);
-        String videoName = videoModelClassList.get(position).getName();
+        String videoName = videoModelClassList.get(position).getVideoName();
         Log.d("Name", videoName);
-        int url = videoModelClassList.get(position).getVideoUrl();
+        String url = videoModelClassList.get(position).getVideoUrl();
         Log.d("SongURL", String.valueOf(url));
-        int image = videoModelClassList.get(position).getImageUrl();
+        String image = videoModelClassList.get(position).getVideoImage();
         Log.d("Url", String.valueOf(url));
-        startActivity(new Intent(getApplicationContext(),PlayVideo.class).putExtra("name",videoName).putExtra("image",image).putExtra("url",url));
+        startActivity(new Intent(getApplicationContext(), PlayVideo.class).putExtra("name", videoName).putExtra("image", image).putExtra("url", url));
     }
 }

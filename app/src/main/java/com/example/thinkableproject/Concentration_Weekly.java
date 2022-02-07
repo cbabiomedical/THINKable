@@ -673,13 +673,8 @@ public class Concentration_Weekly extends AppCompatActivity {
                                         lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                                         lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
                                         lineChart.getDescription().setTextColor(R.color.white);
-//                                        lineChart.setViewPortOffsets(0,0,0,0);
-
-
-//
-////                            LineChart dataset=new LineChart(getApplicationContext(),lineObj)
-//
-//
+                                        lineChart.invalidate();
+                                        lineChart.refreshDrawableState();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override

@@ -3,6 +3,7 @@ package com.example.thinkableproject.ninjadarts;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.util.Log;
 
 public class Fruit implements GameObject{
 
@@ -56,6 +57,8 @@ public class Fruit implements GameObject{
     }
 
     public int getScoreVal(){
+//        Log.d("Fruit Score", String.valueOf(getScoreVal()));
+
         return scoreVal;
     }
 

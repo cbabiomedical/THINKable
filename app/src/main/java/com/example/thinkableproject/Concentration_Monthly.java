@@ -86,7 +86,7 @@ public class Concentration_Monthly extends AppCompatActivity {
     LineData lineData;
     LineDataSet lineDataSet;
     ArrayList lineEntries;
-    AppCompatButton progressTime,improvement;
+    AppCompatButton progressTime, improvement;
 
     ArrayList<Float> xVal = new ArrayList<>(Arrays.asList(2f, 4f, 6f, 8f, 10f, 12f, 14f));
     ArrayList<Float> yVal = new ArrayList(Arrays.asList(45f, 36f, 75f, 36f, 73f, 45f, 83f));
@@ -118,9 +118,9 @@ public class Concentration_Monthly extends AppCompatActivity {
         c1gif = findViewById(R.id.landingfwall);
         c2gif = findViewById(R.id.landingfwall1);
         lineChart = findViewById(R.id.lineChartMonthly);
-        scrollView=findViewById(R.id.scroll);
-        progressTime=findViewById(R.id.progressTime);
-        improvement=findViewById(R.id.improvement);
+        scrollView = findViewById(R.id.scroll);
+        progressTime = findViewById(R.id.progressTime);
+        improvement = findViewById(R.id.improvement);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Calendar c = Calendar.getInstance();
@@ -398,7 +398,7 @@ public class Concentration_Monthly extends AppCompatActivity {
             }
         }, delay);
 
-         try {
+        try {
             fileName = new File(getCacheDir() + "/monthlyX.txt");  //Writing data to file
             FileWriter fw;
             fw = new FileWriter(fileName);
@@ -654,17 +654,12 @@ public class Concentration_Monthly extends AppCompatActivity {
                                         lineChart.getAxisLeft().setDrawGridLines(false);
                                         lineChart.getXAxis().setDrawGridLines(false);
                                         lineChart.getAxisRight().setDrawGridLines(false);
-                                        lineChart .getAxisRight().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
                                         lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                                         lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
                                         lineChart.getDescription().setTextColor(R.color.white);
-
-
-
-//
-////                            LineChart dataset=new LineChart(getApplicationContext(),lineObj)
-//
-//
+                                        lineChart.invalidate();
+                                        lineChart.refreshDrawableState();
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
@@ -677,12 +672,7 @@ public class Concentration_Monthly extends AppCompatActivity {
                             } catch (IOException exception) {
                                 exception.printStackTrace();
                             }
-//                    Log.d("floatX Data", String.valueOf(floatList));
-//
-//
-////                            LineChart dataset=new LineChart(getApplicationContext(),lineObj)
-//
-//
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override
@@ -703,7 +693,7 @@ public class Concentration_Monthly extends AppCompatActivity {
 
     //popup window method to display suggestions to improve concentration
     public void gotoPopup2(View view) {
-        startActivity(new Intent(getApplicationContext(),Connection.class));
+        startActivity(new Intent(getApplicationContext(), Connection.class));
 //        ImageButton cancelcon, games, music1;
 //        View c1, c2;
 //        FirebaseUser mUser;

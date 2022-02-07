@@ -660,11 +660,9 @@ public class Concentration_Yearly extends AppCompatActivity {
                                         lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
                                         lineChart.getDescription().setTextColor(R.color.white);
 
+                                        lineChart.invalidate();
+                                        lineChart.refreshDrawableState();
 
-//
-////                            LineChart dataset=new LineChart(getApplicationContext(),lineObj)
-//
-//
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
@@ -677,12 +675,6 @@ public class Concentration_Yearly extends AppCompatActivity {
                             } catch (IOException exception) {
                                 exception.printStackTrace();
                             }
-//                    Log.d("floatX Data", String.valueOf(floatList));
-//
-//
-////                            LineChart dataset=new LineChart(getApplicationContext(),lineObj)
-//
-//
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override

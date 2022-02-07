@@ -63,7 +63,7 @@ public class UserProfile1 extends AppCompatActivity {
         brain_wavesList = new ArrayList<>();
         memoryList = new ArrayList<>();
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.102:5000/")
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.137:5000/")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         jsonPlaceHolder = retrofit.create(JsonPlaceHolder.class);

@@ -18,7 +18,7 @@ public class Main3Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_main3);
+        setContentView(R.layout.activity_main6);
         final Intent i=new Intent(this,Main4Activity.class);
         Button b=(Button)findViewById(R.id.btnplay);
         b.setOnClickListener(new View.OnClickListener() {

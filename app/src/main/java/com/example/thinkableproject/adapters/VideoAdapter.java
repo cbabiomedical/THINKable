@@ -75,8 +75,8 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
         final VideoModelClass coffeeItem = videoModelClassArrayList.get(position);
         //Reading all data
 //        readCursorDataMed(coffeeItem, holder);
-        holder.imageView.setImageResource(videoModelClassArrayList.get(position).getImageUrl());
-        holder.title.setText(videoModelClassArrayList.get(position).getName());
+        Picasso.get().load(videoModelClassArrayList.get(position).getVideoImage()).into(holder.imageView);
+        holder.title.setText(videoModelClassArrayList.get(position).getVideoName());
         //OnClick Listener for download buttonn in music
 //        holder.download.setOnClickListener(new View.OnClickListener() {
 //            @Override

@@ -40,6 +40,11 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.android.gms.ads.AdListener;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdSize;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
@@ -87,7 +92,7 @@ public class PlayMeditation extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_music_player);
+        setContentView(R.layout.activity_play_meditation);
 
         btnPLay = findViewById(R.id.playBtn);
         seekBar = findViewById(R.id.seekBar);
@@ -111,6 +116,54 @@ public class PlayMeditation extends AppCompatActivity {
             );
         }
 
+        AdView adView = new AdView(this);
+
+        adView.setAdSize(AdSize.BANNER);
+
+        adView.setAdUnitId("ca-app-pub-3940256099942544/6300978111");
+
+
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+            }
+        });
+
+        adView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        adView.loadAd(adRequest);
+
+
+        adView.setAdListener(new AdListener() {
+            @Override
+            public void onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+            }
+
+            @Override
+            public void onAdFailedToLoad(LoadAdError adError) {
+                // Code to be executed when an ad request fails.
+            }
+
+            @Override
+            public void onAdOpened() {
+                // Code to be executed when an ad opens an overlay that
+                // covers the screen.
+            }
+
+            @Override
+            public void onAdClicked() {
+                // Code to be executed when the user clicks on an ad.
+            }
+
+            @Override
+            public void onAdClosed() {
+                // Code to be executed when the user is about to return
+                // to the app after tapping on an ad.
+            }
+        });
+
+
         btnPLay.setOnClickListener(v -> {
             if (mediaPlayer.isPlaying()) {
                 mediaPlayer.pause();
@@ -120,7 +173,6 @@ public class PlayMeditation extends AppCompatActivity {
                 btnPLay.setBackgroundResource(R.drawable.ic_baseline_pause_24);
             }
         });
-
 
 
         Bundle extras = getIntent().getExtras();

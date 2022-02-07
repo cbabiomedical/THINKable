@@ -2,78 +2,78 @@ package com.example.thinkableproject.sample;
 
 public class VideoModelClass {
 
-    private String id;
-    private String name;
-    private int imageUrl;
-    private int videoUrl;
-    private String isFav;
+    private String videoId;
+    private String videoName;
+    private String videoImage;
+    private String videoUrl;
+    private String fav;
 
     public VideoModelClass() {
     }
 
-    public VideoModelClass(String id, String name, int imageUrl, int videoUrl) {
-        this.id = id;
-        this.name = name;
-        this.imageUrl = imageUrl;
+    public VideoModelClass(String videoId, String videoName, String videoImage, String videoUrl) {
+        this.videoId = videoId;
+        this.videoName = videoName;
+        this.videoImage = videoImage;
         this.videoUrl = videoUrl;
     }
 
-    public VideoModelClass(String id, String name, int imageUrl, int videoUrl, String isFav) {
-        this.id = id;
-        this.name = name;
-        this.imageUrl = imageUrl;
+    public VideoModelClass(String videoId, String videoName, String videoImage, String videoUrl, String fav) {
+        this.videoId = videoId;
+        this.videoName = videoName;
+        this.videoImage = videoImage;
         this.videoUrl = videoUrl;
-        this.isFav = isFav;
+        this.fav = fav;
     }
 
-    public String getId() {
-        return id;
+    public String getVideoId() {
+        return videoId;
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public void setVideoId(String videoId) {
+        this.videoId = videoId;
     }
 
-    public String getName() {
-        return name;
+    public String getVideoName() {
+        return videoName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setVideoName(String videoName) {
+        this.videoName = videoName;
     }
 
-    public int getImageUrl() {
-        return imageUrl;
+    public String getVideoImage() {
+        return videoImage;
     }
 
-    public void setImageUrl(int imageUrl) {
-        this.imageUrl = imageUrl;
+    public void setVideoImage(String videoImage) {
+        this.videoImage = videoImage;
     }
 
-    public int getVideoUrl() {
+    public String getVideoUrl() {
         return videoUrl;
     }
 
-    public void setVideoUrl(int videoUrl) {
+    public void setVideoUrl(String videoUrl) {
         this.videoUrl = videoUrl;
     }
 
-    public String getIsFav() {
-        return isFav;
+    public String getFav() {
+        return fav;
     }
 
-    public void setIsFav(String isFav) {
-        this.isFav = isFav;
+    public void setFav(String fav) {
+        this.fav = fav;
     }
 
     @Override
     public String toString() {
         return "VideoModelClass{" +
-                "id='" + id + '\'' +
-                ", name='" + name + '\'' +
-                ", imageUrl=" + imageUrl +
-                ", videoUrl=" + videoUrl +
-                ", isFav='" + isFav + '\'' +
+                "videoId='" + videoId + '\'' +
+                ", videoName='" + videoName + '\'' +
+                ", videoImage='" + videoImage + '\'' +
+                ", videoUrl='" + videoUrl + '\'' +
+                ", fav='" + fav + '\'' +
                 '}';
     }
 }

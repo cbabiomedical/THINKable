@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.example.thinkableproject.R;
+import com.example.thinkableproject.User;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
@@ -20,20 +21,60 @@ import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class GameOver extends AppCompatActivity {
 
     TextView tvPoints;
     private InterstitialAd mInterstitialAd;
+    FirebaseFirestore database;
+    User user;
+    int updatedCoins;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_over);
+        database=FirebaseFirestore.getInstance();
         int points = getIntent().getExtras().getInt("points");
         tvPoints = findViewById(R.id.tvPoints);
         tvPoints.setText("" + points);
+
+        database.collection("users")
+                .document(FirebaseAuth.getInstance().getUid())
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                user = documentSnapshot.toObject(User.class);
+//                binding.currentCoins.setText(String.valueOf(user.getCoins()));
+                Log.d("Current Coins", String.valueOf(user.getCoins()));
+                Log.d("High Score Inside", String.valueOf(points));
+                updatedCoins = (int) (user.getCoins() + points);
+                Log.d("Updated High Score", String.valueOf(updatedCoins));
+//                binding.currentCoins.setText(user.getCoins() + "");
+                database.collection("users").document(FirebaseAuth.getInstance().getUid())
+                        .update("coins", updatedCoins).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+//                        Toast.makeText(GameOver.this, "Successfully Updated Coins", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("Error", String.valueOf(e));
+//                        Toast.makeText(ColorPatternGame.this, "Failed to Update Coins", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+            }
+        });
+
 
         MobileAds.initialize(this, new OnInitializationCompleteListener() {
             @Override

@@ -758,11 +758,10 @@ public class ConcentrationReportMonthly extends AppCompatActivity {
                                         lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
                                         lineChart.getDescription().setTextColor(R.color.white);
 
-//
-////                            LineChart dataset=new LineChart(getApplicationContext(),lineObj)
-//
-//
-                                    }
+                                        lineChart.invalidate();
+                                        lineChart.refreshDrawableState();
+
+                               }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
                                     public void onFailure(@NonNull Exception e) {
@@ -774,12 +773,7 @@ public class ConcentrationReportMonthly extends AppCompatActivity {
                             } catch (IOException exception) {
                                 exception.printStackTrace();
                             }
-//                    Log.d("floatX Data", String.valueOf(floatList));
-//
-//
-////                            LineChart dataset=new LineChart(getApplicationContext(),lineObj)
-//
-//
+
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override

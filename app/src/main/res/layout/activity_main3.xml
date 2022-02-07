@@ -81,11 +81,12 @@
             </androidx.cardview.widget.CardView>
         </LinearLayout>
 
+
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvBoard"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginTop="20dp"
             android:layout_marginBottom="8dp"
             android:overScrollMode="never"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
@@ -94,5 +95,21 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/gameInfo"
             app:spanCount="2" />
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            ads:layout_constraintTop_toBottomOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            ads:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="5dp"
+            ads:adSize="BANNER"
+            ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+        </com.google.android.gms.ads.AdView>
     </androidx.constraintlayout.widget.ConstraintLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

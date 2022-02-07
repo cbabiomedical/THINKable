@@ -33,6 +33,16 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.thinkableproject.adapters.MusicAdapter;
 import com.example.thinkableproject.sample.MusicModelClass;
+import com.example.thinkableproject.spaceshooter.StartUp;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -56,7 +66,10 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
     RecyclerView recyclerView;
     ArrayList<MusicModelClass> musicList;
     MusicAdapter adapter;
+    String songName;
     Dialog dialogmusic;
+    String url;;
+    private InterstitialAd mInterstitialAd;
     String selected_time;
     LinearLayoutManager layoutManager;
     //    int time;
@@ -64,6 +77,7 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
     ImageView information;
     View c1, c2;
     int color;
+    String image;
     private RequestQueue mRequestQue;
     private String URL = "https://fcm.googleapis.com/fcm/send";
 
@@ -128,6 +142,12 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
+            }
+        });
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+                createPersonalizedAd();
             }
         });
         information.setOnClickListener(new View.OnClickListener() {
@@ -239,6 +259,56 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
 
     }
 
+    private void createPersonalizedAd() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        createInstestialAd(adRequest);
+
+    }
+
+    private void createInstestialAd(AdRequest adRequest) {
+        InterstitialAd.load(this, "ca-app-pub-3940256099942544/8691691433", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd;
+                        Log.i("TAG", "onAdLoaded");
+
+                        mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                            @Override
+                            public void onAdDismissedFullScreenContent() {
+                                // Called when fullscreen content is dismissed.
+                                Log.d("TAG", "The ad was dismissed.");
+                                startActivity(new Intent(getApplicationContext(), MusicPlayer.class).putExtra("url", url).putExtra("name", songName).putExtra("image", image));
+                            }
+
+                            @Override
+                            public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                // Called when fullscreen content failed to show.
+                                Log.d("TAG", "The ad failed to show.");
+                            }
+
+                            @Override
+                            public void onAdShowedFullScreenContent() {
+                                // Called when fullscreen content is shown.
+                                // Make sure to set your reference to null so you don't
+                                // show it a second time.
+                                mInterstitialAd = null;
+                                Log.d("TAG", "The ad was shown.");
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.i("TAG", loadAdError.getMessage());
+                        mInterstitialAd = null;
+                    }
+                });
+    }
+
     private void showStartDialog() {
         new AlertDialog.Builder(this).setTitle("One Time Dialog").setMessage("This should appear only once").setPositiveButton("OK", new DialogInterface.OnClickListener() {
             @Override
@@ -299,13 +369,17 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
     public void onNoteClick(int position) {
 
         musicList.get(position);
-        String songName = musicList.get(position).getName();
+        songName = musicList.get(position).getName();
         Log.d("Name", songName);
-        String url = musicList.get(position).getSongTitle1();
+         url = musicList.get(position).getSongTitle1();
         Log.d("SongURL", url);
-        String image = musicList.get(position).getImageUrl();
+         image = musicList.get(position).getImageUrl();
         Log.d("Url", url);
-        startActivity(new Intent(getApplicationContext(), MusicPlayer.class).putExtra("url", url).putExtra("name", songName).putExtra("image", image));
+
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(Music.this);
+        } else
+            startActivity(new Intent(getApplicationContext(), MusicPlayer.class).putExtra("url", url).putExtra("name", songName).putExtra("image", image));
     }
 
     private void sendNotification() {

@@ -122,6 +122,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
 
     public boolean ismConnected() {
         return mConnected;
+
     }
 
     public void setmConnected(boolean mConnected) {
@@ -188,7 +189,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                         uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                             @Override
                             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                Toast.makeText(activity, "File Uploaded", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(activity, "File Uploaded", Toast.LENGTH_SHORT).show();
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override

@@ -23,7 +23,7 @@ public class Main4Activity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_main4);
+        setContentView(R.layout.activity_main7);
         final Intent intent=new Intent(this,MainActivity.class);
         final ArrayList<String> tilelist=new ArrayList<>(10);
         tilelist.add("50 TILES");

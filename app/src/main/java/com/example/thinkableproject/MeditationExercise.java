@@ -24,6 +24,15 @@ import android.widget.Toast;
 
 import com.example.thinkableproject.adapters.MeditationAdapter;
 import com.example.thinkableproject.sample.MeditationModelClass;
+import com.google.android.gms.ads.AdError;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.FullScreenContentCallback;
+import com.google.android.gms.ads.LoadAdError;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.initialization.InitializationStatus;
+import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
+import com.google.android.gms.ads.interstitial.InterstitialAd;
+import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,11 +47,15 @@ import java.util.Calendar;
 
 public class MeditationExercise extends AppCompatActivity implements MeditationAdapter.OnNoteListner {
     RecyclerView recyclerView;
+    private InterstitialAd mInterstitialAd;
     ArrayList<MeditationModelClass> meditationList;
     MeditationAdapter adapter;
     LinearLayoutManager layoutManager;
     Dialog dialogmeditation;
+    String songName;
     ImageView information;
+    String image;
+    String url;
     //    int time;
     FirebaseUser mUser;
     View c1, c2;
@@ -60,7 +73,7 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
         c2 = findViewById(R.id.c2);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         dialogmeditation = new Dialog(this);
-        information=findViewById(R.id.meditationInfo);
+        information = findViewById(R.id.meditationInfo);
 
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
@@ -161,6 +174,13 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
             }
         });
 
+        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+            @Override
+            public void onInitializationComplete(InitializationStatus initializationStatus) {
+                createPersonalizedAd();
+            }
+        });
+
         recyclerView = findViewById(R.id.gridView);
 //        Spinner dropdown_time = (Spinner) findViewById(R.id.spinner2);
         // String[] items = new String[]{"Audio track duration is: 1 min", "Audio track duration is: 1.5 min", "Audio track duration is: 2 min", "Audio track duration is: 2.5 min", "Audio track duration is: 3 min"};
@@ -196,6 +216,55 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
 
         initData();
         //Calling initRecyclerView function
+    }
+
+    private void createPersonalizedAd() {
+        AdRequest adRequest = new AdRequest.Builder().build();
+        createInstestialAd(adRequest);
+    }
+
+    private void createInstestialAd(AdRequest adRequest) {
+        InterstitialAd.load(this, "ca-app-pub-3940256099942544/8691691433", adRequest,
+                new InterstitialAdLoadCallback() {
+                    @Override
+                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
+                        // The mInterstitialAd reference will be null until
+                        // an ad is loaded.
+                        mInterstitialAd = interstitialAd;
+                        Log.i("TAG", "onAdLoaded");
+
+                        mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                            @Override
+                            public void onAdDismissedFullScreenContent() {
+                                // Called when fullscreen content is dismissed.
+                                Log.d("TAG", "The ad was dismissed.");
+                                startActivity(new Intent(getApplicationContext(), PlayMeditation.class).putExtra("url", url).putExtra("name", songName).putExtra("image", image));
+                            }
+
+                            @Override
+                            public void onAdFailedToShowFullScreenContent(AdError adError) {
+                                // Called when fullscreen content failed to show.
+                                Log.d("TAG", "The ad failed to show.");
+                            }
+
+                            @Override
+                            public void onAdShowedFullScreenContent() {
+                                // Called when fullscreen content is shown.
+                                // Make sure to set your reference to null so you don't
+                                // show it a second time.
+                                mInterstitialAd = null;
+                                Log.d("TAG", "The ad was shown.");
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
+                        // Handle the error
+                        Log.i("TAG", loadAdError.getMessage());
+                        mInterstitialAd = null;
+                    }
+                });
     }
 
     private void initData() {
@@ -266,11 +335,15 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
     @Override
     public void onNoteClickMeditation(int position) {
         meditationList.get(position);
-        String songName = meditationList.get(position).getMeditateName();
-        String url = meditationList.get(position).getUrl();
-        String image = meditationList.get(position).getMeditateImage();
+        songName = meditationList.get(position).getMeditateName();
+        url = meditationList.get(position).getUrl();
+        image = meditationList.get(position).getMeditateImage();
         Log.d("Url", url);
-        startActivity(new Intent(getApplicationContext(), PlayMeditation.class).putExtra("url", url).putExtra("name", songName).putExtra("image", image));
+
+        if (mInterstitialAd != null) {
+            mInterstitialAd.show(MeditationExercise.this);
+        } else
+            startActivity(new Intent(getApplicationContext(), PlayMeditation.class).putExtra("url", url).putExtra("name", songName).putExtra("image", image));
     }
 
     @Override
@@ -357,9 +430,9 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
 
         dialogmeditation.show();
 
-        SharedPreferences prefsMed=getSharedPreferences("prefsMed",MODE_PRIVATE);
-        SharedPreferences.Editor editor=prefsMed.edit();
-        editor.putBoolean("firstStartMed",false);
+        SharedPreferences prefsMed = getSharedPreferences("prefsMed", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefsMed.edit();
+        editor.putBoolean("firstStartMed", false);
         editor.apply();
     }
 }

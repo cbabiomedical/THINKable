@@ -20,6 +20,9 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.thinkableproject.adapters.GridAdapter;
+import com.example.thinkableproject.duckhunt.StartGame;
+import com.example.thinkableproject.ninjadarts.NinjaDartsMainActivity;
+import com.example.thinkableproject.pianotiles.Main3Activity;
 import com.example.thinkableproject.sample.GameModelClass;
 import com.example.thinkableproject.spaceshooter.StartUp;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -206,6 +209,12 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
             startActivity(new Intent(getApplicationContext(), ColorPatternGame.class));
         }else if(gameList.get(position).getGameName().equals("SpaceHooter")){
             startActivity(new Intent(getApplicationContext(), StartUp.class));
+        }else if(gameList.get(position).getGameName().equals("Duck Hunt")){
+            startActivity(new Intent(getApplicationContext(), StartGame.class));
+        }else if(gameList.get(position).getGameName().equals("Ninja Dart")){
+            startActivity(new Intent(getApplicationContext(), NinjaDartsMainActivity.class));
+        }else if(gameList.get(position).getGameName().equals("Piano Tiles")){
+            startActivity(new Intent(getApplicationContext(), Main3Activity.class));
         }
         else {
             Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.vending");

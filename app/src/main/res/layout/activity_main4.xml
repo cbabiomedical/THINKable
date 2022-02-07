@@ -14,26 +14,26 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="93dp"
                 android:layout_height="175dp"
                 android:id="@+id/btn1"
                 android:background="@color/White"/>
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="93dp"
                 android:layout_height="175dp"
                 android:id="@+id/btn2"
                 android:background="@color/White"/>
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="93dp"
                 android:layout_height="175dp"
                 android:id="@+id/btn3"
                 android:background="@color/White"/>
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="93dp"
                 android:layout_height="175dp"
@@ -44,25 +44,25 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="93dp"
                 android:layout_height="175dp"
                 android:id="@+id/btn6"
                 android:background="@color/White"/>
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="93dp"
                 android:layout_height="175dp"
                 android:id="@+id/btn7"
                 android:background="@color/White"/>
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="93dp"
                 android:layout_height="175dp"
                 android:id="@+id/btn8"
                 android:background="@color/White"/>
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="93dp"
                 android:layout_height="175dp"
@@ -72,7 +72,7 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="93dp"
                 android:layout_height="175dp"
@@ -81,7 +81,7 @@
                 android:textColor="@color/White"
                 android:textSize="27dp"
                 android:background="@color/White"/>
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="93dp"
                 android:layout_height="175dp"
@@ -90,7 +90,7 @@
                 android:textColor="@color/White"
                 android:textSize="27dp"
                 android:background="@color/White"/>
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="93dp"
                 android:layout_height="175dp"
@@ -99,7 +99,7 @@
                 android:textColor="@color/White"
                 android:textSize="27dp"
                 android:background="@color/White"/>
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="93dp"
                 android:layout_height="175dp"
@@ -112,25 +112,25 @@
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="93dp"
                 android:layout_height="175dp"
                 android:id="@+id/btn16"
                 android:background="@color/White"/>
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="93dp"
                 android:layout_height="175dp"
                 android:id="@+id/btn17"
                 android:background="@color/White"/>
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="93dp"
                 android:layout_height="175dp"
                 android:id="@+id/btn18"
                 android:background="@color/White"/>
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 style="@style/Widget.AppCompat.Button.Borderless"
                 android:layout_width="93dp"
                 android:layout_height="175dp"

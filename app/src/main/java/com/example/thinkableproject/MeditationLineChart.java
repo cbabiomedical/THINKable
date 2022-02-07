@@ -60,12 +60,12 @@ public class MeditationLineChart extends AppCompatActivity {
 
         Log.d("Coins", String.valueOf(value));
 
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-                createPersonalizedAd();
-            }
-        });
+//        MobileAds.initialize(this, new OnInitializationCompleteListener() {
+//            @Override
+//            public void onInitializationComplete(InitializationStatus initializationStatus) {
+//                createPersonalizedAd();
+//            }
+//        });
 //        earnedPoints = findViewById(R.id.points);
 //        total_points = findViewById(R.id.total);
 
@@ -108,13 +108,15 @@ public class MeditationLineChart extends AppCompatActivity {
         lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
         lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
         lineChart.getDescription().setTextColor(R.color.white);
+        lineChart.invalidate();
+        lineChart.refreshDrawableState();
 //
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mInterstitialAd != null) {
-                    mInterstitialAd.show(MeditationLineChart.this);
-                } else
+//                if (mInterstitialAd != null) {
+//                    mInterstitialAd.show(MeditationLineChart.this);
+//                } else
                     startActivity(new Intent(getApplicationContext(), MeditationExercise.class));
             }
 

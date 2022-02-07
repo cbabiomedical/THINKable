@@ -74,7 +74,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
     ImageView concentration, memoryBtn;
     FirebaseUser mUser;
     String text;
-    ImageView music, meditation,video;
+    ImageView music, meditation, video;
     File fileName;
     File localFile;
     View c1, c2;
@@ -127,7 +127,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
         progressTime = findViewById(R.id.progressTime);
         //Initialize pop up window
         dialogry = new Dialog(this);
-        video=findViewById(R.id.game);
+        video = findViewById(R.id.game);
 
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference("chartTable");
@@ -204,7 +204,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
         video.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(),PlayVideo.class));
+                startActivity(new Intent(getApplicationContext(), PlayVideo.class));
             }
         });
 
@@ -679,12 +679,10 @@ public class Relaxation_Yearly extends AppCompatActivity {
                                         lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                                         lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
                                         lineChart.getDescription().setTextColor(R.color.white);
+                                        lineChart.invalidate();
+                                        lineChart.refreshDrawableState();
 
 
-//
-////                            LineChart dataset=new LineChart(getApplicationContext(),lineObj)
-//
-//
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
@@ -697,12 +695,6 @@ public class Relaxation_Yearly extends AppCompatActivity {
                             } catch (IOException exception) {
                                 exception.printStackTrace();
                             }
-//                    Log.d("floatX Data", String.valueOf(floatList));
-//
-//
-////                            LineChart dataset=new LineChart(getApplicationContext(),lineObj)
-//
-//
                         }
                     }).addOnFailureListener(new OnFailureListener() {
                         @Override

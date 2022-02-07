@@ -47,15 +47,19 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".pianotiles.Main5Activity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".pianotiles.Main4Activity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".pianotiles.Main3Activity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".pianotiles.Main2Activity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false" />
 
         <meta-data
@@ -82,14 +86,13 @@
             android:name="com.example.AdMobAddActuivity"
             android:label="@string/title_activity_ad_mob_add_actuivity" />
         <activity android:name=".VideoInterventionActivity" />
-        <activity android:name=".VideoActivity" />
-        <activity android:name="com.example.PlayVideo" />
         <activity
-            android:name=".duckhunt.GameOver"
-            android:exported="false" />
+        android:name=".duckhunt.GameOver"
+        android:exported="false" />
         <activity
             android:name=".duckhunt.DuckHuntMainActivity"
             android:exported="false" />
+        <activity android:name=".duckhunt.StartGame"/>
         <activity
             android:name=".pianotiles.MainActivity"
             android:exported="false" />
@@ -100,6 +103,7 @@
             android:name=".spaceshooter.GameOver"
             android:exported="false"
             android:screenOrientation="landscape" />
+
         <activity
             android:name=".spaceshooter.StartUp"
             android:exported="false"

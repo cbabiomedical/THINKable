@@ -21,7 +21,6 @@ import com.example.thinkableproject.creation.CreatActivity
 import com.example.thinkableproject.models.BoardSize
 import com.example.thinkableproject.models.MemoryGame
 import com.example.thinkableproject.models.UserImageList
-import com.example.thinkableproject.spaceshooter.StartUp
 import com.example.thinkableproject.utils.EXTRA_BOARD_SIZE
 import com.example.thinkableproject.utils.EXTRA_GAME_NAME
 import com.github.jinatonic.confetti.CommonConfetti
@@ -102,6 +101,48 @@ class MainActivityK : AppCompatActivity() {
 
         MobileAds.initialize(this) { createPersonalizedAd() }
 
+
+        var adView = AdView(this)
+
+        adView.adSize = AdSize.BANNER
+
+        adView.adUnitId = "ca-app-pub-3940256099942544/6300978111"
+
+
+        MobileAds.initialize(this) { }
+
+        adView = findViewById(R.id.adView)
+        val adRequest = AdRequest.Builder().build()
+        adView.loadAd(adRequest)
+
+
+        adView.adListener = object : AdListener() {
+            override fun onAdLoaded() {
+                // Code to be executed when an ad finishes loading.
+            }
+
+            override fun onAdFailedToLoad(adError: LoadAdError) {
+                // Code to be executed when an ad request fails.
+            }
+
+            override fun onAdOpened() {
+                // Code to be executed when an ad opens an overlay that
+                // covers the screen.
+            }
+
+            override fun onAdClicked() {
+                // Code to be executed when the user clicks on an ad.
+            }
+
+            override fun onAdClosed() {
+                // Code to be executed when the user is about to return
+                // to the app after tapping on an ad.
+            }
+        }
+
+        val adSize = AdSize(300, 50)
+
+
 //    remoteConfig.setDefaultsAsync(mapOf("about_link" to "https://www.youtube.com/rpandey1234", "scaled_height" to 250L, "compress_quality" to 60L))
 //    remoteConfig.fetchAndActivate()
 //      .addOnCompleteListener(this) { task ->
@@ -141,7 +182,9 @@ class MainActivityK : AppCompatActivity() {
                                 // Called when fullscreen content is dismissed.
                                 Log.d("TAG", "The ad was dismissed.")
                                 dialogIntervention.dismiss()
-                                startActivity(Intent(applicationContext, GameActivity::class.java))
+
+
+//                                startActivity(Intent(applicationContext, MainActivityK::class.java))
                             }
 
                             override fun onAdFailedToShowFullScreenContent(adError: AdError) {
@@ -378,9 +421,14 @@ class MainActivityK : AppCompatActivity() {
                 .setNegativeButton("Cancel", null)
                 .setPositiveButton("OK") { _, _ ->
                     positiveClickListener.onClick(null)
+                    if (mInterstitialAd != null) {
+                        mInterstitialAd!!.show(this@MainActivityK)
+                    } else {
+                        positiveClickListener.onClick(null)
+                    }
+
                 }.show()
     }
-
     private fun setupBoard() {
         supportActionBar?.title = gameName ?: getString(R.string.app_name)
         memoryGame = MemoryGame(boardSize, customGameImages)
@@ -543,16 +591,18 @@ class MainActivityK : AppCompatActivity() {
         lineChart.axisLeft.textColor = resources.getColor(R.color.white)
         lineChart.legend.textColor = resources.getColor(R.color.white)
         lineChart.description.textColor = R.color.white
+        lineChart.invalidate()
+        lineChart.refreshDrawableState()
 
         ok.setOnClickListener(View.OnClickListener {
-
-            if (mInterstitialAd != null) {
-                mInterstitialAd!!.show(this@MainActivityK)
-            } else {
-                val intent = Intent(this@MainActivityK, GameActivity::class.java)
-                startActivity(intent)
-                finish()
-            }
+            dialogIntervention.dismiss()
+//            if (mInterstitialAd != null) {
+//                mInterstitialAd!!.show(this@MainActivityK)
+//            } else {
+//                val intent = Intent(this@MainActivityK, MainActivityK::class.java)
+//                startActivity(intent)
+            finish()
+//            }
         })
 
         dialogIntervention.show()
