@@ -6,4 +6,24 @@
     <dimen name="text_size_small">14sp</dimen>
     <dimen name="text_size_medium">18sp</dimen>
     <dimen name="text_size_large">22sp</dimen>
+
+    <dimen name="button_margin">3dp</dimen>
+
+    <dimen name="button_margin_border">15dp</dimen>
+
+    <dimen name="titleSize">60sp</dimen>
+
+    <dimen name="buttonNavigation">50dp</dimen>
+
+    <dimen name="textScore15">30sp</dimen>
+    <dimen name="textRecord15">30sp</dimen>
+    <dimen name="buttonSize15">80dp</dimen>
+
+    <dimen name="textScore24">30sp</dimen>
+    <dimen name="textRecord24">30sp</dimen>
+    <dimen name="buttonSize24">60dp</dimen>
+
+    <dimen name="textScore9">30sp</dimen>
+    <dimen name="textRecord9">30sp</dimen>
+    <dimen name="buttonSize9">100dp</dimen>
 </resources>

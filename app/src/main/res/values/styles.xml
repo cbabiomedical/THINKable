@@ -40,4 +40,55 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowContentOverlay">@null</item>
     </style>
+
+    <style name="bNavigationStyle">
+        <item name="android:layout_width">@dimen/buttonNavigation</item>
+        <item name="android:layout_height">@dimen/buttonNavigation</item>
+    </style>
+
+
+
+    <style name="textPuzzleStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/Wood</item>
+        <item name="android:textSize">@dimen/titleSize</item>
+        <item name="android:shadowColor">@android:color/black</item>
+        <item name="android:shadowDx">5</item>
+        <item name="android:shadowDy">5</item>
+        <item name="android:shadowRadius">5</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginBottom">1dp</item>
+    </style>
+
+    <style name="textGameStyle">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/White</item>
+        <item name="android:shadowColor">@android:color/black</item>
+        <item name="android:shadowDx">5</item>
+        <item name="android:shadowDy">5</item>
+        <item name="android:shadowRadius">5</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_marginBottom">1dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+    </style>
+
+    <style name="gridBGameStyle15">
+        <item name="android:layout_width">@dimen/buttonSize15</item>
+        <item name="android:layout_height">@dimen/buttonSize15</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="gridBGameStyle24">
+        <item name="android:layout_width">@dimen/buttonSize24</item>
+        <item name="android:layout_height">@dimen/buttonSize24</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+    <style name="gridBGameStyle9">
+        <item name="android:layout_width">@dimen/buttonSize9</item>
+        <item name="android:layout_height">@dimen/buttonSize9</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
 </resources>

@@ -56,4 +56,11 @@
     <color name="btnEffectColor">#ffffff</color>
     <color name="darkblue">#010334</color>
     <color name="lightblue">#0D559C</color>
+
+<!--    <color name="White">#fff</color>-->
+    <color name="backgroundColor">#191919</color>
+    <color name="alphaWhite">#7affffff</color>
+    <color name="Wood">#C45818</color>
+    <color name="secondWood">#F2A94B</color>
+    <color name="fontOfButtons">#422c10</color>
 </resources>

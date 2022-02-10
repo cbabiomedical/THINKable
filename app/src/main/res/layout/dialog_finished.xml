@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="400dp"
+    android:orientation="vertical"
+    android:background="@drawable/dialog_border"
+    >
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:textSize="30sp"
+        android:textColor="@android:color/black"
+        android:text="@string/finished_dialog_text"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:id="@+id/finishSteps"
+        android:textColor="@android:color/black"
+        android:text="@string/finished_steps"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="70dp"
+        android:text="@string/finished_name"
+        android:textColor="@android:color/black"
+        android:layout_gravity="center"
+        android:textSize="30sp"/>
+    <EditText
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:hint="@string/finished_edittext"
+        android:id="@+id/finishName"
+        android:maxLength="8"
+
+        android:autofillHints="Guest"
+        android:gravity="center"
+        android:inputType="text" />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_height="wrap_content"
+        android:background="@drawable/menubutton"
+        android:text="@string/finished_button"
+        android:id="@+id/finishButton"
+        android:layout_gravity="center"/>
+
+</LinearLayout>

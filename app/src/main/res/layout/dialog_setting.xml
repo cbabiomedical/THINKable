@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="300dp"
+    android:layout_height="300dp"
+    android:orientation="vertical"
+    tools:context="puzzle.HomeActivity"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:background="@drawable/dialog_border"
+    android:padding="20dp">
+    <!--    <LinearLayout-->
+    <!--        android:layout_width="match_parent"-->
+    <!--        style="?android:listSeparatorTextViewStyle"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="vertical">-->
+    <!--        <TextView-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="@string/choose_language"-->
+    <!--            android:textColor="@android:color/black"-->
+    <!--            android:textSize="20sp"-->
+    <!--            android:paddingBottom="10dp"-->
+    <!--            android:gravity="center"/>-->
+    <!--    <com.google.android.material.chip.ChipGroup-->
+    <!--        android:layout_width="wrap_content"-->
+    <!--        android:layout_height="wrap_content"-->
+    <!--        android:orientation="horizontal"-->
+    <!--        app:selectionRequired="true"-->
+    <!--        android:layout_gravity="center"-->
+    <!--        android:id="@+id/languageChipGroup"-->
+    <!--        android:theme="@style/Theme.MaterialComponents.Light"-->
+    <!--        app:singleSelection="true">-->
+    <!--        <com.google.android.material.chip.Chip-->
+    <!--            style="@style/Widget.MaterialComponents.Chip.Action"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:clickable="true"-->
+    <!--            android:checkable="true"-->
+    <!--            android:focusable="true"-->
+    <!--            android:text="@string/hebrew"-->
+    <!--            android:id="@+id/hebrewChip"-->
+    <!--            android:background="@android:color/white"-->
+    <!--            app:chipIcon="@drawable/israel"-->
+    <!--            />-->
+    <!--        <com.google.android.material.chip.Chip-->
+    <!--            style="@style/Widget.MaterialComponents.Chip.Action"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="@string/english"-->
+    <!--            android:clickable="true"-->
+    <!--            android:checkable="true"-->
+    <!--            android:focusable="true"-->
+    <!--            android:id="@+id/englishChip"-->
+    <!--            app:chipIcon="@drawable/us"/>-->
+
+    <!--    </com.google.android.material.chip.ChipGroup>-->
+    <!--    </LinearLayout>-->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="?android:listSeparatorTextViewStyle"
+        android:orientation="vertical">
+        <TextView
+            android:layout_marginTop="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/sound_setting"
+            android:textColor="@android:color/black"
+            android:textSize="20sp"
+            android:paddingBottom="10dp"
+
+            android:gravity="center"/>
+        <!--    <com.google.android.material.chip.ChipGroup-->
+        <!--        android:layout_width="wrap_content"-->
+        <!--        android:layout_height="wrap_content"-->
+        <!--        android:orientation="horizontal"-->
+        <!--        android:layout_gravity="center"-->
+        <!--        android:id="@+id/SoundChipGroup"-->
+        <!--        android:theme="@style/Theme.MaterialComponents.Light"-->
+        <!--        app:singleSelection="true">-->
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/mute_unmute_sound"
+                android:textSize="15sp"
+                android:textColor="@android:color/black"
+                android:layout_marginEnd="50dp"/>
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:layout_width="wrap_content"
+                android:id="@+id/sound_switch"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"/>
+        </LinearLayout>
+    </LinearLayout>
+    <Button
+        android:layout_margin="20dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/submitButton"
+        android:layout_gravity="center"
+        android:background="@drawable/menubutton"
+        android:text="@string/accept_changes"/>
+</LinearLayout>
+
+    <!--        <com.google.android.material.chip.Chip-->
+    <!--            style="@style/Widget.MaterialComponents.Chip.Action"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="@string/sound_on"-->
+    <!--            android:id="@+id/soundOnChip"-->
+    <!--            app:chipIcon="@drawable/soundon"-->
+    <!--            />-->
+    <!--        <com.google.android.material.chip.Chip-->
+    <!--            style="@style/Widget.MaterialComponents.Chip.Action"-->
+    <!--            android:layout_width="wrap_content"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:text="@string/sound_off"-->
+    <!--            android:id="@+id/soundOffChip"-->
+    <!--            app:chipIcon="@drawable/soundoff"/>-->
+
+
+

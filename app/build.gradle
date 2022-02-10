@@ -11,7 +11,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.thinkableproject"
-        minSdkVersion 24
+        minSdkVersion 23
         buildToolsVersion "30.0.2"
         targetSdkVersion 31
         versionCode 1
@@ -124,4 +124,8 @@ dependencies {
     implementation 'com.github.jinatonic.confetti:confetti:1.1.2'
     implementation 'com.github.Mahfa:DayNightSwitch:1.5'
 
+    implementation 'com.daimajia.easing:library:2.0@aar' // animations -yoyo
+    implementation'com.daimajia.androidanimations:library:2.3@aar' //animations -yoyo
+
+    implementation 'com.google.android.material:material:1.2.1' //material desing
 }

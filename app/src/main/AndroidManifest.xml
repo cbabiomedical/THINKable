@@ -46,21 +46,39 @@
         android:theme="@style/Theme.ThinkableProject"
         android:usesCleartextTraffic="true">
         <activity
-            android:name=".pianotiles.Main5Activity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".puzzle.PuzzleMainActivity"
             android:exported="false" />
+        <activity
+            android:name=".puzzle.HomeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".puzzle.GameActivity24"
+            android:exported="false" />
+        <activity
+            android:name=".puzzle.GameActivity15"
+            android:exported="false" />
+        <activity
+            android:name=".puzzle.GameActivity9"
+            android:exported="false" />
+        <activity
+            android:name=".puzzle.ChooseDifficultActivity"
+            android:exported="false" />
+        <activity
+            android:name=".pianotiles.Main5Activity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".pianotiles.Main4Activity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".pianotiles.Main3Activity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".pianotiles.Main2Activity"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
@@ -87,12 +105,12 @@
             android:label="@string/title_activity_ad_mob_add_actuivity" />
         <activity android:name=".VideoInterventionActivity" />
         <activity
-        android:name=".duckhunt.GameOver"
-        android:exported="false" />
+            android:name=".duckhunt.GameOver"
+            android:exported="false" />
         <activity
             android:name=".duckhunt.DuckHuntMainActivity"
             android:exported="false" />
-        <activity android:name=".duckhunt.StartGame"/>
+        <activity android:name=".duckhunt.StartGame" />
         <activity
             android:name=".pianotiles.MainActivity"
             android:exported="false" />
@@ -103,7 +121,6 @@
             android:name=".spaceshooter.GameOver"
             android:exported="false"
             android:screenOrientation="landscape" />
-
         <activity
             android:name=".spaceshooter.StartUp"
             android:exported="false"

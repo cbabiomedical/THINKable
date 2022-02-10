@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
+    android:layout_height="550dp"
+    android:orientation="vertical"
+    android:background="@drawable/dialog_border"
+    android:paddingHorizontal="20dp"
+    android:paddingTop="7dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="30sp"
+        android:textColor="@android:color/black"
+        android:fontFamily="@font/baloo"
+        android:text="@string/info_title"/>
+    <TableLayout
+        android:layout_width="100dp"
+        android:layoutDirection="ltr"
+        android:layout_height="82dp"
+        android:gravity="center"
+        android:stretchColumns="0,1"
+        android:layout_gravity="center">
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            >
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="31dp"
+                android:layout_height="35dp"
+                android:layout_column="0"
+                android:gravity="center"
+                android:scaleType="fitXY"
+                android:src="@drawable/card901"
+                android:id="@+id/card1"
+                android:visibility="invisible"
+                />
+
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="31dp"
+                android:layout_height="35dp"
+                android:layout_column="0"
+                android:gravity="center"
+                android:scaleType="fitXY"
+                android:src="@drawable/card902"
+                android:id="@+id/card2"
+                android:visibility="invisible"
+                />
+        </TableRow>
+        <TableRow
+            android:layout_width="fill_parent"
+            android:layout_height="0dp"
+            android:layout_margin="1dp"
+            android:layout_weight="1"
+            >
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="31dp"
+                android:layout_height="35dp"
+                android:layout_column="0"
+                android:gravity="center"
+                android:scaleType="fitXY"
+                android:src="@drawable/card903"
+                android:id="@+id/card3"
+                android:visibility="invisible"
+                />
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="31dp"
+                android:layout_height="35dp"
+                android:layout_column="0"
+                android:gravity="center"
+                android:scaleType="fitXY"
+                android:src="@drawable/checkmark"
+                android:id="@+id/card4"
+                android:visibility="invisible"
+
+                />
+        </TableRow>
+    </TableLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        style="?android:listSeparatorTextViewStyle"
+        android:padding="10dp"
+        android:textSize="15sp"
+        android:textColor="@android:color/black"
+        android:text="@string/info_text_init"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:textSize="15sp"
+        android:layout_height="wrap_content"
+        android:textColor="@android:color/black"
+        android:text="@string/info_text"/>
+
+    <Button
+        android:id="@+id/gotItButton"
+        android:layout_margin="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:padding="10dp"
+        android:text="@string/info_dialog_button"
+        android:background="@drawable/menubutton" />
+
+</LinearLayout>
