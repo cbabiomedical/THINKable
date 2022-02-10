@@ -1,70 +1,34 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/sinnewone"
+    android:background="@drawable/scanning"
     android:orientation="vertical"
-    tools:context=".Connection">
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="MainActivity">
 
-    <RelativeLayout
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="200dp"
+        android:layout_marginTop="230dp"
+        android:layout_weight="8"
+        android:fillViewport="true"></ScrollView>
 
-        <View
-            android:id="@+id/c2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/mainlight"
-            android:visibility="gone" />
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_scan"
+        android:layout_width="250dp"
+        android:layout_height="50dp"
+        android:layout_marginBottom="30dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_weight="1"
+        android:background="@drawable/continuebg"
+        android:text="Start Scan"
+        android:textColor="@color/white" />
 
-        <View
-            android:id="@+id/c1"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@drawable/sinnewone"
-            android:visibility="gone" />
-
-
-        <ScrollView
-            android:id="@+id/scrollView"
-            android:layout_width="match_parent"
-            android:layout_height="350dp"
-            android:layout_weight="8"
-            android:fillViewport="true">
-
-
-        </ScrollView>
-
-        <com.airbnb.lottie.LottieAnimationView
-            android:layout_below="@+id/scrollView"
-            android:id="@+id/animation"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="100dp"
-            android:layout_marginTop="10dp"
-
-
-            android:layout_marginRight="100dp"
-            app:lottie_autoPlay="true"
-
-            app:lottie_loop="true"
-            app:lottie_rawRes="@raw/openblutooth" />
-
-        <Button
-            android:id="@+id/btn_scan"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_weight="1"
-            android:background="@drawable/btnpref"
-            android:fontFamily="sans-serif-condensed-medium"
-            android:text="Start Scan"
-            android:textAllCaps="false"
-            android:textColor="@color/color_white"
-            app:cornerRadius="13dp" />
-
-    </RelativeLayout>
-
-</LinearLayout>
+</RelativeLayout>

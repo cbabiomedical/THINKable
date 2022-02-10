@@ -20,14 +20,15 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.internal.LinkedTreeMap;
 import com.google.gson.reflect.TypeToken;
-
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Dictionary;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
+import okhttp3.OkHttpClient;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -63,7 +64,11 @@ public class UserProfile1 extends AppCompatActivity {
         brain_wavesList = new ArrayList<>();
         memoryList = new ArrayList<>();
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.137:5000/")
+        OkHttpClient client = new OkHttpClient.Builder()
+                .connectTimeout(120000, TimeUnit.SECONDS)
+                .readTimeout(120000,TimeUnit.SECONDS).build();
+
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.137:5000/").client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         jsonPlaceHolder = retrofit.create(JsonPlaceHolder.class);

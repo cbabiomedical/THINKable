@@ -9,6 +9,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Environment;
 import android.os.IBinder;
 import android.util.Log;
@@ -37,6 +38,8 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+
+import static android.content.Context.MODE_PRIVATE;
 
 /**
  * Created by Kelvin on 5/8/16.
@@ -137,6 +140,10 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
 
     @Override
     public void onReceive(Context context, Intent intent) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("MySharedPref", MODE_PRIVATE);
+
+// Creating an Editor object to edit(write to the file)
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         services_ArrayList = new ArrayList<>();
         characteristics_HashMap = new HashMap<>();
@@ -215,12 +222,14 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
 
         if (Service_BTLE_GATT.ACTION_GATT_CONNECTED.equals(action)) {
             mConnected = true;
-            Utils.toast(activity.getApplicationContext(), "Device Connected");
+//            Utils.toast(activity.getApplicationContext(), "Device Connected");
+            myEdit.putString("name", "Device Connected");
             mBTLE_Service_Intent = new Intent(context, Service_BTLE_GATT.class);
             context.bindService(mBTLE_Service_Intent, mBTLE_ServiceConnection, Context.BIND_AUTO_CREATE);
             context.startService(mBTLE_Service_Intent);
 //            int intent = BluetoothProfile.STATE_CONNECTED;
             Log.d("Device Thread", String.valueOf(intent));
+
             Log.d("Thread", String.valueOf(services_ArrayList));
 
             Log.d("TAG", "On Pause");
@@ -228,7 +237,9 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
         } else if (Service_BTLE_GATT.ACTION_GATT_DISCONNECTED.equals(action)) {
             mConnected = false;
             Utils.toast(activity.getApplicationContext(), "Disconnected From Device");
+            myEdit.putString("name", "Device Disconnected");
             activity.finish();
+
         } else if (Service_BTLE_GATT.ACTION_GATT_SERVICES_DISCOVERED.equals(action)) {
             activity.updateServices();
         } else if (Service_BTLE_GATT.ACTION_DATA_AVAILABLE.equals(action)) {
@@ -237,7 +248,9 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
 //            String data = intent.getStringExtra(Service_BTLE_GATT.EXTRA_DATA);
 
             activity.updateCharacteristic();
+
         }
+        myEdit.commit();
 
         return;
     }

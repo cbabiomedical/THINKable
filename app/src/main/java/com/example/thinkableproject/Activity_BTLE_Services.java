@@ -9,6 +9,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.IBinder;
@@ -52,6 +53,7 @@ public class Activity_BTLE_Services extends AppCompatActivity implements Expanda
     Button testActivity;
     private String name;
     private String address;
+    TextView deviceStatus;
 
     private ServiceConnection mBTLE_ServiceConnection = new ServiceConnection() {
 
@@ -117,8 +119,24 @@ public class Activity_BTLE_Services extends AppCompatActivity implements Expanda
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_btle_services);
+        deviceStatus=findViewById(R.id.deviceStatus);
+
 
         testActivity = findViewById(R.id.button);
+        Handler handler=new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                SharedPreferences sh = getSharedPreferences("MySharedPref", MODE_APPEND);
+                String s1 = sh.getString("name", "");
+//                Toast.makeText(Activity_BTLE_Services.this, "State " + s1, Toast.LENGTH_SHORT).show();
+                Log.d("STATE", String.valueOf(s1));
+                deviceStatus.setText(s1);
+
+
+            }
+        },5000);
+
 
         testActivity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -128,7 +146,9 @@ public class Activity_BTLE_Services extends AppCompatActivity implements Expanda
         });
 
 
-        Handler handler = new Handler();
+//        Handler handler = new Handler();
+
+
 
 
 //        BluetoothGatt bluetoothGatt= device.connectGatt(Activity_BTLE_Services.this, false, gattCallback);
@@ -149,8 +169,8 @@ public class Activity_BTLE_Services extends AppCompatActivity implements Expanda
         expandableListView.setAdapter(expandableListAdapter);
         expandableListView.setOnChildClickListener(this);
 
-        ((TextView) findViewById(R.id.tv_name)).setText(name + " Services");
-        ((TextView) findViewById(R.id.tv_address)).setText(address);
+//        ((TextView) findViewById(R.id.tv_name)).setText(name + " Services");
+//        ((TextView) findViewById(R.id.tv_address)).setText(address);
 
         handler.postDelayed(new Runnable() {
             @Override

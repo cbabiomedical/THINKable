@@ -214,13 +214,8 @@ public class Setting extends AppCompatActivity {
         help3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (mInterstitialAd != null) {
-                    mInterstitialAd.show(Setting.this);
-                } else {
-                    Log.d("TAG", "The interstitial ad wasn't ready yet.");
-                    startActivity(new Intent(getApplicationContext(), Video.class));
-                }
-
+                Log.d("TAG", "The interstitial ad wasn't ready yet.");
+                startActivity(new Intent(getApplicationContext(), UserProfile1.class));
             }
         });
 
