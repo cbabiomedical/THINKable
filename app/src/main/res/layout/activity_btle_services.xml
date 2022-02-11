@@ -3,60 +3,96 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:alpha="0.7"
+    android:background="@drawable/connectionbg"
     android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".Activity_BTLE_Services"
-    android:background="@drawable/bgsix">
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context=".Activity_BTLE_Services">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:textSize="@dimen/text_size_large"
-            android:text="Name"
-            android:layout_marginBottom="20dp"
-            android:id="@+id/tv_name"/>
+    <!--        <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="match_parent"-->
+    <!--            android:orientation="vertical">-->
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:textSize="@dimen/text_size_medium"
-            android:text="Address"
-            android:id="@+id/tv_address"/>
+    <!--            <TextView-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="0dp"-->
+    <!--                android:layout_weight="1"-->
+    <!--                android:textSize="@dimen/text_size_large"-->
+    <!--                android:text="Name"-->
+    <!--                android:layout_marginBottom="20dp"-->
+    <!--                android:id="@+id/tv_name"/>-->
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="8"
-            android:fillViewport="true"
-            android:id="@+id/scrollView">
+    <!--            <TextView-->
+    <!--                android:layout_width="match_parent"-->
+    <!--                android:layout_height="0dp"-->
+    <!--                android:layout_weight="1"-->
+    <!--                android:textSize="@dimen/text_size_medium"-->
+    <!--                android:text="Address"-->
+    <!--                android:id="@+id/tv_address"/>-->
 
-            <ExpandableListView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:groupIndicator="@null"
-                android:id="@+id/lv_expandable"
-                ></ExpandableListView>
-
-        </ScrollView>
-    </LinearLayout>
-
-    <Button
-        android:id="@+id/button"
+    <TextView
+        android:id="@+id/heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Continue"
         android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"/>
+        android:fontFamily="sans-serif-condensed-light"
+        android:text="THINKable"
+        android:textColor="@color/white"
+        android:textSize="34sp"
+        android:textStyle="bold|italic" />
 
+    <ScrollView
+        android:id="@+id/scrollView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:fillViewport="true">
+
+        <ExpandableListView
+            android:id="@+id/lv_expandable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:groupIndicator="@null"></ExpandableListView>
+
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/headBand"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="220dp"
+        android:background="@drawable/muse" />
+
+    <TextView
+        android:id="@+id/deviceStatus"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/headBand"
+        android:layout_marginTop="30dp"
+        android:fontFamily="serif"
+        android:text="Device"
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        android:textStyle="bold|italic" />
+    <!--        </LinearLayout>-->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/button"
+        android:layout_width="190dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/deviceStatus"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:background="@drawable/continuebg"
+        android:text="Continue"
+        android:textColor="@color/white"
+        android:textSize="20sp" />
 
 
 </RelativeLayout>
