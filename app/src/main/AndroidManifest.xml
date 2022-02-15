@@ -139,7 +139,8 @@
         <activity
             android:name=".LineChartExample"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".PlayVideo" />
+        <activity android:name=".PlayVideo"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".Memory_popup" />
         <activity
             android:name=".MemoryExercise"

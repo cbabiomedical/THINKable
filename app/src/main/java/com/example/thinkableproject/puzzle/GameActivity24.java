@@ -3,9 +3,11 @@ package com.example.thinkableproject.puzzle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,17 +15,24 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.thinkableproject.Music;
 import com.example.thinkableproject.R;
 import com.example.thinkableproject.puzzle.Class.Cards;
 import com.example.thinkableproject.puzzle.Class.DataBase;
 import com.example.thinkableproject.puzzle.Class.SlicingImage;
 import com.example.thinkableproject.puzzle.Class.Sound;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class GameActivity24 extends AppCompatActivity {
 
 
     private final int N = 5;
     Cards cards;
+    int a,points;
+    FirebaseUser mUser;
     private ImageButton[][] button;
     private final int[][] BUT_ID = {{R.id.b2400, R.id.b2401, R.id.b2402, R.id.b2403, R.id.b2404},
             {R.id.b2410, R.id.b2411, R.id.b2412, R.id.b2413, R.id.b2414},
@@ -75,6 +84,7 @@ public class GameActivity24 extends AppCompatActivity {
         dataBase.setPrefRef("PRESNAME24","PRESSCORE24");
         setContentView(R.layout.activity_game24);
         whatToShow = getIntent().getStringExtra("whatToShow");
+        mUser= FirebaseAuth.getInstance().getCurrentUser();
 
 
         button = new ImageButton[N][N];
@@ -83,7 +93,7 @@ public class GameActivity24 extends AppCompatActivity {
                 button[i][j] = (ImageButton) this.findViewById(BUT_ID[i][j]);
                 button[i][j].setOnClickListener(onClickListener);
             }
-        Typeface digitalFont = Typeface.createFromAsset(this.getAssets(), "font.ttf");
+//        Typeface digitalFont = Typeface.createFromAsset(this.getAssets(), "font.ttf");
 
         ImageButton newGameBtn = findViewById(R.id.bNewGame24);
         ImageButton backBtn = findViewById(R.id.bBackMenu24);
@@ -96,11 +106,11 @@ public class GameActivity24 extends AppCompatActivity {
         TextView textRecordTV = findViewById(R.id.tBestSScore24);
         recordTV =findViewById(R.id.tBestScore24);
 
-        titleTV.setTypeface(digitalFont);
-        textScoreTV.setTypeface(digitalFont);
-        scoreTV.setTypeface(digitalFont);
-        textRecordTV.setTypeface(digitalFont);
-        recordTV.setTypeface(digitalFont);
+//        titleTV.setTypeface(digitalFont);
+//        textScoreTV.setTypeface(digitalFont);
+//        scoreTV.setTypeface(digitalFont);
+//        textRecordTV.setTypeface(digitalFont);
+//        recordTV.setTypeface(digitalFont);
         Button hintBtn = findViewById(R.id.hint);
 
         AnimationDrawable animationDrawable = (AnimationDrawable)hintBtn.getBackground();
@@ -222,6 +232,32 @@ public class GameActivity24 extends AppCompatActivity {
     }
 
     private void openDialog() {
+        SharedPreferences sh = getSharedPreferences("prefsCountPuz", MODE_APPEND);
+
+// The value will be default as empty string because for
+// the very first time when the app is opened, there is nothing to show
+
+        a = sh.getInt("firstStartCountPuz", 0);
+
+// We can then use the data
+        Log.d("Count 1", String.valueOf(a));
+
+        int b = a + 1;
+        Log.d("B Val", String.valueOf(b));
+
+        SharedPreferences prefsCount1 = getSharedPreferences("prefsCountPuz", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefsCount1.edit();
+        editor.putInt("firstStartCountPuz", b);
+        editor.apply();
+        SharedPreferences sha = getSharedPreferences("prefsCountPuz", MODE_APPEND);
+
+// The value will be default as empty string because for
+// the very first time when the app is opened, there is nothing to show
+
+        int a1 = sha.getInt("firstStartCountPuz", 0);
+
+        Log.d("Count 2", String.valueOf(a1));
+
         final Dialog dialog = new Dialog(GameActivity24.this);
         dialog.setContentView(R.layout.dialog_finished);
 
@@ -230,6 +266,19 @@ public class GameActivity24 extends AppCompatActivity {
         final EditText finishName = dialog.findViewById(R.id.finishName);
         TextView finishSteps = dialog.findViewById(R.id.finishSteps);
         finishSteps.setText(numOfSteps +" "+getString(R.string.finished_steps));
+        if (numOfSteps <= 75) {
+            points = 50;
+        } else if (numOfSteps <= 90) {
+            points = 30;
+        } else if (points <= 110) {
+            points = 20;
+        } else {
+            points = 5;
+        }
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Puzzles").child(String.valueOf(a));
+        reference.setValue(points);
+
         dialog.show();
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,8 +1,10 @@
 package com.example.thinkableproject;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -11,17 +13,28 @@ import android.view.View;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+
 public class PlayVideo extends AppCompatActivity {
 
     Thread updateVideo;
     String uri;
     String name;
     boolean videoIsPlaying = false;
+    FirebaseFirestore database;
+    User user;
+    int updatedCoins;
+    int points;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_video);
+        database = FirebaseFirestore.getInstance();
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -44,6 +57,50 @@ public class PlayVideo extends AppCompatActivity {
         simpleVideoView.setMediaController(mediaController);
         Log.d("Video Duration", String.valueOf(simpleVideoView.getDuration()));
         Log.d("Current Position", String.valueOf(simpleVideoView.getCurrentPosition()));
+//
+        simpleVideoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
+            @Override
+            public void onCompletion(MediaPlayer mediaPlayer) {
+                Handler handler = new Handler();
+                handler.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        startActivity(new Intent(getApplicationContext(), VideoInterventionActivity.class));
+                        points = 10;
+                        database.collection("users")
+                                .document(FirebaseAuth.getInstance().getUid())
+                                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+                            @Override
+                            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                user = documentSnapshot.toObject(User.class);
+//                binding.currentCoins.setText(String.valueOf(user.getCoins()));
+                                Log.d("Current Coins", String.valueOf(user.getCoins()));
+                                Log.d("High Score Inside", String.valueOf(points));
+                                updatedCoins = (int) (user.getCoins() + points);
+                                Log.d("Updated High Score", String.valueOf(updatedCoins));
+//                binding.currentCoins.setText(user.getCoins() + "");
+                                database.collection("users").document(FirebaseAuth.getInstance().getUid())
+                                        .update("coins", updatedCoins).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+//                        Toast.makeText(ColorPatternGame.this, "Successfully Updated Coins", Toast.LENGTH_SHORT).show();
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d("Error", String.valueOf(e));
+//                        Toast.makeText(ColorPatternGame.this, "Failed to Update Coins", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+
+                            }
+                        });
+                    }
+                }, 1000);
+
+            }
+        });
 
         updateVideo = new Thread() {
             @Override
@@ -62,10 +119,9 @@ public class PlayVideo extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-                    if (simpleVideoView.getCurrentPosition() > simpleVideoView.getDuration()) {
-                        simpleVideoView.stopPlayback();
-                        startActivity(new Intent(getApplicationContext(), ColorPatternGame.class));
-                    }
+//                    if (simpleVideoView.getCurrentPosition() == simpleVideoView.getDuration()) {
+////                        startActivity(new Intent(getApplicationContext(), VideoInterventionActivity.class));
+////                    }
                 }
             }
 

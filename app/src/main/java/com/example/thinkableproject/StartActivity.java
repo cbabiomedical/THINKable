@@ -41,27 +41,27 @@ public class StartActivity extends AppCompatActivity {
 
         setContentView(R.layout.activity_start);
 
-        AppUpdateManager mAppUpdateManager = AppUpdateManagerFactory.create(this);
-        mAppUpdateManager.getAppUpdateInfo().addOnSuccessListener(new OnSuccessListener<AppUpdateInfo>()
-        {
-            @Override
-            public void onSuccess(AppUpdateInfo result)
-            {
-                if(result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
-                        && result.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE))
-                {
-                    try
-                    {
-                        mAppUpdateManager.startUpdateFlowForResult(result,AppUpdateType.IMMEDIATE, StartActivity.this
-                                ,RC_APP_UPDATE);
-
-                    } catch (IntentSender.SendIntentException e)
-                    {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
+//        AppUpdateManager mAppUpdateManager = AppUpdateManagerFactory.create(this);
+//        mAppUpdateManager.getAppUpdateInfo().addOnSuccessListener(new OnSuccessListener<AppUpdateInfo>()
+//        {
+//            @Override
+//            public void onSuccess(AppUpdateInfo result)
+//            {
+//                if(result.updateAvailability() == UpdateAvailability.UPDATE_AVAILABLE
+//                        && result.isUpdateTypeAllowed(AppUpdateType.IMMEDIATE))
+//                {
+//                    try
+//                    {
+//                        mAppUpdateManager.startUpdateFlowForResult(result,AppUpdateType.IMMEDIATE, StartActivity.this
+//                                ,RC_APP_UPDATE);
+//
+//                    } catch (IntentSender.SendIntentException e)
+//                    {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        });
 
         topAnim = AnimationUtils.loadAnimation(this, R.anim.bottom_animation);
 
@@ -134,24 +134,24 @@ public class StartActivity extends AppCompatActivity {
     protected void onResume()
     {
         super.onResume();
-        mAppUpdateManager.getAppUpdateInfo().addOnSuccessListener(new OnSuccessListener<AppUpdateInfo>()
-        {
-            @Override
-            public void onSuccess(AppUpdateInfo result)
-            {
-                if(result.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS)
-                {
-                    try
-                    {
-                        mAppUpdateManager.startUpdateFlowForResult(result,AppUpdateType.IMMEDIATE, StartActivity.this
-                                ,RC_APP_UPDATE);
-                    } catch (IntentSender.SendIntentException e)
-                    {
-                        e.printStackTrace();
-                    }
-                }
-            }
-        });
+//        mAppUpdateManager.getAppUpdateInfo().addOnSuccessListener(new OnSuccessListener<AppUpdateInfo>()
+//        {
+//            @Override
+//            public void onSuccess(AppUpdateInfo result)
+//            {
+//                if(result.updateAvailability() == UpdateAvailability.DEVELOPER_TRIGGERED_UPDATE_IN_PROGRESS)
+//                {
+//                    try
+//                    {
+//                        mAppUpdateManager.startUpdateFlowForResult(result,AppUpdateType.IMMEDIATE, StartActivity.this
+//                                ,RC_APP_UPDATE);
+//                    } catch (IntentSender.SendIntentException e)
+//                    {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        });
     }
 
     @Override

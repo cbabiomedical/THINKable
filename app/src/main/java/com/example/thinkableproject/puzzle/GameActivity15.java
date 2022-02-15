@@ -3,9 +3,11 @@ package com.example.thinkableproject.puzzle;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,11 +20,16 @@ import com.example.thinkableproject.puzzle.Class.Cards;
 import com.example.thinkableproject.puzzle.Class.DataBase;
 import com.example.thinkableproject.puzzle.Class.SlicingImage;
 import com.example.thinkableproject.puzzle.Class.Sound;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class GameActivity15 extends AppCompatActivity {
 
     private final int N = 4;
-    Cards cards;
+    Cards cards;int a,points;
+    FirebaseUser mUser;
     private ImageButton[][] button;
     private final int[][] BUTTON_ID = {{R.id.b1500, R.id.b1501, R.id.b1502, R.id.b1503},
             {R.id.b1510, R.id.b1511, R.id.b1512, R.id.b1513},
@@ -72,6 +79,7 @@ public class GameActivity15 extends AppCompatActivity {
         dataBase.setPrefRef("PRESNAME15","PRESSCORE15");
         setContentView(R.layout.activity_game15);
         whatToShow = getIntent().getStringExtra("whatToShow");
+        mUser= FirebaseAuth.getInstance().getCurrentUser();
 
 
 
@@ -81,7 +89,7 @@ public class GameActivity15 extends AppCompatActivity {
                 button[i][j] = (ImageButton) this.findViewById(BUTTON_ID[i][j]);
                 button[i][j].setOnClickListener(onClickListener);
             }
-        Typeface digitalFont = Typeface.createFromAsset(this.getAssets(), "font.ttf");
+//        Typeface digitalFont = Typeface.createFromAsset(this.getAssets(), "font.ttf");
 
 
         ImageButton newGameBtn =findViewById(R.id.bNewGame15);
@@ -94,12 +102,12 @@ public class GameActivity15 extends AppCompatActivity {
         scoreTV = findViewById(R.id.tScore15);
         TextView textRecordTV =findViewById(R.id.textBestScore15);
         recordTV =findViewById(R.id.tBestScore15);
-
-        titleTV.setTypeface(digitalFont);
-        textScoreTV.setTypeface(digitalFont);
-        scoreTV.setTypeface(digitalFont);
-        textRecordTV.setTypeface(digitalFont);
-        recordTV.setTypeface(digitalFont);
+//
+//        titleTV.setTypeface(digitalFont);
+//        textScoreTV.setTypeface(digitalFont);
+//        scoreTV.setTypeface(digitalFont);
+//        textRecordTV.setTypeface(digitalFont);
+//        recordTV.setTypeface(digitalFont);
         Button hintBtn = findViewById(R.id.hint);
 
         AnimationDrawable animationDrawable = (AnimationDrawable)hintBtn.getBackground();
@@ -215,6 +223,32 @@ public class GameActivity15 extends AppCompatActivity {
     }
 
     private void openDialog() {
+        SharedPreferences sh = getSharedPreferences("prefsCountPuz", MODE_APPEND);
+
+// The value will be default as empty string because for
+// the very first time when the app is opened, there is nothing to show
+
+        a = sh.getInt("firstStartCountPuz", 0);
+
+// We can then use the data
+        Log.d("Count 1", String.valueOf(a));
+
+        int b = a + 1;
+        Log.d("B Val", String.valueOf(b));
+
+        SharedPreferences prefsCount1 = getSharedPreferences("prefsCountPuz", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefsCount1.edit();
+        editor.putInt("firstStartCountPuz", b);
+        editor.apply();
+        SharedPreferences sha = getSharedPreferences("prefsCountPuz", MODE_APPEND);
+
+// The value will be default as empty string because for
+// the very first time when the app is opened, there is nothing to show
+
+        int a1 = sha.getInt("firstStartCountPuz", 0);
+
+        Log.d("Count 2", String.valueOf(a1));
+
         final Dialog dialog = new Dialog(GameActivity15.this);
         dialog.setContentView(R.layout.dialog_finished);
 
@@ -222,6 +256,19 @@ public class GameActivity15 extends AppCompatActivity {
         final EditText finishName = dialog.findViewById(R.id.finishName);
         TextView finishSteps = dialog.findViewById(R.id.finishSteps);
         finishSteps.setText(numOfSteps +" "+getString(R.string.finished_steps));
+
+        if (numOfSteps <= 50) {
+            points = 50;
+        } else if (points <= 75) {
+            points = 30;
+        } else if (points <= 90) {
+            points = 20;
+        } else {
+            points = 5;
+        }
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Puzzles").child(String.valueOf(a));
+        reference.setValue(points);
         dialog.show();
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
