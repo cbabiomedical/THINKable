@@ -1,5 +1,6 @@
 package com.example.thinkableproject.puzzle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
@@ -16,20 +17,29 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.thinkableproject.R;
+import com.example.thinkableproject.User;
 import com.example.thinkableproject.puzzle.Class.Cards;
 import com.example.thinkableproject.puzzle.Class.DataBase;
 import com.example.thinkableproject.puzzle.Class.SlicingImage;
 import com.example.thinkableproject.puzzle.Class.Sound;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class GameActivity15 extends AppCompatActivity {
 
     private final int N = 4;
-    Cards cards;int a,points;
+    Cards cards;
+    int a, points;
     FirebaseUser mUser;
+    User user;
+    int updatedCoins;
+    FirebaseFirestore database;
     private ImageButton[][] button;
     private final int[][] BUTTON_ID = {{R.id.b1500, R.id.b1501, R.id.b1502, R.id.b1503},
             {R.id.b1510, R.id.b1511, R.id.b1512, R.id.b1513},
@@ -49,59 +59,61 @@ public class GameActivity15 extends AppCompatActivity {
     private String whatToShow;
 
     DataBase dataBase = new DataBase(this);
-    Sound sound=new Sound();
+    Sound sound = new Sound();
 
     @Override
     protected void onStart() {
         super.onStart();
         if (!Sound.gameMusic.isPlaying())
-            sound.switchMusic(Sound.gameMusic,Sound.backgroundMusic);
+            sound.switchMusic(Sound.gameMusic, Sound.backgroundMusic);
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        if(!Sound.activitySwitchFlag)
+        if (!Sound.activitySwitchFlag)
             Sound.gameMusic.pause();
         else
-            sound.switchMusic(Sound.backgroundMusic,Sound.gameMusic);
+            sound.switchMusic(Sound.backgroundMusic, Sound.gameMusic);
         Sound.activitySwitchFlag = false;
 
     }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        Sound.activitySwitchFlag=true;
+        Sound.activitySwitchFlag = true;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        dataBase.setPrefRef("PRESNAME15","PRESSCORE15");
+        dataBase.setPrefRef("PRESNAME15", "PRESSCORE15");
         setContentView(R.layout.activity_game15);
         whatToShow = getIntent().getStringExtra("whatToShow");
-        mUser= FirebaseAuth.getInstance().getCurrentUser();
-
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        database=FirebaseFirestore.getInstance();
 
 
         button = new ImageButton[N][N];
-        for(int i = 0; i < N; i++)
-            for(int j = 0; j < N; j++) {
+        for (int i = 0; i < N; i++)
+            for (int j = 0; j < N; j++) {
                 button[i][j] = (ImageButton) this.findViewById(BUTTON_ID[i][j]);
                 button[i][j].setOnClickListener(onClickListener);
             }
 //        Typeface digitalFont = Typeface.createFromAsset(this.getAssets(), "font.ttf");
 
 
-        ImageButton newGameBtn =findViewById(R.id.bNewGame15);
-        ImageButton backBtn =findViewById(R.id.bBackMenu15);
+        ImageButton newGameBtn = findViewById(R.id.bNewGame15);
+        ImageButton backBtn = findViewById(R.id.bBackMenu15);
         soundBtn = findViewById(R.id.bSoundOffOn15);
 
 
         TextView titleTV = findViewById(R.id.gameTitle15);
-        TextView textScoreTV =findViewById(R.id.tSScore15);
+        TextView textScoreTV = findViewById(R.id.tSScore15);
         scoreTV = findViewById(R.id.tScore15);
-        TextView textRecordTV =findViewById(R.id.textBestScore15);
-        recordTV =findViewById(R.id.tBestScore15);
+        TextView textRecordTV = findViewById(R.id.textBestScore15);
+        recordTV = findViewById(R.id.tBestScore15);
 //
 //        titleTV.setTypeface(digitalFont);
 //        textScoreTV.setTypeface(digitalFont);
@@ -110,7 +122,7 @@ public class GameActivity15 extends AppCompatActivity {
 //        recordTV.setTypeface(digitalFont);
         Button hintBtn = findViewById(R.id.hint);
 
-        AnimationDrawable animationDrawable = (AnimationDrawable)hintBtn.getBackground();
+        AnimationDrawable animationDrawable = (AnimationDrawable) hintBtn.getBackground();
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(2000);
         animationDrawable.start();
@@ -120,29 +132,30 @@ public class GameActivity15 extends AppCompatActivity {
         backBtn.setOnClickListener(navigateBtnsClickListener);
         soundBtn.setOnClickListener(navigateBtnsClickListener);
 
-        if(whatToShow.equals("Zoo"))
+        if (whatToShow.equals("Zoo"))
             hintBtn.setVisibility(View.VISIBLE);
         else
             hintBtn.setVisibility(View.INVISIBLE);
 
-        if(Sound.check)
+        if (Sound.check)
             soundBtn.setImageResource(R.drawable.soundon);
 
 
         cards = new Cards(N, N);
         newGame();
     }
+
     View.OnClickListener navigateBtnsClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            switch(v.getId()) {
+            switch (v.getId()) {
                 case R.id.bNewGame15:
                     Sound.menuClickSound.start();
                     newGame();
                     break;
                 case R.id.bBackMenu15:
                     Sound.menuClickSound.start();
-                    Sound.activitySwitchFlag=true;
+                    Sound.activitySwitchFlag = true;
                     backMenu();
                     break;
                 case R.id.bSoundOffOn15:
@@ -160,13 +173,12 @@ public class GameActivity15 extends AppCompatActivity {
     View.OnClickListener onClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            if(!check) {
+            if (!check) {
                 for (int i = 0; i < N; i++)
                     for (int j = 0; j < N; j++)
                         if (v.getId() == BUTTON_ID[i][j])
                             buttonFunction(i, j);
-            }
-            else
+            } else
                 Toast.makeText(GameActivity15.this, R.string.you_won_toast, Toast.LENGTH_SHORT).show();
 
 
@@ -175,7 +187,7 @@ public class GameActivity15 extends AppCompatActivity {
 
     public void buttonFunction(int row, int column) {
         cards.moveCards(row, column);
-        if(cards.resultMove()) {
+        if (cards.resultMove()) {
             Sound.buttonGameSound.start();
             numOfSteps++;
             showGame();
@@ -186,7 +198,7 @@ public class GameActivity15 extends AppCompatActivity {
     public void newGame() {
         cards.getNewCards();
         numOfSteps = 0;
-        recordSteps=dataBase.getMaxScore(2,"PRESSCORE15");
+        recordSteps = dataBase.getMaxScore(2, "PRESSCORE15");
         recordTV.setText(Integer.toString(recordSteps));
         showGame();
         check = false;
@@ -199,19 +211,19 @@ public class GameActivity15 extends AppCompatActivity {
     public void showGame() {
         scoreTV.setText(Integer.toString(numOfSteps));
 
-        for(int i = 0; i < N; i++)
-            for(int j = 0; j < N; j++)
-                if(whatToShow.equals("Zoo")){
+        for (int i = 0; i < N; i++)
+            for (int j = 0; j < N; j++)
+                if (whatToShow.equals("Zoo")) {
                     if (cards.getValueBoard(i, j) != 0)
                         button[i][j].setImageBitmap(SlicingImage.imageChunksStorageList.get(cards.getValueBoard(i, j)));
                     else
-                        button[i][j].setImageResource(CARDS_ID[cards.getValueBoard(i, j)]);}
-                else
+                        button[i][j].setImageResource(CARDS_ID[cards.getValueBoard(i, j)]);
+                } else
                     button[i][j].setImageResource(CARDS_ID[cards.getValueBoard(i, j)]);
     }
 
-    public void checkFinish(){
-        if(cards.finished(N, N)){
+    public void checkFinish() {
+        if (cards.finished(N, N)) {
             showGame();
             Sound.winningSound.start();
             openDialog();
@@ -255,7 +267,7 @@ public class GameActivity15 extends AppCompatActivity {
         Button finishButton = dialog.findViewById(R.id.finishButton);
         final EditText finishName = dialog.findViewById(R.id.finishName);
         TextView finishSteps = dialog.findViewById(R.id.finishSteps);
-        finishSteps.setText(numOfSteps +" "+getString(R.string.finished_steps));
+        finishSteps.setText(numOfSteps + " " + getString(R.string.finished_steps));
 
         if (numOfSteps <= 50) {
             points = 50;
@@ -266,24 +278,53 @@ public class GameActivity15 extends AppCompatActivity {
         } else {
             points = 5;
         }
+        database.collection("users")
+                .document(mUser.getUid())
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                user = documentSnapshot.toObject(User.class);
+//                binding.currentCoins.setText(String.valueOf(user.getCoins()));
+                Log.d("Current Coins", String.valueOf(user.getCoins()));
+                Log.d("High Score Inside", String.valueOf(points));
+                updatedCoins = (int) (user.getCoins() + points);
+                Log.d("Updated High Score", String.valueOf(updatedCoins));
+//                binding.currentCoins.setText(user.getCoins() + "");
+                database.collection("users").document(mUser.getUid())
+                        .update("coins", updatedCoins).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+//                        Toast.makeText(ColorPatternGame.this, "Successfully Updated Coins", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("Error", String.valueOf(e));
+//                        Toast.makeText(ColorPatternGame.this, "Failed to Update Coins", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Puzzles").child(String.valueOf(a));
-        reference.setValue(points);
+
+            }
+        });
+
+
+//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Puzzles").child(String.valueOf(a));
+//        reference.setValue(points);
         dialog.show();
         finishButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int numOfScores,checkPlace;
-                dataBase.setPrefRef("PRESNAME15","PRESSCORE15");
-                numOfScores = dataBase.preferencesCounter.getInt("game15counter",0);
-                if(numOfScores>=10) {
+                int numOfScores, checkPlace;
+                dataBase.setPrefRef("PRESNAME15", "PRESSCORE15");
+                numOfScores = dataBase.preferencesCounter.getInt("game15counter", 0);
+                if (numOfScores >= 10) {
                     checkPlace = dataBase.checkIfScoreIsBest("PRESSCORE15", numOfSteps);
-                    if (checkPlace!=(-1)) {
-                        dataBase.changeValues(finishName.getText().toString(),numOfSteps,checkPlace);
+                    if (checkPlace != (-1)) {
+                        dataBase.changeValues(finishName.getText().toString(), numOfSteps, checkPlace);
                     }
-                }
-                else
-                    dataBase.setValues(finishName.getText().toString(),numOfSteps,2);
+                } else
+                    dataBase.setValues(finishName.getText().toString(), numOfSteps, 2);
 
                 dialog.dismiss();
 
@@ -291,7 +332,7 @@ public class GameActivity15 extends AppCompatActivity {
         });
     }
 
-    private void openHintDialog(){
+    private void openHintDialog() {
         final Dialog dialog = new Dialog(GameActivity15.this);
         dialog.setContentView(R.layout.dialog_hint);
         ImageButton imageButton = dialog.findViewById(R.id.hintImage);
@@ -313,15 +354,13 @@ public class GameActivity15 extends AppCompatActivity {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
 
     }
-    public void soundOffOn(){
-        if(Sound.check)
-        {
-            Sound.check=false;
+
+    public void soundOffOn() {
+        if (Sound.check) {
+            Sound.check = false;
             soundBtn.setImageResource(R.drawable.soundoff);
-        }
-        else
-        {
-            Sound.check=true;
+        } else {
+            Sound.check = true;
             soundBtn.setImageResource(R.drawable.soundon);
         }
         sound.setSounds();

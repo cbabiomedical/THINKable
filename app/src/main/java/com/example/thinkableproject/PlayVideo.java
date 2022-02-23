@@ -55,6 +55,10 @@ public class PlayVideo extends AppCompatActivity {
         simpleVideoView.setVideoURI(Uri.parse(uri));
         simpleVideoView.start();
         simpleVideoView.setMediaController(mediaController);
+        simpleVideoView.getDuration();
+        simpleVideoView.getCurrentPosition();
+        Log.d("Duration", String.valueOf(simpleVideoView.getDuration()));
+        Log.d("Position", String.valueOf(simpleVideoView.getCurrentPosition()));
         Log.d("Video Duration", String.valueOf(simpleVideoView.getDuration()));
         Log.d("Current Position", String.valueOf(simpleVideoView.getCurrentPosition()));
 //

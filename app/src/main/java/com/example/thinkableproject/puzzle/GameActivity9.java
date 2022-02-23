@@ -1,5 +1,6 @@
 package com.example.thinkableproject.puzzle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
@@ -16,14 +17,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.thinkableproject.R;
+import com.example.thinkableproject.User;
 import com.example.thinkableproject.puzzle.Class.Cards;
 import com.example.thinkableproject.puzzle.Class.DataBase;
 import com.example.thinkableproject.puzzle.Class.SlicingImage;
 import com.example.thinkableproject.puzzle.Class.Sound;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 public class GameActivity9 extends AppCompatActivity {
 
@@ -32,6 +38,9 @@ public class GameActivity9 extends AppCompatActivity {
     Cards cards;
     int points;
     int a;
+    User user;
+    FirebaseFirestore database;
+    int updatedCoins;
     FirebaseUser mUser;
     private ImageButton[][] button;
     private final int[][] BUTTON_ID = {{R.id.b900, R.id.b901, R.id.b902},
@@ -82,6 +91,7 @@ public class GameActivity9 extends AppCompatActivity {
         dataBase.setPrefRef("PRESNAME9", "PRESSCORE9");
         setContentView(R.layout.activity_game9);
         mUser= FirebaseAuth.getInstance().getCurrentUser();
+        database=FirebaseFirestore.getInstance();
 
         whatToShow = getIntent().getStringExtra("whatToShow");
         SharedPreferences prefsCountPuz = getSharedPreferences("prefsCountPuz", MODE_PRIVATE);
@@ -274,8 +284,39 @@ public class GameActivity9 extends AppCompatActivity {
         } else {
             points = 5;
         }
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Puzzles").child(String.valueOf(a));
-        reference.setValue(points);
+
+        database.collection("users")
+                .document(mUser.getUid())
+                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
+            @Override
+            public void onSuccess(DocumentSnapshot documentSnapshot) {
+                user = documentSnapshot.toObject(User.class);
+//                binding.currentCoins.setText(String.valueOf(user.getCoins()));
+                Log.d("Current Coins", String.valueOf(user.getCoins()));
+                Log.d("High Score Inside", String.valueOf(points));
+                updatedCoins = (int) (user.getCoins() + points);
+                Log.d("Updated High Score", String.valueOf(updatedCoins));
+//                binding.currentCoins.setText(user.getCoins() + "");
+                database.collection("users").document(mUser.getUid())
+                        .update("coins", updatedCoins).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+//                        Toast.makeText(ColorPatternGame.this, "Successfully Updated Coins", Toast.LENGTH_SHORT).show();
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        Log.d("Error", String.valueOf(e));
+//                        Toast.makeText(ColorPatternGame.this, "Failed to Update Coins", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+
+            }
+        });
+
+//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Puzzles").child(String.valueOf(a));
+//        reference.setValue(points);
 
         dialog.show();
         finishButton.setOnClickListener(new View.OnClickListener() {
@@ -294,6 +335,7 @@ public class GameActivity9 extends AppCompatActivity {
                 dialog.dismiss();
             }
         });
+
     }
 
     @Override

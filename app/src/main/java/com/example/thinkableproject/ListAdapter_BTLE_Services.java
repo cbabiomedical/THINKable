@@ -63,7 +63,26 @@ public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
         this.characteristics_HashMap = listChildData;
     }
 
-//    BluetoothGatt  bluetoothGatt= device.connectGatt(context, false, gattCallback);
+    public ListAdapter_BTLE_Services() {
+    }
+
+    public ArrayList<BluetoothGattService> getServices_ArrayList() {
+        return services_ArrayList;
+    }
+
+    public void setServices_ArrayList(ArrayList<BluetoothGattService> services_ArrayList) {
+        this.services_ArrayList = services_ArrayList;
+    }
+
+    public HashMap<String, ArrayList<BluetoothGattCharacteristic>> getCharacteristics_HashMap() {
+        return characteristics_HashMap;
+    }
+
+    public void setCharacteristics_HashMap(HashMap<String, ArrayList<BluetoothGattCharacteristic>> characteristics_HashMap) {
+        this.characteristics_HashMap = characteristics_HashMap;
+    }
+
+    //    BluetoothGatt  bluetoothGatt= device.connectGatt(context, false, gattCallback);
 
 
     @Override
@@ -124,9 +143,9 @@ public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
         Log.d("Service List", String.valueOf(services_ArrayList));
         for (int i = 0; i < services_ArrayList.size(); i++) {
             String uuid = String.valueOf((services_ArrayList.get(i).getUuid()));
-            if (uuid.equals("6c6f36f5-7601-465f-9421-ce3c46fba8ae")) {
-                Log.d("Check for Char", String.valueOf(services_ArrayList.get(i).getCharacteristics().get(0).getUuid()));
-                Log.d("Bluetooth Value", String.valueOf(services_ArrayList.get(i).getCharacteristics().get(0).getValue()));
+            if (uuid.equals("4fafc201-1fb5-459e-8fcc-c5c9c331914b")) {
+                Log.d("Check for Char", String.valueOf(services_ArrayList.get(i).getCharacteristics().get(1).getUuid()));
+                Log.d("Bluetooth Value", String.valueOf(services_ArrayList.get(i).getCharacteristics().get(1).getValue()));
             }
 
 

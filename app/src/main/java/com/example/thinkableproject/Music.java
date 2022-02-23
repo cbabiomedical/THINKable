@@ -32,6 +32,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.thinkableproject.adapters.MusicAdapter;
+import com.example.thinkableproject.sample.MeditationModelClass;
 import com.example.thinkableproject.sample.MusicModelClass;
 import com.example.thinkableproject.spaceshooter.StartUp;
 import com.google.android.gms.ads.AdError;
@@ -334,29 +335,34 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
 //    };
 
     private void initData() {
-
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Songs_Admin");
+        musicList=new ArrayList<>();
+        DatabaseReference reference=FirebaseDatabase.getInstance().getReference("Songs_Admin");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot postDatasnapshot : snapshot.getChildren()) {
-                    MusicModelClass post = postDatasnapshot.getValue(MusicModelClass.class);
-                    Log.d("Post", String.valueOf(post));
-                    musicList.add(post);
-
+                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
+                    Log.d("Child",String.valueOf(dataSnapshot.getValue()));
+                    MusicModelClass post=dataSnapshot.getValue(MusicModelClass.class);
+                    if(post.getCategory()=="Concentration"){
+                        musicList.add(post);
+                        Log.d("Concentration",String.valueOf(post));
+                    }else if(post.getCategory()=="Relaxation"){
+                        musicList.add(post);
+                        Log.d("Relaxation",String.valueOf(post));
+                    }else{
+                        musicList.add(post);
+                        Log.d("Memory",String.valueOf(post));
+                    }
                 }
-                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                Log.d("List", String.valueOf(musicList));
-
-
             }
-
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        Log.d("List", String.valueOf(musicList));
         layoutManager = new LinearLayoutManager(this);
         adapter = new MusicAdapter(musicList, getApplicationContext(), this::onNoteClick);
         recyclerView.setAdapter(adapter);
