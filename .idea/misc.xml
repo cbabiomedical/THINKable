@@ -111,7 +111,9 @@
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/activity_my_downloads.xml" value="0.184375" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/activity_notification_message.xml" value="0.184375" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/activity_profile.xml" value="0.184375" />
+        <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/activity_puzzle.xml" value="0.1" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/activity_puzzle_main.xml" value="0.1" />
+        <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/activity_puzzle_main2.xml" value="0.1" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/activity_quiz.xml" value="0.184375" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/activity_register.xml" value="0.184375" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/activity_relaxation_daily.xml" value="0.184375" />
@@ -176,6 +178,7 @@
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/game_over.xml" value="0.17074275362318841" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/game_over_dh.xml" value="0.1" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/grid_bineural.xml" value="0.184375" />
+        <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/grid_element.xml" value="0.1" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/grid_fav_item.xml" value="0.184375" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/grid_item.xml" value="0.184375" />
         <entry key="..\:/Users/Sanduni Gunawardana/Documents/GitHub/THINKable/app/src/main/res/layout/grid_item_download_games.xml" value="0.184375" />
