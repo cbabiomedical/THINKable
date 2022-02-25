@@ -123,6 +123,7 @@ dependencies {
     implementation 'com.squareup.picasso:picasso:2.71828'
     implementation 'com.github.jinatonic.confetti:confetti:1.1.2'
     implementation 'com.github.Mahfa:DayNightSwitch:1.5'
+    implementation 'com.google.android.play:core:1.10.3'
 
     implementation 'com.daimajia.easing:library:2.0@aar' // animations -yoyo
     implementation'com.daimajia.androidanimations:library:2.3@aar' //animations -yoyo

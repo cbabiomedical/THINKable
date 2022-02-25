@@ -6,6 +6,7 @@ public class MusicModelClass {
     private String id; //private variables for encapsulation
     private String name;
     private String isFav;
+    private String category;
 
     public MusicModelClass() {
     }
@@ -17,6 +18,15 @@ public class MusicModelClass {
         this.id = id;
         this.name = name;
         this.isFav = isFav;
+    }
+
+    public MusicModelClass(String imageUrl, String songTitle1, String id, String name, String isFav, String category) {
+        this.imageUrl = imageUrl;
+        this.songTitle1 = songTitle1;
+        this.id = id;
+        this.name = name;
+        this.isFav = isFav;
+        this.category = category;
     }
 
     public MusicModelClass(String imageUrl, String songTitle1, String id, String name) {
@@ -71,6 +81,15 @@ public class MusicModelClass {
     public void setIsFav(String isFav) {
         this.isFav = isFav;
     }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     //toString
     @Override
     public String toString() {

@@ -28,6 +28,7 @@ import com.example.thinkableproject.data.Result;
 import com.example.thinkableproject.duckhunt.StartGame;
 import com.example.thinkableproject.ninjadarts.NinjaDartsMainActivity;
 import com.example.thinkableproject.pianotiles.Main3Activity;
+import com.example.thinkableproject.puzzle.PuzzleMainActivity;
 import com.example.thinkableproject.sample.GameModelClass;
 import com.example.thinkableproject.sample.MusicModelClass;
 import com.example.thinkableproject.spaceshooter.StartUp;
@@ -293,10 +294,11 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
             startActivity(new Intent(getApplicationContext(), StartGame.class));
         } else if (gameList.get(position).getGameName().equals("Ninja Dart")) {
             startActivity(new Intent(getApplicationContext(), NinjaDartsMainActivity.class));
-        }
-        else if(gameList.get(position).getGameName().equals("Piano Tiles")){
+        } else if (gameList.get(position).getGameName().equals("Piano Tiles")) {
             startActivity(new Intent(getApplicationContext(), Main3Activity.class));
-        }else {
+        } else if (gameList.get(position).getGameName().equals("Puzzles")) {
+            startActivity(new Intent(getApplicationContext(), PuzzleMainActivity.class));
+        } else {
             Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.vending");
             if (launchIntent != null) {
                 Log.d("Tagopenapp", "---------------------B--------------------------");

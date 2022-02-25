@@ -12,8 +12,13 @@ import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Dialog;
+import android.bluetooth.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothGattService;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
@@ -21,6 +26,7 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.os.IBinder;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MotionEvent;
@@ -29,6 +35,7 @@ import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.ImageView;
 import android.widget.MediaController;
 import android.widget.PopupMenu;
@@ -72,7 +79,10 @@ import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Random;
+
+import static android.content.ContentValues.TAG;
 
 public class ColorPatternGame extends AppCompatActivity implements View.OnClickListener {
 
@@ -85,25 +95,36 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
     private boolean isGameStarted;
     private int random;
     private int round;
+    ArrayList colorPatternData;
     User user;
     private InterstitialAd mInterstitialAd;
     FirebaseFirestore database;
     private int counter;
     Dialog dialogColorPattern;
+    private Intent mBTLE_Service_Intent;
     private int actScore;
     private int highScore;
     ImageView colorPatternGameInfo;
     ConstraintLayout mainConstraint;
     View c1, c2;
+    Activity_BTLE_Services activity;
     FirebaseUser mUser;
+    private ListAdapter_BTLE_Services expandableListAdapter;
     VideoView gameVideo;
     int color;
+    private ArrayList<BluetoothGattService> services_ArrayList;
+    private HashMap<String, BluetoothGattCharacteristic> characteristics_HashMap;
+    private HashMap<String, ArrayList<BluetoothGattCharacteristic>> characteristics_HashMapList;
+    private ExpandableListView expandableListView;
 
     Dialog dialogIntervention;
     LineChart lineChart;
+    private boolean mBTLE_Service_Bound;
     LineData lineData;
     LineDataSet lineDataSet;
     ArrayList lineEntries;
+    private Service_BTLE_GATT mBTLE_Service;
+    private BroadcastReceiver_BTLE_GATT mGattUpdateReceiver;
 
 
     SoundPlayer sound;
@@ -113,13 +134,75 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
         this.setIsGameStarted(false);
     }
 
+    public ColorPatternGame(Activity_BTLE_Services activity) {
+        this.activity = activity;
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_color_pattern_game);
         mainConstraint = findViewById(R.id.mainConstraint);
         database = FirebaseFirestore.getInstance();
+        colorPatternData = new ArrayList();
+        ServiceConnection mBTLE_ServiceConnection = new ServiceConnection() {
+
+            @Override
+            public void onServiceConnected(ComponentName className, IBinder service) {
+
+                // We've bound to LocalService, cast the IBinder and get LocalService instance
+                Service_BTLE_GATT.BTLeServiceBinder binder = (Service_BTLE_GATT.BTLeServiceBinder) service;
+                mBTLE_Service = binder.getService();
+                Log.d("Colorr", String.valueOf(binder.getService()));
+                mBTLE_Service_Bound = true;
+
+                if (!mBTLE_Service.initialize()) {
+                    Log.e(TAG, "Unable to initialize Bluetooth");
+                    finish();
+                }
+
+//                mBTLE_Service.connect(address);
+
+                // Automatically connects to the device upon successful start-up initialization.
+//            mBTLeService.connect(mBTLeDeviceAddress);
+
+//            mBluetoothGatt = mBTLeService.getmBluetoothGatt();
+//            mGattUpdateReceiver.setBluetoothGatt(mBluetoothGatt);
+//            mGattUpdateReceiver.setBTLeService(mBTLeService);
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName arg0) {
+                mBTLE_Service = null;
+                mBTLE_Service_Bound = false;
+
+//            mBluetoothGatt = null;
+//            mGattUpdateReceiver.setBluetoothGatt(null);
+//            mGattUpdateReceiver.setBTLeService(null);
+            }
+        };
+        mBTLE_Service_Intent = new Intent(this, Service_BTLE_GATT.class);
+        bindService(mBTLE_Service_Intent, mBTLE_ServiceConnection, Context.BIND_AUTO_CREATE);
+        startService(mBTLE_Service_Intent);
+
+
         Log.d("UUid", FirebaseAuth.getInstance().getCurrentUser().getUid());
+        // Storing data into SharedPreferences
+        SharedPreferences sharedPreferences = getSharedPreferences("ColorPattern", MODE_PRIVATE);
+
+// Creating an Editor object to edit(write to the file)
+        SharedPreferences.Editor myEdit = sharedPreferences.edit();
+
+// Storing the key and its value as the data fetched from edittext
+        myEdit.putString("name", String.valueOf(getApplicationContext()));
+        Log.d("ApplicationContext", String.valueOf(getApplicationContext()));
+
+
+// Once the changes have been made,
+// we need to commit to apply those changes made,
+// otherwise, it will throw an error
+        myEdit.commit();
+
 
 //        database.collection("users")
 //                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())

@@ -156,7 +156,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
 
         @Override
         public void onClick(View v) {
-            onNoteListner.onNoteClick(getAdapterPosition());
+            onNoteListner.onNoteClickVid(getAdapterPosition());
 
 
         }
@@ -233,7 +233,7 @@ public class VideoAdapter extends RecyclerView.Adapter<VideoAdapter.ViewHolder> 
 
 
     public interface OnNoteListner {
-        void onNoteClick(int position);
+        void onNoteClickVid(int position);
     }
 
 

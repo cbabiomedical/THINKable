@@ -21,6 +21,7 @@ import java.util.Locale;
 
 public class PuzzleMainActivity extends AppCompatActivity {
 
+
     Animation topAnimation,bottomAnimation,middleAnimation;
     View line1,line2,line3,line4,line5,line6;
     TextView signture,startLogo;
@@ -33,7 +34,7 @@ public class PuzzleMainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_puzzle_main);
 
         sound.createSound(PuzzleMainActivity.this);
 

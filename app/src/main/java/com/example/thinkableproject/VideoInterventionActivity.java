@@ -128,7 +128,7 @@ public class VideoInterventionActivity extends AppCompatActivity implements Vide
         });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        adapter = new VideoAdapter(videoModelClassList, getApplicationContext(), this::onNoteClick);
+        adapter = new VideoAdapter(videoModelClassList, getApplicationContext(), this::onNoteClickVid);
         recyclerView.setAdapter(adapter);
 
 
@@ -140,7 +140,7 @@ public class VideoInterventionActivity extends AppCompatActivity implements Vide
     }
 
     @Override
-    public void onNoteClick(int position) {
+    public void onNoteClickVid(int position) {
 //        Toast.makeText(VideoInterventionActivity.this,"Clicked",Toast.LENGTH_SHORT).show();
         videoModelClassList.get(position);
         String videoName = videoModelClassList.get(position).getVideoName();

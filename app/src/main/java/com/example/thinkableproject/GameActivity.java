@@ -23,6 +23,7 @@ import com.example.thinkableproject.adapters.GridAdapter;
 import com.example.thinkableproject.duckhunt.StartGame;
 import com.example.thinkableproject.ninjadarts.NinjaDartsMainActivity;
 import com.example.thinkableproject.pianotiles.Main3Activity;
+import com.example.thinkableproject.puzzle.PuzzleMainActivity;
 import com.example.thinkableproject.sample.GameModelClass;
 import com.example.thinkableproject.spaceshooter.StartUp;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -215,6 +216,8 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
             startActivity(new Intent(getApplicationContext(), NinjaDartsMainActivity.class));
         }else if(gameList.get(position).getGameName().equals("Piano Tiles")){
             startActivity(new Intent(getApplicationContext(), Main3Activity.class));
+        }else if(gameList.get(position).getGameName().equals("Puzzles")){
+            startActivity(new Intent(getApplicationContext(), PuzzleMainActivity.class));
         }
         else {
             Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.vending");

@@ -29,6 +29,7 @@ import com.example.thinkableproject.adapters.MusicAdapter;
 import com.example.thinkableproject.duckhunt.StartGame;
 import com.example.thinkableproject.ninjadarts.NinjaDartsMainActivity;
 import com.example.thinkableproject.pianotiles.Main3Activity;
+import com.example.thinkableproject.puzzle.PuzzleMainActivity;
 import com.example.thinkableproject.sample.GameModelClass;
 import com.example.thinkableproject.sample.MeditationModelClass;
 import com.example.thinkableproject.sample.MusicModelClass;
@@ -331,12 +332,13 @@ public class MemoryExercise extends AppCompatActivity implements MusicAdapter.On
             startActivity(new Intent(getApplicationContext(), StartUp.class));
         } else if (gameList.get(position).getGameName().equals("Duck Hunt")) {
             startActivity(new Intent(getApplicationContext(), StartGame.class));
-        }else if(gameList.get(position).getGameName().equals("Ninja Dart")){
+        } else if (gameList.get(position).getGameName().equals("Ninja Dart")) {
             startActivity(new Intent(getApplicationContext(), NinjaDartsMainActivity.class));
-        }else if(gameList.get(position).getGameName().equals("Piano Tiles")){
+        } else if (gameList.get(position).getGameName().equals("Piano Tiles")) {
             startActivity(new Intent(getApplicationContext(), Main3Activity.class));
-        }
-        else {
+        } else if (gameList.get(position).getGameName().equals("Puzzles")) {
+            startActivity(new Intent(getApplicationContext(), PuzzleMainActivity.class));
+        } else {
             Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.vending");
             if (launchIntent != null) {
                 Log.d("Tagopenapp", "---------------------B--------------------------");

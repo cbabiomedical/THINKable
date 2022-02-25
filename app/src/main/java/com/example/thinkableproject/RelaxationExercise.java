@@ -22,8 +22,10 @@ import android.widget.TextView;
 
 import com.example.thinkableproject.adapters.MeditationAdapter;
 import com.example.thinkableproject.adapters.MusicAdapter;
+import com.example.thinkableproject.adapters.VideoAdapter;
 import com.example.thinkableproject.sample.MeditationModelClass;
 import com.example.thinkableproject.sample.MusicModelClass;
+import com.example.thinkableproject.sample.VideoModelClass;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -38,12 +40,13 @@ import java.util.Calendar;
 
 import pl.droidsonroids.gif.GifImageView;
 
-public class RelaxationExercise extends AppCompatActivity implements MusicAdapter.OnNoteListner, MeditationAdapter.OnNoteListner {
+public class RelaxationExercise extends AppCompatActivity implements MusicAdapter.OnNoteListner, MeditationAdapter.OnNoteListner,VideoAdapter.OnNoteListner {
     ImageView concentrationBtn;
-    RecyclerView musicRecyclerView, meditationRecyclerView;
+    RecyclerView musicRecyclerView, meditationRecyclerView, videoRecyclerview;
     MusicAdapter musicAdapter;
     MeditationAdapter meditationAdapter;
-    TextView music, meditation;
+    VideoAdapter videoAdapter;
+    TextView music, meditation, video;
     View c1, c2;
     ImageView relaxationInfo;
     GifImageView c1gif, c2gif;
@@ -53,7 +56,7 @@ public class RelaxationExercise extends AppCompatActivity implements MusicAdapte
 
     ArrayList<MusicModelClass> musicList;
     ArrayList<MeditationModelClass> meditationModelClassArrayList;
-
+    ArrayList<VideoModelClass> videoArrayList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +73,7 @@ public class RelaxationExercise extends AppCompatActivity implements MusicAdapte
         c2 = findViewById(R.id.c2);
         dialogRel = new Dialog(this);
         relaxationInfo = findViewById(R.id.relaxationInfo);
+        videoRecyclerview = findViewById(R.id.videoRecyclerView);
 
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -134,6 +138,8 @@ public class RelaxationExercise extends AppCompatActivity implements MusicAdapte
 
             }
         });
+
+        videoArrayList = new ArrayList<>();
 
         SharedPreferences prefsRelEx = getSharedPreferences("prefsRelEx", MODE_PRIVATE);
         boolean firstStartRelEx = prefsRelEx.getBoolean("firstStartRelEx", true);
@@ -254,7 +260,26 @@ public class RelaxationExercise extends AppCompatActivity implements MusicAdapte
         meditationAdapter = new MeditationAdapter(meditationModelClassArrayList, getApplicationContext(), this::onNoteClickMeditation);
         meditationRecyclerView.setAdapter(meditationAdapter);
 
+        DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("Video_Admin");
+        reference2.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    VideoModelClass post = dataSnapshot.getValue(VideoModelClass.class);
+                    videoArrayList.add(post);
+                    Log.d("VideoPost", String.valueOf(post));
+                }
+                videoRecyclerview.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.HORIZONTAL, false));
 
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        videoAdapter = new VideoAdapter( videoArrayList,getApplicationContext(), this::onNoteClickVid);
+        videoRecyclerview.setAdapter(videoAdapter);
     }
 
     @Override
@@ -363,6 +388,17 @@ public class RelaxationExercise extends AppCompatActivity implements MusicAdapte
         SharedPreferences.Editor editor = prefsRelEx.edit();
         editor.putBoolean("firstStartRelEx", false);
         editor.apply();
+
+    }
+
+    @Override
+    public void onNoteClickVid(int position) {
+        videoArrayList.get(position);
+        String url = videoArrayList.get(position).getVideoUrl();
+        String name = videoArrayList.get(position).getVideoName();
+        String image = videoArrayList.get(position).getVideoImage();
+        String id = videoArrayList.get(position).getVideoId();
+        startActivity(new Intent(getApplicationContext(), PlayVideo.class).putExtra("name", name).putExtra("url", url).putExtra("image", image).putExtra("id", id));
 
     }
 }

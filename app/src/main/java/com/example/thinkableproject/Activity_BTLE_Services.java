@@ -119,11 +119,11 @@ public class Activity_BTLE_Services extends AppCompatActivity implements Expanda
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_btle_services);
-        deviceStatus=findViewById(R.id.deviceStatus);
+        deviceStatus = findViewById(R.id.deviceStatus);
 
 
         testActivity = findViewById(R.id.button);
-        Handler handler=new Handler();
+        Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -135,7 +135,7 @@ public class Activity_BTLE_Services extends AppCompatActivity implements Expanda
 
 
             }
-        },5000);
+        }, 5000);
 
 
         testActivity.setOnClickListener(new View.OnClickListener() {
@@ -147,8 +147,6 @@ public class Activity_BTLE_Services extends AppCompatActivity implements Expanda
 
 
 //        Handler handler = new Handler();
-
-
 
 
 //        BluetoothGatt bluetoothGatt= device.connectGatt(Activity_BTLE_Services.this, false, gattCallback);
@@ -183,9 +181,9 @@ public class Activity_BTLE_Services extends AppCompatActivity implements Expanda
                         String uuid = String.valueOf((services_ArrayList.get(i).getUuid()));
                         BluetoothGattCharacteristic bluetoothGattCharacteristic = null;
 //            mBTLE_Service.setCharacteristicNotification(bluetoothGattCharacteristic, true);
-                        if (uuid.equals("6c6f36f5-7601-465f-9421-ce3c46fba8ae")) {
-                            Log.d("Thread Check for Char", String.valueOf(services_ArrayList.get(i).getCharacteristics().get(0).getUuid()));
-                            Log.d("Thread Blue Value", String.valueOf(services_ArrayList.get(i).getCharacteristics().get(0).getValue()));
+                        if (uuid.equals("4fafc201-1fb5-459e-8fcc-c5c9c331914b")) {
+                            Log.d("Thread Check for Char", String.valueOf(services_ArrayList.get(i).getCharacteristics().get(1).getUuid()));
+                            Log.d("Thread Blue Value", String.valueOf(services_ArrayList.get(i).getCharacteristics().get(1).getValue()));
                             byte[] data = services_ArrayList.get(i).getCharacteristics().get(0).getValue();
                             if (data != null) {
 
@@ -217,10 +215,10 @@ public class Activity_BTLE_Services extends AppCompatActivity implements Expanda
             String uuid = String.valueOf((services_ArrayList.get(i).getUuid()));
             BluetoothGattCharacteristic bluetoothGattCharacteristic = null;
 //            mBTLE_Service.setCharacteristicNotification(bluetoothGattCharacteristic, true);
-            if (uuid.equals("6c6f36f5-7601-465f-9421-ce3c46fba8ae")) {
-                Log.d("On Start Check for Char", String.valueOf(services_ArrayList.get(i).getCharacteristics().get(0).getUuid()));
-                Log.d("On Start Blue Value", String.valueOf(services_ArrayList.get(i).getCharacteristics().get(0).getValue()));
-                byte[] data = services_ArrayList.get(i).getCharacteristics().get(0).getValue();
+            if (uuid.equals("4fafc201-1fb5-459e-8fcc-c5c9c331914b")) {
+                Log.d("On Start Check for Char", String.valueOf(services_ArrayList.get(i).getCharacteristics().get(1).getUuid()));
+                Log.d("On Start Blue Value", String.valueOf(services_ArrayList.get(i).getCharacteristics().get(1).getValue()));
+                byte[] data = services_ArrayList.get(i).getCharacteristics().get(1).getValue();
                 if (data != null) {
 
                     dataValues.add(Utils.hexToString(data));
@@ -251,10 +249,10 @@ public class Activity_BTLE_Services extends AppCompatActivity implements Expanda
             String uuid = String.valueOf((services_ArrayList.get(i).getUuid()));
             BluetoothGattCharacteristic bluetoothGattCharacteristic = null;
 //            mBTLE_Service.setCharacteristicNotification(bluetoothGattCharacteristic, true);
-            if (uuid.equals("6c6f36f5-7601-465f-9421-ce3c46fba8ae")) {
-                Log.d("On Resume Check Char", String.valueOf(services_ArrayList.get(i).getCharacteristics().get(0).getUuid()));
-                Log.d("On Resume Blue Value", String.valueOf(services_ArrayList.get(i).getCharacteristics().get(0).getValue()));
-                byte[] data = services_ArrayList.get(i).getCharacteristics().get(0).getValue();
+            if (uuid.equals("4fafc201-1fb5-459e-8fcc-c5c9c331914b")) {
+                Log.d("On Resume Check Char", String.valueOf(services_ArrayList.get(i).getCharacteristics().get(1).getUuid()));
+                Log.d("On Resume Blue Value", String.valueOf(services_ArrayList.get(i).getCharacteristics().get(1).getValue()));
+                byte[] data = services_ArrayList.get(i).getCharacteristics().get(1).getValue();
                 if (data != null) {
 
                     dataValues.add(Utils.hexToString(data));
@@ -278,10 +276,10 @@ public class Activity_BTLE_Services extends AppCompatActivity implements Expanda
             String uuid = String.valueOf((services_ArrayList.get(i).getUuid()));
             BluetoothGattCharacteristic bluetoothGattCharacteristic = null;
 //            mBTLE_Service.setCharacteristicNotification(bluetoothGattCharacteristic, true);
-            if (uuid.equals("6c6f36f5-7601-465f-9421-ce3c46fba8ae")) {
-                Log.d("On Pause Check for Char", String.valueOf(services_ArrayList.get(i).getCharacteristics().get(0).getUuid()));
-                Log.d("On Pause Blue Value", String.valueOf(services_ArrayList.get(i).getCharacteristics().get(0).getValue()));
-                byte[] data = services_ArrayList.get(i).getCharacteristics().get(0).getValue();
+            if (uuid.equals("4fafc201-1fb5-459e-8fcc-c5c9c331914b")) {
+                Log.d("On Pause Check for Char", String.valueOf(services_ArrayList.get(i).getCharacteristics().get(1).getUuid()));
+                Log.d("On Pause Blue Value", String.valueOf(services_ArrayList.get(i).getCharacteristics().get(1).getValue()));
+                byte[] data = services_ArrayList.get(i).getCharacteristics().get(1).getValue();
                 if (data != null) {
 
                     dataValues.add(Utils.hexToString(data));
