@@ -46,6 +46,9 @@
         android:theme="@style/Theme.ThinkableProject"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".IHaveToFly.IHaveToFlyMainActivity"
+            android:exported="false" />
+        <activity
             android:name=".DragandDropPuzzle.PuzzleActivity"
             android:exported="false" />
         <activity
