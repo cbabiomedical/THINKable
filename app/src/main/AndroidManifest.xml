@@ -46,6 +46,33 @@
         android:theme="@style/Theme.ThinkableProject"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".WordMatching.VictoryPage"
+            android:exported="false" />
+        <activity
+            android:name=".WordMatching.TwoByTwoGrid"
+            android:exported="false" />
+        <activity
+            android:name=".WordMatching.TwoByThreeGrid"
+            android:exported="false" />
+        <activity
+            android:name=".WordMatching.TwoBySixGrid"
+            android:exported="false" />
+        <activity
+            android:name=".WordMatching.TwoByFourGrid"
+            android:exported="false" />
+        <activity
+            android:name=".WordMatching.TwoByFiveGrid"
+            android:exported="false" />
+        <activity
+            android:name=".WordMatching.MainMenu"
+            android:exported="false" />
+        <activity
+            android:name=".WordMatching.KeysPage"
+            android:exported="false" />
+        <activity
+            android:name=".WordMatching.EndGame"
+            android:exported="false" />
+        <activity
             android:name=".IHaveToFly.IHaveToFlyMainActivity"
             android:exported="false" />
         <activity
@@ -148,8 +175,9 @@
         <activity
             android:name=".LineChartExample"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name=".PlayVideo"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name=".PlayVideo"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".Memory_popup" />
         <activity
             android:name=".MemoryExercise"
