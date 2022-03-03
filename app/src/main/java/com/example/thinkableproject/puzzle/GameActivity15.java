@@ -40,6 +40,7 @@ public class GameActivity15 extends AppCompatActivity {
     User user;
     int updatedCoins;
     FirebaseFirestore database;
+    public static boolean isStarted = false;
     private ImageButton[][] button;
     private final int[][] BUTTON_ID = {{R.id.b1500, R.id.b1501, R.id.b1502, R.id.b1503},
             {R.id.b1510, R.id.b1511, R.id.b1512, R.id.b1513},
@@ -92,7 +93,8 @@ public class GameActivity15 extends AppCompatActivity {
         setContentView(R.layout.activity_game15);
         whatToShow = getIntent().getStringExtra("whatToShow");
         mUser = FirebaseAuth.getInstance().getCurrentUser();
-        database=FirebaseFirestore.getInstance();
+        database = FirebaseFirestore.getInstance();
+        isStarted = true;
 
 
         button = new ImageButton[N][N];
@@ -235,6 +237,7 @@ public class GameActivity15 extends AppCompatActivity {
     }
 
     private void openDialog() {
+        isStarted=false;
         SharedPreferences sh = getSharedPreferences("prefsCountPuz", MODE_APPEND);
 
 // The value will be default as empty string because for

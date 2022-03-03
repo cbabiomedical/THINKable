@@ -14,6 +14,7 @@ import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattService;
+import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -43,6 +44,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.VideoView;
 
+import com.airbnb.lottie.L;
 import com.example.thinkableproject.sample.SoundPlayer;
 import com.example.thinkableproject.spaceshooter.GameOver;
 import com.example.thinkableproject.spaceshooter.StartUp;
@@ -78,8 +80,10 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import org.w3c.dom.Text;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Random;
 
 import static android.content.ContentValues.TAG;
@@ -92,7 +96,7 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
     Button[] btnArray;
     Button clickedBtn;
     int updatedCoins;
-    private boolean isGameStarted;
+    public static boolean isGameStarted;
     private int random;
     private int round;
     ArrayList colorPatternData;
@@ -116,13 +120,14 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
     private HashMap<String, BluetoothGattCharacteristic> characteristics_HashMap;
     private HashMap<String, ArrayList<BluetoothGattCharacteristic>> characteristics_HashMapList;
     private ExpandableListView expandableListView;
-
+    private String address;
     Dialog dialogIntervention;
     LineChart lineChart;
     private boolean mBTLE_Service_Bound;
     LineData lineData;
     LineDataSet lineDataSet;
     ArrayList lineEntries;
+    String name;
     private Service_BTLE_GATT mBTLE_Service;
     private BroadcastReceiver_BTLE_GATT mGattUpdateReceiver;
 
@@ -134,9 +139,21 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
         this.setIsGameStarted(false);
     }
 
-    public ColorPatternGame(Activity_BTLE_Services activity) {
-        this.activity = activity;
+
+
+    public boolean isGameStarted() {
+        return isGameStarted;
     }
+
+    public ColorPatternGame(boolean isGameStarted) {
+        this.isGameStarted = isGameStarted;
+    }
+
+    public void setGameStarted(boolean gameStarted) {
+        isGameStarted = gameStarted;
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -145,45 +162,9 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
         mainConstraint = findViewById(R.id.mainConstraint);
         database = FirebaseFirestore.getInstance();
         colorPatternData = new ArrayList();
-        ServiceConnection mBTLE_ServiceConnection = new ServiceConnection() {
+        Log.d("Out", String.valueOf(colorPatternData));
 
-            @Override
-            public void onServiceConnected(ComponentName className, IBinder service) {
-
-                // We've bound to LocalService, cast the IBinder and get LocalService instance
-                Service_BTLE_GATT.BTLeServiceBinder binder = (Service_BTLE_GATT.BTLeServiceBinder) service;
-                mBTLE_Service = binder.getService();
-                Log.d("Colorr", String.valueOf(binder.getService()));
-                mBTLE_Service_Bound = true;
-
-                if (!mBTLE_Service.initialize()) {
-                    Log.e(TAG, "Unable to initialize Bluetooth");
-                    finish();
-                }
-
-//                mBTLE_Service.connect(address);
-
-                // Automatically connects to the device upon successful start-up initialization.
-//            mBTLeService.connect(mBTLeDeviceAddress);
-
-//            mBluetoothGatt = mBTLeService.getmBluetoothGatt();
-//            mGattUpdateReceiver.setBluetoothGatt(mBluetoothGatt);
-//            mGattUpdateReceiver.setBTLeService(mBTLeService);
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName arg0) {
-                mBTLE_Service = null;
-                mBTLE_Service_Bound = false;
-
-//            mBluetoothGatt = null;
-//            mGattUpdateReceiver.setBluetoothGatt(null);
-//            mGattUpdateReceiver.setBTLeService(null);
-            }
-        };
-        mBTLE_Service_Intent = new Intent(this, Service_BTLE_GATT.class);
-        bindService(mBTLE_Service_Intent, mBTLE_ServiceConnection, Context.BIND_AUTO_CREATE);
-        startService(mBTLE_Service_Intent);
+//        Log.d("Outside Array", String.valueOf(services_ArrayList));
 
 
         Log.d("UUid", FirebaseAuth.getInstance().getCurrentUser().getUid());
@@ -399,7 +380,6 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-
                 Toast.makeText(getApplicationContext(), "Ready to Start <3", Toast.LENGTH_LONG).show();
 
 
@@ -653,13 +633,19 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
     // game is starting by clicking the start button
     public void startGame() {
         Button start = findViewById(R.id.startBtn);
+
         start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                isGameStarted = true;
+                setIsGameStarted(true);
                 resetGame();
                 animateBtn();
                 round = round + 1;
                 isGameStarted = true;
+                Log.d("STATE","true");
+                Log.d("STATE", String.valueOf(isGameStarted()));
+
             }
         });
     }
@@ -948,4 +934,14 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
 
 
     }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+//        unbindService(mBTLE_ServiceConnection);
+//        mBTLE_Service_Intent = null;
+    }
+
+
+
 }

@@ -42,6 +42,7 @@ public class PuzzleActivity extends AppCompatActivity {
     Double score;
     int tiles = -1;
     double startTime = 0;
+    public static boolean isStarted=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,7 @@ public class PuzzleActivity extends AppCompatActivity {
 
         final RelativeLayout layout = findViewById(R.id.layout);
         final ImageView imageView = findViewById(R.id.imageView);
+        isStarted=true;
 
         Intent intent = getIntent();
         final String assetName = intent.getStringExtra("assetName");
@@ -300,6 +302,7 @@ public class PuzzleActivity extends AppCompatActivity {
     public void checkGameOver() {
         if (isGameOver()) {
             score=(SystemClock.uptimeMillis()-startTime)/1000;
+            isStarted=false;
             Toast.makeText(PuzzleActivity.this, "got result", Toast.LENGTH_SHORT).show();
             finish();
         }

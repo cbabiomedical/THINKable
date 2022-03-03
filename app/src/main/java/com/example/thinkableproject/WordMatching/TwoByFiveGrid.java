@@ -14,6 +14,7 @@ public class TwoByFiveGrid extends AppCompatActivity {
 
     Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8, btn9, btn10;
     GameUtilities util;
+    public static boolean isStarted=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +30,7 @@ public class TwoByFiveGrid extends AppCompatActivity {
         btn9 = (Button)findViewById(R.id.Btn2x5E1);
         btn10 = (Button)findViewById(R.id.Btn2x5E2);
         util = new GameUtilities(10);
+        isStarted=true;
         setUpButtons();
     }
     public void writeToButton(int index,String string){
@@ -130,6 +132,7 @@ public class TwoByFiveGrid extends AppCompatActivity {
             }
             util.resetGuess();
             if(util.getButtonsLeft()==0){
+                isStarted=false;
                 Intent intent = new Intent(this,VictoryPage.class);
                 GlobalElements.getInstance().addToScore(GlobalElements.getPar(GlobalElements.getInstance().getLevel())-util.getMovesUsed());
                 startActivity(intent);

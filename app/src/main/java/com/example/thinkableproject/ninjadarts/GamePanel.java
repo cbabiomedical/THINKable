@@ -73,6 +73,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     ArrayList<Float> xVal = new ArrayList();
     ArrayList<Float> yVal = new ArrayList<>();
     long startTime, endTime;
+    public static boolean isStarted = false;
 
 
     private int highScore = Constants.PREF.getInt("key", 0);
@@ -84,6 +85,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         super(context);
         startTime = System.currentTimeMillis();
+        isStarted = true;
         Log.d("StartTime", String.valueOf(startTime));
         dialog = new Dialog(context);
         SharedPreferences prefsCount1 = context.getSharedPreferences("prefsCountNinja", MODE_PRIVATE);
@@ -108,11 +110,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         fruitManager = new FruitManager(200, 200, 325, Color.argb(0, 255, 255, 255));
         Log.d("XX", String.valueOf(fruitManager.getScore()));
         setFocusable(true);
-
-        if (gameOver) {
-//            openPopUpIntervention();
-
-        }
 
 
     }
@@ -226,6 +223,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
             if (x) {
                 gameOver = true;
+                isStarted = false;
                 Log.d("X Over", "True");
                 thread.sleep(200);
                 Intent intent = new Intent(getContext(), NinjaDartLineChart.class);
@@ -261,7 +259,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 // Storing the key and its value as the data fetched from edittext
                         myEdit.putInt("sec", (int) seconds);
                         Log.d("MyEdit", String.valueOf(myEdit));
-
 
 
 // Once the changes have been made,
@@ -305,6 +302,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             if (y) {
 
                 gameOver = true;
+                isStarted = false;
                 thread.sleep(200);
                 Intent intent = new Intent(getContext(), NinjaDartLineChart.class);
                 getContext().startActivity(intent);
@@ -348,9 +346,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 Log.d("ASec", String.valueOf(seconds));
 
 
-
-
-
             }
             Log.d("CHECKOUT", String.valueOf(fruitManager.getScore()));
 
@@ -376,6 +371,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         //Set gameover screen
         if (gameOver) {
+            isStarted = false;
 
 //            Intent    intent = new Intent(getContext(), GameActivity.class);
 //            context.startActivity(intent);

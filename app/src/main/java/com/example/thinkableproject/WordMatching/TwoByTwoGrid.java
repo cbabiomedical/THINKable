@@ -17,6 +17,7 @@ public class TwoByTwoGrid extends AppCompatActivity {
     Button btn3;
     Button btn4;
     GameUtilities util;
+    public static boolean isStarted=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,6 +27,7 @@ public class TwoByTwoGrid extends AppCompatActivity {
         btn3 = (Button)findViewById(R.id.bottomLeft);
         btn4 = (Button)findViewById(R.id.bottomRight);
         util = new GameUtilities(4);
+        isStarted=true;
     }
     public void writeToButton(int index,String text){
         switch(index){
@@ -83,6 +85,7 @@ public class TwoByTwoGrid extends AppCompatActivity {
             }
             util.resetGuess();
             if(util.getButtonsLeft()==0){
+                isStarted=false;
                 Intent intent = new Intent(this,VictoryPage.class);
                 GlobalElements.getInstance().addToScore(GlobalElements.getPar(GlobalElements.getInstance().getLevel())-util.getMovesUsed());
                 startActivity(intent);

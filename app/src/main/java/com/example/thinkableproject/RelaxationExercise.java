@@ -239,7 +239,7 @@ public class RelaxationExercise extends AppCompatActivity implements MusicAdapte
             }
         });
 
-        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Meditation_Admin");
+        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Meditation_Admin").child("Meditation_Relaxation");
         reference1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

@@ -14,6 +14,7 @@ public class TwoBySixGrid extends AppCompatActivity {
 
     Button[] btnArr;
     GameUtilities util;
+    public static boolean isStarted=false;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +33,7 @@ public class TwoBySixGrid extends AppCompatActivity {
         Button btn12= (Button)findViewById(R.id.Btn2x6F2);
         btnArr = new Button[]{btn1,btn2,btn3,btn4,btn5,btn6,btn7,btn8,btn9,btn10,btn11,btn12};
         util = new GameUtilities(12);
+        isStarted=true;
         setUpButtons();
     }
     public void setUpButtons(){

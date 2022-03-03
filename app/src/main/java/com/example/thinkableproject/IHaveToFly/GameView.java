@@ -34,6 +34,7 @@ public class GameView extends SurfaceView implements Runnable {
     private List<Bullet> bullets;
     private int sound;
     private Flight flight;
+    public static boolean isStarted=false;
     private GameActivity activity;
     private Background background1, background2;
 
@@ -43,6 +44,7 @@ public class GameView extends SurfaceView implements Runnable {
         this.activity = activity;
 
         prefs = activity.getSharedPreferences("game", Context.MODE_PRIVATE);
+        isStarted=true;
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -228,6 +230,7 @@ public class GameView extends SurfaceView implements Runnable {
         try {
             Thread.sleep(3000);
             activity.startActivity(new Intent(activity, IHaveToFlyMainActivity.class));
+            isStarted=false;
             activity.finish();
         } catch (InterruptedException e) {
             e.printStackTrace();

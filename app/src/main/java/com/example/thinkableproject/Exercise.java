@@ -22,6 +22,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.thinkableproject.IHaveToFly.IHaveToFlyMainActivity;
+import com.example.thinkableproject.WordMatching.MainMenu;
 import com.example.thinkableproject.adapters.GridAdapter;
 import com.example.thinkableproject.adapters.MusicAdapter;
 import com.example.thinkableproject.data.Result;
@@ -216,7 +218,7 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
     private void initData() {
         musicAdapter = new MusicAdapter(musicList, getApplicationContext(), this::onNoteClick);
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Songs_Admin");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Songs_Admin").child("Songs_Concentration");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -298,7 +300,13 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
             startActivity(new Intent(getApplicationContext(), Main3Activity.class));
         } else if (gameList.get(position).getGameName().equals("Puzzles")) {
             startActivity(new Intent(getApplicationContext(), PuzzleMainActivity.class));
-        } else {
+        } else if (gameList.get(position).getGameName().equals("Puzzle Advanced")) {
+            startActivity(new Intent(getApplicationContext(), com.example.thinkableproject.DragandDropPuzzle.PuzzleMainActivity.class));
+        } else if(gameList.get(position).getGameName().equals("I Have to Fly")){
+            startActivity(new Intent(getApplicationContext(), IHaveToFlyMainActivity.class));
+        } else if(gameList.get(position).getGameName().equals("Word Match")){
+            startActivity(new Intent(getApplicationContext(), MainMenu.class));
+        } {
             Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.vending");
             if (launchIntent != null) {
                 Log.d("Tagopenapp", "---------------------B--------------------------");

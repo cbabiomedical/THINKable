@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     int updatedCoins;
     int points;
     int a;
+    public static boolean isStarted=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -161,12 +162,14 @@ public class MainActivity extends AppCompatActivity {
             double startTime = 0;
 
 
+
             @Override
             public void onClick(View v) {
 
                 if (tiles == -1) {
                     ((Button) v).setText("");
                     startTime = SystemClock.uptimeMillis();
+                    isStarted=true;
                 }
                 score = (SystemClock.uptimeMillis() - startTime) / 1000;
                 tiles++;
@@ -283,6 +286,7 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                     }
+                    isStarted=false;
                     startActivity(i);
                     database.collection("users")
                             .document(mUser.getUid())
@@ -462,15 +466,15 @@ public class MainActivity extends AppCompatActivity {
                             default:
                                 break;
                             case 1:
-                                i.putExtra("SCORE", "FAILED");
+                                i.putExtra("SCORE",  String.valueOf(0.00));
                                 startActivity(i);
                                 break;
                             case 2:
-                                i.putExtra("SCORE", "FAILED");
+                                i.putExtra("SCORE",  String.valueOf(0.00));
                                 startActivity(i);
                                 break;
                             case 3:
-                                i.putExtra("SCORE", "FAILED");
+                                i.putExtra("SCORE",  String.valueOf(0.00));
                                 startActivity(i);
                                 break;
                         }
@@ -613,15 +617,15 @@ public class MainActivity extends AppCompatActivity {
                             default:
                                 break;
                             case 0:
-                                i.putExtra("SCORE", "FAILED");
+                                i.putExtra("SCORE",  String.valueOf(0.00));
                                 startActivity(i);
                                 break;
                             case 2:
-                                i.putExtra("SCORE", "FAILED");
+                                i.putExtra("SCORE",  String.valueOf(0.00));
                                 startActivity(i);
                                 break;
                             case 3:
-                                i.putExtra("SCORE", "FAILED");
+                                i.putExtra("SCORE",  String.valueOf(0.00));
                                 startActivity(i);
                                 break;
                         }
@@ -763,15 +767,15 @@ public class MainActivity extends AppCompatActivity {
                             default:
                                 break;
                             case 1:
-                                i.putExtra("SCORE", "FAILED");
+                                i.putExtra("SCORE",  String.valueOf(0.00));
                                 startActivity(i);
                                 break;
                             case 0:
-                                i.putExtra("SCORE", "FAILED");
+                                i.putExtra("SCORE",  String.valueOf(0.00));
                                 startActivity(i);
                                 break;
                             case 3:
-                                i.putExtra("SCORE", "FAILED");
+                                i.putExtra("SCORE",  String.valueOf(0.00));
                                 startActivity(i);
                                 break;
                         }
@@ -917,16 +921,16 @@ public class MainActivity extends AppCompatActivity {
                             default:
                                 break;
                             case 1:
-                                i.putExtra("SCORE", "FAILED");
+                                i.putExtra("SCORE",  String.valueOf(0.00));
                                 startActivity(i);
 
                                 break;
                             case 2:
-                                i.putExtra("SCORE", "FAILED");
+                                i.putExtra("SCORE",  String.valueOf(0.00));
                                 startActivity(i);
                                 break;
                             case 0:
-                                i.putExtra("SCORE", "FAILED");
+                                i.putExtra("SCORE",  String.valueOf(0.00));
                                 startActivity(i);
                                 break;
                         }

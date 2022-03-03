@@ -206,7 +206,7 @@ public class ListAdapter_BTLE_Services extends BaseExpandableListAdapter {
 
         byte[] data = bluetoothGattCharacteristic.getValue();
         if (data != null) {
-            tv_value.setText("Value: " + Utils.hexToString(data));
+            tv_value.setText("ListAdapter Value: " + Utils.hexToString(data));
             dataValues.add(Utils.hexToString(data));
 
             try {

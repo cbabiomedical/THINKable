@@ -115,6 +115,7 @@ public class Activity_BTLE_Services extends AppCompatActivity implements Expanda
         this.characteristics_HashMapList = characteristics_HashMapList;
     }
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

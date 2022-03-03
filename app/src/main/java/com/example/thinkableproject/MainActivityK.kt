@@ -50,6 +50,7 @@ class MainActivityK : AppCompatActivity() {
     companion object {
         private const val TAG = "MainActivity"
         private const val CREATE_REQUEST_CODE = 248
+        var isStarted:Boolean=false;
     }
 
     private lateinit var clRoot: ConstraintLayout
@@ -95,6 +96,7 @@ class MainActivityK : AppCompatActivity() {
         gameVideo = findViewById(R.id.simpleVideo);
         database = FirebaseFirestore.getInstance()
         mainConstraint = findViewById(R.id.mainConstraint)
+        isStarted=true
 //        lineChart = findViewById(R.id.lineChartInterventionGame)
 //        lineChart = findViewById(R.id.lineChartInterventionGame)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
@@ -288,6 +290,7 @@ class MainActivityK : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.mi_refresh -> {
+                isStarted=true
                 if (memoryGame.getNumMoves() > 0 && !memoryGame.haveWonGame()) {
 
                     showAlertDialog("Quit your current game?", null, View.OnClickListener {
@@ -299,6 +302,7 @@ class MainActivityK : AppCompatActivity() {
                 return true
             }
             R.id.mi_new_size -> {
+                isStarted=true
                 showNewSizeDialog()
                 return true
             }
@@ -532,6 +536,7 @@ class MainActivityK : AppCompatActivity() {
 //                                        Toast.makeText(this, "Failed to Update Coins", Toast.LENGTH_SHORT).show()
                                     }
                         }
+                isStarted=false
 
 
                 openDialog()

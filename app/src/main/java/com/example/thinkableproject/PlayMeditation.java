@@ -79,6 +79,7 @@ public class PlayMeditation extends AppCompatActivity {
     int points;
     LineDataSet lineDataSet;
     ArrayList lineEntries;
+    public static boolean isStarted = false;
     //    int time;
     String music_title;
 
@@ -104,6 +105,7 @@ public class PlayMeditation extends AppCompatActivity {
         btnff = findViewById(R.id.fForward);
         btnfr = findViewById(R.id.fRewind);
         database = FirebaseFirestore.getInstance();
+        isStarted=true;
 //        lineChart = findViewById(R.id.lineChartIntervention);
         mediaPlayer = new MediaPlayer();
 
@@ -523,6 +525,7 @@ public class PlayMeditation extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         mediaPlayer.pause();
+        isStarted=false;
     }
 
 

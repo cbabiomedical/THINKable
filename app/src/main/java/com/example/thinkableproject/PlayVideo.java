@@ -29,12 +29,14 @@ public class PlayVideo extends AppCompatActivity {
     User user;
     int updatedCoins;
     int points;
+    public static boolean isStarted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_video);
         database = FirebaseFirestore.getInstance();
+        isStarted = true;
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
@@ -137,5 +139,11 @@ public class PlayVideo extends AppCompatActivity {
 
 
         };
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isStarted = false;
     }
 }

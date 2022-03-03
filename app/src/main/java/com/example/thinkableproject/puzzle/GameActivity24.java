@@ -61,6 +61,7 @@ public class GameActivity24 extends AppCompatActivity {
     private ImageButton soundBtn;
     private boolean check;
     private String whatToShow;
+    public static boolean isStarted = false;
 
     DataBase dataBase = new DataBase(this);
     Sound sound = new Sound();
@@ -96,7 +97,8 @@ public class GameActivity24 extends AppCompatActivity {
         setContentView(R.layout.activity_game24);
         whatToShow = getIntent().getStringExtra("whatToShow");
         mUser = FirebaseAuth.getInstance().getCurrentUser();
-        database=FirebaseFirestore.getInstance();
+        database = FirebaseFirestore.getInstance();
+        isStarted = true;
 
 
         button = new ImageButton[N][N];
@@ -244,6 +246,7 @@ public class GameActivity24 extends AppCompatActivity {
     }
 
     private void openDialog() {
+        isStarted=false;
         SharedPreferences sh = getSharedPreferences("prefsCountPuz", MODE_APPEND);
 
 // The value will be default as empty string because for

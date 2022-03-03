@@ -19,6 +19,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.thinkableproject.IHaveToFly.IHaveToFlyMainActivity;
+import com.example.thinkableproject.WordMatching.MainMenu;
 import com.example.thinkableproject.adapters.GridAdapter;
 import com.example.thinkableproject.duckhunt.StartGame;
 import com.example.thinkableproject.ninjadarts.NinjaDartsMainActivity;
@@ -218,6 +220,12 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
             startActivity(new Intent(getApplicationContext(), Main3Activity.class));
         }else if(gameList.get(position).getGameName().equals("Puzzles")){
             startActivity(new Intent(getApplicationContext(), PuzzleMainActivity.class));
+        }else if (gameList.get(position).getGameName().equals("Puzzle Advanced")) {
+            startActivity(new Intent(getApplicationContext(), com.example.thinkableproject.DragandDropPuzzle.PuzzleMainActivity.class));
+        } else if(gameList.get(position).getGameName().equals("I Have to Fly")){
+            startActivity(new Intent(getApplicationContext(), IHaveToFlyMainActivity.class));
+        } else if(gameList.get(position).getGameName().equals("Word Match")){
+            startActivity(new Intent(getApplicationContext(), MainMenu.class));
         }
         else {
             Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.vending");

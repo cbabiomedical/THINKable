@@ -32,22 +32,10 @@ public interface JsonPlaceHolder {
             @Field("delta") int delta
     );
 
+    //===== Posting Raw EEG values for concentration and relaxation===
+
     @POST("brain_waves")
     Call<List> PostBrainWaveData(@Body List brain_waves);
-
-//    @POST("calibration")
-//    Call<List> PostCalibrationData(@Body ArrayList brain_waves);
-//
-//
-//
-//    @POST("concentration")
-//    Call<Object> PostConcentrationData(@Body Object concentration);
-//
-//    @POST("relaxation")
-//    Call<Object> PostRelaxationData(@Body Object relaxation);
-
-//    @POST("memory")
-//    Call<Object> PostMemoryData(@Body Object memory);
 
 
     @POST("relaxation_index")
@@ -55,6 +43,24 @@ public interface JsonPlaceHolder {
 
     @POST("concentration_index")
     Call<List> PostConcentrationData(@Body ArrayList brain_waves);
+    //=================================================================
+
+    //==== Posting ColorPattern Data==================================
+
+    @POST("concentration_index")
+    Call<List> PostColorPatternConData(@Body ArrayList brain_waves);
+
+    @POST("relaxation_index")
+    Call<List> PostColorPatternRelData(@Body ArrayList relaxatinData);
+//====================================================================
+
+    //=========Posting CardGame Data=================================
+    @POST("concentration_index")
+    Call<List> PostCardGameConData(@Body ArrayList brain_waves);
+
+    @POST("relaxation_index")
+    Call<List> PostCardGameRelData(@Body ArrayList relaxatinData);
+//    ================================================================
 
     @FormUrlEncoded
     @POST("")
@@ -63,7 +69,6 @@ public interface JsonPlaceHolder {
             @Field("age") String age,
             @Field("school") String school
     );
-
 
 
 }

@@ -81,6 +81,7 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
     LineDataSet lineDataSet;
     ArrayList lineEntries;
     //    int time;
+    public static boolean isStarted=false;
     String music_title;
 
     public static final String EXTRA_NAME = "songName";
@@ -106,6 +107,7 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
         btnfr = findViewById(R.id.fRewind);
         dialogCancel = new Dialog(this);
         database = FirebaseFirestore.getInstance();
+        isStarted=true;
 //        lineChart = findViewById(R.id.lineChartIntervention);
         mediaPlayer = new MediaPlayer();
 
@@ -548,6 +550,7 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
     protected void onPause() {
         super.onPause();
         mediaPlayer.pause();
+        isStarted=false;
     }
 
 

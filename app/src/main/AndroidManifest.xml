@@ -57,6 +57,10 @@
         <activity
             android:name=".WordMatching.TwoBySixGrid"
             android:exported="false" />
+
+        <activity android:name=".IHaveToFly.GameActivity"
+            android:screenOrientation="landscape"
+            />
         <activity
             android:name=".WordMatching.TwoByFourGrid"
             android:exported="false" />
@@ -139,7 +143,9 @@
         <activity
             android:name="com.example.AdMobAddActuivity"
             android:label="@string/title_activity_ad_mob_add_actuivity" />
-        <activity android:name=".VideoInterventionActivity" />
+        <activity android:name=".VideoInterventionActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            />
         <activity
             android:name=".duckhunt.GameOver"
             android:exported="false" />
@@ -160,10 +166,12 @@
         <activity
             android:name=".spaceshooter.StartUp"
             android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="landscape" />
         <activity
             android:name=".spaceshooter.SpaceShooterMainActivity"
             android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="landscape" />
         <activity
             android:name=".MeditationLineChart"

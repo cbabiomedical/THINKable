@@ -33,6 +33,7 @@ public class SpaceShooter extends View {
     OurSpaceship ourSpaceship;
     EnemySpaceship enemySpaceship;
     Random random;
+    public static boolean isStarted;
     ArrayList<Shot> enemyShots, ourShots;
     Explosion explosion;
     ArrayList<Explosion> explosions;
@@ -57,6 +58,7 @@ public class SpaceShooter extends View {
         enemyShots = new ArrayList<>();
         ourShots = new ArrayList<>();
         explosions = new ArrayList<>();
+        isStarted=true;
         ourSpaceship = new OurSpaceship(context);
         enemySpaceship = new EnemySpaceship(context);
         handler = new Handler();
@@ -81,6 +83,7 @@ public class SpaceShooter extends View {
             paused = true;
             handler = null;
             Intent intent = new Intent(context, GameOver.class);
+            isStarted=false;
             intent.putExtra("points", points);
             context.startActivity(intent);
             ((Activity) context).finish();
