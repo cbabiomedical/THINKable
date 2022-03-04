@@ -148,17 +148,21 @@
             />
         <activity
             android:name=".duckhunt.GameOver"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".duckhunt.DuckHuntMainActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false" />
-        <activity android:name=".duckhunt.StartGame" />
+        <activity android:name=".duckhunt.StartGame"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".pianotiles.MainActivity"
             android:exported="false" />
         <activity
             android:name=".ninjadarts.NinjaDartsMainActivity"
             android:exported="false" />
+        <activity android:name=".ninjadarts.NinjaDartLineChart"/>
         <activity
             android:name=".spaceshooter.GameOver"
             android:exported="false"

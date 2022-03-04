@@ -43,24 +43,83 @@ public interface JsonPlaceHolder {
 
     @POST("concentration_index")
     Call<List> PostConcentrationData(@Body ArrayList brain_waves);
-    //=================================================================
 
     //==== Posting ColorPattern Data==================================
 
-    @POST("concentration_index")
-    Call<List> PostColorPatternConData(@Body ArrayList brain_waves);
-
-    @POST("relaxation_index")
-    Call<List> PostColorPatternRelData(@Body ArrayList relaxatinData);
+    @POST("memory_index")
+    Call<List> PostColorPatternMemData(@Body ArrayList brain_waves);
+    
 //====================================================================
 
     //=========Posting CardGame Data=================================
+
+    @POST("memory_index")
+    Call<List> PostCardGamData(@Body ArrayList brain_waves);
+//    ================================================================
+
+    //=========Posting SpaceHooter Data=================================
+
     @POST("concentration_index")
-    Call<List> PostCardGameConData(@Body ArrayList brain_waves);
+    Call<List> PostSpaceHooterData(@Body ArrayList brain_waves);
+//    ================================================================
+
+    //=========Posting DuckHunt Data=================================
+
+    @POST("concentration_index")
+    Call<List> PostDuckHuntData(@Body ArrayList brain_waves);
+//    ================================================================
+    //=========Posting PianoTiles Data=================================
+
+    @POST("concentration_index")
+    Call<List> PostPianoTilesData(@Body ArrayList brain_waves);
+//    ================================================================
+    //=========Posting NinjaDart Data=================================
+
+    @POST("concentration_index")
+    Call<List> PostNinjaDartData(@Body ArrayList brain_waves);
+//    ================================================================
+
+//=========Posting Puzzles Data=================================
+
+    @POST("memory_index")
+    Call<List> PostPuzzlesData(@Body ArrayList brain_waves);
+//    ================================================================
+
+    //=========Posting Fly Data=================================
+
+    @POST("concentration_index")
+    Call<List> PostFlyData(@Body ArrayList brain_waves);
+//    ================================================================
+    //=========Posting Advanced Puzzle Data=================================
+
+    @POST("concentration_index")
+    Call<List> PostAdvancedPuzzleData(@Body ArrayList brain_waves);
+//    ================================================================
+
+    //=========Posting Word Matching Data=================================
+
+    @POST("concentration_index")
+    Call<List> PostWordMatchData(@Body ArrayList brain_waves);
+//    ================================================================
+    //=========Posting Word Matching Data=================================
 
     @POST("relaxation_index")
-    Call<List> PostCardGameRelData(@Body ArrayList relaxatinData);
+    Call<List> PostMusicData(@Body ArrayList brain_waves);
 //    ================================================================
+    //=========Posting Word Matching Data=================================
+
+    @POST("relaxation_index")
+    Call<List> PostMeditationData(@Body ArrayList brain_waves);
+//    ================================================================
+    //=========Posting Word Matching Data=================================
+
+    @POST("relaxation_index")
+    Call<List> PostVideoData(@Body ArrayList brain_waves);
+//    ================================================================
+
+
+
+
 
     @FormUrlEncoded
     @POST("")
