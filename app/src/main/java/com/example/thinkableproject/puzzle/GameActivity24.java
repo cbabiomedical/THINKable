@@ -4,9 +4,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.AnimationDrawable;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -23,6 +26,11 @@ import com.example.thinkableproject.puzzle.Class.Cards;
 import com.example.thinkableproject.puzzle.Class.DataBase;
 import com.example.thinkableproject.puzzle.Class.SlicingImage;
 import com.example.thinkableproject.puzzle.Class.Sound;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
@@ -31,6 +39,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
 
 public class GameActivity24 extends AppCompatActivity {
 
@@ -41,6 +51,9 @@ public class GameActivity24 extends AppCompatActivity {
     FirebaseUser mUser;
     int updatedCoins;
     User user;
+    LineData lineData;
+    LineDataSet lineDataSet;
+    ArrayList lineEntries;
     FirebaseFirestore database;
     private ImageButton[][] button;
     private final int[][] BUT_ID = {{R.id.b2400, R.id.b2401, R.id.b2402, R.id.b2403, R.id.b2404},
@@ -246,7 +259,7 @@ public class GameActivity24 extends AppCompatActivity {
     }
 
     private void openDialog() {
-        isStarted=false;
+        isStarted = false;
         SharedPreferences sh = getSharedPreferences("prefsCountPuz", MODE_APPEND);
 
 // The value will be default as empty string because for
@@ -274,13 +287,48 @@ public class GameActivity24 extends AppCompatActivity {
         Log.d("Count 2", String.valueOf(a1));
 
         final Dialog dialog = new Dialog(GameActivity24.this);
-        dialog.setContentView(R.layout.dialog_finished);
+        dialog.setContentView(R.layout.game_intervention_popup);
+        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        Button ok;
+        LineChart lineChart;
+        ok = (Button) dialog.findViewById(R.id.ok);
+        lineChart = (LineChart) dialog.findViewById(R.id.lineChartInterventionGame);
+        getEntries();
+        lineDataSet = new LineDataSet(lineEntries, "Puzzles Progress");
+        lineData = new LineData(lineDataSet);
+        lineChart.setData(lineData);
+
+        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        lineDataSet.setValueTextColor(Color.WHITE);
+        lineDataSet.setValueTextSize(10f);
+
+        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+        lineChart.setBorderColor(Color.TRANSPARENT);
+        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+        lineChart.getAxisLeft().setDrawGridLines(false);
+        lineChart.getXAxis().setDrawGridLines(false);
+        lineChart.getAxisRight().setDrawGridLines(false);
+        lineChart.getXAxis().setTextColor(R.color.white);
+        lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
+        lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+        lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
+        lineChart.getDescription().setTextColor(R.color.white);
+        lineChart.invalidate();
+        lineChart.refreshDrawableState();
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                dialog.dismiss();
+                startActivity(new Intent(getApplicationContext(), HomeActivity.class));
+            }
+        });
 
 
-        Button finishButton = dialog.findViewById(R.id.finishButton);
-        final EditText finishName = dialog.findViewById(R.id.finishName);
-        TextView finishSteps = dialog.findViewById(R.id.finishSteps);
-        finishSteps.setText(numOfSteps + " " + getString(R.string.finished_steps));
+//        Button finishButton = dialog.findViewById(R.id.finishButton);
+//        final EditText finishName = dialog.findViewById(R.id.finishName);
+//        TextView finishSteps = dialog.findViewById(R.id.finishSteps);
+//        finishSteps.setText(numOfSteps + " " + getString(R.string.finished_steps));
         if (numOfSteps <= 75) {
             points = 50;
         } else if (numOfSteps <= 90) {
@@ -315,8 +363,6 @@ public class GameActivity24 extends AppCompatActivity {
 //                        Toast.makeText(ColorPatternGame.this, "Failed to Update Coins", Toast.LENGTH_SHORT).show();
                     }
                 });
-
-
             }
         });
 
@@ -325,25 +371,33 @@ public class GameActivity24 extends AppCompatActivity {
 //        reference.setValue(points);
 
         dialog.show();
-        finishButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                int numOfScores, checkPlace;
-                dataBase.setPrefRef("PRESNAME24", "PRESSCORE24");
-                numOfScores = dataBase.preferencesCounter.getInt("game24counter", 0);
-                if (numOfScores >= 10) {
-                    checkPlace = dataBase.checkIfScoreIsBest("PRESSCORE24", numOfSteps);
-                    if (checkPlace != (-1)) {
-                        dataBase.changeValues(finishName.getText().toString(), numOfSteps, checkPlace);
-                    }
-                } else
-                    dataBase.setValues(finishName.getText().toString(), numOfSteps, 3);
+//        finishButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                int numOfScores, checkPlace;
+//                dataBase.setPrefRef("PRESNAME24", "PRESSCORE24");
+//                numOfScores = dataBase.preferencesCounter.getInt("game24counter", 0);
+//                if (numOfScores >= 10) {
+//                    checkPlace = dataBase.checkIfScoreIsBest("PRESSCORE24", numOfSteps);
+//                    if (checkPlace != (-1)) {
+//                        dataBase.changeValues(finishName.getText().toString(), numOfSteps, checkPlace);
+//                    }
+//                } else
+//                    dataBase.setValues(finishName.getText().toString(), numOfSteps, 3);
+//
+//                dialog.dismiss();
+//
+//
+//            }
+//        });
+    }
 
-                dialog.dismiss();
-
-
-            }
-        });
+    private void getEntries() {
+        lineEntries = new ArrayList();
+        lineEntries.add(new Entry(2f, 34f));
+        lineEntries.add(new Entry(4f, 56f));
+        lineEntries.add(new Entry(6f, 65));
+        lineEntries.add(new Entry(8f, 23f));
     }
 
     private void openHintDialog() {

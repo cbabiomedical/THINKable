@@ -3,7 +3,10 @@ package com.example.thinkableproject.pianotiles;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,11 +19,18 @@ import android.widget.Toast;
 
 import com.example.thinkableproject.R;
 import com.example.thinkableproject.User;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+
+import java.util.ArrayList;
 
 public class Main2Activity extends AppCompatActivity {
 
@@ -32,6 +42,11 @@ public class Main2Activity extends AppCompatActivity {
     User user;
     FirebaseUser mUser;
     int updatedCoins;
+    Dialog dialogIntervention;
+    LineData lineData;
+    LineDataSet lineDataSet;
+    ArrayList lineEntries;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +54,7 @@ public class Main2Activity extends AppCompatActivity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_main5);
+        dialogIntervention=new Dialog(this);
         Log.d(TAG, "onCreate: has been called");
         i = new Intent(this, MainActivity.class);
         final Intent in = getIntent();
@@ -95,11 +111,66 @@ public class Main2Activity extends AppCompatActivity {
                 }
             }
         });
+        openLineChart();
+    }
+
+    private void openLineChart() {
+        Button ok;
+        LineChart lineChart;
+//        TextView points;
+//        TextView totalPoints;
+
+        dialogIntervention.setContentView(R.layout.game_intervention_popup);
+        dialogIntervention.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        lineChart = (LineChart) dialogIntervention.findViewById(R.id.lineChartInterventionGame);
+
+        getEntries();
+        lineDataSet = new LineDataSet(lineEntries, "PianoTiles Progress");
+        lineData = new LineData(lineDataSet);
+        lineChart.setData(lineData);
+
+        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        lineDataSet.setValueTextColor(Color.WHITE);
+        lineDataSet.setValueTextSize(10f);
+
+        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+        lineChart.setBorderColor(Color.TRANSPARENT);
+        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+        lineChart.getAxisLeft().setDrawGridLines(false);
+        lineChart.getXAxis().setDrawGridLines(false);
+        lineChart.getAxisRight().setDrawGridLines(false);
+        lineChart.getXAxis().setTextColor(R.color.white);
+        lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
+        lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+        lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
+        lineChart.getDescription().setTextColor(R.color.white);
+        lineChart.invalidate();
+        lineChart.refreshDrawableState();
+        ok = (Button) dialogIntervention.findViewById(R.id.ok);
+
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogIntervention.dismiss();
+            }
+        });
+
+        dialogIntervention.show();
+
+    }
+
+    private void getEntries() {
+        lineEntries = new ArrayList();
+        lineEntries.add(new Entry(2f, 34f));
+        lineEntries.add(new Entry(4f, 56f));
+        lineEntries.add(new Entry(6f, 65));
+        lineEntries.add(new Entry(8f, 23f));
     }
 
     @Override
     public void onBackPressed() {
-        Intent i2 = new Intent(this, Main5Activity.class);
+        Intent i2 = new Intent(this, Main3Activity.class);
         i2.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         i2.putExtra("EXIT", true);
         startActivity(i2);

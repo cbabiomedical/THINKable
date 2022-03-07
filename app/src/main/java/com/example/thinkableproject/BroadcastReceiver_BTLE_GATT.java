@@ -251,7 +251,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
 
         //Shared Preference for Advanced Puzzle
         SharedPreferences prefsCountP = context.getSharedPreferences("prefsCountPuzA", MODE_PRIVATE);
-        int firstStartCountP = prefsCountP.getInt("firstStartCountA", 0);
+        int firstStartCountP = prefsCountP.getInt("firstStartCountPuzA", 0);
         // Shared Preference for Word Match
         SharedPreferences prefsCountWord = context.getSharedPreferences("prefsCountWord", MODE_PRIVATE);
         int firstStartCountWord = prefsCountWord.getInt("firstStartCountWord", 0);

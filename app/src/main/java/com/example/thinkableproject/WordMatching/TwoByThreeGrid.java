@@ -20,6 +20,7 @@ public class TwoByThreeGrid extends AppCompatActivity {
     Button btn6;
     GameUtilities util;
     public static boolean isStarted=false;
+    Long startTime,endTime;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,6 +33,7 @@ public class TwoByThreeGrid extends AppCompatActivity {
         btn5 = (Button) findViewById(R.id.bottomLeft2);
         btn6 = (Button) findViewById(R.id.bottomRight2);
         isStarted=true;
+        startTime=System.currentTimeMillis();
         setUpButtons();
     }
 
@@ -116,7 +118,9 @@ public class TwoByThreeGrid extends AppCompatActivity {
             util.resetGuess();
             if (util.getButtonsLeft() == 0) {
                 isStarted=false;
-                Intent intent = new Intent(this, VictoryPage.class);
+                endTime=System.currentTimeMillis();
+                Long seconds=(endTime-startTime)/1000;
+                Intent intent = new Intent(this,VictoryPage.class).putExtra("time",seconds);
                 GlobalElements.getInstance().addToScore(GlobalElements.getPar(GlobalElements.getInstance().getLevel()) - util.getMovesUsed());
                 startActivity(intent);
             }

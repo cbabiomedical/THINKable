@@ -47,25 +47,32 @@
         android:usesCleartextTraffic="true">
         <activity
             android:name=".WordMatching.VictoryPage"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".WordMatching.TwoByTwoGrid"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".WordMatching.TwoByThreeGrid"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".WordMatching.TwoBySixGrid"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false" />
 
         <activity android:name=".IHaveToFly.GameActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:screenOrientation="landscape"
             />
         <activity
             android:name=".WordMatching.TwoByFourGrid"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".WordMatching.TwoByFiveGrid"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".WordMatching.MainMenu"
@@ -75,9 +82,12 @@
             android:exported="false" />
         <activity
             android:name=".WordMatching.EndGame"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".IHaveToFly.IHaveToFlyMainActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".DragandDropPuzzle.PuzzleActivity"
@@ -88,6 +98,8 @@
         <activity
             android:name=".puzzle.PuzzleMainActivity"
             android:exported="false" />
+        <activity android:name=".DragandDropPuzzle.GameOverPuzzle"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".puzzle.HomeActivity"
             android:exported="false" />
@@ -97,6 +109,9 @@
         <activity
             android:name=".puzzle.GameActivity15"
             android:exported="false" />
+        <activity android:name=".IHaveToFly.GameOverActivity"
+            android:screenOrientation="landscape"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".puzzle.GameActivity9"
             android:exported="false" />
@@ -165,6 +180,7 @@
         <activity android:name=".ninjadarts.NinjaDartLineChart"/>
         <activity
             android:name=".spaceshooter.GameOver"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false"
             android:screenOrientation="landscape" />
         <activity
@@ -183,6 +199,7 @@
         <activity android:name="com.example.Help" />
         <activity
             android:name=".ContactUs"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="true" />
         <activity
             android:name=".LineChartExample"

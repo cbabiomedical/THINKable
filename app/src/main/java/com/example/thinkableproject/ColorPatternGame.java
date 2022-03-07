@@ -809,7 +809,7 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
 //        points.setText("Coins Earned:"+highScore);
 
         getEntries();
-        lineDataSet = new LineDataSet(lineEntries, "Memory Progress");
+        lineDataSet = new LineDataSet(lineEntries, "Color Pattern Progress");
         lineData = new LineData(lineDataSet);
         lineChart.setData(lineData);
 

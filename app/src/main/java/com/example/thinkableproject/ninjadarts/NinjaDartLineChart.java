@@ -199,24 +199,31 @@ public class NinjaDartLineChart extends AppCompatActivity {
 
 //        coinsGained.setText("Scores" + s1);
 
-        database.collection("users")
-                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                user = documentSnapshot.toObject(User.class);
-//
-                Log.d("Current Coins", String.valueOf(user.getCoins()));
-//
-//                totalCoins.setText("Total Coins: " + user.getCoins());
-//
-
-            }
-        });
-
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
         lineEntries = new ArrayList();
+        getEntries();
+        lineDataSet = new LineDataSet(lineEntries, "DuckHunt Progress");
+        lineData = new LineData(lineDataSet);
+        lineChart.setData(lineData);
+
+        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        lineDataSet.setValueTextColor(Color.WHITE);
+        lineDataSet.setValueTextSize(10f);
+
+        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+        lineChart.setBorderColor(Color.TRANSPARENT);
+        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+        lineChart.getAxisLeft().setDrawGridLines(false);
+        lineChart.getXAxis().setDrawGridLines(false);
+        lineChart.getAxisRight().setDrawGridLines(false);
+        lineChart.getXAxis().setTextColor(R.color.white);
+        lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
+        lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+        lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
+        lineChart.getDescription().setTextColor(R.color.white);
+        lineChart.invalidate();
+        lineChart.refreshDrawableState();
         Calendar now = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
         Log.d("WEEK", String.valueOf(now.get(Calendar.WEEK_OF_MONTH)));
@@ -231,51 +238,7 @@ public class NinjaDartLineChart extends AppCompatActivity {
         String str = f.format(new Date());
 //prints day name
         System.out.println("Day Name: " + str);
-        Log.d("Day Name", str);
-//
-//        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Ninja Dart").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str);
-//        reference.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-//                    Log.d("XVAL", dataSnapshot.getKey());
-//                    float xxVal = (Float.parseFloat(dataSnapshot.getKey()));
-//
-//                    Log.d("XArrayList", String.valueOf(xVal));
-//                    float yyVal = (Float.parseFloat(String.valueOf((Long) dataSnapshot.getValue())));
-//                    Log.d("YVAL", String.valueOf(yyVal));
-//                    Log.d("YArrayList", String.valueOf(yVal));
-//                    lineEntries.add(new Entry(xxVal, yyVal));
-//
-//                    lineDataSet = new LineDataSet(lineEntries, "NinjaDart Progress");
-//                    lineData = new LineData(lineDataSet);
-//                    lineChart.setData(lineData);
-//
-//                    lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-//                    lineDataSet.setValueTextColor(Color.WHITE);
-//                    lineDataSet.setValueTextSize(10f);
-//
-//                    lineChart.setGridBackgroundColor(Color.TRANSPARENT);
-//                    lineChart.setBorderColor(Color.TRANSPARENT);
-//                    lineChart.setGridBackgroundColor(Color.TRANSPARENT);
-//                    lineChart.getAxisLeft().setDrawGridLines(false);
-//                    lineChart.getXAxis().setDrawGridLines(false);
-//                    lineChart.getAxisRight().setDrawGridLines(false);
-//                    lineChart.getXAxis().setTextColor(R.color.white);
-//                    lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
-//                    lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
-//                    lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
-//                    lineChart.getDescription().setTextColor(R.color.white);
-//                    lineChart.invalidate();
-//                    lineChart.refreshDrawableState();
-//                }
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
+
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -284,5 +247,14 @@ public class NinjaDartLineChart extends AppCompatActivity {
         });
 
         dialog.show();
+    }
+
+    private void getEntries() {
+        lineEntries = new ArrayList();
+        lineEntries.add(new Entry(2f, 34f));
+        lineEntries.add(new Entry(4f, 56f));
+        lineEntries.add(new Entry(6f, 65));
+        lineEntries.add(new Entry(8f, 23f));
+
     }
 }

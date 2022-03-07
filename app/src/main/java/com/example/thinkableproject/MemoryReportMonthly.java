@@ -776,7 +776,7 @@ public class MemoryReportMonthly extends AppCompatActivity {
                 }
 
             }
-        }, 10000);
+        }, 5000);
     }
 
 

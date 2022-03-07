@@ -4,14 +4,23 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.thinkableproject.R;
 import com.example.thinkableproject.User;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
@@ -27,6 +36,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.ArrayList;
+
 public class GameOver extends AppCompatActivity {
 
     TextView tvPoints;
@@ -34,6 +45,10 @@ public class GameOver extends AppCompatActivity {
     FirebaseFirestore database;
     User user;
     int updatedCoins;
+    Dialog dialogIntervention;
+    LineData lineData;
+    LineDataSet lineDataSet;
+    ArrayList lineEntries;
 
 
     @Override
@@ -44,6 +59,7 @@ public class GameOver extends AppCompatActivity {
         int points = getIntent().getExtras().getInt("points");
         tvPoints = findViewById(R.id.tvPoints);
         tvPoints.setText("" + points);
+        dialogIntervention=new Dialog(this);
 
         database.collection("users")
                 .document(FirebaseAuth.getInstance().getUid())
@@ -132,6 +148,61 @@ public class GameOver extends AppCompatActivity {
                         mInterstitialAd = null;
                     }
                 });
+        openLineChart();
+    }
+
+    private void openLineChart() {
+        Button ok;
+        LineChart lineChart;
+//        TextView points;
+//        TextView totalPoints;
+
+        dialogIntervention.setContentView(R.layout.game_intervention_popup);
+        dialogIntervention.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        lineChart = (LineChart) dialogIntervention.findViewById(R.id.lineChartInterventionGame);
+
+        getEntries();
+        lineDataSet = new LineDataSet(lineEntries, "SpaceHooter Progress");
+        lineData = new LineData(lineDataSet);
+        lineChart.setData(lineData);
+
+        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+        lineDataSet.setValueTextColor(Color.WHITE);
+        lineDataSet.setValueTextSize(10f);
+
+        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+        lineChart.setBorderColor(Color.TRANSPARENT);
+        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+        lineChart.getAxisLeft().setDrawGridLines(false);
+        lineChart.getXAxis().setDrawGridLines(false);
+        lineChart.getAxisRight().setDrawGridLines(false);
+        lineChart.getXAxis().setTextColor(R.color.white);
+        lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
+        lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+        lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
+        lineChart.getDescription().setTextColor(R.color.white);
+        lineChart.invalidate();
+        lineChart.refreshDrawableState();
+        ok = (Button) dialogIntervention.findViewById(R.id.ok);
+
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogIntervention.dismiss();
+            }
+        });
+
+        dialogIntervention.show();
+
+    }
+
+    private void getEntries() {
+        lineEntries = new ArrayList();
+        lineEntries.add(new Entry(2f, 34f));
+        lineEntries.add(new Entry(4f, 56f));
+        lineEntries.add(new Entry(6f, 65));
+        lineEntries.add(new Entry(8f, 23f));
     }
 
     public void restart(View view) {

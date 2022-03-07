@@ -15,6 +15,7 @@ public class TwoByFourGrid extends AppCompatActivity {
     Button btn1, btn2, btn3, btn4, btn5, btn6, btn7, btn8;
     GameUtilities util;
     public static boolean isStarted = false;
+    Long startTime, endTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +30,8 @@ public class TwoByFourGrid extends AppCompatActivity {
         btn7 = (Button) findViewById(R.id.Btn2x4D1);
         btn8 = (Button) findViewById(R.id.Btn2x4D2);
         util = new GameUtilities(8);
-        isStarted=true;
+        startTime = System.currentTimeMillis();
+        isStarted = true;
         setUpButtons();
     }
 
@@ -53,8 +55,10 @@ public class TwoByFourGrid extends AppCompatActivity {
             }
             util.resetGuess();
             if (util.getButtonsLeft() == 0) {
-                isStarted=false;
-                Intent intent = new Intent(this, VictoryPage.class);
+                isStarted = false;
+                endTime=System.currentTimeMillis();
+                Long seconds=(endTime-startTime)/1000;
+                Intent intent = new Intent(this,VictoryPage.class).putExtra("time",seconds);
                 GlobalElements.getInstance().addToScore(GlobalElements.getPar(GlobalElements.getInstance().getLevel()) - util.getMovesUsed());
                 startActivity(intent);
             }

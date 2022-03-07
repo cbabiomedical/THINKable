@@ -37,12 +37,12 @@
         android:layout_height="130dp"
         android:gravity = "center"
         android:text = "40"
-        android:textSize="90sp"/>
+        android:textSize="45sp"/>
     <Button
         android:layout_width="350dp"
         android:layout_height="220dp"
         android:onClick="goToKeys"
         android:gravity = "center"
         android:text = "ONTO NEXT LEVEL->"
-        android:textSize="55sp"/>
+        android:textSize="33sp"/>
 </LinearLayout>

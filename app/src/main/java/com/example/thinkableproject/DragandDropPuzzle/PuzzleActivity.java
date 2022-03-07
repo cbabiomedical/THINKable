@@ -305,6 +305,7 @@ public class PuzzleActivity extends AppCompatActivity {
             isStarted=false;
             Toast.makeText(PuzzleActivity.this, "got result", Toast.LENGTH_SHORT).show();
             finish();
+            startActivity(new Intent(getApplicationContext(), GameOverPuzzle.class).putExtra("score",score));
         }
     }
 

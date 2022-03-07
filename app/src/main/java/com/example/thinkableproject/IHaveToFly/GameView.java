@@ -229,7 +229,7 @@ public class GameView extends SurfaceView implements Runnable {
 
         try {
             Thread.sleep(3000);
-            activity.startActivity(new Intent(activity, IHaveToFlyMainActivity.class));
+            activity.startActivity(new Intent(activity, GameOverActivity.class).putExtra("score",score));
             isStarted=false;
             activity.finish();
         } catch (InterruptedException e) {
