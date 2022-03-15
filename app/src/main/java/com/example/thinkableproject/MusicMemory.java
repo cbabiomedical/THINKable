@@ -1,10 +1,5 @@
 package com.example.thinkableproject;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -17,12 +12,14 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -32,18 +29,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.thinkableproject.adapters.MusicAdapter;
-import com.example.thinkableproject.sample.MeditationModelClass;
 import com.example.thinkableproject.sample.MusicModelClass;
-import com.example.thinkableproject.spaceshooter.StartUp;
-import com.google.android.gms.ads.AdError;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.FullScreenContentCallback;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.google.android.gms.ads.interstitial.InterstitialAd;
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -54,7 +40,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.messaging.FirebaseMessaging;;
+import com.google.firebase.messaging.FirebaseMessaging;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -63,14 +50,12 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListner {
+public class MusicMemory extends AppCompatActivity implements MusicAdapter.OnNoteListner {
+
     RecyclerView recyclerView;
     ArrayList<MusicModelClass> musicList;
     MusicAdapter adapter;
-    String songName;
     Dialog dialogmusic;
-    String url;;
-    private InterstitialAd mInterstitialAd;
     String selected_time;
     LinearLayoutManager layoutManager;
     //    int time;
@@ -78,7 +63,6 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
     ImageView information;
     View c1, c2;
     int color;
-    String image;
     private RequestQueue mRequestQue;
     private String URL = "https://fcm.googleapis.com/fcm/send";
 
@@ -86,7 +70,7 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_music);
+        setContentView(R.layout.activity_music_memory);
         mRequestQue = Volley.newRequestQueue(this);
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
@@ -143,12 +127,6 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
 
-            }
-        });
-        MobileAds.initialize(this, new OnInitializationCompleteListener() {
-            @Override
-            public void onInitializationComplete(InitializationStatus initializationStatus) {
-                createPersonalizedAd();
             }
         });
         information.setOnClickListener(new View.OnClickListener() {
@@ -250,7 +228,7 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
                             msg = getString(R.string.msg_subscribe_failed);
                         }
                         Log.d("TAG", msg);
-                        Toast.makeText(Music.this, msg, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MusicMemory.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
 
@@ -258,56 +236,6 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
         initData();
 
 
-    }
-
-    private void createPersonalizedAd() {
-        AdRequest adRequest = new AdRequest.Builder().build();
-        createInstestialAd(adRequest);
-
-    }
-
-    private void createInstestialAd(AdRequest adRequest) {
-        InterstitialAd.load(this, "ca-app-pub-3940256099942544/8691691433", adRequest,
-                new InterstitialAdLoadCallback() {
-                    @Override
-                    public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                        // The mInterstitialAd reference will be null until
-                        // an ad is loaded.
-                        mInterstitialAd = interstitialAd;
-                        Log.i("TAG", "onAdLoaded");
-
-                        mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
-                            @Override
-                            public void onAdDismissedFullScreenContent() {
-                                // Called when fullscreen content is dismissed.
-                                Log.d("TAG", "The ad was dismissed.");
-                                startActivity(new Intent(getApplicationContext(), MusicPlayer.class).putExtra("url", url).putExtra("name", songName).putExtra("image", image));
-                            }
-
-                            @Override
-                            public void onAdFailedToShowFullScreenContent(AdError adError) {
-                                // Called when fullscreen content failed to show.
-                                Log.d("TAG", "The ad failed to show.");
-                            }
-
-                            @Override
-                            public void onAdShowedFullScreenContent() {
-                                // Called when fullscreen content is shown.
-                                // Make sure to set your reference to null so you don't
-                                // show it a second time.
-                                mInterstitialAd = null;
-                                Log.d("TAG", "The ad was shown.");
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                        // Handle the error
-                        Log.i("TAG", loadAdError.getMessage());
-                        mInterstitialAd = null;
-                    }
-                });
     }
 
     private void showStartDialog() {
@@ -335,21 +263,22 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
 //    };
 
     private void initData() {
-        musicList=new ArrayList<>();
-        DatabaseReference reference=FirebaseDatabase.getInstance().getReference("Songs_Admin").child("Songs_Concentration");
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Songs_Admin").child("Songs_Memory");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for(DataSnapshot dataSnapshot: snapshot.getChildren()){
-                    Log.d("Child",String.valueOf(dataSnapshot.getValue()));
-                    MusicModelClass post= dataSnapshot.getValue(MusicModelClass.class);
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+
+                    MusicModelClass post = dataSnapshot.getValue(MusicModelClass.class);
                     musicList.add(post);
-                    Log.d("Concentration Music", String.valueOf(post));
                 }
                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 Log.d("List", String.valueOf(musicList));
 
+
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
@@ -368,17 +297,13 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
     public void onNoteClick(int position) {
 
         musicList.get(position);
-        songName = musicList.get(position).getName();
+        String songName = musicList.get(position).getName();
         Log.d("Name", songName);
-         url = musicList.get(position).getSongTitle1();
+        String url = musicList.get(position).getSongTitle1();
         Log.d("SongURL", url);
-         image = musicList.get(position).getImageUrl();
+        String image = musicList.get(position).getImageUrl();
         Log.d("Url", url);
-
-        if (mInterstitialAd != null) {
-            mInterstitialAd.show(Music.this);
-        } else
-            startActivity(new Intent(getApplicationContext(), MusicPlayer.class).putExtra("url", url).putExtra("name", songName).putExtra("image", image));
+        startActivity(new Intent(getApplicationContext(), MusicPlayer.class).putExtra("url", url).putExtra("name", songName).putExtra("image", image));
     }
 
     private void sendNotification() {

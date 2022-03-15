@@ -71,8 +71,8 @@ public class NinjaDartLineChart extends AppCompatActivity {
         score = findViewById(R.id.score);
         totalScore = findViewById(R.id.highscore);
         dialog = new Dialog(this);
-        relativeLayout=findViewById(R.id.mainLayout);
-        close=findViewById(R.id.close);
+        relativeLayout = findViewById(R.id.mainLayout);
+        close = findViewById(R.id.close);
 
         close.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,6 +87,35 @@ public class NinjaDartLineChart extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), NinjaDartsMainActivity.class));
             }
         });
+        SharedPreferences sha = getSharedPreferences("Sec", MODE_APPEND);
+
+// The value will be default as empty string because for
+// the very first time when the app is opened, there is nothing to show
+        int sec = sha.getInt("sec", 0);
+        Log.d("SecNinjaLineChart", String.valueOf(sec));
+
+        SharedPreferences sh = getSharedPreferences("prefsTimeConWH", MODE_APPEND);
+
+// The value will be default as empty string because for
+// the very first time when the app is opened, there is nothing to show
+
+        g = sh.getInt("firstStartTimeConWH", 0);
+
+// We can then use the data
+        Log.d("A Count", String.valueOf(g));
+
+        int y = g + 1;
+
+        SharedPreferences prefsCount1 = getSharedPreferences("prefsTimeConWH", MODE_PRIVATE);
+        SharedPreferences.Editor editor3 = prefsCount1.edit();
+        editor3.putInt("firstStartTimeCon", y);
+        editor3.apply();
+        SharedPreferences sha5 = getSharedPreferences("prefsTimeConWH", MODE_APPEND);
+
+// The value will be default as empty string because for
+// the very first time when the app is opened, there is nothing to show
+
+        int x1 = sha5.getInt("firstStartTimeConWH", 0);
 
         Calendar now = Calendar.getInstance();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -181,7 +210,9 @@ public class NinjaDartLineChart extends AppCompatActivity {
 
             }
         });
-
+        DatabaseReference referenceTime = FirebaseDatabase.getInstance().getReference("TimeSpentWHChart").child(mUser.getUid()).child("Concentration Games").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(g));
+        Log.d("ReferencePath", String.valueOf(referenceTime));
+        referenceTime.setValue(sec);
         openPopUpIntervention();
 
 

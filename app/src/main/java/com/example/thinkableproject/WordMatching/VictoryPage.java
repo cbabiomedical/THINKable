@@ -2,6 +2,7 @@ package com.example.thinkableproject.WordMatching;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
@@ -18,8 +19,16 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class VictoryPage extends AppCompatActivity {
     Long seconds;
@@ -27,6 +36,8 @@ public class VictoryPage extends AppCompatActivity {
     LineData lineData;
     LineDataSet lineDataSet;
     ArrayList lineEntries;
+    FirebaseUser mUser;
+    int x;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +45,7 @@ public class VictoryPage extends AppCompatActivity {
         setContentView(R.layout.activity_victory_page);
         GlobalElements.getInstance().levelUp();
         dialog = new Dialog(this);
+        mUser= FirebaseAuth.getInstance().getCurrentUser();
         updateScore();
         updateLevel();
         if (GlobalElements.getInstance().getLevel() == 21) {
@@ -47,6 +59,32 @@ public class VictoryPage extends AppCompatActivity {
             Log.d("Time", String.valueOf(seconds));
 
         }
+        Calendar now = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Log.d("WEEK", String.valueOf(now.get(Calendar.WEEK_OF_MONTH)));
+        Log.d("MONTH", String.valueOf(now.get(Calendar.MONTH)));
+        Log.d("YEAR", String.valueOf(now.get(Calendar.YEAR)));
+        Log.d("DAY", String.valueOf(now.get(Calendar.DAY_OF_MONTH)));
+        Log.d("Month", String.valueOf(now.get(Calendar.MONTH)));
+
+        int month = now.get(Calendar.MONTH) + 1;
+        int day = now.get(Calendar.DAY_OF_MONTH) + 1;
+        Format f = new SimpleDateFormat("EEEE");
+        String str = f.format(new Date());
+
+        SharedPreferences sh1 = getSharedPreferences("prefsTimeMemWH", MODE_APPEND);
+        x = sh1.getInt("firstStartTimeMemWH", 0);
+        Log.d("A Count", String.valueOf(x));
+
+        int y = x + 1;
+
+        SharedPreferences prefsCount = getSharedPreferences("prefsTimeMemWH", MODE_PRIVATE);
+        SharedPreferences.Editor editor1 = prefsCount.edit();
+        editor1.putInt("firstStartTimeMemWH", y);
+        editor1.apply();
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("TimeSpentWHChart").child(mUser.getUid()).child("Memory Games").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(x));
+        reference.setValue(seconds);
         openLineChart();
     }
 

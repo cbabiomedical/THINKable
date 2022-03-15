@@ -104,7 +104,7 @@ public class VideoInterventionActivity extends AppCompatActivity implements Vide
 //        videoModelClassList.add(new VideoModelClass("1","Calm Meditation",R.drawable.download,R.raw.cardgame));
 //        videoModelClassList.add(new VideoModelClass("2","Pathway Meditation",R.drawable.download2,R.raw.cardgame));
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Video_Admin");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Videos_Admin").child("Videos_Relaxation");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

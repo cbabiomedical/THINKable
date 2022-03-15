@@ -11,14 +11,26 @@ import android.media.AudioAttributes;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.Build;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceView;
 
 import com.example.thinkableproject.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
+
+import static android.content.Context.MODE_PRIVATE;
+import static android.os.ParcelFileDescriptor.MODE_APPEND;
 
 public class GameView extends SurfaceView implements Runnable {
 
@@ -28,13 +40,16 @@ public class GameView extends SurfaceView implements Runnable {
     public static float screenRatioX, screenRatioY;
     private Paint paint;
     private Bird[] birds;
+    FirebaseUser mUser;
+    int g;
     private SharedPreferences prefs;
     private Random random;
     private SoundPool soundPool;
     private List<Bullet> bullets;
     private int sound;
     private Flight flight;
-    public static boolean isStarted=false;
+    Long startTime, endTime;
+    public static boolean isStarted = false;
     private GameActivity activity;
     private Background background1, background2;
 
@@ -43,8 +58,10 @@ public class GameView extends SurfaceView implements Runnable {
 
         this.activity = activity;
 
-        prefs = activity.getSharedPreferences("game", Context.MODE_PRIVATE);
-        isStarted=true;
+        prefs = activity.getSharedPreferences("game", MODE_PRIVATE);
+        isStarted = true;
+        startTime = System.currentTimeMillis();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
 
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -83,7 +100,7 @@ public class GameView extends SurfaceView implements Runnable {
 
         birds = new Bird[4];
 
-        for (int i = 0;i < 4;i++) {
+        for (int i = 0; i < 4; i++) {
 
             Bird bird = new Bird(getResources());
             birds[i] = bird;
@@ -99,15 +116,15 @@ public class GameView extends SurfaceView implements Runnable {
 
         while (isPlaying) {
 
-            update ();
-            draw ();
-            sleep ();
+            update();
+            draw();
+            sleep();
 
         }
 
     }
 
-    private void update () {
+    private void update() {
 
         background1.x -= 10 * screenRatioX;
         background2.x -= 10 * screenRatioX;
@@ -192,7 +209,7 @@ public class GameView extends SurfaceView implements Runnable {
 
     }
 
-    private void draw () {
+    private void draw() {
 
         if (getHolder().getSurface().isValid()) {
 
@@ -210,7 +227,7 @@ public class GameView extends SurfaceView implements Runnable {
                 canvas.drawBitmap(flight.getDead(), flight.x, flight.y, paint);
                 getHolder().unlockCanvasAndPost(canvas);
                 saveIfHighScore();
-                waitBeforeExiting ();
+                waitBeforeExiting();
                 return;
             }
 
@@ -229,8 +246,46 @@ public class GameView extends SurfaceView implements Runnable {
 
         try {
             Thread.sleep(3000);
-            activity.startActivity(new Intent(activity, GameOverActivity.class).putExtra("score",score));
-            isStarted=false;
+            endTime = System.currentTimeMillis();
+            Long seconds = (endTime - startTime) / 1000;
+            Calendar now = Calendar.getInstance();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Log.d("WEEK", String.valueOf(now.get(Calendar.WEEK_OF_MONTH)));
+            Log.d("MONTH", String.valueOf(now.get(Calendar.MONTH)));
+            Log.d("YEAR", String.valueOf(now.get(Calendar.YEAR)));
+            Log.d("DAY", String.valueOf(now.get(Calendar.DAY_OF_MONTH)));
+
+            int month = now.get(Calendar.MONTH) + 1;
+            int day = now.get(Calendar.DAY_OF_MONTH) + 1;
+            Format f = new SimpleDateFormat("EEEE");
+            String str = f.format(new Date());
+            SharedPreferences sh = activity.getSharedPreferences("prefsTimeConWH", MODE_APPEND);
+
+// The value will be default as empty string because for
+// the very first time when the app is opened, there is nothing to show
+
+            g = sh.getInt("firstStartTimeConWH", 0);
+
+// We can then use the data
+            Log.d("A Count", String.valueOf(g));
+
+            int y = g + 1;
+
+            SharedPreferences prefsCount1 = activity.getSharedPreferences("prefsTimeConWH", MODE_PRIVATE);
+            SharedPreferences.Editor editor3 = prefsCount1.edit();
+            editor3.putInt("firstStartTimeCon", y);
+            editor3.apply();
+            SharedPreferences sha5 = activity.getSharedPreferences("prefsTimeConWH", MODE_APPEND);
+            DatabaseReference referenceTime = FirebaseDatabase.getInstance().getReference("TimeSpentWHChart").child(mUser.getUid()).child("Concentration Games").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(g));
+            Log.d("ReferencePath", String.valueOf(referenceTime));
+            referenceTime.setValue(seconds);
+
+// The value will be default as empty string because for
+// the very first time when the app is opened, there is nothing to show
+
+            int x1 = sha5.getInt("firstStartTimeConWH", 0);
+            activity.startActivity(new Intent(activity, GameOverActivity.class).putExtra("score", score));
+            isStarted = false;
             activity.finish();
         } catch (InterruptedException e) {
             e.printStackTrace();
@@ -248,7 +303,7 @@ public class GameView extends SurfaceView implements Runnable {
 
     }
 
-    private void sleep () {
+    private void sleep() {
         try {
             Thread.sleep(17);
         } catch (InterruptedException e) {
@@ -256,7 +311,7 @@ public class GameView extends SurfaceView implements Runnable {
         }
     }
 
-    public void resume () {
+    public void resume() {
 
         isPlaying = true;
         thread = new Thread(this);
@@ -264,7 +319,7 @@ public class GameView extends SurfaceView implements Runnable {
 
     }
 
-    public void pause () {
+    public void pause() {
 
         try {
             isPlaying = false;

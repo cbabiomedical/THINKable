@@ -53,6 +53,8 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.karumi.dexter.Dexter;
@@ -61,7 +63,11 @@ import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 public class PlayMeditation extends AppCompatActivity {
@@ -71,8 +77,11 @@ public class PlayMeditation extends AppCompatActivity {
     ImageView imageView;
     String uri;
     String name;
+    int x;
+    FirebaseUser mUser;
     Dialog dialog;
     User user;
+    Long startTime, endTime;
     FirebaseFirestore database;
     LineChart lineChart;
     LineData lineData;
@@ -105,7 +114,9 @@ public class PlayMeditation extends AppCompatActivity {
         btnff = findViewById(R.id.fForward);
         btnfr = findViewById(R.id.fRewind);
         database = FirebaseFirestore.getInstance();
-        isStarted=true;
+        startTime = System.currentTimeMillis();
+        isStarted = true;
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
 //        lineChart = findViewById(R.id.lineChartIntervention);
         mediaPlayer = new MediaPlayer();
 
@@ -525,7 +536,41 @@ public class PlayMeditation extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         mediaPlayer.pause();
-        isStarted=false;
+        endTime = System.currentTimeMillis();
+        Long seconds = (endTime - startTime) / 1000;
+        isStarted = false;
+        Calendar now = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Log.d("WEEK", String.valueOf(now.get(Calendar.WEEK_OF_MONTH)));
+        Log.d("MONTH", String.valueOf(now.get(Calendar.MONTH)));
+        Log.d("YEAR", String.valueOf(now.get(Calendar.YEAR)));
+        Log.d("DAY", String.valueOf(now.get(Calendar.DAY_OF_MONTH)));
+        Log.d("Month", String.valueOf(now.get(Calendar.MONTH)));
+
+        int month = now.get(Calendar.MONTH) + 1;
+        int day = now.get(Calendar.DAY_OF_MONTH) + 1;
+        Format f = new SimpleDateFormat("EEEE");
+        String str = f.format(new Date());
+        SharedPreferences sh = getSharedPreferences("prefsTimeRelWH", MODE_APPEND);
+        x = sh.getInt("firstStartTimeRelWH", 0);
+        Log.d("A Count", String.valueOf(x));
+
+        int y = x + 1;
+
+        SharedPreferences prefsCount1 = getSharedPreferences("prefsTimeRelWH", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefsCount1.edit();
+        editor.putInt("firstStartTimeRelWH", y);
+        editor.apply();
+        SharedPreferences sha = getSharedPreferences("prefsTimeRelWH", MODE_APPEND);
+
+// The value will be default as empty string because for
+// the very first time when the app is opened, there is nothing to show
+
+        int x1 = sha.getInt("firstStartTimeRelWH", 0);
+        endTime=System.currentTimeMillis();
+        DatabaseReference referenceTime = FirebaseDatabase.getInstance().getReference("TimeSpentWHChart").child(mUser.getUid()).child("Relaxation Intervention").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(x));
+        Log.d("ReferencePath", String.valueOf(referenceTime));
+        referenceTime.setValue(seconds);
     }
 
 

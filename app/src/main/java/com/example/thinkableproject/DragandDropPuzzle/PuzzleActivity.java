@@ -5,6 +5,7 @@ import static java.lang.Math.abs;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -21,17 +22,27 @@ import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.util.Log;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.example.thinkableproject.R;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.Random;
+import java.util.logging.LoggingMXBean;
 
 public class PuzzleActivity extends AppCompatActivity {
 
@@ -40,9 +51,11 @@ public class PuzzleActivity extends AppCompatActivity {
     String mCurrentPhotoUri;
     Random r = new Random(SystemClock.uptimeMillis());
     Double score;
+    FirebaseUser mUser;
+    int x = 0;
     int tiles = -1;
     double startTime = 0;
-    public static boolean isStarted=false;
+    public static boolean isStarted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,12 +64,13 @@ public class PuzzleActivity extends AppCompatActivity {
 
         final RelativeLayout layout = findViewById(R.id.layout);
         final ImageView imageView = findViewById(R.id.imageView);
-        isStarted=true;
+        isStarted = true;
 
         Intent intent = getIntent();
         final String assetName = intent.getStringExtra("assetName");
         mCurrentPhotoPath = intent.getStringExtra("mCurrentPhotoPath");
         mCurrentPhotoUri = intent.getStringExtra("mCurrentPhotoUri");
+        mUser= FirebaseAuth.getInstance().getCurrentUser();
 
         // run image related code after the view was laid out
         // to have all dimensions calculated
@@ -105,7 +119,7 @@ public class PuzzleActivity extends AppCompatActivity {
             int photoH = bmOptions.outHeight;
 
             // Determine how much to scale down the image
-            int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+            int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
 
             is.reset();
 
@@ -147,8 +161,8 @@ public class PuzzleActivity extends AppCompatActivity {
         Bitmap croppedBitmap = Bitmap.createBitmap(scaledBitmap, abs(scaledBitmapLeft), abs(scaledBitmapTop), croppedImageWidth, croppedImageHeight);
 
         // Calculate the with and height of the pieces
-        int pieceWidth = croppedImageWidth/cols;
-        int pieceHeight = croppedImageHeight/rows;
+        int pieceWidth = croppedImageWidth / cols;
+        int pieceHeight = croppedImageHeight / rows;
 
         // Create each bitmap piece and add it to the resulting array
         int yCoord = 0;
@@ -198,7 +212,7 @@ public class PuzzleActivity extends AppCompatActivity {
                 } else {
                     // right bump
                     path.lineTo(pieceBitmap.getWidth(), offsetY + (pieceBitmap.getHeight() - offsetY) / 3);
-                    path.cubicTo(pieceBitmap.getWidth() - bumpSize,offsetY + (pieceBitmap.getHeight() - offsetY) / 6, pieceBitmap.getWidth() - bumpSize, offsetY + (pieceBitmap.getHeight() - offsetY) / 6 * 5, pieceBitmap.getWidth(), offsetY + (pieceBitmap.getHeight() - offsetY) / 3 * 2);
+                    path.cubicTo(pieceBitmap.getWidth() - bumpSize, offsetY + (pieceBitmap.getHeight() - offsetY) / 6, pieceBitmap.getWidth() - bumpSize, offsetY + (pieceBitmap.getHeight() - offsetY) / 6 * 5, pieceBitmap.getWidth(), offsetY + (pieceBitmap.getHeight() - offsetY) / 3 * 2);
                     path.lineTo(pieceBitmap.getWidth(), pieceBitmap.getHeight());
                 }
 
@@ -208,7 +222,7 @@ public class PuzzleActivity extends AppCompatActivity {
                 } else {
                     // bottom bump
                     path.lineTo(offsetX + (pieceBitmap.getWidth() - offsetX) / 3 * 2, pieceBitmap.getHeight());
-                    path.cubicTo(offsetX + (pieceBitmap.getWidth() - offsetX) / 6 * 5,pieceBitmap.getHeight() - bumpSize, offsetX + (pieceBitmap.getWidth() - offsetX) / 6, pieceBitmap.getHeight() - bumpSize, offsetX + (pieceBitmap.getWidth() - offsetX) / 3, pieceBitmap.getHeight());
+                    path.cubicTo(offsetX + (pieceBitmap.getWidth() - offsetX) / 6 * 5, pieceBitmap.getHeight() - bumpSize, offsetX + (pieceBitmap.getWidth() - offsetX) / 6, pieceBitmap.getHeight() - bumpSize, offsetX + (pieceBitmap.getWidth() - offsetX) / 3, pieceBitmap.getHeight());
                     path.lineTo(offsetX, pieceBitmap.getHeight());
                 }
 
@@ -290,8 +304,8 @@ public class PuzzleActivity extends AppCompatActivity {
         int imgViewW = imageView.getWidth();
         int imgViewH = imageView.getHeight();
 
-        int top = (int) (imgViewH - actH)/2;
-        int left = (int) (imgViewW - actW)/2;
+        int top = (int) (imgViewH - actH) / 2;
+        int left = (int) (imgViewW - actW) / 2;
 
         ret[0] = left;
         ret[1] = top;
@@ -301,11 +315,39 @@ public class PuzzleActivity extends AppCompatActivity {
 
     public void checkGameOver() {
         if (isGameOver()) {
-            score=(SystemClock.uptimeMillis()-startTime)/1000;
-            isStarted=false;
+            Calendar now = Calendar.getInstance();
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+            Log.d("WEEK", String.valueOf(now.get(Calendar.WEEK_OF_MONTH)));
+            Log.d("MONTH", String.valueOf(now.get(Calendar.MONTH)));
+            Log.d("YEAR", String.valueOf(now.get(Calendar.YEAR)));
+            Log.d("DAY", String.valueOf(now.get(Calendar.DAY_OF_MONTH)));
+            Log.d("Month", String.valueOf(now.get(Calendar.MONTH)));
+
+            int month = now.get(Calendar.MONTH) + 1;
+            int day = now.get(Calendar.DAY_OF_MONTH) + 1;
+            Format f = new SimpleDateFormat("EEEE");
+            String str = f.format(new Date());
+            score = (SystemClock.uptimeMillis() - startTime) / 1000;
+            Long scoreLong= score.longValue();
+            Log.d("Time", String.valueOf(score));
+            SharedPreferences sh = getSharedPreferences("prefsTimeMemWH", MODE_APPEND);
+            x = sh.getInt("firstStartTimeMemWH", 0);
+            Log.d("A Count", String.valueOf(x));
+
+            int y = x + 1;
+
+            SharedPreferences prefsCount1 = getSharedPreferences("prefsTimeMemWH", MODE_PRIVATE);
+            SharedPreferences.Editor editor = prefsCount1.edit();
+            editor.putInt("firstStartTimeMemWH", y);
+            editor.apply();
+            SharedPreferences sha = getSharedPreferences("prefsTimeMemWH", MODE_APPEND);
+            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("TimeSpentWHChart").child(mUser.getUid()).child("Memory Games").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(x));
+            reference.setValue(scoreLong);
+
+            isStarted = false;
             Toast.makeText(PuzzleActivity.this, "got result", Toast.LENGTH_SHORT).show();
             finish();
-            startActivity(new Intent(getApplicationContext(), GameOverPuzzle.class).putExtra("score",score));
+            startActivity(new Intent(getApplicationContext(), GameOverPuzzle.class).putExtra("score", score));
         }
     }
 
@@ -332,7 +374,7 @@ public class PuzzleActivity extends AppCompatActivity {
         int photoH = bmOptions.outHeight;
 
         // Determine how much to scale down the image
-        int scaleFactor = Math.min(photoW/targetW, photoH/targetH);
+        int scaleFactor = Math.min(photoW / targetW, photoH / targetH);
 
         // Decode the image file into a Bitmap sized to fill the View
         bmOptions.inJustDecodeBounds = false;

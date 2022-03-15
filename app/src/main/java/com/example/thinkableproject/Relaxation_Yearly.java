@@ -58,10 +58,14 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import pl.droidsonroids.gif.GifImageView;
 
@@ -74,6 +78,8 @@ public class Relaxation_Yearly extends AppCompatActivity {
     ImageView concentration, memoryBtn;
     FirebaseUser mUser;
     String text;
+    Long average1, average2, average3, average;
+    int sum1, sum2, sum3, sum4;
     ImageView music, meditation, video;
     File fileName;
     File localFile;
@@ -238,15 +244,21 @@ public class Relaxation_Yearly extends AppCompatActivity {
         music.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Music.class);
+                Intent intent = new Intent(getApplicationContext(), MusicRelaxation.class);
                 startActivity(intent);
+            }
+        });
+        realTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(getApplicationContext(), Calibration.class));
             }
         });
         //go to meditation-exercise page
         meditation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(getApplicationContext(), Meditation.class);
+                Intent intent = new Intent(getApplicationContext(), MeditationExercise.class);
                 startActivity(intent);
             }
         });
@@ -317,158 +329,216 @@ public class Relaxation_Yearly extends AppCompatActivity {
                 return false;
             }
         });
-
-        //Array list to write data to file
-        ArrayList<Float> obj = new ArrayList<>(
-                Arrays.asList(30f, 86f, 10f, 50f));
-
-        //Writing data to file
-        try {
-            fileName = new File(getCacheDir() + "/relaxationyearly.txt");
-            String line = "";
-            FileWriter fw;
-            fw = new FileWriter(fileName);
-            BufferedWriter output = new BufferedWriter(fw);
-            int size = obj.size();
-            for (int i = 0; i < size; i++) {
-                output.write(obj.get(i).toString() + "\n");
-//                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
-            }
-            output.close();
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
-
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUser.getUid();
-        // Uploading file created to firebase storage
-        StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
-        try {
-            StorageReference mountainsRef = storageReference1.child("relaxationyearly.txt");
-            InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
-            UploadTask uploadTask = mountainsRef.putStream(stream);
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                    Toast.makeText(Relaxation_Yearly.this, "File Uploaded", Toast.LENGTH_SHORT).show();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-//                    Toast.makeText(Relaxation_Yearly.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
-                }
-            });
 
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        //initialize file handler
-        final Handler handler = new Handler();
-        final int delay = 7000;
+        Calendar now = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Log.d("WEEK", String.valueOf(now.get(Calendar.WEEK_OF_MONTH)));
+        Log.d("MONTH", String.valueOf(now.get(Calendar.MONTH)));
+        Log.d("YEAR", String.valueOf(now.get(Calendar.YEAR)));
+        Log.d("DAY", String.valueOf(now.get(Calendar.DAY_OF_WEEK)));
+        Format f = new SimpleDateFormat("EEEE");
+        String str = f.format(new Date());
+        int year1 = now.get(Calendar.YEAR) - 3;
+        int year2 = now.get(Calendar.YEAR) - 2;
+        int year3 = now.get(Calendar.YEAR) - 1;
+        //prints day name
+        System.out.println("Day Name: " + str);
+        Log.d("Day Name", str);
+
+        Handler handler = new Handler();
+        final int delay = 5000;
+        String[] years = new String[]{"", String.valueOf(year1), String.valueOf(year2), String.valueOf(year3), String.valueOf(now.get(Calendar.YEAR))};
+        ArrayList<Float> creditsMain = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f));
 
         handler.postDelayed(new Runnable() {
-
             @Override
             public void run() {
 
-                //Downloading file and displaying chart
-                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/relaxationyearly.txt");
-
-                try {
-                    localFile = File.createTempFile("tempFile", ".txt");
-                    text = localFile.getAbsolutePath();
-                    Log.d("Bitmap", text);
-                    storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-//                            Toast.makeText(Relaxation_Yearly.this, "Success", Toast.LENGTH_SHORT).show();
-
-                            try {
-                                InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
-
-                                Log.d("FileName", localFile.getAbsolutePath());
-
-                                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                                String line = "";
-
-                                Log.d("First", line);
-                                if ((line = bufferedReader.readLine()) != null) {
-                                    list.add(line);
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("TimeSpentWHChart").child(mUser.getUid()).child("Relaxation Intervention").child(String.valueOf(year1));
+                reference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        ArrayList sumElement = new ArrayList();
+                        int sum = (0);
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
+                                for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
+                                    for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
+                                        Log.d("Yearly 1", String.valueOf(snapshot3.getValue()));
+                                        Long av1 = (Long) snapshot3.getValue();
+                                        sumElement.add(snapshot1.getValue());
+                                        sum1 += av1;
+                                    }
                                 }
-                                while ((line = bufferedReader.readLine()) != null) {
-
-                                    list.add(line);
-                                    Log.d("Line", line);
-                                }
-
-                                Log.d("List", String.valueOf(list));
-
-                                for (int i = 0; i < list.size(); i++) {
-                                    floatList.add(Float.parseFloat(list.get(i)));
-                                    Log.d("FloatArrayList", String.valueOf(floatList));
-                                }
-                            } catch (IOException e) {
-                                e.printStackTrace();
                             }
-                            Log.d("floatListTest", String.valueOf(floatList));
-                            String[] weeks = new String[]{"2018", "2019", "2020", "2021"};
-                            List<Float> creditsWeek = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 10f));
-                            float[] strengthWeek = new float[]{90f, 30f, 70f, 10f};
+                        }
+                        Log.d("SUM", String.valueOf(sum1));
+                        if (sum1 != 0) {
+                            average1 = sum1 / Long.parseLong(String.valueOf(sumElement.size()));
+                        } else {
+                            average1 = 0L;
+                        }
 
-                            for (int j = 0; j < floatList.size(); ++j) {
-                                entries.add(new BarEntry(j, floatList.get(j)));
+                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("TimeSpentWHChart").child(mUser.getUid()).child("Relaxation Intervention").child(String.valueOf(year2));
+                        reference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                ArrayList sumElement = new ArrayList();
+                                int sum = (0);
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                    for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
+                                        for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
+                                            for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
+                                                Log.d("Yearly 2", String.valueOf(snapshot3.getValue()));
+                                                Long av1 = (Long) snapshot3.getValue();
+                                                sumElement.add(snapshot1.getValue());
+                                                sum2 += av1;
+                                            }
+                                        }
+                                    }
+                                }
+                                Log.d("SUM", String.valueOf(sum2));
+                                if (sum2 != 0) {
+                                    average2 = sum2 / Long.parseLong(String.valueOf(sumElement.size()));
+                                } else {
+                                    average2 = 0L;
+                                }
+
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("TimeSpentWHChart").child(mUser.getUid()).child("Relaxation Intervention").child(String.valueOf(year3));
+                                reference.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        ArrayList sumElement = new ArrayList();
+                                        int sum = (0);
+                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                            for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
+                                                for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
+                                                    for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
+                                                        Log.d("Yearly 3", String.valueOf(snapshot3.getValue()));
+                                                        Long av1 = (Long) snapshot3.getValue();
+                                                        sumElement.add(snapshot1.getValue());
+                                                        sum3 += av1;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        Log.d("SUM", String.valueOf(sum3));
+                                        if (sum3 != 0) {
+                                            average3 = sum3 / Long.parseLong(String.valueOf(sumElement.size()));
+                                        } else {
+                                            average3 = 0L;
+                                        }
+                                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("TimeSpentWHChart").child(mUser.getUid()).child("Relaxation Intervention").child(String.valueOf(now.get(Calendar.YEAR)));
+                                        reference.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                ArrayList sumElement = new ArrayList();
+                                                int sum = (0);
+                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                                    for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
+                                                        for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
+                                                            for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
+                                                                Log.d("Yearly 4", String.valueOf(snapshot3.getValue()));
+                                                                Long av1 = (Long) snapshot3.getValue();
+                                                                sumElement.add(snapshot1.getValue());
+                                                                sum4 += av1;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                Log.d("SUM", String.valueOf(sum4));
+                                                if (sum4 != 0) {
+                                                    average = sum4 / Long.parseLong(String.valueOf(sumElement.size()));
+                                                } else {
+                                                    average = 0L;
+                                                }
+                                                Log.d("Average", String.valueOf(average));
+                                                Log.d("Average1", String.valueOf(average1));
+                                                Log.d("Average2", String.valueOf(average2));
+                                                Log.d("Average4", String.valueOf(average3));
+
+                                                float sum1min = TimeUnit.SECONDS.toMinutes(sum1);
+                                                float sum2min = TimeUnit.SECONDS.toMinutes(sum2);
+                                                float sum3min = TimeUnit.SECONDS.toMinutes(sum3);
+                                                float sum4min = TimeUnit.SECONDS.toMinutes(sum4);
+
+                                                float textSize = 10f;
+                                                entries.add(new BarEntry(1, sum1min));
+                                                entries.add(new BarEntry(2, sum2min));
+                                                entries.add(new BarEntry(3, sum3min));
+                                                entries.add(new BarEntry(4, sum4min));
+                                                //Initializing object of MyBarDataset class
+                                                MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsMain);
+                                                dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
+                                                        ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
+                                                        ContextCompat.getColor(getApplicationContext(), R.color.blue),
+                                                        ContextCompat.getColor(getApplicationContext(), R.color.bluebar),
+                                                        ContextCompat.getColor(getApplicationContext(), R.color.dark));
+                                                BarData data = new BarData(dataSet);
+                                                data.setDrawValues(false);
+                                                data.setBarWidth(0.8f);
+
+                                                barChart2.setData(data);
+                                                barChart2.setFitBars(true);
+                                                barChart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(years));
+                                                barChart2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                                                barChart2.getXAxis().setTextSize(textSize);
+                                                barChart2.getAxisLeft().setTextSize(textSize);
+                                                barChart2.setExtraBottomOffset(5f);
+                                                barChart2.getXAxis().setAvoidFirstLastClipping(true);
+                                                barChart2.getXAxis().setLabelCount(9, true);
+                                                barChart2.getAxisRight().setEnabled(false);
+                                                Description desc = new Description();
+                                                desc.setText("Time Spent Yearly on Relaxation");
+                                                desc.setTextColor(getResources().getColor(R.color.white));
+                                                barChart2.setDescription(desc);
+                                                barChart2.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                                                barChart2.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+                                                barChart2.getLegend().setEnabled(false);
+                                                barChart2.getXAxis().setDrawGridLines(false);
+                                                barChart2.getAxisLeft().setDrawGridLines(false);
+                                                barChart2.setNoDataText("Data Loading Please Wait....");
+                                                barChart2.animateXY(1500, 1500);
+
+
+                                                barChart2.invalidate();
+
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
                             }
 
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+                            }
+                        });
+                    }
 
-                            float textSize = 10f;
-                            Relaxation_Yearly.MyBarDataset dataSet = new Relaxation_Yearly.MyBarDataset(entries, "data", creditsWeek);
-                            dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
-                                    ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
-                                    ContextCompat.getColor(getApplicationContext(), R.color.blue),
-                                    ContextCompat.getColor(getApplicationContext(), R.color.bluebar),
-                                    ContextCompat.getColor(getApplicationContext(), R.color.dark));
-                            BarData data = new BarData(dataSet);
-                            data.setDrawValues(false);
-                            data.setBarWidth(0.8f);
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
 
-                            barChart2.setData(data);
-                            barChart2.setFitBars(true);
-                            barChart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(weeks));
-                            barChart2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-                            barChart2.getXAxis().setTextColor(getResources().getColor(R.color.white));
-                            barChart2.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
-                            barChart2.getXAxis().setTextSize(textSize);
-                            barChart2.getAxisLeft().setTextSize(textSize);
-                            barChart2.setExtraBottomOffset(10f);
-
-                            barChart2.getAxisRight().setEnabled(false);
-                            Description desc = new Description();
-                            desc.setText("");
-                            barChart2.setDescription(desc);
-                            barChart2.getLegend().setEnabled(false);
-                            barChart2.getXAxis().setDrawGridLines(false);
-                            barChart2.getAxisLeft().setDrawGridLines(false);
-                            barChart2.setNoDataText("Data Loading Please Wait...");
-                            barChart2.animateXY(1500, 1500);
-
-
-                            barChart2.invalidate();
-
-
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-//                            Toast.makeText(Relaxation_Yearly.this, "Failed", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-
-
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                }
+                    }
+                });
             }
-        }, delay);
+        }, 3000);
+
+
+        // Uploading file created to firebase storage
+
 
         try {
             fileName = new File(getCacheDir() + "/relYearlyX.txt");  //Writing data to file
@@ -661,7 +731,7 @@ public class Relaxation_Yearly extends AppCompatActivity {
 
                                         }
                                         Log.d("Line Entry", String.valueOf(lineEntries));
-                                        lineDataSet = new LineDataSet(lineEntries, "Relaxation Index");
+                                        lineDataSet = new LineDataSet(lineEntries, "Yearly Relaxation Index");
                                         lineData = new LineData(lineDataSet);
                                         lineChart.setData(lineData);
 

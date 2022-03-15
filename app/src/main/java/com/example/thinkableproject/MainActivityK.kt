@@ -43,6 +43,8 @@ import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
 import com.squareup.picasso.Picasso
+import java.text.Format
+import java.text.SimpleDateFormat
 import java.util.*
 
 class MainActivityK : AppCompatActivity() {
@@ -50,7 +52,8 @@ class MainActivityK : AppCompatActivity() {
     companion object {
         private const val TAG = "MainActivity"
         private const val CREATE_REQUEST_CODE = 248
-        var isStarted:Boolean=false;
+        var isStarted: Boolean = false;
+
     }
 
     private lateinit var clRoot: ConstraintLayout
@@ -60,8 +63,13 @@ class MainActivityK : AppCompatActivity() {
     private lateinit var information: ImageView
     private lateinit var dialog: Dialog
     private lateinit var dialogIntervention: Dialog
-    private var mInterstitialAd: InterstitialAd?=null
-//    private lateinit var lineChart: LineChart
+    private var mInterstitialAd: InterstitialAd? = null
+    lateinit var mUser:FirebaseUser
+    var startTime: Long = 0
+    var endTime: Long = 0
+    var x:Int = 0
+
+    //    private lateinit var lineChart: LineChart
     private var points: Int = 0;
 
     private lateinit var lineData: LineData
@@ -96,7 +104,9 @@ class MainActivityK : AppCompatActivity() {
         gameVideo = findViewById(R.id.simpleVideo);
         database = FirebaseFirestore.getInstance()
         mainConstraint = findViewById(R.id.mainConstraint)
-        isStarted=true
+        startTime = System.currentTimeMillis();
+        Log.d("StartTime", startTime.toString())
+        isStarted = true
 //        lineChart = findViewById(R.id.lineChartInterventionGame)
 //        lineChart = findViewById(R.id.lineChartInterventionGame)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
@@ -290,7 +300,8 @@ class MainActivityK : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.mi_refresh -> {
-                isStarted=true
+                isStarted = true
+                startTime = System.currentTimeMillis()
                 if (memoryGame.getNumMoves() > 0 && !memoryGame.haveWonGame()) {
 
                     showAlertDialog("Quit your current game?", null, View.OnClickListener {
@@ -302,7 +313,8 @@ class MainActivityK : AppCompatActivity() {
                 return true
             }
             R.id.mi_new_size -> {
-                isStarted=true
+                isStarted = true
+                startTime = System.currentTimeMillis()
                 showNewSizeDialog()
                 return true
             }
@@ -433,6 +445,7 @@ class MainActivityK : AppCompatActivity() {
 
                 }.show()
     }
+
     private fun setupBoard() {
         supportActionBar?.title = gameName ?: getString(R.string.app_name)
         memoryGame = MemoryGame(boardSize, customGameImages)
@@ -531,12 +544,63 @@ class MainActivityK : AppCompatActivity() {
                             database.collection("users").document(FirebaseAuth.getInstance().uid!!)
                                     .update("coins", updatedCoins).addOnSuccessListener {
 //                                        Toast.makeText(this, "Successfully Updated Coins", Toast.LENGTH_SHORT).show()
-                                        }.addOnFailureListener { e ->
+                                    }.addOnFailureListener { e ->
                                         Log.d("Error", e.toString())
 //                                        Toast.makeText(this, "Failed to Update Coins", Toast.LENGTH_SHORT).show()
                                     }
                         }
-                isStarted=false
+                isStarted = false
+                endTime = System.currentTimeMillis();
+                val seconds = (endTime - startTime) / 1000;
+                Log.d("endTime", endTime.toString())
+                Log.d("SecondsCard", seconds.toString())
+
+                val sh = getSharedPreferences("prefsTimeMemWH", MODE_APPEND)
+
+// The value will be default as empty string because for
+// the very first time when the app is opened, there is nothing to show
+
+
+// The value will be default as empty string because for
+// the very first time when the app is opened, there is nothing to show
+                x = sh.getInt("firstStartTimeMemWH", 0)
+
+// We can then use the data
+
+// We can then use the data
+                Log.d("A Count", x.toString())
+
+                val y: Int = x + 1
+
+                val prefsCount1 = getSharedPreferences("prefsTimeMemWH", MODE_PRIVATE)
+                val editor = prefsCount1.edit()
+                editor.putInt("firstStartTimeMemWH", y)
+                editor.apply()
+                val sha = getSharedPreferences("prefsTimeMemWH", MODE_APPEND)
+
+// The value will be default as empty string because for
+// the very first time when the app is opened, there is nothing to show
+
+
+// The value will be default as empty string because for
+// the very first time when the app is opened, there is nothing to show
+                val x1 = sha.getInt("firstStartTimeMemWH", 0)
+
+                Log.d("A Count2", x1.toString())
+                val now= Calendar.getInstance()
+                val simpleDateFormat1 = SimpleDateFormat("dd/MM/yyyy")
+                Log.d("WEEK", now[Calendar.WEEK_OF_MONTH].toString())
+                Log.d("MONTH", now[Calendar.MONTH].toString())
+                Log.d("YEAR", now[Calendar.YEAR].toString())
+                Log.d("DAY", now[Calendar.DAY_OF_MONTH].toString())
+
+                val month = now[Calendar.MONTH] + 1
+                val day1 = now[Calendar.DAY_OF_MONTH] + 1
+                val f1: Format = SimpleDateFormat("EEEE")
+                val str = f1.format(Date())
+                mUser= FirebaseAuth.getInstance().currentUser!!
+                val reference = FirebaseDatabase.getInstance().getReference("TimeSpentWHChart").child(mUser.getUid()).child("Memory Games").child(now.get(Calendar.YEAR).toString()).child(month.toString()).child(now.get(Calendar.WEEK_OF_MONTH).toString()).child(str).child(x.toString())
+                reference.setValue(seconds)
 
 
                 openDialog()
@@ -568,7 +632,7 @@ class MainActivityK : AppCompatActivity() {
         dialogIntervention.setContentView(R.layout.game_intervention_popup);
         dialogIntervention.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         ok = dialogIntervention.findViewById(R.id.ok);
-        lineChart=dialogIntervention.findViewById(R.id.lineChartInterventionGame)
+        lineChart = dialogIntervention.findViewById(R.id.lineChartInterventionGame)
 
 
         this@MainActivityK.lineEntries = ArrayList<Entry>()

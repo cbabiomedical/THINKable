@@ -12,22 +12,14 @@ import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.thinkableproject.IHaveToFly.IHaveToFlyMainActivity;
-import com.example.thinkableproject.WordMatching.MainMenu;
-import com.example.thinkableproject.adapters.GridAdapter;
-import com.example.thinkableproject.duckhunt.StartGame;
-import com.example.thinkableproject.ninjadarts.NinjaDartsMainActivity;
-import com.example.thinkableproject.pianotiles.Main3Activity;
-import com.example.thinkableproject.puzzle.PuzzleMainActivity;
-import com.example.thinkableproject.sample.GameModelClass;
-import com.example.thinkableproject.spaceshooter.StartUp;
+import com.example.thinkableproject.adapters.MeditationAdapter;
+import com.example.thinkableproject.sample.MeditationModelClass;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -39,33 +31,32 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 
-public class GameActivity extends AppCompatActivity implements GridAdapter.OnNoteListner {
+public class MeditationMemory extends AppCompatActivity implements MeditationAdapter.OnNoteListner {
     RecyclerView recyclerView;
-    ArrayList<GameModelClass> gameList;
-    GridAdapter adapter;
-    FirebaseUser mUser;
-    Dialog dialoggame;
+    ArrayList<MeditationModelClass> meditationList;
+    MeditationAdapter adapter;
     LinearLayoutManager layoutManager;
-    View c1, c2;
+    Dialog dialogmeditation;
     ImageView information;
+    //    int time;
+    FirebaseUser mUser;
+    View c1, c2;
     int color;
-    HashMap<String, Object> games = new HashMap<>();
-    ArrayList<GameModelClass> downloadGames = new ArrayList<>();
+    String selected_time;
 
-    public static final String PREF="";
+    private static String JSON_URL = "https://jsonplaceholder.typicode.com/posts";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_concentration_excercise);
-        recyclerView = findViewById(R.id.gridView);
+        setContentView(R.layout.activity_meditation_memory);
+
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
-        dialoggame = new Dialog(this);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
-        information=findViewById(R.id.gameInfo);
+        dialogmeditation = new Dialog(this);
+        information=findViewById(R.id.meditationInfo);
 
         Calendar c = Calendar.getInstance();
         int timeOfDay = c.get(Calendar.HOUR_OF_DAY);
@@ -120,19 +111,12 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
             }
         });
 
-        SharedPreferences prefsGame = getSharedPreferences("prefsGame", MODE_PRIVATE);
-        boolean firstStartGame = prefsGame.getBoolean("firstStartGame", true);
+        SharedPreferences prefsMed = getSharedPreferences("prefsMed", MODE_PRIVATE);
+        boolean firstStartMed = prefsMed.getBoolean("firstStartMed", true);
 
-        if (firstStartGame) {
-            displayPopup();
+        if (firstStartMed) {
+            displayInstructionsPopup();
         }
-
-        information.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                displayPopup();
-            }
-        });
 
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
@@ -166,25 +150,68 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
             }
         });
 
-        initData();
+        information.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayInstructionsPopup();
+            }
+        });
 
+        recyclerView = findViewById(R.id.gridView);
+//        Spinner dropdown_time = (Spinner) findViewById(R.id.spinner2);
+        // String[] items = new String[]{"Audio track duration is: 1 min", "Audio track duration is: 1.5 min", "Audio track duration is: 2 min", "Audio track duration is: 2.5 min", "Audio track duration is: 3 min"};
+//        ArrayAdapter<String> adapter1 = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, items);
+//        dropdown_time.setAdapter(adapter1);
+//
+//        dropdown_time.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                selected_time = parent.getItemAtPosition(position).toString();
+//                if (position == 0) {
+//                    time = 60000;
+//                    Log.d("TIME", String.valueOf(time));
+//                } else if (position == 1) {
+//                    time = 90000;
+//                    Log.d("TIME", String.valueOf(time));
+//                } else if (position == 2) {
+//                    time = 120000;
+//                } else if (position == 3) {
+//                    time = 150000;
+//                } else {
+//                    time = 180000;
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//
+//            }
+//        });
+        //  favouriteBtn = findViewById(R.id.favouritesIcon);
+        meditationList = new ArrayList<>();
+
+        initData();
         //Calling initRecyclerView function
     }
 
     private void initData() {
-        gameList = new ArrayList<>();
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Games_Admin").child("Games_Concentration");
+        meditationList = new ArrayList<>();
+//        Adding user preferences to arraylist
+//        meditationList.add(new MeditationModelClass("Mindfulness", R.drawable.mindful, "0", "https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c", "0"));
+//        meditationList.add(new MeditationModelClass("Body Scan", R.drawable.maxresdefault, "1", "https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c", "0"));
+//        meditationList.add(new MeditationModelClass("Loving", R.drawable.love_kind, "2", "https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c", "0"));
+//        meditationList.add(new MeditationModelClass("Transcendental ", R.drawable.transidental, "3", "https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c", "0"));
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Meditation_Admin").child("Meditation_Memory");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                    GameModelClass post = dataSnapshot.getValue(GameModelClass.class);
-                    gameList.add(post);
-                    Log.d("GamePost", String.valueOf(post));
+                    MeditationModelClass post = dataSnapshot.getValue(MeditationModelClass.class);
+                    meditationList.add(post);
+                    Log.d("MeditationPost", String.valueOf(post));
+                    recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
                 }
-                recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-
-
             }
 
             @Override
@@ -192,99 +219,73 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
 
             }
         });
+
         layoutManager = new LinearLayoutManager(this);
-        adapter = new GridAdapter(gameList, getApplicationContext(), this::onNoteClickGame);
+        adapter = new MeditationAdapter(meditationList, getApplicationContext(), this::onNoteClickMeditation);
         recyclerView.setAdapter(adapter);
-        Log.d("List", String.valueOf(gameList));
 
-
+//        RequestQueue requestQueue = Volley.newRequestQueue(this);
+//        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, JSON_URL, null, new Response.Listener<JSONArray>() {
+//            @Override
+//            public void onResponse(JSONArray response) {
+//
+//                for (int i = 0; i < response.length(); i++) {
+//                    try {
+//                        JSONObject meditationObject = response.getJSONObject(i);
+//                        MeditationModelClass meditationModelClass = new MeditationModelClass();
+//                        // key name should be given exactly as in json file
+//                        meditationModelClass.setMeditationName(meditationObject.getString("title").toString());
+////                        meditationModelClass.setImageView(meditationObject.getString("userId").toString());
+//                        meditationModelClass.setImageView(R.drawable.love_kind);
+////                        meditationModelClass.setMeditation_url(meditationObject.getString("title").toString());
+//                        meditationList.add(meditationModelClass);
+//                        Log.d("List", String.valueOf(meditationList));
+//
+//
+//                    } catch (JSONException e) {
+//                        e.printStackTrace();
+//                    }
+//                }
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Log.d("TAG", String.valueOf(error));
+//            }
+//        });
+//        requestQueue.add(jsonArrayRequest);
+//
+//
     }
 
 
     @Override
-    public void onNoteClickGame(int position) {
-
-
-        gameList.get(position);
-        if (gameList.get(position).getGameName().equals("Card Memory Game")) {
-            startActivity(new Intent(getApplicationContext(), MainActivityK.class));
-        } else if (gameList.get(position).getGameName().equals("Color Pattern Game")) {
-            startActivity(new Intent(getApplicationContext(), ColorPatternGame.class));
-        }else if(gameList.get(position).getGameName().equals("SpaceHooter")){
-            startActivity(new Intent(getApplicationContext(), StartUp.class));
-        }else if(gameList.get(position).getGameName().equals("Duck Hunt")){
-            startActivity(new Intent(getApplicationContext(), StartGame.class));
-        }else if(gameList.get(position).getGameName().equals("Ninja Dart")){
-            startActivity(new Intent(getApplicationContext(), NinjaDartsMainActivity.class));
-        }else if(gameList.get(position).getGameName().equals("Piano Tiles")){
-            startActivity(new Intent(getApplicationContext(), Main3Activity.class));
-        }else if(gameList.get(position).getGameName().equals("Puzzles")){
-            startActivity(new Intent(getApplicationContext(), PuzzleMainActivity.class));
-        }else if (gameList.get(position).getGameName().equals("Puzzle Advanced")) {
-            startActivity(new Intent(getApplicationContext(), com.example.thinkableproject.DragandDropPuzzle.PuzzleMainActivity.class));
-        } else if(gameList.get(position).getGameName().equals("I Have to Fly")){
-            startActivity(new Intent(getApplicationContext(), IHaveToFlyMainActivity.class));
-        } else if(gameList.get(position).getGameName().equals("Word Match")){
-            startActivity(new Intent(getApplicationContext(), MainMenu.class));
-        }
-        else {
-            Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.vending");
-            if (launchIntent != null) {
-                Log.d("Tagopenapp", "---------------------B--------------------------");
-                startActivity(launchIntent);
-            } else {
-                Toast.makeText(GameActivity.this, "There is no package", Toast.LENGTH_LONG).show();
-            }
-
-
-        }
-//        Toast.makeText(getApplicationContext(), "You clicked " + gameList.get(position).getGameName(), Toast.LENGTH_SHORT).show();
-
-
-        GameModelClass gameModelClass = new GameModelClass(gameList.get(position).getGameImage(), gameList.get(position).getGameName());
-
-        downloadGames.add(gameModelClass);
-        Log.d("DownloadGames", String.valueOf(downloadGames));
-//        games.put(downloadGames.get(position).getGameName(), gameModelClass);
-
-        Log.d("CHECK UPLOAD", "-------------------------CHECKING FIREBASE UPLOAD-----------------");
-        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("UsersGame").child(mUser.getUid());
-        reference1.setValue(games);
-//        reference1.addValueEventListener(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot snapshot) {
-//
-//
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError error) {
-//
-//            }
-//        });
-
-        Log.d("CHECK UPLOAD", "------------------------CHECK AFTER UPLOAD------------");
-
-        Log.d("Downloads", String.valueOf(downloadGames));
-
-
+    public void onNoteClickMeditation(int position) {
+        meditationList.get(position);
+        String songName = meditationList.get(position).getMeditateName();
+        String url = meditationList.get(position).getUrl();
+        String image = meditationList.get(position).getMeditateImage();
+        Log.d("Url", url);
+        startActivity(new Intent(getApplicationContext(), PlayMeditation.class).putExtra("url", url).putExtra("name", songName).putExtra("image", image));
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+//        displayInstructionsPopup();
     }
 
-    private void displayPopup() {
+    private void displayInstructionsPopup() {
         Button ok;
         View c1, c2;
-//        ImageView gameAudioInstructions;
-        dialoggame.setContentView(R.layout.game_activity_popup);
-        dialoggame.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+//        ImageView meditationAudioInstruction;
+        dialogmeditation.setContentView(R.layout.meditation_activity_popup);
+        dialogmeditation.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
 
-        ok = (Button) dialoggame.findViewById(R.id.clickGame);
-//        c1 = (View) dialoggame.findViewById(R.id.c1);
-//        c2 = (View) dialoggame.findViewById(R.id.c2);
+        ok = (Button) dialogmeditation.findViewById(R.id.clickMeditation);
+//        c1 = (View) dialogmeditation.findViewById(R.id.c1);
+//        c2 = (View) dialogmeditation.findViewById(R.id.c2);
+
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -334,29 +335,27 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
 //
 //            }
 //        });
-//        gameAudioInstructions=(ImageView)dialoggame.findViewById(R.id.playGameInstructions);
+
 
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialoggame.dismiss();
+                dialogmeditation.dismiss();
             }
         });
 
-//        gameAudioInstructions.setOnClickListener(new View.OnClickListener() {
+////        meditationAudioInstruction.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
-//                Toast.makeText(GameActivity.this,"You clicked play audio game Instruction file",Toast.LENGTH_SHORT).show();
+//                Toast.makeText(MeditationExercise.this, "You clicked Meditation Audio Instruction", Toast.LENGTH_SHORT).show();
 //            }
 //        });
 
-        dialoggame.show();
+        dialogmeditation.show();
 
-        SharedPreferences prefsGame=getSharedPreferences("prefsGame",MODE_PRIVATE);
-        SharedPreferences.Editor editor=prefsGame.edit();
-        editor.putBoolean("firstStartGame",false);
+        SharedPreferences prefsMed=getSharedPreferences("prefsMed",MODE_PRIVATE);
+        SharedPreferences.Editor editor=prefsMed.edit();
+        editor.putBoolean("firstStartMed",false);
         editor.apply();
-
-
     }
 }

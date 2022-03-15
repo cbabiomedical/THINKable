@@ -25,6 +25,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
@@ -37,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
     int updatedCoins;
     int points;
     int a;
-    public static boolean isStarted=false;
+    int g;
+    public static boolean isStarted = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,14 +167,13 @@ public class MainActivity extends AppCompatActivity {
             double startTime = 0;
 
 
-
             @Override
             public void onClick(View v) {
 
                 if (tiles == -1) {
                     ((Button) v).setText("");
                     startTime = SystemClock.uptimeMillis();
-                    isStarted=true;
+                    isStarted = true;
                 }
                 score = (SystemClock.uptimeMillis() - startTime) / 1000;
                 tiles++;
@@ -286,7 +290,40 @@ public class MainActivity extends AppCompatActivity {
                         }
 
                     }
-                    isStarted=false;
+                    isStarted = false;
+                    Calendar now = Calendar.getInstance();
+                    SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                    Log.d("WEEK", String.valueOf(now.get(Calendar.WEEK_OF_MONTH)));
+                    Log.d("MONTH", String.valueOf(now.get(Calendar.MONTH)));
+                    Log.d("YEAR", String.valueOf(now.get(Calendar.YEAR)));
+                    Log.d("DAY", String.valueOf(now.get(Calendar.DAY_OF_MONTH)));
+
+                    int month = now.get(Calendar.MONTH) + 1;
+                    int day = now.get(Calendar.DAY_OF_MONTH) + 1;
+                    Format f = new SimpleDateFormat("EEEE");
+                    String str = f.format(new Date());
+                    SharedPreferences sh = getSharedPreferences("prefsTimeConWH", MODE_APPEND);
+
+// The value will be default as empty string because for
+// the very first time when the app is opened, there is nothing to show
+
+                    g = sh.getInt("firstStartTimeConWH", 0);
+
+// We can then use the data
+                    Log.d("A Count", String.valueOf(g));
+
+                    int y = g + 1;
+
+                    SharedPreferences prefsCount1 = getSharedPreferences("prefsTimeConWH", MODE_PRIVATE);
+                    SharedPreferences.Editor editor = prefsCount1.edit();
+                    editor.putInt("firstStartTimeConWH", y);
+                    editor.apply();
+                    SharedPreferences sha = getSharedPreferences("prefsTimeConWH", MODE_APPEND);
+                    long scoreLong=score.longValue();
+                    DatabaseReference referenceTime = FirebaseDatabase.getInstance().getReference("TimeSpentWHChart").child(mUser.getUid()).child("Concentration Games").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(g));
+                    Log.d("ReferencePath", String.valueOf(referenceTime));
+                    referenceTime.setValue(scoreLong);
+
                     startActivity(i);
                     database.collection("users")
                             .document(mUser.getUid())
@@ -466,15 +503,15 @@ public class MainActivity extends AppCompatActivity {
                             default:
                                 break;
                             case 1:
-                                i.putExtra("SCORE",  String.valueOf(0.00));
+                                i.putExtra("SCORE", String.valueOf(0.00));
                                 startActivity(i);
                                 break;
                             case 2:
-                                i.putExtra("SCORE",  String.valueOf(0.00));
+                                i.putExtra("SCORE", String.valueOf(0.00));
                                 startActivity(i);
                                 break;
                             case 3:
-                                i.putExtra("SCORE",  String.valueOf(0.00));
+                                i.putExtra("SCORE", String.valueOf(0.00));
                                 startActivity(i);
                                 break;
                         }
@@ -617,15 +654,15 @@ public class MainActivity extends AppCompatActivity {
                             default:
                                 break;
                             case 0:
-                                i.putExtra("SCORE",  String.valueOf(0.00));
+                                i.putExtra("SCORE", String.valueOf(0.00));
                                 startActivity(i);
                                 break;
                             case 2:
-                                i.putExtra("SCORE",  String.valueOf(0.00));
+                                i.putExtra("SCORE", String.valueOf(0.00));
                                 startActivity(i);
                                 break;
                             case 3:
-                                i.putExtra("SCORE",  String.valueOf(0.00));
+                                i.putExtra("SCORE", String.valueOf(0.00));
                                 startActivity(i);
                                 break;
                         }
@@ -767,15 +804,15 @@ public class MainActivity extends AppCompatActivity {
                             default:
                                 break;
                             case 1:
-                                i.putExtra("SCORE",  String.valueOf(0.00));
+                                i.putExtra("SCORE", String.valueOf(0.00));
                                 startActivity(i);
                                 break;
                             case 0:
-                                i.putExtra("SCORE",  String.valueOf(0.00));
+                                i.putExtra("SCORE", String.valueOf(0.00));
                                 startActivity(i);
                                 break;
                             case 3:
-                                i.putExtra("SCORE",  String.valueOf(0.00));
+                                i.putExtra("SCORE", String.valueOf(0.00));
                                 startActivity(i);
                                 break;
                         }
@@ -921,16 +958,16 @@ public class MainActivity extends AppCompatActivity {
                             default:
                                 break;
                             case 1:
-                                i.putExtra("SCORE",  String.valueOf(0.00));
+                                i.putExtra("SCORE", String.valueOf(0.00));
                                 startActivity(i);
 
                                 break;
                             case 2:
-                                i.putExtra("SCORE",  String.valueOf(0.00));
+                                i.putExtra("SCORE", String.valueOf(0.00));
                                 startActivity(i);
                                 break;
                             case 0:
-                                i.putExtra("SCORE",  String.valueOf(0.00));
+                                i.putExtra("SCORE", String.valueOf(0.00));
                                 startActivity(i);
                                 break;
                         }

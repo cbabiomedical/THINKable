@@ -79,9 +79,12 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.w3c.dom.Text;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -99,6 +102,7 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
     public static boolean isGameStarted;
     private int random;
     private int round;
+    int x;
     ArrayList colorPatternData;
     User user;
     private InterstitialAd mInterstitialAd;
@@ -127,6 +131,7 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
     LineData lineData;
     LineDataSet lineDataSet;
     ArrayList lineEntries;
+    Long startTime, endTime;
     String name;
     private Service_BTLE_GATT mBTLE_Service;
     private BroadcastReceiver_BTLE_GATT mGattUpdateReceiver;
@@ -138,7 +143,6 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
         // initial value of isGameStarted
         this.setIsGameStarted(false);
     }
-
 
 
     public boolean isGameStarted() {
@@ -154,7 +158,6 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
     }
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -162,7 +165,11 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
         mainConstraint = findViewById(R.id.mainConstraint);
         database = FirebaseFirestore.getInstance();
         colorPatternData = new ArrayList();
+        startTime = System.currentTimeMillis();
         Log.d("Out", String.valueOf(colorPatternData));
+        SharedPreferences prefsTimeMem = getSharedPreferences("prefsTimeMemWH", MODE_PRIVATE);
+        int firstStartTimeMem = prefsTimeMem.getInt("firstStartTimeMemWH", 0);
+
 
 //        Log.d("Outside Array", String.valueOf(services_ArrayList));
 
@@ -643,7 +650,7 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
                 animateBtn();
                 round = round + 1;
                 isGameStarted = true;
-                Log.d("STATE","true");
+                Log.d("STATE", "true");
                 Log.d("STATE", String.valueOf(isGameStarted()));
 
             }
@@ -774,6 +781,42 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
                 .
 
                         show();
+        SharedPreferences sh = getSharedPreferences("prefsTimeMemWH", MODE_APPEND);
+        x = sh.getInt("firstStartTimeMemWH", 0);
+        Log.d("A Count", String.valueOf(x));
+
+        int y = x + 1;
+
+        SharedPreferences prefsCount1 = getSharedPreferences("prefsTimeMemWH", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefsCount1.edit();
+        editor.putInt("firstStartTimeMemWH", y);
+        editor.apply();
+        SharedPreferences sha = getSharedPreferences("prefsTimeMemWH", MODE_APPEND);
+
+// The value will be default as empty string because for
+// the very first time when the app is opened, there is nothing to show
+
+        int x1 = sha.getInt("firstStartTimeMemWH", 0);
+        Calendar now = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Log.d("WEEK", String.valueOf(now.get(Calendar.WEEK_OF_MONTH)));
+        Log.d("MONTH", String.valueOf(now.get(Calendar.MONTH)));
+        Log.d("YEAR", String.valueOf(now.get(Calendar.YEAR)));
+        Log.d("DAY", String.valueOf(now.get(Calendar.DAY_OF_MONTH)));
+        Log.d("Month", String.valueOf(now.get(Calendar.MONTH)));
+
+        int month = now.get(Calendar.MONTH) + 1;
+        int day = now.get(Calendar.DAY_OF_MONTH) + 1;
+        Format f = new SimpleDateFormat("EEEE");
+        String str = f.format(new Date());
+//prints day name
+        System.out.println("Day Name: " + str);
+        Log.d("Day Name", str);
+        endTime = System.currentTimeMillis();
+        Long seconds = (endTime - startTime) / 1000;
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("TimeSpentWHChart").child(mUser.getUid()).child("Memory Games").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(x));
+        reference.setValue(seconds);
+
 
     }
 
@@ -941,7 +984,6 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
 //        unbindService(mBTLE_ServiceConnection);
 //        mBTLE_Service_Intent = null;
     }
-
 
 
 }

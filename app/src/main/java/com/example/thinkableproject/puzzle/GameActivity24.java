@@ -40,7 +40,11 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class GameActivity24 extends AppCompatActivity {
 
@@ -51,8 +55,10 @@ public class GameActivity24 extends AppCompatActivity {
     FirebaseUser mUser;
     int updatedCoins;
     User user;
+    int x;
     LineData lineData;
     LineDataSet lineDataSet;
+    Long startTime, endTime;
     ArrayList lineEntries;
     FirebaseFirestore database;
     private ImageButton[][] button;
@@ -112,6 +118,7 @@ public class GameActivity24 extends AppCompatActivity {
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         database = FirebaseFirestore.getInstance();
         isStarted = true;
+        startTime = System.currentTimeMillis();
 
 
         button = new ImageButton[N][N];
@@ -259,7 +266,35 @@ public class GameActivity24 extends AppCompatActivity {
     }
 
     private void openDialog() {
+        Calendar now = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Log.d("WEEK", String.valueOf(now.get(Calendar.WEEK_OF_MONTH)));
+        Log.d("MONTH", String.valueOf(now.get(Calendar.MONTH)));
+        Log.d("YEAR", String.valueOf(now.get(Calendar.YEAR)));
+        Log.d("DAY", String.valueOf(now.get(Calendar.DAY_OF_MONTH)));
+        Log.d("Month", String.valueOf(now.get(Calendar.MONTH)));
+
+        int month = now.get(Calendar.MONTH) + 1;
+        int day = now.get(Calendar.DAY_OF_MONTH) + 1;
+        Format f = new SimpleDateFormat("EEEE");
+        String str = f.format(new Date());
+        endTime = System.currentTimeMillis();
+        Long second = (endTime - startTime) / 1000;
+        Log.d("Seconds", String.valueOf(second));
         isStarted = false;
+        SharedPreferences sh1 = getSharedPreferences("prefsTimeMemWH", MODE_APPEND);
+        x = sh1.getInt("firstStartTimeMemWH", 0);
+        Log.d("A Count", String.valueOf(x));
+
+        int y = x + 1;
+
+        SharedPreferences prefsCount = getSharedPreferences("prefsTimeMemWH", MODE_PRIVATE);
+        SharedPreferences.Editor editor1 = prefsCount.edit();
+        editor1.putInt("firstStartTimeMemWH", y);
+        editor1.apply();
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("TimeSpentWHChart").child(mUser.getUid()).child("Memory Games").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(x));
+        reference.setValue(second);
         SharedPreferences sh = getSharedPreferences("prefsCountPuz", MODE_APPEND);
 
 // The value will be default as empty string because for

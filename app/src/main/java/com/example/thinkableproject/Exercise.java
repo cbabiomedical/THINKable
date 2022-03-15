@@ -240,7 +240,7 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
             }
         });
 
-        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Games_Admin");
+        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Games_Admin").child("Games_Concentration");
         reference1.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

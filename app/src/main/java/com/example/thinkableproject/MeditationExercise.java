@@ -275,7 +275,7 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
 //        meditationList.add(new MeditationModelClass("Loving", R.drawable.love_kind, "2", "https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c", "0"));
 //        meditationList.add(new MeditationModelClass("Transcendental ", R.drawable.transidental, "3", "https://firebasestorage.googleapis.com/v0/b/thinkableproject-15f91.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=241ad528-0581-44ec-b415-93684ebcee9c", "0"));
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Meditation_Admin");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Meditation_Admin").child("Meditation_Relaxation");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

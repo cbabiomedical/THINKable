@@ -66,7 +66,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
     int a1;
     int g;
     Dialog dialog;
-    public static boolean isStarted=false;
+    public static boolean isStarted = false;
     long seconds;
     LineData lineData;
     LineDataSet lineDataSet;
@@ -89,7 +89,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         dialog = new Dialog(context);
         SharedPreferences prefsCount1 = context.getSharedPreferences("prefsCountNinja", MODE_PRIVATE);
         int firstStartCount = prefsCount1.getInt("firstStartCountNinja", 0);
-        isStarted=true;
+        isStarted = true;
 
 
         getHolder().addCallback(this);
@@ -228,7 +228,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
             if (x) {
                 gameOver = true;
-                isStarted=false;
+                isStarted = false;
                 Log.d("X Over", "True");
                 thread.sleep(200);
                 Intent intent = new Intent(getContext(), NinjaDartLineChart.class);
@@ -264,7 +264,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 // Storing the key and its value as the data fetched from edittext
                         myEdit.putInt("sec", (int) seconds);
                         Log.d("MyEdit", String.valueOf(myEdit));
-
 
 
 // Once the changes have been made,
@@ -308,7 +307,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             if (y) {
 
                 gameOver = true;
-                isStarted=false;
+                isStarted = false;
                 thread.sleep(200);
                 Intent intent = new Intent(getContext(), NinjaDartLineChart.class);
                 getContext().startActivity(intent);
@@ -352,9 +351,6 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
                 Log.d("ASec", String.valueOf(seconds));
 
 
-
-
-
             }
             Log.d("CHECKOUT", String.valueOf(fruitManager.getScore()));
 
@@ -380,7 +376,23 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         //Set gameover screen
         if (gameOver) {
-            isStarted=false;
+            isStarted = false;
+            endTime = System.currentTimeMillis();
+            long seconds = (endTime - startTime) / 1000;
+            SharedPreferences sharedPreferences = getContext().getSharedPreferences("Sec", MODE_PRIVATE);
+
+// Creating an Editor object to edit(write to the file)
+            SharedPreferences.Editor myEdit = sharedPreferences.edit();
+
+// Storing the key and its value as the data fetched from edittext
+            myEdit.putInt("sec", (int) seconds);
+            Log.d("MyEdit", String.valueOf(myEdit));
+
+
+// Once the changes have been made,
+// we need to commit to apply those changes made,
+// otherwise, it will throw an error
+            myEdit.commit();
 
 //            Intent    intent = new Intent(getContext(), GameActivity.class);
 //            context.startActivity(intent);
@@ -424,14 +436,14 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             int x1 = (canvas.getWidth() / 2) - (bounds.width() / 2);
             int y1 = (canvas.getHeight() / 2) - (bounds.height() / 2);
             Log.d("SecNin", String.valueOf(seconds));
-            SharedPreferences sharedPreferences = getContext().getSharedPreferences("Sec", MODE_PRIVATE);
+            SharedPreferences sharedPreferences2 = getContext().getSharedPreferences("Sec", MODE_PRIVATE);
 
 // Creating an Editor object to edit(write to the file)
-            SharedPreferences.Editor myEdit = sharedPreferences.edit();
+            SharedPreferences.Editor myEdit2 = sharedPreferences2.edit();
 
 // Storing the key and its value as the data fetched from edittext
-            myEdit.putInt("sec", (int) seconds);
-            myEdit.commit();
+            myEdit2.putInt("sec", (int) seconds);
+            myEdit2.commit();
             String text2 = "Score: " + fruitManager.getScore();
             // Storing data into SharedPreferences
             SharedPreferences sharedPreferences1 = getContext().getSharedPreferences("Score", MODE_PRIVATE);
@@ -446,10 +458,10 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
             int y2 = (canvas.getHeight() / 2) - (bounds.height() / 2);
 
             String text3 = "High Score: " + highScore;
-            SharedPreferences sharedPreferences2 = getContext().getSharedPreferences("HighScore", MODE_PRIVATE);
-            SharedPreferences.Editor myEdit2 = sharedPreferences2.edit();
-            myEdit2.putString("highscore", String.valueOf(highScore));
-            myEdit2.commit();
+            SharedPreferences sharedPreferences3= getContext().getSharedPreferences("HighScore", MODE_PRIVATE);
+            SharedPreferences.Editor myEdit3 = sharedPreferences2.edit();
+            myEdit3.putString("highscore", String.valueOf(highScore));
+            myEdit3.commit();
 
             p.getTextBounds(text3, 0, text3.length(), bounds);
             int x3 = (canvas.getWidth() / 2) - (bounds.width() / 2);

@@ -50,8 +50,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.*;
 
 import java.io.*;
+import java.text.Format;
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.TimeUnit;
 
 import pl.droidsonroids.gif.GifImageView;
 
@@ -254,167 +256,349 @@ public class Concentration_Daily extends AppCompatActivity {
             }
         });
 
-        ArrayList<Float> lineObj = new ArrayList<>(Arrays.asList(30f, 40f, 60f, 50f, 80f, 40f, 20f));
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        //Initializing arraylist and storing data in arraylist
-        ArrayList<Float> obj = new ArrayList<>(
-                Arrays.asList(30f, 86f, 10f, 50f, 20f, 60f, 80f));
-        ArrayList<String> timeObj = new ArrayList<>(Arrays.asList("10 min", "20 min", "30 min", "40 min", "50 min", "60 min", "70 min"));
-
-        //  Creating txt file and writing data in array list to file
-        try {
-            fileName = new File(getCacheDir() + "/daily.txt");  //Writing data to file
-            FileWriter fw;
-            fw = new FileWriter(fileName);
-            BufferedWriter output = new BufferedWriter(fw);
-            int size = obj.size();
-            for (int i = 0; i < size; i++) {
-                output.write(obj.get(i).toString() + "\n");
-//                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
-            }
-            output.close();
-        } catch (IOException exception) {
-            exception.printStackTrace();
-        }
+        String[] days = new String[]{"Su", "Mn", "Tu", "We", "Th", "Fr", "Sa"};
+        ArrayList<Float> creditsMain = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f, 10f, 15f, 85f));
 
 
-        mUser = FirebaseAuth.getInstance().getCurrentUser(); // get current user
-        mUser.getUid();
+        float textSize = 10f;
+        Calendar now = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Log.d("WEEK", String.valueOf(now.get(Calendar.WEEK_OF_MONTH)));
+        Log.d("MONTH", String.valueOf(now.get(Calendar.MONTH)));
+        Log.d("YEAR", String.valueOf(now.get(Calendar.YEAR)));
+        Log.d("DAY", String.valueOf(now.get(Calendar.DAY_OF_WEEK)));
+        Format f = new SimpleDateFormat("EEEE");
+        String str = f.format(new Date());
+//prints day name
+        System.out.println("Day Name: " + str);
+        Log.d("Day Name", str);
 
-        // Uploading saved data containing file to firebase storage
-        StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
-        try {
-            StorageReference mountainsRef = storageReference1.child("daily.txt");
-            InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
-            UploadTask uploadTask = mountainsRef.putStream(stream);
-            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                @Override
-                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-//                    Toast.makeText(Concentration_Daily.this, "File Uploaded", Toast.LENGTH_SHORT).show();
-                }
-            }).addOnFailureListener(new OnFailureListener() {
-                @Override
-                public void onFailure(@NonNull Exception e) {
-//                    Toast.makeText(Concentration_Daily.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
-                }
-            });
-
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-        //Providing handler to delay the process of displaying
+        int month = now.get(Calendar.MONTH) + 1;
         Handler handler = new Handler();
-        final int delay = 5000;
 
         handler.postDelayed(new Runnable() {
+            Long average1, average2, average3, average4, average5, average6, average7;
+            int sum1, sum2, sum3, sum4, sum5, sum6, sum7;
 
             @Override
             public void run() {
-                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/daily.txt");
-                //Downloading file from firebase and storing data into a tempFile in cache memory
-                try {
-                    localFile = File.createTempFile("tempFile", ".txt");
-                    text = localFile.getAbsolutePath();
-                    Log.d("Bitmap", text);
-                    storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-//                            Toast.makeText(Concentration_Daily.this, "Success", Toast.LENGTH_SHORT).show();
 
-                            // reading data from the tempFile and storing in array list
+                DatabaseReference reference0 = FirebaseDatabase.getInstance().getReference("TimeSpentWHChart").child(mUser.getUid()).child("Concentration Games").child(String.valueOf(now.get(Calendar.YEAR)))
+                        .child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child("Monday");
 
-                            try {
-                                InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
+                reference0.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        ArrayList sumElement = new ArrayList();
+                        int sum = (0);
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
 
-                                Log.d("FileName", localFile.getAbsolutePath());
+                            Log.d("Values", String.valueOf(dataSnapshot.getChildren()));
 
-                                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                                String line = "";
-
-                                Log.d("First", line);
-                                if ((line = bufferedReader.readLine()) != null) {
-                                    list.add(line);
-                                }
-                                while ((line = bufferedReader.readLine()) != null) {
-
-                                    list.add(line);
-                                    Log.d("Line", line);
-                                }
-
-                                Log.d("List", String.valueOf(list));
-                                //Converting string arraylist to float array list
-                                for (int i = 0; i < list.size(); i++) {
-                                    floatList.add(Float.parseFloat(list.get(i)));
-                                    Log.d("FloatArrayList", String.valueOf(floatList));
-                                }
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-                            Log.d("floatListTest", String.valueOf(floatList));
-                            String[] days = new String[]{"Mn", "Tu", "We", "Th", "Fr", "Sa", "Su"};
-                            ArrayList<Float> creditsMain = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f, 10f, 15f, 85f));
-
-                            for (int j = 0; j < floatList.size(); ++j) {
-                                entries.add(new BarEntry(j, floatList.get(j)));
-                            }
-
-//                            LineChart dataset=new LineChart(getApplicationContext(),lineObj)
-
-
-                            float textSize = 10f;
-                            //Initializing object of MyBarDataset class and passing th arraylist to y axis of chart
-                            MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsMain);
-                            dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
-                                    ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
-                                    ContextCompat.getColor(getApplicationContext(), R.color.blue),
-                                    ContextCompat.getColor(getApplicationContext(), R.color.bluebar),
-                                    ContextCompat.getColor(getApplicationContext(), R.color.dark));
-                            BarData data = new BarData(dataSet);
-                            data.setDrawValues(false);
-                            data.setBarWidth(0.8f);
-                            barChartdaily.setNoDataText("Data Loading Please Wait....");
-                            barChartdaily.setData(data);
-                            barChartdaily.setFitBars(true);
-                            barChartdaily.getXAxis().setValueFormatter(new IndexAxisValueFormatter(days));
-                            barChartdaily.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-                            barChartdaily.getXAxis().setTextColor(getResources().getColor(R.color.white));
-                            barChartdaily.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
-                            barChartdaily.getXAxis().setTextSize(textSize);
-                            barChartdaily.getAxisLeft().setTextSize(textSize);
-                            barChartdaily.setExtraBottomOffset(10f);
-
-                            barChartdaily.getAxisRight().setEnabled(false);
-                            Description desc = new Description();
-                            desc.setText("Chart Loading");
-                            desc.setEnabled(false);
-                            desc.setTextAlign(Paint.Align.CENTER);
-                            barChartdaily.setDescription(desc);
-                            barChartdaily.getLegend().setEnabled(false);
-                            barChartdaily.getXAxis().setDrawGridLines(false);
-                            barChartdaily.getAxisLeft().setDrawGridLines(false);
-                            barChartdaily.setNoDataTextColor(R.color.white);
-                            barChartdaily.setNoDataText("Chart Loading Please Wait...");
-                            barChartdaily.animateXY(1500, 1500);
-                            barChartdaily.invalidate();
-                            barChartdaily.getXAxis().setTextColor(getResources().getColor(R.color.white));
-
+                            Long av1 = (Long) dataSnapshot.getValue();
+                            Log.d("AV1", String.valueOf(av1));
+                            sumElement.add(av1);
+                            sum1 += av1;
 
                         }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-//                            Toast.makeText(Concentration_Daily.this, "Failed", Toast.LENGTH_SHORT).show();
+                        Log.d("SUM1", String.valueOf(sum1));
+                        if (sum1 != 0) {
+                            average1 = sum1 / Long.parseLong(String.valueOf(sumElement.size()));
+                            Log.d("Average Mon", String.valueOf(average1));
+                        } else {
+                            average1 = Long.valueOf(0);
                         }
-                    });
+                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("TimeSpentWHChart").child(mUser.getUid()).child("Concentration Games").child(String.valueOf(now.get(Calendar.YEAR)))
+                                .child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child("Tuesday");
+
+                        reference1.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                ArrayList sumElement = new ArrayList();
+                                int sum = (0);
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+
+                                    Log.d("Values", String.valueOf(dataSnapshot.getChildren()));
+
+                                    Long av1 = (Long) dataSnapshot.getValue();
+                                    Log.d("AV1", String.valueOf(av1));
+                                    sumElement.add(av1);
+                                    sum2 += av1;
+
+                                }
+                                Log.d("SUM2", String.valueOf(sum2));
+                                if (sum2 != 0) {
+                                    average2 = sum2 / Long.parseLong(String.valueOf(sumElement.size()));
+                                    Log.d("Average Tue", String.valueOf(average2));
+
+                                } else {
+                                    average2 = Long.valueOf(0);
+                                }
+
+                                DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("TimeSpentWHChart").child(mUser.getUid()).child("Concentration Games").child(String.valueOf(now.get(Calendar.YEAR)))
+                                        .child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child("Wednesday");
+
+                                reference2.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        ArrayList sumElement = new ArrayList();
+                                        int sum = (0);
+                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+
+                                            Log.d("Values", String.valueOf(dataSnapshot.getChildren()));
+
+                                            Long av1 = (Long) dataSnapshot.getValue();
+                                            Log.d("AV1", String.valueOf(av1));
+                                            sumElement.add(av1);
+                                            sum3 += av1;
+
+                                        }
+                                        Log.d("SUM3", String.valueOf(sum3));
+                                        if (sum3 != 0) {
+                                            average3 = sum3 / Long.parseLong(String.valueOf(sumElement.size()));
+                                            Log.d("Average Wed", String.valueOf(average3));
+
+                                        } else {
+                                            average3 = Long.valueOf(0);
+                                        }
+
+                                        DatabaseReference reference3 = FirebaseDatabase.getInstance().getReference("TimeSpentWHChart").child(mUser.getUid()).child("Concentration Games").child(String.valueOf(now.get(Calendar.YEAR)))
+                                                .child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child("Thursday");
+
+                                        reference3.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                ArrayList sumElement = new ArrayList();
+                                                int sum = (0);
+                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+
+                                                    Log.d("Values", String.valueOf(dataSnapshot.getChildren()));
+
+                                                    Long av1 = (Long) dataSnapshot.getValue();
+                                                    Log.d("AV1", String.valueOf(av1));
+                                                    sumElement.add(av1);
+                                                    sum4 += av1;
+
+                                                }
+                                                Log.d("SUM4", String.valueOf(sum));
+                                                if (sum4 != 0) {
+                                                    average4 = sum4 / Long.parseLong(String.valueOf(sumElement.size()));
+                                                    Log.d("Average Thur", String.valueOf(average4));
+                                                } else {
+                                                    average4 = Long.valueOf(0);
+                                                }
+                                                DatabaseReference reference4 = FirebaseDatabase.getInstance().getReference("TimeSpentWHChart").child(mUser.getUid()).child("Concentration Games").child(String.valueOf(now.get(Calendar.YEAR)))
+                                                        .child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child("Friday");
+
+                                                reference4.addValueEventListener(new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                        ArrayList sumElement = new ArrayList();
+                                                        int sum = (0);
+                                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+
+                                                            Log.d("Values", String.valueOf(dataSnapshot.getChildren()));
+
+                                                            Long av1 = (Long) dataSnapshot.getValue();
+                                                            Log.d("AV1", String.valueOf(av1));
+                                                            sumElement.add(av1);
+                                                            sum5 += av1;
+
+                                                        }
+                                                        Log.d("SUM5", String.valueOf(sum5));
+                                                        if (sum5 != 0) {
+                                                            average5 = sum5 / Long.parseLong(String.valueOf(sumElement.size()));
+                                                            Log.d("Average Fri", String.valueOf(average5));
+                                                        } else {
+                                                            average5 = Long.valueOf(0);
+                                                        }
+                                                        DatabaseReference reference5 = FirebaseDatabase.getInstance().getReference("TimeSpentWHChart").child(mUser.getUid()).child("Concentration Games").child(String.valueOf(now.get(Calendar.YEAR)))
+                                                                .child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child("Saturday");
+
+                                                        reference5.addValueEventListener(new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                ArrayList sumElement = new ArrayList();
+                                                                int sum = (0);
+                                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+
+                                                                    Log.d("Values", String.valueOf(dataSnapshot.getChildren()));
+
+                                                                    Long av1 = (Long) dataSnapshot.getValue();
+                                                                    Log.d("AV1", String.valueOf(av1));
+                                                                    sumElement.add(av1);
+                                                                    sum6 += av1;
+
+                                                                }
+                                                                Log.d("SUM6", String.valueOf(sum6));
+                                                                if (sum6 != 0) {
+                                                                    average6 = sum6 / Long.parseLong(String.valueOf(sumElement.size()));
+                                                                    Log.d("Average Sat", String.valueOf(average6));
+
+                                                                } else {
+                                                                    average6 = Long.valueOf(0);
+                                                                }
+
+                                                                DatabaseReference reference6 = FirebaseDatabase.getInstance().getReference("TimeSpentWHChart").child(mUser.getUid()).child("Concentration Games").child(String.valueOf(now.get(Calendar.YEAR)))
+                                                                        .child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child("Sunday");
+
+                                                                reference6.addValueEventListener(new ValueEventListener() {
+                                                                    @Override
+                                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                        ArrayList sumElement = new ArrayList();
+                                                                        int sum = (0);
+                                                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+
+                                                                            Log.d("Values", String.valueOf(dataSnapshot.getChildren()));
+
+                                                                            Long av1 = (Long) dataSnapshot.getValue();
+                                                                            Log.d("AV1", String.valueOf(av1));
+                                                                            sumElement.add(av1);
+                                                                            sum7 += av1;
+
+                                                                        }
+                                                                        Log.d("SUM7", String.valueOf(sum7));
+                                                                        if (sum7 != 0) {
+                                                                            average7 = sum7 / Long.parseLong(String.valueOf(sumElement.size()));
+                                                                            Log.d("Average Sun", String.valueOf(average7));
+                                                                        } else {
+                                                                            average7 = Long.valueOf(0);
+                                                                        }
+                                                                        Log.d("Average Outside1", String.valueOf(average1));
+                                                                        Log.d("Average Outside2", String.valueOf(average2));
+                                                                        Log.d("Average Outside3", String.valueOf(average3));
+                                                                        Log.d("Average Outside4", String.valueOf(average4));
+                                                                        Log.d("Average Outside5", String.valueOf(average5));
+                                                                        Log.d("Average Outside6", String.valueOf(average6));
+                                                                        Log.d("Average Outside7", String.valueOf(average7));
+
+                                                                        Log.d("SUM1 Outside1", String.valueOf(sum1));
+                                                                        Log.d("SUM2 Outside2", String.valueOf(sum2));
+                                                                        Log.d("SUM3 Outside3", String.valueOf(sum3));
+                                                                        Log.d("SUM4 Outside4", String.valueOf(sum4));
+                                                                        Log.d("SUM5 Outside5", String.valueOf(sum5));
+                                                                        Log.d("SUM6 Outside6", String.valueOf(sum6));
+                                                                        Log.d("SUM7 Outside7", String.valueOf(sum7));
+                                                                        int sum1h = sum1 / 3600;
+                                                                        Log.d("SUM1 in hours", String.valueOf(sum1h));
+                                                                        float sum7min = TimeUnit.SECONDS.toMinutes(sum7);
+                                                                        float sum1min = TimeUnit.SECONDS.toMinutes(sum1);
+                                                                        float sum2min = TimeUnit.SECONDS.toMinutes(sum2);
+                                                                        float sum3min = TimeUnit.SECONDS.toMinutes(sum3);
+                                                                        float sum4min = TimeUnit.SECONDS.toMinutes(sum4);
+                                                                        float sum5min = TimeUnit.SECONDS.toMinutes(sum5);
+                                                                        float sum6min = TimeUnit.SECONDS.toMinutes(sum6);
+                                                                        Log.d("SUM7 in hours", String.valueOf(sum7min));
+                                                                        ArrayList<BarEntry> entries = new ArrayList();
+                                                                        entries.add(new BarEntry(1, sum7min));
+                                                                        entries.add(new BarEntry(2, sum1min));
+                                                                        entries.add(new BarEntry(3, sum2min));
+                                                                        entries.add(new BarEntry(4, sum3min));
+                                                                        entries.add(new BarEntry(5, sum4min));
+                                                                        entries.add(new BarEntry(6, sum5min));
+                                                                        entries.add(new BarEntry(7, sum6min));
 
 
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                }
+                                                                        //Initializing object of MyBarDataset class and passing th arraylist to y axis of chart
+                                                                        MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsMain);
+                                                                        dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
+                                                                                ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
+                                                                                ContextCompat.getColor(getApplicationContext(), R.color.blue),
+                                                                                ContextCompat.getColor(getApplicationContext(), R.color.bluebar),
+                                                                                ContextCompat.getColor(getApplicationContext(), R.color.dark));
+                                                                        BarData data = new BarData(dataSet);
+                                                                        data.setDrawValues(false);
+                                                                        data.setBarWidth(0.8f);
+
+                                                                        barChartdaily.setData(data);
+                                                                        barChartdaily.setFitBars(true);
+                                                                        barChartdaily.getXAxis().setValueFormatter(new IndexAxisValueFormatter(days));
+                                                                        barChartdaily.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                                                                        barChartdaily.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                                                                        barChartdaily.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+                                                                        barChartdaily.getXAxis().setTextSize(textSize);
+                                                                        barChartdaily.getAxisLeft().setTextSize(textSize);
+                                                                        barChartdaily.setExtraBottomOffset(10f);
+                                                                        barChartdaily.getXAxis().setLabelCount(15, true);
+                                                                        barChartdaily.getXAxis().setAvoidFirstLastClipping(false);
+                                                                        barChartdaily.getAxisRight().setEnabled(false);
+                                                                        Description desc = new Description();
+                                                                        desc.setText("Time Spent Daily on Concentration");
+                                                                        desc.setTextColor(getResources().getColor(R.color.white));
+                                                                        barChartdaily.setDescription(desc);
+                                                                        barChartdaily.getLegend().setEnabled(false);
+                                                                        barChartdaily.getXAxis().setDrawGridLines(false);
+                                                                        barChartdaily.getAxisLeft().setDrawGridLines(false);
+                                                                        barChartdaily.setNoDataText("Data Loading Please Wait...");
+                                                                        barChartdaily.animateXY(1500, 1500);
+                                                                        barChartdaily.invalidate();
+
+
+                                                                    }
+
+                                                                    @Override
+                                                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                                                    }
+                                                                });
+
+
+                                                            }
+
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                                            }
+                                                        });
+
+
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                                    }
+                                                });
+
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                    }
+                                });
+
+
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
+
+                            }
+                        });
+
+
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
             }
-
-            //Downloading file and displaying chart
-        }, delay);
+        }, 3000);
 
         try {
             fileName = new File(getCacheDir() + "/dailyX.txt");  //Writing data to file
@@ -658,29 +842,47 @@ public class Concentration_Daily extends AppCompatActivity {
                                             lineEntries.add(new Entry(floatxVal.get(x), floatyVal.get(x)));
 
                                         }
-                                        Log.d("Line Entry", String.valueOf(lineEntries));
-                                        lineDataSet = new LineDataSet(lineEntries, "Concentration Index");
+                                        List<String> xAxisValues = new ArrayList<>(Arrays.asList("","Sun","Mon","Tue","Wed","Thu","Fri","Sat",""));
+
+                                        lineDataSet = new LineDataSet(lineEntries, "Concentration Daily Progress");
+                                        lineChart.getXAxis().setValueFormatter(new com.github.mikephil.charting.formatter.IndexAxisValueFormatter(xAxisValues));
+
                                         lineData = new LineData(lineDataSet);
                                         lineChart.setData(lineData);
 
                                         lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
                                         lineDataSet.setValueTextColor(Color.WHITE);
-                                        lineDataSet.setValueTextSize(10f);
+                                        lineDataSet.setValueTextSize(6f);
 
                                         lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+                                        lineChart.getXAxis().setTextSize(8f);
                                         lineChart.setBorderColor(Color.TRANSPARENT);
                                         lineChart.setGridBackgroundColor(Color.TRANSPARENT);
                                         lineChart.getAxisLeft().setDrawGridLines(false);
                                         lineChart.getXAxis().setDrawGridLines(false);
                                         lineChart.getAxisRight().setDrawGridLines(false);
-                                        lineChart.getXAxis().setTextColor(R.color.white);
+//                                                                        lineChart.getXAxis().setLabelCount(7, true);
                                         lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
                                         lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
                                         lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.setTouchEnabled(true);
+                                        lineChart.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.setDragEnabled(true);
+                                        lineChart.setScaleEnabled(false);
+                                        lineChart.setPinchZoom(false);
+                                        lineChart.setDrawGridBackground(false);
+                                        lineChart.setExtraBottomOffset(12f);
+                                        lineChart.getXAxis().setLabelCount(23, true);
+                                        lineChart.getXAxis().setAvoidFirstLastClipping(true);
                                         lineChart.getDescription().setTextColor(R.color.white);
-
                                         lineChart.invalidate();
                                         lineChart.refreshDrawableState();
+                                        XAxis xAxis = lineChart.getXAxis();
+                                        xAxis.setGranularity(1f);
+                                        xAxis.setCenterAxisLabels(true);
+                                        xAxis.setEnabled(true);
+                                        xAxis.setDrawGridLines(false);
+                                        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
                                     }
                                 }).addOnFailureListener(new OnFailureListener() {
                                     @Override
