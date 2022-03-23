@@ -215,7 +215,7 @@ public class Setting extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Log.d("TAG", "The interstitial ad wasn't ready yet.");
-                startActivity(new Intent(getApplicationContext(), UserProfile1.class));
+                startActivity(new Intent(getApplicationContext(), Video.class));
             }
         });
 

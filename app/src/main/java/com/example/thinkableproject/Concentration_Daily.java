@@ -258,7 +258,7 @@ public class Concentration_Daily extends AppCompatActivity {
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
 
-        String[] days = new String[]{"Su", "Mn", "Tu", "We", "Th", "Fr", "Sa"};
+        String[] days = new String[]{"","Su", "Mn", "Tu", "We", "Th", "Fr", "Sa"};
         ArrayList<Float> creditsMain = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f, 10f, 15f, 85f));
 
 
@@ -521,7 +521,7 @@ public class Concentration_Daily extends AppCompatActivity {
                                                                         barChartdaily.getXAxis().setTextSize(textSize);
                                                                         barChartdaily.getAxisLeft().setTextSize(textSize);
                                                                         barChartdaily.setExtraBottomOffset(10f);
-                                                                        barChartdaily.getXAxis().setLabelCount(15, true);
+                                                                        barChartdaily.getXAxis().setLabelCount(16, true);
                                                                         barChartdaily.getXAxis().setAvoidFirstLastClipping(false);
                                                                         barChartdaily.getAxisRight().setEnabled(false);
                                                                         Description desc = new Description();

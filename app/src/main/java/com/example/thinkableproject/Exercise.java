@@ -306,7 +306,7 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
             startActivity(new Intent(getApplicationContext(), IHaveToFlyMainActivity.class));
         } else if(gameList.get(position).getGameName().equals("Word Match")){
             startActivity(new Intent(getApplicationContext(), MainMenu.class));
-        } {
+        }else {
             Intent launchIntent = getPackageManager().getLaunchIntentForPackage("com.android.vending");
             if (launchIntent != null) {
                 Log.d("Tagopenapp", "---------------------B--------------------------");

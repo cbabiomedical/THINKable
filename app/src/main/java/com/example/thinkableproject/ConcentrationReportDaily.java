@@ -793,7 +793,7 @@ public class ConcentrationReportDaily extends AppCompatActivity {
                 }
 
             }
-        }, 10000);
+        }, 3000);
     }
 
 

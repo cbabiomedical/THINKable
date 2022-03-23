@@ -325,7 +325,7 @@ public class Memory_Daily extends AppCompatActivity implements MemoryAdapter.OnN
         int day = now.get(Calendar.DAY_OF_MONTH) + 1;
         Format f = new SimpleDateFormat("EEEE");
         String str = f.format(new Date());
-        String[] days = new String[]{"Su", "Mn", "Tu", "We", "Th", "Fr", "Sa"};
+        String[] days = new String[]{"","Su", "Mn", "Tu", "We", "Th", "Fr", "Sa"};
         ArrayList<Float> creditsMain = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f, 10f, 15f, 85f));
 
         handler.postDelayed(new Runnable() {

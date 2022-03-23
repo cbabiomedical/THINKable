@@ -279,7 +279,7 @@ public class Relaxation_Daily extends AppCompatActivity {
         final Handler handler = new Handler();
         final int delay = 5000;
 
-        String[] days = new String[]{"Su","Mn", "Tu", "We", "Th", "Fr", "Sa"};
+        String[] days = new String[]{"","Su","Mn", "Tu", "We", "Th", "Fr", "Sa"};
         ArrayList<Float> creditsMain = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f, 10f, 15f, 85f));
 
 

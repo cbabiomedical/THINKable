@@ -439,7 +439,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                             callShCon.enqueue(new Callback<List>() {
                                 @Override
                                 public void onResponse(Call<List> call, Response<List> response) {
-                                    Toast.makeText(context, "Post Space Successful", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(context, "Post Space Successful", Toast.LENGTH_SHORT).show();
                                     Log.d("Response Code ShCon", String.valueOf(response.code()));
                                     Log.d("ShCon Res Message", response.message());
                                     Log.d("ShCon Res Body", String.valueOf(response.body()));
@@ -452,7 +452,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
 
                                 @Override
                                 public void onFailure(Call<List> call, Throwable t) {
-                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
                                     Log.d("ErrorVal", String.valueOf(t));
                                 }
                             });
@@ -478,7 +478,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                             callDHCon.enqueue(new Callback<List>() {
                                 @Override
                                 public void onResponse(Call<List> call, Response<List> response) {
-                                    Toast.makeText(context, "Post Duck Successful", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(context, "Post Duck Successful", Toast.LENGTH_SHORT).show();
                                     Log.d("Response Code DHCon", String.valueOf(response.code()));
                                     Log.d("DHCon Res Message", response.message());
                                     Log.d("DHCon Res Body", String.valueOf(response.body()));
@@ -491,7 +491,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
 
                                 @Override
                                 public void onFailure(Call<List> call, Throwable t) {
-                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
                                     Log.d("ErrorVal", String.valueOf(t));
                                 }
                             });
@@ -520,7 +520,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                             callPTCon.enqueue(new Callback<List>() {
                                 @Override
                                 public void onResponse(Call<List> call, Response<List> response) {
-                                    Toast.makeText(context, "Post Piano Successful", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(context, "Post Piano Successful", Toast.LENGTH_SHORT).show();
                                     Log.d("Response Code PTCon", String.valueOf(response.code()));
                                     Log.d("PTCon Res Message", response.message());
                                     Log.d("PTCon Res Body", String.valueOf(response.body()));
@@ -533,7 +533,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
 
                                 @Override
                                 public void onFailure(Call<List> call, Throwable t) {
-                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
                                     Log.d("ErrorVal", String.valueOf(t));
                                 }
                             });
@@ -562,7 +562,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                             callNDCon.enqueue(new Callback<List>() {
                                 @Override
                                 public void onResponse(Call<List> call, Response<List> response) {
-                                    Toast.makeText(context, "Post Ninja Successful", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(context, "Post Ninja Successful", Toast.LENGTH_SHORT).show();
                                     Log.d("Response Code NDCon", String.valueOf(response.code()));
                                     Log.d("NDCon Res Message", response.message());
                                     Log.d("NDCon Res Body", String.valueOf(response.body()));
@@ -575,7 +575,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
 
                                 @Override
                                 public void onFailure(Call<List> call, Throwable t) {
-                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
                                     Log.d("ErrorVal", String.valueOf(t));
                                 }
                             });
@@ -766,7 +766,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                             callIFCon.enqueue(new Callback<List>() {
                                 @Override
                                 public void onResponse(Call<List> call, Response<List> response) {
-                                    Toast.makeText(context, "Post Fly Successful", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(context, "Post Fly Successful", Toast.LENGTH_SHORT).show();
                                     Log.d("Response Code IFCon", String.valueOf(response.code()));
                                     Log.d("IFCon Res Message", response.message());
                                     Log.d("IFCon Res Body", String.valueOf(response.body()));
@@ -779,7 +779,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
 
                                 @Override
                                 public void onFailure(Call<List> call, Throwable t) {
-                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
                                     Log.d("ErrorVal", String.valueOf(t));
                                 }
                             });
@@ -997,7 +997,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                             callMusRel.enqueue(new Callback<List>() {
                                 @Override
                                 public void onResponse(Call<List> call, Response<List> response) {
-                                    Toast.makeText(context, "Post Music Successful", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(context, "Post Music Successful", Toast.LENGTH_SHORT).show();
                                     Log.d("Response Code MusRel", String.valueOf(response.code()));
                                     Log.d("MusRel Res Message", response.message());
                                     Log.d("MusRel Res Body", String.valueOf(response.body()));
@@ -1010,7 +1010,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
 
                                 @Override
                                 public void onFailure(Call<List> call, Throwable t) {
-                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
                                     Log.d("ErrorVal", String.valueOf(t));
                                 }
                             });
@@ -1036,7 +1036,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                             callMedRel.enqueue(new Callback<List>() {
                                 @Override
                                 public void onResponse(Call<List> call, Response<List> response) {
-                                    Toast.makeText(context, "Post Medi Successful", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(context, "Post Medi Successful", Toast.LENGTH_SHORT).show();
                                     Log.d("Response Code MedRel", String.valueOf(response.code()));
                                     Log.d("MedRel Res Message", response.message());
                                     Log.d("MedRel Res Body", String.valueOf(response.body()));
@@ -1049,7 +1049,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
 
                                 @Override
                                 public void onFailure(Call<List> call, Throwable t) {
-                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
                                     Log.d("ErrorVal", String.valueOf(t));
                                 }
                             });
@@ -1076,7 +1076,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                             callVidRel.enqueue(new Callback<List>() {
                                 @Override
                                 public void onResponse(Call<List> call, Response<List> response) {
-                                    Toast.makeText(context, "Post Video Successful", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(context, "Post Video Successful", Toast.LENGTH_SHORT).show();
                                     Log.d("Response Code VidRel", String.valueOf(response.code()));
                                     Log.d("VidRel Res Message", response.message());
                                     Log.d("VidRel Res Body", String.valueOf(response.body()));
@@ -1089,7 +1089,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
 
                                 @Override
                                 public void onFailure(Call<List> call, Throwable t) {
-                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
+//                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
                                     Log.d("ErrorVal", String.valueOf(t));
                                 }
                             });
@@ -1134,7 +1134,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                         callRel.enqueue(new Callback<List>() {
                             @Override
                             public void onResponse(Call<List> call, Response<List> response) {
-                                Toast.makeText(context, "Post Successful", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(context, "Post Successful", Toast.LENGTH_SHORT).show();
                                 Log.d("Response Code Rel", String.valueOf(response.code()));
                                 Log.d("Relaxation Res Message", response.message());
                                 Log.d("Relaxation Res Body", String.valueOf(response.body()));
@@ -1148,7 +1148,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                             //
                             @Override
                             public void onFailure(Call<List> call, Throwable t) {
-                                Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
                                 Log.d("ErrorVal", String.valueOf(t));
 
 
@@ -1160,7 +1160,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                         callCon.enqueue(new Callback<List>() {
                             @Override
                             public void onResponse(Call<List> call, Response<List> response) {
-                                Toast.makeText(context, "Post Successful", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(context, "Post Successful", Toast.LENGTH_SHORT).show();
                                 Log.d("Concentration Code Rel", String.valueOf(response.code()));
                                 Log.d("Concentration Res Mess", response.message());
                                 Log.d("Concentration Res Body", String.valueOf(response.body()));
@@ -1174,7 +1174,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                             //
                             @Override
                             public void onFailure(Call<List> call, Throwable t) {
-                                Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
+//                                Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
                                 Log.d("ErrorVal", String.valueOf(t));
 
 
