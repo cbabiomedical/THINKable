@@ -743,6 +743,10 @@ public class ConcentrationReportDaily extends AppCompatActivity {
                                         for (int x = 0; x < floatxVal.size(); x++) {
 
                                             lineEntries.add(new Entry(floatxVal.get(x), floatyVal.get(x)));
+//                                            lineEntries.add(new Entry(2f,23f));
+//                                            lineEntries.add(new Entry(4f,56f));
+//                                            lineEntries.add(new Entry(6f,86f));
+
 
                                         }
                                         Log.d("Line Entry", String.valueOf(lineEntries));
@@ -793,7 +797,7 @@ public class ConcentrationReportDaily extends AppCompatActivity {
                 }
 
             }
-        }, 3000);
+        }, 10000);
     }
 
 

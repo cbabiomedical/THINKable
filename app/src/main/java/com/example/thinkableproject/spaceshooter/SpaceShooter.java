@@ -43,12 +43,13 @@ public class SpaceShooter extends View {
     Paint scorePaint;
     int TEXT_SIZE = 80;
     int x;
+    public static boolean gameOverSp=false;
     boolean paused = false;
     Long startTime, endTime;
     OurSpaceship ourSpaceship;
     EnemySpaceship enemySpaceship;
     Random random;
-    public static boolean isStarted;
+    public static boolean isStarted=false;
     ArrayList<Shot> enemyShots, ourShots;
     FirebaseUser mUser;
     Explosion explosion;
@@ -68,6 +69,7 @@ public class SpaceShooter extends View {
         Display display = ((Activity) getContext()).getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
+        gameOverSp=false;
         mUser= FirebaseAuth.getInstance().getCurrentUser();
         screenWidth = size.x;
         screenHeight = size.y;
@@ -98,6 +100,7 @@ public class SpaceShooter extends View {
         }
         // When life becomes 0, stop game and launch GameOver Activity with points
         if (life == 0) {
+//            gameOverSp=true;
             SharedPreferences prefsTimeCon = context.getSharedPreferences("prefsTimeConWH", MODE_PRIVATE);
             int firstStartTimeCon = prefsTimeCon.getInt("firstStartTimeConWH", 0);
             paused = true;
@@ -149,6 +152,7 @@ public class SpaceShooter extends View {
 
             intent.putExtra("points", points);
             context.startActivity(intent);
+            gameOverSp=true;
             ((Activity) context).finish();
         }
         // Move enemySpaceship

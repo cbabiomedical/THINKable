@@ -459,6 +459,30 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                         }
                     }
 
+//                    if(SpaceShooter.isStarted=false){
+//                        Call<List> callDHCon = jsonPlaceHolder.PostTimeToConcentrate(s);
+//                        callDHCon.enqueue(new Callback<List>() {
+//                            @Override
+//                            public void onResponse(Call<List> call, Response<List> response) {
+////                                    Toast.makeText(context, "Post Duck Successful", Toast.LENGTH_SHORT).show();
+//                                Log.d("Response Code DHCon", String.valueOf(response.code()));
+//                                Log.d("DHCon Res Message", response.message());
+//                                Log.d("DHCon Res Body", String.valueOf(response.body()));
+//                                mUser = FirebaseAuth.getInstance().getCurrentUser();
+//                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Concentration Post").child("DuckHunt").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(a));
+//                                reference.setValue(response.body());
+//                                Log.d("DHCon Res Type", String.valueOf(response.body().getClass().getSimpleName()));
+//
+//                            }
+
+//                            @Override
+//                            public void onFailure(Call<List> call, Throwable t) {
+////                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
+//                                Log.d("ErrorVal", String.valueOf(t));
+//                            }
+//                        });
+//                    }
+
                     if (GameView.gameState) {
                         duckHunt.add(Utils.hexToString(data));
                         Log.d("DuckHunt", String.valueOf(duckHunt));

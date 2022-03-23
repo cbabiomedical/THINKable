@@ -129,5 +129,10 @@ public interface JsonPlaceHolder {
             @Field("school") String school
     );
 
+    @POST("concentration_times")
+    Call<List> PostTimeToConcentrate(@Body ArrayList brain_waves);
+
+//====================================================================
+
 
 }
