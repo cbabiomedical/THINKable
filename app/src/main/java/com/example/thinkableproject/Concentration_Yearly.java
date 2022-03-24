@@ -845,9 +845,9 @@ public class Concentration_Yearly extends AppCompatActivity {
 
 
                                                 lineEntries.add(new Entry(year1, Float.parseFloat(String.valueOf(avg1))));
-                                                lineEntries.add(new Entry(year2, Float.parseFloat(String.valueOf(avg1))));
-                                                lineEntries.add(new Entry(year3, Float.parseFloat(String.valueOf(avg1))));
-                                                lineEntries.add(new Entry(now.get(Calendar.YEAR), Float.parseFloat(String.valueOf(avg1))));
+                                                lineEntries.add(new Entry(year2, Float.parseFloat(String.valueOf(avg2))));
+                                                lineEntries.add(new Entry(year3, Float.parseFloat(String.valueOf(avg2))));
+                                                lineEntries.add(new Entry(now.get(Calendar.YEAR), Float.parseFloat(String.valueOf(avg4))));
 
 //                                                    List<String> xAxisValues = new ArrayList<>(Arrays.asList(String.valueOf(year1),String.valueOf(year2),String.valueOf(year3),String.valueOf(now.get(Calendar.YEAR))));
                                                 List<String> xAxisValues = new ArrayList<>(Arrays.asList("", String.valueOf(year1), String.valueOf(year2), String.valueOf(year3), String.valueOf(now.get(Calendar.YEAR))));
