@@ -946,12 +946,16 @@ public class Concentration_Daily extends AppCompatActivity {
                                                 }
                                                 Log.d("TotalDA", String.valueOf(total));
 
-                                                if (sum != 0.0) {
+                                                if (total == 0.0) {
+                                                    sum = 0.0;
+                                                    average4 = 0.0;
 
+                                                } else {
                                                     Log.d("SUMDA", String.valueOf(total));
                                                     average4 = total / sumElement.size();
                                                     Log.d("AverageData", String.valueOf(average4));
                                                 }
+                                                Log.d("AverageData", String.valueOf(average4));
                                                 DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Concentration Post").child(String.valueOf(now.get(Calendar.YEAR)))
                                                         .child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child("Thursday");
 

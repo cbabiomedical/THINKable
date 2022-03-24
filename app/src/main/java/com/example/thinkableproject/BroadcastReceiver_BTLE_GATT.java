@@ -342,7 +342,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                         .connectTimeout(120000, TimeUnit.SECONDS)
                         .readTimeout(120000, TimeUnit.SECONDS).build();
 
-                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.119:5000/").client(client)
+                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.105:5000/").client(client)
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .build();
                 jsonPlaceHolder = retrofit.create(JsonPlaceHolder.class);
@@ -1158,7 +1158,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                         callRel.enqueue(new Callback<List>() {
                             @Override
                             public void onResponse(Call<List> call, Response<List> response) {
-//                                Toast.makeText(context, "Post Successful", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Post Successful", Toast.LENGTH_SHORT).show();
                                 Log.d("Response Code Rel", String.valueOf(response.code()));
                                 Log.d("Relaxation Res Message", response.message());
                                 Log.d("Relaxation Res Body", String.valueOf(response.body()));
@@ -1172,7 +1172,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                             //
                             @Override
                             public void onFailure(Call<List> call, Throwable t) {
-//                                Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
                                 Log.d("ErrorVal", String.valueOf(t));
 
 
@@ -1184,7 +1184,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                         callCon.enqueue(new Callback<List>() {
                             @Override
                             public void onResponse(Call<List> call, Response<List> response) {
-//                                Toast.makeText(context, "Post Successful", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Post Successful", Toast.LENGTH_SHORT).show();
                                 Log.d("Concentration Code Rel", String.valueOf(response.code()));
                                 Log.d("Concentration Res Mess", response.message());
                                 Log.d("Concentration Res Body", String.valueOf(response.body()));
@@ -1198,7 +1198,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                             //
                             @Override
                             public void onFailure(Call<List> call, Throwable t) {
-//                                Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
                                 Log.d("ErrorVal", String.valueOf(t));
 
 
