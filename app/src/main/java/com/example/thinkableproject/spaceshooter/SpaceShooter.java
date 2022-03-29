@@ -41,20 +41,23 @@ public class SpaceShooter extends View {
     int points = 0;
     int life = 3;
     Paint scorePaint;
+    public static boolean over = false;
     int TEXT_SIZE = 80;
-    int x;
-    public static boolean gameOverSp=false;
+    public static int a;
+    public static boolean gameOverSp = false;
     boolean paused = false;
     Long startTime, endTime;
     OurSpaceship ourSpaceship;
     EnemySpaceship enemySpaceship;
     Random random;
-    public static boolean isStarted=false;
+    public static boolean isStarted = false;
     ArrayList<Shot> enemyShots, ourShots;
     FirebaseUser mUser;
     Explosion explosion;
     ArrayList<Explosion> explosions;
     boolean enemyShotAction = false;
+
+
     final Runnable runnable = new Runnable() {
         @Override
         public void run() {
@@ -69,8 +72,8 @@ public class SpaceShooter extends View {
         Display display = ((Activity) getContext()).getWindowManager().getDefaultDisplay();
         Point size = new Point();
         display.getSize(size);
-        gameOverSp=false;
-        mUser= FirebaseAuth.getInstance().getCurrentUser();
+        gameOverSp = false;
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
         screenWidth = size.x;
         screenHeight = size.y;
         random = new Random();
@@ -78,6 +81,7 @@ public class SpaceShooter extends View {
         ourShots = new ArrayList<>();
         explosions = new ArrayList<>();
         isStarted = true;
+        over = false;
         startTime = System.currentTimeMillis();
         ourSpaceship = new OurSpaceship(context);
         enemySpaceship = new EnemySpaceship(context);
@@ -90,6 +94,7 @@ public class SpaceShooter extends View {
         scorePaint.setTextAlign(Paint.Align.LEFT);
     }
 
+
     @Override
     protected void onDraw(Canvas canvas) {
         // Draw background, Points and life on Canvas
@@ -100,6 +105,7 @@ public class SpaceShooter extends View {
         }
         // When life becomes 0, stop game and launch GameOver Activity with points
         if (life == 0) {
+            over = true;
 //            gameOverSp=true;
             SharedPreferences prefsTimeCon = context.getSharedPreferences("prefsTimeConWH", MODE_PRIVATE);
             int firstStartTimeCon = prefsTimeCon.getInt("firstStartTimeConWH", 0);
@@ -127,12 +133,12 @@ public class SpaceShooter extends View {
 // The value will be default as empty string because for
 // the very first time when the app is opened, there is nothing to show
 
-            x = sh.getInt("firstStartTimeConWH", 0);
+            a = sh.getInt("firstStartTimeConWH", 0);
 
 // We can then use the data
-            Log.d("A Count", String.valueOf(x));
+            Log.d("A Count", String.valueOf(a));
 
-            int y = x + 1;
+            int y = a + 1;
 
             SharedPreferences prefsCount1 = context.getSharedPreferences("prefsTimeConWH", MODE_PRIVATE);
             SharedPreferences.Editor editor = prefsCount1.edit();
@@ -146,13 +152,13 @@ public class SpaceShooter extends View {
             int x1 = sha.getInt("firstStartTimeConWH", 0);
 
             Log.d("A Count2", String.valueOf(x1));
-            DatabaseReference referenceTime = FirebaseDatabase.getInstance().getReference("TimeSpentWHChart").child(mUser.getUid()).child("Concentration Games").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(x));
+            DatabaseReference referenceTime = FirebaseDatabase.getInstance().getReference("TimeSpentWHChart").child(mUser.getUid()).child("Concentration Games").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(a));
             Log.d("ReferencePath", String.valueOf(referenceTime));
             referenceTime.setValue(seconds);
 
             intent.putExtra("points", points);
             context.startActivity(intent);
-            gameOverSp=true;
+            gameOverSp = true;
             ((Activity) context).finish();
         }
         // Move enemySpaceship
@@ -277,5 +283,13 @@ public class SpaceShooter extends View {
         // Returning true in an onTouchEvent() tells Android system that you already handled
         // the touch event and no further handling is required.
         return true;
+    }
+
+    public int getA() {
+        return a;
+    }
+
+    public void setA(int a) {
+        this.a = a;
     }
 }

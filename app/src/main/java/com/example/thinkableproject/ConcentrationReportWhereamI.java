@@ -385,7 +385,7 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                             chart = findViewById(R.id.chart1);
                             chart.getDescription().setEnabled(false);
                             chart.setDrawGridBackground(true);
-                            chart.setBackgroundColor(getResources().getColor(R.color.background));
+//                            chart.setBackgroundColor(getResources().getColor(R.color.t));
                             chart.setTouchEnabled(true);
                             chart.setMaxHighlightDistance(50f);
                             chart.setDragEnabled(true);

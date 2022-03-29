@@ -468,7 +468,7 @@ public class Concentration_Yearly extends AppCompatActivity {
                                                         ContextCompat.getColor(getApplicationContext(), R.color.dark));
                                                 BarData data = new BarData(dataSet);
                                                 data.setDrawValues(false);
-                                                data.setBarWidth(0.8f);
+                                                data.setBarWidth(0.7f);
 
                                                 barChart2.setData(data);
                                                 barChart2.setFitBars(true);
@@ -479,7 +479,6 @@ public class Concentration_Yearly extends AppCompatActivity {
                                                 barChart2.setExtraBottomOffset(5f);
                                                 barChart2.getXAxis().setAvoidFirstLastClipping(true);
                                                 barChart2.getAxisRight().setEnabled(false);
-                                                barChart2.getXAxis().setLabelCount(9, true);
                                                 Description desc = new Description();
                                                 desc.setText("Time Spent Yearly on Concentration");
                                                 desc.setTextColor(getResources().getColor(R.color.white));
