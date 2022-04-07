@@ -4,11 +4,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Patterns;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -21,6 +25,8 @@ public class ForgetPasswordActivity extends AppCompatActivity {
     private EditText emailEditText;
     private AppCompatButton resetPasswordButton;
     private ProgressBar progressBar;
+    Animation scaleUp, scaleDown;
+
 
     FirebaseAuth auth;
 
@@ -32,6 +38,8 @@ public class ForgetPasswordActivity extends AppCompatActivity {
         emailEditText = (EditText) findViewById(R.id.email);
         resetPasswordButton = (AppCompatButton) findViewById(R.id.resetPassword);
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
+        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
 
         //get instance of firebase user authentication
         auth = FirebaseAuth.getInstance();
@@ -41,6 +49,24 @@ public class ForgetPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 resetPassword();
+            }
+        });
+
+        resetPasswordButton.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    resetPasswordButton.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    resetPasswordButton.startAnimation(scaleDown);
+                }
+
+                return false;
             }
         });
     }

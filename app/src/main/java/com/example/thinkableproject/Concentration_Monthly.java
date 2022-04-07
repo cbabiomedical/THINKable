@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -13,8 +14,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -74,7 +78,7 @@ public class Concentration_Monthly extends AppCompatActivity {
     BarChart barChart;
     private Context context;
     ImageView games, music;
-    AppCompatButton daily, weekly, yearly;
+    AppCompatButton daily, weekly, yearly,improveConcentration;
     ImageView relaxationBtn, memory;
     FirebaseUser mUser;
     File localFile, fileName;
@@ -116,6 +120,8 @@ public class Concentration_Monthly extends AppCompatActivity {
     Double avg1, avg2, avg3, avg4, avg5, avg6, avg7, avg8, avg9, avg10, avg11, avg12;
     ArrayList lineEntries;
     AppCompatButton progressTime, improvement;
+    Animation scaleUp, scaleDown;
+
 
     ArrayList<Float> xVal = new ArrayList<>(Arrays.asList(2f, 4f, 6f, 8f, 10f, 12f, 14f));
     ArrayList<Float> yVal = new ArrayList(Arrays.asList(45f, 36f, 75f, 36f, 73f, 45f, 83f));
@@ -135,7 +141,10 @@ public class Concentration_Monthly extends AppCompatActivity {
 
         daily = findViewById(R.id.daily);
         weekly = findViewById(R.id.weekly);
+        improveConcentration=findViewById(R.id.improveConcentration);
         yearly = findViewById(R.id.yearly);
+        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
+        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         barChart = (BarChart) findViewById(R.id.barChartMonthly);
         relaxationBtn = findViewById(R.id.relaxation);
         List<BarEntry> entries = new ArrayList<>();
@@ -219,12 +228,67 @@ public class Concentration_Monthly extends AppCompatActivity {
                 scrollView.fullScroll(HorizontalScrollView.FOCUS_LEFT);
             }
         });
+
+        improveConcentration.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    improveConcentration.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    improveConcentration.startAnimation(scaleDown);
+                }
+
+                return false;
+            }
+        });
+
+        progressTime.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    progressTime.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    progressTime.startAnimation(scaleDown);
+                }
+
+                return false;
+            }
+        });
+
         improvement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 scrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
 
                 scrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
+            }
+        });
+
+        improvement.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    improvement.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    improvement.startAnimation(scaleDown);
+                }
+
+                return false;
             }
         });
 
@@ -898,6 +962,24 @@ public class Concentration_Monthly extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
+
+        daily.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    daily.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    daily.startAnimation(scaleDown);
+                }
+
+                return false;
+            }
+        });
         // On click listener of weekly button
         weekly.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -907,6 +989,25 @@ public class Concentration_Monthly extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
+
+        weekly.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    weekly.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    weekly.startAnimation(scaleDown);
+                }
+
+                return false;
+            }
+        });
+
         // On click listener of yearly button
         yearly.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -914,6 +1015,24 @@ public class Concentration_Monthly extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), Concentration_Yearly.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
+
+        yearly.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    yearly.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    yearly.startAnimation(scaleDown);
+                }
+
+                return false;
             }
         });
 
@@ -927,11 +1046,47 @@ public class Concentration_Monthly extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
+
+        relaxationBtn.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    relaxationBtn.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    relaxationBtn.startAnimation(scaleDown);
+                }
+
+                return false;
+            }
+        });
         memory.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), MemoryMonthly.class));
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
+
+        memory.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    memory.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    memory.startAnimation(scaleDown);
+                }
+
+                return false;
             }
         });
         // On click listener of real time indication button
@@ -942,6 +1097,24 @@ public class Concentration_Monthly extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Calibration.class);
                 startActivity(intent);
+            }
+        });
+
+        anim.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    anim.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    anim.startAnimation(scaleDown);
+                }
+
+                return false;
             }
         });
 

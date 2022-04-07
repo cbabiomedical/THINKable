@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,9 +15,12 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -62,6 +66,8 @@ public class MemoryExercise extends AppCompatActivity implements MusicAdapter.On
     Dialog dialogMem;
     View c1, c2;
     ImageView memoryInfo;
+    Animation scaleUp, scaleDown;
+
     GifImageView c1gif, c2gif;
     ArrayList<MusicModelClass> musicList;
     ArrayList<GameModelClass> gameList;
@@ -84,6 +90,8 @@ public class MemoryExercise extends AppCompatActivity implements MusicAdapter.On
         c1gif = findViewById(R.id.landingfwall);
         c2gif = findViewById(R.id.landingfwall1);
         c1 = findViewById(R.id.c1);
+        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
+        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         c2 = findViewById(R.id.c2);
         dialogMem = new Dialog(this);
         meditation = findViewById(R.id.meditationTitle);
@@ -170,13 +178,13 @@ public class MemoryExercise extends AppCompatActivity implements MusicAdapter.On
         music.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Music.class));
+                startActivity(new Intent(getApplicationContext(), MusicMemory.class));
             }
         });
         games.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), GameActivity.class));
+                startActivity(new Intent(getApplicationContext(), GamesMemory.class));
             }
         });
         relaxation.setOnClickListener(new View.OnClickListener() {
@@ -187,16 +195,53 @@ public class MemoryExercise extends AppCompatActivity implements MusicAdapter.On
             }
         });
 
+        relaxation.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    relaxation.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    relaxation.startAnimation(scaleDown);
+                }
+
+                return false;
+            }
+        });
+
         concentration.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Exercise.class));
             }
         });
+
+        concentration.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    concentration.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    concentration.startAnimation(scaleDown);
+                }
+
+                return false;
+            }
+        });
+
         meditation.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), MeditationExercise.class));
+                startActivity(new Intent(getApplicationContext(), MeditationMemory.class));
             }
         });
         mUser = FirebaseAuth.getInstance().getCurrentUser();

@@ -10,6 +10,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -47,6 +49,8 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
     GridAdapter adapter;
     FirebaseUser mUser;
     Dialog dialoggame;
+    Animation scaleUp, scaleDown;
+
     LinearLayoutManager layoutManager;
     View c1, c2;
     ImageView information;
@@ -61,6 +65,8 @@ public class GameActivity extends AppCompatActivity implements GridAdapter.OnNot
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_concentration_excercise);
         recyclerView = findViewById(R.id.gridView);
+        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
+        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
         dialoggame = new Dialog(this);

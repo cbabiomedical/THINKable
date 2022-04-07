@@ -2,11 +2,16 @@ package com.example.thinkableproject.IHaveToFly;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,6 +20,9 @@ import com.example.thinkableproject.R;
 public class IHaveToFlyMainActivity extends AppCompatActivity {
 
     private boolean isMute;
+    ImageView ihavetoinfo;
+    Dialog dialogIhaveto;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +38,21 @@ public class IHaveToFlyMainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 startActivity(new Intent(IHaveToFlyMainActivity.this, GameActivity.class));
             }
+        });
+
+        ihavetoinfo = findViewById(R.id.ihavetoInfo);
+        dialogIhaveto = new Dialog(this);
+
+
+
+
+        ihavetoinfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                displayIhavetoPop();
+                Log.d("State","Clicked");
+            }
+
         });
 
         TextView highScoreTxt = findViewById(R.id.highScoreTxt);
@@ -63,5 +86,30 @@ public class IHaveToFlyMainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    private void displayIhavetoPop() {
+
+        Button ok;
+
+        dialogIhaveto.setContentView(R.layout.havetofly_instructions);
+        dialogIhaveto.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+
+        ok = (Button) dialogIhaveto.findViewById(R.id.ok);
+
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                dialogIhaveto.dismiss();
+
+
+            }
+        });
+        dialogIhaveto.show();
+
+        SharedPreferences prefsColIn = getSharedPreferences("prefsColIn", MODE_PRIVATE);
+        SharedPreferences.Editor editor = prefsColIn.edit();
+        editor.putBoolean("firstStartColIn", false);
+        editor.apply();
     }
 }

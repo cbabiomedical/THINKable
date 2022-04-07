@@ -2,9 +2,13 @@ package com.example.thinkableproject;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
@@ -16,6 +20,8 @@ public class EnterPhoneActivity extends AppCompatActivity {
 
         Spinner spinner;
         EditText editText;
+        Animation scaleUp, scaleDown;
+
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_enter_phone);
@@ -25,6 +31,8 @@ public class EnterPhoneActivity extends AppCompatActivity {
         spinner.setAdapter(new ArrayAdapter<String>(this, android.R.layout.simple_spinner_dropdown_item, CountryData.countryNames));
 
         editText = findViewById(R.id.editTextPhone);
+        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
+        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
 
         findViewById(R.id.buttonContinue).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,7 +54,14 @@ public class EnterPhoneActivity extends AppCompatActivity {
                 startActivity(intent);
 
             }
+
+
+
         });
+
+
+
+
     }
 
 

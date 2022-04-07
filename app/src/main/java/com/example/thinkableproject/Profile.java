@@ -5,12 +5,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -39,6 +43,8 @@ public class Profile extends AppCompatActivity {
     AppCompatButton calendar, aboutApp;
     AppCompatButton myFavourites, myDownloads, share;
     ImageView faceBook, instagram, twitter, youtube;
+    Animation scaleUp, scaleDown;
+
 
     int color;
 
@@ -49,6 +55,8 @@ public class Profile extends AppCompatActivity {
         editProfile = findViewById(R.id.edit);
         userName = findViewById(R.id.user);
         profilePic = findViewById(R.id.picture);
+        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
+        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         calendar = findViewById(R.id.cal_reminder);
         myFavourites = findViewById(R.id.favourites);
         aboutApp = findViewById(R.id.about);
@@ -96,6 +104,24 @@ public class Profile extends AppCompatActivity {
                 startActivity(intent.createChooser(intent, "Share using"));
             }
         });
+
+        share.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    share.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    share.startAnimation(scaleDown);
+                }
+
+                return false;
+            }
+        });
 //        faceBook=findViewById(R.id.facebook);
 //        instagram=findViewById(R.id.insta);
 //        twitter=findViewById(R.id.twitter);
@@ -108,11 +134,47 @@ public class Profile extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), AboutApp.class));
             }
         });
+
+        aboutApp.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    aboutApp.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    aboutApp.startAnimation(scaleDown);
+                }
+
+                return false;
+            }
+        });
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), UserDetails.class);
                 startActivity(intent);
+            }
+        });
+
+        editProfile.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    editProfile.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    editProfile.startAnimation(scaleDown);
+                }
+
+                return false;
             }
         });
 //        faceBook.setOnClickListener(new View.OnClickListener() {
@@ -126,6 +188,23 @@ public class Profile extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MainActivity2.class);
                 startActivity(intent);
+            }
+        });
+        myFavourites.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    myFavourites.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    myFavourites.startAnimation(scaleDown);
+                }
+
+                return false;
             }
         });
 //        instagram.setOnClickListener(new View.OnClickListener() {
@@ -167,10 +246,44 @@ public class Profile extends AppCompatActivity {
                 startActivity(intentcalen);
             }
         });
+        calendar.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    calendar.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    calendar.startAnimation(scaleDown);
+                }
+
+                return false;
+            }
+        });
         myDownloads.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Downloads.class));
+            }
+        });
+        myDownloads.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    myDownloads.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    myDownloads.startAnimation(scaleDown);
+                }
+
+                return false;
             }
         });
 //        youtube.setOnClickListener(new View.OnClickListener() {

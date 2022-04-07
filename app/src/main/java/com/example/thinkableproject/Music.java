@@ -17,6 +17,8 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -73,6 +75,8 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
     private InterstitialAd mInterstitialAd;
     String selected_time;
     LinearLayoutManager layoutManager;
+    Animation scaleUp, scaleDown;
+
     //    int time;
     FirebaseUser mUser;
     ImageView information;
@@ -90,6 +94,8 @@ public class Music extends AppCompatActivity implements MusicAdapter.OnNoteListn
         mRequestQue = Volley.newRequestQueue(this);
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
+        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
+        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         dialogmusic = new Dialog(this);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         information = findViewById(R.id.musicInfo);

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@drawable/backgroundp"
+    tools:context="puzzle.HomeActivity">
+    <!--         <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="wrap_content"-->
+    <!--            android:gravity="center"-->
+    <!--             android:id="@+id/first">-->
+    <!--            <androidx.appcompat.widget.AppCompatTextView-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:layout_marginTop="50dp"-->
+    <!--                android:visibility="invisible"-->
+    <!--                android:id="@+id/PuzzelIt"-->
+    <!--                android:text="@string/full_logo"-->
+    <!--                android:textColor="@android:color/black"-->
+    <!--                android:textSize="40sp"-->
+    <!--                android:paddingBottom="30dp"-->
+    <!--                android:fontFamily="@font/baloo"/>-->
+    <!--        </LinearLayout>-->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:layout_centerInParent="true"
+        android:id="@+id/second">
+        <Button
+            android:id="@+id/start_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/menubutton"
+            android:text="@string/play" />
+        <!--            <Button-->
+        <!--                android:id="@+id/highscore_button"-->
+        <!--                android:layout_width="wrap_content"-->
+        <!--                android:layout_height="wrap_content"-->
+        <!--                android:background="@drawable/menubutton"-->
+        <!--                android:text="@string/leader_board" />-->
+        <Button
+            android:layout_marginTop="20dp"
+            android:id="@+id/setting_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/menubutton"
+            android:text="@string/setting" />
+    </LinearLayout>
+    <!--    <LinearLayout-->
+    <!--            android:layout_width="match_parent"-->
+    <!--            android:layout_height="60dp"-->
+    <!--            android:gravity="center"-->
+    <!--            android:layout_alignParentBottom="true"-->
+    <!--            android:layout_alignBottom="@id/second"-->
+    <!--        android:id="@+id/last"-->
+    <!--            android:paddingBottom="10dp">-->
+    <!--            <androidx.appcompat.widget.AppCompatImageButton-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:src="@drawable/facebook"-->
+    <!--                android:background="@android:color/transparent"-->
+    <!--                android:id="@+id/facebook"-->
+    <!--                android:paddingEnd="15dp"-->
+    <!--                android:visibility="invisible"/>-->
+    <!--            <androidx.appcompat.widget.AppCompatImageButton-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:src="@drawable/instagram"-->
+    <!--                android:background="@android:color/transparent"-->
+    <!--                android:id="@+id/instagram"-->
+    <!--                android:visibility="invisible"-->
+    <!--                android:paddingEnd="15dp"/>-->
+    <!--            <androidx.appcompat.widget.AppCompatImageButton-->
+    <!--                android:layout_width="wrap_content"-->
+    <!--                android:layout_height="wrap_content"-->
+    <!--                android:src="@drawable/github"-->
+    <!--                android:visibility="invisible"-->
+    <!--                android:id="@+id/github"-->
+    <!--                android:background="@android:color/transparent"/>-->
+    <!--    </LinearLayout>-->
+</RelativeLayout>

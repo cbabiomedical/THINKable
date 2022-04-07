@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/prefbg">
+    <RelativeLayout
+        android:id="@+id/layoutMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <ImageView
+            android:id="@+id/topic"
+            android:src="@drawable/thin"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+
+
+            android:layout_width="300dp"
+            android:layout_height="50dp"
+            android:text="THINKABLE"
+            android:fontFamily="cursive"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
+        <TextView
+            android:id="@+id/choosePref"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textSize="20sp"
+            android:layout_below="@+id/topic"
+            android:text="Choose your Preference"
+            android:textStyle="bold"
+            android:textColor="@color/white"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_below="@+id/choosePref"
+            android:layout_marginTop="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/recycler_view"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/done"
+            android:backgroundTint="@color/white"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recycler_view"
+            android:layout_gravity="center"
+            android:layout_marginHorizontal="50dp"
+            android:layout_marginTop="20dp"
+            android:text="Update Preferences"
+            android:textAllCaps="false"
+            android:textStyle="bold"
+            android:background="@drawable/prefbtn"
+            android:layout_marginBottom="60dp"
+            android:textColor="@color/white"
+            android:onClick="GOTOSIGNIN"
+            app:cornerRadius="20dp"
+            />
+
+
+    </RelativeLayout>
+
+</ScrollView>

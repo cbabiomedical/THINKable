@@ -1,0 +1,138 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/hihi">
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin"
+        android:orientation = "vertical"
+        tools:context="WordMatching.KeysPage">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Match each word in the left column with the one the right column that is the same colour"
+            android:textColor="@color/black"
+            android:textSize = "18sp"/>
+        <Button
+            android:layout_width="360dp"
+            android:layout_height="65dp"
+            android:text = "Continue To Game"
+            android:textAllCaps="false"
+            android:textSize = "27sp"
+            android:onClick = "continueToGame"
+            android:gravity = "center"/>
+        <LinearLayout
+            android:layout_width="360dp"
+            android:layout_height="65dp"
+            android:orientation = "horizontal">
+            <TextView
+                android:id = "@+id/firstRowFirstColumn"
+                android:layout_width="180dp"
+                android:layout_height="match_parent"
+                android:text = "TESTING"
+                android:fontFamily="@font/segoepr"
+                android:textColor="@color/black"
+                android:textSize = "30sp"/>
+            <TextView
+                android:id = "@+id/firstRowSecondColumn"
+                android:layout_width="180dp"
+                android:fontFamily="@font/segoepr"
+                android:layout_height="match_parent"
+                android:text = "TESTING"
+                android:textColor="@color/black"
+                android:textSize = "30sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="360dp"
+            android:layout_height="65dp"
+            android:orientation = "horizontal">
+            <TextView
+                android:id = "@+id/secondRowFirstColumn"
+                android:layout_width="180dp"
+                android:layout_height="match_parent"
+                android:text = ""
+                android:textSize = "30sp"/>
+            <TextView
+                android:id = "@+id/secondRowSecondColumn"
+                android:layout_width="180dp"
+                android:layout_height="match_parent"
+                android:text = ""
+                android:textSize = "30sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="360dp"
+            android:layout_height="65dp"
+            android:orientation = "horizontal">
+            <TextView
+                android:id = "@+id/thirdRowFirstColumn"
+                android:layout_width="180dp"
+                android:layout_height="match_parent"
+                android:text = ""
+                android:textSize = "30sp"/>
+            <TextView
+                android:id = "@+id/thirdRowSecondColumn"
+                android:layout_width="180dp"
+                android:layout_height="match_parent"
+                android:text = ""
+                android:textSize = "30sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="360dp"
+            android:layout_height="65dp"
+            android:orientation = "horizontal">
+            <TextView
+                android:id = "@+id/fourthRowFirstColumn"
+                android:layout_width="180dp"
+                android:layout_height="match_parent"
+                android:text = ""
+                android:textSize = "30sp"/>
+            <TextView
+                android:id = "@+id/fourthRowSecondColumn"
+                android:layout_width="180dp"
+                android:layout_height="match_parent"
+                android:text = ""
+                android:textSize = "30sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="360dp"
+            android:layout_height="65dp"
+            android:orientation = "horizontal">
+            <TextView
+                android:id = "@+id/fifthRowFirstColumn"
+                android:layout_width="180dp"
+                android:layout_height="match_parent"
+                android:text = ""
+                android:textSize = "30sp"/>
+            <TextView
+                android:id = "@+id/fifthRowSecondColumn"
+                android:layout_width="180dp"
+                android:layout_height="match_parent"
+                android:text = ""
+                android:textSize = "30sp"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="360dp"
+            android:layout_height="65dp"
+            android:orientation = "horizontal">
+            <TextView
+                android:id = "@+id/sixthRowFirstColumn"
+                android:layout_width="180dp"
+                android:layout_height="match_parent"
+                android:text = ""
+                android:textSize = "30sp"/>
+            <TextView
+                android:id = "@+id/sixthRowSecondColumn"
+                android:layout_width="180dp"
+                android:layout_height="match_parent"
+                android:text = ""
+                android:textSize = "30sp"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

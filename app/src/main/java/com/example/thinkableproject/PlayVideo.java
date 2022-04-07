@@ -11,6 +11,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
@@ -35,6 +37,8 @@ public class PlayVideo extends AppCompatActivity {
     String name;
     boolean videoIsPlaying = false;
     FirebaseFirestore database;
+    Animation scaleUp, scaleDown;
+
     User user;
     FirebaseUser mUser;
     int updatedCoins;
@@ -48,6 +52,8 @@ public class PlayVideo extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_play_video);
         database = FirebaseFirestore.getInstance();
+        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
+        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         isStarted = true;
         startTime = System.currentTimeMillis();
 

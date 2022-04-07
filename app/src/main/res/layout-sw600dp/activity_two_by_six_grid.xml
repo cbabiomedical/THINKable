@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:orientation="vertical"
+    tools:context="WordMatching.TwoBySixGrid">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:text = "C H E C K"
+            android:textSize = "70sp"
+            android:onClick="checkGuess"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:orientation = "horizontal">
+        <Button
+            android:id = "@+id/Btn2x6A1"
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:onClick="Btn2x6A1WhenClicked"
+            android:gravity="center"
+            />
+        <Button
+            android:id = "@+id/Btn2x6A2"
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:onClick="Btn2x6A2WhenClicked"
+            android:gravity="center"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:orientation = "horizontal">
+        <Button
+            android:id = "@+id/Btn2x6B1"
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:onClick="Btn2x6B1WhenClicked"
+            android:gravity="center"/>
+        <Button
+            android:id = "@+id/Btn2x6B2"
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:onClick="Btn2x6B2WhenClicked"
+            android:gravity="center"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="66dp"
+        android:orientation = "horizontal">
+        <Button
+            android:id = "@+id/Btn2x6C1"
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:onClick = "Btn2x6C1WhenClicked"
+            android:gravity="center"/>
+        <Button
+            android:id = "@+id/Btn2x6C2"
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:onClick="Btn2x6C2WhenClicked"
+            android:gravity="center"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="66dp">
+        <Button
+            android:id = "@+id/Btn2x6D1"
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:gravity = "center"
+            android:onClick = "Btn2x6D1WhenClicked"/>
+        <Button
+            android:id = "@+id/Btn2x6D2"
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:gravity = "center"
+            android:onClick = "Btn2x6D2WhenClicked"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="66dp">
+        <Button
+            android:id = "@+id/Btn2x6E1"
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:gravity = "center"
+            android:onClick = "Btn2x6E1WhenClicked"/>
+        <Button
+            android:id = "@+id/Btn2x6E2"
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:gravity = "center"
+            android:onClick = "Btn2x6E2WhenClicked"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="66dp">
+        <Button
+            android:id = "@+id/Btn2x6F1"
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:gravity = "center"
+            android:onClick = "Btn2x6F1WhenClicked"/>
+        <Button
+            android:id = "@+id/Btn2x6F2"
+            android:layout_width="160dp"
+            android:layout_height="match_parent"
+            android:gravity = "center"
+            android:onClick = "Btn2x6F2WhenClicked"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = "MOVES NEEDED:"
+            android:textSize = "18sp"/>
+        <TextView
+            android:id = "@+id/movesNeeded2"
+            android:layout_width="35dp"
+            android:layout_height="match_parent"
+            android:text = "11"
+            android:textSize="20sp"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text = "MOVES USED:"
+            android:textSize="18sp"/>
+        <TextView
+            android:id = "@+id/movesUsed5"
+            android:layout_width="35dp"
+            android:layout_height="match_parent"
+            android:text = "0"
+            android:textSize = "20sp"/>
+    </LinearLayout>
+</LinearLayout>

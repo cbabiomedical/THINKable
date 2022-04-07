@@ -11,6 +11,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.example.thinkableproject.databinding.ActivityMainBinding;
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity {
     int color;
     View c1,c2;
     FirebaseUser mUser;
+    Animation scaleUp, scaleDown;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +44,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(binding.getRoot());
         c1=findViewById(R.id.c1);
         c2=findViewById(R.id.c2);
+        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
+        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
 
         mUser= FirebaseAuth.getInstance().getCurrentUser();
         Calendar c = Calendar.getInstance();

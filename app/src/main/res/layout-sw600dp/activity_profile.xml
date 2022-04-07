@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Profile">
+
+
+    <RelativeLayout
+        android:id="@+id/mainLayout"
+        android:layout_width="match_parent"
+        android:background="#010334"
+        android:layout_height="match_parent">
+
+
+    <RelativeLayout
+        android:id="@+id/info"
+        android:paddingVertical="10dp"
+        android:orientation="horizontal"
+            android:layout_marginTop="30dp"
+        android:layout_width="match_parent"
+        android:layout_marginHorizontal="20dp"
+        app:cornerRadius="23dp"
+        android:background="@drawable/border_background"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/picture"
+            android:layout_marginStart="15dp"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/user"/>
+
+        <TextView
+            android:id="@+id/user"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/picture"
+            android:text=""
+            android:textColor="@color/black"
+            android:textSize="16sp"
+            android:layout_toEndOf="@+id/picture"
+            android:layout_marginStart="20dp"/>
+        <ImageView
+            android:id="@+id/edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginRight="20dp"
+            android:layout_toEndOf="@+id/userName"
+            android:src="@drawable/ic_edit"/>
+    </RelativeLayout>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/downloads"
+        android:layout_marginTop="70dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_below="@+id/info"
+        android:background="@drawable/btnpref"
+        android:layout_width="match_parent"
+        android:text="My Downloads"
+        android:layout_height="60dp"
+
+        android:textColor="@color/color_white"
+        android:fontFamily="@font/segoepr"
+        android:textAllCaps="false"
+        android:paddingHorizontal="10dp"
+        app:cornerRadius="13dp"
+        android:drawableStart="@drawable/ic_file_download"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/favourites"
+        android:layout_marginTop="25dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_below="@+id/downloads"
+        android:background="@drawable/btnpref"
+        android:layout_width="match_parent"
+
+        android:text="My Favourites"
+        android:layout_height="60dp"
+
+        android:textColor="@color/color_white"
+        android:fontFamily="@font/segoepr"
+        android:textAllCaps="false"
+        android:paddingHorizontal="10dp"
+        app:cornerRadius="13dp"
+        android:drawableStart="@drawable/ic_outline_favorite_border"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/cal_reminder"
+        android:layout_marginTop="25dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_below="@+id/favourites"
+        android:background="@drawable/btnpref"
+        android:layout_width="match_parent"
+
+        android:text="Calendar and Reminders "
+        android:layout_height="60dp"
+
+        android:textColor="@color/color_white"
+        android:fontFamily="@font/segoepr"
+        android:textAllCaps="false"
+        android:paddingHorizontal="10dp"
+        app:cornerRadius="13dp"
+        android:drawableStart="@drawable/ic_baseline_calendar_today_24"/>
+<!--    <androidx.appcompat.widget.AppCompatButton-->
+<!--        android:id="@+id/history"-->
+<!--        android:layout_marginTop="15dp"-->
+<!--        android:layout_marginHorizontal="20dp"-->
+<!--        android:layout_below="@+id/cal_reminder"-->
+<!--        android:background="@drawable/border_background"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="History"-->
+<!--        android:paddingHorizontal="10dp"-->
+<!--        app:cornerRadius="13dp"-->
+<!--        android:drawableStart="@drawable/ic_history"/>-->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/bePremium"
+        android:layout_marginTop="25dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_below="@+id/cal_reminder"
+        android:background="@drawable/btnpref"
+        android:layout_width="match_parent"
+
+        android:text="Be Premium "
+        android:layout_height="60dp"
+
+        android:textColor="@color/color_white"
+        android:fontFamily="@font/segoepr"
+        android:textAllCaps="false"
+        android:paddingHorizontal="10dp"
+        app:cornerRadius="13dp"
+        android:drawableStart="@drawable/ic_star"/>
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/about"
+        android:layout_marginTop="25dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_below="@+id/bePremium"
+        android:background="@drawable/btnpref"
+        android:layout_width="match_parent"
+
+        android:text="About App "
+        android:layout_height="60dp"
+
+        android:textColor="@color/color_white"
+        android:fontFamily="@font/segoepr"
+        android:textAllCaps="false"
+        android:paddingHorizontal="10dp"
+        app:cornerRadius="13dp"
+        android:drawableStart="@drawable/ic_info"/>
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/share"
+            android:layout_marginTop="25dp"
+            android:layout_marginHorizontal="20dp"
+            android:layout_below="@+id/about"
+            android:background="@drawable/btnpref"
+            android:layout_width="match_parent"
+            android:layout_marginBottom="80dp"
+            android:text="Share "
+            android:layout_height="60dp"
+
+            android:textColor="@color/color_white"
+            android:fontFamily="@font/segoepr"
+            android:textAllCaps="false"
+            android:paddingHorizontal="10dp"
+            app:cornerRadius="13dp"
+            android:drawableStart="@drawable/ic_baseline_share_24"/>
+
+
+
+    </RelativeLayout>
+
+</ScrollView>

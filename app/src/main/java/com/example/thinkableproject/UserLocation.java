@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
@@ -23,6 +24,8 @@ import java.util.Calendar;
 public class UserLocation extends AppCompatActivity {
     View c1,c2;
     FirebaseUser mUser;
+    Animation scaleUp, scaleDown;
+
     int color;
 
     @Override

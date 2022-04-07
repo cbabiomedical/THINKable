@@ -3,12 +3,15 @@ package com.example.thinkableproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
 
 import com.example.thinkableproject.databinding.ActivityResultBinding;
 
@@ -32,6 +35,8 @@ public class ResultActivity extends AppCompatActivity {
     int color;
     FirebaseUser mUser;
     View c1,c2;
+    Animation scaleUp, scaleDown;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -151,6 +156,23 @@ public class ResultActivity extends AppCompatActivity {
             public void onClick(View v) {
                 startActivity(new Intent(ResultActivity.this, MainActivity.class));
                 finishAffinity();
+            }
+        });
+        binding.restartBtn.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    binding.restartBtn.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    binding.restartBtn.startAnimation(scaleDown);
+                }
+
+                return false;
             }
         });
 
