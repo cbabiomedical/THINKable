@@ -12,24 +12,59 @@
         android:src="@drawable/background2"
         android:scaleType="centerCrop"/>
 
+    <ImageView
+        android:id="@+id/ihavetoInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/ic_baseline_info_24"
+        app:layout_constraintEnd_toEndOf="parent" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize="48sp"
         android:text="I Have To Fly!"
+        android:fontFamily="@font/segoepr"
+        android:textStyle="bold"
         android:textColor="#ffffff"
-        android:layout_above="@id/play"
+        android:layout_above="@id/play1"
         android:layout_below="@id/highScoreTxt"
         android:layout_centerHorizontal="true"/>
 
-    <TextView
+    <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Play"
-        android:textSize="64sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         android:layout_centerInParent="true"
-        android:textColor="#000000"
-        android:id="@+id/play"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:id="@+id/play1"
+
+        >
+
+
+        <ImageButton
+            android:id="@+id/play"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:layout_centerInParent="true"
+            android:background="@drawable/ninjaplay"
+            />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Play"
+            android:layout_below="@id/play"
+            android:textSize="44sp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="30dp"
+            android:textColor="@color/white" />
+    </RelativeLayout>
 
     <TextView
         android:layout_width="wrap_content"

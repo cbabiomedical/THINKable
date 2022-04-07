@@ -3,13 +3,17 @@ package com.example.thinkableproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -33,6 +37,8 @@ public class concentration_music extends AppCompatActivity {
     private String url;
     private String selected_time;
     private int time;
+    Animation scaleUp, scaleDown;
+
     Handler handler = new Handler();
 
 
@@ -47,6 +53,8 @@ public class concentration_music extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_concentration_music);
         Spinner dropdown = (Spinner) findViewById(R.id.spinner1);
+        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
+        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         Spinner dropdown_time = (Spinner) findViewById(R.id.spinner2);
         nextPage = findViewById(R.id.next_btn);
 
@@ -148,6 +156,23 @@ public class concentration_music extends AppCompatActivity {
                 } else {
                     Toast.makeText(concentration_music.this, "Please Select an Option from dropdown list", Toast.LENGTH_SHORT).show();
                 }
+            }
+        });
+        nextPage.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    nextPage.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    nextPage.startAnimation(scaleDown);
+                }
+
+                return false;
             }
         });
 //        FirebaseDatabase.getInstance().getReference().child("Melody Of Nature").setValue("https://firebasestorage.googleapis.com/v0/b/musicapp-3ba45.appspot.com/o/melody-of-nature-main-6672.mp3?alt=media&token=f35d19b0-ba3b-46c7-ba9c-70025fad66b6");

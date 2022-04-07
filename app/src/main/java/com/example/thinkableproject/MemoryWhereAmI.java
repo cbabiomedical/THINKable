@@ -3,13 +3,18 @@ package com.example.thinkableproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -62,6 +67,8 @@ public class MemoryWhereAmI extends AppCompatActivity {
     String text, texta, textm, texta2, textn, texta3, texto, text4a;
     ImageView relaxationBtn, concentrationBtn;
     GifImageView c1gif, c2gif;
+    Animation scaleUp, scaleDown;
+
     int color;
     View c1, c2;
 
@@ -107,6 +114,8 @@ public class MemoryWhereAmI extends AppCompatActivity {
         concentrationBtn = findViewById(R.id.concentration);
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
+        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
+        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         c1gif = findViewById(R.id.landingfwall);
         c2gif = findViewById(R.id.landingfwall1);
 
@@ -181,11 +190,47 @@ public class MemoryWhereAmI extends AppCompatActivity {
             }
         });
 
+        relaxationBtn.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    relaxationBtn.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    relaxationBtn.startAnimation(scaleDown);
+                }
+
+                return false;
+            }
+        });
+
         concentrationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), ConcentrationReportYearly.class));
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
+
+        concentrationBtn.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    concentrationBtn.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    concentrationBtn.startAnimation(scaleDown);
+                }
+
+                return false;
             }
         });
 
@@ -228,6 +273,24 @@ public class MemoryWhereAmI extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), MemoryReportDaily.class);
                 startActivity(intent);
+            }
+        });
+
+        progressConcentration.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    progressConcentration.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    progressConcentration.startAnimation(scaleDown);
+                }
+
+                return false;
             }
         });
 

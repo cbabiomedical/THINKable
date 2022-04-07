@@ -1,11 +1,15 @@
 package com.example.thinkableproject;
 
 
+import android.view.animation.Animation;
+
 public class User {
     // Creating private variables to store user data
     // private variables for encapsulation
     private String userName, email, occupation, Gender, dob, preferences, suggestions, favourites, location, profile;
     private int theme;
+    Animation scaleUp, scaleDown;
+
     private long coins = 25;
 
     // Default constructor

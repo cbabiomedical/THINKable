@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,8 +14,11 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -50,6 +54,8 @@ public class RelaxationExercise extends AppCompatActivity implements MusicAdapte
     View c1, c2;
     ImageView relaxationInfo;
     GifImageView c1gif, c2gif;
+    Animation scaleUp, scaleDown;
+
     int color;
     FirebaseUser mUser;
     Dialog dialogRel;
@@ -67,6 +73,8 @@ public class RelaxationExercise extends AppCompatActivity implements MusicAdapte
         concentrationBtn = findViewById(R.id.concentration);
         music = findViewById(R.id.musicTitle);
         meditation = findViewById(R.id.meditationTitle);
+        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
+        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         c1gif = findViewById(R.id.landingfwall);
         c2gif = findViewById(R.id.landingfwall1);
         c1 = findViewById(R.id.c1);
@@ -152,7 +160,7 @@ public class RelaxationExercise extends AppCompatActivity implements MusicAdapte
         music.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(getApplicationContext(), Music.class));
+                startActivity(new Intent(getApplicationContext(), MusicRelaxation.class));
             }
         });
         meditation.setOnClickListener(new View.OnClickListener() {
@@ -169,12 +177,32 @@ public class RelaxationExercise extends AppCompatActivity implements MusicAdapte
             }
         });
 
+        concentrationBtn.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    concentrationBtn.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    concentrationBtn.startAnimation(scaleDown);
+                }
+
+                return false;
+            }
+        });
+
         relaxationInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 displayRelInstruction();
             }
         });
+
+
         BottomNavigationView bottomNavigationView = findViewById(R.id.bottom_navigation);
 
         //Set Home Selected
@@ -217,7 +245,7 @@ public class RelaxationExercise extends AppCompatActivity implements MusicAdapte
     private void initData() {
         musicAdapter = new MusicAdapter(musicList, getApplicationContext(), this::onNoteClick);
 
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Songs_Admin").child("Songs_Memory");
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Songs_Admin").child("Songs_Relaxation");
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {

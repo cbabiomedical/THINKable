@@ -7,6 +7,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.example.EEG_Values;
@@ -33,12 +35,16 @@ public class Meditation extends AppCompatActivity {
     JsonPlaceHolder jsonPlaceHolder;
     List<EEG_Values> eeg_values;
     EEGAdapter eegAdapter;
+    Animation scaleUp, scaleDown;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meditation);
         recyclerView = findViewById(R.id.recycler_view);
+        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
+        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
 
         //Initialize and Assign Variable
 

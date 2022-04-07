@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
+import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,8 +14,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -38,6 +42,7 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.material.animation.ImageMatrixProperty;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -76,13 +81,15 @@ public class Relaxation_Daily extends AppCompatActivity {
 
     Dialog dialogrd;
     BarChart barChartdaily;
-    AppCompatButton monthly, yearly, weekly;
+    AppCompatButton monthly, yearly, weekly,improveConcentration;
     View c1, c2;
     GifImageView c1gif, c2gif;
     LottieAnimationView anim;
     ImageView meditation, music,video;
     FirebaseUser mUser;
     String text;
+    Animation scaleUp, scaleDown;
+
     HorizontalScrollView scrollView;
     File localFile;
     File fileName;
@@ -116,7 +123,11 @@ public class Relaxation_Daily extends AppCompatActivity {
         List<BarEntry> entries = new ArrayList<>();
         //Initialize buttons
         music = findViewById(R.id.music);
+        improveConcentration=findViewById(R.id.improveConcentration);
+
         meditation = findViewById(R.id.meditations);
+        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
+        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         anim = findViewById(R.id.animation);
         concentration = findViewById(R.id.concentration);
         memoryBtn = findViewById(R.id.memory);
@@ -198,6 +209,24 @@ public class Relaxation_Daily extends AppCompatActivity {
 
             }
         });
+
+        improveConcentration.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    improveConcentration.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    improveConcentration.startAnimation(scaleDown);
+                }
+
+                return false;
+            }
+        });
         improvement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -206,12 +235,48 @@ public class Relaxation_Daily extends AppCompatActivity {
                 scrollView.fullScroll(HorizontalScrollView.FOCUS_RIGHT);
             }
         });
+
+        improvement.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    improvement.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    improvement.startAnimation(scaleDown);
+                }
+
+                return false;
+            }
+        });
         progressTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 scrollView.fullScroll(HorizontalScrollView.FOCUS_LEFT);
 
                 scrollView.fullScroll(HorizontalScrollView.FOCUS_LEFT);
+            }
+        });
+
+        progressTime.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    progressTime.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    progressTime.startAnimation(scaleDown);
+                }
+
+                return false;
             }
         });
 
@@ -233,6 +298,23 @@ public class Relaxation_Daily extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Calibration.class);
                 startActivity(intent);
+            }
+        });
+        anim.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    anim.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    anim.startAnimation(scaleDown);
+                }
+
+                return false;
             }
         });
 
@@ -263,11 +345,46 @@ public class Relaxation_Daily extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
+
+        concentration.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    concentration.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    concentration.startAnimation(scaleDown);
+                }
+
+                return false;
+            }
+        });
         memoryBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Memory_Daily.class));
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
+        memoryBtn.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    memoryBtn.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    memoryBtn.startAnimation(scaleDown);
+                }
+
+                return false;
             }
         });
 
@@ -702,6 +819,23 @@ public class Relaxation_Daily extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
+        monthly.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    monthly.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    monthly.startAnimation(scaleDown);
+                }
+
+                return false;
+            }
+        });
         //go to relaxation weekly page
         weekly.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -711,6 +845,23 @@ public class Relaxation_Daily extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
+        weekly.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    weekly.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    weekly.startAnimation(scaleDown);
+                }
+
+                return false;
+            }
+        });
         //go to relaxation yearly page
         yearly.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -718,6 +869,24 @@ public class Relaxation_Daily extends AppCompatActivity {
                 Intent intentr1 = new Intent(getApplicationContext(), Relaxation_Yearly.class);
                 startActivity(intentr1);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
+
+        yearly.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    yearly.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    yearly.startAnimation(scaleDown);
+                }
+
+                return false;
             }
         });
 

@@ -39,7 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitXY"
                     android:src="@drawable/reportdrthree"
                     android:layout_alignTop="@+id/toggleBtn"
                     android:id="@+id/landingfwall"/>
@@ -48,7 +48,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:scaleType="centerCrop"
+                    android:scaleType="fitXY"
                     android:src="@drawable/bluewhaleroundtwo"
                     android:visibility="gone"
                     android:layout_alignTop="@+id/toggleBtn"
@@ -499,6 +499,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:background="@color/navdark"
+
         app:itemBackground="@color/navdark"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"

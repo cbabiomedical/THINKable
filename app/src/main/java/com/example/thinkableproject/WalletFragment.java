@@ -9,6 +9,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 
 import com.example.thinkableproject.databinding.FragmentWalletBinding;
@@ -26,6 +28,8 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import java.util.Calendar;
 
 public class WalletFragment extends Fragment {
+    Animation scaleUp, scaleDown;
+
 
     public WalletFragment() {
         // Required empty public constructor
@@ -57,6 +61,7 @@ public class WalletFragment extends Fragment {
 
         c1 = binding.getRoot().findViewById(R.id.c1);
         c2 = binding.getRoot().findViewById(R.id.c2);
+
 
         DatabaseReference colorreference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("theme");
         colorreference.addValueEventListener(new ValueEventListener() {

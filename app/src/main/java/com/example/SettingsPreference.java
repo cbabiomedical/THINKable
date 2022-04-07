@@ -6,11 +6,16 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
@@ -38,6 +43,8 @@ public class SettingsPreference extends AppCompatActivity {
     LinearLayoutManager linearLayoutManager;
     List<ModelClass> userList;
     RelativeLayout layoutMain;
+    Animation scaleUp, scaleDown;
+
     FirebaseUser mUser;
     Adapter adapter;
     int color;
@@ -51,6 +58,8 @@ public class SettingsPreference extends AppCompatActivity {
         setContentView(R.layout.activity_settings_preference);
         recyclerView = findViewById(R.id.recycler_view);
         done = findViewById(R.id.done);
+        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
+        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         layoutMain=findViewById(R.id.layoutMain);
 
         mUser=FirebaseAuth.getInstance().getCurrentUser();
@@ -88,6 +97,23 @@ public class SettingsPreference extends AppCompatActivity {
                 //Calling putInDatabase function
                 putDataInDatabase();
 
+            }
+        });
+        done.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    done.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    done.startAnimation(scaleDown);
+                }
+
+                return false;
             }
         });
 

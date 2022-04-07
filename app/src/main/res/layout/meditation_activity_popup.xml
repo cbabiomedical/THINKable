@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="300dp"
-    android:layout_height="350dp"
+    android:layout_height="380dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/shapepop"
     android:outlineAmbientShadowColor="@color/transparent"
@@ -57,6 +57,7 @@
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:background="@color/transparent"
+        android:layout_marginTop="20dp"
         android:text="OK"
         android:textColor="@color/white" />
 

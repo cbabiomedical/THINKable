@@ -13,6 +13,8 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
@@ -41,6 +43,8 @@ public class Connection extends AppCompatActivity implements View.OnClickListene
     private HashMap<String, BTLE_Device> mBTDevicesHashMap;
     private ArrayList<BTLE_Device> mBTDevicesArrayList;
     private ListAdapter_BTLE_Devices adapter;
+    Animation scaleUp, scaleDown;
+
     private ListView listView;
 //    View c1, c2;
     int color;
@@ -56,6 +60,8 @@ public class Connection extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_connection);
+        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
+        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
 //        c1 = findViewById(R.id.c1);
 //        c2 = findViewById(R.id.c2);
         mUser = FirebaseAuth.getInstance().getCurrentUser();

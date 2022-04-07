@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/prefbg"
+    tools:context=".PreferencesSecPage">
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/topic"
+        android:layout_marginTop="20dp"
+        android:src="@drawable/thin"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+       />
+    <TextView
+        android:id="@+id/choosePref"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="16sp"
+        android:layout_below="@+id/topic"
+        android:text="Choose your Preference"
+        android:textStyle="bold"
+        android:textColor="@color/white"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_below="@+id/choosePref"
+        android:layout_marginTop="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/recycler_view"/>
+
+        <Button
+            android:id="@+id/done"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/recycler_view"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:layout_centerHorizontal="true"
+            android:textAllCaps="false"
+            android:text="@string/done"
+            android:background="@drawable/hione"
+            app:cornerRadius="20dp"
+            android:layout_marginBottom="40dp"
+            android:textColor="@color/color_white"
+            android:onClick="GOTOSIGNIN"/>
+
+
+    </RelativeLayout>
+
+</ScrollView>

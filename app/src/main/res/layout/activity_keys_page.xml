@@ -2,7 +2,8 @@
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/hihi">
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
@@ -16,12 +17,15 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text = "MATCH EACH WORD IN THE LEFT COLUMN WITH THE ONE IN THE RIGHT COLUMN THAT'S THE SAME COLOUR."
+            android:text="Match each word in the left column with the one the right column that is the same colour"
+            android:textColor="@color/black"
+            android:textStyle="bold"
             android:textSize = "18sp"/>
         <Button
             android:layout_width="360dp"
             android:layout_height="65dp"
-            android:text = "CONTINUE TO GAME"
+            android:text = "Continue To Game"
+            android:textAllCaps="false"
             android:textSize = "27sp"
             android:onClick = "continueToGame"
             android:gravity = "center"/>
@@ -34,12 +38,16 @@
                 android:layout_width="180dp"
                 android:layout_height="match_parent"
                 android:text = "TESTING"
+                android:fontFamily="@font/segoepr"
+                android:textColor="@color/black"
                 android:textSize = "30sp"/>
             <TextView
                 android:id = "@+id/firstRowSecondColumn"
                 android:layout_width="180dp"
                 android:layout_height="match_parent"
                 android:text = "TESTING"
+                android:fontFamily="@font/segoepr"
+                android:textColor="@color/black"
                 android:textSize = "30sp"/>
         </LinearLayout>
         <LinearLayout

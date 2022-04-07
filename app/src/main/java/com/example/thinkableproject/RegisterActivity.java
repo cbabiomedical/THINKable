@@ -1,12 +1,16 @@
 package com.example.thinkableproject;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -49,6 +53,8 @@ public class RegisterActivity extends AppCompatActivity {
     private RadioButton male;
     private RadioButton female;
     private String gender = "";
+    Animation scaleUp, scaleDown;
+
     ProgressBar progressBar;
     FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
@@ -80,6 +86,8 @@ public class RegisterActivity extends AppCompatActivity {
         username = findViewById(R.id.username);
         emailAddress = findViewById(R.id.email);
         userPassword = findViewById(R.id.password);
+        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
+        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         re_enterPassword = findViewById(R.id.reEnter);
         male = findViewById(R.id.radio_male);
         female = findViewById(R.id.radio_female);
@@ -114,6 +122,23 @@ public class RegisterActivity extends AppCompatActivity {
                 act.showDropDown();
             }
         });
+        occupation.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    occupation.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    occupation.startAnimation(scaleDown);
+                }
+
+                return false;
+            }
+        });
 
         findViewById(R.id.imageViewggl).setOnClickListener(new View.OnClickListener() {
             @Override
@@ -136,6 +161,23 @@ public class RegisterActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        signIn.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    signIn.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    signIn.startAnimation(scaleDown);
+                }
+
+                return false;
+            }
+        });
         // onClick Function of Sign up button
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +186,23 @@ public class RegisterActivity extends AppCompatActivity {
                 registerUser();
             }
 
+        });
+        signUp.setOnTouchListener(new View.OnTouchListener() {
+
+
+            //
+            @SuppressLint("ClickableViewAccessibility")
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
+                    signUp.startAnimation(scaleUp);
+
+                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
+                    signUp.startAnimation(scaleDown);
+                }
+
+                return false;
+            }
         });
 
 

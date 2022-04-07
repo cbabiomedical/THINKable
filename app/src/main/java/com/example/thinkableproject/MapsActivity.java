@@ -17,6 +17,8 @@ import android.os.Bundle;
 import android.provider.Settings;
 import android.util.Log;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Toast;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -47,6 +49,8 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         com.google.android.gms.location.LocationListener {
 
     private GoogleMap mMap;
+    Animation scaleUp, scaleDown;
+
 
     private GoogleApiClient mGoogleApiClient;
     private Location mLocation;
@@ -64,6 +68,9 @@ public class MapsActivity extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
+        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
+        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
 
         if (requestSinglePermission()) {
             // Obtain the SupportMapFragment and get notified when the map is ready to be used.

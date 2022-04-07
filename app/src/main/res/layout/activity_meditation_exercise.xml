@@ -21,7 +21,8 @@
         android:layout_height="match_parent"
         android:id="@+id/c1"
         android:visibility="gone"
-        android:background="@drawable/exercisexdbg"/>
+
+        android:background="#010334"/>
 
 
     <ImageView
@@ -34,6 +35,22 @@
         android:layout_marginTop="20dp"
         android:src="@drawable/ic_baseline_info_24"/>
 
+    =======
+    android:background="@drawable/exercisexdbg"/>
+    <!--    <Spinner-->
+    <!--    android:layout_marginTop="20dp"-->
+    <!--    android:id="@+id/spinner2"-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_marginHorizontal="20dp"-->
+    <!--    android:layout_height="wrap_content"-->
+    <!--    android:background="@color/blue"-->
+    <!--    android:layout_marginBottom="30dp"-->
+
+    <!--    android:spinnerMode="dropdown"-->
+    <!--        android:layout_centerHorizontal="true"-->
+    <!--        android:theme="@android:style/Holo.Light.ButtonBar.AlertDialog"-->
+    <!--       />-->
+    >>>>>>> Stashed changes
 
     <ScrollView
         android:layout_width="match_parent"
@@ -42,7 +59,7 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
 
-      >
+        >
 
         <LinearLayout
             android:layout_marginTop="20dp"
@@ -80,6 +97,7 @@
         android:layout_marginTop="100dp"
         app:itemBackground="@color/navdark"
         android:layout_alignParentBottom="true"
+        android:background="@color/navdark"
         android:layout_alignParentEnd="true"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"

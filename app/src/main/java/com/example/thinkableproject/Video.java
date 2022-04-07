@@ -9,18 +9,24 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.VideoView;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Video extends AppCompatActivity {
     VideoView videoView;
+    Animation scaleUp, scaleDown;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_video);
         videoView = findViewById(R.id.simpleVideo);
+        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
+        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         videoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.roadmap));
         videoView.start();
