@@ -23,11 +23,11 @@ public class OurSpaceship {
         oy = SpaceShooter.screenHeight - ourSpaceship.getHeight();
     }
 
-    public Bitmap getOurSpaceship(){
+    public Bitmap getOurSpaceship() {
         return ourSpaceship;
     }
 
-    int getOurSpaceshipWidth(){
+    int getOurSpaceshipWidth() {
         return ourSpaceship.getWidth();
     }
 }

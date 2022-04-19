@@ -115,7 +115,7 @@ public class GameOverActivity extends AppCompatActivity {
 
         if (BroadcastReceiver_BTLE_GATT.concentration_indexesIHF.size() > 0) {
 
-            Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.105:5000/").client(client)
+            Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.137:5000/").client(client)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
             jsonPlaceHolder = retrofit.create(JsonPlaceHolder.class);
@@ -145,9 +145,9 @@ public class GameOverActivity extends AppCompatActivity {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot) {
                             Log.d("GETOCCUPATION", String.valueOf(snapshot.getValue()));
-                            DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("WhereAmI").child(String.valueOf(snapshot.getValue())).child(mUser.getUid()).child("Time to Concentrate").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(c));
+                            DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("WhereAmI").child(String.valueOf(snapshot.getValue())).child("Time to Concentrate").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(mUser.getUid()).child(String.valueOf(c));
                             reference2.setValue(finalHashmap.get("time_to_concentrate"));
-                            DatabaseReference reference3 = FirebaseDatabase.getInstance().getReference("WhereAmI").child(String.valueOf(snapshot.getValue())).child(mUser.getUid()).child("Time Stayed Concentrate").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(c));
+                            DatabaseReference reference3 = FirebaseDatabase.getInstance().getReference("WhereAmI").child(String.valueOf(snapshot.getValue())).child("Time Stayed Concentrate").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(mUser.getUid()).child(String.valueOf(c));
                             reference3.setValue(finalHashmap.get("time concentrated"));
                         }
 

@@ -27,6 +27,7 @@ import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -73,6 +74,7 @@ public class LineChartExample extends AppCompatActivity {
         setContentView(R.layout.activity_line_chart_example);
         ok = findViewById(R.id.ok);
         database = FirebaseFirestore.getInstance();
+        mUser= FirebaseAuth.getInstance().getCurrentUser();
 
         SharedPreferences shs = getSharedPreferences("prefsTimeRelWH", MODE_APPEND);
 
@@ -100,13 +102,13 @@ public class LineChartExample extends AppCompatActivity {
 
         if (BroadcastReceiver_BTLE_GATT.concentration_indexesND.size() > 0) {
 
-            Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.105:5000/").client(client)
+            Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.137:5000/").client(client)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
             jsonPlaceHolder = retrofit.create(JsonPlaceHolder.class);
             //Post Time to Concentrate and Time stayed Concentrated
             ArrayList data = new ArrayList((Arrays.asList(0.5, 0.6, 0.7, 0.3, 0.8, 0.55, 0.65, 0.75, 0.45, 0.7, 0.65, 0.55, 0.1, 0.45)));
-            Call<List> callMusRel = jsonPlaceHolder.PostTimeToConcentrate(BroadcastReceiver_BTLE_GATT.concentration_indexesND);
+            Call<List> callMusRel = jsonPlaceHolder.PostTimeToConcentrate(BroadcastReceiver_BTLE_GATT.relaxation_indexesMus);
             callMusRel.enqueue(new Callback<List>() {
                 @Override
                 public void onResponse(Call<List> call, Response<List> response) {

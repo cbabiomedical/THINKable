@@ -417,9 +417,7 @@ public class Concentration_Daily extends AppCompatActivity {
                                 ArrayList sumElement = new ArrayList();
                                 int sum = (0);
                                 for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-
                                     Log.d("Values", String.valueOf(dataSnapshot.getChildren()));
-
                                     Long av1 = (Long) dataSnapshot.getValue();
                                     Log.d("AV1", String.valueOf(av1));
                                     sumElement.add(av1);

@@ -143,6 +143,9 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
     public static ArrayList concentration_indexesND = new ArrayList();
     public static ArrayList concentration_indexesPT = new ArrayList();
     public static ArrayList concentration_indexesIHF = new ArrayList();
+    public static ArrayList relaxation_indexesMus = new ArrayList();
+    public static ArrayList relaxation_index_Vid = new ArrayList();
+    public static ArrayList relaxation_indexMed = new ArrayList();
     JsonPlaceHolder jsonPlaceHolder;
     private final static String TAG = Activity_BTLE_Services.class.getSimpleName();
     HashMap hashMap = new HashMap();
@@ -363,7 +366,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                         .connectTimeout(120000, TimeUnit.SECONDS)
                         .readTimeout(120000, TimeUnit.SECONDS).build();
 
-                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.105:5000/").client(client)
+                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.137:5000/").client(client)
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .build();
                 jsonPlaceHolder = retrofit.create(JsonPlaceHolder.class);
@@ -1151,21 +1154,17 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                                     mUser = FirebaseAuth.getInstance().getCurrentUser();
                                     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Relaxation Post").child("Music").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(a));
                                     reference.setValue(response.body());
-                                    DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("occupation");
-                                    reference1.addValueEventListener(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            Log.d("GETOCCUPATION", String.valueOf(snapshot.getValue()));
-                                            DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("WhereAmI").child(String.valueOf(snapshot.getValue())).child("Relaxation Index").child(String.valueOf(a));
-                                            reference2.setValue(response.body());
-                                        }
 
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-
-                                        }
-                                    });
-//                                    Log.d("PTCon Res Type", String.valueOf(response.body().getClass().getSimpleName()));
+                                    Log.d("ResponceType", response.body().getClass().getSimpleName());
+                                    List musicindex = new ArrayList();
+                                    musicindex = response.body();
+                                    Log.d("MusicList", String.valueOf(musicindex.get(0)));
+                                    LinkedTreeMap hashMap = new LinkedTreeMap();
+                                    hashMap = (LinkedTreeMap) musicindex.get(0);
+                                    Log.d("HashMapTree", String.valueOf(hashMap.get("index")));
+                                    relaxation_indexesMus.add(hashMap.get("index"));
+                                    Log.d("RELAXATIONINDEX", String.valueOf(relaxation_indexesMus));
+//                                    Log.d("ShCon Res Type", String.valueOf(response.body().getClass().getSimpleName()));
 
                                 }
 
@@ -1204,21 +1203,16 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                                     mUser = FirebaseAuth.getInstance().getCurrentUser();
                                     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Relaxation Post").child("Meditation").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(a));
                                     reference.setValue(response.body());
-                                    DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("occupation");
-                                    reference1.addValueEventListener(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            Log.d("GETOCCUPATION", String.valueOf(snapshot.getValue()));
-                                            DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("WhereAmI").child(String.valueOf(snapshot.getValue())).child("Relaxation Index").child(String.valueOf(a));
-                                            reference2.setValue(response.body());
-                                        }
+                                    Log.d("ResponceType", response.body().getClass().getSimpleName());
 
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-
-                                        }
-                                    });
-//                                    Log.d("PTCon Res Type", String.valueOf(response.body().getClass().getSimpleName()));
+                                    List meditationindex = new ArrayList();
+                                    meditationindex = response.body();
+                                    Log.d("SpaceShooterList", String.valueOf(meditationindex.get(0)));
+                                    LinkedTreeMap hashMap = new LinkedTreeMap();
+                                    hashMap = (LinkedTreeMap) meditationindex.get(0);
+                                    Log.d("HashMapTree", String.valueOf(hashMap.get("index")));
+                                    relaxation_indexMed.add(hashMap.get("index"));
+                                    Log.d("RELAXATIONINDEX", String.valueOf(relaxation_indexMed));
 
                                 }
 
@@ -1258,20 +1252,17 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                                     mUser = FirebaseAuth.getInstance().getCurrentUser();
                                     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Relaxation Post").child("Video").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(a));
                                     reference.setValue(response.body());
-                                    DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("occupation");
-                                    reference1.addValueEventListener(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            Log.d("GETOCCUPATION", String.valueOf(snapshot.getValue()));
-                                            DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("WhereAmI").child(String.valueOf(snapshot.getValue())).child("Relaxation Index").child(String.valueOf(a));
-                                            reference2.setValue(response.body());
-                                        }
 
-                                        @Override
-                                        public void onCancelled(@NonNull DatabaseError error) {
-
-                                        }
-                                    });
+                                    Log.d("ResponceType", response.body().getClass().getSimpleName());
+                                    List videoindex = new ArrayList();
+                                    videoindex = response.body();
+                                    Log.d("VideoList", String.valueOf(videoindex.get(0)));
+                                    LinkedTreeMap hashMap = new LinkedTreeMap();
+                                    hashMap = (LinkedTreeMap) videoindex.get(0);
+                                    Log.d("HashMapTree", String.valueOf(hashMap.get("index")));
+                                    concentration_indexes.add(hashMap.get("index"));
+                                    Log.d("RELAXATIONINDEX", String.valueOf(relaxation_index_Vid));
+//                                    Log.d("ShCon Res Type", String.valueOf(response.body().getClass().getSimpleName()));
 //                                    Log.d("PTCon Res Type", String.valueOf(response.body().getClass().getSimpleName()));
 
                                 }
