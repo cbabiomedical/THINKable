@@ -455,7 +455,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="1250dp"
+                        android:layout_marginTop="1310dp"
                         android:fontFamily="@font/lemon"
                         android:text="Job"
                         android:textColor="#fff"/>
@@ -472,7 +472,7 @@
                 android:layout_width="322dp"
                 android:layout_height="295dp"
                 android:layout_marginStart="40dp"
-                android:layout_marginTop="1260dp" />
+                android:layout_marginTop="1340dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -495,7 +495,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="20dp"
-                        android:layout_marginTop="1600dp"
+                        android:layout_marginTop="1660dp"
                         android:fontFamily="@font/lemon"
                         android:text="Age"
                         android:textColor="#fff"/>
@@ -511,7 +511,8 @@
                 android:layout_width="322dp"
                 android:layout_height="295dp"
                 android:layout_marginLeft="40dp"
-                android:layout_marginTop="1600dp" />
+                android:layout_marginBottom="70dp"
+                android:layout_marginTop="1700dp" />
 
         </RelativeLayout>
 

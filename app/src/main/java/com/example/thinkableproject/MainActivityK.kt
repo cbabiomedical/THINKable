@@ -21,6 +21,7 @@ import com.example.thinkableproject.creation.CreatActivity
 import com.example.thinkableproject.models.BoardSize
 import com.example.thinkableproject.models.MemoryGame
 import com.example.thinkableproject.models.UserImageList
+import com.example.thinkableproject.sample.JsonPlaceHolder
 import com.example.thinkableproject.utils.EXTRA_BOARD_SIZE
 import com.example.thinkableproject.utils.EXTRA_GAME_NAME
 import com.github.jinatonic.confetti.CommonConfetti
@@ -65,6 +66,7 @@ class MainActivityK : AppCompatActivity() {
     private lateinit var dialogIntervention: Dialog
     private var mInterstitialAd: InterstitialAd? = null
     lateinit var mUser:FirebaseUser
+    lateinit var jsonPlaceholder:JsonPlaceHolder
     var startTime: Long = 0
     var endTime: Long = 0
     var x:Int = 0
