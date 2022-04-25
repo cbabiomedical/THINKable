@@ -3,18 +3,13 @@ package com.example.thinkableproject;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
-
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
@@ -64,8 +59,6 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
     GifImageView c1gif, c2gif;
     int color;
     View c1, c2;
-    Animation scaleUp, scaleDown;
-
 
 
     File fileNamer, fileNamear, fileNamemr, fileNamea2r, fileNamenr, fileNamea3r, fileNameor, fileNamea4r;
@@ -115,8 +108,6 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
         c1gif = findViewById(R.id.landingfwall);
-        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
-        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         c2gif = findViewById(R.id.landingfwall1);
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
@@ -189,23 +180,6 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
-        memory.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    memory.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    memory.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
 
         concentration.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -213,23 +187,6 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), ConcentrationReportWeekly.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            }
-        });
-        concentration.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    concentration.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    concentration.startAnimation(scaleDown);
-                }
-
-                return false;
             }
         });
 
@@ -273,23 +230,6 @@ public class RelaxationReportWhereamI extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), RelaxationReportDaily.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            }
-        });
-        relaxationProgress.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    relaxationProgress.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    relaxationProgress.startAnimation(scaleDown);
-                }
-
-                return false;
             }
         });
 

@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
-import android.view.animation.Animation;
 import android.widget.Toast;
 
 import com.example.EEG_Values;
@@ -50,8 +49,6 @@ public class UserProfile1 extends AppCompatActivity {
     List<Memory> memoryList;
     LinkedTreeMap linkedTreeMap = new LinkedTreeMap();
     List brainWaveConList;
-    Animation scaleUp, scaleDown;
-
 
 
     @Override

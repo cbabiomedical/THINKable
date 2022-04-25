@@ -44,7 +44,6 @@
             android:layout_width="120dp"
             android:spinnerMode="dropdown"
             android:theme="@android:style/Holo.Light.ButtonBar.AlertDialog"
-            android:backgroundTint="@color/white"
 
 
             android:layout_height="wrap_content" />
@@ -55,7 +54,6 @@
             android:layout_height="wrap_content"
             android:layout_weight="2"
             android:digits="0123456789"
-
             android:hint="Enter your phone number"
             android:textColorHint="#FFFFFF"
             android:maxLength="10"

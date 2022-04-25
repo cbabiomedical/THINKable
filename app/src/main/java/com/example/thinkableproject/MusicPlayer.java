@@ -20,11 +20,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.view.animation.TranslateAnimation;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -80,8 +78,6 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
     String uri;
     String name;
     Dialog dialog;
-    Animation scaleUp, scaleDown;
-
     int x;
     FirebaseUser mUser;
     private InterstitialAd mInterstitialAd;
@@ -117,8 +113,6 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
         txtsongName = findViewById(R.id.txtsongName);
         mediaPlayer = new MediaPlayer();
         dialog = new Dialog(this);
-        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
-        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         btnff = findViewById(R.id.fForward);
         btnfr = findViewById(R.id.fRewind);
         dialogCancel = new Dialog(this);
@@ -193,23 +187,6 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
             } else {
                 mediaPlayer.start();
                 btnPLay.setBackgroundResource(R.drawable.ic_baseline_pause_24);
-            }
-        });
-        btnPLay.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    btnPLay.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    btnPLay.startAnimation(scaleDown);
-                }
-
-                return false;
             }
         });
 
@@ -397,50 +374,12 @@ public class MusicPlayer extends AppCompatActivity implements Serializable {
             }
         });
 
-        btnff.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    btnff
-                            .startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    btnff
-                            .startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
-
         btnfr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (mediaPlayer.isPlaying()) {
                     mediaPlayer.seekTo(mediaPlayer.getCurrentPosition() - 2000);
                 }
-            }
-        });
-
-        btnfr.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    btnfr.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    btnfr.startAnimation(scaleDown);
-                }
-
-                return false;
             }
         });
 //        mediaPlayer.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {

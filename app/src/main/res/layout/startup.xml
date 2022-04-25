@@ -1,33 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
+    android:gravity="center"
     android:background="@drawable/background">
-
-    <ImageView
-        android:id="@+id/gameInfo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginVertical="20dp"
-        android:src="@drawable/ic_baseline_info_24" />
-    <RelativeLayout
-        android:gravity="center"
-        android:layout_gravity="center"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-
         <ImageButton
+            android:id="@+id/imagePlay"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/play_big"
             android:onClick="startGame" />
-    </RelativeLayout>
+    </LinearLayout>
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -37,4 +24,4 @@
         android:textSize="20sp"
         android:onClick="startGame" />
 
-</RelativeLayout>
+</LinearLayout>

@@ -10,8 +10,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -43,8 +41,6 @@ public class MeditationMemory extends AppCompatActivity implements MeditationAda
     ImageView information;
     //    int time;
     FirebaseUser mUser;
-    Animation scaleUp, scaleDown;
-
     View c1, c2;
     int color;
     String selected_time;
@@ -58,8 +54,6 @@ public class MeditationMemory extends AppCompatActivity implements MeditationAda
 
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
-        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
-        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         dialogmeditation = new Dialog(this);
         information=findViewById(R.id.meditationInfo);

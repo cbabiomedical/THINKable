@@ -22,10 +22,9 @@
         android:layout_height="wrap_content"
         android:text="Game Over"
         android:layout_centerInParent="true"
-        android:fontFamily="@font/segoepr"
         android:textColor="@color/white"
         android:textSize="33sp"
-        android:textStyle="bold"/>
+        android:textStyle="bold|italic"/>
 
     <TextView
         android:id="@+id/score"
@@ -53,7 +52,7 @@
         android:id="@+id/tap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Tap to Restart"
+        android:text="Tap tp Restart"
         android:textColor="@color/white"
         android:layout_below="@+id/highscore"
         android:layout_marginTop="20dp"

@@ -5,18 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -77,8 +73,6 @@ public class RelaxationReportDaily extends AppCompatActivity {
     File localFile2;
     File fileName;
     File fileName2;
-    Animation scaleUp, scaleDown;
-
     GifImageView c1gif, c2gif;
     int color;
     View c1, c2;
@@ -114,8 +108,6 @@ public class RelaxationReportDaily extends AppCompatActivity {
         //initials bar charts
         barChartDailytimeto = findViewById(R.id.barChartDaily);
         barChartDailytimestayed = findViewById(R.id.barChartDaily2);
-        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
-        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference reference = database.getReference("chartTable");
         //Initialize List entries
@@ -203,23 +195,6 @@ public class RelaxationReportDaily extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
-        monthly.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    monthly.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    monthly.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
         //go to relaxation weekly page
         weekly.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,23 +204,6 @@ public class RelaxationReportDaily extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
-        weekly.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    weekly.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    weekly.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
         //go to relaxation yearly page
         yearly.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -253,23 +211,6 @@ public class RelaxationReportDaily extends AppCompatActivity {
                 Intent intentr1 = new Intent(getApplicationContext(), RelaxationReportYearly.class);
                 startActivity(intentr1);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            }
-        });
-        yearly.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    yearly.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    yearly.startAnimation(scaleDown);
-                }
-
-                return false;
             }
         });
 
@@ -282,24 +223,6 @@ public class RelaxationReportDaily extends AppCompatActivity {
             }
         });
 
-        memoryBtn.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    memoryBtn.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    memoryBtn.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
-
         //go to RQ Page with comparison to occupasion and age factors
         whereAmI.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -307,23 +230,6 @@ public class RelaxationReportDaily extends AppCompatActivity {
                 Intent intentr1 = new Intent(getApplicationContext(), RelaxationReportWhereamI.class);
                 startActivity(intentr1);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            }
-        });
-        whereAmI.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    whereAmI.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    whereAmI.startAnimation(scaleDown);
-                }
-
-                return false;
             }
         });
         memoryBtn.setOnClickListener(new View.OnClickListener() {
@@ -334,24 +240,6 @@ public class RelaxationReportDaily extends AppCompatActivity {
             }
         });
 
-        memoryBtn.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    memoryBtn.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    memoryBtn.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
-
         //go to concentration daily landing page
         concentration.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -359,24 +247,6 @@ public class RelaxationReportDaily extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), ConcentrationReportDaily.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            }
-        });
-
-        concentration.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    concentration.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    concentration.startAnimation(scaleDown);
-                }
-
-                return false;
             }
         });
 

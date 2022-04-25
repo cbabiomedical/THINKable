@@ -4,17 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -66,8 +62,6 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
     int color;
     View c1, c2;
     ImageView relaxationBtn, memory;
-    Animation scaleUp, scaleDown;
-
     File localFile, localFilea, localFilem, localFilea2, localFilen, localFilea3, localFileo, localFile4a;
     String text, texta, textm, texta2, textn, texta3, texto, text4a;
 
@@ -114,8 +108,6 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
         c2 = findViewById(R.id.c2);
         c1gif = findViewById(R.id.landingfwall);
         c2gif = findViewById(R.id.landingfwall1);
-        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
-        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         Calendar c = Calendar.getInstance();
@@ -188,48 +180,12 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
             }
         });
 
-        memory.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    memory.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    memory.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
-
         relaxationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), RelaxationReportWeekly.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            }
-        });
-
-        relaxationBtn.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    relaxationBtn.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    relaxationBtn.startAnimation(scaleDown);
-                }
-
-                return false;
             }
         });
 
@@ -273,24 +229,6 @@ public class ConcentrationReportWhereamI extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), ConcentrationReportDaily.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            }
-        });
-
-        progressConcentration.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    progressConcentration.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    progressConcentration.startAnimation(scaleDown);
-                }
-
-                return false;
             }
         });
 

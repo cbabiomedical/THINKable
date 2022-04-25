@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.fragment.app.FragmentActivity;
 
 import android.os.Bundle;
-import android.view.animation.Animation;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -23,8 +22,6 @@ import com.google.firebase.database.ValueEventListener;
 public class RetrieveMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    Animation scaleUp, scaleDown;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

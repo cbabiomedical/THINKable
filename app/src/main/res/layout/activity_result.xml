@@ -212,8 +212,6 @@
         android:layout_alignParentBottom="true"
         app:itemBackground="@color/navdark"
         app:itemIconTint="@drawable/selector"
-        android:background="@color/navdark"
-
         app:itemTextColor="@drawable/selector"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"

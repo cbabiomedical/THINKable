@@ -39,7 +39,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/reportdrthree"
                     android:layout_alignTop="@+id/toggleBtn"
                     android:id="@+id/landingfwall"/>
@@ -47,7 +47,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     android:id="@+id/landingfwall1"
 
 
@@ -496,8 +496,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:itemBackground="@color/navdark"
-        android:background="@color/navdark"
-
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menu_navigation" />

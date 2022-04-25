@@ -10,8 +10,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -50,8 +48,6 @@ public class GamesMemory extends AppCompatActivity implements GridAdapter.OnNote
     GridAdapter adapter;
     FirebaseUser mUser;
     Dialog dialoggame;
-    Animation scaleUp, scaleDown;
-
     LinearLayoutManager layoutManager;
     View c1, c2;
     ImageView information;
@@ -67,8 +63,6 @@ public class GamesMemory extends AppCompatActivity implements GridAdapter.OnNote
         setContentView(R.layout.activity_concentration_excercise);
         recyclerView = findViewById(R.id.gridView);
         c1 = findViewById(R.id.c1);
-        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
-        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         c2 = findViewById(R.id.c2);
         dialoggame = new Dialog(this);
         mUser = FirebaseAuth.getInstance().getCurrentUser();

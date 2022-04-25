@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -13,11 +12,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.util.Patterns;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
@@ -39,8 +35,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
     RelativeLayout mainLayout;
     VideoView videoView;
     Dialog dialog;
-    Animation scaleUp, scaleDown;
-
 
 
     private FirebaseAuth mAuth;
@@ -60,48 +54,12 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         //set onclick listener for signin button
         signIn = (AppCompatButton) findViewById(R.id.signIn);
         signIn.setOnClickListener(this);
-        signIn.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    signIn.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    signIn.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
 
         //set onclick listener for signup button
         signUp = (AppCompatButton) findViewById(R.id.signUp);
         signUp.setOnClickListener(this);
-        signUp.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    signUp.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    signUp.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
 
         emailAddress = (EditText) findViewById(R.id.username);
-        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
-        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         passwordTxt = (EditText) findViewById(R.id.password);
 
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
@@ -112,23 +70,6 @@ public class SignInActivity extends AppCompatActivity implements View.OnClickLis
         //set onclick listener for forgotpassword button
         forgotPassword = findViewById(R.id.forgetPassword);
         forgotPassword.setOnClickListener(this);
-        forgotPassword.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    forgotPassword.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    forgotPassword.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
 
     }
 

@@ -6,8 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 import com.example.thinkableproject.databinding.ActivityQuizBinding;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -27,8 +25,6 @@ public class QuizActivity extends AppCompatActivity {
     Question question;
     CountDownTimer timer;
     FirebaseFirestore database;
-    Animation scaleUp, scaleDown;
-
     int correctAnswers = 0;
 
     @Override
@@ -39,8 +35,6 @@ public class QuizActivity extends AppCompatActivity {
 
         questions = new ArrayList<>();
         database = FirebaseFirestore.getInstance();
-        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
-        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
 
         final String catId = getIntent().getStringExtra("catId");
 

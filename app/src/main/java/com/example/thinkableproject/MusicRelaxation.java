@@ -12,8 +12,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -62,8 +60,6 @@ public class MusicRelaxation extends AppCompatActivity implements MusicAdapter.O
     //    int time;
     FirebaseUser mUser;
     ImageView information;
-    Animation scaleUp, scaleDown;
-
     View c1, c2;
     int color;
     private RequestQueue mRequestQue;
@@ -76,8 +72,6 @@ public class MusicRelaxation extends AppCompatActivity implements MusicAdapter.O
         setContentView(R.layout.activity_music_memory);
         mRequestQue = Volley.newRequestQueue(this);
         c1 = findViewById(R.id.c1);
-        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
-        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         c2 = findViewById(R.id.c2);
         dialogmusic = new Dialog(this);
         mUser = FirebaseAuth.getInstance().getCurrentUser();

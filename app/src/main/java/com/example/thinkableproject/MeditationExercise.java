@@ -15,8 +15,6 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -56,8 +54,6 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
     Dialog dialogmeditation;
     String songName;
     ImageView information;
-    Animation scaleUp, scaleDown;
-
     String image;
     String url;
     //    int time;
@@ -74,8 +70,6 @@ public class MeditationExercise extends AppCompatActivity implements MeditationA
         setContentView(R.layout.activity_meditation_exercise);
 
         c1 = findViewById(R.id.c1);
-        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
-        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         c2 = findViewById(R.id.c2);
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         dialogmeditation = new Dialog(this);

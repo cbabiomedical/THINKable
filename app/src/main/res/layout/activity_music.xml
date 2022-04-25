@@ -82,8 +82,6 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
         app:itemIconTint="@drawable/selector"
-        android:background="@color/navdark"
-
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menu_navigation" />
 

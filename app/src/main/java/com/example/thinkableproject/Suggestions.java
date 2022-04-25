@@ -1,13 +1,9 @@
 package com.example.thinkableproject;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -35,8 +31,6 @@ public class Suggestions extends AppCompatActivity {
     LinearLayoutManager linearLayoutManager;
     List<SuggestionsModel> userList;
     FirebaseUser mUser;
-    Animation scaleUp, scaleDown;
-
     SuggestionsAdapter adapter;
     FirebaseAuth mAuth;
     String onlineUserId;
@@ -48,8 +42,6 @@ public class Suggestions extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_suggestions);
-        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
-        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         recyclerView = findViewById(R.id.recycler_view);
         done = findViewById(R.id.done);
 
@@ -61,23 +53,6 @@ public class Suggestions extends AppCompatActivity {
             public void onClick(View v) {
                 putDataInDatabase();
 
-            }
-        });
-        done.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    done.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    done.startAnimation(scaleDown);
-                }
-
-                return false;
             }
         });
 

@@ -26,8 +26,7 @@
         android:layout_centerInParent="true"
         android:text="Game Over"
         android:textSize="28sp"
-        android:textStyle="bold"
-        android:fontFamily="@font/segoepr"
+        android:textStyle="bold|italic"
         />
     <TextView
         android:id="@+id/score"

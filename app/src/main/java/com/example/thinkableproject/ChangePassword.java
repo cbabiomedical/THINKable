@@ -8,8 +8,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -31,8 +29,6 @@ public class ChangePassword extends AppCompatActivity {
     FirebaseUser user;
     View c1, c2;
     int color;
-    Animation scaleUp, scaleDown;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,8 +36,6 @@ public class ChangePassword extends AppCompatActivity {
 
         new_password = (EditText) findViewById(R.id.new_password);
         confirm_Password = (EditText) findViewById(R.id.confirm_Password);
-        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
-        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);

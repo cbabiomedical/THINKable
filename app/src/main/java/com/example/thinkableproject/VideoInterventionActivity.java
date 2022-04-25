@@ -15,8 +15,6 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -43,8 +41,6 @@ public class VideoInterventionActivity extends AppCompatActivity implements Vide
     VideoAdapter adapter;
     Dialog videoDialog;
     ImageView information;
-    Animation scaleUp, scaleDown;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,8 +48,6 @@ public class VideoInterventionActivity extends AppCompatActivity implements Vide
         setContentView(R.layout.activity_video_intervention);
         recyclerView = findViewById(R.id.recyclerView);
         information = findViewById(R.id.videoInfo);
-        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
-        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         videoDialog = new Dialog(this);
 
         information.setOnClickListener(new View.OnClickListener() {

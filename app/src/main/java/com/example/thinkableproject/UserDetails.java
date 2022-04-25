@@ -5,8 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.appcompat.widget.AppCompatImageView;
-
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -15,11 +13,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.DatePicker;
@@ -55,8 +50,6 @@ public class UserDetails extends AppCompatActivity {
     AutoCompleteTextView occupation;
     EditText username, emailAddress, dateOfBirth;
     AppCompatButton update;
-    Animation scaleUp, scaleDown;
-
     RadioButton male, female;
     String gender = "";
     AppCompatImageView camera;
@@ -86,8 +79,6 @@ public class UserDetails extends AppCompatActivity {
         profilePicture = findViewById(R.id.profilePic);
         username = findViewById(R.id.userName);
         emailAddress = findViewById(R.id.email);
-        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
-        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         occupation = findViewById(R.id.suggetion_box);
         dateOfBirth = findViewById(R.id.dob);
         male = findViewById(R.id.radio_male);
@@ -168,23 +159,6 @@ public class UserDetails extends AppCompatActivity {
                 occupation.showDropDown();
             }
         });
-        occupationSelected.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    occupationSelected.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    occupationSelected.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         readData();
         update.setOnClickListener(new View.OnClickListener() {
@@ -196,25 +170,6 @@ public class UserDetails extends AppCompatActivity {
                 }
             }
         });
-
-        update.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    update.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    update.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
-
         auth=FirebaseAuth.getInstance();
         reference=FirebaseDatabase.getInstance().getReference().child("Users");
         storageProfilePicRif= FirebaseStorage.getInstance().getReference().child(mUser.getUid());

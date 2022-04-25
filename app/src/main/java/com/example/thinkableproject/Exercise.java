@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -14,12 +13,9 @@ import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -59,8 +55,6 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
     RecyclerView musicRecyclerView, gameRecyclerView;
     MusicAdapter musicAdapter;
     GridAdapter gameAdapter;
-    Animation scaleUp, scaleDown;
-
     int color;
     Dialog dialogCon;
     View c1, c2;
@@ -81,8 +75,6 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
         relaxation = findViewById(R.id.relaxation);
         music = findViewById(R.id.musicTitle);
         games = findViewById(R.id.gameTitle);
-        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
-        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         c1gif = findViewById(R.id.landingfwall);
         c2gif = findViewById(R.id.landingfwall1);
         concentrationInfo = findViewById(R.id.concentrationInfo);
@@ -174,24 +166,6 @@ public class Exercise extends AppCompatActivity implements MusicAdapter.OnNoteLi
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), RelaxationExercise.class));
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            }
-        });
-
-        relaxation.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    relaxation.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    relaxation.startAnimation(scaleDown);
-                }
-
-                return false;
             }
         });
         mUser = FirebaseAuth.getInstance().getCurrentUser();

@@ -363,21 +363,17 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginTop="20dp"
                     android:paddingHorizontal="15dp"
-                    android:background="@drawable/hionep"
-                    android:textAllCaps="false"
+                    android:background="@drawable/hione"
                     android:text="Progress Chart"
                     android:textColor="@color/white" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/improvement"
-                    android:background="@drawable/hionep"
+                    android:layout_toRightOf="@+id/progressTime"
+                    android:background="@drawable/hione"
                     android:layout_marginTop="20dp"
                     android:layout_marginLeft="15dp"
                     android:paddingHorizontal="10dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="20dp"
-                    android:textAllCaps="false"
-
 
                     android:text="Improvement Chart"
                     android:textColor="@color/white"
@@ -548,7 +544,6 @@
         android:layout_alignParentBottom="true"
         app:itemBackground="@color/navdark"
         app:itemIconTint="@drawable/selector"
-        android:background="@color/navdark"
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menu_navigation" />
 

@@ -23,8 +23,7 @@
         android:textStyle="bold"
         android:textColor="@color/black"
         android:text="Game Over"
-        android:fontFamily="@font/segoepr"
-        android:textSize="30sp"
+        android:textSize="26sp"
         android:layout_centerInParent="true"/>
     <TextView
         android:id="@+id/score"

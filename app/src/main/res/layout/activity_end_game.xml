@@ -8,57 +8,43 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
-    tools:context="WordMatching.EndGame"
-    android:background="@drawable/wordbg"
-    >
+    tools:context="WordMatching.EndGame">
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text = "YOU COMPLETED ALL TWENTY LEVELS!"
-        android:fontFamily="@font/segoepr"
-        android:textColor="@color/white"
-
-
         android:textSize="25sp"
         android:gravity="center"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text = "Your Score:"
-        android:layout_marginTop="20dp"
-        android:textSize="40sp"
-        android:textStyle="bold"
-        android:textColor="@color/white"
+        android:text = "YOUR SCORE:"
+        android:textSize="50sp"
         android:gravity = "center"/>
     <TextView
         android:id="@+id/userScore"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:textSize = "90sp"
-        android:textColor="@color/white"
         android:text = ""
         android:gravity = "center"/>
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text = "High Score:"
-        android:textColor="@color/white"
-        android:textStyle="bold"
-        android:textSize = "40sp"
+        android:text = "HIGH SCORE:"
+        android:textSize = "50sp"
         android:gravity="center"/>
     <TextView
         android:id="@+id/highScore"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:textSize = "60sp"
-        android:textColor="@color/white"
         android:text = ""
         android:gravity = "center"/>
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textAllCaps="false"
-        android:text = "Back to main menu"
-        android:textSize="20sp"
+        android:text = "BACK TO MAIN MENU"
+        android:textSize="50sp"
         android:onClick="mainMenu"/>
 </LinearLayout>

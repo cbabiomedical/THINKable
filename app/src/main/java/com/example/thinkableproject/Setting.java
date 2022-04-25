@@ -22,11 +22,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -56,8 +53,6 @@ import java.util.HashMap;
 public class Setting extends AppCompatActivity {
 
     private InterstitialAd mInterstitialAd;
-    Animation scaleUp, scaleDown;
-
 
     Dialog dialogcd;
     ImageButton buttonpro, accountsettings1, changepassword1, location2, theme2, preferences1, notifications2, help3, logout, contactus;
@@ -93,8 +88,6 @@ public class Setting extends AppCompatActivity {
         location2 = findViewById(R.id.location2);
         theme2 = findViewById(R.id.themebtn);
         c1 = findViewById(R.id.c1);
-        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
-        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         c2 = findViewById(R.id.c2);
         c3 = findViewById(R.id.c3);
         contactus = findViewById(R.id.contactus1);
@@ -182,23 +175,6 @@ public class Setting extends AppCompatActivity {
                 startActivity(new Intent(Setting.this, SignInActivity.class));
             }
         });
-        logout.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    logout.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    logout.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
 
 
         accountsettings1.setOnClickListener(new View.OnClickListener() {
@@ -209,23 +185,6 @@ public class Setting extends AppCompatActivity {
 
             }
         });
-        accountsettings1.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    accountsettings1.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    accountsettings1.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
 
         changepassword1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -234,47 +193,12 @@ public class Setting extends AppCompatActivity {
                 startActivity(intentr1);
             }
         });
-        changepassword1.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    changepassword1.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    changepassword1.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
 
         location2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intentr1 = new Intent(getApplicationContext(), UserLocation.class);
                 startActivity(intentr1);
-            }
-        });
-
-        location2.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    location2.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    location2.startAnimation(scaleDown);
-                }
-
-                return false;
             }
         });
 
@@ -287,24 +211,6 @@ public class Setting extends AppCompatActivity {
             }
         });
 
-        preferences1.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    preferences1.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    preferences1.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
-
         help3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -312,45 +218,11 @@ public class Setting extends AppCompatActivity {
                 startActivity(new Intent(getApplicationContext(), Video.class));
             }
         });
-        help3.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    help3.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    help3.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
 
         contactus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getApplicationContext(), ContactUs.class));
-            }
-        });
-        contactus.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    contactus.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    contactus.startAnimation(scaleDown);
-                }
-
-                return false;
             }
         });
 

@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.content.ContextCompat;
 
-import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.Intent;
 import android.graphics.Color;
@@ -13,11 +12,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -77,7 +73,7 @@ public class Memory_Weekly extends AppCompatActivity {
 
     Dialog dialogcw;
     BarChart barChart1;
-    AppCompatButton monthly, yearly, daily,improveConcentration;
+    AppCompatButton monthly, yearly, daily;
     LottieAnimationView realTime;
     ImageView relaxationBtn, concentrationBtn;
     ImageView games, meditation, music;
@@ -85,8 +81,6 @@ public class Memory_Weekly extends AppCompatActivity {
     View c1, c2;
     GifImageView c1gif, c2gif;
     HorizontalScrollView scrollView;
-    Animation scaleUp, scaleDown;
-
     int color;
     File localFile, fileName;
     ArrayList<String> list = new ArrayList<>();
@@ -116,8 +110,6 @@ public class Memory_Weekly extends AppCompatActivity {
         daily = findViewById(R.id.daily);
         realTime = findViewById(R.id.animation);
         relaxationBtn = findViewById(R.id.relaxation);
-        improveConcentration=findViewById(R.id.improveConcentration);
-
         games = findViewById(R.id.game);
         meditation = findViewById(R.id.meditations);
         List<BarEntry> entries = new ArrayList<>();
@@ -125,8 +117,6 @@ public class Memory_Weekly extends AppCompatActivity {
         concentrationBtn = findViewById(R.id.concentration);
         c1gif = findViewById(R.id.landingfwall);
         c2gif = findViewById(R.id.landingfwall1);
-        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
-        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);
         music = findViewById(R.id.music);
@@ -242,42 +232,6 @@ public class Memory_Weekly extends AppCompatActivity {
             }
         });
 
-        improveConcentration.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    improveConcentration.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    improveConcentration.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
-
-        improvement.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    improvement.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    improvement.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
-
         progressTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -285,24 +239,6 @@ public class Memory_Weekly extends AppCompatActivity {
 
                 scrollView.fullScroll(HorizontalScrollView.FOCUS_LEFT);
 
-            }
-        });
-
-        progressTime.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    progressTime.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    progressTime.startAnimation(scaleDown);
-                }
-
-                return false;
             }
         });
 
@@ -318,24 +254,6 @@ public class Memory_Weekly extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
-
-        monthly.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    monthly.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    monthly.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
         // On click listener of yearly button
         yearly.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -345,24 +263,6 @@ public class Memory_Weekly extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
-        yearly.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    yearly.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    yearly.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
-
         // On click listener of daily button
         daily.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -370,24 +270,6 @@ public class Memory_Weekly extends AppCompatActivity {
                 Intent intent = new Intent(getApplicationContext(), Memory_Daily.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            }
-        });
-
-        daily.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    daily.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    daily.startAnimation(scaleDown);
-                }
-
-                return false;
             }
         });
         // On click listener of relaxation button
@@ -399,47 +281,11 @@ public class Memory_Weekly extends AppCompatActivity {
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
             }
         });
-
-        relaxationBtn.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    relaxationBtn.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    relaxationBtn.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
         concentrationBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(getApplicationContext(), Concentration_Weekly.class));
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            }
-        });
-
-        concentrationBtn.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    concentrationBtn.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    concentrationBtn.startAnimation(scaleDown);
-                }
-
-                return false;
             }
         });
         // On click listener of realTime indication button
@@ -448,24 +294,6 @@ public class Memory_Weekly extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(getApplicationContext(), Calibration.class);
                 startActivity(intent);
-            }
-        });
-
-        realTime.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    realTime.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    realTime.startAnimation(scaleDown);
-                }
-
-                return false;
             }
         });
 

@@ -48,7 +48,7 @@
                     android:layout_height="match_parent"
                     android:layout_alignTop="@+id/toggleBtn"
                     android:gravity="center"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/landingwall"
                     android:visibility="visible" />
 
@@ -58,7 +58,7 @@
                     android:layout_height="300dp"
                     android:layout_alignTop="@+id/toggleBtn"
                     android:gravity="center"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/exercisenewgif"
                     android:visibility="gone" />
 
@@ -358,32 +358,26 @@
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/progressTime"
-                    android:layout_width="150dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="20dp"
-                    android:layout_alignParentLeft="true"
-
                     android:layout_marginTop="20dp"
                     android:paddingHorizontal="15dp"
-                    android:background="@drawable/hionep"
+                    android:background="@drawable/hione"
                     android:text="Progress Chart"
-                    android:textColor="@color/white"
-                    android:textAllCaps="false"/>
+                    android:textColor="@color/white" />
 
                 <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/improvement"
-                    android:background="@drawable/hionep"
+                    android:layout_toRightOf="@+id/progressTime"
+                    android:background="@drawable/hione"
                     android:layout_marginTop="20dp"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginRight="20dp"
-
                     android:layout_marginLeft="15dp"
                     android:paddingHorizontal="10dp"
-                    android:textAllCaps="false"
 
                     android:text="Improvement Chart"
                     android:textColor="@color/white"
-                    android:layout_width="150dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
 
             </RelativeLayout>
@@ -549,7 +543,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:itemBackground="@color/navdark"
-        android:background="@color/navdark"
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menu_navigation" />

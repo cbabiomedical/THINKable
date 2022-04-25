@@ -45,27 +45,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThinkableProject"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ninjadarts.ninjaStart"></activity>
         <activity
             android:name=".WordMatching.VictoryPage"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".WordMatching.TwoByTwoGrid"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".WordMatching.TwoByThreeGrid"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".WordMatching.TwoBySixGrid"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+
         <activity
             android:name=".IHaveToFly.GameActivity"
             android:screenOrientation="landscape"
@@ -73,25 +69,20 @@
         <activity
             android:name=".WordMatching.TwoByFourGrid"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".WordMatching.TwoByFiveGrid"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".WordMatching.MainMenu"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".WordMatching.KeysPage"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".WordMatching.EndGame"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".IHaveToFly.IHaveToFlyMainActivity"
@@ -100,63 +91,50 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".DragandDropPuzzle.PuzzleActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".DragandDropPuzzle.PuzzleMainActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".puzzle.PuzzleMainActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".DragandDropPuzzle.GameOverPuzzle"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".puzzle.HomeActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".puzzle.GameActivity24"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".puzzle.GameActivity15"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".IHaveToFly.GameOverActivity"
             android:screenOrientation="landscape"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".puzzle.GameActivity9"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".puzzle.ChooseDifficultActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".pianotiles.Main5Activity"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".pianotiles.Main4Activity"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".pianotiles.Main3Activity"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".pianotiles.Main2Activity"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
 
         <meta-data
@@ -179,53 +157,39 @@
         <activity
             android:name="com.example.AdsMobClass"
             android:label="@string/title_activity_ads_mob_class" />
-        <activity
-            android:name=".MeditationMemory"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".MeditationMemory"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name="com.example.AdMobAddActuivity"
             android:label="@string/title_activity_ad_mob_add_actuivity" />
-        <activity
-            android:name=".MusicRelaxation"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".MusicMemory"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name=".MusicRelaxation"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".MusicMemory"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".VideoInterventionActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".duckhunt.GameOver"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".duckhunt.DuckHuntMainActivity"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".duckhunt.StartGame"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".pianotiles.MainActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".ninjadarts.NinjaDartsMainActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".GamesMemory"
-            android:screenOrientation="portrait"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:exported="false" />
+        <activity android:name=".GamesMemory"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".ninjadarts.NinjaDartLineChart"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".spaceshooter.GameOver"
@@ -244,84 +208,64 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".MeditationLineChart"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name="com.example.Help" />
         <activity
             android:name=".ContactUs"
             android:exported="true"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".LineChartExample"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".PlayVideo"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".Memory_popup"
-            android:screenOrientation="portrait" />
+        <activity android:name=".Memory_popup" />
         <activity
             android:name=".MemoryExercise"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".ColorPatternGame"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".NotificationMessage"
-            android:exported="false"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
         <activity
             android:name=".CreateEvent"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".MainActivity"
-            android:parentActivityName=".Concentration_Daily"
-            android:screenOrientation="portrait" />
+            android:parentActivityName=".Concentration_Daily" />
         <activity
             android:name=".CalenderAndNotification"
             android:exported="false"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Downloads"
             android:label="My Downloads"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" /> <!-- <activity -->
         <!-- android:name=".MainActivity" -->
         <!-- android:parentActivityName=".Concentration_Daily" /> -->
         <activity
             android:name=".RelaxationExercise"
             android:label="Training Exercise"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".PlayMeditation"
             android:parentActivityName=".MeditationExercise"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Activity_BTLE_Services"
-            android:parentActivityName=".Concentration_Daily"
-            android:screenOrientation="portrait" />
+            android:parentActivityName=".Concentration_Daily" />
 
         <service
             android:name=".Service_BTLE_GATT"
             android:enabled="true"
             android:exported="true" />
 
-        <activity
-            android:name=".MyDownloads"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Connection"
-            android:screenOrientation="portrait" />
+        <activity android:name=".MyDownloads" />
+        <activity android:name=".Connection" />
         <activity
             android:name=".SpinnerActivity"
             android:exported="false" />
@@ -329,20 +273,15 @@
             android:name=".ResultActivity"
             android:exported="false"
             android:label="UserProfile"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".QuizActivity"
-            android:exported="false"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".IsochronicTones"
-            android:screenOrientation="portrait" />
+            android:exported="false" />
+        <activity android:name=".IsochronicTones" />
         <activity
             android:name=".MainActivityK"
             android:exported="false"
-            android:label="Main Activity"
-            android:screenOrientation="portrait" />
+            android:label="Main Activity" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
@@ -353,308 +292,232 @@
         -->
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:screenOrientation="portrait"
             android:value="@string/google_maps_key" />
 
         <activity
             android:name=".RetrieveMapActivity"
             android:exported="false"
-            android:label="@string/title_activity_retrieve_map"
-            android:screenOrientation="portrait" />
+            android:label="@string/title_activity_retrieve_map" />
         <activity
             android:name=".MapsActivity"
             android:exported="false"
-            android:label="@string/title_activity_maps"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".BineuralAcivity"
-            android:screenOrientation="portrait" /> <!-- <meta-data -->
+            android:label="@string/title_activity_maps" />
+        <activity android:name=".BineuralAcivity" /> <!-- <meta-data -->
         <!-- android:name="com.google.android.geo.API_KEY" -->
         <!-- android:value="@string/google_maps_key" /> -->
         <activity
             android:name=".MusicPlayer"
             android:parentActivityName=".Music"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".concentration_music"
-            android:screenOrientation="portrait"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" />
-        <activity
-            android:name=".Notification1"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Notification"
-            android:screenOrientation="portrait" />
+        <activity android:name=".Notification1" />
+        <activity android:name=".Notification" />
         <activity
             android:name=".Profile"
             android:label="Profile"
             android:parentActivityName=".Setting"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".UserDetails"
             android:label="Edit Profile"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".RelaxationReportWhereamI"
-            android:screenOrientation="portrait" />
+        <activity android:name=".RelaxationReportWhereamI" />
         <activity
             android:name=".ConcentrationReportWhereamI"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".ConcentrationReportYearly"
             android:label="Concentration Yearly Report"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".ConcentrationReportMonthly"
             android:label="ConcentrationMonthly Report"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".ConcentrationReportWeekly"
             android:label="Concentration Weekly Report"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".ConcentrationReportDaily"
             android:label="Concentration Daily Report"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" /> <!-- android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar" -->
         <activity
             android:name=".MainActivity2"
             android:label="My Favourites"
             android:parentActivityName=".Profile"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".GameActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".MeditationExercise"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Memory_Daily"
             android:label="THINKable"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Memory_Weekly"
             android:label="THINKable"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".MemoryMonthly"
             android:label="THINKable"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Memory_Yearly"
             android:label="THINKable"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".MemoryReportDaily"
             android:label="Memory Daily Report"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".MemoryReportWeekly"
             android:label="Memory Weekly Report"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".MemoryReportMonthly"
             android:label="Memory Monthly Report"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".MemoryReportYearly"
             android:label="Memory Yearly Report"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".MemoryWhereAmI"
-            android:screenOrientation="portrait" />
+        <activity android:name=".MemoryWhereAmI" />
         <activity
             android:name=".RelaxationReportYearly"
             android:exported="true"
             android:label="Relaxation Yearly Report"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".UserLocation"
             android:exported="true"
             android:parentActivityName=".Setting"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".RelaxationReportDaily"
             android:exported="true"
             android:label="Relaxation Daily Report"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".RelaxationReportWeekly"
             android:exported="true"
             android:label="Relaxation Weekly Report"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".RelaxationReportMonthly"
             android:exported="true"
             android:label="Relaxation Monthly Report"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Video"
-            android:exported="true"
-            android:screenOrientation="portrait" />
+            android:exported="true" />
         <activity
             android:name=".Meditation"
-            android:exported="true"
-            android:screenOrientation="portrait" />
+            android:exported="true" />
         <activity
             android:name=".Music"
             android:exported="true"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".Relaxation_popup"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Concentration_popup"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".Calibration"
-            android:screenOrientation="portrait" />
+        <activity android:name=".Relaxation_popup" />
+        <activity android:name=".Concentration_popup" />
+        <activity android:name=".Calibration" />
         <activity
             android:name=".Concentration_Yearly"
             android:label="THINKable"
             android:logo="@drawable/braingym_logo"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Concentration_Monthly"
             android:label="THINKable"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Concentration_Weekly"
             android:label="THINKable"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Concentration_Daily"
             android:label="THINKable"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity android:name=".FavouriteActivity" />
         <activity
             android:name=".Calendar_Reminder"
             android:label="Calendar and Reminder"
             android:parentActivityName=".Profile"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".AboutApp"
             android:label="About App"
             android:parentActivityName=".Profile"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".UserProfile1"
-            android:exported="true"
-            android:screenOrientation="portrait" />
+            android:exported="true" />
         <activity
             android:name=".Relaxation_Yearly"
             android:exported="true"
             android:label="THINkable"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Relaxation_Monthly"
             android:exported="true"
             android:label="THINKable"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Setting"
             android:exported="true"
             android:label="Settings"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" /> <!-- <activity -->
         <!-- android:name=".ui.login.UserProfile" -->
         <!-- android:exported="true" -->
         <!-- android:label="@string/title_activity_user_profile" /> -->
         <activity
             android:name=".Reports"
-            android:exported="true"
-            android:screenOrientation="portrait" />
+            android:exported="true" />
         <activity
             android:name=".Exercise"
             android:exported="true"
             android:label="Training Exercises"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Relaxation_Weekly"
             android:exported="true"
             android:label="THINKable"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Relaxation_Daily"
             android:exported="true"
             android:label="THINkable"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity
-            android:name=".Suggestions"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".VerifyPhoneActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".EnterPhoneActivity"
-            android:screenOrientation="portrait" />
-        <activity
-            android:name=".PreferencesSecPage"
-            android:screenOrientation="portrait" />
+        <activity android:name=".Suggestions" />
+        <activity android:name=".VerifyPhoneActivity" />
+        <activity android:name=".EnterPhoneActivity" />
+        <activity android:name=".PreferencesSecPage" />
         <activity
             android:name=".RegisterActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".LandingPage"
-            android:label="@string/title_activity_landing_page"
-            android:screenOrientation="portrait" />
+            android:label="@string/title_activity_landing_page" />
         <activity
             android:name=".ChangePassword"
             android:parentActivityName=".Setting"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name="com.example.SettingsPreference"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".ForgetPasswordActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".SignInActivity"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".StartActivity"
             android:exported="true"
-            android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -665,8 +528,7 @@
 
         <service
             android:name="com.example.PushNotificationService"
-            android:exported="false"
-            android:screenOrientation="portrait">
+            android:exported="false">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>

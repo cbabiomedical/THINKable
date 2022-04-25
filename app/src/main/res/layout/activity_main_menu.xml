@@ -7,27 +7,25 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    android:background="@drawable/wordgamebgone"
     android:orientation = "vertical"
     android:gravity = "center_horizontal"
     tools:context="WordMatching.MainMenu">
-    <ImageView
-        android:layout_width="300dp"
-        android:layout_height="400dp"
-        android:src="@drawable/wordgametitle"
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="WORD MATCHING GAME"
+        android:textSize = "60sp"
         android:gravity = "center"/>
     <Button
         android:layout_width="300dp"
         android:layout_height="100dp"
         android:onClick = "play"
-        android:textAllCaps="false"
-        android:text = "New Game"
-        android:textSize = "20sp" />
+        android:text = "NEW GAME"
+        android:textSize = "50sp" />
     <Button
         android:layout_width="300dp"
         android:layout_height="100dp"
-        android:text = "Continue"
-        android:textAllCaps="false"
-        android:textSize = "20sp"
+        android:text = "CONTINUE"
+        android:textSize = "50sp"
         android:onClick = "continueFromPreviousGame"/>
 </LinearLayout>

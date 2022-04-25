@@ -1,11 +1,7 @@
 package com.example.thinkableproject;
 
-import android.view.animation.Animation;
-
 public class Question {
     private String question, option1, option2, option3, option4, answer;
-    Animation scaleUp, scaleDown;
-
 
     public Question() {
     }

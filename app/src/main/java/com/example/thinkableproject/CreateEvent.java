@@ -5,7 +5,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 
-import android.annotation.SuppressLint;
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
@@ -15,11 +14,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -56,8 +52,6 @@ public class CreateEvent extends AppCompatActivity implements View.OnClickListen
     int color;
     View c1, c2;
     FirebaseUser mUser;
-    Animation scaleUp, scaleDown;
-
 
 
     @Override
@@ -69,86 +63,10 @@ public class CreateEvent extends AppCompatActivity implements View.OnClickListen
         btn_date = findViewById(R.id.btn_date);
         btn_done = findViewById(R.id.btn_done);
         editext_message = findViewById(R.id.editext_message);
-        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
-        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         btn_record.setOnClickListener(this);
-
-        btn_record.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    btn_record.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    btn_record.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
         btn_time.setOnClickListener(this);
-
-        btn_time.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    btn_time.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    btn_time.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
         btn_date.setOnClickListener(this);
-
-        btn_date.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    btn_date.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    btn_date.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
-
         btn_done.setOnClickListener(this);
-
-        btn_done.setOnTouchListener(new View.OnTouchListener() {
-
-
-            //
-            @SuppressLint("ClickableViewAccessibility")
-            @Override
-            public boolean onTouch(View view, MotionEvent motionEvent) {
-                if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    btn_done.startAnimation(scaleUp);
-
-                } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    btn_done.startAnimation(scaleDown);
-                }
-
-                return false;
-            }
-        });
-
         databaseClass = DatabaseClass.getDatabase(getApplicationContext());
         c1 = findViewById(R.id.c1);
         c2 = findViewById(R.id.c2);

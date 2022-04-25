@@ -44,7 +44,7 @@
                     android:layout_height="match_parent"
                     android:layout_alignTop="@+id/toggleBtn"
                     android:gravity="center"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/musicgif" />
 
                 <pl.droidsonroids.gif.GifImageView
@@ -53,7 +53,7 @@
                     android:layout_height="300dp"
                     android:layout_alignTop="@+id/toggleBtn"
                     android:gravity="center"
-                    android:scaleType="fitXY"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/oceanfournew" />
 
 
@@ -306,8 +306,6 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         app:itemBackground="@color/navdark"
-        android:background="@color/navdark"
-
         app:itemIconTint="@drawable/selector"
         app:itemTextColor="@drawable/selector"
         app:menu="@menu/menu_navigation" />

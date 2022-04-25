@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
@@ -26,8 +24,6 @@ public class VerifyPhoneActivity extends AppCompatActivity {
     private String verificationId;
     private FirebaseAuth mAuth;
     private ProgressBar progressBar;
-    Animation scaleUp, scaleDown;
-
     private EditText editText;
     PhoneAuthProvider.ForceResendingToken token;
 
@@ -41,8 +37,6 @@ public class VerifyPhoneActivity extends AppCompatActivity {
 
         progressBar = findViewById(R.id.progressBar);
         editText = findViewById(R.id.editTextCode);
-        scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
-        scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
 
         String phonenumber = getIntent().getStringExtra("phonenumber");
         sendVerificationCode(phonenumber);
@@ -67,12 +61,7 @@ public class VerifyPhoneActivity extends AppCompatActivity {
 
                 startActivity(intentSUGGESTIONS);
             }
-
-
         });
-
-
-
 
     }
 
