@@ -347,7 +347,7 @@
                 android:id="@+id/threelinesa"
                 android:orientation="horizontal"
                 android:layout_below="@id/barChartYearly"
-                android:layout_marginTop="15dp">
+                android:layout_marginTop="5dp">
 
                 <LinearLayout
                     android:layout_width="wrap_content"

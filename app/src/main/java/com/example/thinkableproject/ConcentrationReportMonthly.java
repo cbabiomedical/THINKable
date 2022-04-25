@@ -18,7 +18,6 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.airbnb.lottie.L;
 import com.example.thinkableproject.sample.Concentration;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
@@ -56,12 +55,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import pl.droidsonroids.gif.GifImageView;
@@ -76,31 +72,6 @@ public class ConcentrationReportMonthly extends AppCompatActivity {
     GifImageView c1gif, c2gif;
     int color;
     View c1, c2;
-    Double total1 = 0.0;
-    Double sumIn1 = 0.0;
-    Double total2 = 0.0;
-    Double sumIn2 = 0.0;
-    Double total3 = 0.0;
-    Double sumIn3 = 0.0;
-    Double total4 = 0.0;
-    Double sumIn4 = 0.0;
-    Double total5 = 0.0;
-    Double sumIn5 = 0.0;
-    Double total6 = 0.0;
-    Double sumIn6 = 0.0;
-    Double total7 = 0.0;
-    Double sumIn7 = 0.0;
-    Double total8 = 0.0;
-    Double sumIn8 = 0.0;
-    Double total9 = 0.0;
-    Double sumIn9 = 0.0;
-    Double total10 = 0.0;
-    Double sumIn10 = 0.0;
-    Double total11 = 0.0;
-    Double sumIn11 = 0.0;
-    Double total12 = 0.0;
-    Double sumIn12 = 0.0;
-    Double avg1, avg2, avg3, avg4, avg5, avg6, avg7, avg8, avg9, avg10, avg11, avg12;
     ImageView relaxationBtn, memory;
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
@@ -110,9 +81,6 @@ public class ConcentrationReportMonthly extends AppCompatActivity {
     LineData lineData;
     LineDataSet lineDataSet;
     ArrayList lineEntries;
-    Long average1, average2, average3, average4, average5, average6, average7, average8, average9, average10, average11, average12;
-    Long average21, average22, average23, average24, average25, average26, average27, average28, average29, average210, average211, average212;
-
 
     ArrayList<Float> xVal = new ArrayList<>(Arrays.asList(2f, 4f, 6f, 8f, 10f, 12f, 14f));
     ArrayList<Float> yVal = new ArrayList(Arrays.asList(45f, 36f, 75f, 36f, 73f, 45f, 83f));
@@ -247,22 +215,49 @@ public class ConcentrationReportMonthly extends AppCompatActivity {
                 return false;
             }
         });
-        Calendar now = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Log.d("WEEK", String.valueOf(now.get(Calendar.WEEK_OF_MONTH)));
-        Log.d("MONTH", String.valueOf(now.get(Calendar.MONTH)));
-        Log.d("YEAR", String.valueOf(now.get(Calendar.YEAR)));
-        Log.d("DAY", String.valueOf(now.get(Calendar.DAY_OF_WEEK)));
-        Format f = new SimpleDateFormat("EEEE");
-        String str = f.format(new Date());
-//prints day name
-        System.out.println("Day Name: " + str);
-        Log.d("Day Name", str);
-
-        int month = now.get(Calendar.MONTH) + 1;
+        //Initializing arraylist and storing input data to arraylist
+        ArrayList<Float> obj = new ArrayList<>(
+                Arrays.asList(30f, 85f, 10f, 50f, 20f, 60f, 80f, 43f, 23f, 70f, 73f, 10f));  //Array list to write data to file
+        //Writing data to file
+        try {
+            fileName = new File(getCacheDir() + "/reportMonthly.txt");
+            String line = "";
+            FileWriter fw;
+            fw = new FileWriter(fileName);
+            BufferedWriter output = new BufferedWriter(fw);
+            int size = obj.size();
+            for (int i = 0; i < size; i++) {
+                output.write(obj.get(i).toString() + "\n");
+//                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+            }
+            output.close();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUser.getUid();
+        // Uploading file created to firebase storage
+        StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
+        try {
+            StorageReference mountainsRef = storageReference1.child("reportMonthly.txt");
+            InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
+            UploadTask uploadTask = mountainsRef.putStream(stream);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                    Toast.makeText(ConcentrationReportMonthly.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+//                    Toast.makeText(ConcentrationReportMonthly.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         final Handler handler = new Handler();
         final int delay = 7000;
@@ -271,505 +266,145 @@ public class ConcentrationReportMonthly extends AppCompatActivity {
 
             @Override
             public void run() {
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("TimeTo").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
-                        .child(String.valueOf(1));
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportMonthly.txt");
+                //downloading the uploaded file and storing in arraylist
+                try {
+                    localFile = File.createTempFile("tempFile", ".txt");
+                    text = localFile.getAbsolutePath();
+                    Log.d("Bitmap", text);
+                    storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+//                            Toast.makeText(ConcentrationReportMonthly.this, "Success", Toast.LENGTH_SHORT).show();
 
-                reference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        ArrayList sumElement = new ArrayList();
-                        int sum = (0);
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            Log.d("Month Val", String.valueOf(dataSnapshot.getValue()));
+                            try {
+                                InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
 
-                            for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                Log.d("Month Val2", String.valueOf(snapshot1.getValue()));
-                                for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                    Log.d("MonthVal3", String.valueOf(snapshot2.getValue()));
-                                    Long av1 = (Long) snapshot2.getValue();
-                                    sumElement.add(snapshot2.getValue());
-                                    sum += av1;
+                                Log.d("FileName", localFile.getAbsolutePath());
+
+                                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                                String line = "";
+
+                                Log.d("First", line);
+                                if ((line = bufferedReader.readLine()) != null) {
+                                    list.add(line);
                                 }
+                                while ((line = bufferedReader.readLine()) != null) {
+
+                                    list.add(line);
+                                    Log.d("Line", line);
+                                }
+
+                                Log.d("List", String.valueOf(list));
+
+                                for (int i = 0; i < list.size(); i++) {
+                                    floatList.add(Float.parseFloat(list.get(i)));
+                                    Log.d("FloatArrayList", String.valueOf(floatList));
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
+
+                            String[] months = new String[]{"Ja", "Fe", "Mar", "Ap", "May", "Jun", "Jul", "Au", "Se", "Oc", "No", "De"};
+                            List<Float> credits = new ArrayList<>(Arrays.asList(90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f));
+                            float[] strength = new float[]{90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f};
+
+                            List<BarEntry> entries = new ArrayList<>();
+                            for (int j = 0; j < floatList.size(); ++j) {
+                                entries.add(new BarEntry(j, floatList.get(j)));
+                            }
+
+                            float textSize = 16f;
+                            //Initializing object of MyBarDataset class
+                            MyBarDataset dataSet = new MyBarDataset(entries, "data", credits);
+                            dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.blue),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.bluebar),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.dark));
+                            BarData data = new BarData(dataSet);
+                            data.setDrawValues(false);
+                            data.setBarWidth(0.9f);
+
+                            barChart.setData(data);
+                            barChart.setFitBars(true);
+                            barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(months));
+                            barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChart.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+                            barChart.getXAxis().setTextSize(textSize);
+                            barChart.getAxisLeft().setTextSize(textSize);
+                            barChart.setExtraBottomOffset(10f);
+
+                            barChart.getAxisRight().setEnabled(false);
+                            Description desc = new Description();
+                            desc.setText("");
+                            barChart.setDescription(desc);
+                            barChart.getLegend().setEnabled(false);
+                            barChart.getXAxis().setDrawGridLines(false);
+                            barChart.getAxisLeft().setDrawGridLines(false);
+                            barChart.setNoDataText("Data Loading Please Wait....");
+
+                            barChart.invalidate();
+
                         }
-                        Log.d("Monthly Array", String.valueOf(sumElement));
-                        Log.d("SUM", String.valueOf(sum));
-                        if (sum != 0) {
-                            average1 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                        } else {
-                            average1 = 0L;
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(ConcentrationReportMonthly.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
-
-                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("TimeTo").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
-                                .child(String.valueOf(2));
-
-                        reference1.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                ArrayList sumElement = new ArrayList();
-                                int sum = (0);
-                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                    Log.d("Month Val", String.valueOf(dataSnapshot.getValue()));
-
-                                    for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                        Log.d("Month Val2", String.valueOf(snapshot1.getValue()));
-                                        for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                            Log.d("MonthVal3", String.valueOf(snapshot2.getValue()));
-                                            Long av1 = (Long) snapshot2.getValue();
-                                            sumElement.add(snapshot2.getValue());
-                                            sum += av1;
-                                        }
-                                    }
-                                }
-                                Log.d("Monthly Array", String.valueOf(sumElement));
-                                Log.d("SUM", String.valueOf(sum));
-                                if (sum != 0) {
-                                    average2 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                } else {
-                                    average2 = 0L;
-                                }
-
-                                DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("TimeTo").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
-                                        .child(String.valueOf(3));
-
-                                reference2.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        ArrayList sumElement = new ArrayList();
-                                        int sum = (0);
-                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                            Log.d("Month Val", String.valueOf(dataSnapshot.getValue()));
-
-                                            for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                                Log.d("Month Val2", String.valueOf(snapshot1.getValue()));
-                                                for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                                    Log.d("MonthVal3", String.valueOf(snapshot2.getValue()));
-                                                    Long av1 = (Long) snapshot2.getValue();
-                                                    sumElement.add(snapshot2.getValue());
-                                                    sum += av1;
-                                                }
-                                            }
-                                        }
-                                        Log.d("Monthly Array", String.valueOf(sumElement));
-                                        Log.d("SUM", String.valueOf(sum));
-                                        if (sum != 0) {
-                                            average3 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                        } else {
-                                            average3 = 0L;
-                                        }
-
-                                        DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("TimeTo").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
-                                                .child(String.valueOf(4));
-
-                                        reference2.addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                ArrayList sumElement = new ArrayList();
-                                                int sum = (0);
-                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                    Log.d("Month Val", String.valueOf(dataSnapshot.getValue()));
-
-                                                    for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                                        Log.d("Month Val2", String.valueOf(snapshot1.getValue()));
-                                                        for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                                            Log.d("MonthVal3", String.valueOf(snapshot2.getValue()));
-                                                            Long av1 = (Long) snapshot2.getValue();
-                                                            sumElement.add(snapshot2.getValue());
-                                                            sum += av1;
-                                                        }
-                                                    }
-                                                }
-                                                Log.d("Monthly Array", String.valueOf(sumElement));
-                                                Log.d("SUM", String.valueOf(sum));
-                                                if (sum != 0) {
-                                                    average4 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                                } else {
-                                                    average4 = 0L;
-                                                }
-                                                DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("TimeTo").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
-                                                        .child(String.valueOf(5));
-
-                                                reference2.addValueEventListener(new ValueEventListener() {
-                                                    @Override
-                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                        ArrayList sumElement = new ArrayList();
-                                                        int sum = (0);
-                                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                            Log.d("Month Val", String.valueOf(dataSnapshot.getValue()));
-
-                                                            for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                                                Log.d("Month Val2", String.valueOf(snapshot1.getValue()));
-                                                                for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                                                    Log.d("MonthVal3", String.valueOf(snapshot2.getValue()));
-                                                                    Long av1 = (Long) snapshot2.getValue();
-                                                                    sumElement.add(snapshot2.getValue());
-                                                                    sum += av1;
-                                                                }
-                                                            }
-                                                        }
-                                                        Log.d("Monthly Array", String.valueOf(sumElement));
-                                                        Log.d("SUM", String.valueOf(sum));
-                                                        if (sum != 0) {
-                                                            average5 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                                        } else {
-                                                            average5 = 0L;
-                                                        }
-
-                                                        DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("TimeTo").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
-                                                                .child(String.valueOf(6));
-
-                                                        reference2.addValueEventListener(new ValueEventListener() {
-                                                            @Override
-                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                ArrayList sumElement = new ArrayList();
-                                                                int sum = (0);
-                                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                                    Log.d("Month Val", String.valueOf(dataSnapshot.getValue()));
-
-                                                                    for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                                                        Log.d("Month Val2", String.valueOf(snapshot1.getValue()));
-                                                                        for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                                                            Log.d("MonthVal3", String.valueOf(snapshot2.getValue()));
-                                                                            Long av1 = (Long) snapshot2.getValue();
-                                                                            sumElement.add(snapshot2.getValue());
-                                                                            sum += av1;
-                                                                        }
-                                                                    }
-                                                                }
-                                                                Log.d("Monthly Array", String.valueOf(sumElement));
-                                                                Log.d("SUM", String.valueOf(sum));
-                                                                if (sum != 0) {
-                                                                    average6 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                                                } else {
-                                                                    average6 = 0L;
-                                                                }
-                                                                DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("TimeTo").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
-                                                                        .child(String.valueOf(7));
-
-                                                                reference2.addValueEventListener(new ValueEventListener() {
-                                                                    @Override
-                                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                        ArrayList sumElement = new ArrayList();
-                                                                        int sum = (0);
-                                                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                                            Log.d("Month Val", String.valueOf(dataSnapshot.getValue()));
-
-                                                                            for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                                                                Log.d("Month Val2", String.valueOf(snapshot1.getValue()));
-                                                                                for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                                                                    Log.d("MonthVal3", String.valueOf(snapshot2.getValue()));
-                                                                                    Long av1 = (Long) snapshot2.getValue();
-                                                                                    sumElement.add(snapshot2.getValue());
-                                                                                    sum += av1;
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                        Log.d("Monthly Array", String.valueOf(sumElement));
-                                                                        Log.d("SUM", String.valueOf(sum));
-                                                                        if (sum != 0) {
-                                                                            average7 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                                                        } else {
-                                                                            average7 = 0L;
-                                                                        }
-                                                                        DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("TimeTo").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
-                                                                                .child(String.valueOf(8));
-
-                                                                        reference2.addValueEventListener(new ValueEventListener() {
-                                                                            @Override
-                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                ArrayList sumElement = new ArrayList();
-                                                                                int sum = (0);
-                                                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                                                    Log.d("Month Val", String.valueOf(dataSnapshot.getValue()));
-
-                                                                                    for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                                                                        Log.d("Month Val2", String.valueOf(snapshot1.getValue()));
-                                                                                        for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                                                                            Log.d("MonthVal3", String.valueOf(snapshot2.getValue()));
-                                                                                            Long av1 = (Long) snapshot2.getValue();
-                                                                                            sumElement.add(snapshot2.getValue());
-                                                                                            sum += av1;
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                                Log.d("Monthly Array", String.valueOf(sumElement));
-                                                                                Log.d("SUM", String.valueOf(sum));
-                                                                                if (sum != 0) {
-                                                                                    average8 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                                                                } else {
-                                                                                    average8 = 0L;
-                                                                                }
-                                                                                DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("TimeTo").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
-                                                                                        .child(String.valueOf(9));
-
-                                                                                reference2.addValueEventListener(new ValueEventListener() {
-                                                                                    @Override
-                                                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                        ArrayList sumElement = new ArrayList();
-                                                                                        int sum = (0);
-                                                                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                                                            Log.d("Month Val", String.valueOf(dataSnapshot.getValue()));
-
-                                                                                            for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                                                                                Log.d("Month Val2", String.valueOf(snapshot1.getValue()));
-                                                                                                for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                                                                                    Log.d("MonthVal3", String.valueOf(snapshot2.getValue()));
-                                                                                                    Long av1 = (Long) snapshot2.getValue();
-                                                                                                    sumElement.add(snapshot2.getValue());
-                                                                                                    sum += av1;
-                                                                                                }
-                                                                                            }
-                                                                                        }
-                                                                                        Log.d("Monthly Array", String.valueOf(sumElement));
-                                                                                        Log.d("SUM", String.valueOf(sum));
-                                                                                        if (sum != 0) {
-                                                                                            average9 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                                                                        } else {
-                                                                                            average9 = 0L;
-                                                                                        }
-                                                                                        DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("TimeTo").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
-                                                                                                .child(String.valueOf(10));
-
-                                                                                        reference2.addValueEventListener(new ValueEventListener() {
-                                                                                            @Override
-                                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                                ArrayList sumElement = new ArrayList();
-                                                                                                int sum = (0);
-                                                                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                                                                    Log.d("Month Val", String.valueOf(dataSnapshot.getValue()));
-
-                                                                                                    for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                                                                                        Log.d("Month Val2", String.valueOf(snapshot1.getValue()));
-                                                                                                        for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                                                                                            Log.d("MonthVal3", String.valueOf(snapshot2.getValue()));
-                                                                                                            Long av1 = (Long) snapshot2.getValue();
-                                                                                                            sumElement.add(snapshot2.getValue());
-                                                                                                            sum += av1;
-                                                                                                        }
-                                                                                                    }
-                                                                                                }
-                                                                                                Log.d("Monthly Array", String.valueOf(sumElement));
-                                                                                                Log.d("SUM", String.valueOf(sum));
-                                                                                                if (sum != 0) {
-                                                                                                    average10 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                                                                                } else {
-                                                                                                    average10 = 0L;
-                                                                                                }
-                                                                                                DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("TimeTo").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
-                                                                                                        .child(String.valueOf(11));
-
-                                                                                                reference2.addValueEventListener(new ValueEventListener() {
-                                                                                                    @Override
-                                                                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                                        ArrayList sumElement = new ArrayList();
-                                                                                                        int sum = (0);
-                                                                                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                                                                            Log.d("Month Val", String.valueOf(dataSnapshot.getValue()));
-
-                                                                                                            for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                                                                                                Log.d("Month Val2", String.valueOf(snapshot1.getValue()));
-                                                                                                                for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                                                                                                    Log.d("MonthVal3", String.valueOf(snapshot2.getValue()));
-                                                                                                                    Long av1 = (Long) snapshot2.getValue();
-                                                                                                                    sumElement.add(snapshot2.getValue());
-                                                                                                                    sum += av1;
-                                                                                                                }
-                                                                                                            }
-                                                                                                        }
-                                                                                                        Log.d("Monthly Array", String.valueOf(sumElement));
-                                                                                                        Log.d("SUM", String.valueOf(sum));
-                                                                                                        if (sum != 0) {
-                                                                                                            average11 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                                                                                        } else {
-                                                                                                            average11 = 0L;
-                                                                                                        }
-                                                                                                        DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("TimeTo").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
-                                                                                                                .child(String.valueOf(12));
-
-                                                                                                        reference2.addValueEventListener(new ValueEventListener() {
-                                                                                                            @Override
-                                                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                                                ArrayList sumElement = new ArrayList();
-                                                                                                                int sum = (0);
-                                                                                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                                                                                    Log.d("Month Val", String.valueOf(dataSnapshot.getValue()));
-
-                                                                                                                    for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                                                                                                        Log.d("Month Val2", String.valueOf(snapshot1.getValue()));
-                                                                                                                        for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                                                                                                            Log.d("MonthVal3", String.valueOf(snapshot2.getValue()));
-                                                                                                                            Long av1 = (Long) snapshot2.getValue();
-                                                                                                                            sumElement.add(snapshot2.getValue());
-                                                                                                                            sum += av1;
-                                                                                                                        }
-                                                                                                                    }
-                                                                                                                }
-                                                                                                                Log.d("Monthly Array", String.valueOf(sumElement));
-                                                                                                                Log.d("SUM", String.valueOf(sum));
-                                                                                                                if (sum != 0) {
-                                                                                                                    average12 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                                                                                                } else {
-                                                                                                                    average12 = 0L;
-                                                                                                                }
-                                                                                                                Log.d("Average Jan", String.valueOf(average1));
-                                                                                                                Log.d("Average Feb", String.valueOf(average2));
-                                                                                                                Log.d("Average Mar", String.valueOf(average3));
-                                                                                                                Log.d("Average Apr", String.valueOf(average4));
-                                                                                                                Log.d("Average May", String.valueOf(average5));
-                                                                                                                Log.d("Average Jun", String.valueOf(average6));
-                                                                                                                Log.d("Average Jul", String.valueOf(average7));
-                                                                                                                Log.d("Average Aug", String.valueOf(average8));
-                                                                                                                Log.d("Average Sep", String.valueOf(average9));
-                                                                                                                Log.d("Average Oct", String.valueOf(average10));
-                                                                                                                Log.d("Average Nov", String.valueOf(average11));
-                                                                                                                Log.d("Average Dec", String.valueOf(average12));
-                                                                                                                List<BarEntry> entries = new ArrayList<>();
-                                                                                                                entries.add(new BarEntry(1, Float.parseFloat(String.valueOf(average1))));
-                                                                                                                entries.add(new BarEntry(2, Float.parseFloat(String.valueOf(average2))));
-                                                                                                                entries.add(new BarEntry(3, Float.parseFloat(String.valueOf(average3))));
-                                                                                                                entries.add(new BarEntry(4, Float.parseFloat(String.valueOf(average4))));
-                                                                                                                entries.add(new BarEntry(5, Float.parseFloat(String.valueOf(average5))));
-                                                                                                                entries.add(new BarEntry(6, Float.parseFloat(String.valueOf(average6))));
-                                                                                                                entries.add(new BarEntry(7, Float.parseFloat(String.valueOf(average7))));
-                                                                                                                entries.add(new BarEntry(8, Float.parseFloat(String.valueOf(average8))));
-                                                                                                                entries.add(new BarEntry(9, Float.parseFloat(String.valueOf(average9))));
-                                                                                                                entries.add(new BarEntry(10, Float.parseFloat(String.valueOf(average10))));
-                                                                                                                entries.add(new BarEntry(11, Float.parseFloat(String.valueOf(average11))));
-                                                                                                                entries.add(new BarEntry(12, Float.parseFloat(String.valueOf(average12))));
-
-                                                                                                                List<Float> credits = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f, 10f, 15f, 85f, 56f, 53f, 87f, 23f, 45f));
-
-                                                                                                                List<String> xAxisValues = new ArrayList<>(Arrays.asList("", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"));
-                                                                                                                float textSize = 7f;
-                                                                                                                //Initializing object of MyBarDataset class
-                                                                                                                MyBarDataset dataSet = new MyBarDataset(entries, "data", credits);
-                                                                                                                dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
-                                                                                                                        ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
-                                                                                                                        ContextCompat.getColor(getApplicationContext(), R.color.blue),
-                                                                                                                        ContextCompat.getColor(getApplicationContext(), R.color.bluebar),
-                                                                                                                        ContextCompat.getColor(getApplicationContext(), R.color.dark));
-                                                                                                                BarData data = new BarData(dataSet);
-                                                                                                                data.setDrawValues(false);
-                                                                                                                data.setBarWidth(0.9f);
-                                                                                                                barChart.getXAxis().setLabelCount(25, true);
-                                                                                                                barChart.setExtraBottomOffset(3f);
-
-                                                                                                                barChart.setData(data);
-                                                                                                                barChart.setFitBars(true);
-                                                                                                                barChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xAxisValues));
-                                                                                                                barChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-                                                                                                                barChart.getXAxis().setTextColor(getResources().getColor(R.color.white));
-                                                                                                                barChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
-                                                                                                                barChart.getXAxis().setTextSize(textSize);
-                                                                                                                barChart.getAxisLeft().setTextSize(textSize);
-
-                                                                                                                barChart.getAxisRight().setEnabled(false);
-                                                                                                                Description desc = new Description();
-                                                                                                                desc.setText("");
-                                                                                                                barChart.setDescription(desc);
-                                                                                                                barChart.getLegend().setEnabled(false);
-                                                                                                                barChart.getXAxis().setDrawGridLines(false);
-                                                                                                                barChart.getAxisLeft().setDrawGridLines(false);
-                                                                                                                barChart.setNoDataText("Data Loading Please Wait....");
-
-                                                                                                                barChart.invalidate();
+                    });
 
 
-                                                                                                            }
-
-                                                                                                            @Override
-                                                                                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                                                                                            }
-                                                                                                        });
-                                                                                                    }
-
-                                                                                                    @Override
-                                                                                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                                                                                    }
-                                                                                                });
-
-                                                                                            }
-
-                                                                                            @Override
-                                                                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                                                                            }
-                                                                                        });
-                                                                                    }
-
-                                                                                    @Override
-                                                                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                                                                    }
-                                                                                });
-                                                                            }
-
-                                                                            @Override
-                                                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                                                            }
-                                                                        });
-                                                                    }
-
-                                                                    @Override
-                                                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                                                    }
-                                                                });
-                                                            }
-
-                                                            @Override
-                                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                                            }
-                                                        });
-                                                    }
-
-                                                    @Override
-                                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                                    }
-                                                });
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                });
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
             }
         }, delay);
-
+        //Initializing arraylist and storing input data to arraylist
+        ArrayList<Float> obj1 = new ArrayList<>(
+                Arrays.asList(30f, 10f, 60f, 40f, 20f, 60f, 10f, 45f, 25f, 70f, 75f, 35f));  //Array list to write data to file
+        //Write input data to file
+        try {
+            fileName1 = new File(getCacheDir() + "/reportMonthly2.txt");  //Writing data to file
+            String line = "";
+            FileWriter fw;
+            fw = new FileWriter(fileName1);
+            BufferedWriter output = new BufferedWriter(fw);
+            int size = obj1.size();
+            for (int i = 0; i < size; i++) {
+                output.write(obj1.get(i).toString() + "\n");
+//                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+            }
+            output.close();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
         mUser.getUid();
+        // Uploading file created to firebase storage
+        storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
+        try {
+            //downloading the uploaded file and storing in arraylist
+            StorageReference mountainsRef = storageReference1.child("reportMonthly2.txt");
+            InputStream stream = new FileInputStream(new File(fileName1.getAbsolutePath()));
+            UploadTask uploadTask = mountainsRef.putStream(stream);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                    Toast.makeText(ConcentrationReportMonthly.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+//                    Toast.makeText(ConcentrationReportMonthly.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+                }
+            });
 
-
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         final Handler handler1 = new Handler();
         final int delay1 = 5000;
 
@@ -777,502 +412,180 @@ public class ConcentrationReportMonthly extends AppCompatActivity {
 
             @Override
             public void run() {
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("TimeStayed").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
-                        .child(String.valueOf(1));
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportMonthly2.txt");
 
-                reference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        ArrayList sumElement = new ArrayList();
-                        int sum = (0);
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            Log.d("Month Val", String.valueOf(dataSnapshot.getValue()));
+                try {
+                    localFile1 = File.createTempFile("tempFile", ".txt");
+                    text = localFile1.getAbsolutePath();
+                    Log.d("Bitmap", text);
+                    storageReference.getFile(localFile1).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+//                            Toast.makeText(ConcentrationReportMonthly.this, "Success", Toast.LENGTH_SHORT).show();
 
-                            for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                Log.d("Month Val2", String.valueOf(snapshot1.getValue()));
-                                for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                    Log.d("MonthVal3", String.valueOf(snapshot2.getValue()));
-                                    Long av1 = (Long) snapshot2.getValue();
-                                    sumElement.add(snapshot2.getValue());
-                                    sum += av1;
+                            try {
+                                InputStreamReader inputStreamReader1 = new InputStreamReader(new FileInputStream(localFile1.getAbsolutePath()));
+
+                                Log.d("FileName", localFile1.getAbsolutePath());
+
+                                BufferedReader bufferedReader = new BufferedReader(inputStreamReader1);
+                                String line = "";
+
+                                Log.d("First", line);
+                                if ((line = bufferedReader.readLine()) != null) {
+                                    list1.add(line);
                                 }
-                            }
-                        }
-                        Log.d("Monthly Array", String.valueOf(sumElement));
-                        Log.d("SUM", String.valueOf(sum));
-                        if (sum != 0) {
-                            average21 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                        } else {
-                            average21 = 0L;
-                        }
+                                while ((line = bufferedReader.readLine()) != null) {
 
-                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("TimeStayed").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
-                                .child(String.valueOf(2));
-
-                        reference1.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                ArrayList sumElement = new ArrayList();
-                                int sum = (0);
-                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                    Log.d("Month Val", String.valueOf(dataSnapshot.getValue()));
-
-                                    for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                        Log.d("Month Val2", String.valueOf(snapshot1.getValue()));
-                                        for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                            Log.d("MonthVal3", String.valueOf(snapshot2.getValue()));
-                                            Long av1 = (Long) snapshot2.getValue();
-                                            sumElement.add(snapshot2.getValue());
-                                            sum += av1;
-                                        }
-                                    }
-                                }
-                                Log.d("Monthly Array", String.valueOf(sumElement));
-                                Log.d("SUM", String.valueOf(sum));
-                                if (sum != 0) {
-                                    average22 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                } else {
-                                    average22 = 0L;
+                                    list1.add(line);
+                                    Log.d("Line", line);
                                 }
 
-                                DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("TimeStayed").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
-                                        .child(String.valueOf(3));
+                                Log.d("List", String.valueOf(list1));
 
-                                reference2.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        ArrayList sumElement = new ArrayList();
-                                        int sum = (0);
-                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                            Log.d("Month Val", String.valueOf(dataSnapshot.getValue()));
-
-                                            for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                                Log.d("Month Val2", String.valueOf(snapshot1.getValue()));
-                                                for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                                    Log.d("MonthVal3", String.valueOf(snapshot2.getValue()));
-                                                    Long av1 = (Long) snapshot2.getValue();
-                                                    sumElement.add(snapshot2.getValue());
-                                                    sum += av1;
-                                                }
-                                            }
-                                        }
-                                        Log.d("Monthly Array", String.valueOf(sumElement));
-                                        Log.d("SUM", String.valueOf(sum));
-                                        if (sum != 0) {
-                                            average23 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                        } else {
-                                            average23 = 0L;
-                                        }
-
-                                        DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("TimeStayed").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
-                                                .child(String.valueOf(4));
-
-                                        reference2.addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                ArrayList sumElement = new ArrayList();
-                                                int sum = (0);
-                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                    Log.d("Month Val", String.valueOf(dataSnapshot.getValue()));
-
-                                                    for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                                        Log.d("Month Val2", String.valueOf(snapshot1.getValue()));
-                                                        for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                                            Log.d("MonthVal3", String.valueOf(snapshot2.getValue()));
-                                                            Long av1 = (Long) snapshot2.getValue();
-                                                            sumElement.add(snapshot2.getValue());
-                                                            sum += av1;
-                                                        }
-                                                    }
-                                                }
-                                                Log.d("Monthly Array", String.valueOf(sumElement));
-                                                Log.d("SUM", String.valueOf(sum));
-                                                if (sum != 0) {
-                                                    average24 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                                } else {
-                                                    average24 = 0L;
-                                                }
-                                                DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("TimeStayed").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
-                                                        .child(String.valueOf(5));
-
-                                                reference2.addValueEventListener(new ValueEventListener() {
-                                                    @Override
-                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                        ArrayList sumElement = new ArrayList();
-                                                        int sum = (0);
-                                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                            Log.d("Month Val", String.valueOf(dataSnapshot.getValue()));
-
-                                                            for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                                                Log.d("Month Val2", String.valueOf(snapshot1.getValue()));
-                                                                for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                                                    Log.d("MonthVal3", String.valueOf(snapshot2.getValue()));
-                                                                    Long av1 = (Long) snapshot2.getValue();
-                                                                    sumElement.add(snapshot2.getValue());
-                                                                    sum += av1;
-                                                                }
-                                                            }
-                                                        }
-                                                        Log.d("Monthly Array", String.valueOf(sumElement));
-                                                        Log.d("SUM", String.valueOf(sum));
-                                                        if (sum != 0) {
-                                                            average25 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                                        } else {
-                                                            average25 = 0L;
-                                                        }
-
-                                                        DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("TimeStayed").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
-                                                                .child(String.valueOf(6));
-
-                                                        reference2.addValueEventListener(new ValueEventListener() {
-                                                            @Override
-                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                ArrayList sumElement = new ArrayList();
-                                                                int sum = (0);
-                                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                                    Log.d("Month Val", String.valueOf(dataSnapshot.getValue()));
-
-                                                                    for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                                                        Log.d("Month Val2", String.valueOf(snapshot1.getValue()));
-                                                                        for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                                                            Log.d("MonthVal3", String.valueOf(snapshot2.getValue()));
-                                                                            Long av1 = (Long) snapshot2.getValue();
-                                                                            sumElement.add(snapshot2.getValue());
-                                                                            sum += av1;
-                                                                        }
-                                                                    }
-                                                                }
-                                                                Log.d("Monthly Array", String.valueOf(sumElement));
-                                                                Log.d("SUM", String.valueOf(sum));
-                                                                if (sum != 0) {
-                                                                    average26 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                                                } else {
-                                                                    average26 = 0L;
-                                                                }
-                                                                DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("TimeStayed").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
-                                                                        .child(String.valueOf(7));
-
-                                                                reference2.addValueEventListener(new ValueEventListener() {
-                                                                    @Override
-                                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                        ArrayList sumElement = new ArrayList();
-                                                                        int sum = (0);
-                                                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                                            Log.d("Month Val", String.valueOf(dataSnapshot.getValue()));
-
-                                                                            for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                                                                Log.d("Month Val2", String.valueOf(snapshot1.getValue()));
-                                                                                for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                                                                    Log.d("MonthVal3", String.valueOf(snapshot2.getValue()));
-                                                                                    Long av1 = (Long) snapshot2.getValue();
-                                                                                    sumElement.add(snapshot2.getValue());
-                                                                                    sum += av1;
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                        Log.d("Monthly Array", String.valueOf(sumElement));
-                                                                        Log.d("SUM", String.valueOf(sum));
-                                                                        if (sum != 0) {
-                                                                            average27 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                                                        } else {
-                                                                            average27 = 0L;
-                                                                        }
-                                                                        DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("TimeStayed").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
-                                                                                .child(String.valueOf(8));
-
-                                                                        reference2.addValueEventListener(new ValueEventListener() {
-                                                                            @Override
-                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                ArrayList sumElement = new ArrayList();
-                                                                                int sum = (0);
-                                                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                                                    Log.d("Month Val", String.valueOf(dataSnapshot.getValue()));
-
-                                                                                    for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                                                                        Log.d("Month Val2", String.valueOf(snapshot1.getValue()));
-                                                                                        for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                                                                            Log.d("MonthVal3", String.valueOf(snapshot2.getValue()));
-                                                                                            Long av1 = (Long) snapshot2.getValue();
-                                                                                            sumElement.add(snapshot2.getValue());
-                                                                                            sum += av1;
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                                Log.d("Monthly Array", String.valueOf(sumElement));
-                                                                                Log.d("SUM", String.valueOf(sum));
-                                                                                if (sum != 0) {
-                                                                                    average28 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                                                                } else {
-                                                                                    average28 = 0L;
-                                                                                }
-                                                                                DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("TimeStayed").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
-                                                                                        .child(String.valueOf(9));
-
-                                                                                reference2.addValueEventListener(new ValueEventListener() {
-                                                                                    @Override
-                                                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                        ArrayList sumElement = new ArrayList();
-                                                                                        int sum = (0);
-                                                                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                                                            Log.d("Month Val", String.valueOf(dataSnapshot.getValue()));
-
-                                                                                            for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                                                                                Log.d("Month Val2", String.valueOf(snapshot1.getValue()));
-                                                                                                for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                                                                                    Log.d("MonthVal3", String.valueOf(snapshot2.getValue()));
-                                                                                                    Long av1 = (Long) snapshot2.getValue();
-                                                                                                    sumElement.add(snapshot2.getValue());
-                                                                                                    sum += av1;
-                                                                                                }
-                                                                                            }
-                                                                                        }
-                                                                                        Log.d("Monthly Array", String.valueOf(sumElement));
-                                                                                        Log.d("SUM", String.valueOf(sum));
-                                                                                        if (sum != 0) {
-                                                                                            average29 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                                                                        } else {
-                                                                                            average29 = 0L;
-                                                                                        }
-                                                                                        DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("TimeStayed").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
-                                                                                                .child(String.valueOf(10));
-
-                                                                                        reference2.addValueEventListener(new ValueEventListener() {
-                                                                                            @Override
-                                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                                ArrayList sumElement = new ArrayList();
-                                                                                                int sum = (0);
-                                                                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                                                                    Log.d("Month Val", String.valueOf(dataSnapshot.getValue()));
-
-                                                                                                    for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                                                                                        Log.d("Month Val2", String.valueOf(snapshot1.getValue()));
-                                                                                                        for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                                                                                            Log.d("MonthVal3", String.valueOf(snapshot2.getValue()));
-                                                                                                            Long av1 = (Long) snapshot2.getValue();
-                                                                                                            sumElement.add(snapshot2.getValue());
-                                                                                                            sum += av1;
-                                                                                                        }
-                                                                                                    }
-                                                                                                }
-                                                                                                Log.d("Monthly Array", String.valueOf(sumElement));
-                                                                                                Log.d("SUM", String.valueOf(sum));
-                                                                                                if (sum != 0) {
-                                                                                                    average210 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                                                                                } else {
-                                                                                                    average210 = 0L;
-                                                                                                }
-                                                                                                DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("TimeStayed").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
-                                                                                                        .child(String.valueOf(11));
-
-                                                                                                reference2.addValueEventListener(new ValueEventListener() {
-                                                                                                    @Override
-                                                                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                                        ArrayList sumElement = new ArrayList();
-                                                                                                        int sum = (0);
-                                                                                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                                                                            Log.d("Month Val", String.valueOf(dataSnapshot.getValue()));
-
-                                                                                                            for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                                                                                                Log.d("Month Val2", String.valueOf(snapshot1.getValue()));
-                                                                                                                for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                                                                                                    Log.d("MonthVal3", String.valueOf(snapshot2.getValue()));
-                                                                                                                    Long av1 = (Long) snapshot2.getValue();
-                                                                                                                    sumElement.add(snapshot2.getValue());
-                                                                                                                    sum += av1;
-                                                                                                                }
-                                                                                                            }
-                                                                                                        }
-                                                                                                        Log.d("Monthly Array", String.valueOf(sumElement));
-                                                                                                        Log.d("SUM", String.valueOf(sum));
-                                                                                                        if (sum != 0) {
-                                                                                                            average211 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                                                                                        } else {
-                                                                                                            average211 = 0L;
-                                                                                                        }
-                                                                                                        DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("TimeStayed").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
-                                                                                                                .child(String.valueOf(12));
-
-                                                                                                        reference2.addValueEventListener(new ValueEventListener() {
-                                                                                                            @Override
-                                                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                                                ArrayList sumElement = new ArrayList();
-                                                                                                                int sum = (0);
-                                                                                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                                                                                    Log.d("Month Val", String.valueOf(dataSnapshot.getValue()));
-
-                                                                                                                    for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                                                                                                        Log.d("Month Val2", String.valueOf(snapshot1.getValue()));
-                                                                                                                        for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                                                                                                            Log.d("MonthVal3", String.valueOf(snapshot2.getValue()));
-                                                                                                                            Long av1 = (Long) snapshot2.getValue();
-                                                                                                                            sumElement.add(snapshot2.getValue());
-                                                                                                                            sum += av1;
-                                                                                                                        }
-                                                                                                                    }
-                                                                                                                }
-                                                                                                                Log.d("Monthly Array", String.valueOf(sumElement));
-                                                                                                                Log.d("SUM", String.valueOf(sum));
-                                                                                                                if (sum != 0) {
-                                                                                                                    average212 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                                                                                                } else {
-                                                                                                                    average212 = 0L;
-                                                                                                                }
-                                                                                                                Log.d("Average Jan", String.valueOf(average21));
-                                                                                                                Log.d("Average Feb", String.valueOf(average22));
-                                                                                                                Log.d("Average Mar", String.valueOf(average23));
-                                                                                                                Log.d("Average Apr", String.valueOf(average24));
-                                                                                                                Log.d("Average May", String.valueOf(average25));
-                                                                                                                Log.d("Average Jun", String.valueOf(average26));
-                                                                                                                Log.d("Average Jul", String.valueOf(average27));
-                                                                                                                Log.d("Average Aug", String.valueOf(average28));
-                                                                                                                Log.d("Average Sep", String.valueOf(average29));
-                                                                                                                Log.d("Average Oct", String.valueOf(average210));
-                                                                                                                Log.d("Average Nov", String.valueOf(average211));
-                                                                                                                Log.d("Average Dec", String.valueOf(average212));
-                                                                                                                List<BarEntry> entries2 = new ArrayList<>();
-                                                                                                                ArrayList<Float> credits1 = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f, 56f, 87f, 12f, 54f, 04f, 45f, 65f, 34f));
-                                                                                                                entries2.add(new BarEntry(1, Float.parseFloat(String.valueOf(average21))));
-                                                                                                                entries2.add(new BarEntry(2, Float.parseFloat(String.valueOf(average22))));
-                                                                                                                entries2.add(new BarEntry(3, Float.parseFloat(String.valueOf(average23))));
-                                                                                                                entries2.add(new BarEntry(4, Float.parseFloat(String.valueOf(average24))));
-                                                                                                                entries2.add(new BarEntry(5, Float.parseFloat(String.valueOf(average25))));
-                                                                                                                entries2.add(new BarEntry(6, Float.parseFloat(String.valueOf(average26))));
-                                                                                                                entries2.add(new BarEntry(7, Float.parseFloat(String.valueOf(average27))));
-                                                                                                                entries2.add(new BarEntry(8, Float.parseFloat(String.valueOf(average28))));
-                                                                                                                entries2.add(new BarEntry(9, Float.parseFloat(String.valueOf(average29))));
-                                                                                                                entries2.add(new BarEntry(10, Float.parseFloat(String.valueOf(average210))));
-                                                                                                                entries2.add(new BarEntry(11, Float.parseFloat(String.valueOf(average211))));
-                                                                                                                entries2.add(new BarEntry(12, Float.parseFloat(String.valueOf(average212))));
-                                                                                                                List<String> xAxisValues = new ArrayList<>(Arrays.asList("", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"));
-                                                                                                                float textSize = 6f;
-                                                                                                                MyBarDataset dataSet1 = new MyBarDataset(entries2, "data", credits1);
-                                                                                                                dataSet1.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
-                                                                                                                        ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
-                                                                                                                        ContextCompat.getColor(getApplicationContext(), R.color.blue),
-                                                                                                                        ContextCompat.getColor(getApplicationContext(), R.color.Ldark),
-                                                                                                                        ContextCompat.getColor(getApplicationContext(), R.color.dark));
-                                                                                                                BarData data1 = new BarData(dataSet1);
-                                                                                                                data1.setDrawValues(false);
-                                                                                                                data1.setBarWidth(0.8f);
-
-                                                                                                                barChart2.setData(data1);
-                                                                                                                barChart2.setFitBars(true);
-                                                                                                                barChart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xAxisValues));
-                                                                                                                barChart2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-                                                                                                                barChart2.getXAxis().setTextColor(getResources().getColor(R.color.white));
-                                                                                                                barChart2.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
-
-                                                                                                                barChart2.getXAxis().setTextSize(textSize);
-                                                                                                                barChart2.getAxisLeft().setTextSize(textSize);
-                                                                                                                barChart2.setExtraBottomOffset(3f);
-                                                                                                                barChart2.getXAxis().setLabelCount(25, true);
-
-                                                                                                                barChart2.getAxisRight().setEnabled(false);
-                                                                                                                Description desc1 = new Description();
-                                                                                                                desc1.setText("");
-                                                                                                                barChart2.setDescription(desc1);
-                                                                                                                barChart2.getLegend().setEnabled(false);
-                                                                                                                barChart2.getXAxis().setDrawGridLines(false);
-                                                                                                                barChart2.getAxisLeft().setDrawGridLines(false);
-                                                                                                                barChart2.setNoDataText("Data Loading Please Wait...");
-                                                                                                                barChart2.invalidate();
-
-
-                                                                                                            }
-
-                                                                                                            @Override
-                                                                                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                                                                                            }
-                                                                                                        });
-                                                                                                    }
-
-                                                                                                    @Override
-                                                                                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                                                                                    }
-                                                                                                });
-
-                                                                                            }
-
-                                                                                            @Override
-                                                                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                                                                            }
-                                                                                        });
-                                                                                    }
-
-                                                                                    @Override
-                                                                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                                                                    }
-                                                                                });
-                                                                            }
-
-                                                                            @Override
-                                                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                                                            }
-                                                                        });
-                                                                    }
-
-                                                                    @Override
-                                                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                                                    }
-                                                                });
-                                                            }
-
-                                                            @Override
-                                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                                            }
-                                                        });
-                                                    }
-
-                                                    @Override
-                                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                                    }
-                                                });
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                });
+                                for (int i = 0; i < list1.size(); i++) {
+                                    floatList1.add(Float.parseFloat(list1.get(i)));
+                                    Log.d("FloatArrayList2", String.valueOf(floatList1));
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
+                            String[] months1 = new String[]{"Ja", "Fe", "Mar", "Ap", "May", "Jun", "Jul", "Au", "Se", "Oc", "No", "De"};
+                            List<Float> credits1 = new ArrayList<>(Arrays.asList(90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f));
+                            float[] strength = new float[]{90f, 80f, 70f, 60f, 50f, 40f, 30f, 20f, 10f, 15f, 85f, 30f};
 
+                            List<BarEntry> entries2 = new ArrayList<>();
+                            for (int j = 0; j < floatList1.size(); ++j) {
+                                entries2.add(new BarEntry(j, floatList1.get(j)));
                             }
-                        });
-                    }
+                            float textSize = 16f;
+                            MyBarDataset dataSet1 = new MyBarDataset(entries2, "data", credits1);
+                            dataSet1.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.blue),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.Ldark),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.dark));
+                            BarData data1 = new BarData(dataSet1);
+                            data1.setDrawValues(false);
+                            data1.setBarWidth(0.9f);
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
+                            barChart2.setData(data1);
+                            barChart2.setFitBars(true);
+                            barChart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(months1));
+                            barChart2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChart2.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChart2.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
 
-                    }
-                });
+                            barChart2.getXAxis().setTextSize(textSize);
+                            barChart2.getAxisLeft().setTextSize(textSize);
+                            barChart2.setExtraBottomOffset(10f);
+
+                            barChart2.getAxisRight().setEnabled(false);
+                            Description desc1 = new Description();
+                            desc1.setText("");
+                            barChart2.setDescription(desc1);
+                            barChart2.getLegend().setEnabled(false);
+                            barChart2.getXAxis().setDrawGridLines(false);
+                            barChart2.getAxisLeft().setDrawGridLines(false);
+                            barChart2.setNoDataText("Data Loading Please Wait...");
+                            barChart2.invalidate();
 
 //
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(ConcentrationReportMonthly.this, "Failed", Toast.LENGTH_SHORT).show();
+                        }
+                    });
+
+
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
             }
 
             //Downloading file and displaying chart
         }, delay);
 
+        try {
+            fileName = new File(getCacheDir() + "/conRepMonthlyX.txt");  //Writing data to file
+            FileWriter fw;
+            fw = new FileWriter(fileName);
+            BufferedWriter output = new BufferedWriter(fw);
+            int size = xVal.size();
+            for (int i = 0; i < size; i++) {
+                output.write(xVal.get(i).toString() + "\n");
+//                Toast.makeText(this, "Success Writing X Data", Toast.LENGTH_SHORT).show();
+            }
+            output.close();
+        } catch (IOException exception) {
+//            Toast.makeText(this, "Failed Writing X Data", Toast.LENGTH_SHORT).show();
+            exception.printStackTrace();
+        }
+
+//
         mUser = FirebaseAuth.getInstance().getCurrentUser(); // get current user
         mUser.getUid();
 //
+//        // Uploading saved data containing file to firebase storage
+        StorageReference storageXAxis = FirebaseStorage.getInstance().getReference(mUser.getUid());
+        try {
+            StorageReference mountainsRef = storageXAxis.child("conRepMonthlyX.txt");
+            InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
+            UploadTask uploadTask = mountainsRef.putStream(stream);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                    Toast.makeText(ConcentrationReportMonthly.this, "File Uploaded X data", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+//                    Toast.makeText(ConcentrationReportMonthly.this, "File Uploading Failed X", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+//
+        try {
+            fileName = new File(getCacheDir() + "/conRepMonthlyY.txt");  //Writing data to file
+            FileWriter fw;
+            fw = new FileWriter(fileName);
+            BufferedWriter output = new BufferedWriter(fw);
+            int size = yVal.size();
+            for (int i = 0; i < size; i++) {
+                output.write(yVal.get(i).toString() + "\n");
+//                Toast.makeText(this, "Success Writing Y data", Toast.LENGTH_SHORT).show();
+            }
+            output.close();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
+        StorageReference storageYAxis = FirebaseStorage.getInstance().getReference(mUser.getUid());
+        try {
+            StorageReference mountainsRef = storageYAxis.child("conRepMonthlyY.txt");
+            InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
+            UploadTask uploadTask = mountainsRef.putStream(stream);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                    Toast.makeText(ConcentrationReportMonthly.this, "File Uploaded Y Axis", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+//                    Toast.makeText(ConcentrationReportMonthly.this, "File Uploading Failed Y Data", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         // On click listener of daily button
         daily.setOnClickListener(new View.OnClickListener() {
@@ -1326,756 +639,154 @@ public class ConcentrationReportMonthly extends AppCompatActivity {
         Handler handler = new Handler();
         final int delay = 5000;
 
-        Calendar now = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Log.d("WEEK", String.valueOf(now.get(Calendar.WEEK_OF_MONTH)));
-        Log.d("MONTH", String.valueOf(now.get(Calendar.MONTH)));
-        Log.d("YEAR", String.valueOf(now.get(Calendar.YEAR)));
-        Log.d("DAY", String.valueOf(now.get(Calendar.DAY_OF_WEEK)));
-        Format f = new SimpleDateFormat("EEEE");
-        String str = f.format(new Date());
-//prints day name
-        System.out.println("Day Name: " + str);
-        Log.d("Day Name", str);
-
-        int month = now.get(Calendar.MONTH) + 1;
-
         handler.postDelayed(new Runnable() {
-
-
             @Override
             public void run() {
 
+
                 lineEntries = new ArrayList();
+//        Handler handler1=new Handler();
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/conRepMonthlyX.txt");
+                //Downloading file from firebase and storing data into a tempFile in cache memory
+                try {
+                    localFile = File.createTempFile("tempFileX", ".txt");
+                    text = localFile.getAbsolutePath();
+                    Log.d("Bitmap", text);
+                    storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(ConcentrationReportMonthly.this, "Success", Toast.LENGTH_SHORT).show();
 
-                DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Concentration Post").child(String.valueOf(now.get(Calendar.YEAR)))
-                        .child(String.valueOf(1));
+                            // reading data from the tempFile and storing in array list
 
-                reference1.addValueEventListener(new ValueEventListener() {
+                            try {
+                                InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
 
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        ArrayList sumElement = new ArrayList();
+                                Log.d("FileName", localFile.getAbsolutePath());
 
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                                String line = "";
 
-                            Log.d("ValuesMonth3", String.valueOf(dataSnapshot.getValue()));
-                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                Log.d("ValuesMonth3Data", String.valueOf(dataSnapshot1.getValue()));
-                                for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
-
-                                    Log.d("DataMonth1", String.valueOf(dataSnapshot2.getKey()));
-                                    for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
-                                        Log.d("DataMonth3Sn", String.valueOf(dataSnapshot3.getValue()));
-                                        for (DataSnapshot dataSnapshot4 : dataSnapshot3.getChildren()) {
-                                            Log.d("KeyMonth", dataSnapshot4.getKey());
-                                            if (dataSnapshot4.getKey().equals("index")) {
-                                                Double av1 = (Double) dataSnapshot4.getValue();
-                                                sumElement.add(av1);
-                                                sumIn1 += av1;
-                                            }
-                                        }
-                                    }
-
+                                Log.d("First", line);
+                                if ((line = bufferedReader.readLine()) != null) {
+                                    xnewVal.add(line);
                                 }
+                                while ((line = bufferedReader.readLine()) != null) {
+
+                                    xnewVal.add(line);
+                                    Log.d("Line", line);
+                                }
+
+                                Log.d("X New Val", String.valueOf(xnewVal));
+                                //Converting string arraylist to float array list
+                                for (int i = 0; i < xnewVal.size(); i++) {
+                                    floatxVal.add(Float.parseFloat(xnewVal.get(i)));
+                                    Log.d("FloatXVal", String.valueOf(floatxVal));
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
-                        }
-                        for (int i = 0; i < sumElement.size(); i++) {
-                            total1 += (Double) sumElement.get(i);
-                        }
-                        Log.d("TotalMonth1", String.valueOf(total1));
 
-                        if (total1 == 0.0) {
-                            sumIn1 = 0.0;
-                            avg1 = 0.0;
-                        } else {
-                            Log.d("SUMMonth1", String.valueOf(total1));
-                            avg1 = total1 / sumElement.size();
-                            Log.d("AverageMonth1", String.valueOf(avg1));
-                        }
-                        Log.d("AverageMonth1", String.valueOf(avg1));
-                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Concentration Post").child(String.valueOf(now.get(Calendar.YEAR)))
-                                .child(String.valueOf(2));
-
-                        reference1.addValueEventListener(new ValueEventListener() {
-
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                ArrayList sumElement = new ArrayList();
-
-                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-
-                                    Log.d("ValuesMonth3", String.valueOf(dataSnapshot.getValue()));
-                                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                        Log.d("ValuesMonth2Data", String.valueOf(dataSnapshot1.getValue()));
-                                        for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
-
-                                            Log.d("DataMonth2", String.valueOf(dataSnapshot2.getKey()));
-                                            for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
-                                                Log.d("DataMonth2Sn", String.valueOf(dataSnapshot3.getValue()));
-                                                for (DataSnapshot dataSnapshot4 : dataSnapshot3.getChildren()) {
-                                                    Log.d("KeyMonth2", dataSnapshot4.getKey());
-                                                    if (dataSnapshot4.getKey().equals("index")) {
-                                                        Double av1 = (Double) dataSnapshot4.getValue();
-                                                        sumElement.add(av1);
-                                                        sumIn2 += av1;
-                                                    }
-                                                }
-                                            }
-
-                                        }
-                                    }
-                                }
-                                for (int i = 0; i < sumElement.size(); i++) {
-                                    total2 += (Double) sumElement.get(i);
-                                }
-                                Log.d("TotalMonth2", String.valueOf(total2));
-
-                                if (total2 == 0.0) {
-                                    sumIn2 = 0.0;
-                                    avg2 = 0.0;
-                                } else {
-                                    Log.d("SUMMonth2", String.valueOf(total2));
-                                    avg2 = total2 / sumElement.size();
-                                    Log.d("AverageMonth2", String.valueOf(avg2));
-                                }
-                                Log.d("AverageMonth2", String.valueOf(avg2));
-                                DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Concentration Post").child(String.valueOf(now.get(Calendar.YEAR)))
-                                        .child(String.valueOf(3));
-
-                                reference1.addValueEventListener(new ValueEventListener() {
-
+                            StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/conRepMonthlyY.txt");
+//        //Downloading file from firebase and storing data into a tempFile in cache memory
+                            try {
+                                localFile = File.createTempFile("tempFileY", ".txt");
+                                text = localFile.getAbsolutePath();
+                                Log.d("Bitmap", text);
+                                storageReference1.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                                     @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        ArrayList sumElement = new ArrayList();
+                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+//                            Toast.makeText(Concentration_Daily.this, "Success", Toast.LENGTH_SHORT).show();
 
-                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                        // reading data from the tempFile and storing in array list
 
-                                            Log.d("ValuesMonth3", String.valueOf(dataSnapshot.getValue()));
-                                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                                Log.d("ValuesMonth3Data", String.valueOf(dataSnapshot1.getValue()));
-                                                for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
+                                        try {
+                                            InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
 
-                                                    Log.d("DataMonth3", String.valueOf(dataSnapshot2.getKey()));
-                                                    for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
-                                                        Log.d("DataMonth3Sn", String.valueOf(dataSnapshot3.getValue()));
-                                                        for (DataSnapshot dataSnapshot4 : dataSnapshot3.getChildren()) {
-                                                            Log.d("KeyMonth3", dataSnapshot4.getKey());
-                                                            if (dataSnapshot4.getKey().equals("index")) {
-                                                                Double av1 = (Double) dataSnapshot4.getValue();
-                                                                sumElement.add(av1);
-                                                                sumIn3 += av1;
-                                                            }
-                                                        }
-                                                    }
+                                            Log.d("FileName", localFile.getAbsolutePath());
 
-                                                }
+                                            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                                            String line = "";
+
+                                            Log.d("First", line);
+                                            if ((line = bufferedReader.readLine()) != null) {
+                                                ynewVal.add(line);
                                             }
-                                        }
-                                        for (int i = 0; i < sumElement.size(); i++) {
-                                            total3 += (Double) sumElement.get(i);
-                                        }
-                                        Log.d("TotalMonth3", String.valueOf(total3));
+                                            while ((line = bufferedReader.readLine()) != null) {
 
-                                        if (total3 == 0.0) {
-                                            sumIn3 = 0.0;
-                                            avg3 = 0.0;
-                                        } else {
-                                            Log.d("SUMMonth3", String.valueOf(total3));
-                                            avg3 = total3 / sumElement.size();
-                                            Log.d("AverageMonth3", String.valueOf(avg3));
-                                        }
-                                        Log.d("AverageMonth3", String.valueOf(avg3));
-                                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Concentration Post").child(String.valueOf(now.get(Calendar.YEAR)))
-                                                .child(String.valueOf(4));
-
-                                        reference1.addValueEventListener(new ValueEventListener() {
-
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                ArrayList sumElement = new ArrayList();
-
-                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-
-                                                    Log.d("ValuesMonth4", String.valueOf(dataSnapshot.getValue()));
-                                                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                                        Log.d("ValuesMonth4Data", String.valueOf(dataSnapshot1.getValue()));
-                                                        for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
-
-                                                            Log.d("DataMonth4", String.valueOf(dataSnapshot2.getKey()));
-                                                            for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
-                                                                Log.d("DataMonth4Sn", String.valueOf(dataSnapshot3.getValue()));
-                                                                for (DataSnapshot dataSnapshot4 : dataSnapshot3.getChildren()) {
-                                                                    Log.d("KeyMonth4", dataSnapshot4.getKey());
-                                                                    if (dataSnapshot4.getKey().equals("index")) {
-                                                                        Double av1 = (Double) dataSnapshot4.getValue();
-                                                                        sumElement.add(av1);
-                                                                        sumIn4 += av1;
-                                                                    }
-                                                                }
-                                                            }
-
-                                                        }
-                                                    }
-                                                }
-                                                for (int i = 0; i < sumElement.size(); i++) {
-                                                    total4 += (Double) sumElement.get(i);
-                                                }
-                                                Log.d("TotalMonth4", String.valueOf(total4));
-
-                                                if (total4 == 0.0) {
-                                                    sumIn4 = 0.0;
-                                                    avg4 = 0.0;
-                                                } else {
-                                                    Log.d("SUMMonth4", String.valueOf(total4));
-                                                    avg4 = total4 / sumElement.size();
-                                                    Log.d("AverageMonth4", String.valueOf(avg4));
-                                                }
-                                                Log.d("AverageMonth4", String.valueOf(avg4));
-                                                DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Concentration Post").child(String.valueOf(now.get(Calendar.YEAR)))
-                                                        .child(String.valueOf(5));
-
-                                                reference1.addValueEventListener(new ValueEventListener() {
-
-                                                    @Override
-                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                        ArrayList sumElement = new ArrayList();
-
-                                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-
-                                                            Log.d("ValuesMonth5", String.valueOf(dataSnapshot.getValue()));
-                                                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                                                Log.d("ValuesMonth5Data", String.valueOf(dataSnapshot1.getValue()));
-                                                                for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
-
-                                                                    Log.d("DataMonth5", String.valueOf(dataSnapshot2.getKey()));
-                                                                    for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
-                                                                        Log.d("DataMonth5Sn", String.valueOf(dataSnapshot3.getValue()));
-                                                                        for (DataSnapshot dataSnapshot4 : dataSnapshot3.getChildren()) {
-                                                                            Log.d("KeyMonth5", dataSnapshot4.getKey());
-                                                                            if (dataSnapshot4.getKey().equals("index")) {
-                                                                                Double av1 = (Double) dataSnapshot4.getValue();
-                                                                                sumElement.add(av1);
-                                                                                sumIn5 += av1;
-                                                                            }
-                                                                        }
-                                                                    }
-
-                                                                }
-                                                            }
-                                                        }
-                                                        for (int i = 0; i < sumElement.size(); i++) {
-                                                            total5 += (Double) sumElement.get(i);
-                                                        }
-                                                        Log.d("TotalMonth5", String.valueOf(total5));
-
-                                                        if (total5 == 0.0) {
-                                                            sumIn5 = 0.0;
-                                                            avg5 = 0.0;
-                                                        } else {
-                                                            Log.d("SUMMonth5", String.valueOf(total5));
-                                                            avg5 = total5 / sumElement.size();
-                                                            Log.d("AverageMonth5", String.valueOf(avg5));
-                                                        }
-                                                        Log.d("AverageMonth5", String.valueOf(avg5));
-                                                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Concentration Post").child(String.valueOf(now.get(Calendar.YEAR)))
-                                                                .child(String.valueOf(6));
-
-                                                        reference1.addValueEventListener(new ValueEventListener() {
-
-                                                            @Override
-                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                ArrayList sumElement = new ArrayList();
-
-                                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-
-                                                                    Log.d("ValuesMonth6", String.valueOf(dataSnapshot.getValue()));
-                                                                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                                                        Log.d("ValuesMonth6Data", String.valueOf(dataSnapshot1.getValue()));
-                                                                        for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
-
-                                                                            Log.d("DataMonth6", String.valueOf(dataSnapshot2.getKey()));
-                                                                            for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
-                                                                                Log.d("DataMonth6Sn", String.valueOf(dataSnapshot3.getValue()));
-                                                                                for (DataSnapshot dataSnapshot4 : dataSnapshot3.getChildren()) {
-                                                                                    Log.d("KeyMonth6", dataSnapshot4.getKey());
-                                                                                    if (dataSnapshot4.getKey().equals("index")) {
-                                                                                        Double av1 = (Double) dataSnapshot4.getValue();
-                                                                                        sumElement.add(av1);
-                                                                                        sumIn6 += av1;
-                                                                                    }
-                                                                                }
-                                                                            }
-
-                                                                        }
-                                                                    }
-                                                                }
-                                                                for (int i = 0; i < sumElement.size(); i++) {
-                                                                    total6 += (Double) sumElement.get(i);
-                                                                }
-                                                                Log.d("TotalMonth6", String.valueOf(total6));
-
-                                                                if (total6 == 0.0) {
-                                                                    sumIn6 = 0.0;
-                                                                    avg6 = 0.0;
-                                                                } else {
-                                                                    Log.d("SUMMonth6", String.valueOf(total6));
-                                                                    avg6 = total6 / sumElement.size();
-                                                                    Log.d("AverageMonth6", String.valueOf(avg6));
-                                                                }
-                                                                Log.d("AverageMonth6", String.valueOf(avg6));
-                                                                DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Concentration Post").child(String.valueOf(now.get(Calendar.YEAR)))
-                                                                        .child(String.valueOf(7));
-
-                                                                reference1.addValueEventListener(new ValueEventListener() {
-
-                                                                    @Override
-                                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                        ArrayList sumElement = new ArrayList();
-
-                                                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-
-                                                                            Log.d("ValuesMonth7", String.valueOf(dataSnapshot.getValue()));
-                                                                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                                                                Log.d("ValuesMonth7Data", String.valueOf(dataSnapshot1.getValue()));
-                                                                                for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
-
-                                                                                    Log.d("DataMonth7", String.valueOf(dataSnapshot2.getKey()));
-                                                                                    for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
-                                                                                        Log.d("DataMonth7Sn", String.valueOf(dataSnapshot3.getValue()));
-                                                                                        for (DataSnapshot dataSnapshot4 : dataSnapshot3.getChildren()) {
-                                                                                            Log.d("KeyMonth7", dataSnapshot4.getKey());
-                                                                                            if (dataSnapshot4.getKey().equals("index")) {
-                                                                                                Double av1 = (Double) dataSnapshot4.getValue();
-                                                                                                sumElement.add(av1);
-                                                                                                sumIn7 += av1;
-                                                                                            }
-                                                                                        }
-                                                                                    }
-
-                                                                                }
-                                                                            }
-                                                                        }
-                                                                        for (int i = 0; i < sumElement.size(); i++) {
-                                                                            total7 += (Double) sumElement.get(i);
-                                                                        }
-                                                                        Log.d("TotalMonth7", String.valueOf(total7));
-
-                                                                        if (total7 == 0.0) {
-                                                                            sumIn7 = 0.0;
-                                                                            avg7 = 0.0;
-                                                                        } else {
-                                                                            Log.d("SUMMonth7", String.valueOf(total7));
-                                                                            avg7 = total7 / sumElement.size();
-                                                                            Log.d("AverageMonth7", String.valueOf(avg7));
-                                                                        }
-                                                                        Log.d("AverageMonth7", String.valueOf(avg7));
-//
-                                                                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Concentration Post").child(String.valueOf(now.get(Calendar.YEAR)))
-                                                                                .child(String.valueOf(8));
-
-                                                                        reference1.addValueEventListener(new ValueEventListener() {
-
-                                                                            @Override
-                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                ArrayList sumElement = new ArrayList();
-
-                                                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-
-                                                                                    Log.d("ValuesMonth8", String.valueOf(dataSnapshot.getValue()));
-                                                                                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                                                                        Log.d("ValuesMonth8Data", String.valueOf(dataSnapshot1.getValue()));
-                                                                                        for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
-
-                                                                                            Log.d("DataMonth8", String.valueOf(dataSnapshot2.getKey()));
-                                                                                            for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
-                                                                                                Log.d("DataMonth8Sn", String.valueOf(dataSnapshot3.getValue()));
-                                                                                                for (DataSnapshot dataSnapshot4 : dataSnapshot3.getChildren()) {
-                                                                                                    Log.d("KeyMonth8", dataSnapshot4.getKey());
-                                                                                                    if (dataSnapshot4.getKey().equals("index")) {
-                                                                                                        Double av1 = (Double) dataSnapshot4.getValue();
-                                                                                                        sumElement.add(av1);
-                                                                                                        sumIn8 += av1;
-                                                                                                    }
-                                                                                                }
-                                                                                            }
-
-                                                                                        }
-                                                                                    }
-                                                                                }
-                                                                                for (int i = 0; i < sumElement.size(); i++) {
-                                                                                    total8 += (Double) sumElement.get(i);
-                                                                                }
-                                                                                Log.d("TotalMonth8", String.valueOf(total8));
-
-                                                                                if (total8 == 0.0) {
-                                                                                    sumIn8 = 0.0;
-                                                                                    avg8 = 0.0;
-                                                                                } else {
-                                                                                    Log.d("SUMMonth8", String.valueOf(total8));
-                                                                                    avg8 = total8 / sumElement.size();
-                                                                                    Log.d("AverageMonth8", String.valueOf(avg8));
-                                                                                }
-                                                                                Log.d("AverageMonth8", String.valueOf(avg8));
-                                                                                DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Concentration Post").child(String.valueOf(now.get(Calendar.YEAR)))
-                                                                                        .child(String.valueOf(9));
-
-                                                                                reference1.addValueEventListener(new ValueEventListener() {
-
-                                                                                    @Override
-                                                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                        ArrayList sumElement = new ArrayList();
-
-                                                                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-
-                                                                                            Log.d("ValuesMonth9", String.valueOf(dataSnapshot.getValue()));
-                                                                                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                                                                                Log.d("ValuesMonth9Data", String.valueOf(dataSnapshot1.getValue()));
-                                                                                                for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
-
-                                                                                                    Log.d("DataMonth9", String.valueOf(dataSnapshot2.getKey()));
-                                                                                                    for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
-                                                                                                        Log.d("DataMonth9Sn", String.valueOf(dataSnapshot3.getValue()));
-                                                                                                        for (DataSnapshot dataSnapshot4 : dataSnapshot3.getChildren()) {
-                                                                                                            Log.d("KeyMonth9", dataSnapshot4.getKey());
-                                                                                                            if (dataSnapshot4.getKey().equals("index")) {
-                                                                                                                Double av1 = (Double) dataSnapshot4.getValue();
-                                                                                                                sumElement.add(av1);
-                                                                                                                sumIn9 += av1;
-                                                                                                            }
-                                                                                                        }
-                                                                                                    }
-
-                                                                                                }
-                                                                                            }
-                                                                                        }
-                                                                                        for (int i = 0; i < sumElement.size(); i++) {
-                                                                                            total9 += (Double) sumElement.get(i);
-                                                                                        }
-                                                                                        Log.d("TotalMonth9", String.valueOf(total9));
-
-                                                                                        if (total9 == 0.0) {
-                                                                                            sumIn9 = 0.0;
-                                                                                            avg9 = 0.0;
-                                                                                        } else {
-                                                                                            Log.d("SUMMonth9", String.valueOf(total9));
-                                                                                            avg9 = total9 / sumElement.size();
-                                                                                            Log.d("AverageMonth9", String.valueOf(avg9));
-                                                                                        }
-                                                                                        Log.d("AverageMonth9", String.valueOf(avg9));
-                                                                                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Concentration Post").child(String.valueOf(now.get(Calendar.YEAR)))
-                                                                                                .child(String.valueOf(10));
-
-                                                                                        reference1.addValueEventListener(new ValueEventListener() {
-
-                                                                                            @Override
-                                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                                ArrayList sumElement = new ArrayList();
-
-                                                                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-
-                                                                                                    Log.d("ValuesMonth10", String.valueOf(dataSnapshot.getValue()));
-                                                                                                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                                                                                        Log.d("ValuesMonth10Data", String.valueOf(dataSnapshot1.getValue()));
-                                                                                                        for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
-
-                                                                                                            Log.d("DataMonth10", String.valueOf(dataSnapshot2.getKey()));
-                                                                                                            for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
-                                                                                                                Log.d("DataMonth10Sn", String.valueOf(dataSnapshot3.getValue()));
-                                                                                                                for (DataSnapshot dataSnapshot4 : dataSnapshot3.getChildren()) {
-                                                                                                                    Log.d("KeyMonth10", dataSnapshot4.getKey());
-                                                                                                                    if (dataSnapshot4.getKey().equals("index")) {
-                                                                                                                        Double av1 = (Double) dataSnapshot4.getValue();
-                                                                                                                        sumElement.add(av1);
-                                                                                                                        sumIn10 += av1;
-                                                                                                                    }
-                                                                                                                }
-                                                                                                            }
-
-                                                                                                        }
-                                                                                                    }
-                                                                                                }
-                                                                                                for (int i = 0; i < sumElement.size(); i++) {
-                                                                                                    total10 += (Double) sumElement.get(i);
-                                                                                                }
-                                                                                                Log.d("TotalMonth10", String.valueOf(total10));
-
-                                                                                                if (total10 == 0.0) {
-                                                                                                    sumIn10 = 0.0;
-                                                                                                    avg10 = 0.0;
-                                                                                                } else {
-                                                                                                    Log.d("SUMMonth10", String.valueOf(total10));
-                                                                                                    avg10 = total10 / sumElement.size();
-                                                                                                    Log.d("AverageMonth10", String.valueOf(avg10));
-                                                                                                }
-                                                                                                Log.d("AverageMonth10", String.valueOf(avg10));
-                                                                                                DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Concentration Post").child(String.valueOf(now.get(Calendar.YEAR)))
-                                                                                                        .child(String.valueOf(11));
-
-                                                                                                reference1.addValueEventListener(new ValueEventListener() {
-
-                                                                                                    @Override
-                                                                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                                        ArrayList sumElement = new ArrayList();
-
-                                                                                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-
-                                                                                                            Log.d("ValuesMonth11", String.valueOf(dataSnapshot.getValue()));
-                                                                                                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                                                                                                Log.d("ValuesMonth11Data", String.valueOf(dataSnapshot1.getValue()));
-                                                                                                                for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
-
-                                                                                                                    Log.d("DataMonth11", String.valueOf(dataSnapshot2.getKey()));
-                                                                                                                    for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
-                                                                                                                        Log.d("DataMonth11Sn", String.valueOf(dataSnapshot3.getValue()));
-                                                                                                                        for (DataSnapshot dataSnapshot4 : dataSnapshot3.getChildren()) {
-                                                                                                                            Log.d("KeyMonth11", dataSnapshot4.getKey());
-                                                                                                                            if (dataSnapshot4.getKey().equals("index")) {
-                                                                                                                                Double av1 = (Double) dataSnapshot4.getValue();
-                                                                                                                                sumElement.add(av1);
-                                                                                                                                sumIn11 += av1;
-                                                                                                                            }
-                                                                                                                        }
-                                                                                                                    }
-
-                                                                                                                }
-                                                                                                            }
-                                                                                                        }
-                                                                                                        for (int i = 0; i < sumElement.size(); i++) {
-                                                                                                            total11 += (Double) sumElement.get(i);
-                                                                                                        }
-                                                                                                        Log.d("TotalMonth11", String.valueOf(total11));
-
-                                                                                                        if (total11 == 0.0) {
-                                                                                                            sumIn11 = 0.0;
-                                                                                                            avg11 = 0.0;
-                                                                                                        } else {
-                                                                                                            Log.d("SUMMonth11", String.valueOf(total11));
-                                                                                                            avg11 = total11 / sumElement.size();
-                                                                                                            Log.d("AverageMonth11", String.valueOf(avg11));
-                                                                                                        }
-                                                                                                        Log.d("AverageMonth11", String.valueOf(avg10));
-                                                                                                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Concentration Post").child(String.valueOf(now.get(Calendar.YEAR)))
-                                                                                                                .child(String.valueOf(12));
-
-                                                                                                        reference1.addValueEventListener(new ValueEventListener() {
-
-                                                                                                            @Override
-                                                                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                                                                ArrayList sumElement = new ArrayList();
-
-                                                                                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-
-                                                                                                                    Log.d("ValuesMonth12", String.valueOf(dataSnapshot.getValue()));
-                                                                                                                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                                                                                                        Log.d("ValuesMonth12Data", String.valueOf(dataSnapshot1.getValue()));
-                                                                                                                        for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
-
-                                                                                                                            Log.d("DataMonth12", String.valueOf(dataSnapshot2.getKey()));
-                                                                                                                            for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
-                                                                                                                                Log.d("DataMonth12Sn", String.valueOf(dataSnapshot3.getValue()));
-                                                                                                                                for (DataSnapshot dataSnapshot4 : dataSnapshot3.getChildren()) {
-                                                                                                                                    Log.d("KeyMonth12", dataSnapshot4.getKey());
-                                                                                                                                    if (dataSnapshot4.getKey().equals("index")) {
-                                                                                                                                        Double av1 = (Double) dataSnapshot4.getValue();
-                                                                                                                                        sumElement.add(av1);
-                                                                                                                                        sumIn12 += av1;
-                                                                                                                                    }
-                                                                                                                                }
-                                                                                                                            }
-
-                                                                                                                        }
-                                                                                                                    }
-                                                                                                                }
-                                                                                                                for (int i = 0; i < sumElement.size(); i++) {
-                                                                                                                    total12 += (Double) sumElement.get(i);
-                                                                                                                }
-                                                                                                                Log.d("TotalMonth12", String.valueOf(total12));
-
-                                                                                                                if (total12 == 0.0) {
-                                                                                                                    sumIn12 = 0.0;
-                                                                                                                    avg12 = 0.0;
-                                                                                                                } else {
-                                                                                                                    Log.d("SUMMonth12", String.valueOf(total12));
-                                                                                                                    avg12 = total12 / sumElement.size();
-                                                                                                                    Log.d("AverageMonth12", String.valueOf(avg12));
-                                                                                                                }
-                                                                                                                Log.d("Average Jan", String.valueOf(avg1));
-                                                                                                                Log.d("Average Feb", String.valueOf(avg2));
-                                                                                                                Log.d("Average Mar", String.valueOf(avg3));
-                                                                                                                Log.d("Average Apr", String.valueOf(avg4));
-                                                                                                                Log.d("Average May", String.valueOf(avg5));
-                                                                                                                Log.d("Average Jun", String.valueOf(avg6));
-                                                                                                                Log.d("Average Jul", String.valueOf(avg7));
-                                                                                                                Log.d("Average Aug", String.valueOf(avg8));
-                                                                                                                Log.d("Average Sep", String.valueOf(avg9));
-                                                                                                                Log.d("Average Oct", String.valueOf(avg10));
-                                                                                                                Log.d("Average Nov", String.valueOf(avg11));
-                                                                                                                Log.d("Average Dec", String.valueOf(avg12));
-
-                                                                                                                lineEntries.add(new Entry(1, Float.parseFloat(String.valueOf(avg1))));
-                                                                                                                lineEntries.add(new Entry(2, Float.parseFloat(String.valueOf(avg2))));
-                                                                                                                lineEntries.add(new Entry(3, Float.parseFloat(String.valueOf(avg3))));
-                                                                                                                lineEntries.add(new Entry(4, Float.parseFloat(String.valueOf(avg4))));
-                                                                                                                lineEntries.add(new Entry(5, Float.parseFloat(String.valueOf(avg5))));
-                                                                                                                lineEntries.add(new Entry(6, Float.parseFloat(String.valueOf(avg6))));
-                                                                                                                lineEntries.add(new Entry(7, Float.parseFloat(String.valueOf(avg7))));
-                                                                                                                lineEntries.add(new Entry(8, Float.parseFloat(String.valueOf(avg8))));
-                                                                                                                lineEntries.add(new Entry(9, Float.parseFloat(String.valueOf(avg9))));
-                                                                                                                lineEntries.add(new Entry(10, Float.parseFloat(String.valueOf(avg10))));
-                                                                                                                lineEntries.add(new Entry(11, Float.parseFloat(String.valueOf(avg11))));
-                                                                                                                lineEntries.add(new Entry(12, Float.parseFloat(String.valueOf(avg12))));
-                                                                                                                List<String> xAxisValues = new ArrayList<>(Arrays.asList("", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"));
-
-                                                                                                                lineDataSet = new LineDataSet(lineEntries, "Concentration Monthly Progress");
-                                                                                                                lineChart.getXAxis().setValueFormatter(new com.github.mikephil.charting.formatter.IndexAxisValueFormatter(xAxisValues));
-
-                                                                                                                lineData = new LineData(lineDataSet);
-                                                                                                                lineChart.setData(lineData);
-
-                                                                                                                lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-                                                                                                                lineDataSet.setValueTextColor(Color.WHITE);
-                                                                                                                lineDataSet.setValueTextSize(10f);
-
-                                                                                                                lineChart.setGridBackgroundColor(Color.TRANSPARENT);
-                                                                                                                lineChart.getXAxis().setTextSize(7f);
-                                                                                                                lineChart.setBorderColor(Color.TRANSPARENT);
-                                                                                                                lineChart.setGridBackgroundColor(Color.TRANSPARENT);
-                                                                                                                lineChart.getAxisLeft().setDrawGridLines(false);
-                                                                                                                lineChart.getXAxis().setDrawGridLines(false);
-                                                                                                                lineChart.getAxisRight().setDrawGridLines(false);
-                                                                                                                lineChart.getXAxis().setLabelCount(12, true);
-                                                                                                                lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
-                                                                                                                lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
-                                                                                                                lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
-                                                                                                                lineChart.setTouchEnabled(true);
-                                                                                                                lineChart.getXAxis().setTextColor(getResources().getColor(R.color.white));
-                                                                                                                lineChart.setDragEnabled(true);
-                                                                                                                lineChart.getXAxis().setLabelCount(23, true);
-                                                                                                                lineChart.setExtraBottomOffset(2f);
-                                                                                                                lineChart.getXAxis().setAvoidFirstLastClipping(true);
-
-                                                                                                                lineChart.setScaleEnabled(false);
-                                                                                                                lineChart.setPinchZoom(false);
-                                                                                                                lineChart.setDrawGridBackground(false);
-                                                                                                                lineChart.getDescription().setTextColor(R.color.white);
-                                                                                                                lineChart.invalidate();
-                                                                                                                lineChart.refreshDrawableState();
-                                                                                                                XAxis xAxis = lineChart.getXAxis();
-                                                                                                                xAxis.setGranularity(1f);
-                                                                                                                xAxis.setCenterAxisLabels(true);
-                                                                                                                xAxis.setEnabled(true);
-                                                                                                                xAxis.setDrawGridLines(false);
-                                                                                                                xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
-
-                                                                                                            }
-
-                                                                                                            //
-                                                                                                            @Override
-                                                                                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                                                                                            }
-                                                                                                        });
-                                                                                                    }
-
-                                                                                                    //
-                                                                                                    @Override
-                                                                                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                                                                                    }
-                                                                                                });
-                                                                                            }
-
-                                                                                            //
-                                                                                            @Override
-                                                                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                                                                            }
-                                                                                        });
-                                                                                    }
-
-                                                                                    //
-                                                                                    @Override
-                                                                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                                                                    }
-                                                                                });
-//
-                                                                            }
-
-                                                                            //
-                                                                            @Override
-                                                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                                                            }
-                                                                        });
-//
-////
-                                                                    }
-
-                                                                    //
-                                                                    @Override
-                                                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                                                    }
-                                                                });
-//
-//
-                                                            }
-
-                                                            @Override
-                                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                                            }
-                                                        });
-//
-//
-                                                    }
-
-                                                    @Override
-                                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                                    }
-                                                });
-////
-//////
+                                                ynewVal.add(line);
+                                                Log.d("Line", line);
                                             }
 
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
+                                            Log.d("YVal", String.valueOf(ynewVal));
+                                            //Converting string arraylist to float array list
+                                            for (int i = 0; i < ynewVal.size(); i++) {
+                                                floatyVal.add(Float.parseFloat(ynewVal.get(i)));
+                                                Log.d("OutX", String.valueOf(floatxVal));
+                                                Log.d("FloatYArray", String.valueOf(floatyVal));
+                                                Log.d("OutY", String.valueOf(floatyVal));
+
 
                                             }
-                                        });
-//////
-//////
-                                    }
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                        Log.d("floatYVal", String.valueOf(floatyVal));
 
+                                        for (int x = 0; x < floatxVal.size(); x++) {
+
+                                            lineEntries.add(new Entry(floatxVal.get(x), floatyVal.get(x)));
+
+                                        }
+                                        Log.d("Line Entry", String.valueOf(lineEntries));
+                                        lineDataSet = new LineDataSet(lineEntries, "Concentration Index");
+                                        lineData = new LineData(lineDataSet);
+                                        lineChart.setData(lineData);
+
+                                        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+                                        lineDataSet.setValueTextColor(Color.WHITE);
+                                        lineDataSet.setValueTextSize(10f);
+
+                                        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+                                        lineChart.setBorderColor(Color.TRANSPARENT);
+                                        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+                                        lineChart.getAxisLeft().setDrawGridLines(false);
+                                        lineChart.getXAxis().setDrawGridLines(false);
+                                        lineChart.getAxisRight().setDrawGridLines(false);
+                                        lineChart .getAxisRight().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getDescription().setTextColor(R.color.white);
+
+                                        lineChart.invalidate();
+                                        lineChart.refreshDrawableState();
+
+                               }
+                                }).addOnFailureListener(new OnFailureListener() {
                                     @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
+                                    public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(Concentration_Daily.this, "Failed", Toast.LENGTH_SHORT).show();
                                     }
                                 });
-//
-//////
+
+
+                            } catch (IOException exception) {
+                                exception.printStackTrace();
                             }
 
-                            //
-//                            //
-//                            //
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(ConcentrationReportMonthly.this, "Failed X", Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
-                            }
-                        });
-//
 
-                    }
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
 
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
             }
         }, 10000);
     }

@@ -616,8 +616,84 @@ public class Concentration_Daily extends AppCompatActivity {
             }
         }, 3000);
 
+//        try {
+//            fileName = new File(getCacheDir() + "/dailyX.txt");  //Writing data to file
+//            FileWriter fw;
+//            fw = new FileWriter(fileName);
+//            BufferedWriter output = new BufferedWriter(fw);
+//            int size = xVal.size();
+//            for (int i = 0; i < size; i++) {
+//                output.write(xVal.get(i).toString() + "\n");
+////                Toast.makeText(this, "Success Writing X Data", Toast.LENGTH_SHORT).show();
+//            }
+//            output.close();
+//        } catch (IOException exception) {
+////            Toast.makeText(this, "Failed Writing X Data", Toast.LENGTH_SHORT).show();
+//            exception.printStackTrace();
+//        }
+
+//
         mUser = FirebaseAuth.getInstance().getCurrentUser(); // get current user
         mUser.getUid();
+//
+////        // Uploading saved data containing file to firebase storage
+//        StorageReference storageXAxis = FirebaseStorage.getInstance().getReference(mUser.getUid());
+//        try {
+//            StorageReference mountainsRef = storageXAxis.child("dailyX.txt");
+//            InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
+//            UploadTask uploadTask = mountainsRef.putStream(stream);
+//            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                @Override
+//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+////                    Toast.makeText(Concentration_Daily.this, "File Uploaded X data", Toast.LENGTH_SHORT).show();
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+////                    Toast.makeText(Concentration_Daily.this, "File Uploading Failed X", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+////
+//        try {
+//            fileName = new File(getCacheDir() + "/dailyY.txt");  //Writing data to file
+//            FileWriter fw;
+//            fw = new FileWriter(fileName);
+//            BufferedWriter output = new BufferedWriter(fw);
+//            int size = yVal.size();
+//            for (int i = 0; i < size; i++) {
+//                output.write(yVal.get(i).toString() + "\n");
+////                Toast.makeText(this, "Success Writing Y data", Toast.LENGTH_SHORT).show();
+//            }
+//            output.close();
+//        } catch (IOException exception) {
+//            exception.printStackTrace();
+//        }
+
+//        StorageReference storageYAxis = FirebaseStorage.getInstance().getReference(mUser.getUid());
+//        try {
+//            StorageReference mountainsRef = storageYAxis.child("dailyY.txt");
+//            InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
+//            UploadTask uploadTask = mountainsRef.putStream(stream);
+//            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+//                @Override
+//                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+////                    Toast.makeText(Concentration_Daily.this, "File Uploaded Y Axis", Toast.LENGTH_SHORT).show();
+//                }
+//            }).addOnFailureListener(new OnFailureListener() {
+//                @Override
+//                public void onFailure(@NonNull Exception e) {
+////                    Toast.makeText(Concentration_Daily.this, "File Uploading Failed Y Data", Toast.LENGTH_SHORT).show();
+//                }
+//            });
+
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();
+//        }
+
 
         getEntries();
 

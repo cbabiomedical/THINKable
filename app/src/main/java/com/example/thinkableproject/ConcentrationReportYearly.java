@@ -55,12 +55,9 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import pl.droidsonroids.gif.GifImageView;
@@ -83,16 +80,6 @@ public class ConcentrationReportYearly extends AppCompatActivity {
     LineData lineData;
     LineDataSet lineDataSet;
     ArrayList lineEntries;
-    Double avg1, avg2, avg3, avg4;
-    Double sumIn1 = 0.0;
-    Double total1 = 0.0;
-    Double sumIn2 = 0.0;
-    Double total2 = 0.0;
-    Double sumIn3 = 0.0;
-    Double total3 = 0.0;
-    Double sumIn4 = 0.0;
-    Double total4 = 0.0;
-    Long average, average1, average2, average3;
 
     ArrayList<Float> xVal = new ArrayList<>(Arrays.asList(2f, 4f, 6f, 8f, 10f, 12f, 14f));
     ArrayList<Float> yVal = new ArrayList(Arrays.asList(45f, 36f, 75f, 36f, 73f, 45f, 83f));
@@ -227,21 +214,49 @@ public class ConcentrationReportYearly extends AppCompatActivity {
                 return false;
             }
         });
-        Calendar now = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Log.d("WEEK", String.valueOf(now.get(Calendar.WEEK_OF_MONTH)));
-        Log.d("MONTH", String.valueOf(now.get(Calendar.MONTH)));
-        Log.d("YEAR", String.valueOf(now.get(Calendar.YEAR)));
-        Log.d("DAY", String.valueOf(now.get(Calendar.DAY_OF_WEEK)));
-        Format f = new SimpleDateFormat("EEEE");
-        String str = f.format(new Date());
-        int year1 = now.get(Calendar.YEAR) - 3;
-        int year2 = now.get(Calendar.YEAR) - 2;
-        int year3 = now.get(Calendar.YEAR) - 1;
-        //prints day name
-        System.out.println("Day Name: " + str);
-        Log.d("Day Name", str);
+        //Initializing arraylist and storing input data to arraylist
+        ArrayList<Float> obj = new ArrayList<>(
+                Arrays.asList(30f, 86f, 10f, 50f)); //Array list to write data to file
+        //Writing data to file
+        try {
+            fileName = new File(getCacheDir() + "/reportYearly.txt");
+            String line = "";
+            FileWriter fw;
+            fw = new FileWriter(fileName);
+            BufferedWriter output = new BufferedWriter(fw);
+            int size = obj.size();
+            for (int i = 0; i < size; i++) {
+                output.write(obj.get(i).toString() + "\n");
+//                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+            }
+            output.close();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
 
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        mUser.getUid();
+        // Uploading file created to firebase storage
+        StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
+        try {
+            StorageReference mountainsRef = storageReference1.child("reportYearly.txt");
+            InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
+            UploadTask uploadTask = mountainsRef.putStream(stream);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                    Toast.makeText(ConcentrationReportYearly.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+//                    Toast.makeText(ConcentrationReportYearly.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         final Handler handler = new Handler();
         final int delay = 7000;
 
@@ -249,188 +264,145 @@ public class ConcentrationReportYearly extends AppCompatActivity {
 
             @Override
             public void run() {
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("TimeTo").child("Concentration").child(mUser.getUid()).child(String.valueOf(year1));
-                reference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        ArrayList sumElement = new ArrayList();
-                        int sum = (0);
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                    for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
-                                        Log.d("Yearly", String.valueOf(snapshot3.getValue()));
-                                        Long av1 = (Long) snapshot3.getValue();
-                                        sumElement.add(snapshot1.getValue());
-                                        sum += av1;
-                                    }
+
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportYearly.txt");
+                //downloading the uploaded file and storing in arraylist
+                try {
+                    localFile = File.createTempFile("tempFile", ".txt");
+                    text = localFile.getAbsolutePath();
+                    Log.d("Bitmap", text);
+                    storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+//                            Toast.makeText(ConcentrationReportYearly.this, "Success", Toast.LENGTH_SHORT).show();
+
+                            try {
+                                InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
+
+                                Log.d("FileName", localFile.getAbsolutePath());
+
+                                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                                String line = "";
+
+                                Log.d("First", line);
+                                if ((line = bufferedReader.readLine()) != null) {
+                                    list.add(line);
                                 }
+                                while ((line = bufferedReader.readLine()) != null) {
+
+                                    list.add(line);
+                                    Log.d("Line", line);
+                                }
+
+                                Log.d("List", String.valueOf(list));
+
+                                for (int i = 0; i < list.size(); i++) {
+                                    floatList.add(Float.parseFloat(list.get(i)));
+                                    Log.d("FloatArrayList", String.valueOf(floatList));
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
+
+
+                            String[] weeks = new String[]{"2018", "2019", "2020", "2021"};
+                            List<Float> creditsWeek = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 10f));
+                            float[] strengthWeek = new float[]{90f, 30f, 70f, 10f};
+
+                            List<BarEntry> entries = new ArrayList<>();
+                            for (int i = 0; i < floatList.size(); ++i) {
+                                entries.add(new BarEntry(i, floatList.get(i)));
+                            }
+
+                            float textSize = 16f;
+                            //Initializing object of MyBarDataset class
+                            MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsWeek);
+                            dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.blue),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.bluebar),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.dark));
+                            BarData data = new BarData(dataSet);
+                            data.setDrawValues(false);
+                            data.setBarWidth(0.8f);
+
+                            barChart2.setData(data);
+                            barChart2.setFitBars(true);
+                            barChart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(weeks));
+                            barChart2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChart2.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChart2.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+                            barChart2.getXAxis().setTextSize(textSize);
+                            barChart2.getAxisLeft().setTextSize(textSize);
+                            barChart2.setExtraBottomOffset(10f);
+
+                            barChart2.getAxisRight().setEnabled(false);
+                            Description desc = new Description();
+                            desc.setText("");
+                            barChart2.setDescription(desc);
+                            barChart2.getLegend().setEnabled(false);
+                            barChart2.getXAxis().setDrawGridLines(false);
+                            barChart2.getAxisLeft().setDrawGridLines(false);
+                            barChart2.setNoDataText("Data Loading Please Wait...");
+                            barChart2.invalidate();
                         }
-                        Log.d("SUM", String.valueOf(sum));
-                        if (sum != 0) {
-                            average1 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                        } else {
-                            average1 = 0L;
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(ConcentrationReportYearly.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
-
-                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("TimeTo").child("Concentration").child(mUser.getUid()).child(String.valueOf(year2));
-                        reference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                ArrayList sumElement = new ArrayList();
-                                int sum = (0);
-                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                    for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                        for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                            for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
-                                                Log.d("Yearly", String.valueOf(snapshot3.getValue()));
-                                                Long av1 = (Long) snapshot3.getValue();
-                                                sumElement.add(snapshot1.getValue());
-                                                sum += av1;
-                                            }
-                                        }
-                                    }
-                                }
-                                Log.d("SUM", String.valueOf(sum));
-                                if (sum != 0) {
-                                    average2 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                } else {
-                                    average2 = 0L;
-                                }
-
-                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("TimeTo").child("Concentration").child(mUser.getUid()).child(String.valueOf(year3));
-                                reference.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        ArrayList sumElement = new ArrayList();
-                                        int sum = (0);
-                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                            for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                                for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                                    for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
-                                                        Log.d("Yearly", String.valueOf(snapshot3.getValue()));
-                                                        Long av1 = (Long) snapshot3.getValue();
-                                                        sumElement.add(snapshot1.getValue());
-                                                        sum += av1;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        Log.d("SUM", String.valueOf(sum));
-                                        if (sum != 0) {
-                                            average3 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                        } else {
-                                            average3 = 0L;
-                                        }
-                                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("TimeTo").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)));
-                                        reference.addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                ArrayList sumElement = new ArrayList();
-                                                int sum = (0);
-                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                    for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                                        for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                                            for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
-                                                                Log.d("Yearly", String.valueOf(snapshot3.getValue()));
-                                                                Long av1 = (Long) snapshot3.getValue();
-                                                                sumElement.add(snapshot1.getValue());
-                                                                sum += av1;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                                Log.d("SUM", String.valueOf(sum));
-                                                if (sum != 0) {
-                                                    average = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                                } else {
-                                                    average = 0L;
-                                                }
-                                                Log.d("Average", String.valueOf(average));
-                                                Log.d("Average1", String.valueOf(average1));
-                                                Log.d("Average2", String.valueOf(average2));
-                                                Log.d("Average4", String.valueOf(average3));
-                                                List<BarEntry> entries = new ArrayList<>();
+                    });
 
 
-                                                entries.add(new BarEntry(year1, Float.parseFloat(String.valueOf(average1))));
-                                                entries.add(new BarEntry(year2, Float.parseFloat(String.valueOf(average2))));
-                                                entries.add(new BarEntry(year3, Float.parseFloat(String.valueOf(average3))));
-                                                entries.add(new BarEntry(now.get(Calendar.YEAR), Float.parseFloat(String.valueOf(average))));
-
-//                                                    List<String> xAxisValues = new ArrayList<>(Arrays.asList(String.valueOf(year1),String.valueOf(year2),String.valueOf(year3),String.valueOf(now.get(Calendar.YEAR))));
-                                                List<String> xAxisValues = new ArrayList<>(Arrays.asList("", String.valueOf(year1), String.valueOf(year2), String.valueOf(year3), String.valueOf(now.get(Calendar.YEAR))));
-                                                ArrayList<Float> creditsWeek = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f));
-                                                String[] years = new String[]{"", String.valueOf(year1), String.valueOf(year2), String.valueOf(year3), String.valueOf(now.get(Calendar.YEAR))};
-
-                                                float textSize = 10f;
-                                                //Initializing object of MyBarDataset class
-                                                MyBarDataset dataSet = new MyBarDataset(entries, "data", creditsWeek);
-                                                dataSet.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
-                                                        ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
-                                                        ContextCompat.getColor(getApplicationContext(), R.color.blue),
-                                                        ContextCompat.getColor(getApplicationContext(), R.color.bluebar),
-                                                        ContextCompat.getColor(getApplicationContext(), R.color.dark));
-                                                BarData data = new BarData(dataSet);
-                                                data.setDrawValues(false);
-                                                data.setBarWidth(0.8f);
-
-                                                barChart2.setData(data);
-                                                barChart2.setFitBars(true);
-                                                barChart2.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xAxisValues));
-                                                barChart2.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-                                                barChart2.getXAxis().setTextColor(getResources().getColor(R.color.white));
-                                                barChart2.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
-                                                barChart2.getXAxis().setTextSize(textSize);
-                                                barChart2.getAxisLeft().setTextSize(textSize);
-                                                barChart2.setExtraBottomOffset(5f);
-                                                barChart2.getXAxis().setAvoidFirstLastClipping(true);
-                                                barChart2.getXAxis().setLabelCount(9, true);
-
-                                                barChart2.getAxisRight().setEnabled(false);
-                                                Description desc = new Description();
-                                                desc.setText("");
-                                                barChart2.setDescription(desc);
-                                                barChart2.getLegend().setEnabled(false);
-                                                barChart2.getXAxis().setDrawGridLines(false);
-                                                barChart2.getAxisLeft().setDrawGridLines(false);
-                                                barChart2.setNoDataText("Data Loading Please Wait...");
-                                                barChart2.invalidate();
-
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                });
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
             }
         }, delay);
+        //Initializing arraylist and storing input data to arraylist
+        ArrayList<Float> obj1 = new ArrayList<>(
+                Arrays.asList(60f, 40f, 70f, 20f));  //Array list to write data to file
+
+        try {
+            fileName1 = new File(getCacheDir() + "/reportYearly2.txt");  //Writing data to file
+            String line = "";
+            FileWriter fw;
+            fw = new FileWriter(fileName1);
+            BufferedWriter output = new BufferedWriter(fw);
+            int size = obj1.size();
+            for (int i = 0; i < size; i++) {
+                output.write(obj1.get(i).toString() + "\n");
+//                Toast.makeText(this, "Success Writing", Toast.LENGTH_SHORT).show();
+            }
+            output.close();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
 
         mUser = FirebaseAuth.getInstance().getCurrentUser();
+        mUser.getUid();
+        // Uploading file created to firebase storage
+        storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid());
+        try {
 
+            StorageReference mountainsRef = storageReference1.child("reportYearly2.txt");
+            InputStream stream = new FileInputStream(new File(fileName1.getAbsolutePath()));
+            UploadTask uploadTask = mountainsRef.putStream(stream);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                    Toast.makeText(ConcentrationReportYearly.this, "File Uploaded", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+//                    Toast.makeText(ConcentrationReportYearly.this, "File Uploading Failed", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
         final Handler handler1 = new Handler();
         final int delay1 = 5000;
 
@@ -438,191 +410,181 @@ public class ConcentrationReportYearly extends AppCompatActivity {
 
             @Override
             public void run() {
-                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("TimeStayed").child("Concentration").child(mUser.getUid()).child(String.valueOf(year1));
-                reference.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        ArrayList sumElement = new ArrayList();
-                        int sum = (0);
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                            for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                    for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
-                                        Log.d("Yearly", String.valueOf(snapshot3.getValue()));
-                                        Long av1 = (Long) snapshot3.getValue();
-                                        sumElement.add(snapshot1.getValue());
-                                        sum += av1;
-                                    }
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/reportYearly2.txt");
+                //downloading the uploaded file and storing in arraylist
+                try {
+                    localFile1 = File.createTempFile("tempFile", ".txt");
+                    text = localFile1.getAbsolutePath();
+                    Log.d("Bitmap", text);
+                    storageReference.getFile(localFile1).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+//                            Toast.makeText(ConcentrationReportYearly.this, "Success", Toast.LENGTH_SHORT).show();
+
+                            try {
+                                InputStreamReader inputStreamReader1 = new InputStreamReader(new FileInputStream(localFile1.getAbsolutePath()));
+
+                                Log.d("FileName", localFile1.getAbsolutePath());
+
+                                BufferedReader bufferedReader = new BufferedReader(inputStreamReader1);
+                                String line = "";
+
+                                Log.d("First", line);
+                                if ((line = bufferedReader.readLine()) != null) {
+                                    list1.add(line);
                                 }
+                                while ((line = bufferedReader.readLine()) != null) {
+
+                                    list1.add(line);
+                                    Log.d("Line", line);
+                                }
+
+                                Log.d("List", String.valueOf(list1));
+
+                                for (int i = 0; i < list1.size(); i++) {
+                                    floatList1.add(Float.parseFloat(list1.get(i)));
+                                    Log.d("FloatArrayList", String.valueOf(floatList1));
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
+
+                            String[] days = new String[]{"2018", "2019", "2020", "2021"};
+                            List<Float> creditsMain1 = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f));
+                            float[] strengthDay = new float[]{90f, 30f, 70f, 50f};
+
+                            List<BarEntry> entries2 = new ArrayList<>();
+                            for (int j = 0; j < floatList1.size(); ++j) {
+                                entries2.add(new BarEntry(j, floatList1.get(j)));
+                            }
+                            float textSize = 16f;
+                            //Initializing object of MyBarDataset class
+                            MyBarDataset dataSet1 = new MyBarDataset(entries2, "data", creditsMain1);
+                            dataSet1.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.blue),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.Ldark),
+                                    ContextCompat.getColor(getApplicationContext(), R.color.dark));
+                            BarData data1 = new BarData(dataSet1);
+                            data1.setDrawValues(false);
+                            data1.setBarWidth(0.9f);
+
+                            barChart1.setData(data1);
+                            barChart1.setFitBars(true);
+                            barChart1.getXAxis().setValueFormatter(new IndexAxisValueFormatter(days));
+                            barChart1.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                            barChart1.getXAxis().setTextColor(getResources().getColor(R.color.white));
+                            barChart1.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+                            barChart1.getXAxis().setTextSize(textSize);
+                            barChart1.getAxisLeft().setTextSize(textSize);
+                            barChart1.setExtraBottomOffset(10f);
+
+                            barChart1.getAxisRight().setEnabled(false);
+                            Description desc1 = new Description();
+                            desc1.setText("");
+                            barChart1.setDescription(desc1);
+                            barChart1.getLegend().setEnabled(false);
+                            barChart1.getXAxis().setDrawGridLines(false);
+                            barChart1.getAxisLeft().setDrawGridLines(false);
+                            barChart1.setNoDataText("Data Loading Please Wait");
+
+                            barChart1.invalidate();
+
+//
                         }
-                        Log.d("SUM", String.valueOf(sum));
-                        if (sum != 0) {
-                            average1 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                        } else {
-                            average1 = 0L;
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(ConcentrationReportYearly.this, "Failed", Toast.LENGTH_SHORT).show();
                         }
-
-                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("TimeStayed").child("Concentration").child(mUser.getUid()).child(String.valueOf(year2));
-                        reference.addValueEventListener(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                ArrayList sumElement = new ArrayList();
-                                int sum = (0);
-                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                    for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                        for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                            for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
-                                                Log.d("Yearly", String.valueOf(snapshot3.getValue()));
-                                                Long av1 = (Long) snapshot3.getValue();
-                                                sumElement.add(snapshot1.getValue());
-                                                sum += av1;
-                                            }
-                                        }
-                                    }
-                                }
-                                Log.d("SUM", String.valueOf(sum));
-                                if (sum != 0) {
-                                    average2 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                } else {
-                                    average2 = 0L;
-                                }
-
-                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("TimeStayed").child("Concentration").child(mUser.getUid()).child(String.valueOf(year3));
-                                reference.addValueEventListener(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        ArrayList sumElement = new ArrayList();
-                                        int sum = (0);
-                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                            for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                                for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                                    for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
-                                                        Log.d("Yearly", String.valueOf(snapshot3.getValue()));
-                                                        Long av1 = (Long) snapshot3.getValue();
-                                                        sumElement.add(snapshot1.getValue());
-                                                        sum += av1;
-                                                    }
-                                                }
-                                            }
-                                        }
-                                        Log.d("SUM", String.valueOf(sum));
-                                        if (sum != 0) {
-                                            average3 = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                        } else {
-                                            average3 = 0L;
-                                        }
-                                        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("TimeStayed").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)));
-                                        reference.addValueEventListener(new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                ArrayList sumElement = new ArrayList();
-                                                int sum = (0);
-                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                                                    for (DataSnapshot snapshot1 : dataSnapshot.getChildren()) {
-                                                        for (DataSnapshot snapshot2 : snapshot1.getChildren()) {
-                                                            for (DataSnapshot snapshot3 : snapshot2.getChildren()) {
-                                                                Log.d("Yearly", String.valueOf(snapshot3.getValue()));
-                                                                Long av1 = (Long) snapshot3.getValue();
-                                                                sumElement.add(snapshot1.getValue());
-                                                                sum += av1;
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                                Log.d("SUM", String.valueOf(sum));
-                                                if (sum != 0) {
-                                                    average = sum / Long.parseLong(String.valueOf(sumElement.size()));
-                                                } else {
-                                                    average = 0L;
-                                                }
-                                                Log.d("Average", String.valueOf(average));
-                                                Log.d("Average1", String.valueOf(average1));
-                                                Log.d("Average2", String.valueOf(average2));
-                                                Log.d("Average4", String.valueOf(average3));
+                    });
 
 
-//                                                    List<String> xAxisValues = new ArrayList<>(Arrays.asList(String.valueOf(year1),String.valueOf(year2),String.valueOf(year3),String.valueOf(now.get(Calendar.YEAR))));
-                                                List<String> xAxisValues = new ArrayList<>(Arrays.asList("", String.valueOf(year1), String.valueOf(year2), String.valueOf(year3), String.valueOf(now.get(Calendar.YEAR))));
-                                                float textSize = 10f;
-                                                ArrayList<Float> creditsMain1 = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f));
-                                                List<BarEntry> entries2=new ArrayList<>();
-                                                entries2.add(new BarEntry(1,Float.parseFloat(String.valueOf(average1))));
-                                                entries2.add(new BarEntry(2,Float.parseFloat(String.valueOf(average2))));
-                                                entries2.add(new BarEntry(3,Float.parseFloat(String.valueOf(average3))));
-                                                entries2.add(new BarEntry(4,Float.parseFloat(String.valueOf(average))));
-
-                                                //Initializing object of MyBarDataset class
-                                                MyBarDataset dataSet1 = new MyBarDataset(entries2, "data", creditsMain1);
-                                                dataSet1.setColors(ContextCompat.getColor(getApplicationContext(), R.color.Bwhite),
-                                                        ContextCompat.getColor(getApplicationContext(), R.color.Lblue),
-                                                        ContextCompat.getColor(getApplicationContext(), R.color.blue),
-                                                        ContextCompat.getColor(getApplicationContext(), R.color.Ldark),
-                                                        ContextCompat.getColor(getApplicationContext(), R.color.dark));
-                                                BarData data1 = new BarData(dataSet1);
-                                                data1.setDrawValues(false);
-                                                data1.setBarWidth(0.9f);
-
-                                                barChart1.setData(data1);
-                                                barChart1.setFitBars(true);
-                                                barChart1.getXAxis().setValueFormatter(new IndexAxisValueFormatter(xAxisValues));
-                                                barChart1.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-                                                barChart1.getXAxis().setTextColor(getResources().getColor(R.color.white));
-                                                barChart1.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
-                                                barChart1.getXAxis().setTextSize(textSize);
-                                                barChart1.getAxisLeft().setTextSize(textSize);
-                                                barChart1.getXAxis().setAvoidFirstLastClipping(true);
-                                                barChart1.setExtraBottomOffset(5f);
-                                                barChart1.getXAxis().setLabelCount(9, true);
-
-                                                barChart1.getAxisRight().setEnabled(false);
-                                                Description desc1 = new Description();
-                                                desc1.setText("");
-                                                barChart1.setDescription(desc1);
-                                                barChart1.getLegend().setEnabled(false);
-                                                barChart1.getXAxis().setDrawGridLines(false);
-                                                barChart1.getAxisLeft().setDrawGridLines(false);
-                                                barChart1.setNoDataText("Data Loading Please Wait");
-
-                                                barChart1.invalidate();
-
-
-                                            }
-
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
-
-                                            }
-                                        });
-                                    }
-
-                                    @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
-                                    }
-                                });
-                            }
-
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
             }
+
+            //Downloading file and displaying chart
         }, delay);
 
-        mUser = FirebaseAuth.getInstance().
+        try {
+            fileName = new File(getCacheDir() + "/conRepYearlyX.txt");  //Writing data to file
+            FileWriter fw;
+            fw = new FileWriter(fileName);
+            BufferedWriter output = new BufferedWriter(fw);
+            int size = xVal.size();
+            for (int i = 0; i < size; i++) {
+                output.write(xVal.get(i).toString() + "\n");
+//                Toast.makeText(this, "Success Writing X Data", Toast.LENGTH_SHORT).show();
+            }
+            output.close();
+        } catch (IOException exception) {
+//            Toast.makeText(this, "Failed Writing X Data", Toast.LENGTH_SHORT).show();
+            exception.printStackTrace();
+        }
 
-                getCurrentUser(); // get current user
+//
+        mUser = FirebaseAuth.getInstance().getCurrentUser(); // get current user
         mUser.getUid();
+//
+//        // Uploading saved data containing file to firebase storage
+        StorageReference storageXAxis = FirebaseStorage.getInstance().getReference(mUser.getUid());
+        try {
+            StorageReference mountainsRef = storageXAxis.child("conRepYearlyX.txt");
+            InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
+            UploadTask uploadTask = mountainsRef.putStream(stream);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                    Toast.makeText(ConcentrationReportYearly.this, "File Uploaded X data", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+//                    Toast.makeText(ConcentrationReportYearly.this, "File Uploading Failed X", Toast.LENGTH_SHORT).show();
+                }
+            });
 
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+//
+        try {
+            fileName = new File(getCacheDir() + "/conRepYearlyY.txt");  //Writing data to file
+            FileWriter fw;
+            fw = new FileWriter(fileName);
+            BufferedWriter output = new BufferedWriter(fw);
+            int size = yVal.size();
+            for (int i = 0; i < size; i++) {
+                output.write(yVal.get(i).toString() + "\n");
+//                Toast.makeText(this, "Success Writing Y data", Toast.LENGTH_SHORT).show();
+            }
+            output.close();
+        } catch (IOException exception) {
+            exception.printStackTrace();
+        }
+
+        StorageReference storageYAxis = FirebaseStorage.getInstance().getReference(mUser.getUid());
+        try {
+            StorageReference mountainsRef = storageYAxis.child("conRepYearlyY.txt");
+            InputStream stream = new FileInputStream(new File(fileName.getAbsolutePath()));
+            UploadTask uploadTask = mountainsRef.putStream(stream);
+            uploadTask.addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                @Override
+                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+//                    Toast.makeText(ConcentrationReportYearly.this, "File Uploaded Y Axis", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+//                    Toast.makeText(ConcentrationReportYearly.this, "File Uploading Failed Y Data", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
 
         // On click listener of daily button
         daily.setOnClickListener(new View.OnClickListener() {
@@ -675,308 +637,153 @@ public class ConcentrationReportYearly extends AppCompatActivity {
 
         Handler handler = new Handler();
         final int delay = 5000;
-        Calendar now = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
-        Log.d("WEEK", String.valueOf(now.get(Calendar.WEEK_OF_MONTH)));
-        Log.d("MONTH", String.valueOf(now.get(Calendar.MONTH)));
-        Log.d("YEAR", String.valueOf(now.get(Calendar.YEAR)));
-        Log.d("DAY", String.valueOf(now.get(Calendar.DAY_OF_WEEK)));
-        Format f = new SimpleDateFormat("EEEE");
-        String str = f.format(new Date());
-        int year1 = now.get(Calendar.YEAR) - 3;
-        int year2 = now.get(Calendar.YEAR) - 2;
-        int year3 = now.get(Calendar.YEAR) - 1;
-        //prints day name
-        System.out.println("Day Name: " + str);
-        Log.d("Day Name", str);
 
         handler.postDelayed(new Runnable() {
-
-
             @Override
             public void run() {
 
+
                 lineEntries = new ArrayList();
+//        Handler handler1=new Handler();
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/conRepYearlyX.txt");
+                //Downloading file from firebase and storing data into a tempFile in cache memory
+                try {
+                    localFile = File.createTempFile("tempFileX", ".txt");
+                    text = localFile.getAbsolutePath();
+                    Log.d("Bitmap", text);
+                    storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+                            Toast.makeText(ConcentrationReportYearly.this, "Success", Toast.LENGTH_SHORT).show();
 
-                DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Concentration Post").child(String.valueOf(year1));
+                            // reading data from the tempFile and storing in array list
 
-                reference1.addValueEventListener(new ValueEventListener() {
+                            try {
+                                InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
 
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        ArrayList sumElement = new ArrayList();
+                                Log.d("FileName", localFile.getAbsolutePath());
 
-                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                                String line = "";
 
-                            Log.d("ValuesYear1", String.valueOf(dataSnapshot.getValue()));
-                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                Log.d("ValuesYear1Data", String.valueOf(dataSnapshot1.getValue()));
-                                for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
-
-                                    Log.d("DataYear1", String.valueOf(dataSnapshot2.getKey()));
-                                    for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
-                                        Log.d("DataFinYear", dataSnapshot3.getKey());
-                                        for (DataSnapshot dataSnapshot4 : dataSnapshot3.getChildren()) {
-                                            Log.d("KEY", dataSnapshot4.getKey());
-                                            for (DataSnapshot dataSnapshot5 : dataSnapshot4.getChildren()) {
-                                                Log.d("KEYFINAL", dataSnapshot5.getKey());
-                                                if (dataSnapshot5.getKey().equals("index")) {
-                                                    dataSnapshot5.getValue();
-                                                    Log.d("DataF", String.valueOf(dataSnapshot5.getValue()));
-                                                    Double av1 = (Double) dataSnapshot5.getValue();
-                                                    sumElement.add(av1);
-                                                    sumIn1 += av1;
-                                                }
-                                            }
-                                        }
-
-                                    }
+                                Log.d("First", line);
+                                if ((line = bufferedReader.readLine()) != null) {
+                                    xnewVal.add(line);
                                 }
+                                while ((line = bufferedReader.readLine()) != null) {
+
+                                    xnewVal.add(line);
+                                    Log.d("Line", line);
+                                }
+
+                                Log.d("X New Val", String.valueOf(xnewVal));
+                                //Converting string arraylist to float array list
+                                for (int i = 0; i < xnewVal.size(); i++) {
+                                    floatxVal.add(Float.parseFloat(xnewVal.get(i)));
+                                    Log.d("FloatXVal", String.valueOf(floatxVal));
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
-                        }
-                        for (int i = 0; i < sumElement.size(); i++) {
-                            total1 += (Double) sumElement.get(i);
-                        }
-                        Log.d("TotalYear1", String.valueOf(total1));
 
-                        if (total1 == 0.0) {
-                            sumIn1 = 0.0;
-                            avg1 = 0.0;
-                        } else {
-                            Log.d("SUMYear1", String.valueOf(total1));
-                            avg1 = total1 / sumElement.size();
-                            Log.d("AverageYear1", String.valueOf(avg1));
-                        }
-                        Log.d("AverageYear1", String.valueOf(avg1));
-                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Concentration Post").child(String.valueOf(year2));
-
-                        reference1.addValueEventListener(new ValueEventListener() {
-
-                            @Override
-                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                ArrayList sumElement = new ArrayList();
-
-                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-
-                                    Log.d("ValuesYear2", String.valueOf(dataSnapshot.getValue()));
-                                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                        Log.d("ValuesYear2Data", String.valueOf(dataSnapshot1.getValue()));
-                                        for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
-
-                                            Log.d("DataYear2", String.valueOf(dataSnapshot2.getKey()));
-                                            for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
-                                                Log.d("DataFinYear2", dataSnapshot3.getKey());
-                                                for (DataSnapshot dataSnapshot4 : dataSnapshot3.getChildren()) {
-                                                    Log.d("KEY2", dataSnapshot4.getKey());
-                                                    for (DataSnapshot dataSnapshot5 : dataSnapshot4.getChildren()) {
-                                                        Log.d("KEYFINAL2", dataSnapshot5.getKey());
-                                                        if (dataSnapshot5.getKey().equals("index")) {
-                                                            dataSnapshot5.getValue();
-                                                            Log.d("DataF2", String.valueOf(dataSnapshot5.getValue()));
-                                                            Double av1 = (Double) dataSnapshot5.getValue();
-                                                            sumElement.add(av1);
-                                                            sumIn2 += av1;
-                                                        }
-                                                    }
-                                                }
-
-                                            }
-                                        }
-                                    }
-                                }
-                                for (int i = 0; i < sumElement.size(); i++) {
-                                    total2 += (Double) sumElement.get(i);
-                                }
-                                Log.d("TotalYear2", String.valueOf(total2));
-
-                                if (total2 == 0.0) {
-                                    sumIn2 = 0.0;
-                                    avg2 = 0.0;
-                                } else {
-                                    Log.d("SUMYear2", String.valueOf(total2));
-                                    avg2 = total2 / sumElement.size();
-                                    Log.d("AverageYear2", String.valueOf(avg2));
-                                }
-                                Log.d("AverageYear2", String.valueOf(avg2));
-                                DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Concentration Post").child(String.valueOf(year3));
-
-                                reference1.addValueEventListener(new ValueEventListener() {
-
+                            StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/conRepYearlyY.txt");
+//        //Downloading file from firebase and storing data into a tempFile in cache memory
+                            try {
+                                localFile = File.createTempFile("tempFileY", ".txt");
+                                text = localFile.getAbsolutePath();
+                                Log.d("Bitmap", text);
+                                storageReference1.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
                                     @Override
-                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                        ArrayList sumElement = new ArrayList();
+                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
+//                            Toast.makeText(Concentration_Daily.this, "Success", Toast.LENGTH_SHORT).show();
 
-                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                        // reading data from the tempFile and storing in array list
 
-                                            Log.d("ValuesYear3", String.valueOf(dataSnapshot.getValue()));
-                                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                                Log.d("ValuesYear3Data", String.valueOf(dataSnapshot1.getValue()));
-                                                for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
+                                        try {
+                                            InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
 
-                                                    Log.d("DataYear3", String.valueOf(dataSnapshot2.getKey()));
-                                                    for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
-                                                        Log.d("DataFinYear3", dataSnapshot3.getKey());
-                                                        for (DataSnapshot dataSnapshot4 : dataSnapshot3.getChildren()) {
-                                                            Log.d("KEY", dataSnapshot4.getKey());
-                                                            for (DataSnapshot dataSnapshot5 : dataSnapshot4.getChildren()) {
-                                                                Log.d("KEYFINAL3", dataSnapshot5.getKey());
-                                                                if (dataSnapshot5.getKey().equals("index")) {
-                                                                    dataSnapshot5.getValue();
-                                                                    Log.d("DataF3", String.valueOf(dataSnapshot5.getValue()));
-                                                                    Double av1 = (Double) dataSnapshot5.getValue();
-                                                                    sumElement.add(av1);
-                                                                    sumIn3 += av1;
-                                                                }
-                                                            }
-                                                        }
+                                            Log.d("FileName", localFile.getAbsolutePath());
 
-                                                    }
-                                                }
+                                            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+                                            String line = "";
+
+                                            Log.d("First", line);
+                                            if ((line = bufferedReader.readLine()) != null) {
+                                                ynewVal.add(line);
                                             }
-                                        }
-                                        for (int i = 0; i < sumElement.size(); i++) {
-                                            total3 += (Double) sumElement.get(i);
-                                        }
-                                        Log.d("TotalYear3", String.valueOf(total3));
+                                            while ((line = bufferedReader.readLine()) != null) {
 
-                                        if (total3 == 0.0) {
-                                            sumIn3 = 0.0;
-                                            avg3 = 0.0;
-                                        } else {
-                                            Log.d("SUMYear3", String.valueOf(total3));
-                                            avg3 = total3 / sumElement.size();
-                                            Log.d("AverageYear3", String.valueOf(avg3));
-                                        }
-                                        Log.d("AverageYear3", String.valueOf(avg3));
-                                        DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Concentration Post").child(String.valueOf(now.get(Calendar.YEAR)));
-
-                                        reference1.addValueEventListener(new ValueEventListener() {
-
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                ArrayList sumElement = new ArrayList();
-
-                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-
-                                                    Log.d("ValuesYear4", String.valueOf(dataSnapshot.getValue()));
-                                                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
-                                                        Log.d("ValuesYear4Data", String.valueOf(dataSnapshot1.getValue()));
-                                                        for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
-
-                                                            Log.d("DataYear4", String.valueOf(dataSnapshot2.getKey()));
-                                                            for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
-                                                                Log.d("DataFinYear4", dataSnapshot3.getKey());
-                                                                for (DataSnapshot dataSnapshot4 : dataSnapshot3.getChildren()) {
-                                                                    Log.d("KEY", dataSnapshot4.getKey());
-                                                                    for (DataSnapshot dataSnapshot5 : dataSnapshot4.getChildren()) {
-                                                                        Log.d("KEYFINAL4", dataSnapshot5.getKey());
-                                                                        if (dataSnapshot5.getKey().equals("index")) {
-                                                                            dataSnapshot5.getValue();
-                                                                            Log.d("DataF4", String.valueOf(dataSnapshot5.getValue()));
-                                                                            Double av1 = (Double) dataSnapshot5.getValue();
-                                                                            sumElement.add(av1);
-                                                                            sumIn4 += av1;
-                                                                        }
-                                                                    }
-                                                                }
-
-                                                            }
-                                                        }
-                                                    }
-                                                }
-                                                for (int i = 0; i < sumElement.size(); i++) {
-                                                    total4 += (Double) sumElement.get(i);
-                                                }
-                                                Log.d("TotalYear4", String.valueOf(total4));
-
-                                                if (total4 == 0.0) {
-                                                    sumIn4 = 0.0;
-                                                    avg4 = 0.0;
-                                                } else {
-                                                    Log.d("SUMYear4", String.valueOf(total4));
-                                                    avg4 = total4 / sumElement.size();
-                                                    Log.d("AverageYear4", String.valueOf(avg4));
-                                                }
-                                                Log.d("AverageYear4", String.valueOf(avg4));
-                                                Log.d("Average1", String.valueOf(avg1));
-                                                Log.d("Average2", String.valueOf(avg2));
-                                                Log.d("Average3", String.valueOf(avg3));
-                                                Log.d("Average4", String.valueOf(avg4));
-
-
-                                                lineEntries.add(new Entry(year1, Float.parseFloat(String.valueOf(avg1))));
-                                                lineEntries.add(new Entry(year2, Float.parseFloat(String.valueOf(avg2))));
-                                                lineEntries.add(new Entry(year3, Float.parseFloat(String.valueOf(avg2))));
-                                                lineEntries.add(new Entry(now.get(Calendar.YEAR), Float.parseFloat(String.valueOf(avg4))));
-
-//                                                    List<String> xAxisValues = new ArrayList<>(Arrays.asList(String.valueOf(year1),String.valueOf(year2),String.valueOf(year3),String.valueOf(now.get(Calendar.YEAR))));
-                                                List<String> xAxisValues = new ArrayList<>(Arrays.asList("", String.valueOf(year1), String.valueOf(year2), String.valueOf(year3), String.valueOf(now.get(Calendar.YEAR))));
-                                                lineDataSet = new LineDataSet(lineEntries, "Concentration Yearly Progress");
-                                                lineChart.getXAxis().setValueFormatter(new com.github.mikephil.charting.formatter.IndexAxisValueFormatter(xAxisValues));
-
-                                                lineData = new LineData(lineDataSet);
-                                                lineChart.setData(lineData);
-
-                                                lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-                                                lineDataSet.setValueTextColor(Color.WHITE);
-                                                lineDataSet.setValueTextSize(10f);
-
-                                                lineChart.setGridBackgroundColor(Color.TRANSPARENT);
-                                                lineChart.getXAxis().setTextSize(7f);
-                                                lineChart.setBorderColor(Color.TRANSPARENT);
-                                                lineChart.setGridBackgroundColor(Color.TRANSPARENT);
-                                                lineChart.getAxisLeft().setDrawGridLines(false);
-                                                lineChart.getXAxis().setDrawGridLines(false);
-                                                lineChart.getAxisRight().setDrawGridLines(false);
-                                                lineChart.getXAxis().setLabelCount(12, true);
-                                                lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
-                                                lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
-                                                lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
-                                                lineChart.setTouchEnabled(true);
-                                                lineChart.getXAxis().setTextColor(getResources().getColor(R.color.white));
-                                                lineChart.setDragEnabled(true);
-                                                lineChart.getXAxis().setLabelCount(12, true);
-                                                lineChart.setExtraBottomOffset(5f);
-                                                lineChart.getXAxis().setAvoidFirstLastClipping(true);
-
-                                                lineChart.setScaleEnabled(false);
-                                                lineChart.setPinchZoom(false);
-                                                lineChart.setDrawGridBackground(false);
-                                                lineChart.getDescription().setTextColor(R.color.white);
-                                                lineChart.invalidate();
-                                                lineChart.refreshDrawableState();
-
-                                                lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+                                                ynewVal.add(line);
+                                                Log.d("Line", line);
                                             }
 
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
+                                            Log.d("YVal", String.valueOf(ynewVal));
+                                            //Converting string arraylist to float array list
+                                            for (int i = 0; i < ynewVal.size(); i++) {
+                                                floatyVal.add(Float.parseFloat(ynewVal.get(i)));
+                                                Log.d("OutX", String.valueOf(floatxVal));
+                                                Log.d("FloatYArray", String.valueOf(floatyVal));
+                                                Log.d("OutY", String.valueOf(floatyVal));
+
 
                                             }
-                                        });
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                        Log.d("floatYVal", String.valueOf(floatyVal));
+
+                                        for (int x = 0; x < floatxVal.size(); x++) {
+
+                                            lineEntries.add(new Entry(floatxVal.get(x), floatyVal.get(x)));
+
+                                        }
+                                        Log.d("Line Entry", String.valueOf(lineEntries));
+                                        lineDataSet = new LineDataSet(lineEntries, "Concentration Index");
+                                        lineData = new LineData(lineDataSet);
+                                        lineChart.setData(lineData);
+
+                                        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+                                        lineDataSet.setValueTextColor(Color.WHITE);
+                                        lineDataSet.setValueTextSize(10f);
+
+                                        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+                                        lineChart.setBorderColor(Color.TRANSPARENT);
+                                        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+                                        lineChart.getAxisLeft().setDrawGridLines(false);
+                                        lineChart.getXAxis().setDrawGridLines(false);
+                                        lineChart.getAxisRight().setDrawGridLines(false);
+                                        lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
+                                        lineChart.getDescription().setTextColor(R.color.white);
+                                        lineChart.invalidate();
+                                        lineChart.refreshDrawableState();
+
                                     }
-
+                                }).addOnFailureListener(new OnFailureListener() {
                                     @Override
-                                    public void onCancelled(@NonNull DatabaseError error) {
-
+                                    public void onFailure(@NonNull Exception e) {
+//                            Toast.makeText(Concentration_Daily.this, "Failed", Toast.LENGTH_SHORT).show();
                                     }
                                 });
+
+
+                            } catch (IOException exception) {
+                                exception.printStackTrace();
                             }
+                        }
+                    }).addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Toast.makeText(ConcentrationReportYearly.this, "Failed X", Toast.LENGTH_SHORT).show();
+                        }
+                    });
 
-                            @Override
-                            public void onCancelled(@NonNull DatabaseError error) {
 
-                            }
-                        });
+                } catch (IOException exception) {
+                    exception.printStackTrace();
+                }
 
-
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
             }
         }, 10000);
     }
