@@ -166,10 +166,10 @@ public class ResultActivity extends AppCompatActivity {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 if (motionEvent.getAction() == MotionEvent.ACTION_DOWN) {
-                    binding.restartBtn.startAnimation(scaleUp);
+//                    binding.restartBtn.startAnimation(scaleUp);
 
                 } else if (motionEvent.getAction() == MotionEvent.ACTION_UP) {
-                    binding.restartBtn.startAnimation(scaleDown);
+//                    binding.restartBtn.startAnimation(scaleDown);
                 }
 
                 return false;

@@ -78,7 +78,7 @@ public class Concentration_Monthly extends AppCompatActivity {
     BarChart barChart;
     private Context context;
     ImageView games, music;
-    AppCompatButton daily, weekly, yearly,improveConcentration;
+    AppCompatButton daily, weekly, yearly, improveConcentration;
     ImageView relaxationBtn, memory;
     FirebaseUser mUser;
     File localFile, fileName;
@@ -141,7 +141,7 @@ public class Concentration_Monthly extends AppCompatActivity {
 
         daily = findViewById(R.id.daily);
         weekly = findViewById(R.id.weekly);
-        improveConcentration=findViewById(R.id.improveConcentration);
+        improveConcentration = findViewById(R.id.improveConcentration);
         yearly = findViewById(R.id.yearly);
         scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
         scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
@@ -1723,7 +1723,7 @@ public class Concentration_Monthly extends AppCompatActivity {
                                                                                                                 lineEntries.add(new Entry(10, Float.parseFloat(String.valueOf(avg10))));
                                                                                                                 lineEntries.add(new Entry(11, Float.parseFloat(String.valueOf(avg11))));
                                                                                                                 lineEntries.add(new Entry(12, Float.parseFloat(String.valueOf(avg12))));
-                                                                                                                List<String> xAxisValues = new ArrayList<>(Arrays.asList("","Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"));
+                                                                                                                List<String> xAxisValues = new ArrayList<>(Arrays.asList("", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"));
 
                                                                                                                 lineDataSet = new LineDataSet(lineEntries, "Concentration Monthly Progress");
                                                                                                                 lineChart.getXAxis().setValueFormatter(new com.github.mikephil.charting.formatter.IndexAxisValueFormatter(xAxisValues));

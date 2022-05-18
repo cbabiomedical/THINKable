@@ -43,10 +43,15 @@ import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.remoteconfig.ktx.remoteConfig
+import com.google.gson.GsonBuilder
 import com.squareup.picasso.Picasso
+import okhttp3.OkHttpClient
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 import java.text.Format
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class MainActivityK : AppCompatActivity() {
 
@@ -66,10 +71,13 @@ class MainActivityK : AppCompatActivity() {
     private lateinit var dialogIntervention: Dialog
     private var mInterstitialAd: InterstitialAd? = null
     lateinit var mUser:FirebaseUser
-    lateinit var jsonPlaceholder:JsonPlaceHolder
+    lateinit var jsonPlaceHolder:JsonPlaceHolder
     var startTime: Long = 0
     var endTime: Long = 0
     var x:Int = 0
+    var c:Int = 0
+    var sum=0.0;
+    var average=0.0;
 
     //    private lateinit var lineChart: LineChart
     private var points: Int = 0;
@@ -109,6 +117,9 @@ class MainActivityK : AppCompatActivity() {
         startTime = System.currentTimeMillis();
         Log.d("StartTime", startTime.toString())
         isStarted = true
+//        val xVal: ArrayList<Float?> = ArrayList<Any?>()
+//        val yVal = ArrayList<Float>()
+        mUser = FirebaseAuth.getInstance().currentUser!!
 //        lineChart = findViewById(R.id.lineChartInterventionGame)
 //        lineChart = findViewById(R.id.lineChartInterventionGame)
         window.setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN)
@@ -559,13 +570,60 @@ class MainActivityK : AppCompatActivity() {
 
                 val sh = getSharedPreferences("prefsTimeMemWH", MODE_APPEND)
 
-// The value will be default as empty string because for
-// the very first time when the app is opened, there is nothing to show
+                val shs = getSharedPreferences("prefsTimeMemWH", MODE_APPEND)
+                val now1 = Calendar.getInstance()
+                val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
+                Log.d("WEEK", now1[Calendar.WEEK_OF_MONTH].toString())
+                Log.d("MONTH", now1[Calendar.MONTH].toString())
+                Log.d("YEAR", now1[Calendar.YEAR].toString())
+                Log.d("DAY", now1[Calendar.DAY_OF_MONTH].toString())
 
-
-// The value will be default as empty string because for
-// the very first time when the app is opened, there is nothing to show
+                val month1 = now1[Calendar.MONTH] + 1
+                val day = now1[Calendar.DAY_OF_MONTH] + 1
+                val f: Format = SimpleDateFormat("EEEE")
+                val str1 = f.format(Date())
                 x = sh.getInt("firstStartTimeMemWH", 0)
+
+
+                Log.d("VideoIndex", BroadcastReceiver_BTLE_GATT.memoryCarGame_index.toString())
+
+                val gson = GsonBuilder()
+                        .setLenient()
+                        .create()
+                val client = OkHttpClient.Builder()
+                        .connectTimeout(120000, TimeUnit.SECONDS)
+                        .readTimeout(120000, TimeUnit.SECONDS).build()
+
+                val retrofit = Retrofit.Builder().baseUrl("http://192.168.8.119:5000/").client(client)
+                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .build()
+                jsonPlaceHolder = retrofit.create(JsonPlaceHolder::class.java)
+
+                Log.d("BroadcastVid", BroadcastReceiver_BTLE_GATT.memoryCarGame_index.toString())
+
+                if (BroadcastReceiver_BTLE_GATT.memoryCarGame_index.size > 0) {
+                    for (i in BroadcastReceiver_BTLE_GATT.memoryCarGame_index.indices) {
+                        Log.d("GETI", BroadcastReceiver_BTLE_GATT.memoryCarGame_index.toString())
+                        sum += BroadcastReceiver_BTLE_GATT.memoryCarGame_index[i] as Double
+                    }
+                    Log.d("SUMRELS", sum.toString())
+                    average = sum / BroadcastReceiver_BTLE_GATT.memoryCarGame_index.size
+                    Log.d("SUMRELS", average.toString())
+                    val averageD = java.lang.Double.valueOf(String.format("%.3g%n", average))
+                    val referenceIntervention = FirebaseDatabase.getInstance().getReference("Users").child(mUser.uid).child("CardGameIntervention").child(now1[Calendar.YEAR].toString()).child(month1.toString()).child(now1[Calendar.WEEK_OF_MONTH].toString()).child(str1).child(x.toString())
+                    referenceIntervention.setValue(averageD)
+                }
+                if (BroadcastReceiver_BTLE_GATT.memoryCarGame_index.size == 0) {
+                    average = 0.0
+                }
+
+// The value will be default as empty string because for
+// the very first time when the app is opened, there is nothing to show
+
+
+// The value will be default as empty string because for
+// the very first time when the app is opened, there is nothing to show
+
 
 // We can then use the data
 
@@ -629,7 +687,18 @@ class MainActivityK : AppCompatActivity() {
         var lineData: LineData
         var lineDataSet: LineDataSet
         val lineEntries = ArrayList<Entry>()
+        val now = Calendar.getInstance()
+        val simpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
+        Log.d("WEEK", now[Calendar.WEEK_OF_MONTH].toString())
+        Log.d("MONTH", now[Calendar.MONTH].toString())
+        Log.d("YEAR", now[Calendar.YEAR].toString())
+        Log.d("DAY", now[Calendar.DAY_OF_MONTH].toString())
+        Log.d("Month", now[Calendar.MONTH].toString())
 
+        val month = now[Calendar.MONTH] + 1
+        val day = now[Calendar.DAY_OF_MONTH] + 1
+        val f: Format = SimpleDateFormat("EEEE")
+        val str = f.format(Date())
 
         dialogIntervention.setContentView(R.layout.game_intervention_popup);
         dialogIntervention.getWindow()?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
@@ -638,32 +707,43 @@ class MainActivityK : AppCompatActivity() {
 
 
         this@MainActivityK.lineEntries = ArrayList<Entry>()
-        lineEntries.add(Entry(2f, 34f))
-        lineEntries.add(Entry(4f, 56f))
-        lineEntries.add(Entry(6f, 65f))
-        lineEntries.add(Entry(8f, 23f))
-        Log.d("GRAPH ENTRY", lineEntries.toString())
-        lineChart = dialogIntervention.findViewById(R.id.lineChartInterventionGame)
-        lineDataSet = LineDataSet(lineEntries, "Memory Progress")
-        lineData = LineData(lineDataSet)
-        lineChart.data = lineData
+        val referenceIntervention = FirebaseDatabase.getInstance().getReference("Users").child(mUser.uid).child("CardGameIntervention").child(now.get(Calendar.YEAR).toString()).child(month.toString()).child(now.get(Calendar.WEEK_OF_MONTH).toString()).child(str)
+        referenceIntervention!!.addValueEventListener(object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                for (dataSnapshot in snapshot.children) {
+                    Log.d("XVAL", dataSnapshot!!.key!!)
+                    val xxVal = dataSnapshot!!.key!!.toFloat()
+//                    Log.d("XArrayList", xVal.toString())
+                    val yyVal: Float = dataSnapshot!!.value.toString().toFloat()
+                    Log.d("YVAL", yyVal.toString())
+//                    Log.d("YArrayList", yVal.toString())
+                    lineEntries.add(Entry(xxVal, yyVal))
+                    lineDataSet = LineDataSet(lineEntries, "Card Game Progress on $str")
+                    lineData = LineData(lineDataSet)
+                    lineChart.data = lineData
+                    lineDataSet.setColors(*ColorTemplate.JOYFUL_COLORS)
+                    lineDataSet.valueTextColor = Color.WHITE
+                    lineDataSet.valueTextSize = 10f
+                    lineChart.setGridBackgroundColor(Color.TRANSPARENT)
+                    lineChart.setBorderColor(Color.TRANSPARENT)
+                    lineChart.setGridBackgroundColor(Color.TRANSPARENT)
+                    lineChart.axisLeft.setDrawGridLines(false)
+                    lineChart.xAxis.setDrawGridLines(false)
+                    lineChart.axisRight.setDrawGridLines(false)
+                    lineChart.xAxis.textColor = R.color.white
+                    lineChart.axisRight.textColor = resources.getColor(R.color.white)
+                    lineChart.axisLeft.textColor = resources.getColor(R.color.white)
+                    lineChart.legend.textColor = resources.getColor(R.color.white)
+                    lineChart.description.textColor = R.color.white
+                    lineChart.invalidate()
+                    lineChart.refreshDrawableState()
+                }
+            }
 
-        lineDataSet.setColors(*ColorTemplate.JOYFUL_COLORS)
-        lineDataSet.setValueTextColor(Color.WHITE)
-        lineDataSet.setValueTextSize(10f)
+            override fun onCancelled(error: DatabaseError) {}
+        })
 
-        lineChart.setGridBackgroundColor(Color.TRANSPARENT)
-        lineChart.setBorderColor(Color.TRANSPARENT)
-        lineChart.setGridBackgroundColor(Color.TRANSPARENT)
-        lineChart.axisLeft.setDrawGridLines(false)
-        lineChart.xAxis.setDrawGridLines(false)
-        lineChart.axisRight.setDrawGridLines(false)
-        lineChart.axisRight.textColor = resources.getColor(R.color.white)
-        lineChart.axisLeft.textColor = resources.getColor(R.color.white)
-        lineChart.legend.textColor = resources.getColor(R.color.white)
-        lineChart.description.textColor = R.color.white
-        lineChart.invalidate()
-        lineChart.refreshDrawableState()
+
 
         ok.setOnClickListener(View.OnClickListener {
             dialogIntervention.dismiss()

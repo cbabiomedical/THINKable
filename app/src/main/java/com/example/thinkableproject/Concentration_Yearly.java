@@ -77,7 +77,7 @@ import pl.droidsonroids.gif.GifImageView;
 public class Concentration_Yearly extends AppCompatActivity {
     Dialog dialogcy;
     BarChart barChart2;
-    AppCompatButton daily, weekly, monthly,improveConcentration;
+    AppCompatButton daily, weekly, monthly, improveConcentration;
     LottieAnimationView anim;
     ImageView relaxationBtn, memory;
     ImageView music, games;
@@ -127,7 +127,7 @@ public class Concentration_Yearly extends AppCompatActivity {
         daily = findViewById(R.id.daily);
         weekly = findViewById(R.id.weekly);
         monthly = findViewById(R.id.monthly);
-        improveConcentration=findViewById(R.id.improveConcentration);
+        improveConcentration = findViewById(R.id.improveConcentration);
         scaleUp = AnimationUtils.loadAnimation(this, R.anim.sacale_up);
         scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         relaxationBtn = findViewById(R.id.relaxation);

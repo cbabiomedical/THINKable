@@ -11,8 +11,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.thinkableproject.BroadcastReceiver_BTLE_GATT;
 import com.example.thinkableproject.R;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.data.Entry;
@@ -21,8 +23,11 @@ import com.github.mikephil.charting.data.LineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -36,8 +41,12 @@ public class VictoryPage extends AppCompatActivity {
     LineData lineData;
     LineDataSet lineDataSet;
     ArrayList lineEntries;
+    Double sum = 0.0;
+    Double average = 0.0;
     FirebaseUser mUser;
     int x;
+    ArrayList<Float> xVal = new ArrayList();
+    ArrayList<Float> yVal = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +54,7 @@ public class VictoryPage extends AppCompatActivity {
         setContentView(R.layout.activity_victory_page);
         GlobalElements.getInstance().levelUp();
         dialog = new Dialog(this);
-        mUser= FirebaseAuth.getInstance().getCurrentUser();
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
         updateScore();
         updateLevel();
         if (GlobalElements.getInstance().getLevel() == 21) {
@@ -83,6 +92,22 @@ public class VictoryPage extends AppCompatActivity {
         editor1.putInt("firstStartTimeMemWH", y);
         editor1.apply();
 
+        Log.d("BroadCastReceiver", String.valueOf(BroadcastReceiver_BTLE_GATT.memoryWordMatch));
+        if (BroadcastReceiver_BTLE_GATT.memoryWordMatch.size() > 0) {
+            for (int i = 0; i < BroadcastReceiver_BTLE_GATT.memoryWordMatch.size(); i++) {
+                Log.d("GETI", String.valueOf(BroadcastReceiver_BTLE_GATT.memoryWordMatch));
+                sum += (Double) BroadcastReceiver_BTLE_GATT.memoryWordMatch.get(i);
+            }
+            Log.d("SUMRELS", String.valueOf(sum));
+            average = sum / BroadcastReceiver_BTLE_GATT.memoryWordMatch.size();
+            Log.d("SUMRELS", String.valueOf(average));
+            Double averageD = Double.valueOf(String.format("%.3g%n", average));
+
+            DatabaseReference referenceIntervention = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("WordMatchIntervention").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(x));
+            referenceIntervention.setValue(averageD);
+            BroadcastReceiver_BTLE_GATT.memoryWordMatch.clear();
+        }
+
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("TimeSpentWHChart").child(mUser.getUid()).child("Memory Games").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(x));
         reference.setValue(seconds);
         openLineChart();
@@ -110,6 +135,17 @@ public class VictoryPage extends AppCompatActivity {
     }
 
     private void openLineChart() {
+        Calendar now = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Log.d("WEEK", String.valueOf(now.get(Calendar.WEEK_OF_MONTH)));
+        Log.d("MONTH", String.valueOf(now.get(Calendar.MONTH)));
+        Log.d("YEAR", String.valueOf(now.get(Calendar.YEAR)));
+        Log.d("DAY", String.valueOf(now.get(Calendar.DAY_OF_MONTH)));
+
+        int month = now.get(Calendar.MONTH) + 1;
+        int day = now.get(Calendar.DAY_OF_MONTH) + 1;
+        Format f = new SimpleDateFormat("EEEE");
+        String str = f.format(new Date());
         Button ok;
         TextView coins;
         TextView totalPoints;
@@ -121,28 +157,49 @@ public class VictoryPage extends AppCompatActivity {
         totalPoints = (TextView) dialog.findViewById(R.id.total);
         lineChart = (LineChart) dialog.findViewById(R.id.lineChartInterventionGame);
         lineEntries = new ArrayList();
-        getEntries();
-        lineDataSet = new LineDataSet(lineEntries, "Word Match Progress");
-        lineData = new LineData(lineDataSet);
-        lineChart.setData(lineData);
 
-        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-        lineDataSet.setValueTextColor(Color.WHITE);
-        lineDataSet.setValueTextSize(10f);
+        DatabaseReference referenceIntervention = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("WordMatchIntervention").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str);
+        referenceIntervention.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Log.d("XVAL", dataSnapshot.getKey());
+                    float xxVal = (Float.parseFloat(dataSnapshot.getKey()));
 
-        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
-        lineChart.setBorderColor(Color.TRANSPARENT);
-        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
-        lineChart.getAxisLeft().setDrawGridLines(false);
-        lineChart.getXAxis().setDrawGridLines(false);
-        lineChart.getAxisRight().setDrawGridLines(false);
-        lineChart.getXAxis().setTextColor(R.color.white);
-        lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
-        lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
-        lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
-        lineChart.getDescription().setTextColor(R.color.white);
-        lineChart.invalidate();
-        lineChart.refreshDrawableState();
+                    Log.d("XArrayList", String.valueOf(xVal));
+                    float yyVal = (Float.parseFloat(String.valueOf((Double) dataSnapshot.getValue())));
+                    Log.d("YVAL", String.valueOf(yyVal));
+                    Log.d("YArrayList", String.valueOf(yVal));
+                    lineEntries.add(new Entry(xxVal, yyVal));
+                    lineDataSet = new LineDataSet(lineEntries, "Word Match Progress on "+str);
+                    lineData = new LineData(lineDataSet);
+                    lineChart.setData(lineData);
+
+                    lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+                    lineDataSet.setValueTextColor(Color.WHITE);
+                    lineDataSet.setValueTextSize(10f);
+
+                    lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+                    lineChart.setBorderColor(Color.TRANSPARENT);
+                    lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+                    lineChart.getAxisLeft().setDrawGridLines(false);
+                    lineChart.getXAxis().setDrawGridLines(false);
+                    lineChart.getAxisRight().setDrawGridLines(false);
+                    lineChart.getXAxis().setTextColor(R.color.white);
+                    lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
+                    lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+                    lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
+                    lineChart.getDescription().setTextColor(R.color.white);
+                    lineChart.invalidate();
+                    lineChart.refreshDrawableState();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 //
         ok.setOnClickListener(new View.OnClickListener() {

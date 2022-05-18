@@ -91,37 +91,37 @@ public class PlayVideo extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        startActivity(new Intent(getApplicationContext(), VideoInterventionActivity.class));
+                        startActivity(new Intent(getApplicationContext(), VideoLineChart.class));
                         points = 10;
                         database.collection("users")
                                 .document(FirebaseAuth.getInstance().getUid())
                                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-                            @Override
-                            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                                user = documentSnapshot.toObject(User.class);
+                                    @Override
+                                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                                        user = documentSnapshot.toObject(User.class);
 //                binding.currentCoins.setText(String.valueOf(user.getCoins()));
-                                Log.d("Current Coins", String.valueOf(user.getCoins()));
-                                Log.d("High Score Inside", String.valueOf(points));
-                                updatedCoins = (int) (user.getCoins() + points);
-                                Log.d("Updated High Score", String.valueOf(updatedCoins));
+                                        Log.d("Current Coins", String.valueOf(user.getCoins()));
+                                        Log.d("High Score Inside", String.valueOf(points));
+                                        updatedCoins = (int) (user.getCoins() + points);
+                                        Log.d("Updated High Score", String.valueOf(updatedCoins));
 //                binding.currentCoins.setText(user.getCoins() + "");
-                                database.collection("users").document(FirebaseAuth.getInstance().getUid())
-                                        .update("coins", updatedCoins).addOnSuccessListener(new OnSuccessListener<Void>() {
-                                    @Override
-                                    public void onSuccess(Void aVoid) {
+                                        database.collection("users").document(FirebaseAuth.getInstance().getUid())
+                                                .update("coins", updatedCoins).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
 //                        Toast.makeText(ColorPatternGame.this, "Successfully Updated Coins", Toast.LENGTH_SHORT).show();
-                                    }
-                                }).addOnFailureListener(new OnFailureListener() {
-                                    @Override
-                                    public void onFailure(@NonNull Exception e) {
-                                        Log.d("Error", String.valueOf(e));
+                                                    }
+                                                }).addOnFailureListener(new OnFailureListener() {
+                                                    @Override
+                                                    public void onFailure(@NonNull Exception e) {
+                                                        Log.d("Error", String.valueOf(e));
 //                        Toast.makeText(ColorPatternGame.this, "Failed to Update Coins", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+
+
                                     }
                                 });
-
-
-                            }
-                        });
                     }
                 }, 1000);
 
@@ -145,9 +145,9 @@ public class PlayVideo extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
-//                    if (simpleVideoView.getCurrentPosition() == simpleVideoView.getDuration()) {
-////                        startActivity(new Intent(getApplicationContext(), VideoInterventionActivity.class));
-////                    }
+//                    if (simpleVideoView.getCurrentPosition() simpleVideoView.getDuration()) {
+//                        startActivity(new Intent(getApplicationContext(), VideoLineChart.class));
+//                    }
                 }
             }
 

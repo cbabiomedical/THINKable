@@ -103,6 +103,8 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
     private int random;
     private int round;
     int x;
+    Double sum=0.0;
+    Double average=0.0;
     ArrayList colorPatternData;
     User user;
     private InterstitialAd mInterstitialAd;
@@ -119,6 +121,8 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
     FirebaseUser mUser;
     private ListAdapter_BTLE_Services expandableListAdapter;
     VideoView gameVideo;
+    ArrayList<Float> xVal = new ArrayList();
+    ArrayList<Float> yVal = new ArrayList<>();
     int color;
     private ArrayList<BluetoothGattService> services_ArrayList;
     private HashMap<String, BluetoothGattCharacteristic> characteristics_HashMap;
@@ -718,32 +722,32 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
         database.collection("users")
                 .document(mUser.getUid())
                 .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-            @Override
-            public void onSuccess(DocumentSnapshot documentSnapshot) {
-                user = documentSnapshot.toObject(User.class);
+                    @Override
+                    public void onSuccess(DocumentSnapshot documentSnapshot) {
+                        user = documentSnapshot.toObject(User.class);
 //                binding.currentCoins.setText(String.valueOf(user.getCoins()));
-                Log.d("Current Coins", String.valueOf(user.getCoins()));
-                Log.d("High Score Inside", String.valueOf(highScore));
-                updatedCoins = (int) (user.getCoins() + highScore);
-                Log.d("Updated High Score", String.valueOf(updatedCoins));
+                        Log.d("Current Coins", String.valueOf(user.getCoins()));
+                        Log.d("High Score Inside", String.valueOf(highScore));
+                        updatedCoins = (int) (user.getCoins() + highScore);
+                        Log.d("Updated High Score", String.valueOf(updatedCoins));
 //                binding.currentCoins.setText(user.getCoins() + "");
-                database.collection("users").document(mUser.getUid())
-                        .update("coins", updatedCoins).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void aVoid) {
+                        database.collection("users").document(mUser.getUid())
+                                .update("coins", updatedCoins).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
 //                        Toast.makeText(ColorPatternGame.this, "Successfully Updated Coins", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.d("Error", String.valueOf(e));
+                                    }
+                                }).addOnFailureListener(new OnFailureListener() {
+                                    @Override
+                                    public void onFailure(@NonNull Exception e) {
+                                        Log.d("Error", String.valueOf(e));
 //                        Toast.makeText(ColorPatternGame.this, "Failed to Update Coins", Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+
+
                     }
                 });
-
-
-            }
-        });
 
 
         AlertDialog alertDialog = new AlertDialog.Builder(this)
@@ -768,19 +772,19 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
                     }
                 })
 //set negative button
-                .
+        .
 
-                        setNegativeButton("Yes", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
+                setNegativeButton("Yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
 //                        openPopUpLineChart();
-                                //set what should happen when negative button is clicked
-                                Toast.makeText(getApplicationContext(), "Press START button to start", Toast.LENGTH_LONG).show();
-                            }
-                        })
-                .
+                        //set what should happen when negative button is clicked
+                        Toast.makeText(getApplicationContext(), "Press START button to start", Toast.LENGTH_LONG).show();
+                    }
+                })
+                        .
 
-                        show();
+                show();
         SharedPreferences sh = getSharedPreferences("prefsTimeMemWH", MODE_APPEND);
         x = sh.getInt("firstStartTimeMemWH", 0);
         Log.d("A Count", String.valueOf(x));
@@ -816,6 +820,26 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
         Long seconds = (endTime - startTime) / 1000;
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("TimeSpentWHChart").child(mUser.getUid()).child("Memory Games").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(x));
         reference.setValue(seconds);
+        Log.d("BroadcastReceiverColo", String.valueOf(BroadcastReceiver_BTLE_GATT.memoryColorPattern));
+        if (BroadcastReceiver_BTLE_GATT.memoryColorPattern.size() > 0) {
+            for (int i = 0; i < BroadcastReceiver_BTLE_GATT.memoryColorPattern.size(); i++) {
+                Log.d("GETI", String.valueOf(BroadcastReceiver_BTLE_GATT.memoryColorPattern));
+                sum += (Double) BroadcastReceiver_BTLE_GATT.memoryColorPattern.get(i);
+            }
+            Log.d("SUMRELS", String.valueOf(sum));
+            average = sum / BroadcastReceiver_BTLE_GATT.memoryColorPattern.size();
+            Log.d("SUMRELS", String.valueOf(average));
+            Double averageD = Double.valueOf(String.format("%.3g%n", average));
+
+            DatabaseReference referenceIntervention = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("ColorPatternIntervention").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(x));
+            referenceIntervention.setValue(averageD);
+//
+////            DatabaseReference referenceIntervention1 = FirebaseDatabase.getInstance().getReference("RelaxationIndex").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(c));
+////            referenceIntervention1.setValue(averageD);
+//
+        }
+
+        // Paste copied code
 
 
     }
@@ -829,51 +853,66 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
         dialogIntervention.setContentView(R.layout.color_pattern_intervention_chart);
         dialogIntervention.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         lineChart = (LineChart) dialogIntervention.findViewById(R.id.lineChartColorP);
-//        points=(TextView)dialogIntervention.findViewById(R.id.points);
-//        totalPoints=(TextView)dialogIntervention.findViewById(R.id.total);
-
-//        Log.d("highscore", String.valueOf(highScore));
-//        database.collection("users")
-//                .document(FirebaseAuth.getInstance().getCurrentUser().getUid())
-//                .get().addOnSuccessListener(new OnSuccessListener<DocumentSnapshot>() {
-//            @Override
-//            public void onSuccess(DocumentSnapshot documentSnapshot) {
-//                user = documentSnapshot.toObject(User.class);
-////
-//                Log.d("Current Coins", String.valueOf(user.getCoins()));
-////
-//                totalPoints.setText("Total Coins: "+user.getCoins());
-////
-//
-//            }
-//        });
-
-
-//        points.setText("Coins Earned:"+highScore);
-
-        getEntries();
-        lineDataSet = new LineDataSet(lineEntries, "Color Pattern Progress");
-        lineData = new LineData(lineDataSet);
-        lineChart.setData(lineData);
-
-        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-        lineDataSet.setValueTextColor(Color.WHITE);
-        lineDataSet.setValueTextSize(10f);
-
-        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
-        lineChart.setBorderColor(Color.TRANSPARENT);
-        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
-        lineChart.getAxisLeft().setDrawGridLines(false);
-        lineChart.getXAxis().setDrawGridLines(false);
-        lineChart.getAxisRight().setDrawGridLines(false);
-        lineChart.getXAxis().setTextColor(R.color.white);
-        lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
-        lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
-        lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
-        lineChart.getDescription().setTextColor(R.color.white);
-        lineChart.invalidate();
-        lineChart.refreshDrawableState();
         ok = (Button) dialogIntervention.findViewById(R.id.ok);
+        Calendar now = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Log.d("WEEK", String.valueOf(now.get(Calendar.WEEK_OF_MONTH)));
+        Log.d("MONTH", String.valueOf(now.get(Calendar.MONTH)));
+        Log.d("YEAR", String.valueOf(now.get(Calendar.YEAR)));
+        Log.d("DAY", String.valueOf(now.get(Calendar.DAY_OF_MONTH)));
+
+        int month = now.get(Calendar.MONTH) + 1;
+        int day = now.get(Calendar.DAY_OF_MONTH) + 1;
+        Format f = new SimpleDateFormat("EEEE");
+        String str = f.format(new Date());
+//prints day name
+        System.out.println("Day Name: " + str);
+        Log.d("Day Name", str);
+        lineEntries = new ArrayList();
+
+        DatabaseReference referenceIntervention = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("ColorPatternIntervention").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str);
+        referenceIntervention.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Log.d("XVAL", dataSnapshot.getKey());
+                    float xxVal = (Float.parseFloat(dataSnapshot.getKey()));
+
+                    Log.d("XArrayList", String.valueOf(xVal));
+                    float yyVal = (Float.parseFloat(String.valueOf((Double) dataSnapshot.getValue())));
+                    Log.d("YVAL", String.valueOf(yyVal));
+                    Log.d("YArrayList", String.valueOf(yVal));
+                    lineEntries.add(new Entry(xxVal, yyVal));
+
+                    lineDataSet = new LineDataSet(lineEntries, "Color Pattern Progress on " + str);
+                    lineData = new LineData(lineDataSet);
+                    lineChart.setData(lineData);
+
+                    lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+                    lineDataSet.setValueTextColor(Color.WHITE);
+                    lineDataSet.setValueTextSize(10f);
+
+                    lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+                    lineChart.setBorderColor(Color.TRANSPARENT);
+                    lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+                    lineChart.getAxisLeft().setDrawGridLines(false);
+                    lineChart.getXAxis().setDrawGridLines(false);
+                    lineChart.getAxisRight().setDrawGridLines(false);
+                    lineChart.getXAxis().setTextColor(R.color.white);
+                    lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
+                    lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+                    lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
+                    lineChart.getDescription().setTextColor(R.color.white);
+                    lineChart.invalidate();
+                    lineChart.refreshDrawableState();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
 
 
         ok.setOnClickListener(new View.OnClickListener() {
@@ -887,14 +926,7 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
 
     }
 
-    private void getEntries() {
-        lineEntries = new ArrayList();
-        lineEntries.add(new Entry(2f, 34f));
-        lineEntries.add(new Entry(4f, 56f));
-        lineEntries.add(new Entry(6f, 65));
-        lineEntries.add(new Entry(8f, 23f));
 
-    }
 
     // if clicked button is incorrect, game will be reset
     public void resetGame() {

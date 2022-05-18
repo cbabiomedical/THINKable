@@ -48,7 +48,7 @@ public interface JsonPlaceHolder {
 
     @POST("memory_index")
     Call<List> PostColorPatternMemData(@Body ArrayList brain_waves);
-    
+
 //====================================================================
 
     //=========Posting CardGame Data=================================
@@ -118,9 +118,6 @@ public interface JsonPlaceHolder {
 //    ================================================================
 
 
-
-
-
     @FormUrlEncoded
     @POST("")
     Call<Void> createPostVal(
@@ -132,6 +129,8 @@ public interface JsonPlaceHolder {
     @POST("concentration_times")
     Call<List> PostTimeToConcentrate(@Body ArrayList brain_waves);
 
+    @POST("relaxation_times")
+    Call<List> PostTimeToRelax(@Body ArrayList brain_waves);
 
 
 //====================================================================

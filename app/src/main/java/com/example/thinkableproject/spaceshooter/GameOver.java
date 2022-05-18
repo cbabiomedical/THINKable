@@ -165,11 +165,12 @@ public class GameOver extends AppCompatActivity {
 
         if (BroadcastReceiver_BTLE_GATT.concentration_indexes.size() > 0) {
 
-            Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.137:5000/").client(client)
+            Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.104:5000/").client(client)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
             jsonPlaceHolder = retrofit.create(JsonPlaceHolder.class);
             ArrayList data = new ArrayList((Arrays.asList(0.5, 0.6, 0.7, 0.3, 0.8, 0.55, 0.65, 0.75, 0.45, 0.7, 0.65, 0.55, 0.1, 0.45)));
+
             Call<List> callMusRel = jsonPlaceHolder.PostTimeToConcentrate(BroadcastReceiver_BTLE_GATT.concentration_indexes);
             callMusRel.enqueue(new Callback<List>() {
                 @Override

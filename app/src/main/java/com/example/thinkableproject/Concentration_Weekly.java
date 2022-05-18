@@ -77,7 +77,7 @@ import pl.droidsonroids.gif.GifImageView;
 public class Concentration_Weekly extends AppCompatActivity {
     Dialog dialogcw;
     BarChart barChart1;
-    AppCompatButton monthly, yearly, daily,improveConcentration;
+    AppCompatButton monthly, yearly, daily, improveConcentration;
     Animation scaleUp, scaleDown;
 
     View dayMode, nightMode;
@@ -143,7 +143,7 @@ public class Concentration_Weekly extends AppCompatActivity {
         scaleDown = AnimationUtils.loadAnimation(this, R.anim.scale_down);
         dialogcw = new Dialog(this);
         memory = findViewById(R.id.memory);
-        improveConcentration=findViewById(R.id.improveConcentration);
+        improveConcentration = findViewById(R.id.improveConcentration);
         music = findViewById(R.id.music);
         games = findViewById(R.id.game);
         anim = findViewById(R.id.animation);
@@ -1135,6 +1135,7 @@ public class Concentration_Weekly extends AppCompatActivity {
                                                         lineEntries.add(new Entry(3, Float.parseFloat(String.valueOf(avg3))));
                                                         lineEntries.add(new Entry(4, Float.parseFloat(String.valueOf(avg4))));
                                                         lineEntries.add(new Entry(5, Float.parseFloat(String.valueOf(avg5))));
+
                                                         String xAxisValues[] = {"", "WK1", "WK2", "WK3", "WK4", "WK5", "", ""};
 
                                                         lineDataSet = new LineDataSet(lineEntries, "Concentration Daily Progress");

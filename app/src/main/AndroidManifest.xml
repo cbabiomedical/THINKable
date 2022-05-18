@@ -45,7 +45,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ThinkableProject"
         android:usesCleartextTraffic="true">
-        <activity android:name=".ninjadarts.ninjaStart"></activity>
+        <activity
+            android:name=".VideoLineChart"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:exported="false" />
+        <activity android:name=".ninjadarts.ninjaStart" />
         <activity
             android:name=".WordMatching.VictoryPage"
             android:exported="false"
@@ -66,6 +70,9 @@
             android:exported="false"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity android:name="com.example.SettingsPreference"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity
             android:name=".IHaveToFly.GameActivity"
             android:screenOrientation="landscape"
@@ -82,6 +89,7 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".WordMatching.MainMenu"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
@@ -177,13 +185,13 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name="com.example.AdsMobClass"
+            android:name=".AdsMobClass"
             android:label="@string/title_activity_ads_mob_class" />
         <activity
             android:name=".MeditationMemory"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.example.AdMobAddActuivity"
+            android:name=".AdMobAddActuivity"
             android:label="@string/title_activity_ad_mob_add_actuivity" />
         <activity
             android:name=".MusicRelaxation"
@@ -246,7 +254,7 @@
             android:name=".MeditationLineChart"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
-        <activity android:name="com.example.Help" />
+        <activity android:name=".Help" />
         <activity
             android:name=".ContactUs"
             android:exported="true"
@@ -640,7 +648,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
-            android:name="com.example.SettingsPreference"
+            android:name=".SettingsPreference"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
@@ -664,7 +672,7 @@
         </activity>
 
         <service
-            android:name="com.example.PushNotificationService"
+            android:name=".PushNotificationService"
             android:exported="false"
             android:screenOrientation="portrait">
             <intent-filter>

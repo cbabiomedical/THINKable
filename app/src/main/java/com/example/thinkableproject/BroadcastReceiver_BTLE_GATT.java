@@ -146,6 +146,9 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
     public static ArrayList relaxation_indexesMus = new ArrayList();
     public static ArrayList relaxation_index_Vid = new ArrayList();
     public static ArrayList relaxation_indexMed = new ArrayList();
+    public static ArrayList memoryCarGame_index = new ArrayList();
+    public static ArrayList memoryColorPattern = new ArrayList();
+    public static ArrayList memoryWordMatch = new ArrayList();
     JsonPlaceHolder jsonPlaceHolder;
     private final static String TAG = Activity_BTLE_Services.class.getSimpleName();
     HashMap hashMap = new HashMap();
@@ -366,7 +369,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                         .connectTimeout(120000, TimeUnit.SECONDS)
                         .readTimeout(120000, TimeUnit.SECONDS).build();
 
-                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.137:5000/").client(client)
+                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.119:5000/").client(client)
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .build();
                 jsonPlaceHolder = retrofit.create(JsonPlaceHolder.class);
@@ -374,72 +377,91 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                 if (data != null) {
                     dataValues.add(Utils.hexToString(data));
                     Log.d("DataSize", String.valueOf(dataValues.size()));
+
+                    // Posting Color Pattern Data
                     if (ColorPatternGame.isGameStarted) {
                         color.add(Utils.hexToString(data));
                         Log.d("ColorPatternData", String.valueOf(color));
 
-                        if (colorDouble.size() % 80 == 0) {
-//                            //==========Post COLOR PATTERN DATA FOR MEMORY=================
-//                            Call<List> callColMem = jsonPlaceHolder.PostColorPatternMemData(colorDouble);
-//                            callColMem.enqueue(new Callback<List>() {
-//                                @Override
-//                                public void onResponse(Call<List> call, Response<List> response) {
-//                                    Toast.makeText(context, "Post Successful", Toast.LENGTH_SHORT).show();
-//                                    Log.d("Response Code ColMem", String.valueOf(response.code()));
-//                                    Log.d("ColMem Res Message", response.message());
-//                                    Log.d("ColMem Res Body", String.valueOf(response.body()));
-//                                    mUser = FirebaseAuth.getInstance().getCurrentUser();
-//                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Memory Post").child("Color Pattern").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(x));
-//                                    reference.setValue(response.body());
-//                                    Log.d("ColMem Res Type", String.valueOf(response.body().getClass().getSimpleName()));
-//
-//                                }
-//
-//                                //
-//                                @Override
-//                                public void onFailure(Call<List> call, Throwable t) {
-//                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
-//                                    Log.d("ErrorVal", String.valueOf(t));
-//
-//
-//                                }
-//                            });
+                        if (colorDouble.size() % 30 == 0) {
+                            //==========Post COLOR PATTERN DATA FOR MEMORY=================
+                            Call<List> callColMem = jsonPlaceHolder.PostColorPatternMemData(colorDouble);
+                            callColMem.enqueue(new Callback<List>() {
+                                @Override
+                                public void onResponse(Call<List> call, Response<List> response) {
+                                    Toast.makeText(context, "Post Successful", Toast.LENGTH_SHORT).show();
+                                    Log.d("Response Code ColMem", String.valueOf(response.code()));
+                                    Log.d("ColMem Res Message", response.message());
+                                    Log.d("ColMem Res Body", String.valueOf(response.body()));
+                                    Log.d("ColMem Res Type", String.valueOf(response.body().getClass().getSimpleName()));
+
+                                    List colorpattindex = new ArrayList();
+                                    colorpattindex = response.body();
+                                    Log.d("ColorPatternList", String.valueOf(colorpattindex.get(0)));
+                                    LinkedTreeMap hashMap = new LinkedTreeMap();
+                                    hashMap = (LinkedTreeMap) colorpattindex.get(0);
+                                    Log.d("HashMapTree", String.valueOf(hashMap.get("index")));
+                                    memoryColorPattern.add(hashMap.get("index"));
+                                    Log.d("MEMORYINDEX", String.valueOf(memoryColorPattern));
+                                    Log.d("ShCon Res Type", String.valueOf(response.body().getClass().getSimpleName()));
+
+                                }
+
+                                //
+                                @Override
+                                public void onFailure(Call<List> call, Throwable t) {
+                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
+                                    Log.d("ErrorVal", String.valueOf(t));
+
+
+                                }
+                            });
 
                         }
                     }
+                    // Posting Card Game Data
                     if (MainActivityK.Companion.isStarted()) {
                         cardGame.add(Utils.hexToString(data));
                         Log.d("CardGame", String.valueOf(cardGame));
-                        if (cardGameDouble.size() % 80 == 0) {
+                        if (cardGameDouble.size() % 40 == 0) {
 
                             //==========Post CARD GAME DATA FOR MEMORY=================
-//                            Call<List> callCrdMem = jsonPlaceHolder.PostCardGamData(cardGameDouble);
-//                            callCrdMem.enqueue(new Callback<List>() {
-//                                @Override
-//                                public void onResponse(Call<List> call, Response<List> response) {
-//                                    Toast.makeText(context, "Post Successful", Toast.LENGTH_SHORT).show();
-//                                    Log.d("Response Code CrdMem", String.valueOf(response.code()));
-//                                    Log.d("CrdMem Res Message", response.message());
-//                                    Log.d("CrdMem Res Body", String.valueOf(response.body()));
-//                                    mUser = FirebaseAuth.getInstance().getCurrentUser();
-//                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Memory Post").child("Card Game").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(x));
-//                                    reference.setValue(response.body());
-//                                    Log.d("CrdMem Res Type", String.valueOf(response.body().getClass().getSimpleName()));
-//
-//                                }
-//
-//                                //
-//                                @Override
-//                                public void onFailure(Call<List> call, Throwable t) {
-//                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
-//                                    Log.d("ErrorVal", String.valueOf(t));
-//
-//
-//                                }
-//                            });
+                            Call<List> callCrdMem = jsonPlaceHolder.PostCardGamData(cardGameDouble);
+                            callCrdMem.enqueue(new Callback<List>() {
+                                @Override
+                                public void onResponse(Call<List> call, Response<List> response) {
+                                    Toast.makeText(context, "Post Successful", Toast.LENGTH_SHORT).show();
+                                    Log.d("Response Code CrdMem", String.valueOf(response.code()));
+                                    Log.d("CrdMem Res Message", response.message());
+                                    Log.d("CrdMem Res Body", String.valueOf(response.body()));
+                                    Log.d("CrdMem Res Type", String.valueOf(response.body().getClass().getSimpleName()));
+
+                                    List cardgameindex = new ArrayList();
+                                    cardgameindex = response.body();
+                                    Log.d("CardGameList", String.valueOf(cardgameindex.get(0)));
+                                    LinkedTreeMap hashMap = new LinkedTreeMap();
+                                    hashMap = (LinkedTreeMap) cardgameindex.get(0);
+                                    Log.d("HashMapTree", String.valueOf(hashMap.get("index")));
+                                    memoryCarGame_index.add(hashMap.get("index"));
+                                    Log.d("CONCENTRATIONINDEX", String.valueOf(memoryCarGame_index));
+                                    Log.d("ShCon Res Type", String.valueOf(response.body().getClass().getSimpleName()));
+
+
+                                }
+
+                                //
+                                @Override
+                                public void onFailure(Call<List> call, Throwable t) {
+                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
+                                    Log.d("ErrorVal", String.valueOf(t));
+
+
+                                }
+                            });
 
                         }
                     }
+                    // Posting Spacehooter Data
                     if (SpaceShooter.isStarted) {
                         spacehooter.add(Utils.hexToString(data));
                         Log.d("Spacehooter", String.valueOf(spacehooter));
@@ -683,22 +705,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                                     concentration_indexesND.add(hashMapND.get("index"));
                                     DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Concentration Post").child("NinjaDart").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(a));
                                     reference.setValue(response.body());
-//                                    DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("occupation");
-//                                    reference1.addValueEventListener(new ValueEventListener() {
-//                                        @Override
-//                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-//                                            Log.d("GETOCCUPATION", String.valueOf(snapshot.getValue()));
-//                                            DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("WhereAmI").child(String.valueOf(snapshot.getValue())).child("Concentration Index").child(String.valueOf(a));
-//                                            reference2.setValue(response.body());
-//                                        }
 //
-//                                        @Override
-//                                        public void onCancelled(@NonNull DatabaseError error) {
-//
-//                                        }
-//                                    });
-//                                    Log.d("PTCon Res Type", String.valueOf(response.body().getClass().getSimpleName()));
-
                                 }
 
                                 @Override
@@ -937,201 +944,204 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
 
                         }
                     }
+
+                    // Word Matching Data
                     if (TwoByTwoGrid.isStarted) {
                         wordMatch.add(Utils.hexToString(data));
                         Log.d("WordMatch", String.valueOf(wordMatch));
-                        if (wordMatchDouble.size() % 80 == 0) {
-//                            SharedPreferences sh = context.getSharedPreferences("prefsCountWord", MODE_APPEND);
-//                            a = sh.getInt("firstStartCountWord", 0);
-//                            Log.d("A Count", String.valueOf(a));
-//                            int b = a + 1;
-//
-//                            SharedPreferences prefsCountWord1=context. getSharedPreferences("prefsCountWord", MODE_PRIVATE);
-//                            SharedPreferences.Editor editor = prefsCountWord1.edit();
-//                            editor.putInt("firstStartCountWord", b);
-//                            editor.apply();
-//                            SharedPreferences sha = context.getSharedPreferences("prefsCountWord", MODE_APPEND);
+                        if (wordMatchDouble.size() % 20 == 0) {
 //                            // Post WORDMATHC DATA FOR MEMORY
 //
-//                            Call<List> callWMMem = jsonPlaceHolder.PostWordMatchData(wordMatchDouble);
-//                            callWMMem.enqueue(new Callback<List>() {
-//                                        @Override
-//                                        public void onResponse(Call<List> call, Response<List> response) {
-//                                            Toast.makeText(context, "Post Word Successful", Toast.LENGTH_SHORT).show();
-//                                            Log.d("Res Code cWDMem", String.valueOf(response.code()));
-//                                            Log.d("cWDMem Res Message", response.message());
-//                                            Log.d("cWDMem Res Body", String.valueOf(response.body()));
-//                                            mUser = FirebaseAuth.getInstance().getCurrentUser();
-//                                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Memory Post").child("Word Match").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(a));
-//                                            reference.setValue(response.body());
-////                                    Log.d("PTCon Res Type", String.valueOf(response.body().getClass().getSimpleName()));
-//
-//                                        }
-//
-//                                        @Override
-//                                        public void onFailure(Call<List> call, Throwable t) {
-//                                            Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
-//                                            Log.d("ErrorVal", String.valueOf(t));
-//                                        }
-//                                    });
+                            Call<List> callWMMem = jsonPlaceHolder.PostWordMatchData(wordMatchDouble);
+                            callWMMem.enqueue(new Callback<List>() {
+                                @Override
+                                public void onResponse(Call<List> call, Response<List> response) {
+                                    Toast.makeText(context, "Post Word Successful", Toast.LENGTH_SHORT).show();
+                                    Log.d("Res Code cWDMem", String.valueOf(response.code()));
+                                    Log.d("cWDMem Res Message", response.message());
+                                    Log.d("cWDMem2 Res Body", String.valueOf(response.body()));
+
+                                    List twobytwoindex = new ArrayList();
+                                    twobytwoindex = response.body();
+                                    Log.d("MeditationList", String.valueOf(twobytwoindex.get(0)));
+                                    LinkedTreeMap hashMap = new LinkedTreeMap();
+                                    hashMap = (LinkedTreeMap) twobytwoindex.get(0);
+                                    Log.d("HashMapTree", String.valueOf(hashMap.get("index")));
+                                    memoryWordMatch.add(hashMap.get("index"));
+                                    Log.d("MEMORYINDEX", String.valueOf(memoryWordMatch));
+                                    mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+//                                    Log.d("PTCon Res Type", String.valueOf(response.body().getClass().getSimpleName()));
+
+                                }
+
+                                //
+                                @Override
+                                public void onFailure(Call<List> call, Throwable t) {
+                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
+                                    Log.d("ErrorVal", String.valueOf(t));
+                                }
+                            });
                         }
                     } else if (TwoByThreeGrid.isStarted) {
                         wordMatch.add(Utils.hexToString(data));
                         Log.d("WordMatch", String.valueOf(wordMatch));
-                        if (wordMatchDouble.size() % 80 == 0) {
-//                            SharedPreferences sh = context.getSharedPreferences("prefsCountWord", MODE_APPEND);
-//                            a = sh.getInt("firstStartCountWord", 0);
-//                            Log.d("A Count", String.valueOf(a));
-//                            int b = a + 1;
-//
-//                            SharedPreferences prefsCountWord1=context. getSharedPreferences("prefsCountWord", MODE_PRIVATE);
-//                            SharedPreferences.Editor editor = prefsCountWord1.edit();
-//                            editor.putInt("firstStartCountWord", b);
-//                            editor.apply();
-//                            SharedPreferences sha = context.getSharedPreferences("prefsCountWord", MODE_APPEND);
-//                            // Post WORDMATHC DATA FOR MEMORY
-//
-//                            Call<List> callWMMem = jsonPlaceHolder.PostWordMatchData(wordMatchDouble);
-//                            callWMMem.enqueue(new Callback<List>() {
-//                                        @Override
-//                                        public void onResponse(Call<List> call, Response<List> response) {
-//                                            Toast.makeText(context, "Post Word Successful", Toast.LENGTH_SHORT).show();
-//                                            Log.d("Res Code cWDMem", String.valueOf(response.code()));
-//                                            Log.d("cWDMem Res Message", response.message());
-//                                            Log.d("cWDMem Res Body", String.valueOf(response.body()));
-//                                            mUser = FirebaseAuth.getInstance().getCurrentUser();
-//                                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Memory Post").child("Word Match").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(a));
-//                                            reference.setValue(response.body());
-////                                    Log.d("PTCon Res Type", String.valueOf(response.body().getClass().getSimpleName()));
-//
-//                                        }
-//
-//                                        @Override
-//                                        public void onFailure(Call<List> call, Throwable t) {
-//                                            Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
-//                                            Log.d("ErrorVal", String.valueOf(t));
-//                                        }
-//                                    });
+                        if (wordMatchDouble.size() % 20 == 0) {
+
+                            // Post WORDMATHC DATA FOR MEMORY
+
+                            Call<List> callWMMem = jsonPlaceHolder.PostWordMatchData(wordMatchDouble);
+                            callWMMem.enqueue(new Callback<List>() {
+                                @Override
+                                public void onResponse(Call<List> call, Response<List> response) {
+                                    Toast.makeText(context, "Post Word Successful", Toast.LENGTH_SHORT).show();
+                                    Log.d("Res Code cWDMem", String.valueOf(response.code()));
+                                    Log.d("cWDMem Res Message", response.message());
+                                    Log.d("cWDMem3 Res Body", String.valueOf(response.body()));
+
+                                    List twobythreeindex = new ArrayList();
+                                    twobythreeindex = response.body();
+                                    Log.d("MeditationList", String.valueOf(twobythreeindex.get(0)));
+                                    LinkedTreeMap hashMap = new LinkedTreeMap();
+                                    hashMap = (LinkedTreeMap) twobythreeindex.get(0);
+                                    Log.d("HashMapTree", String.valueOf(hashMap.get("index")));
+                                    memoryWordMatch.add(hashMap.get("index"));
+                                    Log.d("MEMORYINDEX", String.valueOf(memoryWordMatch));
+                                    mUser = FirebaseAuth.getInstance().getCurrentUser();
+//                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Memory Post").child("Word Match").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(a));
+//                                    reference.setValue(response.body());
+//                                    Log.d("PTCon Res Type", String.valueOf(response.body().getClass().getSimpleName()));
+
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<List> call, Throwable t) {
+                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
+                                    Log.d("ErrorVal", String.valueOf(t));
+                                }
+                            });
                         }
                     } else if (TwoByFourGrid.isStarted) {
                         wordMatch.add(Utils.hexToString(data));
                         Log.d("WordMatch", String.valueOf(wordMatch));
-                        if (wordMatchDouble.size() % 80 == 0) {
-//                            SharedPreferences sh = context.getSharedPreferences("prefsCountWord", MODE_APPEND);
-//                            a = sh.getInt("firstStartCountWord", 0);
-//                            Log.d("A Count", String.valueOf(a));
-//                            int b = a + 1;
-//
-//                            SharedPreferences prefsCountWord1=context. getSharedPreferences("prefsCountWord", MODE_PRIVATE);
-//                            SharedPreferences.Editor editor = prefsCountWord1.edit();
-//                            editor.putInt("firstStartCountWord", b);
-//                            editor.apply();
-//                            SharedPreferences sha = context.getSharedPreferences("prefsCountWord", MODE_APPEND);
-//                            // Post WORDMATHC DATA FOR MEMORY
-//
-//                            Call<List> callWMMem = jsonPlaceHolder.PostWordMatchData(wordMatchDouble);
-//                            callWMMem.enqueue(new Callback<List>() {
-//                                        @Override
-//                                        public void onResponse(Call<List> call, Response<List> response) {
-//                                            Toast.makeText(context, "Post Word Successful", Toast.LENGTH_SHORT).show();
-//                                            Log.d("Res Code cWDMem", String.valueOf(response.code()));
-//                                            Log.d("cWDMem Res Message", response.message());
-//                                            Log.d("cWDMem Res Body", String.valueOf(response.body()));
-//                                            mUser = FirebaseAuth.getInstance().getCurrentUser();
-//                                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Memory Post").child("Word Match").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(a));
-//                                            reference.setValue(response.body());
-////                                    Log.d("PTCon Res Type", String.valueOf(response.body().getClass().getSimpleName()));
-//
-//                                        }
-//
-//                                        @Override
-//                                        public void onFailure(Call<List> call, Throwable t) {
-//                                            Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
-//                                            Log.d("ErrorVal", String.valueOf(t));
-//                                        }
-//                                    });
+                        if (wordMatchDouble.size() % 20 == 0) {
+
+                            // Post WORDMATHC DATA FOR MEMORY
+
+                            Call<List> callWMMem = jsonPlaceHolder.PostWordMatchData(wordMatchDouble);
+                            callWMMem.enqueue(new Callback<List>() {
+                                @Override
+                                public void onResponse(Call<List> call, Response<List> response) {
+                                    Toast.makeText(context, "Post Word Successful", Toast.LENGTH_SHORT).show();
+                                    Log.d("Res Code cWDMem", String.valueOf(response.code()));
+                                    Log.d("cWDMem Res Message", response.message());
+                                    Log.d("cWDMem4 Res Body", String.valueOf(response.body()));
+
+                                    List twobyfourindex = new ArrayList();
+                                    twobyfourindex = response.body();
+                                    Log.d("MeditationList", String.valueOf(twobyfourindex.get(0)));
+                                    LinkedTreeMap hashMap = new LinkedTreeMap();
+                                    hashMap = (LinkedTreeMap) twobyfourindex.get(0);
+                                    Log.d("HashMapTree", String.valueOf(hashMap.get("index")));
+                                    memoryWordMatch.add(hashMap.get("index"));
+                                    Log.d("MEMORYINDEX", String.valueOf(memoryWordMatch));
+                                    mUser = FirebaseAuth.getInstance().getCurrentUser();
+//                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Memory Post").child("Word Match").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(a));
+//                                    reference.setValue(response.body());
+//                                    Log.d("PTCon Res Type", String.valueOf(response.body().getClass().getSimpleName()));
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<List> call, Throwable t) {
+                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
+                                    Log.d("ErrorVal", String.valueOf(t));
+                                }
+                            });
                         }
                     } else if (TwoByFiveGrid.isStarted) {
                         wordMatch.add(Utils.hexToString(data));
                         Log.d("WordMatch", String.valueOf(wordMatch));
-                        if (wordMatchDouble.size() % 80 == 0) {
-//                            SharedPreferences sh = context.getSharedPreferences("prefsCountWord", MODE_APPEND);
-//                            a = sh.getInt("firstStartCountWord", 0);
-//                            Log.d("A Count", String.valueOf(a));
-//                            int b = a + 1;
-//
-//                            SharedPreferences prefsCountWord1=context. getSharedPreferences("prefsCountWord", MODE_PRIVATE);
-//                            SharedPreferences.Editor editor = prefsCountWord1.edit();
-//                            editor.putInt("firstStartCountWord", b);
-//                            editor.apply();
-//                            SharedPreferences sha = context.getSharedPreferences("prefsCountWord", MODE_APPEND);
+                        if (wordMatchDouble.size() % 20 == 0) {
+
 //                            // Post WORDMATHC DATA FOR MEMORY
 //
-//                            Call<List> callWMMem = jsonPlaceHolder.PostWordMatchData(wordMatchDouble);
-//                            callWMMem.enqueue(new Callback<List>() {
-//                                        @Override
-//                                        public void onResponse(Call<List> call, Response<List> response) {
-//                                            Toast.makeText(context, "Post Word Successful", Toast.LENGTH_SHORT).show();
-//                                            Log.d("Res Code cWDMem", String.valueOf(response.code()));
-//                                            Log.d("cWDMem Res Message", response.message());
-//                                            Log.d("cWDMem Res Body", String.valueOf(response.body()));
-//                                            mUser = FirebaseAuth.getInstance().getCurrentUser();
+                            Call<List> callWMMem = jsonPlaceHolder.PostWordMatchData(wordMatchDouble);
+                            callWMMem.enqueue(new Callback<List>() {
+                                        @Override
+                                        public void onResponse(Call<List> call, Response<List> response) {
+                                            Toast.makeText(context, "Post Word Successful", Toast.LENGTH_SHORT).show();
+                                            Log.d("Res Code cWDMem", String.valueOf(response.code()));
+                                            Log.d("cWDMem Res Message", response.message());
+                                            Log.d("cWDMem5 Res Body", String.valueOf(response.body()));
+                                            mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+                                            List twobyfiveindex = new ArrayList();
+                                            twobyfiveindex = response.body();
+                                            Log.d("MeditationList", String.valueOf(twobyfiveindex.get(0)));
+                                            LinkedTreeMap hashMap = new LinkedTreeMap();
+                                            hashMap = (LinkedTreeMap) twobyfiveindex.get(0);
+                                            Log.d("HashMapTree", String.valueOf(hashMap.get("index")));
+                                            memoryWordMatch.add(hashMap.get("index"));
+                                            Log.d("MEMORYINDEX", String.valueOf(memoryWordMatch));
 //                                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Memory Post").child("Word Match").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(a));
 //                                            reference.setValue(response.body());
-////                                    Log.d("PTCon Res Type", String.valueOf(response.body().getClass().getSimpleName()));
-//
-//                                        }
-//
-//                                        @Override
-//                                        public void onFailure(Call<List> call, Throwable t) {
-//                                            Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
-//                                            Log.d("ErrorVal", String.valueOf(t));
-//                                        }
-//                                    });
+//                                    Log.d("PTCon Res Type", String.valueOf(response.body().getClass().getSimpleName()));
+
+                                        }
+
+                                        @Override
+                                        public void onFailure(Call<List> call, Throwable t) {
+                                            Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
+                                            Log.d("ErrorVal", String.valueOf(t));
+                                        }
+                                    });
                         }
                     } else if (TwoBySixGrid.isStarted) {
                         wordMatch.add(Utils.hexToString(data));
                         Log.d("WordMatch", String.valueOf(wordMatch));
-                        if (wordMatchDouble.size() % 80 == 0) {
-//                            SharedPreferences sh = context.getSharedPreferences("prefsCountWord", MODE_APPEND);
-//                            a = sh.getInt("firstStartCountWord", 0);
-//                            Log.d("A Count", String.valueOf(a));
-//                            int b = a + 1;
-//
-//                            SharedPreferences prefsCountWord1=context. getSharedPreferences("prefsCountWord", MODE_PRIVATE);
-//                            SharedPreferences.Editor editor = prefsCountWord1.edit();
-//                            editor.putInt("firstStartCountWord", b);
-//                            editor.apply();
-//                            SharedPreferences sha = context.getSharedPreferences("prefsCountWord", MODE_APPEND);
+                        if (wordMatchDouble.size() % 20 == 0) {
+
 //                            // Post WORDMATHC DATA FOR MEMORY
 //
-//                            Call<List> callWMMem = jsonPlaceHolder.PostWordMatchData(wordMatchDouble);
-//                            callWMMem.enqueue(new Callback<List>() {
-//                                        @Override
-//                                        public void onResponse(Call<List> call, Response<List> response) {
-//                                            Toast.makeText(context, "Post Word Successful", Toast.LENGTH_SHORT).show();
-//                                            Log.d("Res Code cWDMem", String.valueOf(response.code()));
-//                                            Log.d("cWDMem Res Message", response.message());
-//                                            Log.d("cWDMem Res Body", String.valueOf(response.body()));
-//                                            mUser = FirebaseAuth.getInstance().getCurrentUser();
-//                                            DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Memory Post").child("Word Match").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(a));
-//                                            reference.setValue(response.body());
-////                                    Log.d("PTCon Res Type", String.valueOf(response.body().getClass().getSimpleName()));
-//
-//                                        }
-//
-//                                        @Override
-//                                        public void onFailure(Call<List> call, Throwable t) {
-//                                            Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
-//                                            Log.d("ErrorVal", String.valueOf(t));
-//                                        }
-//                                    });
+                            Call<List> callWMMem = jsonPlaceHolder.PostWordMatchData(wordMatchDouble);
+                            callWMMem.enqueue(new Callback<List>() {
+                                @Override
+                                public void onResponse(Call<List> call, Response<List> response) {
+                                    Toast.makeText(context, "Post Word Successful", Toast.LENGTH_SHORT).show();
+                                    Log.d("Res Code cWDMem", String.valueOf(response.code()));
+                                    Log.d("cWDMem Res Message", response.message());
+                                    Log.d("cWDMem6 Res Body", String.valueOf(response.body()));
+                                    mUser = FirebaseAuth.getInstance().getCurrentUser();
+
+                                    List twobysixindex = new ArrayList();
+                                    twobysixindex = response.body();
+                                    Log.d("MeditationList", String.valueOf(twobysixindex.get(0)));
+                                    LinkedTreeMap hashMap = new LinkedTreeMap();
+                                    hashMap = (LinkedTreeMap) twobysixindex.get(0);
+                                    Log.d("HashMapTree", String.valueOf(hashMap.get("index")));
+                                    memoryWordMatch.add(hashMap.get("index"));
+                                    Log.d("MEMORYINDEX", String.valueOf(memoryWordMatch));
+
+//                                    DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Memory Post").child("Word Match").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(a));
+//                                    reference.setValue(response.body());
+//                                    Log.d("PTCon Res Type", String.valueOf(response.body().getClass().getSimpleName()));
+
+                                }
+
+                                @Override
+                                public void onFailure(Call<List> call, Throwable t) {
+                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
+                                    Log.d("ErrorVal", String.valueOf(t));
+                                }
+                            });
                         }
                     }
                     if (MusicPlayer.isStarted) {
                         musicArray.add(Utils.hexToString(data));
                         Log.d("MusicData", String.valueOf(musicArray));
-                        if (musicArrayDouble.size() % 80 == 0) {
+                        if (musicArrayDouble.size() % 40 == 0) {
                             SharedPreferences sh = context.getSharedPreferences("prefsCountMusic", MODE_APPEND);
                             a = sh.getInt("firstStartCountMusic", 0);
                             Log.d("A Count", String.valueOf(a));
@@ -1147,7 +1157,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                             callMusRel.enqueue(new Callback<List>() {
                                 @Override
                                 public void onResponse(Call<List> call, Response<List> response) {
-//                                    Toast.makeText(context, "Post Music Successful", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Post Music Successful", Toast.LENGTH_SHORT).show();
                                     Log.d("Response Code MusRel", String.valueOf(response.code()));
                                     Log.d("MusRel Res Message", response.message());
                                     Log.d("MusRel Res Body", String.valueOf(response.body()));
@@ -1180,7 +1190,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                     if (PlayMeditation.isStarted) {
                         meditationArray.add(Utils.hexToString(data));
                         Log.d("MeditationData", String.valueOf(meditationArray));
-                        if (meditationArrayDouble.size() % 80 == 0) {
+                        if (meditationArrayDouble.size() % 40 == 0) {
                             SharedPreferences sh = context.getSharedPreferences("prefsCountMed", MODE_APPEND);
                             a = sh.getInt("firstStartCountMed", 0);
                             Log.d("A Count", String.valueOf(a));
@@ -1196,7 +1206,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                             callMedRel.enqueue(new Callback<List>() {
                                 @Override
                                 public void onResponse(Call<List> call, Response<List> response) {
-//                                    Toast.makeText(context, "Post Medi Successful", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Post Medi Successful", Toast.LENGTH_SHORT).show();
                                     Log.d("Response Code MedRel", String.valueOf(response.code()));
                                     Log.d("MedRel Res Message", response.message());
                                     Log.d("MedRel Res Body", String.valueOf(response.body()));
@@ -1207,7 +1217,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
 
                                     List meditationindex = new ArrayList();
                                     meditationindex = response.body();
-                                    Log.d("SpaceShooterList", String.valueOf(meditationindex.get(0)));
+                                    Log.d("MeditationList", String.valueOf(meditationindex.get(0)));
                                     LinkedTreeMap hashMap = new LinkedTreeMap();
                                     hashMap = (LinkedTreeMap) meditationindex.get(0);
                                     Log.d("HashMapTree", String.valueOf(hashMap.get("index")));
@@ -1218,7 +1228,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
 
                                 @Override
                                 public void onFailure(Call<List> call, Throwable t) {
-//                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
                                     Log.d("ErrorVal", String.valueOf(t));
                                 }
                             });
@@ -1228,7 +1238,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                     if (PlayVideo.isStarted) {
                         videoArray.add(Utils.hexToString(data));
                         Log.d("VideoData", String.valueOf(videoArray));
-                        if (videoArrayDouble.size() % 80 == 0) {
+                        if (videoArrayDouble.size() % 40 == 0) {
                             SharedPreferences sh = context.getSharedPreferences("prefsCountVid", MODE_APPEND);
                             a = sh.getInt("firstStartCountVid", 0);
                             Log.d("A Count", String.valueOf(a));
@@ -1245,7 +1255,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                             callVidRel.enqueue(new Callback<List>() {
                                 @Override
                                 public void onResponse(Call<List> call, Response<List> response) {
-//                                    Toast.makeText(context, "Post Video Successful", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Post Video Successful", Toast.LENGTH_SHORT).show();
                                     Log.d("Response Code VidRel", String.valueOf(response.code()));
                                     Log.d("VidRel Res Message", response.message());
                                     Log.d("VidRel Res Body", String.valueOf(response.body()));
@@ -1260,7 +1270,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                                     LinkedTreeMap hashMap = new LinkedTreeMap();
                                     hashMap = (LinkedTreeMap) videoindex.get(0);
                                     Log.d("HashMapTree", String.valueOf(hashMap.get("index")));
-                                    concentration_indexes.add(hashMap.get("index"));
+                                    relaxation_index_Vid.add(hashMap.get("index"));
                                     Log.d("RELAXATIONINDEX", String.valueOf(relaxation_index_Vid));
 //                                    Log.d("ShCon Res Type", String.valueOf(response.body().getClass().getSimpleName()));
 //                                    Log.d("PTCon Res Type", String.valueOf(response.body().getClass().getSimpleName()));
@@ -1269,7 +1279,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
 
                                 @Override
                                 public void onFailure(Call<List> call, Throwable t) {
-//                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(context, "Failed Post", Toast.LENGTH_SHORT).show();
                                     Log.d("ErrorVal", String.valueOf(t));
                                 }
                             });
@@ -1321,7 +1331,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                                 mUser = FirebaseAuth.getInstance().getCurrentUser();
                                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Relaxation Post").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(x));
                                 reference.setValue(response.body());
-                                Log.d("Relaxation Res Type", String.valueOf(response.body().getClass().getSimpleName()));
+//                                Log.d("Relaxation Res Type", String.valueOf(response.body().getClass().getSimpleName()));
 
                             }
 
@@ -1347,7 +1357,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                                 mUser = FirebaseAuth.getInstance().getCurrentUser();
                                 DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("Concentration Post").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(x));
                                 reference.setValue(response.body());
-                                Log.d("Concentration Res Type", String.valueOf(response.body().getClass().getSimpleName()));
+//                                Log.d("Concentration Res Type", String.valueOf(response.body().getClass().getSimpleName()));
 
                             }
 

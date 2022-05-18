@@ -115,7 +115,7 @@ public class GameOverActivity extends AppCompatActivity {
 
         if (BroadcastReceiver_BTLE_GATT.concentration_indexesIHF.size() > 0) {
 
-            Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.137:5000/").client(client)
+            Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.104:5000/").client(client)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
             jsonPlaceHolder = retrofit.create(JsonPlaceHolder.class);

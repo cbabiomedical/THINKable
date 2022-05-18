@@ -1,11 +1,14 @@
 package com.example.thinkableproject;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -29,8 +32,11 @@ import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -59,6 +65,11 @@ public class LineChartExample extends AppCompatActivity {
     LineData lineData;
     LineDataSet lineDataSet;
     ArrayList lineEntries;
+    Double average = 0.0;
+    Double sum = 0.0;
+    ArrayList<Float> xVal = new ArrayList();
+    ArrayList<Float> yVal = new ArrayList<>();
+    Dialog dialogIntervention;
     //    TextView earnedPoints;
     JsonPlaceHolder jsonPlaceHolder;
     int c;
@@ -74,8 +85,8 @@ public class LineChartExample extends AppCompatActivity {
         setContentView(R.layout.activity_line_chart_example);
         ok = findViewById(R.id.ok);
         database = FirebaseFirestore.getInstance();
-        mUser= FirebaseAuth.getInstance().getCurrentUser();
-
+        mUser = FirebaseAuth.getInstance().getCurrentUser();
+        dialogIntervention = new Dialog(this);
         SharedPreferences shs = getSharedPreferences("prefsTimeRelWH", MODE_APPEND);
 
         c = shs.getInt("firstStartTimeRelWH", 0);
@@ -91,7 +102,7 @@ public class LineChartExample extends AppCompatActivity {
         int day = now.get(Calendar.DAY_OF_MONTH) + 1;
         Format f = new SimpleDateFormat("EEEE");
         String str = f.format(new Date());
-        Log.d("NinjaDartIndex", String.valueOf(BroadcastReceiver_BTLE_GATT.concentration_indexesND));
+        Log.d("MusicIndex", String.valueOf(BroadcastReceiver_BTLE_GATT.relaxation_indexesMus));
 
         Gson gson = new GsonBuilder()
                 .setLenient()
@@ -100,32 +111,45 @@ public class LineChartExample extends AppCompatActivity {
                 .connectTimeout(120000, TimeUnit.SECONDS)
                 .readTimeout(120000, TimeUnit.SECONDS).build();
 
-        if (BroadcastReceiver_BTLE_GATT.concentration_indexesND.size() > 0) {
+        Log.d("SUMRELResTime", String.valueOf(BroadcastReceiver_BTLE_GATT.relaxation_indexesMus));
 
-            Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.137:5000/").client(client)
+        if (BroadcastReceiver_BTLE_GATT.relaxation_indexesMus.size() > 0) {
+            for (int i = 0; i < BroadcastReceiver_BTLE_GATT.relaxation_indexesMus.size(); i++) {
+                Log.d("GETI", String.valueOf(BroadcastReceiver_BTLE_GATT.relaxation_indexesMus));
+                sum += (Double) BroadcastReceiver_BTLE_GATT.relaxation_indexesMus.get(i);
+            }
+            Log.d("SUMRELS", String.valueOf(sum));
+            average = sum / BroadcastReceiver_BTLE_GATT.relaxation_indexesMus.size();
+            Log.d("SUMRELS", String.valueOf(average));
+            Double averageD = Double.valueOf(String.format("%.3g%n", average));
+
+            DatabaseReference referenceIntervention = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("MusicIntervention").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(c));
+            referenceIntervention.setValue(averageD);
+
+            DatabaseReference referenceIntervention1 = FirebaseDatabase.getInstance().getReference("RelaxationIndex").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(c));
+            referenceIntervention1.setValue(averageD);
+
+        }
+        if (BroadcastReceiver_BTLE_GATT.relaxation_indexesMus.size() == 0) {
+            average = 0.0;
+        }
+
+        if (BroadcastReceiver_BTLE_GATT.relaxation_indexesMus.size() > 0) {
+
+            Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.119:5000/").client(client)
                     .addConverterFactory(GsonConverterFactory.create(gson))
                     .build();
             jsonPlaceHolder = retrofit.create(JsonPlaceHolder.class);
-            //Post Time to Concentrate and Time stayed Concentrated
-            ArrayList data = new ArrayList((Arrays.asList(0.5, 0.6, 0.7, 0.3, 0.8, 0.55, 0.65, 0.75, 0.45, 0.7, 0.65, 0.55, 0.1, 0.45)));
-            Call<List> callMusRel = jsonPlaceHolder.PostTimeToConcentrate(BroadcastReceiver_BTLE_GATT.relaxation_indexesMus);
+            //Post Time to Relax and Time stayed Relaxed
+
+            Call<List> callMusRel = jsonPlaceHolder.PostTimeToRelax(BroadcastReceiver_BTLE_GATT.relaxation_indexesMus);
             callMusRel.enqueue(new Callback<List>() {
                 @Override
                 public void onResponse(Call<List> call, Response<List> response) {
                     Toast.makeText(getApplicationContext(), "Post Space Successful", Toast.LENGTH_SHORT).show();
-                    Log.d("SUMCONResponseTime DH", String.valueOf(response.code()));
-                    Log.d("SUMCONResTime Message", response.message());
-                    Log.d("SUMCONResTime Body", String.valueOf(response.body()));
-                    List com = response.body();
-                    LinkedTreeMap hashmap = new LinkedTreeMap();
-                    hashmap = (LinkedTreeMap) com.get(0);
-                    Log.d("SUMCONH", String.valueOf(hashmap.get("time_to_concentrate")));
-
-                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("TimeTo").child("Relaxation").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(c));
-                    databaseReference.setValue(hashmap.get("time_to_concentrate"));
-                    DatabaseReference databaseReferencet = FirebaseDatabase.getInstance().getReference("TimeStayed").child("Relaxation").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(c));
-                    databaseReferencet.setValue(hashmap.get("time concentrated"));
-
+                    Log.d("SUMRELResponseTime SP", String.valueOf(response.code()));
+                    Log.d("SUMRELResTime Message", response.message());
+                    Log.d("SUMRELResTime Body", String.valueOf(response.body()));
                 }
 
                 @Override
@@ -134,6 +158,8 @@ public class LineChartExample extends AppCompatActivity {
                     Log.d("ErrorValSpa", String.valueOf(t));
                 }
             });
+
+
         }
 
         SharedPreferences sharedPreferences = getSharedPreferences("myKey", MODE_PRIVATE);
@@ -169,37 +195,65 @@ public class LineChartExample extends AppCompatActivity {
 //
 //            }
 //        });
-        lineChart = findViewById(R.id.lineChart);
-        getEntries();
-        lineDataSet = new LineDataSet(lineEntries, "Concentration and Memory Improvement");
-        lineData = new LineData(lineDataSet);
-        lineChart.setData(lineData);
 
-        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-        lineDataSet.setValueTextColor(Color.WHITE);
-        lineDataSet.setValueTextSize(10f);
 
-        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
-        lineChart.setBorderColor(Color.TRANSPARENT);
-        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
-        lineChart.getAxisLeft().setDrawGridLines(false);
-        lineChart.getXAxis().setDrawGridLines(false);
-        lineChart.getAxisRight().setDrawGridLines(false);
-        lineChart.getXAxis().setTextColor(R.color.white);
-        lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
-        lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
-        lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
-        lineChart.getDescription().setTextColor(R.color.white);
-        lineChart.invalidate();
-        lineChart.refreshDrawableState();
+        lineChart = (LineChart) findViewById(R.id.lineChart);
+        lineEntries = new ArrayList();
+
+        DatabaseReference referenceIntervention = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("MusicIntervention").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str);
+        referenceIntervention.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                    Log.d("XVAL", dataSnapshot.getKey());
+                    float xxVal = (Float.parseFloat(dataSnapshot.getKey()));
+
+                    Log.d("XArrayList", String.valueOf(xVal));
+                    float yyVal = (Float.parseFloat(String.valueOf((Double) dataSnapshot.getValue())));
+                    Log.d("YVAL", String.valueOf(yyVal));
+                    Log.d("YArrayList", String.valueOf(yVal));
+                    lineEntries.add(new Entry(xxVal, yyVal));
+
+                    lineDataSet = new LineDataSet(lineEntries, "Music Relaxation Progress on " + str);
+                    lineData = new LineData(lineDataSet);
+                    lineChart.setData(lineData);
+
+                    lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+                    lineDataSet.setValueTextColor(Color.WHITE);
+                    lineDataSet.setValueTextSize(10f);
+
+                    lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+                    lineChart.setBorderColor(Color.TRANSPARENT);
+                    lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+                    lineChart.getAxisLeft().setDrawGridLines(false);
+                    lineChart.getXAxis().setDrawGridLines(false);
+                    lineChart.getAxisRight().setDrawGridLines(false);
+                    lineChart.getXAxis().setTextColor(R.color.white);
+                    lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
+                    lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+                    lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
+                    lineChart.getDescription().setTextColor(R.color.white);
+                    lineChart.invalidate();
+                    lineChart.refreshDrawableState();
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+        ok = findViewById(R.id.ok);
+
 
         ok.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 startActivity(new Intent(getApplicationContext(), Music.class));
             }
         });
+
+
     }
 
     private void createPersonalizedAd() {
