@@ -41,6 +41,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.internal.LinkedTreeMap;
 
 import java.text.Format;
 import java.text.SimpleDateFormat;
@@ -145,7 +146,7 @@ public class MeditationLineChart extends AppCompatActivity {
 
 
 
-        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.104:5000/").client(client)
+        Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.137:5000/").client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
         jsonPlaceHolder = retrofit.create(JsonPlaceHolder.class);
@@ -155,14 +156,112 @@ public class MeditationLineChart extends AppCompatActivity {
 
             //Post Time to Relax and Time stayed Relaxed
 
-            Call<List> callMusRel = jsonPlaceHolder.PostTimeToConcentrate(BroadcastReceiver_BTLE_GATT.relaxation_indexMed);
+            Call<List> callMusRel = jsonPlaceHolder.PostTimeToRelax(BroadcastReceiver_BTLE_GATT.relaxation_indexMed);
             callMusRel.enqueue(new Callback<List>() {
                 @Override
                 public void onResponse(Call<List> call, Response<List> response) {
                     Toast.makeText(getApplicationContext(), "Post Space Successful", Toast.LENGTH_SHORT).show();
-                    Log.d("SUMCONResponseTime SP", String.valueOf(response.code()));
-                    Log.d("SUMCONResTime Message", response.message());
-                    Log.d("SUMCONResTime Body", String.valueOf(response.body()));
+                    Log.d("SUMRELResponseTime SP", String.valueOf(response.code()));
+                    Log.d("SUMRELResTime Message", response.message());
+                    Log.d("SUMRELResTime Body", String.valueOf(response.body()));
+                    List com = response.body();
+                    LinkedTreeMap hashmap = new LinkedTreeMap();
+                    hashmap = (LinkedTreeMap) com.get(0);
+                    Log.d("HashMapMus", String.valueOf(hashmap));
+                    DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("TimeTo").child("Relaxation").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(c));
+                    databaseReference.setValue(hashmap.get("time_to_relax"));
+                    DatabaseReference databaseReferencet = FirebaseDatabase.getInstance().getReference("TimeStayed").child("Relaxation").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(c));
+                    databaseReferencet.setValue(hashmap.get("time relaxed"));
+
+                    // Where Am I data saving
+                    DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("occupation");
+                    LinkedTreeMap finalHashmap = hashmap;
+                    reference1.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            Log.d("GETOCCUPATION", String.valueOf(snapshot.getValue()));
+                            DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("WhereAmI").child("Time to Relax").child(String.valueOf(snapshot.getValue())).child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(mUser.getUid()).child(String.valueOf(c));
+                            reference2.setValue(finalHashmap.get("time_to_relax"));
+                            DatabaseReference reference3 = FirebaseDatabase.getInstance().getReference("WhereAmI").child("Time Stayed Relaxed").child(String.valueOf(snapshot.getValue())).child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(mUser.getUid()).child(String.valueOf(c));
+                            reference3.setValue(finalHashmap.get("time relaxed"));
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
+                    DatabaseReference referenceAge = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("dob");
+                    LinkedTreeMap finalHashmap1 = hashmap;
+                    referenceAge.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                            Log.d("Ageof User", String.valueOf(snapshot.getValue()));
+                            String date = snapshot.getValue().toString();
+                            String[] splited = date.split(" ");
+                            Log.d("DateHR", splited[2]);
+                            int year = Integer.parseInt(splited[2]);
+                            int currentYear = now.get(Calendar.YEAR);
+                            int age = currentYear - year;
+                            Log.d("Age", String.valueOf(age));
+
+                            if (age >= 10 && age <= 20) {
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("WhereAmI").child("10-20").child("Time to Relax").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(mUser.getUid()).child(String.valueOf(c));
+                                reference.setValue(finalHashmap1.get("time_to_relax"));
+                                DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("WhereAmI").child("10-20").child("Time Stayed Relaxed").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(mUser.getUid()).child(String.valueOf(c));
+                                reference1.setValue(finalHashmap1.get("time relaxed"));
+
+                            } else if (age > 20 && age <= 30) {
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("WhereAmI").child("20-30").child("Time to Relax").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(mUser.getUid()).child(String.valueOf(c));
+                                reference.setValue(finalHashmap1.get("time_to_relax"));
+                                DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("WhereAmI").child("20-30").child("Time Stayed Relaxed").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(mUser.getUid()).child(String.valueOf(c));
+                                reference1.setValue(finalHashmap1.get("time relaxed"));
+
+                            } else if (age > 30 && age <= 40) {
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("WhereAmI").child("30-40").child("Time to Relax").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(mUser.getUid()).child(String.valueOf(c));
+                                reference.setValue(finalHashmap1.get("time_to_relax"));
+                                DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("WhereAmI").child("30-40").child("Time Stayed Relaxed").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(mUser.getUid()).child(String.valueOf(c));
+                                reference1.setValue(finalHashmap1.get("time relaxed"));
+
+                            } else if (age > 40 && age <= 50) {
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("WhereAmI").child("40-50").child("Time to Relax").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(mUser.getUid()).child(String.valueOf(c));
+                                reference.setValue(finalHashmap1.get("time_to_relax"));
+                                DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("WhereAmI").child("40-50").child("Time Stayed Relaxed").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(mUser.getUid()).child(String.valueOf(c));
+                                reference1.setValue(finalHashmap1.get("time relaxed"));
+
+                            } else if (age > 50 && age <= 60) {
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("WhereAmI").child("50-60").child("Time to Relax").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(mUser.getUid()).child(String.valueOf(c));
+                                reference.setValue(finalHashmap1.get("time_to_relax"));
+                                DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("WhereAmI").child("50-60").child("Time Stayed Relaxed").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(mUser.getUid()).child(String.valueOf(c));
+                                reference1.setValue(finalHashmap1.get("time relaxed"));
+
+                            } else if (age > 60 && age <= 70) {
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("WhereAmI").child("60-70").child("Time to Relax").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(mUser.getUid()).child(String.valueOf(c));
+                                reference.setValue(finalHashmap1.get("time_to_relax"));
+                                DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("WhereAmI").child("60-70").child("Time Stayed Relaxed").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(mUser.getUid()).child(String.valueOf(c));
+                                reference1.setValue(finalHashmap1.get("time relaxed"));
+
+                            } else if (age > 70 && age <= 80) {
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("WhereAmI").child("70-80").child("Time to Relax").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(mUser.getUid()).child(String.valueOf(c));
+                                reference.setValue(finalHashmap1.get("time_to_relax"));
+                                DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("WhereAmI").child("70-80").child("Time Stayed Relaxed").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(mUser.getUid()).child(String.valueOf(c));
+                                reference1.setValue(finalHashmap1.get("time relaxed"));
+
+                            } else if (age > 80 && age <= 90) {
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("WhereAmI").child("80-90").child("Time to Relax").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(mUser.getUid()).child(String.valueOf(c));
+                                reference.setValue(finalHashmap1.get("time_to_relax"));
+                                DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("WhereAmI").child("80-90").child("Time Stayed Relaxed").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(mUser.getUid()).child(String.valueOf(c));
+                                reference1.setValue(finalHashmap1.get("time relaxed"));
+                            }
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+
+                        }
+                    });
                 }
 
                 @Override
@@ -171,7 +270,6 @@ public class MeditationLineChart extends AppCompatActivity {
                     Log.d("ErrorValSpa", String.valueOf(t));
                 }
             });
-
 
         }
 

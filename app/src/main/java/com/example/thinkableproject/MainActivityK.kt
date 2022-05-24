@@ -594,7 +594,7 @@ class MainActivityK : AppCompatActivity() {
                         .connectTimeout(120000, TimeUnit.SECONDS)
                         .readTimeout(120000, TimeUnit.SECONDS).build()
 
-                val retrofit = Retrofit.Builder().baseUrl("http://192.168.8.119:5000/").client(client)
+                val retrofit = Retrofit.Builder().baseUrl("http://192.168.8.137:5000/").client(client)
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .build()
                 jsonPlaceHolder = retrofit.create(JsonPlaceHolder::class.java)
@@ -612,6 +612,9 @@ class MainActivityK : AppCompatActivity() {
                     val averageD = java.lang.Double.valueOf(String.format("%.3g%n", average))
                     val referenceIntervention = FirebaseDatabase.getInstance().getReference("Users").child(mUser.uid).child("CardGameIntervention").child(now1[Calendar.YEAR].toString()).child(month1.toString()).child(now1[Calendar.WEEK_OF_MONTH].toString()).child(str1).child(x.toString())
                     referenceIntervention.setValue(averageD)
+
+                    val referenceIntervention1 = FirebaseDatabase.getInstance().getReference("MemoryIndex").child(mUser.uid).child(now1.get(Calendar.YEAR).toString()).child(month1.toString()).child(now1.get(Calendar.WEEK_OF_MONTH).toString()).child(str1).child(x.toString())
+                    referenceIntervention1.setValue(averageD)
                 }
                 if (BroadcastReceiver_BTLE_GATT.memoryCarGame_index.size == 0) {
                     average = 0.0

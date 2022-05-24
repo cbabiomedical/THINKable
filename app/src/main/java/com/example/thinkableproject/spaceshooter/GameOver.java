@@ -187,6 +187,7 @@ public class GameOver extends AppCompatActivity {
                     databaseReference.setValue(hashmap.get("time_to_concentrate"));
                     DatabaseReference databaseReferencet = FirebaseDatabase.getInstance().getReference("TimeStayed").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(c));
                     databaseReferencet.setValue(hashmap.get("time concentrated"));
+
                     DatabaseReference reference1 = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("occupation");
                     LinkedTreeMap finalHashmap = hashmap;
                     reference1.addValueEventListener(new ValueEventListener() {

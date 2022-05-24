@@ -369,7 +369,7 @@ public class BroadcastReceiver_BTLE_GATT extends BroadcastReceiver {
                         .connectTimeout(120000, TimeUnit.SECONDS)
                         .readTimeout(120000, TimeUnit.SECONDS).build();
 
-                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.119:5000/").client(client)
+                Retrofit retrofit = new Retrofit.Builder().baseUrl("http://192.168.8.137:5000/").client(client)
                         .addConverterFactory(GsonConverterFactory.create(gson))
                         .build();
                 jsonPlaceHolder = retrofit.create(JsonPlaceHolder.class);

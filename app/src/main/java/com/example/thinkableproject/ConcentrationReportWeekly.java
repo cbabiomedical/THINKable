@@ -320,7 +320,7 @@ public class ConcentrationReportWeekly extends AppCompatActivity {
                                     average2 = 0L;
                                 }
 
-                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("TimeTo").child(mUser.getUid()).child("Concentration").child(String.valueOf(now.get(Calendar.YEAR)))
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("TimeTo").child("Concentration").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)))
                                         .child(String.valueOf(month)).child(String.valueOf(3));
 
                                 reference.addValueEventListener(new ValueEventListener() {
@@ -740,12 +740,6 @@ public class ConcentrationReportWeekly extends AppCompatActivity {
 
 
             }
-
-
-//
-
-
-            //Downloading file and displaying chart
         }, delay);
 
 

@@ -313,10 +313,10 @@
             </LinearLayout>
             <com.github.mikephil.charting.charts.ScatterChart
                 android:id="@+id/chart1"
-                android:layout_width="232dp"
+                android:layout_width="322dp"
                 android:layout_below="@+id/threelines"
                 android:layout_height="295dp"
-                android:layout_marginLeft="104dp"
+                android:layout_marginLeft="50dp"
                 android:layout_marginTop="60dp" />
             <LinearLayout
                 android:layout_width="match_parent"
@@ -352,9 +352,9 @@
 
             <com.github.mikephil.charting.charts.ScatterChart
                 android:id="@+id/chart3"
-                android:layout_width="232dp"
+                android:layout_width="322dp"
                 android:layout_height="295dp"
-                android:layout_marginLeft="104dp"
+                android:layout_marginLeft="50dp"
                 android:layout_marginTop="900dp" />
 
             <LinearLayout
@@ -467,9 +467,9 @@
 
             <com.github.mikephil.charting.charts.ScatterChart
                 android:id="@+id/chart2"
-                android:layout_width="232dp"
+                android:layout_width="322dp"
                 android:layout_height="295dp"
-                android:layout_marginStart="104dp"
+                android:layout_marginStart="50dp"
                 android:layout_marginTop="1270dp" />
 
             <LinearLayout
@@ -506,9 +506,10 @@
 
             <com.github.mikephil.charting.charts.ScatterChart
                 android:id="@+id/chart4"
-                android:layout_width="232dp"
+                android:layout_width="322dp"
                 android:layout_height="295dp"
-                android:layout_marginLeft="104dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginBottom="70dp"
                 android:layout_marginTop="1600dp" />
 
         </RelativeLayout>

@@ -103,8 +103,8 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
     private int random;
     private int round;
     int x;
-    Double sum=0.0;
-    Double average=0.0;
+    Double sum = 0.0;
+    Double average = 0.0;
     ArrayList colorPatternData;
     User user;
     private InterstitialAd mInterstitialAd;
@@ -834,8 +834,8 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
             DatabaseReference referenceIntervention = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("ColorPatternIntervention").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(x));
             referenceIntervention.setValue(averageD);
 //
-////            DatabaseReference referenceIntervention1 = FirebaseDatabase.getInstance().getReference("RelaxationIndex").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(c));
-////            referenceIntervention1.setValue(averageD);
+            DatabaseReference referenceIntervention1 = FirebaseDatabase.getInstance().getReference("MemoryIndex").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(x));
+            referenceIntervention1.setValue(averageD);
 //
         }
 
@@ -925,7 +925,6 @@ public class ColorPatternGame extends AppCompatActivity implements View.OnClickL
         dialogIntervention.show();
 
     }
-
 
 
     // if clicked button is incorrect, game will be reset

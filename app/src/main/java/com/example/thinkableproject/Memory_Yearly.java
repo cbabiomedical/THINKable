@@ -77,7 +77,7 @@ public class Memory_Yearly extends AppCompatActivity {
 
     Dialog dialogcy;
     BarChart barChart2;
-    AppCompatButton daily, weekly, monthly,improveConcentration;
+    AppCompatButton daily, weekly, monthly, improveConcentration;
     LottieAnimationView realTime;
     ImageView relaxationBtn, concentrationBtn, game, meditation, music;
     FirebaseUser mUser;
@@ -87,6 +87,15 @@ public class Memory_Yearly extends AppCompatActivity {
     HorizontalScrollView scrollView;
     String text;
     Animation scaleUp, scaleDown;
+    Double averageIn1 = 0.0;
+    Double averageIn2 = 0.0;
+    Double averageIn3 = 0.0;
+    Double averageIn = 0.0;
+    Double sumIn1 = 0.0;
+    Double sumIn2 = 0.0;
+    Double sumIn3 = 0.0;
+    Double sumIn4 = 0.0;
+
 
     ArrayList<String> list = new ArrayList<>();
     ArrayList<Float> floatList = new ArrayList<>();
@@ -123,7 +132,7 @@ public class Memory_Yearly extends AppCompatActivity {
         meditation = findViewById(R.id.meditations);
         List<BarEntry> entries = new ArrayList<>();
         c1gif = findViewById(R.id.landingfwall);
-        improveConcentration=findViewById(R.id.improveConcentration);
+        improveConcentration = findViewById(R.id.improveConcentration);
 
         c2gif = findViewById(R.id.landingfwall1);
         c1 = findViewById(R.id.c1);
@@ -509,7 +518,7 @@ public class Memory_Yearly extends AppCompatActivity {
 
         Handler handler = new Handler();
         final int delay = 5000;
-        String[] years = new String[]{"",String.valueOf(year1), String.valueOf(year2), String.valueOf(year3), String.valueOf(now.get(Calendar.YEAR))};
+        String[] years = new String[]{"", String.valueOf(year1), String.valueOf(year2), String.valueOf(year3), String.valueOf(now.get(Calendar.YEAR))};
         ArrayList<Float> creditsMain = new ArrayList<>(Arrays.asList(90f, 30f, 70f, 50f));
 
         handler.postDelayed(new Runnable() {
@@ -787,151 +796,187 @@ public class Memory_Yearly extends AppCompatActivity {
     private void getEntries() {
         Handler handler = new Handler();
         final int delay = 5000;
+        Calendar now = Calendar.getInstance();
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        Log.d("WEEK", String.valueOf(now.get(Calendar.WEEK_OF_MONTH)));
+        Log.d("MONTH", String.valueOf(now.get(Calendar.MONTH)));
+        Log.d("YEAR", String.valueOf(now.get(Calendar.YEAR)));
+        Log.d("DAY", String.valueOf(now.get(Calendar.DAY_OF_WEEK)));
+        Format f = new SimpleDateFormat("EEEE");
+        String str = f.format(new Date());
+        int year1 = now.get(Calendar.YEAR) - 3;
+        int year2 = now.get(Calendar.YEAR) - 2;
+        int year3 = now.get(Calendar.YEAR) - 1;
+        //prints day name
+        System.out.println("Day Name: " + str);
+        Log.d("Day Name", str);
 
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
 
-
                 lineEntries = new ArrayList();
-//        Handler handler1=new Handler();
-                StorageReference storageReference = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/memYearlyX.txt");
-                //Downloading file from firebase and storing data into a tempFile in cache memory
-                try {
-                    localFile = File.createTempFile("tempFileX", ".txt");
-                    text = localFile.getAbsolutePath();
-                    Log.d("Bitmap", text);
-                    storageReference.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-                            Toast.makeText(Memory_Yearly.this, "Success", Toast.LENGTH_SHORT).show();
-
-                            // reading data from the tempFile and storing in array list
-
-                            try {
-                                InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
-
-                                Log.d("FileName", localFile.getAbsolutePath());
-
-                                BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                                String line = "";
-
-                                Log.d("First", line);
-                                if ((line = bufferedReader.readLine()) != null) {
-                                    xnewVal.add(line);
-                                }
-                                while ((line = bufferedReader.readLine()) != null) {
-
-                                    xnewVal.add(line);
-                                    Log.d("Line", line);
-                                }
-
-                                Log.d("X New Val", String.valueOf(xnewVal));
-                                //Converting string arraylist to float array list
-                                for (int i = 0; i < xnewVal.size(); i++) {
-                                    floatxVal.add(Float.parseFloat(xnewVal.get(i)));
-                                    Log.d("FloatXVal", String.valueOf(floatxVal));
-                                }
-                            } catch (IOException e) {
-                                e.printStackTrace();
-                            }
-
-                            StorageReference storageReference1 = FirebaseStorage.getInstance().getReference(mUser.getUid() + "/memYearlyY.txt");
-//        //Downloading file from firebase and storing data into a tempFile in cache memory
-                            try {
-                                localFile = File.createTempFile("tempFileY", ".txt");
-                                text = localFile.getAbsolutePath();
-                                Log.d("Bitmap", text);
-                                storageReference1.getFile(localFile).addOnSuccessListener(new OnSuccessListener<FileDownloadTask.TaskSnapshot>() {
-                                    @Override
-                                    public void onSuccess(FileDownloadTask.TaskSnapshot taskSnapshot) {
-//                            Toast.makeText(Concentration_Daily.this, "Success", Toast.LENGTH_SHORT).show();
-
-                                        // reading data from the tempFile and storing in array list
-
-                                        try {
-                                            InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(localFile.getAbsolutePath()));
-
-                                            Log.d("FileName", localFile.getAbsolutePath());
-
-                                            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
-                                            String line = "";
-
-                                            Log.d("First", line);
-                                            if ((line = bufferedReader.readLine()) != null) {
-                                                ynewVal.add(line);
-                                            }
-                                            while ((line = bufferedReader.readLine()) != null) {
-
-                                                ynewVal.add(line);
-                                                Log.d("Line", line);
-                                            }
-
-                                            Log.d("YVal", String.valueOf(ynewVal));
-                                            //Converting string arraylist to float array list
-                                            for (int i = 0; i < ynewVal.size(); i++) {
-                                                floatyVal.add(Float.parseFloat(ynewVal.get(i)));
-                                                Log.d("OutX", String.valueOf(floatxVal));
-                                                Log.d("FloatYArray", String.valueOf(floatyVal));
-                                                Log.d("OutY", String.valueOf(floatyVal));
-
-
-                                            }
-                                        } catch (IOException e) {
-                                            e.printStackTrace();
-                                        }
-                                        Log.d("floatYVal", String.valueOf(floatyVal));
-
-                                        for (int x = 0; x < floatxVal.size(); x++) {
-
-                                            lineEntries.add(new Entry(floatxVal.get(x), floatyVal.get(x)));
-
-                                        }
-                                        Log.d("Line Entry", String.valueOf(lineEntries));
-                                        lineDataSet = new LineDataSet(lineEntries, "Yearly Memory Index");
-                                        lineData = new LineData(lineDataSet);
-                                        lineChart.setData(lineData);
-
-                                        lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
-                                        lineDataSet.setValueTextColor(Color.WHITE);
-                                        lineDataSet.setValueTextSize(10f);
-
-                                        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
-                                        lineChart.setBorderColor(Color.TRANSPARENT);
-                                        lineChart.setGridBackgroundColor(Color.TRANSPARENT);
-                                        lineChart.getAxisLeft().setDrawGridLines(false);
-                                        lineChart.getXAxis().setDrawGridLines(false);
-                                        lineChart.getAxisRight().setDrawGridLines(false);
-                                        lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
-                                        lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
-                                        lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
-                                        lineChart.getDescription().setTextColor(R.color.white);
-                                        lineChart.invalidate();
-                                        lineChart.refreshDrawableState();
+                DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("MemoryIndex").child(mUser.getUid()).child(String.valueOf(year1));
+                reference2.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        ArrayList sumElement = new ArrayList();
+                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                                for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
+                                    for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
+                                        Log.d("YEARRELAXATION", String.valueOf(dataSnapshot3.getValue()));
+                                        Double av1 = (Double) dataSnapshot3.getValue();
+                                        sumElement.add(av1);
+                                        sumIn1 += av1;
                                     }
-                                }).addOnFailureListener(new OnFailureListener() {
+                                }
+                            }
+                        }
+                        if (sumIn1 != 0.0) {
+                            Log.d("SUMYear1", String.valueOf(sumIn1));
+                            averageIn1 = sumIn1 / sumElement.size();
+                            Log.d("AverageYear1", String.valueOf(averageIn1));
+                        } else {
+                            averageIn1 = 0.0;
+                            sumIn1 = 0.0;
+                        }
+                        DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("MemoryIndex").child(mUser.getUid()).child(String.valueOf(year2));
+                        reference2.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                ArrayList sumElement = new ArrayList();
+                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                                        for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
+                                            for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
+                                                Log.d("YEARRELAXATION", String.valueOf(dataSnapshot3.getValue()));
+                                                Double av1 = (Double) dataSnapshot3.getValue();
+                                                sumElement.add(av1);
+                                                sumIn2 += av1;
+                                            }
+                                        }
+                                    }
+                                }
+                                if (sumIn2 != 0.0) {
+                                    Log.d("SUMYear2", String.valueOf(sumIn2));
+                                    averageIn2 = sumIn2 / sumElement.size();
+                                    Log.d("AverageYear2", String.valueOf(averageIn2));
+                                } else {
+                                    averageIn2 = 0.0;
+                                    sumIn2 = 0.0;
+                                }
+                                DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("MemoryIndex").child(mUser.getUid()).child(String.valueOf(year3));
+                                reference2.addValueEventListener(new ValueEventListener() {
                                     @Override
-                                    public void onFailure(@NonNull Exception e) {
-//                            Toast.makeText(Concentration_Daily.this, "Failed", Toast.LENGTH_SHORT).show();
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        ArrayList sumElement = new ArrayList();
+                                        for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                            for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                                                for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
+                                                    for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
+                                                        Log.d("YEARRELAXATION", String.valueOf(dataSnapshot3.getValue()));
+                                                        Double av1 = (Double) dataSnapshot3.getValue();
+                                                        sumElement.add(av1);
+                                                        sumIn3 += av1;
+                                                    }
+                                                }
+                                            }
+                                        }
+                                        if (sumIn3 != 0.0) {
+                                            Log.d("SUMYear3", String.valueOf(sumIn3));
+                                            averageIn3 = sumIn3 / sumElement.size();
+                                            Log.d("AverageYear3", String.valueOf(averageIn3));
+                                        } else {
+                                            averageIn3 = 0.0;
+                                            sumIn3 = 0.0;
+                                        }
+
+                                        DatabaseReference reference2 = FirebaseDatabase.getInstance().getReference("MemoryIndex").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR)));
+                                        reference2.addValueEventListener(new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                ArrayList sumElement = new ArrayList();
+                                                for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
+                                                    for (DataSnapshot dataSnapshot1 : dataSnapshot.getChildren()) {
+                                                        for (DataSnapshot dataSnapshot2 : dataSnapshot1.getChildren()) {
+                                                            for (DataSnapshot dataSnapshot3 : dataSnapshot2.getChildren()) {
+                                                                Log.d("YEARRELAXATION", String.valueOf(dataSnapshot3.getValue()));
+                                                                Double av1 = (Double) dataSnapshot3.getValue();
+                                                                sumElement.add(av1);
+                                                                sumIn4 += av1;
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                                if (sumIn4 != 0.0) {
+                                                    Log.d("SUMCurrent", String.valueOf(sumIn4));
+                                                    averageIn = sumIn4 / sumElement.size();
+                                                    Log.d("AverageCurrent", String.valueOf(averageIn));
+                                                } else {
+                                                    averageIn = 0.0;
+                                                    sumIn4 = 0.0;
+                                                }
+                                                lineEntries.add(new Entry(year1, Float.parseFloat(String.valueOf(averageIn1))));
+                                                lineEntries.add(new Entry(year2, Float.parseFloat(String.valueOf(averageIn2))));
+                                                lineEntries.add(new Entry(year3, Float.parseFloat(String.valueOf(averageIn3))));
+                                                lineEntries.add(new Entry(now.get(Calendar.YEAR), Float.parseFloat(String.valueOf(averageIn))));
+
+                                                List<String> xAxisValues = new ArrayList<>(Arrays.asList("", String.valueOf(year1), String.valueOf(year2), String.valueOf(year3), String.valueOf(now.get(Calendar.YEAR))));
+                                                lineChart.getXAxis().setValueFormatter(new com.github.mikephil.charting.formatter.IndexAxisValueFormatter(xAxisValues));
+
+                                                Log.d("Line Entry", String.valueOf(lineEntries));
+                                                lineDataSet = new LineDataSet(lineEntries, "Yearly Relaxation Index");
+                                                lineData = new LineData(lineDataSet);
+                                                lineChart.setData(lineData);
+
+                                                lineDataSet.setColors(ColorTemplate.JOYFUL_COLORS);
+                                                lineDataSet.setValueTextColor(Color.WHITE);
+                                                lineDataSet.setValueTextSize(10f);
+
+                                                lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+                                                lineChart.setBorderColor(Color.TRANSPARENT);
+                                                lineChart.setGridBackgroundColor(Color.TRANSPARENT);
+                                                lineChart.getAxisLeft().setDrawGridLines(false);
+                                                lineChart.getXAxis().setDrawGridLines(false);
+                                                lineChart.getAxisRight().setDrawGridLines(false);
+                                                lineChart.getAxisRight().setTextColor(getResources().getColor(R.color.white));
+                                                lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+                                                lineChart.getLegend().setTextColor(getResources().getColor(R.color.white));
+                                                lineChart.getDescription().setTextColor(R.color.white);
+                                                lineChart.invalidate();
+                                                lineChart.refreshDrawableState();
+
+
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        });
+
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
+
                                     }
                                 });
-
-
-                            } catch (IOException exception) {
-                                exception.printStackTrace();
                             }
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            Toast.makeText(Memory_Yearly.this, "Failed X", Toast.LENGTH_SHORT).show();
-                        }
-                    });
 
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
 
-                } catch (IOException exception) {
-                    exception.printStackTrace();
-                }
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
 
             }
         }, 10000);

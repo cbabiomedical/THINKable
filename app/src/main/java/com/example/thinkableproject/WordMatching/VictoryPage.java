@@ -105,6 +105,10 @@ public class VictoryPage extends AppCompatActivity {
 
             DatabaseReference referenceIntervention = FirebaseDatabase.getInstance().getReference("Users").child(mUser.getUid()).child("WordMatchIntervention").child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(x));
             referenceIntervention.setValue(averageD);
+
+            DatabaseReference referenceIntervention1 = FirebaseDatabase.getInstance().getReference("MemoryIndex").child(mUser.getUid()).child(String.valueOf(now.get(Calendar.YEAR))).child(String.valueOf(month)).child(String.valueOf(now.get(Calendar.WEEK_OF_MONTH))).child(str).child(String.valueOf(x));
+            referenceIntervention1.setValue(averageD);
+
             BroadcastReceiver_BTLE_GATT.memoryWordMatch.clear();
         }
 
